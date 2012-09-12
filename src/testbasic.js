@@ -194,6 +194,12 @@ var testNames = [
             return new EaseActionsTestScene();
         }
     },
+    {
+        title:"ExtensionsTest",
+        testScene:function () {
+            return new ExtensionsTestScene();
+        }
+    },
     //"EffectsTest",
     //"EffectAdvancedTest",
     //"ExtensionsTest",

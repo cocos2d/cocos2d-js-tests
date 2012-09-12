@@ -40,6 +40,11 @@
                 <file name="src/tests/PerformanceTest/PerformanceNodeChildrenTest.js"/>
                 <file name="src/tests/PerformanceTest/PerformanceTextureTest.js"/>
                 <file name="src/tests/FontTest/FontTest.js"/>
+                <file name="src/tests/ExtensionsTest/ExtensionsTest.js"/>
+                <file name="src/tests/ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js"/>
+                <file name="src/tests/ExtensionsTest/ControlExtensionTest/CCControlScene.js"/>
+                <file name="src/tests/ExtensionsTest/ControlExtensionTest/CCControlButtonTest/CCControlButtonTest.js"/>
+                <file name="src/tests/ExtensionsTest/TableViewTest/TableViewTestScene.js"/>
                 <file name="src/tests/PerformanceTest/PerformanceTouchesTest.js"/>
                 <file name="src/tests/LabelTest/LabelTest.js"/>
                 <file name="src/tests/CurrentLanguageTest/CurrentLanguageTest.js"/>
@@ -69,6 +74,7 @@
                 <file name="cocoa/CCGeometry.js"/>
                 <file name="platform/CCConfig.js"/>
                 <file name="cocoa/CCNS.js"/>
+                <file name="cocoa/CCSet.js"/>
                 <file name="cocoa/CCAffineTransform.js"/>
                 <file name="support/CCPointExtension.js"/>
                 <file name="base_nodes/CCNode.js"/>
@@ -135,6 +141,23 @@
             <sources dir="${basedir}/../CocosDenshion">
                 <file name="SimpleAudioEngine.js"/>
             </sources>
+            <sources dir="${basedir}/../extensions">
+                <file name="CCBReader/CCBReaderUtil.js"/>
+                <file name="CCBReader/CCNodeLoaderLibrary.js"/>
+                <file name="CCBReader/CCNodeLoader.js"/>
+                <file name="CCBReader/CCBReader.js"/>
+                <file name="CCBReader/CCSpriteLoader.js"/>
+                <file name="CCBReader/CCControlLoader.js"/>
+                <file name="GUI/CCControlExtension/CCControlUtils.js"/>
+                <file name="GUI/CCControlExtension/CCControl.js"/>
+                <file name="GUI/CCControlExtension/CCControlButton.js"/>
+                <file name="GUI/CCControlExtension/CCInvocation.js"/>
+                <file name="GUI/CCControlExtension/CCScale9Sprite.js"/>
+                <file name="GUI/CCControlExtension/CCMenuPassive.js"/>
+                <file name="GUI/CCScrollView/CCSorting.js"/>
+                <file name="GUI/CCScrollView/CCScrollView.js"/>
+                <file name="GUI/CCScrollView/CCTableView.js"/>
+            </sources>
             <sources dir="${basedir}/../box2d">
                 <file name="box2d.js"/>
             </sources>
@@ -171,6 +194,11 @@
                 <file name="src/tests/PerformanceTest/PerformanceNodeChildrenTest.js"/>
                 <file name="src/tests/PerformanceTest/PerformanceTextureTest.js"/>
                 <file name="src/tests/FontTest/FontTest.js"/>
+                <file name="src/tests/ExtensionsTest/ExtensionsTest.js"/>
+                <file name="src/tests/ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js"/>
+                <file name="src/tests/ExtensionsTest/ControlExtensionTest/CCControlScene.js"/>
+                <file name="src/tests/ExtensionsTest/ControlExtensionTest/CCControlButtonTest/CCControlButtonTest.js"/>
+                <file name="src/tests/ExtensionsTest/TableViewTest/TableViewTestScene.js"/>
                 <file name="src/tests/PerformanceTest/PerformanceTouchesTest.js"/>
                 <file name="src/tests/LabelTest/LabelTest.js"/>
                 <file name="src/tests/CurrentLanguageTest/CurrentLanguageTest.js"/>

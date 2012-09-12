@@ -133,8 +133,20 @@ var s_tuffy_bold_italic_charmap_hd = "res/fonts/tuffy_bold_italic-charmap-hd.pli
 var s_particles = "res/Images/particles.png";
 var s_particles_hd = "res/Images/particles-hd.png";
 
+var s_extensions_background = "res/extensions/background.png";
+var s_extensions_button = "res/extensions/button.png";
+var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
+var s_extensions_ribbon = "res/extensions/ribbon.png";
+var s_image_icon = "res/Images/Icon.png";
+
 var g_ressources = [
     //image ressources
+    {type:"image", src:s_extensions_background},
+    {type:"image", src:s_extensions_button},
+    {type:"image", src:s_extensions_buttonHighlighted},
+    {type:"image", src:s_extensions_ribbon},
+    {type:"image", src:s_image_icon},
+
     {type:"image", src:s_particles},
     {type:"image", src:s_particles_hd},
 
