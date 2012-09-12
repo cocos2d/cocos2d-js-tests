@@ -31,6 +31,7 @@
         COCOS2D_DEBUG:2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
         box2d:true,
         showFPS:true,
+        loadExtension:true,
         frameRate:60,
         tag:'gameCanvas', //the dom element to run cocos2d on
         engineDir:'../cocos2d/',
@@ -72,6 +73,13 @@
             'src/tests/LabelTest/LabelTest.js',
             'src/tests/CurrentLanguageTest/CurrentLanguageTest.js',
             'src/tests/TextInputTest/TextInputTest.js',
+
+            'src/tests/ExtensionsTest/ExtensionsTest.js',
+            'src/tests/ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js',
+            'src/tests/ExtensionsTest/ControlExtensionTest/CCControlScene.js',
+            'src/tests/ExtensionsTest/ControlExtensionTest/CCControlButtonTest/CCControlButtonTest.js',
+            'src/tests/ExtensionsTest/TableViewTest/TableViewTestScene.js',
+
             'src/tests/Box2dTest/Box2dTest.js']
     };
     window.addEventListener('DOMContentLoaded', function () {
