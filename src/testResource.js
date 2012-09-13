@@ -134,6 +134,7 @@ var s_particles = "res/Images/particles.png";
 var s_particles_hd = "res/Images/particles-hd.png";
 
 var s_extensions_background = "res/extensions/background.png";
+var s_extensions_buttonBackground = "res/extensions/buttonBackground.png";
 var s_extensions_button = "res/extensions/button.png";
 var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
@@ -142,6 +143,7 @@ var s_image_icon = "res/Images/Icon.png";
 var g_ressources = [
     //image ressources
     {type:"image", src:s_extensions_background},
+    {type:"image", src:s_extensions_buttonBackground},
     {type:"image", src:s_extensions_button},
     {type:"image", src:s_extensions_buttonHighlighted},
     {type:"image", src:s_extensions_ribbon},
