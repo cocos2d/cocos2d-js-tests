@@ -141,6 +141,20 @@ var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
 
 var g_ressources = [
+    //ccbi resource
+    {type:"ccbi", src:"res/ccb/official/pub/ccb/HelloCocosBuilder.ccbi"},
+    {type:"image", src:"res/ccb/official/pub/res/btn-test-0.png"},
+    {type:"image", src:"res/ccb/official/pub/res/btn-test-1.png"},
+    {type:"image", src:"res/ccb/official/pub/res/logo.png"},
+    {type:"image", src:"res/ccb/official/pub/res/jungle-right.png"},
+    {type:"image", src:"res/ccb/official/pub/res/jungle-left.png"},
+    {type:"image", src:"res/ccb/official/pub/res/burst.png"},
+    {type:"image", src:"res/ccb/official/pub/res/jungle-left.png"},
+    {type:"image", src:"res/ccb/official/pub/res/logo-icon.png"},
+    {type:"image", src:"res/ccb/official/pub/res/particle-snow.png"},
+    {type:"image", src:"res/ccb/official/pub/res/markerfelt24shadow.png"},
+    {type:"fnt", src:"res/ccb/official/pub/res/markerfelt24shadow.fnt"},
+
     //image ressources
     {type:"image", src:s_extensions_background},
     {type:"image", src:s_extensions_buttonBackground},
