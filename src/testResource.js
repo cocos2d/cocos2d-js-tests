@@ -312,7 +312,7 @@ var g_ressources = [
     {type:"effect", src:"res/effect2"},
 
     //tga ressources
-    {type:"tga", src:s_levelMapTga},
+    //{type:"tga", src:s_levelMapTga},
 
     //fnt ressources
     {type:"fnt", src:s_bitmapFontTest_fnt},
