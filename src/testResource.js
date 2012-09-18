@@ -81,7 +81,7 @@ var s_arrowsBar_hd = "res/Images/arrowsBar-hd.png";
 
 // tilemaps resource
 var s_tilesPng = "res/TileMaps/tiles.png";
-var s_levelMapTga = "res/TileMaps/levelmap.tga";
+//var s_levelMapTga = "res/TileMaps/levelmap.tga";
 var s_fixedOrthoTest2Png = "res/TileMaps/fixed-ortho-test2.png";
 var s_hexaTilesPng = "res/TileMaps/hexa-tiles.png";
 var s_isoTestPng = "res/TileMaps/iso-test.png";
@@ -133,36 +133,8 @@ var s_tuffy_bold_italic_charmap_hd = "res/fonts/tuffy_bold_italic-charmap-hd.pli
 var s_particles = "res/Images/particles.png";
 var s_particles_hd = "res/Images/particles-hd.png";
 
-var s_extensions_background = "res/extensions/background.png";
-var s_extensions_buttonBackground = "res/extensions/buttonBackground.png";
-var s_extensions_button = "res/extensions/button.png";
-var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
-var s_extensions_ribbon = "res/extensions/ribbon.png";
-var s_image_icon = "res/Images/Icon.png";
-
 var g_ressources = [
-    //ccbi resource
-    {type:"ccbi", src:"res/ccb/official/pub/ccb/HelloCocosBuilder.ccbi"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-test-0.png"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-test-1.png"},
-    {type:"image", src:"res/ccb/official/pub/res/logo.png"},
-    {type:"image", src:"res/ccb/official/pub/res/jungle-right.png"},
-    {type:"image", src:"res/ccb/official/pub/res/jungle-left.png"},
-    {type:"image", src:"res/ccb/official/pub/res/burst.png"},
-    {type:"image", src:"res/ccb/official/pub/res/jungle-left.png"},
-    {type:"image", src:"res/ccb/official/pub/res/logo-icon.png"},
-    {type:"image", src:"res/ccb/official/pub/res/particle-snow.png"},
-    {type:"image", src:"res/ccb/official/pub/res/markerfelt24shadow.png"},
-    {type:"fnt", src:"res/ccb/official/pub/res/markerfelt24shadow.fnt"},
-
     //image ressources
-    {type:"image", src:s_extensions_background},
-    {type:"image", src:s_extensions_buttonBackground},
-    {type:"image", src:s_extensions_button},
-    {type:"image", src:s_extensions_buttonHighlighted},
-    {type:"image", src:s_extensions_ribbon},
-    {type:"image", src:s_image_icon},
-
     {type:"image", src:s_particles},
     {type:"image", src:s_particles_hd},
 
@@ -312,7 +284,7 @@ var g_ressources = [
     {type:"effect", src:"res/effect2"},
 
     //tga ressources
-    {type:"tga", src:s_levelMapTga},
+    //{type:"tga", src:s_levelMapTga},
 
     //fnt ressources
     {type:"fnt", src:s_bitmapFontTest_fnt},
