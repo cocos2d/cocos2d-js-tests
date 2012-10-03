@@ -38,7 +38,7 @@
         //SingleEngineFile:'',
         appFiles:[//'src/AppDelegate.js',
             'src/tests-main.js',
-            'src/tests-resources-html5.js',
+            'src/tests_resources-html5.js',
             'src/tests/TouchesTest/Ball.js',
             'src/tests/TouchesTest/Paddle.js',
             'src/tests/TouchesTest/TouchesTest.js',

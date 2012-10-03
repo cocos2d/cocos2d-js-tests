@@ -26,19 +26,21 @@
  ****************************************************************************/
 
 // globals
-var director = cc.Director.getInstance();
-var winSize = director.getWinSize();
+var director = null;
+var winSize = null;
 
 var TestScene = cc.Scene.extend({
     ctor:function (bPortrait) {
         cc.associateWithNative( this, cc.Scene );
-        // this._super();
-        this.init();
+    },
+
+    init:function() {
+        this._super();
     },
 
     // callbacks
     onEnter:function () {
-        // this._super();
+        this._super();
         var label = cc.LabelTTF.create("MainMenu", "Arial", 20);
         var menuItem = cc.MenuItemLabel.create(label, this, this.onMainMenuCallback);
 
@@ -76,6 +78,11 @@ var TestController = cc.Layer.extend({
 
     init:function() {
         if( this._super() ) {
+
+            // globals
+            director = cc.Director.getInstance();
+            winSize = director.getWinSize();
+
             // add close menu
             var closeItem = cc.MenuItemImage.create(s_pathClose, s_pathClose, this, this.onCloseCallback);
             var menu = cc.Menu.create(closeItem);//pmenu is just a holder for the close button
