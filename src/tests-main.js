@@ -32,6 +32,7 @@ var winSize = null;
 var TestScene = cc.Scene.extend({
     ctor:function (bPortrait) {
         cc.associateWithNative( this, cc.Scene );
+        this.init();
     },
 
     init:function() {
