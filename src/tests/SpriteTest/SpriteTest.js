@@ -45,23 +45,25 @@ var IDC_RESTART = 102;
 
 var sceneIdx = -1;
 
-spriteFrameCache = cc.SpriteFrameCache.getInstance();
+var spriteFrameCache = cc.SpriteFrameCache.getInstance();
 
 //------------------------------------------------------------------
 //
 // SpriteTestDemo
 //
 //------------------------------------------------------------------
-var SpriteTestDemo = cc.LayerGradient.extend({
+// var SpriteTestDemo = cc.LayerGradient.extend({
+var SpriteTestDemo = cc.Layer.extend({
     _title:"",
     _subtitle:"",
 
     ctor:function() {
-        cc.associateWithNative( this, cc.LayerGradient );
+        cc.associateWithNative( this, cc.Layer );
         this.init();
     },
     init:function() {
-        this._super(cc.c4b(0, 0, 0, 255), cc.c4b(0, 128, 255, 255));
+        // this._super(cc.c4b(0, 0, 0, 255), cc.c4b(0, 128, 255, 255));
+        this._super();
     },
     onEnter:function () {
         this._super();
@@ -442,7 +444,8 @@ var SpriteZOrder = SpriteTestDemo.extend({
         this.addChild(sprite, -1, TAG_SPRITE1);
         sprite.setPosition(cc.p(winSize.width / 2, winSize.height / 2 - 20));
         sprite.setScaleX(10);
-        sprite.setColor(cc.RED);
+        sprite.setColor( cc.c3b(255,0,0) );
+        // sprite.setColor(cc.RED);
 
         this.schedule(this.reorderSprite, 1);
     },
@@ -497,8 +500,8 @@ var SpriteBatchNodeZOrder = SpriteTestDemo.extend({
         batch.addChild(sprite, -1, TAG_SPRITE1);
         sprite.setPosition(cc.p(winSize.width / 2, winSize.height / 2 - 20));
         sprite.setScaleX(10);
-        sprite.setColor(cc.RED);
-
+        // sprite.setColor(cc.RED);
+        sprite.setColor( cc.c3b(255,0,0) );
         this.schedule(this.reorderSprite, 1);
     },
     reorderSprite:function (dt) {
@@ -525,8 +528,8 @@ var SpriteBatchNodeZOrder = SpriteTestDemo.extend({
 //------------------------------------------------------------------
 var SpriteBatchNodeReorder = SpriteTestDemo.extend({
 
-    title:"SpriteBatchNode: reorder #1",
-    subtitle:"Should not crash",
+    _title:"SpriteBatchNode: reorder #1",
+    _subtitle:"Should not crash",
 
     init:function () {
         this._super();
@@ -3051,7 +3054,8 @@ var SpriteNilTexture = SpriteTestDemo.extend({
         var sprite = new cc.Sprite();
         sprite.init();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
-        sprite.setColor(cc.red());
+        // sprite.setColor(cc.RED);
+        sprite.setColor( cc.c3b(255,0,0) );
         sprite.setOpacity(128);
         sprite.setPosition(cc.p(3 * winSize.width / 4, winSize.height / 2));
         this.addChild(sprite, 100);
@@ -3059,7 +3063,8 @@ var SpriteNilTexture = SpriteTestDemo.extend({
         sprite = new cc.Sprite();
         sprite.init();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
-        sprite.setColor(cc.blue());
+        // sprite.setColor(cc.BLUE);
+        sprite.setColor( cc.c3b(0,0,255) );
         sprite.setOpacity(128);
         sprite.setPosition(cc.p(winSize.width / 4, winSize.height / 2));
         this.addChild(sprite, 100);
