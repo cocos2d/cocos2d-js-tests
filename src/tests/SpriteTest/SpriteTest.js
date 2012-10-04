@@ -1039,8 +1039,8 @@ var SpriteFlip = SpriteTestDemo.extend({
         var sprite1 = this.getChildByTag(TAG_SPRITE1);
         var sprite2 = this.getChildByTag(TAG_SPRITE2);
 
-        sprite1.setFlipX(!sprite1.isFlipX());
-        sprite2.setFlipY(!sprite2.isFlipY());
+        sprite1.setFlipX(!sprite1.getFlipX());
+        sprite2.setFlipY(!sprite2.getFlipY());
     }
 });
 
@@ -1072,8 +1072,8 @@ var SpriteBatchNodeFlip = SpriteTestDemo.extend({
         var sprite1 = batch.getChildByTag(TAG_SPRITE1);
         var sprite2 = batch.getChildByTag(TAG_SPRITE2);
 
-        sprite1.setFlipX(!sprite1.isFlipX());
-        sprite2.setFlipY(!sprite2.isFlipY());
+        sprite1.setFlipX(!sprite1.getFlipX());
+        sprite2.setFlipY(!sprite2.getFlipY());
     }
 });
 
@@ -3110,8 +3110,7 @@ var SpriteNilTexture = SpriteTestDemo.extend({
         this._super();
 
         // TEST: If no texture is given, then Opacity + Color should work.
-        var sprite = new cc.Sprite();
-        sprite.init();
+        var sprite = cc.Sprite.create();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
         // sprite.setColor(cc.RED);
         sprite.setColor( cc.c3b(255,0,0) );
@@ -3119,8 +3118,7 @@ var SpriteNilTexture = SpriteTestDemo.extend({
         sprite.setPosition(cc.p(3 * winSize.width / 4, winSize.height / 2));
         this.addChild(sprite, 100);
 
-        sprite = new cc.Sprite();
-        sprite.init();
+        sprite = cc.Sprite.create();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
         // sprite.setColor(cc.BLUE);
         sprite.setColor( cc.c3b(0,0,255) );
