@@ -11,6 +11,7 @@ require("tests-main.js");
 // Load tests files
 
 var tests_files = [
+		'ActionsTest.js',
 		'SpriteTest.js'
 	];
 for( var i=0; i < tests_files.length; i++) {

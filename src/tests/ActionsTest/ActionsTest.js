@@ -25,130 +25,7 @@
  ****************************************************************************/
 
 
-var actionTests = [
-    function () {
-        return new ActionManual()
-    }, //ok
-    function () {
-        return new ActionMove()
-    }, //OK
-    function () {
-        return new ActionScale()
-    }, //OK
-    function () {
-        return new ActionRotate()
-    }, //OK
-    function () {
-        return new ActionSkew()
-    }, //OK, Not in cocos2d-js
-    function () {
-        return new ActionSkewRotateScale()
-    }, //ok
-    function () {
-        return new ActionJump()
-    }, //OK
-    function () {
-        return new ActionBezier()
-    }, //Buggy?
-
-    function () {
-        return new ActionCardinalSpline()
-    }, //ok
-    function () {
-        return new ActionCatmullRom()
-    }, //ok
-
-    function () {
-        return new ActionBlink()
-    }, //OK
-    function () {
-        return new ActionFade()
-    }, //OK
-    function () {
-        return new ActionTint()
-    }, //ok
-    function () {
-        return new ActionSequence()
-    }, //OK
-    function () {
-        return new ActionSequence2()
-    }, //OK
-    function () {
-        return new ActionSpawn()
-    }, //OK
-    function () {
-        return new ActionReverse()
-    },
-    function () {
-        return new ActionDelayTime()
-    }, //OK
-    function () {
-        return new ActionRepeat()
-    }, //OK
-    function () {
-        return new ActionRepeatForever()
-    }, //OK
-    function () {
-        return new ActionRotateToRepeat()
-    }, //ok
-    function () {
-        return new ActionRotateJerk()
-    }, //ok
-    function () {
-        return new ActionCallFunc()
-    }, //OK
-    function () {
-        return new ActionCallFuncND()
-    }, //OK
-    function () {
-        return new ActionReverseSequence()
-    }, //OK
-    function () {
-        return new ActionReverseSequence2()
-    }, //OK,
-    //"ActionOrbit",//Not possible in canvas, requires sprite camera
-    //"ActionFollow",//Buggy
-    function () {
-        return new ActionTargeted()
-    },
-    function () {
-        return new PauseResumeActions()
-    },
-    function () {
-        return new Issue1305()
-    },
-    function () {
-        return new Issue1305_2()
-    },
-    function () {
-        return new Issue1288()
-    },
-    function () {
-        return new Issue1288_2()
-    },
-    function () {
-        return new Issue1327()
-    },
-    function () {
-        return new ActionAnimate()
-    }
-];
 var actionIdx = -1;
-function NextAction() {
-    ++actionIdx;
-    actionIdx = actionIdx % actionTests.length;
-    return actionTests[actionIdx]();
-}
-function BackAction() {
-    --actionIdx;
-    if (actionIdx < 0) {
-        actionIdx += actionTests.length;
-    }
-    return actionTests[actionIdx]();
-}
-function RestartAction() {
-    return actionTests[actionIdx]();
-}
 
 // the class inherit from TestScene
 // every Scene each test used must inherit from TestScene,
@@ -156,7 +33,7 @@ function RestartAction() {
 var ActionsTestScene = TestScene.extend({
     runThisTest:function () {
         actionIdx = -1;
-        this.addChild(NextAction());
+        this.addChild(nextActionsTest());
         cc.Director.getInstance().replaceScene(this);
     }
 });
@@ -166,10 +43,20 @@ var ActionsDemo = cc.Layer.extend({
     _grossini:null,
     _tamara:null,
     kathia:null,
+
+    ctor:function() {
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
+    },
+    init:function() {
+        // this._super(cc.c4b(0, 0, 0, 255), cc.c4b(0, 128, 255, 255));
+        this._super();
+    },
+
     centerSprites:function (numberOfSprites) {
         var winSize = cc.Director.getInstance().getWinSize();
 
-        if (numberOfSprites == 0) {
+        if (numberOfSprites === 0) {
             this._tamara.setVisible(false);
             this._kathia.setVisible(false);
             this._grossini.setVisible(false);
@@ -216,17 +103,17 @@ var ActionsDemo = cc.Layer.extend({
     },
     restartCallback:function (sender) {
         var s = new ActionsTestScene();
-        s.addChild(RestartAction());
+        s.addChild(restartActionsTest());
         cc.Director.getInstance().replaceScene(s);
     },
     nextCallback:function (sender) {
         var s = new ActionsTestScene();
-        s.addChild(NextAction());
+        s.addChild(nextActionsTest());
         cc.Director.getInstance().replaceScene(s);
     },
     backCallback:function (sender) {
         var s = new ActionsTestScene();
-        s.addChild(BackAction());
+        s.addChild(previousActionsTest());
         cc.Director.getInstance().replaceScene(s);
     },
     onEnter:function () {
@@ -260,9 +147,9 @@ var ActionsDemo = cc.Layer.extend({
         var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.restartCallback);
         var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
 
-        var menu = cc.Menu.create(item1, item2, item3, null);
+        var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.PointZero());
+        menu.setPosition(cc.p(0,0));
         item1.setPosition(cc.p(s.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2));
         item2.setPosition(cc.p(s.width / 2, item2.getContentSize().height / 2));
         item3.setPosition(cc.p(s.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2));
@@ -406,7 +293,7 @@ var ActionSkewRotateScale = ActionsDemo.extend({
 
 
         this.addChild(box);
-        var actionTo = cc.SkewTo.create(2, 0., 2.);
+        var actionTo = cc.SkewTo.create(2, 0, 2);
         var rotateTo = cc.RotateTo.create(2, 61.0);
         var actionScaleTo = cc.ScaleTo.create(2, -0.44, 0.47);
 
@@ -414,9 +301,9 @@ var ActionSkewRotateScale = ActionsDemo.extend({
         var rotateToBack = cc.RotateTo.create(2, 0);
         var actionToBack = cc.SkewTo.create(2, 0, 0);
 
-        box.runAction(cc.Sequence.create(actionTo, actionToBack, null));
-        box.runAction(cc.Sequence.create(rotateTo, rotateToBack, null));
-        box.runAction(cc.Sequence.create(actionScaleTo, actionScaleToBack, null));
+        box.runAction(cc.Sequence.create(actionTo, actionToBack));
+        box.runAction(cc.Sequence.create(rotateTo, rotateToBack));
+        box.runAction(cc.Sequence.create(actionScaleTo, actionScaleToBack));
     },
     subtitle:function () {
         return "Skew + Rotate + Scale";
@@ -435,13 +322,13 @@ var ActionRotate = ActionsDemo.extend({
         var actionTo = cc.RotateTo.create(2, 45);
         var actionTo2 = cc.RotateTo.create(2, -45);
         var actionTo0 = cc.RotateTo.create(2, 0);
-        this._tamara.runAction(cc.Sequence.create(actionTo, actionTo0, null));
+        this._tamara.runAction(cc.Sequence.create(actionTo, actionTo0));
 
         var actionBy = cc.RotateBy.create(2, 360);
         var actionByBack = actionBy.reverse();
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionByBack, null));
+        this._grossini.runAction(cc.Sequence.create(actionBy, actionByBack));
 
-        this._kathia.runAction(cc.Sequence.create(actionTo2, actionTo0.copy(), null));
+        this._kathia.runAction(cc.Sequence.create(actionTo2, actionTo0.copy()));
 
     },
     subtitle:function () {
@@ -466,7 +353,7 @@ var ActionJump = ActionsDemo.extend({
         var actionByBack = actionBy.reverse();
 
         this._tamara.runAction(actionTo);
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionByBack, null));
+        this._grossini.runAction(cc.Sequence.create(actionBy, actionByBack));
         this._kathia.runAction(cc.RepeatForever.create(actionUp));
 
     },
@@ -559,8 +446,8 @@ var ActionFade = ActionsDemo.extend({
         var action2 = cc.FadeOut.create(1.0);
         var action2Back = action2.reverse();
 
-        this._tamara.runAction(cc.Sequence.create(action1, action1Back, null));
-        this._kathia.runAction(cc.Sequence.create(action2, action2Back, null));
+        this._tamara.runAction(cc.Sequence.create(action1, action1Back));
+        this._kathia.runAction(cc.Sequence.create(action2, action2Back));
 
 
     },
@@ -631,7 +518,7 @@ var ActionAnimate = ActionsDemo.extend({
         // File animation
         //
         // with 4 loops
-        var animation3 = animation2.copy(null);
+        var animation3 = animation2.copy();
         animation3.setLoops(4);
 
         var action3 = cc.Animate.create(animation3);
@@ -658,8 +545,8 @@ var ActionSequence = ActionsDemo.extend({
 
         var action = cc.Sequence.create(
             cc.MoveBy.create(2, cc.p(240, 0)),
-            cc.RotateBy.create(2, 540),
-            null);
+            cc.RotateBy.create(2, 540)
+            );
 
         this._grossini.runAction(action);
 
@@ -684,8 +571,7 @@ var ActionSequence2 = ActionsDemo.extend({
             cc.MoveBy.create(1, cc.p(100, 0)),
             cc.CallFunc.create(this, this.callback1),
             cc.CallFunc.create(this, this.callback2),
-            cc.CallFunc.create(this, this.callback3),
-            null);
+            cc.CallFunc.create(this, this.callback3));
         this._grossini.runAction(action);
 
     },
@@ -786,7 +672,7 @@ var ActionCallFuncND = ActionsDemo.extend({
     },
 
     removeFromParentAndCleanup:function (pSender, data) {
-        pSender.removeFromParentAndCleanup(data)
+        pSender.removeFromParentAndCleanup(data);
     },
 
     title:function () {
@@ -808,8 +694,7 @@ var ActionSpawn = ActionsDemo.extend({
 
         var action = cc.Spawn.create(
             cc.JumpBy.create(2, cc.p(300, 0), 50, 4),
-            cc.RotateBy.create(2, 720),
-            null);
+            cc.RotateBy.create(2, 720));
 
         this._grossini.runAction(action);
 
@@ -829,8 +714,7 @@ var ActionRepeatForever = ActionsDemo.extend({
         this.centerSprites(1);
         var action = cc.Sequence.create(
             cc.DelayTime.create(1),
-            cc.CallFunc.create(this, this.repeatForever),
-            null);
+            cc.CallFunc.create(this, this.repeatForever));
 
         this._grossini.runAction(action);
 
@@ -838,7 +722,7 @@ var ActionRepeatForever = ActionsDemo.extend({
     },
     repeatForever:function (sender) {
         var repeat = cc.RepeatForever.create(cc.RotateBy.create(1.0, 360));
-        sender.runAction(repeat)
+        sender.runAction(repeat);
     },
     subtitle:function () {
         return "CallFuncN + RepeatForever";
@@ -856,7 +740,7 @@ var ActionRotateToRepeat = ActionsDemo.extend({
 
         var act1 = cc.RotateTo.create(1, 90);
         var act2 = cc.RotateTo.create(1, 0);
-        var seq = cc.Sequence.create(act1, act2, null);
+        var seq = cc.Sequence.create(act1, act2);
         var rep1 = cc.RepeatForever.create(seq);
         var rep2 = cc.Repeat.create((seq.copy()), 10);
 
@@ -879,8 +763,7 @@ var ActionRotateJerk = ActionsDemo.extend({
         this.centerSprites(2);
         var seq = cc.Sequence.create(
             cc.RotateTo.create(0.5, -20),
-            cc.RotateTo.create(0.5, 20),
-            null);
+            cc.RotateTo.create(0.5, 20));
 
         var rep1 = cc.Repeat.create(seq, 10);
         var rep2 = cc.RepeatForever.create((seq.copy()));
@@ -903,7 +786,7 @@ var ActionReverse = ActionsDemo.extend({
         this.alignSpritesLeft(1);
 
         var jump = cc.JumpBy.create(2, cc.p(300, 0), 50, 4);
-        var action = cc.Sequence.create(jump, jump.reverse(), null);
+        var action = cc.Sequence.create(jump, jump.reverse());
 
         this._grossini.runAction(action);
     },
@@ -922,7 +805,7 @@ var ActionDelayTime = ActionsDemo.extend({
         this.alignSpritesLeft(1);
 
         var move = cc.MoveBy.create(1, cc.p(150, 0));
-        var action = cc.Sequence.create(move, cc.DelayTime.create(2), move, null);
+        var action = cc.Sequence.create(move, cc.DelayTime.create(2), move);
 
         this._grossini.runAction(action);
     },
@@ -942,8 +825,8 @@ var ActionReverseSequence = ActionsDemo.extend({
 
         var move1 = cc.MoveBy.create(1, cc.p(250, 0));
         var move2 = cc.MoveBy.create(1, cc.p(0, 50));
-        var seq = cc.Sequence.create(move1, move2, move1.reverse(), null);
-        var action = cc.Sequence.create(seq, seq.reverse(), null);
+        var seq = cc.Sequence.create(move1, move2, move1.reverse());
+        var action = cc.Sequence.create(seq, seq.reverse());
 
         this._grossini.runAction(action);
 
@@ -967,8 +850,8 @@ var ActionReverseSequence2 = ActionsDemo.extend({
         //   Sequence should work both with IntervalAction and InstantActions
         var move1 = cc.MoveBy.create(3, cc.p(250, 0));
         var move2 = cc.MoveBy.create(3, cc.p(0, 50));
-        var tog1 = new cc.ToggleVisibility();
-        var tog2 = new cc.ToggleVisibility();
+        var tog1 = cc.ToggleVisibility.create();
+        var tog2 = cc.ToggleVisibility.create();
         var seq = cc.Sequence.create(move1, tog1, move2, tog2, move1.reverse());
         var action = cc.Repeat.create(
             cc.Sequence.create(seq, seq.reverse()), 3
@@ -981,7 +864,7 @@ var ActionReverseSequence2 = ActionsDemo.extend({
 
         var move_tamara = cc.MoveBy.create(1, cc.p(100, 0));
         var move_tamara2 = cc.MoveBy.create(1, cc.p(50, 0));
-        var hide = new cc.Hide();
+        var hide = cc.Hide.create();
         var seq_tamara = cc.Sequence.create(move_tamara, hide, move_tamara2);
         var seq_back = seq_tamara.reverse();
         this._tamara.runAction(cc.Sequence.create(seq_tamara, seq_back));
@@ -1003,10 +886,10 @@ var ActionRepeat = ActionsDemo.extend({
 
         var a1 = cc.MoveBy.create(1, cc.p(150, 0));
         var action1 = cc.Repeat.create(
-            cc.Sequence.create(cc.Place.create(cc.p(60, 60)), a1, null),
+            cc.Sequence.create(cc.Place.create(cc.p(60, 60)), a1),
             3);
         var action2 = cc.RepeatForever.create(
-            (cc.Sequence.create((a1.copy()), a1.reverse(), null))
+            (cc.Sequence.create((a1.copy()), a1.reverse()))
         );
 
         this._kathia.runAction(action1);
@@ -1029,20 +912,17 @@ var ActionOrbit = ActionsDemo.extend({
         var orbit1 = cc.OrbitCamera.create(2, 1, 0, 0, 180, 0, 0);
         var action1 = cc.Sequence.create(
             orbit1,
-            orbit1.reverse(),
-            null);
+            orbit1.reverse());
 
         var orbit2 = cc.OrbitCamera.create(2, 1, 0, 0, 180, -45, 0);
         var action2 = cc.Sequence.create(
             orbit2,
-            orbit2.reverse(),
-            null);
+            orbit2.reverse());
 
         var orbit3 = cc.OrbitCamera.create(2, 1, 0, 0, 180, 90, 0);
         var action3 = cc.Sequence.create(
             orbit3,
-            orbit3.reverse(),
-            null);
+            orbit3.reverse());
 
         this._kathia.runAction(cc.RepeatForever.create(action1));
         this._tamara.runAction(cc.RepeatForever.create(action2));
@@ -1050,7 +930,7 @@ var ActionOrbit = ActionsDemo.extend({
 
         var move = cc.MoveBy.create(3, cc.p(100, -100));
         var move_back = move.reverse();
-        var seq = cc.Sequence.create(move, move_back, null);
+        var seq = cc.Sequence.create(move, move_back);
         var rfe = cc.RepeatForever.create(seq);
         this._kathia.runAction(rfe);
         this._tamara.runAction((rfe.copy()));
@@ -1075,7 +955,7 @@ var ActionFollow = ActionsDemo.extend({
         this._grossini.setPosition(cc.p(-200, s.height / 2));
         var move = cc.MoveBy.create(2, cc.p(s.width * 3, 0));
         var move_back = move.reverse();
-        var seq = cc.Sequence.create(move, move_back, null);
+        var seq = cc.Sequence.create(move, move_back);
         var rep = cc.RepeatForever.create(seq);
 
         this._grossini.runAction(rep);
@@ -1256,7 +1136,7 @@ var ActionTargeted = ActionsDemo.extend({
         this._super();
         this.centerSprites(2);
 
-        var jump1 = cc.JumpBy.create(2, cc.PointZero(), 100, 3);
+        var jump1 = cc.JumpBy.create(2, cc.p(0,0), 100, 3);
         var jump2 = jump1.copy();
         var rot1 = cc.RotateBy.create(1, 360);
         var rot2 = rot1.copy();
@@ -1462,3 +1342,63 @@ var Issue1327 = ActionsDemo.extend({
         return "See console: You should see: 0, 45, 90, 135, 180";
     }
 });
+
+//
+// Flow control
+//
+
+var arrayOfActionsTest = [
+    ActionManual,
+    ActionMove,
+    ActionScale,
+    ActionRotate,
+    ActionSkew,
+    ActionSkewRotateScale,
+    ActionJump,
+    ActionBezier,
+    ActionCardinalSpline,
+    ActionCatmullRom,
+    ActionBlink,
+    ActionFade,
+    ActionTint,
+    ActionSequence,
+    ActionSequence2,
+    ActionSpawn,
+    ActionReverse,
+    ActionDelayTime,
+    ActionRepeat,
+    ActionRepeatForever,
+    ActionRotateToRepeat,
+    ActionRotateJerk,
+    ActionCallFunc,
+    ActionCallFuncND,
+    ActionReverseSequence,
+    ActionReverseSequence2,
+    ActionOrbit,
+    ActionFollow,
+    ActionTargeted,
+    PauseResumeActions,
+    Issue1305,
+    Issue1305_2,
+    Issue1288,
+    Issue1288_2,
+    Issue1327,
+    ActionAnimate
+];
+
+var nextActionsTest = function () {
+    sceneIdx++;
+    sceneIdx = sceneIdx % arrayOfActionsTest.length;
+
+    return new arrayOfActionsTest[sceneIdx]();
+};
+var previousActionsTest = function () {
+    sceneIdx--;
+    if (sceneIdx < 0)
+        sceneIdx += arrayOfActionsTest.length;
+
+    return new arrayOfActionsTest[sceneIdx]();
+};
+var restartActionsTest = function () {
+    return new arrayOfActionsTest[sceneIdx]();
+};

@@ -98,17 +98,17 @@ var SpriteTestDemo = cc.Layer.extend({
 
     onRestartCallback:function (sender) {
         var s = new SpriteTestScene();
-        s.addChild(restartSpriteTestAction());
+        s.addChild(restartSpriteTest());
         director.replaceScene(s);
     },
     onNextCallback:function (sender) {
         var s = new SpriteTestScene();
-        s.addChild(nextSpriteTestAction());
+        s.addChild(nextSpriteTest());
         director.replaceScene(s);
     },
     onBackCallback:function (sender) {
         var s = new SpriteTestScene();
-        s.addChild(backSpriteTestAction());
+        s.addChild(previousSpriteTest());
         director.replaceScene(s);
     }
 });
@@ -3729,7 +3729,7 @@ var SpriteTestScene = TestScene.extend({
     runThisTest:function () {
         sceneIdx = -1;
         MAX_LAYER = 48;
-        var layer = nextSpriteTestAction();
+        var layer = nextSpriteTest();
         this.addChild(layer);
 
         director.replaceScene(this);
@@ -3740,7 +3740,7 @@ var SpriteTestScene = TestScene.extend({
 // Flow control
 //
 
-var createSpriteTestLayerArr = [
+var arrayOfSpriteTest = [
 
     Sprite1,
     SpriteBatchNode1,
@@ -3799,20 +3799,20 @@ var createSpriteTestLayerArr = [
     AnimationCacheFile
 ];
 
-var nextSpriteTestAction = function () {
+var nextSpriteTest = function () {
     sceneIdx++;
-    sceneIdx = sceneIdx % createSpriteTestLayerArr.length;
+    sceneIdx = sceneIdx % arrayOfSpriteTest.length;
 
-    return new createSpriteTestLayerArr[sceneIdx]();
+    return new arrayOfSpriteTest[sceneIdx]();
 };
-var backSpriteTestAction = function () {
+var previousSpriteTest = function () {
     sceneIdx--;
     if (sceneIdx < 0)
-        sceneIdx += createSpriteTestLayerArr.length;
+        sceneIdx += arrayOfSpriteTest.length;
 
-    return new createSpriteTestLayerArr[sceneIdx]();
+    return new arrayOfSpriteTest[sceneIdx]();
 };
-var restartSpriteTestAction = function () {
-    return new createSpriteTestLayerArr[sceneIdx]();
+var restartSpriteTest = function () {
+    return new arrayOfSpriteTest[sceneIdx]();
 };
 
