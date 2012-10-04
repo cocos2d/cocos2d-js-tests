@@ -472,7 +472,7 @@ var SpriteZOrder = SpriteTestDemo.extend({
 //------------------------------------------------------------------
 var SpriteBatchNodeZOrder = SpriteTestDemo.extend({
     _dir:0,
-    _title:"Sprite: Z order",
+    _title:"SpriteBatch: Z order",
     init:function () {
         this._super();
         this._dir = 1;
@@ -1085,6 +1085,7 @@ var SpriteBatchNodeFlip = SpriteTestDemo.extend({
 var SpriteAliased = SpriteTestDemo.extend({
 
     _title:"Sprite Aliased",
+    _subtitle:"Do not work on HTML5 yet",
 
     init:function () {
         this._super();
@@ -1116,12 +1117,19 @@ var SpriteAliased = SpriteTestDemo.extend({
         // This change will affect every sprite that uses the same texture
         // So sprite1 and sprite2 will be affected by this change
         //
-        var sprite = this.getChildByTag(TAG_SPRITE1);
-        //sprite.getTexture().setAliasTexParameters();
+        var t = cc.config.deviceType;
+        if( t !== 'browser') {
+            var sprite = this.getChildByTag(TAG_SPRITE1);
+            sprite.getTexture().setAliasTexParameters();
+        }
+
     },
     onExit:function () {
-        var sprite = this.getChildByTag(TAG_SPRITE1);
-        //sprite.getTexture().setAntiAliasTexParameters();
+        var t = cc.config.deviceType;
+        if( t !== 'browser') {
+            var sprite = this.getChildByTag(TAG_SPRITE1);
+            sprite.getTexture().setAntiAliasTexParameters();
+        }
         this._super();
     }
 });
@@ -1133,6 +1141,7 @@ var SpriteAliased = SpriteTestDemo.extend({
 //------------------------------------------------------------------
 var SpriteBatchNodeAliased = SpriteTestDemo.extend({
     _title:"SpriteBatchNode Aliased",
+    _subtitle:"Do not work on HTML5 yet",
 
     init:function () {
         this._super();
@@ -1162,13 +1171,19 @@ var SpriteBatchNodeAliased = SpriteTestDemo.extend({
     },
     onEnter:function () {
         this._super();
-        var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
-        //batch.getTexture().setAliasTexParameters();
+        var t = cc.config.deviceType;
+        if( t !== 'browser') {
+            var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
+            batch.getTexture().setAliasTexParameters();
+        }
     },
     onExit:function () {
         // restore the tex parameter to AntiAliased.
-        var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
-        //batch.getTexture().setAntiAliasTexParameters();
+        var t = cc.config.deviceType;
+        if( t !== 'browser') {
+            var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
+            batch.getTexture().setAntiAliasTexParameters();
+        }
         this._super();
     }
 });
