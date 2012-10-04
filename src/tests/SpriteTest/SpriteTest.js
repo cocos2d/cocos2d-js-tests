@@ -1085,7 +1085,7 @@ var SpriteBatchNodeFlip = SpriteTestDemo.extend({
 var SpriteAliased = SpriteTestDemo.extend({
 
     _title:"Sprite Aliased",
-    _subtitle:"Do not work on HTML5 yet",
+    _subtitle:"You should see pixelated sprites",
 
     init:function () {
         this._super();
@@ -1117,12 +1117,22 @@ var SpriteAliased = SpriteTestDemo.extend({
         // This change will affect every sprite that uses the same texture
         // So sprite1 and sprite2 will be affected by this change
         //
-        var sprite = this.getChildByTag(TAG_SPRITE1);
-        sprite.getTexture().setAliasTexParameters();
+        if( cc.config.deviceType == 'browser' )  {
+            var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
+            this.addChild( label );
+            label.setPosition( cc.p( winSize.width/2, winSize.height/2) );
+        } else {
+            var sprite = this.getChildByTag(TAG_SPRITE1);
+            sprite.getTexture().setAliasTexParameters();
+        }
+
     },
     onExit:function () {
-        var sprite = this.getChildByTag(TAG_SPRITE1);
-        sprite.getTexture().setAntiAliasTexParameters();
+        if( cc.config.deviceType == 'browser' )  {
+        } else {
+            var sprite = this.getChildByTag(TAG_SPRITE1);
+            sprite.getTexture().setAntiAliasTexParameters();
+        }
         this._super();
     }
 });
@@ -1134,7 +1144,7 @@ var SpriteAliased = SpriteTestDemo.extend({
 //------------------------------------------------------------------
 var SpriteBatchNodeAliased = SpriteTestDemo.extend({
     _title:"SpriteBatchNode Aliased",
-    _subtitle:"Do not work on HTML5 yet",
+    _subtitle:"You should see pixelated sprites",
 
     init:function () {
         this._super();
@@ -1164,13 +1174,27 @@ var SpriteBatchNodeAliased = SpriteTestDemo.extend({
     },
     onEnter:function () {
         this._super();
-        var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
-        batch.getTexture().setAliasTexParameters();
+        //
+        // IMPORTANT:
+        // This change will affect every sprite that uses the same texture
+        // So sprite1 and sprite2 will be affected by this change
+        //
+        if( cc.config.deviceType == 'browser' )  {
+            var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
+            this.addChild( label );
+            label.setPosition( cc.p( winSize.width/2, winSize.height/2) );
+        } else {
+            var sprite = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
+            sprite.getTexture().setAliasTexParameters();
+        }
+
     },
     onExit:function () {
-        // restore the tex parameter to AntiAliased.
-        var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
-        batch.getTexture().setAntiAliasTexParameters();
+        if( cc.config.deviceType == 'browser' )  {
+        } else {
+            var sprite = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
+            sprite.getTexture().setAntiAliasTexParameters();
+        }
         this._super();
     }
 });
