@@ -1117,19 +1117,12 @@ var SpriteAliased = SpriteTestDemo.extend({
         // This change will affect every sprite that uses the same texture
         // So sprite1 and sprite2 will be affected by this change
         //
-        var t = cc.config.deviceType;
-        if( t !== 'browser') {
-            var sprite = this.getChildByTag(TAG_SPRITE1);
-            sprite.getTexture().setAliasTexParameters();
-        }
-
+        var sprite = this.getChildByTag(TAG_SPRITE1);
+        sprite.getTexture().setAliasTexParameters();
     },
     onExit:function () {
-        var t = cc.config.deviceType;
-        if( t !== 'browser') {
-            var sprite = this.getChildByTag(TAG_SPRITE1);
-            sprite.getTexture().setAntiAliasTexParameters();
-        }
+        var sprite = this.getChildByTag(TAG_SPRITE1);
+        sprite.getTexture().setAntiAliasTexParameters();
         this._super();
     }
 });
@@ -1171,19 +1164,13 @@ var SpriteBatchNodeAliased = SpriteTestDemo.extend({
     },
     onEnter:function () {
         this._super();
-        var t = cc.config.deviceType;
-        if( t !== 'browser') {
-            var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
-            batch.getTexture().setAliasTexParameters();
-        }
+        var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
+        batch.getTexture().setAliasTexParameters();
     },
     onExit:function () {
         // restore the tex parameter to AntiAliased.
-        var t = cc.config.deviceType;
-        if( t !== 'browser') {
-            var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
-            batch.getTexture().setAntiAliasTexParameters();
-        }
+        var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
+        batch.getTexture().setAntiAliasTexParameters();
         this._super();
     }
 });
