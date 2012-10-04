@@ -1212,7 +1212,16 @@ var SpriteNewTexture = SpriteTestDemo.extend({
 
     init:function () {
         this._super();
-        this.setTouchEnabled(true);
+
+        var t = cc.config.deviceType;
+        if( t == 'browser' )  {
+            this.setTouchEnabled(true);
+            // this.setKeyboardEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
+        } else if( t == 'mobile' ) {
+            this.setTouchEnabled(true);
+        }
 
         var node = cc.Node.create();
         this.addChild(node, 0, TAG_SPRITE_BATCH_NODE);
@@ -1260,7 +1269,8 @@ var SpriteNewTexture = SpriteTestDemo.extend({
 
         sprite.runAction(cc.RepeatForever.create(seq));
     },
-    onTouchesEnded:function (touches, event) {
+
+    onChangeTexture:function() {
         var node = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
 
         var children = node.getChildren();
@@ -1284,6 +1294,13 @@ var SpriteNewTexture = SpriteTestDemo.extend({
             }
             this._usingTexture1 = true;
         }
+    },
+    onTouchesEnded:function (touches, event) {
+        this.onChangeTexture();
+    },
+    onMouseDown : function( event ) {
+        this.onChangeTexture();
+        return true;
     }
 });
 
@@ -1299,7 +1316,15 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
 
     init:function() {
         this._super();
-        this.setTouchEnabled(true);
+        var t = cc.config.deviceType;
+        if( t == 'browser' )  {
+            this.setTouchEnabled(true);
+            // this.setKeyboardEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
+        } else if( t == 'mobile' ) {
+            this.setTouchEnabled(true);
+        }
 
         var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 50);
         this.addChild(batch, 0, TAG_SPRITE_BATCH_NODE);
@@ -1345,14 +1370,22 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
 
         sprite.runAction(cc.RepeatForever.create(seq));
     },
-    onTouchesEnded:function (touches, event) {
+    onChangeTexture:function () {
         var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
 
         if (batch.getTexture() == this._texture1)
             batch.setTexture(this._texture2);
         else
             batch.setTexture(this._texture1);
+    },
+    onTouchesEnded:function (touches, event) {
+        this.onChangeTexture();
+    },
+    onMouseDown : function( event ) {
+        this.onChangeTexture();
+        return true;
     }
+
 });
 
 //------------------------------------------------------------------
