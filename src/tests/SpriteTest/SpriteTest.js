@@ -1714,13 +1714,13 @@ var SpriteBatchNodeOffsetAnchorScale = SpriteTestDemo.extend({
 
     init:function () {
         this._super();
-        var spritesheet = cc.SpriteBatchNode.create(s_grossini);
-        this.addChild(spritesheet);
+        var batch = cc.SpriteBatchNode.create(s_grossini);
+        this.addChild(batch);
+
+        spriteFrameCache.addSpriteFrames(s_grossiniPlist);
+        spriteFrameCache.addSpriteFrames(s_grossini_grayPlist, s_grossini_gray);
 
         for (var i = 0; i < 3; i++) {
-            spriteFrameCache.addSpriteFrames(s_grossiniPlist);
-            spriteFrameCache.addSpriteFrames(s_grossini_grayPlist, s_grossini_gray);
-
             //
             // Animation using Sprite BatchNode
             //
@@ -1762,7 +1762,7 @@ var SpriteBatchNodeOffsetAnchorScale = SpriteTestDemo.extend({
             var seq_scale = cc.Sequence.create(scale, scale_back);
             sprite.runAction(cc.RepeatForever.create(seq_scale));
 
-            spritesheet.addChild(sprite, i);
+            batch.addChild(sprite, i);
         }
     },
     onExit:function () {
@@ -3206,10 +3206,8 @@ var AnimationCache = SpriteTestDemo.extend({
 
         var seq = cc.Sequence.create(animN, animG, animB);
 
-        // create an sprite without texture
-        var grossini = new cc.Sprite();
         frame = spriteFrameCache.getSpriteFrame("grossini_dance_01.png");
-        grossini.setDisplayFrame(frame);
+        var grossini = cc.Sprite.createWithSpriteFrame( frame );
 
         grossini.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
         this.addChild(grossini);
