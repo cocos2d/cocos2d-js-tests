@@ -1039,8 +1039,8 @@ var SpriteFlip = SpriteTestDemo.extend({
         var sprite1 = this.getChildByTag(TAG_SPRITE1);
         var sprite2 = this.getChildByTag(TAG_SPRITE2);
 
-        sprite1.setFlipX(!sprite1.getFlipX());
-        sprite2.setFlipY(!sprite2.getFlipY());
+        sprite1.setFlipX(!sprite1.isFlippedX());
+        sprite2.setFlipY(!sprite2.isFlippedY());
     }
 });
 
@@ -1072,8 +1072,8 @@ var SpriteBatchNodeFlip = SpriteTestDemo.extend({
         var sprite1 = batch.getChildByTag(TAG_SPRITE1);
         var sprite2 = batch.getChildByTag(TAG_SPRITE2);
 
-        sprite1.setFlipX(!sprite1.getFlipX());
-        sprite2.setFlipY(!sprite2.getFlipY());
+        sprite1.setFlipX(!sprite1.isFlippedX());
+        sprite2.setFlipY(!sprite2.isFlippedY());
     }
 });
 
