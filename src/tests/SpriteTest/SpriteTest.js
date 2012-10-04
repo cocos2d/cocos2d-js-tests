@@ -3384,8 +3384,10 @@ var SpriteBatchNodeReorderSameIndex = SpriteTestDemo.extend({
 
         this._batchNode.sortAllChildren();
 
-        for (var i = 0; i < this._batchNode.getDescendants(); i++) {
-            var child = this._batchNode.getDescendants()[i];
+        var descendants = this._batchNode.getDescendants();
+
+        for (var i = 0; i < descendants.length; i++) {
+            var child = descendants[i];
             cc.log("tag:" + child.getTag());
         }
     }
@@ -3739,6 +3741,7 @@ var SpriteTestScene = TestScene.extend({
 //
 
 var createSpriteTestLayerArr = [
+
     Sprite1,
     SpriteBatchNode1,
     SpriteFrameTest,
