@@ -12,6 +12,7 @@ require("tests-main.js");
 
 var tests_files = [
 		'ActionsTest.js',
+		'LabelTest.js',
 		'SpriteTest.js'
 	];
 for( var i=0; i < tests_files.length; i++) {

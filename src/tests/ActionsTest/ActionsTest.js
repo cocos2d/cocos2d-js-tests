@@ -34,7 +34,7 @@ var ActionsTestScene = TestScene.extend({
     runThisTest:function () {
         actionIdx = -1;
         this.addChild(nextActionsTest());
-        cc.Director.getInstance().replaceScene(this);
+        director.replaceScene(this);
     }
 });
 
@@ -54,7 +54,7 @@ var ActionsDemo = cc.Layer.extend({
     },
 
     centerSprites:function (numberOfSprites) {
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = director.getWinSize();
 
         if (numberOfSprites === 0) {
             this._tamara.setVisible(false);
@@ -77,7 +77,7 @@ var ActionsDemo = cc.Layer.extend({
         }
     },
     alignSpritesLeft:function (numberOfSprites) {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
 
         if (numberOfSprites == 1) {
             this._tamara.setVisible(false);
@@ -104,17 +104,17 @@ var ActionsDemo = cc.Layer.extend({
     restartCallback:function (sender) {
         var s = new ActionsTestScene();
         s.addChild(restartActionsTest());
-        cc.Director.getInstance().replaceScene(s);
+        director.replaceScene(s);
     },
     nextCallback:function (sender) {
         var s = new ActionsTestScene();
         s.addChild(nextActionsTest());
-        cc.Director.getInstance().replaceScene(s);
+        director.replaceScene(s);
     },
     backCallback:function (sender) {
         var s = new ActionsTestScene();
         s.addChild(previousActionsTest());
-        cc.Director.getInstance().replaceScene(s);
+        director.replaceScene(s);
     },
     onEnter:function () {
         this._super();
@@ -124,7 +124,7 @@ var ActionsDemo = cc.Layer.extend({
         this.addChild(this._grossini, 1);
         this.addChild(this._tamara, 2);
         this.addChild(this._kathia, 3);
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
         this._grossini.setPosition(cc.p(s.width / 2, s.height / 3));
         this._tamara.setPosition(cc.p(s.width / 2, 2 * s.height / 3));
         this._kathia.setPosition(cc.p(s.width / 2, s.height / 2));
@@ -167,7 +167,7 @@ var ActionManual = ActionsDemo.extend({
     onEnter:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
 
         this._tamara.setScaleX(2.5);
         //window.tam = this._tamara;
@@ -198,7 +198,7 @@ var ActionMove = ActionsDemo.extend({
         this._super();
 
         this.centerSprites(3);
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
 
         var actionTo = cc.MoveTo.create(2, cc.p(s.width - 40, s.height - 40));
 
@@ -270,7 +270,7 @@ var ActionSkewRotateScale = ActionsDemo.extend({
         this._grossini.removeFromParentAndCleanup(true);
         this._kathia.removeFromParentAndCleanup(true);
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = director.getWinSize();
 
         var boxSize = cc.size(100.0, 100.0);
         var box = cc.LayerColor.create(cc.c4b(255, 255, 0, 255));
@@ -369,7 +369,7 @@ var ActionJump = ActionsDemo.extend({
 var ActionBezier = ActionsDemo.extend({
     onEnter:function () {
         this._super();
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
 
         //
         // startPosition can be any coordinate, but since the movement
@@ -576,21 +576,21 @@ var ActionSequence2 = ActionsDemo.extend({
 
     },
     callback1:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 1 called", "Marker Felt", 16);
         label.setPosition(cc.p(s.width / 4 * 1, s.height / 2));
 
         this.addChild(label);
     },
     callback2:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 2 called", "Marker Felt", 16);
         label.setPosition(cc.p(s.width / 4 * 2, s.height / 2));
 
         this.addChild(label);
     },
     callback3:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 3 called", "Marker Felt", 16);
         label.setPosition(cc.p(s.width / 4 * 3, s.height / 2));
 
@@ -633,20 +633,20 @@ var ActionCallFunc = ActionsDemo.extend({
 
     },
     callback1:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 1 called", "Marker Felt", 16);
         label.setPosition(cc.p(s.width / 4 * 1, s.height / 2));
         this.addChild(label);
     },
     callback2:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 2 called", "Marker Felt", 16);
         label.setPosition(cc.p(s.width / 4 * 2, s.height / 2));
 
         this.addChild(label);
     },
     callback3:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 3 called", "Marker Felt", 16);
         label.setPosition(cc.p(s.width / 4 * 3, s.height / 2));
         this.addChild(label);
@@ -950,7 +950,7 @@ var ActionFollow = ActionsDemo.extend({
     onEnter:function () {
         this._super();
         this.centerSprites(1);
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
 
         this._grossini.setPosition(cc.p(-200, s.height / 2));
         var move = cc.MoveBy.create(2, cc.p(s.width * 3, 0));
@@ -983,7 +983,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
 
         this.centerSprites(2);
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = director.getWinSize();
 
         var array = cc.PointArray.create();
 
@@ -1030,7 +1030,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
         cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
         context.restore();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
 
         context.save();
         context.translate(s.width / 2, -50);
@@ -1062,7 +1062,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._super();
 
         this.centerSprites(2);
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = director.getWinSize();
 
         //
         // sprite 1 (By)
@@ -1173,11 +1173,11 @@ var PauseResumeActions = ActionsDemo.extend({
 
     pause:function () {
         cc.log("Pausing");
-        this._pausedTargets = cc.Director.getInstance().getActionManager().pauseAllRunningActions();
+        this._pausedTargets = director.getActionManager().pauseAllRunningActions();
     },
     resume:function () {
         cc.log("Resuming");
-        cc.Director.getInstance().getActionManager().resumeTargets(this._pausedTargets);
+        director.getActionManager().resumeTargets(this._pausedTargets);
     },
 
     title:function () {
@@ -1244,7 +1244,7 @@ var Issue1305_2 = ActionsDemo.extend({
         var actF = cc.Sequence.create(act1, act2, act3, act4, act5, act6, act7, act8);
 
         //    [spr runAction:actF];
-        cc.Director.getInstance().getActionManager().addAction(actF, spr, false);
+        director.getActionManager().addAction(actF, spr, false);
     },
     log1:function () {
         cc.log("1st block");
@@ -1346,7 +1346,6 @@ var Issue1327 = ActionsDemo.extend({
 //
 // Flow control
 //
-
 var arrayOfActionsTest = [
     ActionManual,
     ActionMove,
