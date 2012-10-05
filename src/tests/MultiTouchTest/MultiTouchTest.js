@@ -26,9 +26,9 @@
 
 var touchColors = [
     cc.yellow(),
-    cc.blue(),
-    cc.green(),
-    cc.red(),
+    cc.c3b(0,0,255),
+    cc.c3b(0,255,0),
+    cc.c3b(255,0,0),
     cc.magenta()
 ];
 

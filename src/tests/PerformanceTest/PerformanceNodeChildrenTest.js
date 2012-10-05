@@ -178,7 +178,7 @@ var IterateSpriteSheet = NodeChildrenMainScene.extend({
             for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
                 var sprite = cc.Sprite.createWithTexture(this._batchNode.getTexture(), cc.rect(0, 0, 32, 32));
                 this._batchNode.addChild(sprite);
-                sprite.setPosition(cc.p(cc.RANDOM_0_1() * s.width, cc.RANDOM_0_1() * s.height));
+                sprite.setPosition(cc.p(Math.random() * s.width, Math.random() * s.height));
             }
         }
 
@@ -299,7 +299,7 @@ var AddRemoveSpriteSheet = NodeChildrenMainScene.extend({
             for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
                 var sprite = cc.Sprite.createWithTexture(this._batchNode.getTexture(), cc.rect(0, 0, 32, 32));
                 this._batchNode.addChild(sprite);
-                sprite.setPosition(cc.p(cc.RANDOM_0_1() * s.width, cc.RANDOM_0_1() * s.height));
+                sprite.setPosition(cc.p(Math.random() * s.width, Math.random() * s.height));
                 sprite.setVisible(false);
             }
         }
