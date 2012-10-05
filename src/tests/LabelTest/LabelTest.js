@@ -39,11 +39,11 @@ var TAG_LABEL_SPRITE16 = 665;
 var TAG_LABEL_SPRITE17 = 666;
 var TAG_LABEL_SPRITE18 = 667;
 
-var atlasIdx = -1;
+var sceneIdx = -1;
 
 var LabelTestScene = TestScene.extend({
     runThisTest:function () {
-        atlasIdx = -1;
+        sceneIdx = -1;
         this.addChild(nextLabelTest());
         director.replaceScene(this);
     }

@@ -25,14 +25,14 @@
  ****************************************************************************/
 
 
-var actionIdx = -1;
+var sceneIdx = -1;
 
 // the class inherit from TestScene
 // every Scene each test used must inherit from TestScene,
 // make sure the test have the menu item for back to main menu
 var ActionsTestScene = TestScene.extend({
     runThisTest:function () {
-        actionIdx = -1;
+        sceneIdx = -1;
         this.addChild(nextActionsTest());
         director.replaceScene(this);
     }
