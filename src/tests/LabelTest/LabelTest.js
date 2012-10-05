@@ -530,7 +530,7 @@ var AtlasFastBitmap = AtlasDemo.extend({
 
             var s = director.getWinSize();
 
-            var p = cc.p(cc.RANDOM_0_1() * s.width, cc.RANDOM_0_1() * s.height);
+            var p = cc.p(Math.random() * s.width, Math.random() * s.height);
             label.setPosition(p);
             label.setAnchorPoint(cc.p(0.5, 0.5));
         }
