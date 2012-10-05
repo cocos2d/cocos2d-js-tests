@@ -229,7 +229,7 @@ var LabelAtlasColorTest = AtlasDemo.extend({
         var label2 = cc.LabelAtlas.create("0123456789", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
         this.addChild(label2, 0, TAG_LABEL_SPRITE12);
         label2.setPosition(cc.p(10, 200));
-        label2.setColor(cc.red());
+        label2.setColor(cc.c3b(255,0,0));
 
         var fade = cc.FadeOut.create(1.0);
         var fade_in = fade.reverse();
@@ -291,7 +291,7 @@ var Atlas3 = AtlasDemo.extend({
         var label2 = cc.LabelBMFont.create("Test", "res/fonts/bitmapFontTest2.fnt");
         // testing anchors
         label2.setAnchorPoint(cc.p(0.5, 0.5));
-        label2.setColor(cc.red());
+        label2.setColor(cc.c3b(255,0,0));
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
         label2.runAction(repeat.copy());
 
@@ -396,7 +396,7 @@ var Atlas4 = AtlasDemo.extend({
     },
     draw:function () {
         var s = director.getWinSize();
-        var c = cc.red();
+        var c = cc.c3b(255,0,0);
         cc.renderContext.strokeStyle = "rgba(" + c.r + "," + c.g + "," + c.b + ",1)";
         cc.drawingUtil.drawLine(cc.p(0, s.height / 2), cc.p(s.width, s.height / 2));
         cc.drawingUtil.drawLine(cc.p(s.width / 2, 0), cc.p(s.width / 2, s.height));
@@ -486,7 +486,7 @@ var AtlasBitmapColor = AtlasDemo.extend({
 
         var label = null;
         label = cc.LabelBMFont.create("Blue", "res/fonts/bitmapFontTest5.fnt");
-        label.setColor(cc.blue());
+        label.setColor(cc.c3b(0,0,255));
         this.addChild(label);
         label.setPosition(cc.p(s.width / 2, s.height / 4));
         label.setAnchorPoint(cc.p(0.5, 0.5));
@@ -495,13 +495,13 @@ var AtlasBitmapColor = AtlasDemo.extend({
         this.addChild(label);
         label.setPosition(cc.p(s.width / 2, 2 * s.height / 4));
         label.setAnchorPoint(cc.p(0.5, 0.5));
-        label.setColor(cc.red());
+        label.setColor(cc.c3b(255,0,0));
 
         label = cc.LabelBMFont.create("G", "res/fonts/bitmapFontTest5.fnt");
         this.addChild(label);
         label.setPosition(cc.p(s.width / 2, 3 * s.height / 4));
         label.setAnchorPoint(cc.p(0.5, 0.5));
-        label.setColor(cc.green());
+        label.setColor(cc.c3b(0,255,0));
         label.setString("Green");
     },
     title:function () {
@@ -932,7 +932,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
         var stringMenu = cc.Menu.create(longSentences, lineBreaks, mixed);
         stringMenu.alignItemsVertically();
 
-        longSentences.setColor(cc.red());
+        longSentences.setColor(cc.c3b(255,0,0));
         this.lastSentenceItem = longSentences;
         longSentences.setTag(LongSentences);
         lineBreaks.setTag(LineBreaks);
@@ -946,7 +946,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
         var alignmentMenu = cc.Menu.create(left, center, right);
         alignmentMenu.alignItemsHorizontallyWithPadding(alignmentItemPadding);
 
-        center.setColor(cc.red());
+        center.setColor(cc.c3b(255,0,0));
         this.lastAlignmentItem = center;
         left.setTag(LeftAlign);
         center.setTag(CenterAlign);
@@ -979,7 +979,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
         return "";
     },
     stringChanged:function (sender) {
-        sender.setColor(cc.red());
+        sender.setColor(cc.c3b(255,0,0));
         this.lastSentenceItem.setColor(cc.white());
         this.lastSentenceItem = sender;
 
@@ -1002,7 +1002,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
     },
     alignmentChanged:function (sender) {
         var item = sender;
-        item.setColor(cc.red());
+        item.setColor(cc.c3b(255,0,0));
         this.lastAlignmentItem.setColor(cc.white());
         this.lastAlignmentItem = item;
 
@@ -1072,7 +1072,7 @@ var LabelTTFA8Test = AtlasDemo.extend({
         // cc.LabelBMFont
         var label1 = cc.LabelTTF.create("Testing A8 Format", "Arial", 48);
         this.addChild(label1);
-        label1.setColor(cc.red());
+        label1.setColor(cc.c3b(255,0,0));
         label1.setPosition(cc.p(s.width / 2, s.height / 2));
 
         var fadeOut = cc.FadeOut.create(2);

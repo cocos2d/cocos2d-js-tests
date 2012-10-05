@@ -182,7 +182,7 @@ var ActionManual = ActionsDemo.extend({
         this._grossini.setColor(cc.c3b(255, 0, 0));
 
         this._kathia.setPosition(cc.p(s.width - 100, s.height / 2));
-        this._kathia.setColor(cc.blue());
+        this._kathia.setColor(cc.c3b(0,0,255));
     },
     subtitle:function () {
         return "Manual Transformation";
