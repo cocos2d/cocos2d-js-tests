@@ -72,9 +72,9 @@ var EaseSpriteDemo = cc.Layer.extend({
         this.addChild(this._kathia, 2);
         this.addChild(this._tamara, 1);
 
-        this._grossini.setPosition(cc.p(60, 50));
-        this._kathia.setPosition(cc.p(60, 150));
-        this._tamara.setPosition(cc.p(60, 250));
+        this._grossini.setPosition(cc.p(60, winSize.height*1/5));
+        this._kathia.setPosition(cc.p(60, winSize.height/2));
+        this._tamara.setPosition(cc.p(60, winSize.height*4/5));
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 32);
         this.addChild(label);
@@ -87,9 +87,11 @@ var EaseSpriteDemo = cc.Layer.extend({
         var menu = cc.Menu.create(item1, item2, item3);
 
         menu.setPosition(cc.p(0,0));
-        item1.setPosition(cc.p(winSize.width / 2 - 100, 30));
-        item2.setPosition(cc.p(winSize.width / 2, 30));
-        item3.setPosition(cc.p(winSize.width / 2 + 100, 30));
+
+        var cs = item2.getContentSize();
+        item1.setPosition( cc.p(winSize.width/2 - cs.width*2, cs.height/2) );
+        item2.setPosition( cc.p(winSize.width/2, cs.height/2) );
+        item3.setPosition( cc.p(winSize.width/2 + cs.width*2, cs.height/2) );
 
         this.addChild(menu, 1);
     },
@@ -110,8 +112,8 @@ var EaseSpriteDemo = cc.Layer.extend({
         director.replaceScene(s);
     },
     positionForTwo:function () {
-        this._grossini.setPosition(cc.p(60, 120));
-        this._tamara.setPosition(cc.p(60, 220));
+        this._grossini.setPosition(cc.p(60, winSize.height*1/5));
+        this._tamara.setPosition(cc.p(60, winSize.height*4/5));
         this._kathia.setVisible(false);
     }
 });
