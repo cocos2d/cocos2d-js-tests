@@ -494,7 +494,7 @@ var ActionAnimate = ActionsDemo.extend({
         var animation = cc.Animation.create();
         for (var i = 1; i < 15; i++) {
             var frameName = "res/Images/grossini_dance_" + ((i < 10) ? ("0" + i) : i) + ".png";
-            animation.addSpriteFrameWithFileName(frameName);
+            animation.addSpriteFrameWithFile(frameName);
         }
         animation.setDelayPerUnit(2.8 / 14);
         animation.setRestoreOriginalFrame(true);
