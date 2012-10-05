@@ -103,7 +103,7 @@ var SchedulerTestLayer = cc.Layer.extend({
         var item3 = cc.MenuItemImage.create("res/Images/f1.png", "res/Images/f2.png", this, this.nextCallback);
 
         var menu = cc.Menu.create(item1, item2, item3, null);
-        menu.setPosition(cc.PointZero());
+        menu.setPosition(cc.p(0,0));
         item1.setPosition(cc.p(s.width / 2 - 100, 30));
         item2.setPosition(cc.p(s.width / 2, 30));
         item3.setPosition(cc.p(s.width / 2 + 100, 30));

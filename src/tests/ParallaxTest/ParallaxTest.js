@@ -90,7 +90,7 @@ ParallaxDemo = cc.Layer.extend({
 
         var menu = cc.Menu.create(item1, item2, item3, null);
 
-        menu.setPosition(cc.PointZero());
+        menu.setPosition(cc.p(0,0));
         item1.setPosition(cc.p(s.width / 2 - 100, 30));
         item2.setPosition(cc.p(s.width / 2, 30));
         item3.setPosition(cc.p(s.width / 2 + 100, 30));
@@ -162,7 +162,7 @@ Parallax1 = ParallaxDemo.extend({
         // NOW add the 3 layers to the 'void' node
 
         // background image is moved at a ratio of 0.4x, 0.5y
-        voidNode.addChild(background, -1, cc.p(0.4, 0.5), cc.PointZero());
+        voidNode.addChild(background, -1, cc.p(0.4, 0.5), cc.p(0,0));
 
         // tiles are moved at a ratio of 2.2x, 1.0y
         voidNode.addChild(tilemap, 1, cc.p(2.2, 1.0), cc.p(0, 0));
@@ -232,7 +232,7 @@ Parallax2 = ParallaxDemo.extend({
         // NOW add the 3 layers to the 'void' node
 
         // background image is moved at a ratio of 0.4x, 0.5y
-        voidNode.addChild(background, -1, cc.p(0.4, 0.5), cc.PointZero());
+        voidNode.addChild(background, -1, cc.p(0.4, 0.5), cc.p(0,0));
 
         // tiles are moved at a ratio of 1.0, 1.0y
         voidNode.addChild(tilemap, 1, cc.p(1.0, 1.0), cc.p(0, 0));
