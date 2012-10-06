@@ -515,7 +515,7 @@ var SpeedTest = EaseSpriteDemo.extend({
         this._super();
 
         // rotate and jump
-        var jump1 = cc.JumpBy.create(4, cc.p(-400, 0), 100, 4);
+        var jump1 = cc.JumpBy.create(4, cc.p(-winSize.width+80, 0), 100, 4);
         var jump2 = jump1.reverse();
         var rot1 = cc.RotateBy.create(4, 360 * 2);
         var rot2 = rot1.reverse();
@@ -547,8 +547,8 @@ var SpeedTest = EaseSpriteDemo.extend({
         var action2 = this._tamara.getActionByTag(TAG_ACTION1_EASE_ACTIONS);
         var action3 = this._kathia.getActionByTag(TAG_ACTION1_EASE_ACTIONS);
 
-        action1.setSpeed(Math.Random() * 2);
-        action2.setSpeed(Math.Random() * 2);
+        action1.setSpeed(Math.random() * 2);
+        action2.setSpeed(Math.random() * 2);
         action3.setSpeed(Math.random() * 2);
     }
 });
@@ -563,7 +563,7 @@ var SchedulerTest = EaseSpriteDemo.extend({
         this._super();
 
         // rotate and jump
-        var jump1 = cc.JumpBy.create(4, cc.p(-400, 0), 100, 4);
+        var jump1 = cc.JumpBy.create(4, cc.p(-winSize.width+80, 0), 100, 4);
         var jump2 = jump1.reverse();
         var rot1 = cc.RotateBy.create(4, 360 * 2);
         var rot2 = rot1.reverse();
