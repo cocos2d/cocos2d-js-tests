@@ -1159,6 +1159,29 @@ var ActionTargeted = ActionsDemo.extend({
     }
 });
 
+var ActionTargetedCopy = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+        this.centerSprites(2);
+
+        var jump1 = cc.JumpBy.create(2, cc.p(0,0), 100, 3);
+        var jump2 = jump1.copy();
+        
+        var t1 = cc.TargetedAction.create(this._kathia, jump2);
+        var t_copy = t1.copy();
+
+        var seq = cc.Sequence.create(jump1, t_copy);
+
+        this._tamara.runAction(seq);
+    },
+    title:function () {
+        return "Action that runs on another target. Useful for sequences";
+    },
+    subtitle:function () {
+        return "Testing copy on TargetedAction";
+    }
+});
+
 var PauseResumeActions = ActionsDemo.extend({
     _pausedTargets:[],
     onEnter:function () {
@@ -1349,6 +1372,7 @@ var Issue1327 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
+
     ActionManual,
     ActionMove,
     ActionScale,
@@ -1378,6 +1402,7 @@ var arrayOfActionsTest = [
     ActionOrbit,
     ActionFollow,
     ActionTargeted,
+    ActionTargetedCopy,
     PauseResumeActions,
     Issue1305,
     Issue1305_2,
