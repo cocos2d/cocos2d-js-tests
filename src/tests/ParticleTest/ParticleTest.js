@@ -257,7 +257,7 @@ var ParticleDemo = cc.LayerColor.extend({
         var menu = cc.Menu.create(item1, item2, item3, this._shapeModeButton, this._textureModeButton,
             this._freeMovementButton, this._relativeMovementButton, this._groupMovementButton);
 
-        menu.setPosition(cc.PointZero());
+        menu.setPosition(cc.p(0,0));
         item1.setPosition(cc.p(s.width / 2 - 100, 30));
         item2.setPosition(cc.p(s.width / 2, 30));
         item3.setPosition(cc.p(s.width / 2 + 100, 30));
@@ -326,9 +326,9 @@ var ParticleDemo = cc.LayerColor.extend({
         var location = touch.getLocation();
         //CCPoint convertedLocation = CCDirector::getInstance().convertToGL(location);
 
-        var pos = cc.PointZero();
+        var pos = cc.p(0,0);
         if (this._background) {
-            pos = this._background.convertToWorldSpace(cc.PointZero());
+            pos = this._background.convertToWorldSpace(cc.p(0,0));
         }
         this._emitter.setPosition(cc.pSub(location, pos));
     },
@@ -446,7 +446,7 @@ var DemoBigFlower = ParticleDemo.extend({
         this._emitter.setDuration(-1);
 
         // gravity
-        this._emitter.setGravity(cc.PointZero());
+        this._emitter.setGravity(cc.p(0,0));
 
         // angle
         this._emitter.setAngle(90);
@@ -466,7 +466,7 @@ var DemoBigFlower = ParticleDemo.extend({
 
         // emitter position
         this._emitter.setPosition(cc.p(160, 240));
-        this._emitter.setPosVar(cc.PointZero());
+        this._emitter.setPosVar(cc.p(0,0));
 
         // life of particles
         this._emitter.setLife(4);
@@ -524,7 +524,7 @@ var DemoRotFlower = ParticleDemo.extend({
         this._emitter.setDuration(-1);
 
         // gravity
-        this._emitter.setGravity(cc.PointZero());
+        this._emitter.setGravity(cc.p(0,0));
 
         // angle
         this._emitter.setAngle(90);
@@ -544,7 +544,7 @@ var DemoRotFlower = ParticleDemo.extend({
 
         // emitter position
         this._emitter.setPosition(cc.p(160, 240));
-        this._emitter.setPosVar(cc.PointZero());
+        this._emitter.setPosVar(cc.p(0,0));
 
         // life of particles
         this._emitter.setLife(3);
@@ -754,7 +754,7 @@ var DemoModernArt = ParticleDemo.extend({
 
         // emitter position
         this._emitter.setPosition(cc.p(s.width / 2, s.height / 2));
-        this._emitter.setPosVar(cc.PointZero());
+        this._emitter.setPosVar(cc.p(0,0));
 
         // life of particles
         this._emitter.setLife(2.0);
@@ -919,7 +919,7 @@ var RadiusMode1 = ParticleDemo.extend({
         // emitter position
         var size = cc.Director.getInstance().getWinSize();
         this._emitter.setPosition(cc.p(size.width / 2, size.height / 2));
-        this._emitter.setPosVar(cc.PointZero());
+        this._emitter.setPosVar(cc.p(0,0));
 
         // life of particles
         this._emitter.setLife(5);
@@ -998,7 +998,7 @@ var RadiusMode2 = ParticleDemo.extend({
         // emitter position
         var size = cc.Director.getInstance().getWinSize();
         this._emitter.setPosition(cc.p(size.width / 2, size.height / 2));
-        this._emitter.setPosVar(cc.PointZero());
+        this._emitter.setPosVar(cc.p(0,0));
 
         // life of particles
         this._emitter.setLife(4);
@@ -1076,7 +1076,7 @@ var Issue704 = ParticleDemo.extend({
         // emitter position
         var size = cc.Director.getInstance().getWinSize();
         this._emitter.setPosition(cc.p(size.width / 2, size.height / 2));
-        this._emitter.setPosVar(cc.PointZero());
+        this._emitter.setPosVar(cc.p(0,0));
 
         // life of particles
         this._emitter.setLife(5);

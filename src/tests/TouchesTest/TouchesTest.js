@@ -45,7 +45,7 @@ var TouchesTestScene = TestScene.extend({
 var PongLayer = cc.Layer.extend({
     _ball:null,
     _paddles:[],
-    _ballStartingVelocity:cc.PointZero(),
+    _ballStartingVelocity:cc.p(0,0),
     _winSize:null,
 
     ctor:function () {

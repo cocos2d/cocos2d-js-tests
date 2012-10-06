@@ -104,7 +104,7 @@ var TestCocosNodeDemo = cc.Layer.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.PointZero());
+        menu.setPosition(cc.p(0,0));
         item1.setPosition(cc.p(s.width / 2 - 100, 30));
         item2.setPosition(cc.p(s.width / 2, 30));
         item3.setPosition(cc.p(s.width / 2 + 100, 30));
@@ -532,7 +532,7 @@ var CameraCenterTest = TestCocosNodeDemo.extend({
         sprite.init();
         this.addChild(sprite, 0);
         sprite.setPosition(cc.p(s.width / 5 * 1, s.height / 5 * 1));
-        sprite.setColor(cc.red());
+        sprite.setColor(cc.c3b(255,0,0));
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         var orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -542,7 +542,7 @@ var CameraCenterTest = TestCocosNodeDemo.extend({
         sprite.init();
         this.addChild(sprite, 0, 40);
         sprite.setPosition(cc.p(s.width / 5 * 1, s.height / 5 * 4));
-        sprite.setColor(cc.blue());
+        sprite.setColor(cc.c3b(0,0,255));
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -562,7 +562,7 @@ var CameraCenterTest = TestCocosNodeDemo.extend({
         sprite.init();
         this.addChild(sprite, 0, 40);
         sprite.setPosition(cc.p(s.width / 5 * 4, s.height / 5 * 4));
-        sprite.setColor(cc.green());
+        sprite.setColor(cc.c3b(0,255,0));
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -603,7 +603,7 @@ var ConvertToNode = TestCocosNodeDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.PointZero());
+                    sprite.setAnchorPoint(cc.p(0,0));
                     break;
                 case 1:
                     sprite.setAnchorPoint(cc.p(0.5, 0.5));

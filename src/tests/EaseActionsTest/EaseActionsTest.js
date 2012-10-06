@@ -28,76 +28,16 @@ TAG_ACTION1_EASE_ACTIONS = 1;
 TAG_ACTION2_EASE_ACTIONS = 2;
 TAG_SLIDER_EASE_ACTIONS = 1;
 
-var EaseActionsTests = [
-    function () {
-        return new SpriteEase();
-    },
-    function () {
-        return new SpriteEaseInOut();
-    },
-    function () {
-        return new SpriteEaseExponential();
-    },
-    function () {
-        return new SpriteEaseExponentialInOut();
-    },
-    function () {
-        return new SpriteEaseSine();
-    },
-    function () {
-        return new SpriteEaseSineInOut();
-    },
-    function () {
-        return new SpriteEaseElastic();
-    },
-    function () {
-        return new SpriteEaseElasticInOut();
-    }, //reverse bug
-    function () {
-        return new SpriteEaseBounce();
-    },
-    function () {
-        return new SpriteEaseBounceInOut();
-    },
-    function () {
-        return new SpriteEaseBack();
-    },
-    function () {
-        return new SpriteEaseBackInOut();
-    },
-    function () {
-        return new SpeedTest();
-    },
-    function () {
-        return new SchedulerTest();
-    }
-];
-
-var s_nEaseActionIdx = -1;
-function nextEaseAction() {
-    ++s_nEaseActionIdx;
-    s_nEaseActionIdx = s_nEaseActionIdx % EaseActionsTests.length;
-    return EaseActionsTests[s_nEaseActionIdx]();
-}
-function backEaseAction() {
-    --s_nEaseActionIdx;
-    if (s_nEaseActionIdx < 0) {
-        s_nEaseActionIdx += EaseActionsTests.length;
-    }
-    return EaseActionsTests[s_nEaseActionIdx]();
-}
-function restartEaseAction() {
-    return EaseActionsTests[s_nEaseActionIdx]();
-}
+var sceneIdx = -1;
 
 // the class inherit from TestScene
 // every .Scene each test used must inherit from TestScene,
 // make sure the test have the menu item for back to main menu
 var EaseActionsTestScene = TestScene.extend({
     runThisTest:function () {
-        s_nEaseActionIdx = -1;
-        this.addChild(nextEaseAction());
-        cc.Director.getInstance().replaceScene(this);
+        sceneIdx = -1;
+        this.addChild(nextEaseActionsTest());
+        director.replaceScene(this);
     }
 });
 
@@ -107,6 +47,16 @@ var EaseSpriteDemo = cc.Layer.extend({
     _tamara:null,
     _kathia:null,
     _title:null,
+
+    ctor:function() {
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
+    },
+    init:function() {
+        // this._super(cc.c4b(0, 0, 0, 255), cc.c4b(0, 128, 255, 255));
+        this._super();
+    },
+
     title:function () {
         return "No title";
     },
@@ -122,48 +72,48 @@ var EaseSpriteDemo = cc.Layer.extend({
         this.addChild(this._kathia, 2);
         this.addChild(this._tamara, 1);
 
-        var s = cc.Director.getInstance().getWinSize();
-
-        this._grossini.setPosition(cc.p(60, 50));
-        this._kathia.setPosition(cc.p(60, 150));
-        this._tamara.setPosition(cc.p(60, 250));
+        this._grossini.setPosition(cc.p(60, winSize.height*1/5));
+        this._kathia.setPosition(cc.p(60, winSize.height/2));
+        this._tamara.setPosition(cc.p(60, winSize.height*4/5));
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 32);
         this.addChild(label);
-        label.setPosition(cc.p(s.width / 2, s.height - 50));
+        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);
         var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.restartCallback);
         var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
 
-        var menu = cc.Menu.create(item1, item2, item3, null);
+        var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.PointZero());
-        item1.setPosition(cc.p(s.width / 2 - 100, 30));
-        item2.setPosition(cc.p(s.width / 2, 30));
-        item3.setPosition(cc.p(s.width / 2 + 100, 30));
+        menu.setPosition(cc.p(0,0));
+
+        var cs = item2.getContentSize();
+        item1.setPosition( cc.p(winSize.width/2 - cs.width*2, cs.height/2) );
+        item2.setPosition( cc.p(winSize.width/2, cs.height/2) );
+        item3.setPosition( cc.p(winSize.width/2 + cs.width*2, cs.height/2) );
 
         this.addChild(menu, 1);
     },
 
     restartCallback:function (sender) {
         var s = new EaseActionsTestScene();//cc.Scene.create();
-        s.addChild(restartEaseAction());
-        cc.Director.getInstance().replaceScene(s);
+        s.addChild(restartEaseActionsTest());
+        director.replaceScene(s);
     },
     nextCallback:function (sender) {
         var s = new EaseActionsTestScene();//cc.Scene.create();
-        s.addChild(nextEaseAction());
-        cc.Director.getInstance().replaceScene(s);
+        s.addChild(nextEaseActionsTest());
+        director.replaceScene(s);
     },
     backCallback:function (sender) {
         var s = new EaseActionsTestScene();//cc.Scene.create();
-        s.addChild(backEaseAction());
-        cc.Director.getInstance().replaceScene(s);
+        s.addChild(previousEaseActionsTest());
+        director.replaceScene(s);
     },
     positionForTwo:function () {
-        this._grossini.setPosition(cc.p(60, 120));
-        this._tamara.setPosition(cc.p(60, 220));
+        this._grossini.setPosition(cc.p(60, winSize.height*1/5));
+        this._tamara.setPosition(cc.p(60, winSize.height*4/5));
         this._kathia.setVisible(false);
     }
 });
@@ -178,7 +128,7 @@ var SpriteEase = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
         var move_back = move.reverse();
 
         var move_ease_in = cc.EaseIn.create(move.copy(), 3.0);
@@ -188,9 +138,9 @@ var SpriteEase = EaseSpriteDemo.extend({
         var move_ease_out_back = move_ease_out.reverse();
 
 
-        var seq1 = cc.Sequence.create(move, move_back, null);
-        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back, null);
-        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back, null);
+        var seq1 = cc.Sequence.create(move, move_back);
+        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back);
+        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back);
 
 
         var a2 = this._grossini.runAction(cc.RepeatForever.create(seq1));
@@ -226,7 +176,7 @@ var SpriteEaseInOut = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
         //	id move_back = move.reverse();
 
         var move_ease_inout1 = cc.EaseInOut.create(move.copy(), 2.0);
@@ -239,9 +189,9 @@ var SpriteEaseInOut = EaseSpriteDemo.extend({
         var move_ease_inout_back3 = move_ease_inout3.reverse();
 
 
-        var seq1 = cc.Sequence.create(move_ease_inout1, move_ease_inout_back1, null);
-        var seq2 = cc.Sequence.create(move_ease_inout2, move_ease_inout_back2, null);
-        var seq3 = cc.Sequence.create(move_ease_inout3, move_ease_inout_back3, null);
+        var seq1 = cc.Sequence.create(move_ease_inout1, move_ease_inout_back1);
+        var seq2 = cc.Sequence.create(move_ease_inout2, move_ease_inout_back2);
+        var seq3 = cc.Sequence.create(move_ease_inout3, move_ease_inout_back3);
 
         this._tamara.runAction(cc.RepeatForever.create(seq1));
         this._kathia.runAction(cc.RepeatForever.create(seq2));
@@ -262,7 +212,7 @@ var SpriteEaseExponential = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
         var move_back = move.reverse();
 
         var move_ease_in = cc.EaseExponentialIn.create(move.copy());
@@ -272,9 +222,9 @@ var SpriteEaseExponential = EaseSpriteDemo.extend({
         var move_ease_out_back = move_ease_out.reverse();
 
 
-        var seq1 = cc.Sequence.create(move, move_back, null);
-        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back, null);
-        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back, null);
+        var seq1 = cc.Sequence.create(move, move_back);
+        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back);
+        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back);
 
 
         this._grossini.runAction(cc.RepeatForever.create(seq1));
@@ -296,14 +246,14 @@ var SpriteEaseExponentialInOut = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
         var move_back = move.reverse();
 
         var move_ease = cc.EaseExponentialInOut.create(move.copy());
         var move_ease_back = move_ease.reverse();	//-. reverse()
 
-        var seq1 = cc.Sequence.create(move, move_back, null);
-        var seq2 = cc.Sequence.create(move_ease, move_ease_back, null);
+        var seq1 = cc.Sequence.create(move, move_back);
+        var seq2 = cc.Sequence.create(move_ease, move_ease_back);
 
         this.positionForTwo();
 
@@ -324,7 +274,7 @@ var SpriteEaseSine = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
         var move_back = move.reverse();
 
         var move_ease_in = cc.EaseSineIn.create(move.copy());
@@ -334,9 +284,9 @@ var SpriteEaseSine = EaseSpriteDemo.extend({
         var move_ease_out_back = move_ease_out.reverse();
 
 
-        var seq1 = cc.Sequence.create(move, move_back, null);
-        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back, null);
-        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back, null);
+        var seq1 = cc.Sequence.create(move, move_back);
+        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back);
+        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back);
 
 
         this._grossini.runAction(cc.RepeatForever.create(seq1));
@@ -358,14 +308,14 @@ var SpriteEaseSineInOut = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
         var move_back = move.reverse();
 
         var move_ease = cc.EaseSineInOut.create(move.copy());
         var move_ease_back = move_ease.reverse();
 
-        var seq1 = cc.Sequence.create(move, move_back, null);
-        var seq2 = cc.Sequence.create(move_ease, move_ease_back, null);
+        var seq1 = cc.Sequence.create(move, move_back);
+        var seq2 = cc.Sequence.create(move_ease, move_ease_back);
 
         this.positionForTwo();
 
@@ -386,7 +336,7 @@ var SpriteEaseElastic = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
         var move_back = move.reverse();
 
         var move_ease_in = cc.EaseElasticIn.create(move.copy());
@@ -395,9 +345,9 @@ var SpriteEaseElastic = EaseSpriteDemo.extend({
         var move_ease_out = cc.EaseElasticOut.create(move.copy());
         var move_ease_out_back = move_ease_out.reverse();
 
-        var seq1 = cc.Sequence.create(move, move_back, null);
-        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back, null);
-        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back, null);
+        var seq1 = cc.Sequence.create(move, move_back);
+        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back);
+        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back);
 
         this._grossini.runAction(cc.RepeatForever.create(seq1));
         this._tamara.runAction(cc.RepeatForever.create(seq2));
@@ -417,7 +367,7 @@ var SpriteEaseElasticInOut = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
 
         var move_ease_inout1 = cc.EaseElasticInOut.create(move.copy(), 0.3);
         var move_ease_inout_back1 = move_ease_inout1.reverse();
@@ -429,9 +379,9 @@ var SpriteEaseElasticInOut = EaseSpriteDemo.extend({
         var move_ease_inout_back3 = move_ease_inout3.reverse();
 
 
-        var seq1 = cc.Sequence.create(move_ease_inout1, move_ease_inout_back1, null);
-        var seq2 = cc.Sequence.create(move_ease_inout2, move_ease_inout_back2, null);
-        var seq3 = cc.Sequence.create(move_ease_inout3, move_ease_inout_back3, null);
+        var seq1 = cc.Sequence.create(move_ease_inout1, move_ease_inout_back1);
+        var seq2 = cc.Sequence.create(move_ease_inout2, move_ease_inout_back2);
+        var seq3 = cc.Sequence.create(move_ease_inout3, move_ease_inout_back3);
 
         this._tamara.runAction(cc.RepeatForever.create(seq1));
         this._kathia.runAction(cc.RepeatForever.create(seq2));
@@ -451,7 +401,7 @@ var SpriteEaseBounce = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
         var move_back = move.reverse();
 
         var move_ease_in = cc.EaseBounceIn.create(move.copy());
@@ -460,9 +410,9 @@ var SpriteEaseBounce = EaseSpriteDemo.extend({
         var move_ease_out = cc.EaseBounceOut.create(move.copy());
         var move_ease_out_back = move_ease_out.reverse();
 
-        var seq1 = cc.Sequence.create(move, move_back, null);
-        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back, null);
-        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back, null);
+        var seq1 = cc.Sequence.create(move, move_back);
+        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back);
+        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back);
 
         this._grossini.runAction(cc.RepeatForever.create(seq1));
         this._tamara.runAction(cc.RepeatForever.create(seq2));
@@ -482,14 +432,14 @@ var SpriteEaseBounceInOut = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
         var move_back = move.reverse();
 
         var move_ease = cc.EaseBounceInOut.create(move.copy());
         var move_ease_back = move_ease.reverse();
 
-        var seq1 = cc.Sequence.create(move, move_back, null);
-        var seq2 = cc.Sequence.create(move_ease, move_ease_back, null);
+        var seq1 = cc.Sequence.create(move, move_back);
+        var seq2 = cc.Sequence.create(move_ease, move_ease_back);
 
         this.positionForTwo();
 
@@ -510,7 +460,7 @@ var SpriteEaseBack = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
         var move_back = move.reverse();
 
         var move_ease_in = cc.EaseBackIn.create(move.copy());
@@ -519,9 +469,9 @@ var SpriteEaseBack = EaseSpriteDemo.extend({
         var move_ease_out = cc.EaseBackOut.create(move.copy());
         var move_ease_out_back = move_ease_out.reverse();
 
-        var seq1 = cc.Sequence.create(move, move_back, null);
-        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back, null);
-        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back, null);
+        var seq1 = cc.Sequence.create(move, move_back);
+        var seq2 = cc.Sequence.create(move_ease_in, move_ease_in_back);
+        var seq3 = cc.Sequence.create(move_ease_out, move_ease_out_back);
 
         this._grossini.runAction(cc.RepeatForever.create(seq1));
         this._tamara.runAction(cc.RepeatForever.create(seq2));
@@ -541,14 +491,14 @@ var SpriteEaseBackInOut = EaseSpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var move = cc.MoveBy.create(3, cc.p(350, 0));
+        var move = cc.MoveBy.create(3, cc.p(winSize.width-80, 0));
         var move_back = move.reverse();
 
         var move_ease = cc.EaseBackInOut.create(move.copy());
         var move_ease_back = move_ease.reverse();
 
-        var seq1 = cc.Sequence.create(move, move_back, null);
-        var seq2 = cc.Sequence.create(move_ease, move_ease_back, null);
+        var seq1 = cc.Sequence.create(move, move_back);
+        var seq2 = cc.Sequence.create(move_ease, move_ease_back);
 
         this.positionForTwo();
 
@@ -565,14 +515,14 @@ var SpeedTest = EaseSpriteDemo.extend({
         this._super();
 
         // rotate and jump
-        var jump1 = cc.JumpBy.create(4, cc.p(-400, 0), 100, 4);
+        var jump1 = cc.JumpBy.create(4, cc.p(-winSize.width+80, 0), 100, 4);
         var jump2 = jump1.reverse();
         var rot1 = cc.RotateBy.create(4, 360 * 2);
         var rot2 = rot1.reverse();
 
-        var seq3_1 = cc.Sequence.create(jump2, jump1, null);
-        var seq3_2 = cc.Sequence.create(rot1, rot2, null);
-        var spawn = cc.Spawn.create(seq3_1, seq3_2, null);
+        var seq3_1 = cc.Sequence.create(jump2, jump1);
+        var seq3_2 = cc.Sequence.create(rot1, rot2);
+        var spawn = cc.Spawn.create(seq3_1, seq3_2);
         var action = cc.Speed.create(cc.RepeatForever.create(spawn), 1.0);
         action.setTag(TAG_ACTION1_EASE_ACTIONS);
 
@@ -597,9 +547,9 @@ var SpeedTest = EaseSpriteDemo.extend({
         var action2 = this._tamara.getActionByTag(TAG_ACTION1_EASE_ACTIONS);
         var action3 = this._kathia.getActionByTag(TAG_ACTION1_EASE_ACTIONS);
 
-        action1.setSpeed(cc.RANDOM_0_1() * 2);
-        action2.setSpeed(cc.RANDOM_0_1() * 2);
-        action3.setSpeed(cc.RANDOM_0_1() * 2);
+        action1.setSpeed(Math.random() * 2);
+        action2.setSpeed(Math.random() * 2);
+        action3.setSpeed(Math.random() * 2);
     }
 });
 
@@ -613,14 +563,14 @@ var SchedulerTest = EaseSpriteDemo.extend({
         this._super();
 
         // rotate and jump
-        var jump1 = cc.JumpBy.create(4, cc.p(-400, 0), 100, 4);
+        var jump1 = cc.JumpBy.create(4, cc.p(-winSize.width+80, 0), 100, 4);
         var jump2 = jump1.reverse();
         var rot1 = cc.RotateBy.create(4, 360 * 2);
         var rot2 = rot1.reverse();
 
-        var seq3_1 = cc.Sequence.create(jump2, jump1, null);
-        var seq3_2 = cc.Sequence.create(rot1, rot2, null);
-        var spawn = cc.Spawn.create(seq3_1, seq3_2, null);
+        var seq3_1 = cc.Sequence.create(jump2, jump1);
+        var seq3_2 = cc.Sequence.create(rot1, rot2);
+        var spawn = cc.Spawn.create(seq3_1, seq3_2);
         var action = cc.RepeatForever.create(spawn);
 
         var action2 = action.copy();
@@ -639,3 +589,40 @@ var SchedulerTest = EaseSpriteDemo.extend({
         return "Scheduler scaleTime Test";
     }
 });
+
+//
+// Flow control
+//
+var arrayOfEaseActionsTest = [
+    SpriteEase,
+    SpriteEaseInOut,
+    SpriteEaseExponential,
+    SpriteEaseExponentialInOut,
+    SpriteEaseSine,
+    SpriteEaseSineInOut,
+    SpriteEaseElastic,
+    SpriteEaseElasticInOut,
+    SpriteEaseBounce,
+    SpriteEaseBounceInOut,
+    SpriteEaseBack,
+    SpriteEaseBackInOut,
+    SpeedTest,
+    SchedulerTest
+];
+
+var nextEaseActionsTest = function () {
+    sceneIdx++;
+    sceneIdx = sceneIdx % arrayOfEaseActionsTest.length;
+
+    return new arrayOfEaseActionsTest[sceneIdx]();
+};
+var previousEaseActionsTest = function () {
+    sceneIdx--;
+    if (sceneIdx < 0)
+        sceneIdx += arrayOfEaseActionsTest.length;
+
+    return new arrayOfEaseActionsTest[sceneIdx]();
+};
+var restartEaseActionsTest = function () {
+    return new arrayOfEaseActionsTest[sceneIdx]();
+};

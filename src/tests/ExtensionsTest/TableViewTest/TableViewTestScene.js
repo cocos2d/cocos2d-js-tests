@@ -57,7 +57,7 @@ var TableViewTestLayer = cc.Layer.extend({
         var itemBack = cc.MenuItemFont.create("Back", this, this.toExtensionsMainLayer);
         itemBack.setPosition(cc.p(winSize.width - 50, 25));
         var menuBack = cc.Menu.create(itemBack);
-        menuBack.setPosition(cc.PointZero());
+        menuBack.setPosition(cc.p(0,0));
         this.addChild(menuBack);
 
         return true;
@@ -88,13 +88,13 @@ var TableViewTestLayer = cc.Layer.extend({
         if (!cell) {
             cell = new CustomTableViewCell();
             var sprite = cc.Sprite.create(s_image_icon);
-            sprite.setAnchorPoint(cc.PointZero());
+            sprite.setAnchorPoint(cc.p(0,0));
             sprite.setPosition(cc.p(0, 0));
             cell.addChild(sprite);
 
             label = cc.LabelTTF.create(strValue, "Helvetica", 20.0);
-            label.setPosition(cc.PointZero());
-            label.setAnchorPoint(cc.PointZero());
+            label.setPosition(cc.p(0,0));
+            label.setAnchorPoint(cc.p(0,0));
             label.setTag(123);
             cell.addChild(label);
         } else {

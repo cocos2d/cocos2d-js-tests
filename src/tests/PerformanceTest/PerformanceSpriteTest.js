@@ -81,7 +81,7 @@ var SubTest = cc.Class.extend({
             }
             case 4:
             {
-                var idx = parseInt(cc.RANDOM_0_1() * 14) + 1;
+                var idx = parseInt(Math.random() * 14) + 1;
                 idx = idx < 10 ? "0" + idx : idx.toString();
                 var str = "res/Images/grossini_dance_" + idx + ".png";
                 sprite = cc.Sprite.create(str);
@@ -91,7 +91,7 @@ var SubTest = cc.Class.extend({
             case 5:
             case 6:
             {
-                var idx = 0 | (cc.RANDOM_0_1() * 14);
+                var idx = 0 | (Math.random() * 14);
                 var x = (idx % 5) * 85;
                 var y = (0 | (idx / 5)) * 121;
                 sprite = cc.Sprite.createWithTexture(this._batchNode.getTexture(), cc.rect(x, y, 85, 121));
@@ -102,7 +102,7 @@ var SubTest = cc.Class.extend({
             case 7:
             {
                 var y, x;
-                var r = 0 | (cc.RANDOM_0_1() * 64);
+                var r = 0 | (Math.random() * 64);
 
                 y = parseInt(r / 8);
                 x = parseInt(r % 8);
@@ -117,7 +117,7 @@ var SubTest = cc.Class.extend({
             case 9:
             {
                 var y, x;
-                var r = 0 | (cc.RANDOM_0_1() * 64);
+                var r = 0 | (Math.random() * 64);
 
                 y = (0 | (r / 8)) * 32;
                 x = (r % 8) * 32;
@@ -393,7 +393,7 @@ function performanceActions(sprite) {
     sprite.setPosition(cc.p(parseInt(Math.random() * size.width), parseInt(Math.random() * size.height)));
 
     var period = 0.5 + (Math.random() * 1000) / 500.0;
-    var rot = cc.RotateBy.create(period, 360.0 * cc.RANDOM_0_1());
+    var rot = cc.RotateBy.create(period, 360.0 * Math.random());
     var rot_back = rot.reverse();
     var permanentRotation = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back, null));
     sprite.runAction(permanentRotation);
@@ -406,13 +406,13 @@ function performanceActions(sprite) {
 
 function performanceActions20(sprite) {
     var size = cc.Director.getInstance().getWinSize();
-    if (cc.RANDOM_0_1() < 0.2)
+    if (Math.random() < 0.2)
         sprite.setPosition(cc.p(parseInt(Math.random() * size.width), parseInt(Math.random() * size.height)));
     else
         sprite.setPosition(cc.p(-1000, -1000));
 
     var period = 0.5 + (Math.random() * 1000) / 500.0;
-    var rot = cc.RotateBy.create(period, 360.0 * cc.RANDOM_0_1());
+    var rot = cc.RotateBy.create(period, 360.0 * Math.random());
     var rot_back = rot.reverse();
     var permanentRotation = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back, null));
     sprite.runAction(permanentRotation);
@@ -426,8 +426,8 @@ function performanceActions20(sprite) {
 function performanceRotationScale(sprite) {
     var size = cc.Director.getInstance().getWinSize();
     sprite.setPosition(cc.p(parseInt(Math.random() * size.width), parseInt(Math.random() * size.height)));
-    sprite.setRotation(cc.RANDOM_0_1() * 360);
-    sprite.setScale(cc.RANDOM_0_1() * 2);
+    sprite.setRotation(Math.random() * 360);
+    sprite.setScale(Math.random() * 2);
 }
 
 function performancePosition(sprite) {
@@ -438,7 +438,7 @@ function performancePosition(sprite) {
 function performanceout20(sprite) {
     var size = cc.Director.getInstance().getWinSize();
 
-    if (cc.RANDOM_0_1() < 0.2)
+    if (Math.random() < 0.2)
         sprite.setPosition(cc.p(parseInt(Math.random() * size.width), parseInt(Math.random() * size.height)));
     else
         sprite.setPosition(cc.p(-1000, -1000));
@@ -451,7 +451,7 @@ function performanceOut100(sprite) {
 function performanceScale(sprite) {
     var size = cc.Director.getInstance().getWinSize();
     sprite.setPosition(cc.p(parseInt(Math.random() * size.width), parseInt(Math.random() * size.height)));
-    sprite.setScale(cc.RANDOM_0_1() * 100 / 50);
+    sprite.setScale(Math.random() * 100 / 50);
 }
 
 
