@@ -80,7 +80,7 @@ FontTest = cc.Layer.extend({
         var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
 
         var menu = cc.Menu.create(item1, item2, item3, null);
-        menu.setPosition(cc.PointZero());
+        menu.setPosition(cc.p(0,0));
         item1.setPosition(cc.p(size.width / 2 - 100, 30));
         item2.setPosition(cc.p(size.width / 2, 30));
         item3.setPosition(cc.p(size.width / 2 + 100, 30));

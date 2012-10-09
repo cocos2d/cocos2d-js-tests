@@ -85,7 +85,7 @@ var ExtensionsMainLayer = cc.Layer.extend({
         var winSize = cc.Director.getInstance().getWinSize();
 
         var pMenu = cc.Menu.create();
-        pMenu.setPosition(cc.PointZero());
+        pMenu.setPosition(cc.p(0,0));
         cc.MenuItemFont.setFontName("Arial");
         cc.MenuItemFont.setFontSize(24);
         for (var i = 0; i < extensionsTestItemNames.length; ++i){

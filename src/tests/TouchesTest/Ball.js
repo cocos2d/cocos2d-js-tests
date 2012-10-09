@@ -24,7 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 var Ball = cc.Sprite.extend({
-    _velocity:cc.PointZero(),
+    _velocity:cc.p(0,0),
     _radius:0,
     radius:function () {
         return this._radius;

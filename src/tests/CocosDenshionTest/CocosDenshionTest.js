@@ -154,7 +154,7 @@ var DenshionTests = [
 
 CocosDenshionTest = cc.Layer.extend({
     _itmeMenu:null,
-    _beginPos:cc.PointZero(),
+    _beginPos:cc.p(0,0),
     isMouseDown:false,
     _testCount:0,
     ctor:function () {
@@ -169,7 +169,7 @@ CocosDenshionTest = cc.Layer.extend({
         }
         this._testCount = i;
         this._itmeMenu.setContentSize(cc.size(s.width, (this._testCount + 1) * LINE_SPACE));
-        this._itmeMenu.setPosition(cc.PointZero());
+        this._itmeMenu.setPosition(cc.p(0,0));
         this.addChild(this._itmeMenu);
 
         this.setTouchEnabled(true);
@@ -192,7 +192,7 @@ CocosDenshionTest = cc.Layer.extend({
             var nextPos = cc.p(curPos.x, curPos.y + nMoveY);
             var winSize = cc.Director.getInstance().getWinSize();
             if (nextPos.y < 0.0) {
-                this._itmeMenu.setPosition(cc.PointZero());
+                this._itmeMenu.setPosition(cc.p(0,0));
                 return;
             }
 

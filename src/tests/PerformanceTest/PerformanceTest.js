@@ -45,7 +45,7 @@ var PerformanceMainLayer = cc.Layer.extend({
         var s = cc.Director.getInstance().getWinSize();
 
         var menu = cc.Menu.create(null);
-        menu.setPosition(cc.PointZero());
+        menu.setPosition(cc.p(0,0));
         cc.MenuItemFont.setFontName("Arial");
         cc.MenuItemFont.setFontSize(24);
 
@@ -104,7 +104,7 @@ var PerformBasicLayer = cc.Layer.extend({
         var mainItem = cc.MenuItemFont.create("Back", this, this.toMainLayer);
         mainItem.setPosition(cc.p(s.width - 50, 25));
         var menu = cc.Menu.create(mainItem, null);
-        menu.setPosition(cc.PointZero());
+        menu.setPosition(cc.p(0,0));
 
         if (this._controlMenuVisible) {
             var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);

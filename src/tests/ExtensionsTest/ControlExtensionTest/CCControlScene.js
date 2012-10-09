@@ -40,7 +40,7 @@ var ControlScene = cc.Layer.extend({
             var pBackItem = cc.MenuItemFont.create("Back", this,this.toExtensionsMainLayer);
             pBackItem.setPosition(cc.p(screensize.width - 50, 25));
             var pBackMenu = cc.Menu.create(pBackItem);
-            pBackMenu.setPosition( cc.PointZero());
+            pBackMenu.setPosition( cc.p(0,0));
             this.addChild(pBackMenu, 10);
 
             // Add the generated background
@@ -68,7 +68,7 @@ var ControlScene = cc.Layer.extend({
             var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
 
             var menu = cc.Menu.create(item1, item3, item2);
-            menu.setPosition(cc.PointZero());
+            menu.setPosition(cc.p(0,0));
             item1.setPosition(cc.p(screensize.width / 2 - 100, 37));
             item2.setPosition(cc.p(screensize.width / 2, 35));
             item3.setPosition(cc.p(screensize.width / 2 + 100, 37));
