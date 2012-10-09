@@ -161,7 +161,7 @@ var LayerMainMenu = cc.Layer.extend({
         director.pushScene( scene );
     },
     onQuit:function (sender) {
-        cc.Assert(0, "Quit!");
+        cc.log("Quit called");
     }
 });
 
@@ -285,9 +285,10 @@ var MenuLayer3 = cc.Layer.extend({
         item3.setPosition(cc.p(s.width / 2, s.height / 2 - 100));
 
         var jump = cc.JumpBy.create(3, cc.p(400, 0), 50, 4);
-        item2.runAction(cc.RepeatForever.create(
-            (cc.Sequence.create(jump, jump.reverse()))
-        )
+        item2.runAction(
+            cc.RepeatForever.create(
+                cc.Sequence.create(jump, jump.reverse())
+            )
         );
         var spin1 = cc.RotateBy.create(3, 360);
         var spin2 = spin1.copy();
@@ -332,7 +333,7 @@ var MenuLayer4 = cc.Layer.extend({
         var item1 = cc.MenuItemToggle.create(
             cc.MenuItemFont.create("On"),
             cc.MenuItemFont.create("Off") );
-        item1.setCallback( this, this.menuCallback );
+        item1.setCallback( this, this.onMenuCallback );
 
         cc.MenuItemFont.setFontName("American Typewriter");
         cc.MenuItemFont.setFontSize(18);
@@ -349,7 +350,7 @@ var MenuLayer4 = cc.Layer.extend({
             cc.MenuItemFont.create("66%"),
             cc.MenuItemFont.create("On"),
             this,
-            this.menuCallback
+            this.onMenuCallback
             );
 
         cc.MenuItemFont.setFontName("American Typewriter");
@@ -362,7 +363,7 @@ var MenuLayer4 = cc.Layer.extend({
             cc.MenuItemFont.create("High"),
             cc.MenuItemFont.create("Low"),
             this,
-            this.menuCallback
+            this.onMenuCallback
             );
 
         cc.MenuItemFont.setFontName("American Typewriter");
@@ -376,7 +377,7 @@ var MenuLayer4 = cc.Layer.extend({
             cc.MenuItemFont.create("Landscape Right"),
             cc.MenuItemFont.create("Portrait"),
             this,
-            this.menuCallback
+            this.onMenuCallback
             );
 
         // you can change the one of the items by doing this
@@ -386,7 +387,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(34);
 
         var label = cc.LabelBMFont.create("go back", s_bitmapFontTest3_fnt);
-        var back = cc.MenuItemLabel.create(label, this, this.backCallback);
+        var back = cc.MenuItemLabel.create(label, this, this.onBackCallback);
 
         var menu = cc.Menu.create(
             title1, title2,
@@ -399,9 +400,10 @@ var MenuLayer4 = cc.Layer.extend({
 
         this.addChild(menu);
     },
-    menuCallback:function () {
+    onMenuCallback:function (sender) {
+        cc.log("Callback called");
     },
-    backCallback:function (sender) {
+    onBackCallback:function (sender) {
         director.popScene();
     }
 });
