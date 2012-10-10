@@ -600,7 +600,7 @@ var BitmapFontMultiLine = AtlasDemo.extend({
 var LabelsEmpty = AtlasDemo.extend({
     setEmpty:null,
     init:function () {
-        this._super();        
+        this._super();
         var s = director.getWinSize();
 
         // cc.LabelBMFont
@@ -866,9 +866,9 @@ var LabelTTFChinese = AtlasDemo.extend({
     init:function () {
         this._super();
         var size = director.getWinSize();
-        var lable = cc.LabelTTF.create("中国", "Microsoft Yahei", 30);
-        lable.setPosition(cc.p(size.width / 2, size.height / 2));
-        this.addChild(lable);
+        var label = cc.LabelTTF.create("中国", "Microsoft Yahei", 30);
+        label.setPosition(cc.p(size.width / 2, size.height / 2));
+        this.addChild(label);
     },
     title:function () {
         return "Testing cc.LabelTTF with Chinese character";
@@ -879,9 +879,9 @@ var LabelBMFontChinese = AtlasDemo.extend({
     init:function () {
         this._super();
         var size = director.getWinSize();
-        var lable = cc.LabelBMFont.create("中国", "res/fonts/bitmapFontChinese.fnt");
-        lable.setPosition(cc.p(size.width / 2, size.height / 2));
-        this.addChild(lable);
+        var label = cc.LabelBMFont.create("中国", "res/fonts/bitmapFontChinese.fnt");
+        label.setPosition(cc.p(size.width / 2, size.height / 2));
+        this.addChild(label);
     },
     title:function () {
         return "Testing cc.LabelBMFont with Chinese character";
