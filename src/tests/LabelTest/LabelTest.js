@@ -601,28 +601,28 @@ var LabelsEmpty = AtlasDemo.extend({
     setEmpty:null,
     init:function () {
         this._super();
-        var s = director.getWinSize();
+
 
         // cc.LabelBMFont
         var label1 = cc.LabelBMFont.create("", "res/fonts/bitmapFontTest3.fnt");
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
-        label1.setPosition(cc.p(s.width / 2, s.height - 100));
+        label1.setPosition(winSize.width / 2, winSize.height - 100);
 
         // cc.LabelTTF
         var label2 = cc.LabelTTF.create("", "Arial", 24);
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
-        label2.setPosition(cc.p(s.width / 2, s.height / 2));
+        label2.setPosition(winSize.width / 2, winSize.height / 2);
 
         // cc.LabelAtlas
         var label3 = cc.LabelAtlas.create("", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, 32);
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
-        label3.setPosition(cc.p(s.width / 2, 0 + 100));
+        label3.setPosition(winSize.width / 2, 0 + 100);
 
-        this.schedule(this.updateStrings, 1.0);
+        this.schedule(this.onUpdateStrings, 1.0);
 
         this.setEmpty = false;
     },
-    updateStrings:function (dt) {
+    onUpdateStrings:function (dt) {
         var label1 = this.getChildByTag(TAG_BITMAP_ATLAS1);
         var label2 = this.getChildByTag(TAG_BITMAP_ATLAS2);
         var label3 = this.getChildByTag(TAG_BITMAP_ATLAS3);
@@ -1220,6 +1220,7 @@ var LabelTTFAlignment = AtlasDemo.extend({
 // Flow control
 //
 var arrayOfLabelTest = [
+    LabelsEmpty,
 
     LabelAtlasTest,
     LabelAtlasColorTest,
