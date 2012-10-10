@@ -221,12 +221,12 @@ var LabelAtlasColorTest = AtlasDemo.extend({
     time:null,
     init:function () {
         this._super();
-        var label1 = cc.LabelAtlas.create("123 Test", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
+        var label1 = cc.LabelAtlas.create("123 Test", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, 32);
         this.addChild(label1, 0, TAG_LABEL_SPRITE1);
         label1.setPosition(cc.p(10, 100));
         label1.setOpacity(200);
 
-        var label2 = cc.LabelAtlas.create("0123456789", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
+        var label2 = cc.LabelAtlas.create("0123456789", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, 32);
         this.addChild(label2, 0, TAG_LABEL_SPRITE12);
         label2.setPosition(cc.p(10, 200));
         label2.setColor(cc.c3b(255,0,0));
@@ -614,7 +614,7 @@ var LabelsEmpty = AtlasDemo.extend({
         label2.setPosition(cc.p(s.width / 2, s.height / 2));
 
         // cc.LabelAtlas
-        var label3 = cc.LabelAtlas.create("", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
+        var label3 = cc.LabelAtlas.create("", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, 32);
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
         label3.setPosition(cc.p(s.width / 2, 0 + 100));
 
@@ -1126,18 +1126,17 @@ var BMFontOneAtlas = AtlasDemo.extend({
 var BMFontUnicode = AtlasDemo.extend({
     init:function () {
         this._super();
-        var strings = cc.FileUtils.getInstance().dictionaryWithContentsOfFileThreadSafe("res/fonts/strings.xml");
-        var chinese = strings["chinese1"];
-        var japanese = strings["japanese"];
-        var spanish = strings["spanish"];
+        var chinese = "美好的一天";
+        var japanese = "良い一日を";
+        var spanish = "Buen día";
 
         var label1 = cc.LabelBMFont.create(spanish, "res/fonts/arial-unicode-26.fnt", 200, cc.TEXT_ALIGNMENT_LEFT);
         this.addChild(label1);
-        label1.setPosition(cc.p(s.width / 2, s.height / 4));
+        label1.setPosition(winSize.width / 2, winSize.height / 4);
 
         var label2 = cc.LabelBMFont.create(chinese, "res/fonts/arial-unicode-26.fnt");
         this.addChild(label2);
-        label2.setPosition(cc.p(s.width / 2, s.height / 2.2));
+        label2.setPosition(winSize.width / 2, winSize.height / 2.2);
 
         var label3 = cc.LabelBMFont.create(japanese, "res/fonts/arial-unicode-26.fnt");
         this.addChild(label3);
