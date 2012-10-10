@@ -14,6 +14,7 @@ var tests_files = [
 		'ActionsTest.js',
 		'EaseActionsTest.js',
 		'LabelTest.js',
+		'LayerTest.js',
 		'MenuTest.js',
 		'SpriteTest.js'
 	];
