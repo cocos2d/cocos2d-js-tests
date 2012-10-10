@@ -1175,7 +1175,7 @@ var TTFFontInit = AtlasDemo.extend({
     init:function () {
         this._super();
         var font = cc.LabelTTF.create();
-        font.setFontName("Comic Sans MS");
+        font.setFontName("Courier New");
         font.setFontSize(48);
         font.setString("It is working!");
         this.addChild(font);
@@ -1221,6 +1221,7 @@ var LabelTTFAlignment = AtlasDemo.extend({
 // Flow control
 //
 var arrayOfLabelTest = [
+
     LabelAtlasTest,
     LabelAtlasColorTest,
     Atlas3,
