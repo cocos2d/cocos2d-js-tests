@@ -25,54 +25,11 @@
  ****************************************************************************/
 cc.TAG_LAYER = 1;
 
-var LayerTests = [
-    function () {
-        return new LayerTest1();
-    }, //ok
-    function () {
-        return new LayerTest2();
-    }, //ok
-    function () {
-        return new LayerTestBlend();
-    }, //todo fix Inverse color
-    function () {
-        return new LayerGradient();
-    }, //todo fix ccMenuItem
-    function () {
-        return new IgnoreAnchorpointTest1();
-    },
-    function () {
-        return new IgnoreAnchorpointTest2();
-    },
-    function () {
-        return new IgnoreAnchorpointTest3();
-    },
-    function () {
-        return new IgnoreAnchorpointTest4();
-    }
-];
-var s_nLayerTestsIdx = -1;
-function nextLayerTestAction() {
-    ++s_nLayerTestsIdx;
-    s_nLayerTestsIdx = s_nLayerTestsIdx % LayerTests.length;
-    return LayerTests[s_nLayerTestsIdx]();
-}
-function backLayerTestAction() {
-    --s_nLayerTestsIdx;
-    if (s_nLayerTestsIdx < 0) {
-        s_nLayerTestsIdx += LayerTests.length;
-    }
-    return LayerTests[s_nLayerTestsIdx]();
-}
-function restartLayerTestAction() {
-    return LayerTests[s_nLayerTestsIdx]();
-}
-
 var LayerTestScene = TestScene.extend({
     runThisTest:function () {
-        s_nLayerTestsIdx = -1;
-        this.addChild(nextLayerTestAction());
-        cc.Director.getInstance().replaceScene(this);
+        sceneIdx = -1;
+        this.addChild(nextLayerTest());
+        director.replaceScene(this);
     }
 });
 
@@ -83,6 +40,16 @@ var LayerTestScene = TestScene.extend({
 //------------------------------------------------------------------
 var LayerTest = cc.Layer.extend({
     _title:null,
+
+    ctor:function() {
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
+    },
+
+    init:function() {
+        this._super();
+    },
+
     title:function () {
         return "No title";
     },
@@ -91,7 +58,7 @@ var LayerTest = cc.Layer.extend({
     },
     onEnter:function () {
         this._super();
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 32);
         this.addChild(label, 1);
@@ -104,11 +71,11 @@ var LayerTest = cc.Layer.extend({
             l.setPosition(cc.p(s.width / 2, s.height - 80));
         }
 
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.restartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.onBackCallback);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.onRestartCallback);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.onNextCallback);
 
-        var menu = cc.Menu.create(item1, item2, item3, null);
+        var menu = cc.Menu.create(item1, item2, item3);
 
         menu.setPosition(cc.p(0,0));
         item1.setPosition(cc.p(s.width / 2 - 100, 30));
@@ -118,23 +85,22 @@ var LayerTest = cc.Layer.extend({
         this.addChild(menu, 1);
     },
 
-    restartCallback:function (sender) {
+    onRestartCallback:function (sender) {
         var s = new LayerTestScene();
-        s.addChild(restartLayerTestAction());
-
-        cc.Director.getInstance().replaceScene(s);
-
-    },
-    nextCallback:function (sender) {
-        var s = new LayerTestScene();
-        s.addChild(nextLayerTestAction());
-        cc.Director.getInstance().replaceScene(s);
+        s.addChild(restartLayerTest());
+        director.replaceScene(s);
 
     },
-    backCallback:function (sender) {
+    onNextCallback:function (sender) {
         var s = new LayerTestScene();
-        s.addChild(backLayerTestAction());
-        cc.Director.getInstance().replaceScene(s);
+        s.addChild(nextLayerTest());
+        director.replaceScene(s);
+
+    },
+    onBackCallback:function (sender) {
+        var s = new LayerTestScene();
+        s.addChild(previousLayerTest());
+        director.replaceScene(s);
 
     }
 });
@@ -147,9 +113,18 @@ var LayerTest = cc.Layer.extend({
 var LayerTest1 = LayerTest.extend({
     onEnter:function () {
         this._super();
-        this.setTouchEnabled(true);
 
-        var s = cc.Director.getInstance().getWinSize();
+        var t = cc.config.deviceType;
+        if( t == 'browser' )  {
+            this.setTouchEnabled(true);
+            // this.setKeyboardEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
+        } else if( t == 'mobile' ) {
+            this.setTouchEnabled(true);
+        }
+
+        var s = director.getWinSize();
         var layer = cc.LayerColor.create(cc.c4b(255, 0, 0, 128), 200, 200);
 
         layer.ignoreAnchorPointForPosition(false);
@@ -160,31 +135,21 @@ var LayerTest1 = LayerTest.extend({
         return "ColorLayer resize (tap & move)";
     },
 
-    registerWithTouchDispatcher:function () {
-        cc.Director.getInstance().getTouchDispatcher().addTargetedDelegate(this, cc.MENU_HANDLER_PRIORITY + 1, true);
-    },
-    updateSize:function (touch) {
-        var touchLocation = touch.getLocation();
-        touchLocation = cc.Director.getInstance().convertToGL(touchLocation);
-
-        var s = cc.Director.getInstance().getWinSize();
-
-        var newSize = cc.size(Math.abs(touchLocation.x - s.width / 2) * 2, Math.abs(touchLocation.y - s.height / 2) * 2);
-
+    updateSize:function (location) {
+        var newSize = cc.size(Math.abs(location.x - winSize.width / 2) * 2, Math.abs(location.y - winSize.height / 2) * 2);
         var l = this.getChildByTag(cc.TAG_LAYER);
 
         l.setContentSize(newSize);
     },
 
-    onTouchBegan:function (touch, event) {
-        this.updateSize(touch);
+    // events
+    onMouseDragged : function( event ) {
+        var location = event.getLocation();
+        this.updateSize(location);
         return true;
     },
-    onTouchMoved:function (touch, event) {
-        this.updateSize(touch);
-    },
-    onTouchEnded:function (touch, event) {
-        this.updateSize(touch);
+    onTouchesMoved:function (touches, event) {
+        this.updateSize( touches[0].getLocation() );
     }
 });
 
@@ -192,7 +157,7 @@ var IgnoreAnchorpointTest1 = LayerTest.extend({
     onEnter:function () {
         this._super();
         //create layer
-        var ws = cc.Director.getInstance().getWinSize();
+        var ws = director.getWinSize();
         var layer1 = cc.LayerColor.create(cc.c4b(255, 100, 100, 128), ws.width / 2, ws.height / 2);
         layer1.ignoreAnchorPointForPosition(true);
         var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
@@ -212,7 +177,7 @@ var IgnoreAnchorpointTest2 = LayerTest.extend({
     onEnter:function () {
         this._super();
         //create layer
-        var ws = cc.Director.getInstance().getWinSize();
+        var ws = director.getWinSize();
         var layer1 = cc.LayerColor.create(cc.c4b(255, 100, 100, 128), ws.width / 2, ws.height / 2);
         layer1.ignoreAnchorPointForPosition(true);
         var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
@@ -232,7 +197,7 @@ var IgnoreAnchorpointTest3 = LayerTest.extend({
     onEnter:function () {
         this._super();
         //create layer
-        var ws = cc.Director.getInstance().getWinSize();
+        var ws = director.getWinSize();
         var layer1 = cc.LayerColor.create(cc.c4b(255, 100, 100, 128), ws.width / 2, ws.height / 2);
         layer1.ignoreAnchorPointForPosition(false);
         var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
@@ -252,7 +217,7 @@ var IgnoreAnchorpointTest4 = LayerTest.extend({
     onEnter:function () {
         this._super();
         //create layer
-        var ws = cc.Director.getInstance().getWinSize();
+        var ws = director.getWinSize();
         var layer1 = cc.LayerColor.create(cc.c4b(255, 100, 100, 128), ws.width / 2, ws.height / 2);
         layer1.ignoreAnchorPointForPosition(false);
         var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
@@ -278,7 +243,7 @@ var LayerTest2 = LayerTest.extend({
     onEnter:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
         var layer1 = cc.LayerColor.create(cc.c4b(255, 255, 0, 80), 100, 300);
         layer1.setPosition(cc.p(s.width / 3, s.height / 2));
         layer1.ignoreAnchorPointForPosition(false);
@@ -291,12 +256,12 @@ var LayerTest2 = LayerTest.extend({
 
         var actionTint = cc.TintBy.create(2, -255, -127, 0);
         var actionTintBack = actionTint.reverse();
-        var seq1 = cc.Sequence.create(actionTint, actionTintBack, null);
+        var seq1 = cc.Sequence.create(actionTint, actionTintBack);
         layer1.runAction(seq1);
 
         var actionFade = cc.FadeOut.create(2.0);
         var actionFadeBack = actionFade.reverse();
-        var seq2 = cc.Sequence.create(actionFade, actionFadeBack, null);
+        var seq2 = cc.Sequence.create(actionFade, actionFadeBack);
         layer2.runAction(seq2);
     },
     title:function () {
@@ -310,8 +275,10 @@ var LayerTest2 = LayerTest.extend({
 //
 //------------------------------------------------------------------
 var LayerTestBlend = LayerTest.extend({
-    ctor:function () {
-        var s = cc.Director.getInstance().getWinSize();
+    _blend:true,
+
+    init:function () {
+        this._super();
         var layer1 = cc.LayerColor.create(cc.c4b(255, 255, 255, 80));
 
         var sister1 = cc.Sprite.create(s_pathSister1);
@@ -321,26 +288,27 @@ var LayerTestBlend = LayerTest.extend({
         this.addChild(sister2);
         this.addChild(layer1, 100, cc.TAG_LAYER);
 
-        sister1.setPosition(cc.p(160, s.height / 2));
-        sister2.setPosition(cc.p(320, s.height / 2));
+        sister1.setPosition(cc.p(160, winSize.height / 2));
+        sister2.setPosition(cc.p(320, winSize.height / 2));
 
-        this.schedule(this.newBlend, 1.0);
+        this.schedule(this.onNewBlend, 1.0);
+        this._blend = true;
     },
-    newBlend:function (dt) {
+    onNewBlend:function (dt) {
         var layer = this.getChildByTag(cc.TAG_LAYER);
 
         var src;
         var dst;
 
-        if (layer.getBlendFunc().dst == gl.ZERO) {
-            src = gl.BLEND_SRC;
-            dst = gl.BLEND_DST;
-        }
-        else {
+        if (this._blend) {
+            src = gl.SRC_ALPHA;
+            dst = gl.ONE_MINUS_SRC_ALPHA;
+        } else {
             src = gl.ONE_MINUS_DST_COLOR;
             dst = gl.ZERO;
         }
         layer.setBlendFunc( src, dst );
+        this._blend = ! this._blend;
     },
     title:function () {
         return "ColorLayer: blend";
@@ -353,53 +321,85 @@ var LayerTestBlend = LayerTest.extend({
 //
 //------------------------------------------------------------------
 var LayerGradient = LayerTest.extend({
-    ctor:function () {
+    init:function () {
+        this._super();
         var layer1 = cc.LayerGradient.create(cc.c4b(255, 0, 0, 255), cc.c4b(0, 255, 0, 255), cc.p(0.9, 0.9));
         this.addChild(layer1, 0, cc.TAG_LAYER);
 
-        this.setTouchEnabled(true);
+        var t = cc.config.deviceType;
+        if( t == 'browser' )  {
+            this.setTouchEnabled(true);
+            // this.setKeyboardEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
+        } else if( t == 'mobile' ) {
+            this.setTouchEnabled(true);
+        }
 
-        /*var label1 = cc.LabelTTF.create("Compressed Interpolation: Enabled", "Marker Felt", 26);
-         var label2 = cc.LabelTTF.create("Compressed Interpolation: Disabled", "Marker Felt", 26);
-         var item1 = cc.MenuItemLabel.create(label1);
-         var item2 = cc.MenuItemLabel.create(label2);
-         var item = cc.MenuItemToggle.create(this, this.toggleItem, item1, item2, null);
+        var label1 = cc.LabelTTF.create("Compressed Interpolation: Enabled", "Marker Felt", 26);
+        var label2 = cc.LabelTTF.create("Compressed Interpolation: Disabled", "Marker Felt", 26);
+        var item1 = cc.MenuItemLabel.create(label1);
+        var item2 = cc.MenuItemLabel.create(label2);
+        var item = cc.MenuItemToggle.create(item1, item2, this, this.onToggleItem);
 
-         var menu = cc.Menu.create(item, null);
+         var menu = cc.Menu.create(item);
          this.addChild(menu);
-         var s = cc.Director.getInstance().getWinSize();
-         menu.setPosition(cc.p(s.width / 2, 100));*/
+         menu.setPosition(cc.p(winSize.width / 2, 100) );
     },
-    prevLocation:null,
-    registerWithTouchDispatcher:function () {
-        cc.Director.getInstance().getTouchDispatcher().addTargetedDelegate(this, 0, true);
-    },
-    onTouchBegan:function (touch, event) {
-        return true;
-    },
-    onTouchEnded:function (touch, event) {
-        this.prevLocation = null;
-    },
-    onTouchCancelled:function (touch, event) {
-    },
-    onTouchMoved:function (touch, event) {
-        var s = cc.Director.getInstance().getWinSize();
-        var start = touch.getLocation();
 
-        var diff = cc.pSub(cc.p(s.width / 2, s.height / 2), start);
+    updateGradient:function(pos) {
+        var diff = cc.pSub(cc.p(winSize.width / 2, winSize.height / 2), pos);
         diff = cc.pNormalize(diff);
 
         var gradient = this.getChildByTag(1);
         gradient.setVector(diff);
     },
+    onTouchesMoved:function (touches, event) {
+        var start = touches[0].getLocation();
+        this.updateGradient(start);
+    },
+    onMouseDragged : function( event ) {
+        var location = event.getLocation();
+        this.updateGradient(location);
+        return true;
+    },
+    onToggleItem:function (sender) {
+        var gradient = this.getChildByTag(cc.TAG_LAYER);
+        gradient.setCompressedInterpolation(!gradient.isCompressedInterpolation());
+    },
+
     title:function () {
         return "LayerGradient";
     },
     subtitle:function () {
         return "Touch the screen and move your finger";
-    },
-    toggleItem:function (sender) {
-        var gradient = this.getChildByTag(cc.TAG_LAYER);
-        gradient.setCompressedInterpolation(!gradient.isCompressedInterpolation());
     }
 });
+
+var arrayOfLayerTest = [
+    LayerTest1,
+    LayerTest2,
+    LayerTestBlend,
+    LayerGradient,
+    IgnoreAnchorpointTest1,
+    IgnoreAnchorpointTest2,
+    IgnoreAnchorpointTest3,
+    IgnoreAnchorpointTest4
+];
+
+var nextLayerTest = function () {
+    sceneIdx++;
+    sceneIdx = sceneIdx % arrayOfLayerTest.length;
+
+    return new arrayOfLayerTest[sceneIdx]();
+};
+var previousLayerTest = function () {
+    sceneIdx--;
+    if (sceneIdx < 0)
+        sceneIdx += arrayOfLayerTest.length;
+
+    return new arrayOfLayerTest[sceneIdx]();
+};
+var restartLayerTest = function () {
+    return new arrayOfLayerTest[sceneIdx]();
+};
