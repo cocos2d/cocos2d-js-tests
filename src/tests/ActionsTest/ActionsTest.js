@@ -673,8 +673,8 @@ var ActionCallFuncND = ActionsDemo.extend({
         this._grossini.runAction(action);
     },
 
-    removeFromParentAndCleanup:function (pSender, data) {
-        pSender.removeFromParentAndCleanup(data);
+    removeFromParentAndCleanup:function (nodeExecutingAction, data) {
+        nodeExecutingAction.removeFromParentAndCleanup(data);
     },
 
     title:function () {

@@ -14,6 +14,8 @@ var tests_files = [
 		'ActionsTest.js',
 		'EaseActionsTest.js',
 		'LabelTest.js',
+		'LayerTest.js',
+		'MenuTest.js',
 		'SpriteTest.js'
 	];
 for( var i=0; i < tests_files.length; i++) {
