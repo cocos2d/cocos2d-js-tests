@@ -254,6 +254,11 @@ var ParticleDemo = cc.Layer.extend({
         this._shapeModeButton.setPosition(cc.p(10, 100));
         this._shapeModeButton.setAnchorPoint(cc.p(0, 0));
 
+        if( cc.config.deviceType != "browser" ) {
+            // Shape type is not compatible with JSB
+            this._shapeModeButton.setEnabled(false);
+        }
+
         var spriteNormal_t = cc.Sprite.create(s_textureModeMenuItem, cc.rect(0, 23 * 2, 115, 23));
         var spriteSelected_t = cc.Sprite.create(s_textureModeMenuItem, cc.rect(0, 23, 115, 23));
         var spriteDisabled_t = cc.Sprite.create(s_textureModeMenuItem, cc.rect(0, 0, 115, 23));
@@ -337,8 +342,6 @@ var ParticleDemo = cc.Layer.extend({
     onTouchesEnded: function(touches, event) {
         if( touches.length > 0 ) {
             var location = touches[0].getLocation();
-            //CCPoint convertedLocation = CCDirector::getInstance().convertToGL(location);
-
             var pos = cc.p(0,0);
             if (this._background) {
                 pos = this._background.convertToWorldSpace(cc.p(0,0));
@@ -346,7 +349,15 @@ var ParticleDemo = cc.Layer.extend({
             this._emitter.setPosition(cc.pSub(location, pos));
         }
     },
-
+    onMouseDragged : function( event ) {
+        var location = event.getLocation();
+        var pos = cc.p(0,0);
+        if (this._background) {
+            pos = this._background.convertToWorldSpace(cc.p(0,0));
+        }
+        this._emitter.setPosition(cc.pSub(location, pos));
+        return true;
+    },
     step:function (dt) {
         if (this._emitter) {
             var atlas = this.getChildByTag(TAG_LABEL_ATLAS);
@@ -367,8 +378,8 @@ var DemoFirework = ParticleDemo.extend({
         this._background.addChild(this._emitter, 10);
         var myTexture = cc.TextureCache.getInstance().addImage(s_stars1);
         this._emitter.setTexture(myTexture);
-	if(this._emitter.setShapeType)
-        this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
         this.setEmitterPosition();
     },
     title:function () {
@@ -384,8 +395,8 @@ var DemoFire = ParticleDemo.extend({
         this._background.addChild(this._emitter, 10);
 
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_fire));//.pvr"];
-	if(this._emitter.setShapeType)
-        this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
         var p = this._emitter.getPosition();
         this._emitter.setPosition(cc.p(p.x, 100));
 
@@ -404,8 +415,8 @@ var DemoSun = ParticleDemo.extend({
         this._background.addChild(this._emitter, 10);
         var myTexture = cc.TextureCache.getInstance().addImage(s_fire);
         this._emitter.setTexture(myTexture);
-	if(this._emitter.setShapeType)
-        this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
 
         this.setEmitterPosition();
     },
