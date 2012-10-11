@@ -381,26 +381,23 @@ var ActionBezier = ActionsDemo.extend({
         this.centerSprites(3);
 
         // sprite 1
-        var bezier = new cc.BezierConfig();
-        bezier.controlPoint_1 = cc.p(0, s.height / 2);
-        bezier.controlPoint_2 = cc.p(300, -s.height / 2);
-        bezier.endPosition = cc.p(300, 100);
+        var controlPoints = [ cc.p(0, s.height / 2),
+                                cc.p(300, -s.height / 2),
+                                cc.p(300, 100) ];
 
-        var bezierForward = cc.BezierBy.create(3, bezier);
+        var bezierForward = cc.BezierBy.create(3, controlPoints);
         var rep = cc.RepeatForever.create(cc.Sequence.create(bezierForward, bezierForward.reverse()));
 
         // sprite 2
         this._tamara.setPosition(cc.p(80, 160));
-        var bezier2 = new cc.BezierConfig();
-        bezier2.controlPoint_1 = cc.p(100, s.height / 2);
-        bezier2.controlPoint_2 = cc.p(200, -s.height / 2);
-        bezier2.endPosition = cc.p(240, 160);
-
-        var bezierTo1 = cc.BezierTo.create(2, bezier2);
+        var controlPoints2 = [ cc.p(100, s.height / 2),
+                                cc.p(200, -s.height / 2),
+                                cc.p(240, 160) ];
+        var bezierTo1 = cc.BezierTo.create(2, controlPoints2);
 
         // sprite 3
         this._kathia.setPosition(cc.p(400, 160));
-        var bezierTo2 = cc.BezierTo.create(2, bezier2);
+        var bezierTo2 = cc.BezierTo.create(2, controlPoints2);
 
         this._grossini.runAction(rep);
         this._tamara.runAction(bezierTo1);
@@ -977,7 +974,7 @@ var ActionFollow = ActionsDemo.extend({
 var ActionCardinalSpline = ActionsDemo.extend({
     _array:null,
     ctor:function () {
-        this._array = new cc.PointArray();
+        this._array = [];
     },
 
     onEnter:function () {
@@ -985,15 +982,13 @@ var ActionCardinalSpline = ActionsDemo.extend({
 
         this.centerSprites(2);
 
-        var winSize = director.getWinSize();
-
-        var array = cc.PointArray.create();
-
-        array.addControlPoint(cc.p(0, 0));
-        array.addControlPoint(cc.p(winSize.width / 2 - 30, 0));
-        array.addControlPoint(cc.p(winSize.width / 2 - 30, winSize.height - 80));
-        array.addControlPoint(cc.p(0, winSize.height - 80));
-        array.addControlPoint(cc.p(0, 0));
+        var array = [
+            cc.p(0, 0),
+            cc.p(winSize.width / 2 - 30, 0),
+            cc.p(winSize.width / 2 - 30, winSize.height - 80),
+            cc.p(0, winSize.height - 80),
+            cc.p(0, 0)
+            ];
 
         //
         // sprite 1 (By)
@@ -1056,8 +1051,8 @@ var ActionCatmullRom = ActionsDemo.extend({
     _array1:null,
     _array2:null,
     ctor:function () {
-        this._array1 = new cc.PointArray();
-        this._array2 = new cc.PointArray();
+        this._array1 = [];
+        this._array2 = [];
     },
 
     onEnter:function () {
@@ -1074,14 +1069,15 @@ var ActionCatmullRom = ActionsDemo.extend({
         //
         this._tamara.setPosition(cc.p(50, 50));
 
-        var array = cc.PointArray.create();
-        array.addControlPoint(cc.p(0, 0));
-        array.addControlPoint(cc.p(80, 80));
-        array.addControlPoint(cc.p(winSize.width - 80, 80));
-        array.addControlPoint(cc.p(winSize.width - 80, winSize.height - 80));
-        array.addControlPoint(cc.p(80, winSize.height - 80));
-        array.addControlPoint(cc.p(80, 80));
-        array.addControlPoint(cc.p(winSize.width / 2, winSize.height / 2));
+        var array = [
+                cc.p(0, 0),
+                cc.p(80, 80),
+                cc.p(winSize.width - 80, 80),
+                cc.p(winSize.width - 80, winSize.height - 80),
+                cc.p(80, winSize.height - 80),
+                cc.p(80, 80),
+                cc.p(winSize.width / 2, winSize.height / 2)
+                ];
 
         var action1 = cc.CatmullRomBy.create(3, array);
         var reverse1 = action1.reverse();
@@ -1095,13 +1091,12 @@ var ActionCatmullRom = ActionsDemo.extend({
         // The startPosition is not important here, because it uses a "To" action.
         // The initial position will be the 1st point of the Catmull Rom path
         //
-        var array2 = cc.PointArray.create();
-
-        array2.addControlPoint(cc.p(winSize.width / 2, 30));
-        array2.addControlPoint(cc.p(winSize.width - 80, 30));
-        array2.addControlPoint(cc.p(winSize.width - 80, winSize.height - 80));
-        array2.addControlPoint(cc.p(winSize.width / 2, winSize.height - 80));
-        array2.addControlPoint(cc.p(winSize.width / 2, 30));
+        var array2 = [
+            cc.p(winSize.width / 2, 30),
+            cc.p(winSize.width - 80, 30),
+            cc.p(winSize.width - 80, winSize.height - 80),
+            cc.p(winSize.width / 2, winSize.height - 80),
+            cc.p(winSize.width / 2, 30) ];
 
         var action2 = cc.CatmullRomTo.create(3, array2);
         var reverse2 = action2.reverse();
@@ -1372,6 +1367,10 @@ var Issue1327 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
+
+    ActionBezier,
+    ActionCardinalSpline,
+    ActionCatmullRom,
 
     ActionManual,
     ActionMove,
