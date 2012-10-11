@@ -381,26 +381,28 @@ var ActionBezier = ActionsDemo.extend({
         this.centerSprites(3);
 
         // sprite 1
-        var bezier = new cc.BezierConfig();
-        bezier.controlPoint_1 = cc.p(0, s.height / 2);
-        bezier.controlPoint_2 = cc.p(300, -s.height / 2);
-        bezier.endPosition = cc.p(300, 100);
 
-        var bezierForward = cc.BezierBy.create(3, bezier);
+        // 3 and only 3 control points should be used for Bezier actions.
+        var controlPoints = [ cc.p(0, s.height / 2),
+                                cc.p(300, -s.height / 2),
+                                cc.p(300, 100) ];
+
+        var bezierForward = cc.BezierBy.create(3, controlPoints);
         var rep = cc.RepeatForever.create(cc.Sequence.create(bezierForward, bezierForward.reverse()));
 
         // sprite 2
-        this._tamara.setPosition(cc.p(80, 160));
-        var bezier2 = new cc.BezierConfig();
-        bezier2.controlPoint_1 = cc.p(100, s.height / 2);
-        bezier2.controlPoint_2 = cc.p(200, -s.height / 2);
-        bezier2.endPosition = cc.p(240, 160);
+        this._tamara.setPosition(80, 160);
 
-        var bezierTo1 = cc.BezierTo.create(2, bezier2);
+        // 3 and only 3 control points should be used for Bezier actions.
+        var controlPoints2 = [ cc.p(100, s.height / 2),
+                                cc.p(200, -s.height / 2),
+                                cc.p(240, 160) ];
+        var bezierTo1 = cc.BezierTo.create(2, controlPoints2);
 
-        // sprite 3
-        this._kathia.setPosition(cc.p(400, 160));
-        var bezierTo2 = cc.BezierTo.create(2, bezier2);
+        // // sprite 3
+        var controlPoints3 = controlPoints2.slice();
+        this._kathia.setPosition(400, 160);
+        var bezierTo2 = cc.BezierTo.create(2, controlPoints3);
 
         this._grossini.runAction(rep);
         this._tamara.runAction(bezierTo1);
@@ -571,30 +573,30 @@ var ActionSequence2 = ActionsDemo.extend({
             cc.Place.create(cc.p(200, 200)),
             cc.Show.create(),
             cc.MoveBy.create(1, cc.p(100, 0)),
-            cc.CallFunc.create(this, this.callback1),
-            cc.CallFunc.create(this, this.callback2),
-            cc.CallFunc.create(this, this.callback3));
+            cc.CallFunc.create(this, this.onCallback1),
+            cc.CallFunc.create(this, this.onCallback2),
+            cc.CallFunc.create(this, this.onCallback3));
         this._grossini.runAction(action);
 
     },
-    callback1:function () {
+    onCallback1:function () {
         var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 1 called", "Marker Felt", 16);
-        label.setPosition(cc.p(s.width / 4 * 1, s.height / 2));
+        label.setPosition(s.width / 4 * 1, s.height / 2);
 
         this.addChild(label);
     },
-    callback2:function () {
+    onCallback2:function () {
         var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 2 called", "Marker Felt", 16);
-        label.setPosition(cc.p(s.width / 4 * 2, s.height / 2));
+        label.setPosition(s.width / 4 * 2, s.height / 2);
 
         this.addChild(label);
     },
-    callback3:function () {
+    onCallback3:function () {
         var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 3 called", "Marker Felt", 16);
-        label.setPosition(cc.p(s.width / 4 * 3, s.height / 2));
+        label.setPosition(s.width / 4 * 3, s.height / 2);
 
         this.addChild(label);
     },
@@ -614,19 +616,19 @@ var ActionCallFunc = ActionsDemo.extend({
 
         var action = cc.Sequence.create(
             cc.MoveBy.create(2, cc.p(200, 0)),
-            cc.CallFunc.create(this, this.callback1)
+            cc.CallFunc.create(this, this.onCallback1)
         );
 
         var action2 = cc.Sequence.create(
             cc.ScaleBy.create(2, 2),
             cc.FadeOut.create(2),
-            cc.CallFunc.create(this, this.callback2)
+            cc.CallFunc.create(this, this.onCallback2)
         );
 
         var action3 = cc.Sequence.create(
             cc.RotateBy.create(3, 360),
             cc.FadeOut.create(2),
-            cc.CallFunc.create(this, this.callback3, 0xbebabeba)
+            cc.CallFunc.create(this, this.onCallback3, 0xbebabeba)
         );
 
         this._grossini.runAction(action);
@@ -634,23 +636,23 @@ var ActionCallFunc = ActionsDemo.extend({
         this._kathia.runAction(action3);
 
     },
-    callback1:function () {
+    onCallback1:function () {
         var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 1 called", "Marker Felt", 16);
-        label.setPosition(cc.p(s.width / 4 * 1, s.height / 2));
+        label.setPosition(s.width / 4 * 1, s.height / 2);
         this.addChild(label);
     },
-    callback2:function () {
+    onCallback2:function () {
         var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 2 called", "Marker Felt", 16);
-        label.setPosition(cc.p(s.width / 4 * 2, s.height / 2));
+        label.setPosition(s.width / 4 * 2, s.height / 2);
 
         this.addChild(label);
     },
-    callback3:function () {
+    onCallback3:function () {
         var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 3 called", "Marker Felt", 16);
-        label.setPosition(cc.p(s.width / 4 * 3, s.height / 2));
+        label.setPosition(s.width / 4 * 3, s.height / 2);
         this.addChild(label);
     },
     subtitle:function () {
@@ -976,8 +978,9 @@ var ActionFollow = ActionsDemo.extend({
 //------------------------------------------------------------------
 var ActionCardinalSpline = ActionsDemo.extend({
     _array:null,
-    ctor:function () {
-        this._array = new cc.PointArray();
+    init:function () {
+        this._super();
+        this._array = [];
     },
 
     onEnter:function () {
@@ -985,15 +988,13 @@ var ActionCardinalSpline = ActionsDemo.extend({
 
         this.centerSprites(2);
 
-        var winSize = director.getWinSize();
-
-        var array = cc.PointArray.create();
-
-        array.addControlPoint(cc.p(0, 0));
-        array.addControlPoint(cc.p(winSize.width / 2 - 30, 0));
-        array.addControlPoint(cc.p(winSize.width / 2 - 30, winSize.height - 80));
-        array.addControlPoint(cc.p(0, winSize.height - 80));
-        array.addControlPoint(cc.p(0, 0));
+        var array = [
+            cc.p(0, 0),
+            cc.p(winSize.width / 2 - 30, 0),
+            cc.p(winSize.width / 2 - 30, winSize.height - 80),
+            cc.p(0, winSize.height - 80),
+            cc.p(0, 0)
+            ];
 
         //
         // sprite 1 (By)
@@ -1023,6 +1024,8 @@ var ActionCardinalSpline = ActionsDemo.extend({
     },
 
     draw:function (ctx) {
+        // Draw is only supported in cocos2d-html5.
+        // Not supported yet on cocos2d-iphone / cocos2d-x + JSB
         this._super();
 
         var context = ctx || cc.renderContext;
@@ -1055,16 +1058,17 @@ var ActionCardinalSpline = ActionsDemo.extend({
 var ActionCatmullRom = ActionsDemo.extend({
     _array1:null,
     _array2:null,
-    ctor:function () {
-        this._array1 = new cc.PointArray();
-        this._array2 = new cc.PointArray();
+    
+    init:function () {
+        this._super();
+        this._array1 = [];
+        this._array2 = [];
     },
 
     onEnter:function () {
         this._super();
 
         this.centerSprites(2);
-        var winSize = director.getWinSize();
 
         //
         // sprite 1 (By)
@@ -1074,14 +1078,15 @@ var ActionCatmullRom = ActionsDemo.extend({
         //
         this._tamara.setPosition(cc.p(50, 50));
 
-        var array = cc.PointArray.create();
-        array.addControlPoint(cc.p(0, 0));
-        array.addControlPoint(cc.p(80, 80));
-        array.addControlPoint(cc.p(winSize.width - 80, 80));
-        array.addControlPoint(cc.p(winSize.width - 80, winSize.height - 80));
-        array.addControlPoint(cc.p(80, winSize.height - 80));
-        array.addControlPoint(cc.p(80, 80));
-        array.addControlPoint(cc.p(winSize.width / 2, winSize.height / 2));
+        var array = [
+                cc.p(0, 0),
+                cc.p(80, 80),
+                cc.p(winSize.width - 80, 80),
+                cc.p(winSize.width - 80, winSize.height - 80),
+                cc.p(80, winSize.height - 80),
+                cc.p(80, 80),
+                cc.p(winSize.width / 2, winSize.height / 2)
+                ];
 
         var action1 = cc.CatmullRomBy.create(3, array);
         var reverse1 = action1.reverse();
@@ -1095,13 +1100,12 @@ var ActionCatmullRom = ActionsDemo.extend({
         // The startPosition is not important here, because it uses a "To" action.
         // The initial position will be the 1st point of the Catmull Rom path
         //
-        var array2 = cc.PointArray.create();
-
-        array2.addControlPoint(cc.p(winSize.width / 2, 30));
-        array2.addControlPoint(cc.p(winSize.width - 80, 30));
-        array2.addControlPoint(cc.p(winSize.width - 80, winSize.height - 80));
-        array2.addControlPoint(cc.p(winSize.width / 2, winSize.height - 80));
-        array2.addControlPoint(cc.p(winSize.width / 2, 30));
+        var array2 = [
+            cc.p(winSize.width / 2, 30),
+            cc.p(winSize.width - 80, 30),
+            cc.p(winSize.width - 80, winSize.height - 80),
+            cc.p(winSize.width / 2, winSize.height - 80),
+            cc.p(winSize.width / 2, 30) ];
 
         var action2 = cc.CatmullRomTo.create(3, array2);
         var reverse2 = action2.reverse();
@@ -1114,6 +1118,8 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._array2 = array2;
     },
     draw:function (ctx) {
+        // Draw is only supported in cocos2d-html5.
+        // Not supported yet on cocos2d-iphone / cocos2d-x + JSB
         this._super();
         var context = ctx || cc.renderContext;
 
@@ -1372,7 +1378,6 @@ var Issue1327 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
-
     ActionManual,
     ActionMove,
     ActionScale,

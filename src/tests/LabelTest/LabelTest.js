@@ -201,7 +201,7 @@ var LabelAtlasTest = AtlasDemo.extend({
         label1.setString(string1);
 
         var label2 = this.getChildByTag(TAG_LABEL_SPRITE12);
-        var string2 = parseInt(this.time).toString();
+        var string2 = parseInt(this.time,10).toString();
         label2.setString(string2);
     },
     title:function () {
@@ -221,12 +221,12 @@ var LabelAtlasColorTest = AtlasDemo.extend({
     time:null,
     init:function () {
         this._super();
-        var label1 = cc.LabelAtlas.create("123 Test", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
+        var label1 = cc.LabelAtlas.create("123 Test", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' '.charCodeAt(0));
         this.addChild(label1, 0, TAG_LABEL_SPRITE1);
         label1.setPosition(cc.p(10, 100));
         label1.setOpacity(200);
 
-        var label2 = cc.LabelAtlas.create("0123456789", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
+        var label2 = cc.LabelAtlas.create("0123456789", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' '.charCodeAt(0));
         this.addChild(label2, 0, TAG_LABEL_SPRITE12);
         label2.setPosition(cc.p(10, 200));
         label2.setColor(cc.c3b(255,0,0));
@@ -248,7 +248,7 @@ var LabelAtlasColorTest = AtlasDemo.extend({
         label1.setString(string1);
 
         var label2 = this.getChildByTag(TAG_LABEL_SPRITE12);
-        var string2 = parseInt(this.time).toString();
+        var string2 = parseInt(this.time,10).toString();
         label2.setString(string2);
     },
     title:function () {
@@ -600,29 +600,29 @@ var BitmapFontMultiLine = AtlasDemo.extend({
 var LabelsEmpty = AtlasDemo.extend({
     setEmpty:null,
     init:function () {
-        this._super();        
-        var s = director.getWinSize();
+        this._super();
+
 
         // cc.LabelBMFont
         var label1 = cc.LabelBMFont.create("", "res/fonts/bitmapFontTest3.fnt");
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
-        label1.setPosition(cc.p(s.width / 2, s.height - 100));
+        label1.setPosition(winSize.width / 2, winSize.height - 100);
 
         // cc.LabelTTF
         var label2 = cc.LabelTTF.create("", "Arial", 24);
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
-        label2.setPosition(cc.p(s.width / 2, s.height / 2));
+        label2.setPosition(winSize.width / 2, winSize.height / 2);
 
         // cc.LabelAtlas
-        var label3 = cc.LabelAtlas.create("", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
+        var label3 = cc.LabelAtlas.create("", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' '.charCodeAt(0));
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
-        label3.setPosition(cc.p(s.width / 2, 0 + 100));
+        label3.setPosition(winSize.width / 2, 0 + 100);
 
-        this.schedule(this.updateStrings, 1.0);
+        this.schedule(this.onUpdateStrings, 1.0);
 
         this.setEmpty = false;
     },
-    updateStrings:function (dt) {
+    onUpdateStrings:function (dt) {
         var label1 = this.getChildByTag(TAG_BITMAP_ATLAS1);
         var label2 = this.getChildByTag(TAG_BITMAP_ATLAS2);
         var label3 = this.getChildByTag(TAG_BITMAP_ATLAS3);
@@ -866,9 +866,9 @@ var LabelTTFChinese = AtlasDemo.extend({
     init:function () {
         this._super();
         var size = director.getWinSize();
-        var lable = cc.LabelTTF.create("中国", "Microsoft Yahei", 30);
-        lable.setPosition(cc.p(size.width / 2, size.height / 2));
-        this.addChild(lable);
+        var label = cc.LabelTTF.create("中国", "Microsoft Yahei", 30);
+        label.setPosition(cc.p(size.width / 2, size.height / 2));
+        this.addChild(label);
     },
     title:function () {
         return "Testing cc.LabelTTF with Chinese character";
@@ -879,9 +879,9 @@ var LabelBMFontChinese = AtlasDemo.extend({
     init:function () {
         this._super();
         var size = director.getWinSize();
-        var lable = cc.LabelBMFont.create("中国", "res/fonts/bitmapFontChinese.fnt");
-        lable.setPosition(cc.p(size.width / 2, size.height / 2));
-        this.addChild(lable);
+        var label = cc.LabelBMFont.create("中国", "res/fonts/bitmapFontChinese.fnt");
+        label.setPosition(cc.p(size.width / 2, size.height / 2));
+        this.addChild(label);
     },
     title:function () {
         return "Testing cc.LabelBMFont with Chinese character";
@@ -915,7 +915,16 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
     drag:null,
     init:function () {
         this._super();
-        this.setTouchEnabled(true);
+
+        var t = cc.config.deviceType;
+        if( t == 'browser' )  {
+            this.setTouchEnabled(true);
+            // this.setKeyboardEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
+        } else if( t == 'mobile' ) {
+            this.setTouchEnabled(true);
+        }
 
         // ask director the the window size
         var size = director.getWinSize();
@@ -980,7 +989,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
     },
     stringChanged:function (sender) {
         sender.setColor(cc.c3b(255,0,0));
-        this.lastSentenceItem.setColor(cc.white());
+        this.lastSentenceItem.setColor(cc.c3b(255,255,255));
         this.lastSentenceItem = sender;
 
         switch (sender.getTag()) {
@@ -1003,7 +1012,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
     alignmentChanged:function (sender) {
         var item = sender;
         item.setColor(cc.c3b(255,0,0));
-        this.lastAlignmentItem.setColor(cc.white());
+        this.lastAlignmentItem.setColor(cc.c3b(255,255,255));
         this.lastAlignmentItem = item;
 
         switch (item.getTag()) {
@@ -1117,30 +1126,27 @@ var BMFontOneAtlas = AtlasDemo.extend({
 var BMFontUnicode = AtlasDemo.extend({
     init:function () {
         this._super();
-        var strings = cc.FileUtils.getInstance().dictionaryWithContentsOfFileThreadSafe("res/fonts/strings.xml");
-        var chinese = strings["chinese1"];
-        var japanese = strings["japanese"];
-        var spanish = strings["spanish"];
-
-        var s = director.getWinSize();
+        var chinese = "美好的一天";
+        var japanese = "良い一日を";
+        var spanish = "Buen día";
 
         var label1 = cc.LabelBMFont.create(spanish, "res/fonts/arial-unicode-26.fnt", 200, cc.TEXT_ALIGNMENT_LEFT);
         this.addChild(label1);
-        label1.setPosition(cc.p(s.width / 2, s.height / 4));
+        label1.setPosition(winSize.width / 2, winSize.height / 4);
 
         var label2 = cc.LabelBMFont.create(chinese, "res/fonts/arial-unicode-26.fnt");
         this.addChild(label2);
-        label2.setPosition(cc.p(s.width / 2, s.height / 2.2));
+        label2.setPosition(winSize.width / 2, winSize.height / 2.2);
 
         var label3 = cc.LabelBMFont.create(japanese, "res/fonts/arial-unicode-26.fnt");
         this.addChild(label3);
-        label3.setPosition(cc.p(s.width / 2, s.height / 1.5));
+        label3.setPosition( winSize.width / 2, winSize.height / 1.5);
     },
     title:function () {
         return "cc.LabelBMFont with Unicode support";
     },
     subtitle:function () {
-        return "You should see 3 differnt labels: In Spanish, Chinese and Korean";
+        return "You should see 3 different labels: In Spanish, Chinese and Korean";
     }
 });
 
@@ -1148,14 +1154,12 @@ var BMFontUnicode = AtlasDemo.extend({
 var BMFontInit = AtlasDemo.extend({
     init:function () {
         this._super();
-        var s = director.getWinSize();
 
-        var bmFont = new cc.LabelBMFont();
-        bmFont.init();
+        var bmFont = cc.LabelBMFont.create();
         bmFont.setFntFile("res/fonts/helvetica-32.fnt");
         bmFont.setString("It is working!");
         this.addChild(bmFont);
-        bmFont.setPosition(cc.p(s.width / 2, s.height / 2));
+        bmFont.setPosition( winSize.width / 2, winSize.height / 2);
     },
     title:function () {
         return "cc.LabelBMFont init";
@@ -1169,14 +1173,12 @@ var BMFontInit = AtlasDemo.extend({
 var TTFFontInit = AtlasDemo.extend({
     init:function () {
         this._super();
-        var s = director.getWinSize();
-        var font = new cc.LabelTTF();
-        font.init();
-        font.setFontName("Comic Sans MS");
+        var font = cc.LabelTTF.create();
+        font.setFontName("Courier New");
         font.setFontSize(48);
         font.setString("It is working!");
         this.addChild(font);
-        font.setPosition(cc.p(s.width / 2, s.height / 2));
+        font.setPosition( winSize.width / 2, winSize.height / 2);
     },
     title:function () {
         return "cc.LabelTTF init";
