@@ -154,7 +154,7 @@ var restartParticleAction = function () {
     return particleSceneArr[sceneIdx]();
 };
 
-var ParticleDemo = cc.LayerColor.extend({
+var ParticleDemo = cc.Layer.extend({
     _emitter: null,
     _background: null,
     _shapeModeButton: null,
@@ -162,16 +162,25 @@ var ParticleDemo = cc.LayerColor.extend({
 
     ctor: function() {
         //this._super();
-        cc.associateWithNative(this, cc.LayerColor);
+        cc.associateWithNative(this, cc.Layer);
         this.init();
     },
+    setColor:function() {},
     init: function() {
         this._super();
-        this.initWithColor(cc.c4b(127, 127, 127, 255));
+        // this.initWithColor(cc.c4b(127, 127, 127, 255));
 
         this._emitter = null;
 
-        this.setTouchEnabled(true);
+        var t = cc.config.deviceType;
+        if( t == 'browser' )  {
+            this.setTouchEnabled(true);
+            // this.setKeyboardEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
+        } else if( t == 'mobile' ) {
+            this.setTouchEnabled(true);
+        }
 
         var s = cc.Director.getInstance().getWinSize();
         var label = cc.LabelTTF.create(this.title(), "Arial", 28);
@@ -269,7 +278,7 @@ var ParticleDemo = cc.LayerColor.extend({
 
         this.addChild(menu, 100);
         //TODO
-        var labelAtlas = cc.LabelTTF.create("0000", "Arial", 24);
+        var labelAtlas = cc.LabelAtlas.create("0123456789", s_fpsImages, 16, 24, '.'.charCodeAt(0));
         this.addChild(labelAtlas, 100, TAG_LABEL_ATLAS);
         labelAtlas.setPosition(cc.p(s.width - 66, 50));
 
@@ -319,24 +328,23 @@ var ParticleDemo = cc.LayerColor.extend({
             this._emitter.setPositionType(cc.PARTICLE_TYPE_GROUPED);
     },
 
-    registerWithTouchDispatcher:function () {
-        cc.Director.getInstance().getTouchDispatcher().addTargetedDelegate(this, 0, false);
+    onTouchesBegan: function(touches, event) {
+        return this.onTouchesEnded(touches, event);
     },
-    onTouchesBegan: function(touches) {
-        return true;
-    },
-    onTouchesMoved: function(touches) {
+    onTouchesMoved: function(touches, event) {
         return this.onTouchesEnded(touches);
     },
-    onTouchesEnded: function(touches) {
-        var location = touches[0].getLocation();
-        //CCPoint convertedLocation = CCDirector::getInstance().convertToGL(location);
+    onTouchesEnded: function(touches, event) {
+        if( touches.length > 0 ) {
+            var location = touches[0].getLocation();
+            //CCPoint convertedLocation = CCDirector::getInstance().convertToGL(location);
 
-        var pos = cc.p(0,0);
-        if (this._background) {
-            pos = this._background.convertToWorldSpace(cc.p(0,0));
+            var pos = cc.p(0,0);
+            if (this._background) {
+                pos = this._background.convertToWorldSpace(cc.p(0,0));
+            }
+            this._emitter.setPosition(cc.pSub(location, pos));
         }
-        this._emitter.setPosition(cc.pSub(location, pos));
     },
 
     step:function (dt) {
@@ -360,7 +368,7 @@ var DemoFirework = ParticleDemo.extend({
         var myTexture = cc.TextureCache.getInstance().addImage(s_stars1);
         this._emitter.setTexture(myTexture);
 	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
+        this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
         this.setEmitterPosition();
     },
     title:function () {
@@ -377,7 +385,7 @@ var DemoFire = ParticleDemo.extend({
 
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_fire));//.pvr"];
 	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
         var p = this._emitter.getPosition();
         this._emitter.setPosition(cc.p(p.x, 100));
 
@@ -397,7 +405,7 @@ var DemoSun = ParticleDemo.extend({
         var myTexture = cc.TextureCache.getInstance().addImage(s_fire);
         this._emitter.setTexture(myTexture);
 	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
 
         this.setEmitterPosition();
     },
@@ -414,8 +422,8 @@ var DemoGalaxy = ParticleDemo.extend({
         this._background.addChild(this._emitter, 10);
         var myTexture = cc.TextureCache.getInstance().addImage(s_fire);
         this._emitter.setTexture(myTexture);
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
 
         this.setEmitterPosition();
     },
@@ -425,7 +433,7 @@ var DemoGalaxy = ParticleDemo.extend({
 });
 
 var DemoFlower = ParticleDemo.extend({
-    _title: "ParticleFlower",    
+    _title: "ParticleFlower",
 
     onEnter: function() {
         this._super();
@@ -435,8 +443,8 @@ var DemoFlower = ParticleDemo.extend({
 
         var myTexture = cc.TextureCache.getInstance().addImage(s_stars1);
         this._emitter.setTexture(myTexture);
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
 
         this.setEmitterPosition();
     },
@@ -449,14 +457,12 @@ var DemoBigFlower = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = new cc.ParticleSystem();
-        this._emitter.initWithTotalParticles(50);
-        //this._emitter.autorelease();
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(50);
 
         this._background.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars1));
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
 
         this._emitter.setDuration(-1);
 
@@ -494,16 +500,16 @@ var DemoBigFlower = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -528,14 +534,12 @@ var DemoRotFlower = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = new cc.ParticleSystem();
-        //this._emitter.initWithTotalParticles(300);
-        this._emitter.initWithTotalParticles(150);
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(150);
 
         this._background.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars2));
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
 
         // duration
         this._emitter.setDuration(-1);
@@ -573,16 +577,16 @@ var DemoRotFlower = ParticleDemo.extend({
         this._emitter.setEndSpin(0);
         this._emitter.setEndSpinVar(2000);
 
-        var startColor = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -611,8 +615,8 @@ var DemoMeteor = ParticleDemo.extend({
         this._background.addChild(this._emitter, 10);
 
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
 
         this.setEmitterPosition();
     },
@@ -629,8 +633,8 @@ var DemoSpiral = ParticleDemo.extend({
         this._background.addChild(this._emitter, 10);
 
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
 
         this.setEmitterPosition();
     },
@@ -647,8 +651,8 @@ var DemoExplosion = ParticleDemo.extend({
         this._background.addChild(this._emitter, 10);
 
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars1));
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
 
         this._emitter.setAutoRemoveOnFinish(true);
 	
@@ -710,8 +714,8 @@ var DemoSnow = ParticleDemo.extend({
         this._emitter.setEmissionRate(this._emitter.getTotalParticles() / this._emitter.getLife());
 
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_snow));
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
 
         this.setEmitterPosition();
     },
@@ -732,8 +736,8 @@ var DemoRain = ParticleDemo.extend({
         this._emitter.setLife(4);
 
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
 
         this.setEmitterPosition();
     },
@@ -746,10 +750,7 @@ var DemoModernArt = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = new cc.ParticleSystem();
-        //this._emitter.initWithTotalParticles(1000);
-        this._emitter.initWithTotalParticles(200);
-        //this._emitter.autorelease();
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(200);
 
         this._background.addChild(this._emitter, 10);
         ////this._emitter.release();
@@ -790,16 +791,16 @@ var DemoModernArt = ParticleDemo.extend({
         this._emitter.setEmissionRate(this._emitter.getTotalParticles() / this._emitter.getLife());
 
         // color of particles
-        var startColor = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -810,8 +811,8 @@ var DemoModernArt = ParticleDemo.extend({
 
         // texture
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
 
         // additive
         this._emitter.setBlendAdditive(false);
@@ -832,8 +833,8 @@ var DemoRing = ParticleDemo.extend({
         this._background.addChild(this._emitter, 10);
 
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars1));
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
 
         this._emitter.setLifeVar(0);
         this._emitter.setLife(10);
@@ -887,7 +888,7 @@ var ParallaxParticle = ParticleDemo.extend({
 
 var DemoParticleFromFile = ParticleDemo.extend({
     _title:"",
-    ctor:function (filename) {
+    ctor:function(filename) {
         this._super();
         this._title = filename;
     },
@@ -897,9 +898,8 @@ var DemoParticleFromFile = ParticleDemo.extend({
         this.removeChild(this._background, true);
         this._background = null;
 
-        this._emitter = new cc.ParticleSystem();
         var filename = "res/Particles/" + this._title + ".plist";
-        this._emitter.initWithFile(filename);
+        this._emitter = cc.ParticleSystem.create(filename);
         this.addChild(this._emitter, 10);
 
         this.setEmitterPosition();
@@ -917,9 +917,7 @@ var RadiusMode1 = ParticleDemo.extend({
         this.removeChild(this._background, true);
         this._background = null;
 
-        this._emitter = new cc.ParticleSystem();
-        //this._emitter.initWithTotalParticles(200);
-        this._emitter.initWithTotalParticles(100);
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(100);
         this.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_starsGrayscale));
 
@@ -960,16 +958,16 @@ var RadiusMode1 = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -996,9 +994,7 @@ var RadiusMode2 = ParticleDemo.extend({
         this.removeChild(this._background, true);
         this._background = null;
 
-        this._emitter = new cc.ParticleSystem();
-        //this._emitter.initWithTotalParticles(200);
-        this._emitter.initWithTotalParticles(100);
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(100);
         this.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_starsGrayscale));
 
@@ -1039,16 +1035,16 @@ var RadiusMode2 = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -1075,18 +1071,17 @@ var Issue704 = ParticleDemo.extend({
         this.removeChild(this._background, true);
         this._background = null;
 
-        this._emitter = new cc.ParticleSystem();
-        this._emitter.initWithTotalParticles(100);
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(100);
         this.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
-	if(this._emitter.setShapeType)
-	    this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        if(this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
 
         // duration
         this._emitter.setDuration(cc.PARTICLE_DURATION_INFINITY);
 
         // radius mode
-        //this._emitter.setEmitterMode(cc.PARTICLE_MODE_RADIUS);
+        this._emitter.setEmitterMode(cc.PARTICLE_MODE_RADIUS);
 
         // radius mode: start and end radius in pixels
         this._emitter.setStartRadius(50);
@@ -1119,16 +1114,16 @@ var Issue704 = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = new cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = new cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -1162,8 +1157,7 @@ var Issue870 = ParticleDemo.extend({
         this.removeChild(this._background, true);
         this._background = null;
 
-        var system = new cc.ParticleSystem();
-        system.initWithFile("res/Particles/SpinningPeas.plist");
+        var system = cc.ParticleSystem.create("res/Particles/SpinningPeas.plist");
         system.setTextureWithRect(cc.TextureCache.getInstance().addImage(s_particles), cc.rect(0, 0, 32, 32));
         this.addChild(system, 10);
         this._emitter = system;
