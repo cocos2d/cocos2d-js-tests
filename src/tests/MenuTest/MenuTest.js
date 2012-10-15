@@ -29,7 +29,6 @@ var TAG_MENU = 77771;
 var TAG_MENU0 = 77770;
 var TAG_MENU1 = 77771;
 
-
 //------------------------------------------------------------------
 //
 // LayerMainMenu
@@ -56,7 +55,6 @@ var LayerMainMenu = cc.Layer.extend({
         }
 
         // Font Item
-
         var spriteNormal = cc.Sprite.create(s_menuItem, cc.rect(0, 23 * 2, 115, 23));
         var spriteSelected = cc.Sprite.create(s_menuItem, cc.rect(0, 23, 115, 23));
         var spriteDisabled = cc.Sprite.create(s_menuItem, cc.rect(0, 0, 115, 23));
@@ -412,6 +410,6 @@ var MenuTestScene = TestScene.extend({
     runThisTest:function () {
         var mainLayer = new LayerMainMenu();
         this.addChild(mainLayer, 0);
-        director.replaceScene(mainLayer);
+        director.replaceScene(this);
     }
 });
