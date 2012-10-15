@@ -161,7 +161,6 @@ var ParticleDemo = cc.Layer.extend({
     _textureModeButton: null,
 
     ctor: function() {
-        //this._super();
         cc.associateWithNative(this, cc.Layer);
         this.init();
     },
@@ -190,6 +189,7 @@ var ParticleDemo = cc.Layer.extend({
         var tapScreen = cc.LabelTTF.create("(Tap the Screen)", "Arial", 20);
         tapScreen.setPosition(s.width / 2, s.height - 80);
         this.addChild(tapScreen, 100);
+
         var selfPoint = this;
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);
         var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, function () {
@@ -288,7 +288,9 @@ var ParticleDemo = cc.Layer.extend({
         labelAtlas.setPosition(s.width - 66, 50);
 
         // moving background
+        console.log("s.height:" + s.height);
         this._background = cc.Sprite.create(s_back3);
+        this._background.___id = "_background";
         this.addChild(this._background, 5);
         this._background.setPosition(s.width / 2, s.height - 180);
 
