@@ -288,9 +288,7 @@ var ParticleDemo = cc.Layer.extend({
         labelAtlas.setPosition(s.width - 66, 50);
 
         // moving background
-        console.log("s.height:" + s.height);
         this._background = cc.Sprite.create(s_back3);
-        this._background.___id = "_background";
         this.addChild(this._background, 5);
         this._background.setPosition(s.width / 2, s.height - 180);
 
