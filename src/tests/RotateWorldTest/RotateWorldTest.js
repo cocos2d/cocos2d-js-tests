@@ -79,6 +79,7 @@ var SpriteLayer = cc.Layer.extend({
 
 SpriteLayer.node = function () {
     var node = new SpriteLayer();
+    node.init();
     return node;
 };
 
@@ -105,6 +106,7 @@ var TestLayer = cc.Layer.extend({
 
 TestLayer.node = function () {
     var node = new TestLayer();
+    node.init();
     return node;
 };
 
@@ -152,5 +154,6 @@ var RotateWorldMainLayer = cc.Layer.extend({
 
 RotateWorldMainLayer.node = function () {
     var node = new RotateWorldMainLayer();
+    node.init();
     return node;
 };
