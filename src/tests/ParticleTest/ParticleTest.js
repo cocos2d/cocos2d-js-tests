@@ -159,10 +159,12 @@ var ParticleDemo = cc.Layer.extend({
     _background: null,
     _shapeModeButton: null,
     _textureModeButton: null,
+    _isPressed:false,
 
     ctor: function() {
         cc.associateWithNative(this, cc.Layer);
         this.init();
+        this._isPressed = false;
     },
     setColor:function() {},
     init: function() {
@@ -186,7 +188,7 @@ var ParticleDemo = cc.Layer.extend({
         this.addChild(label, 100, 1000);
         label.setPosition(s.width / 2, s.height - 50);
 
-        var tapScreen = cc.LabelTTF.create("(Tap the Screen)", "Arial", 20);
+        var tapScreen = cc.LabelTTF.create(this.subtitle(), "Arial", 16);
         tapScreen.setPosition(s.width / 2, s.height - 80);
         this.addChild(tapScreen, 100);
 
@@ -311,6 +313,10 @@ var ParticleDemo = cc.Layer.extend({
         return "No title";
     },
 
+    subtitle:function(){
+        return "(Tap the Screen)";
+    },
+
     restartCallback:function (sender) {
         this._emitter.resetSystem();
     },
@@ -333,7 +339,19 @@ var ParticleDemo = cc.Layer.extend({
             this._emitter.setPositionType(cc.PARTICLE_TYPE_GROUPED);
     },
 
+
+    onTouchesBegan:function(touches, event){
+        this._isPressed = true;
+        this._moveToTouchPoint(touches);
+    },
+
     onTouchesMoved: function(touches, event) {
+        if(!this._isPressed)
+            return;
+        this._moveToTouchPoint(touches);
+    },
+
+    _moveToTouchPoint:function(touches){
         if( touches.length > 0 ) {
             var location = touches[0].getLocation();
             var pos = cc.p(0,0);
@@ -343,6 +361,11 @@ var ParticleDemo = cc.Layer.extend({
             this._emitter.setPosition(cc.pSub(location, pos));
         }
     },
+
+    onTouchesEnded:function(touches, event){
+       this._isPressed = false;
+    },
+
     onMouseDragged : function( event ) {
         var location = event.getLocation();
         var pos = cc.p(0,0);
@@ -461,7 +484,7 @@ var DemoBigFlower = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = cc.ParticleSystem.createWithTotalParticles(50);
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(80);
 
         this._background.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars1));
@@ -895,8 +918,22 @@ var DemoParticleFromFile = ParticleDemo.extend({
         this._emitter = cc.ParticleSystem.create(filename);
         this.addChild(this._emitter, 10);
 
+        if(this._title == "Flower"){
+            if(this._emitter.setShapeType)
+                this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
+        }//else if( this._title == "Upsidedown"){
+         //   this._emitter.setDrawMode(cc.PARTICLE_TEXTURE_MODE);
+        //}
+
         this.setEmitterPosition();
     },
+
+    setEmitterPosition:function () {
+        var sourcePos = this._emitter.getSourcePosition();
+        if( sourcePos.x === 0 && sourcePos.y === 0)
+            this._emitter.setPosition(director.getWinSize().width / 2, director.getWinSize().height / 2 - 50);
+    },
+
     title:function () {
         return this._title;
     }
@@ -1086,7 +1123,6 @@ var Issue704 = ParticleDemo.extend({
         this._emitter.setRotatePerSecond(0);
         this._emitter.setRotatePerSecondVar(0);
 
-
         // angle
         this._emitter.setAngle(90);
         this._emitter.setAngleVar(0);
@@ -1154,7 +1190,8 @@ var Issue870 = ParticleDemo.extend({
         system.setTextureWithRect(cc.TextureCache.getInstance().addImage(s_particles), cc.rect(0, 0, 32, 32));
         this.addChild(system, 10);
         this._emitter = system;
-
+        this._emitter.setDrawMode(cc.PARTICLE_TEXTURE_MODE);
+        this._emitter.setPosition(director.getWinSize().width / 2, director.getWinSize().height / 2 - 50);
         this._index = 0;
         this.schedule(this.updateQuads, 2.0);
     },
