@@ -1029,16 +1029,18 @@ var ActionCardinalSpline = ActionsDemo.extend({
         this._super();
 
         var context = ctx || cc.renderContext;
+
+        var apPoint = this.getAnchorPointInPoints();
         // move to 50,50 since the "by" path will start at 50,50
         context.save();
-        context.translate(50, -50);
+        context.translate(50 - apPoint.x ,  apPoint.y -50);
         cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
         context.restore();
 
         var s = director.getWinSize();
 
         context.save();
-        context.translate(s.width / 2, -50);
+        context.translate(s.width / 2 - apPoint.x ,  apPoint.y - 50);
         cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
         context.restore();
     },
@@ -1123,13 +1125,17 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._super();
         var context = ctx || cc.renderContext;
 
+        var apPoint = this.getAnchorPointInPoints();
         // move to 50,50 since the "by" path will start at 50,50
         context.save();
-        context.translate(50, -50);
+        context.translate(50 - apPoint.x, apPoint.y - 50);
         cc.drawingUtil.drawCatmullRom(this._array1, 50);
         context.restore();
 
+        context.save();
+        context.translate(- apPoint.x, apPoint.y);
         cc.drawingUtil.drawCatmullRom(this._array2, 50);
+        context.restore();
     },
     subtitle:function () {
         return "Catmull Rom spline paths. Testing reverse too";
