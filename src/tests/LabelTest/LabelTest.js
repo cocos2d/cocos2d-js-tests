@@ -221,12 +221,12 @@ var LabelAtlasColorTest = AtlasDemo.extend({
     time:null,
     init:function () {
         this._super();
-        var label1 = cc.LabelAtlas.create("123 Test", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' '.charCodeAt(0));
+        var label1 = cc.LabelAtlas.create("123 Test", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
         this.addChild(label1, 0, TAG_LABEL_SPRITE1);
         label1.setPosition(cc.p(10, 100));
         label1.setOpacity(200);
 
-        var label2 = cc.LabelAtlas.create("0123456789", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' '.charCodeAt(0));
+        var label2 = cc.LabelAtlas.create("0123456789", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
         this.addChild(label2, 0, TAG_LABEL_SPRITE12);
         label2.setPosition(cc.p(10, 200));
         label2.setColor(cc.c3b(255,0,0));
@@ -614,7 +614,7 @@ var LabelsEmpty = AtlasDemo.extend({
         label2.setPosition(winSize.width / 2, winSize.height / 2);
 
         // cc.LabelAtlas
-        var label3 = cc.LabelAtlas.create("", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' '.charCodeAt(0));
+        var label3 = cc.LabelAtlas.create("", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
         label3.setPosition(winSize.width / 2, 0 + 100);
 

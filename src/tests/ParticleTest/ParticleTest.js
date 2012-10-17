@@ -285,7 +285,7 @@ var ParticleDemo = cc.Layer.extend({
 
         this.addChild(menu, 100);
         //TODO
-        var labelAtlas = cc.LabelAtlas.create("0123456789", s_fpsImages, 16, 24, '.'.charCodeAt(0));
+        var labelAtlas = cc.LabelAtlas.create("0123456789", s_fpsImages, 16, 24, '.');
         this.addChild(labelAtlas, 100, TAG_LABEL_ATLAS);
         labelAtlas.setPosition(s.width - 66, 50);
 
