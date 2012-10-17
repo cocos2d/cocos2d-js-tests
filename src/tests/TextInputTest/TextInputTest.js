@@ -24,52 +24,16 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var TEXT_FIELD_TTF_DEFAULT_TEST = 0;
-var TEXT_FIELD_TTF_ACTION_TEST = 1;
-var TEXT_INPUT_TESTS_COUNT = 2;
-
 var TEXT_INPUT_FONT_NAME = "Thonburi";
 var TEXT_INPUT_FONT_SIZE = 36;
 
-var inputTestIdx = -1;
+var sceneIdx = -1;
 
-var createTextInputTest = function (index) {
-    switch (index) {
-        case TEXT_FIELD_TTF_DEFAULT_TEST:
-            return new TextFieldTTFDefaultTest();
-        case TEXT_FIELD_TTF_ACTION_TEST:
-            return new TextFieldTTFActionTest();
-        default:
-            return 0;
-    }
-};
-
-var restartTextInputTest = function () {
-    var containerLayer = new TextInputTest();
-
-    var testLayer = createTextInputTest(inputTestIdx);
-    containerLayer.addKeyboardNotificationLayer(testLayer);
-
-    return containerLayer;
-};
-
-var nextTextInputTest = function () {
-    inputTestIdx++;
-    inputTestIdx = inputTestIdx % TEXT_INPUT_TESTS_COUNT;
-
-    return restartTextInputTest();
-};
-
-var backTextInputTest = function () {
-    inputTestIdx--;
-    if (inputTestIdx < 0)
-        inputTestIdx += TEXT_INPUT_TESTS_COUNT;
-
-    return restartTextInputTest();
-};
 
 var textInputGetRect = function (node) {
-    var rc = cc.rect(node.getPosition().x, node.getPosition().y, node.getContentSize().width, node.getContentSize().height);
+    var pos = node.getPosition();
+    var cs = node.getContentSize();
+    var rc = cc.rect(pos.x, pos.y, cs.width, cs.height);
     rc.origin.x -= rc.size.width / 2;
     rc.origin.y -= rc.size.height / 2;
     return rc;
@@ -80,22 +44,26 @@ var textInputGetRect = function (node) {
  */
 var TextInputTest = cc.Layer.extend({
     notificationLayer:null,
-    ctor:function () {
+    ctor:function() {
+        this._super();
+
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
     },
 
     restartCallback:function (sender) {
         var s = new TextInputTestScene();
-        s.addChild(restartTextInputTest());
+        s.addChild(restartEventsTest());
         cc.Director.getInstance().replaceScene(s);
     },
     nextCallback:function (sender) {
         var s = new TextInputTestScene();
-        s.addChild(nextTextInputTest());
+        s.addChild(nextEventsTest());
         cc.Director.getInstance().replaceScene(s);
     },
     backCallback:function (sender) {
         var s = new TextInputTestScene();
-        s.addChild(backTextInputTest());
+        s.addChild(previousEventsTest());
         cc.Director.getInstance().replaceScene(s);
     },
 
@@ -116,8 +84,8 @@ var TextInputTest = cc.Layer.extend({
         this.addChild(label);
         label.setPosition(cc.p(s.width / 2, s.height - 50));
 
-        var subTitle = this.notificationLayer.subtitle();
-        if (subTitle && subTitle != "") {
+        var subTitle = this.subtitle();
+        if (subTitle && subTitle !== "") {
             var l = cc.LabelTTF.create(subTitle, "Thonburi", 16);
             this.addChild(l, 1);
             l.setPosition(cc.p(s.width / 2, s.height - 80));
@@ -140,11 +108,12 @@ var TextInputTest = cc.Layer.extend({
 //////////////////////////////////////////////////////////////////////////
 // KeyboardNotificationLayer for test IME keyboard notification.
 //////////////////////////////////////////////////////////////////////////
-var KeyboardNotificationLayer = cc.Layer.extend({
+var KeyboardNotificationLayer = TextInputTest.extend({
     _pTrackNode:null,
     _beginPos:null,
 
     ctor:function () {
+        this._super();
         this.setTouchEnabled(true);
     },
 
@@ -188,32 +157,13 @@ var KeyboardNotificationLayer = cc.Layer.extend({
         }
     },
 
-    onTouchBegan:function (touch, event) {
-        cc.log("++++++++++++++++++++++++++++++++++++++++++++");
-        this._beginPos = touch.getLocation();
-        this._beginPos = cc.Director.getInstance().convertToGL(this._beginPos);
-        return true;
-    },
-
     onTouchEnded:function (touch, event) {
-        if (!this._pTrackNode) {
+        if (!this._pTrackNode)
             return;
-        }
 
-        var endPos = touch.getLocation();
-        endPos = cc.Director.getInstance().convertToGL(endPos);
-
-        var delta = 5.0;
-        if (Math.abs(endPos.x - this._beginPos.x) > delta
-            || Math.abs(endPos.y - this._beginPos.y) > delta) {
-            // not click
-            this._beginPos.x = this._beginPos.y = -1;
-            return;
-        }
+        var point = touch.getLocation();
 
         // decide the trackNode is clicked.
-        var point = this.convertTouchToNodeSpaceAR(touch);
-        //var point = endPos;
         cc.log("KeyboardNotificationLayer:clickedAt(" + point.x + "," + point.y + ")");
 
         var rect = textInputGetRect(this._pTrackNode);
@@ -415,8 +365,38 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
 
 var TextInputTestScene = TestScene.extend({
     runThisTest:function () {
-        var layer = nextTextInputTest();
+        sceneIdx = -1;
+        var layer = nextEventsTest();
+        // var menu = new TextInputTest();
+        // menu.addKeyboardNotificationLayer( layer );
+
         this.addChild(layer);
         cc.Director.getInstance().replaceScene(this);
     }
 });
+
+//
+// Flow control
+//
+var arrayOfEventsTest = [
+    TextFieldTTFDefaultTest,
+    TextFieldTTFActionTest
+];
+
+var nextEventsTest = function () {
+    sceneIdx++;
+    sceneIdx = sceneIdx % arrayOfEventsTest.length;
+
+    return new arrayOfEventsTest[sceneIdx]();
+};
+var previousEventsTest = function () {
+    sceneIdx--;
+    if (sceneIdx < 0)
+        sceneIdx += arrayOfEventsTest.length;
+
+    return new arrayOfEventsTest[sceneIdx]();
+};
+var restartEventsTest = function () {
+    return new arrayOfEventsTest[sceneIdx]();
+};
+
