@@ -231,6 +231,12 @@ var testNames = [
         }
     },
     {
+        title:"EventTest",
+        testScene:function () {
+            return new EventTestScene();
+        }
+    },
+    {
         title:"ExtensionsTest",
         testScene:function () {
             return new ExtensionsTestScene();

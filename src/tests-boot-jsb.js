@@ -13,6 +13,7 @@ require("tests-main.js");
 var tests_files = [
 		'ActionsTest.js',
 		'EaseActionsTest.js',
+		'EventTest.js',
 		'LabelTest.js',
 		'LayerTest.js',
 		'MenuTest.js',

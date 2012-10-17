@@ -53,17 +53,17 @@ var TextInputTest = cc.Layer.extend({
 
     restartCallback:function (sender) {
         var s = new TextInputTestScene();
-        s.addChild(restartEventsTest());
+        s.addChild(restartTextInputTest());
         cc.Director.getInstance().replaceScene(s);
     },
     nextCallback:function (sender) {
         var s = new TextInputTestScene();
-        s.addChild(nextEventsTest());
+        s.addChild(nextTextInputTest());
         cc.Director.getInstance().replaceScene(s);
     },
     backCallback:function (sender) {
         var s = new TextInputTestScene();
-        s.addChild(previousEventsTest());
+        s.addChild(previousTextInputTest());
         cc.Director.getInstance().replaceScene(s);
     },
 
@@ -123,9 +123,6 @@ var KeyboardNotificationLayer = TextInputTest.extend({
     onClickTrackNode:function (clicked) {
     },
 
-    registerWithTouchDispatcher:function () {
-        cc.Director.getInstance().getTouchDispatcher().addTargetedDelegate(this, 0, false);
-    },
     keyboardWillShow:function (info) {
         cc.log("TextInputTest:keyboardWillShowAt(origin:" + info.end.origin.x + "," + info.end.origin.y
             + ", size:" + info.end.size.width + "," + info.end.size.height + ")");
@@ -157,9 +154,12 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         }
     },
 
-    onTouchEnded:function (touch, event) {
+    onTouchesBegan:function (touches, event) {
         if (!this._pTrackNode)
             return;
+
+        // grab first touch
+        var touch = touches[0];
 
         var point = touch.getLocation();
 
@@ -366,7 +366,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
 var TextInputTestScene = TestScene.extend({
     runThisTest:function () {
         sceneIdx = -1;
-        var layer = nextEventsTest();
+        var layer = nextTextInputTest();
         // var menu = new TextInputTest();
         // menu.addKeyboardNotificationLayer( layer );
 
@@ -378,25 +378,25 @@ var TextInputTestScene = TestScene.extend({
 //
 // Flow control
 //
-var arrayOfEventsTest = [
+var arrayOfTextInputTest = [
     TextFieldTTFDefaultTest,
     TextFieldTTFActionTest
 ];
 
-var nextEventsTest = function () {
+var nextTextInputTest = function () {
     sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfEventsTest.length;
+    sceneIdx = sceneIdx % arrayOfTextInputTest.length;
 
-    return new arrayOfEventsTest[sceneIdx]();
+    return new arrayOfTextInputTest[sceneIdx]();
 };
-var previousEventsTest = function () {
+var previousTextInputTest = function () {
     sceneIdx--;
     if (sceneIdx < 0)
-        sceneIdx += arrayOfEventsTest.length;
+        sceneIdx += arrayOfTextInputTest.length;
 
-    return new arrayOfEventsTest[sceneIdx]();
+    return new arrayOfTextInputTest[sceneIdx]();
 };
-var restartEventsTest = function () {
-    return new arrayOfEventsTest[sceneIdx]();
+var restartTextInputTest = function () {
+    return new arrayOfTextInputTest[sceneIdx]();
 };
 

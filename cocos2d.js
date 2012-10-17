@@ -73,6 +73,7 @@
             'src/tests/LabelTest/LabelTest.js',
             'src/tests/CurrentLanguageTest/CurrentLanguageTest.js',
             'src/tests/TextInputTest/TextInputTest.js',
+            'src/tests/EventTest/EventTest.js',
 
             'src/tests/ExtensionsTest/ExtensionsTest.js',
             'src/tests/ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js',
