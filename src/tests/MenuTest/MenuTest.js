@@ -65,7 +65,7 @@ var LayerMainMenu = cc.Layer.extend({
         var item2 = cc.MenuItemImage.create(s_sendScore, s_pressSendScore, this, this.onMenuCallback2);
 
         // Label Item (LabelAtlas)
-        var labelAtlas = cc.LabelAtlas.create("0123456789", s_fpsImages, 16, 24, '.'.charCodeAt(0));
+        var labelAtlas = cc.LabelAtlas.create("0123456789", s_fpsImages, 16, 24, '.');
         var item3 = cc.MenuItemLabel.create(labelAtlas, this, this.onMenuCallbackDisabled);
         item3.setDisabledColor(cc.c3b(32, 32, 64));
         item3.setColor(cc.c3b(200, 200, 255));
