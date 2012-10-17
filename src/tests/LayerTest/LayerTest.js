@@ -321,6 +321,7 @@ var LayerTestBlend = LayerTest.extend({
 //
 //------------------------------------------------------------------
 var LayerGradient = LayerTest.extend({
+    _isPressed:false,
     init:function () {
         this._super();
         var layer1 = cc.LayerGradient.create(cc.c4b(255, 0, 0, 255), cc.c4b(0, 255, 0, 255), cc.p(0.9, 0.9));
@@ -354,10 +355,21 @@ var LayerGradient = LayerTest.extend({
         var gradient = this.getChildByTag(1);
         gradient.setVector(diff);
     },
-    onTouchesMoved:function (touches, event) {
+    onTouchesBegan:function(touches, event){
+        this._isPressed = true;
         var start = touches[0].getLocation();
         this.updateGradient(start);
     },
+    onTouchesMoved:function (touches, event) {
+        if(this._isPressed) {
+            var start = touches[0].getLocation();
+            this.updateGradient(start);
+        }
+    },
+    onTouchesEnded:function(touches,event){
+        this._isPressed = false;
+    },
+
     onMouseDragged : function( event ) {
         var location = event.getLocation();
         this.updateGradient(location);
