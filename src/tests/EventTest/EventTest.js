@@ -111,12 +111,14 @@ var TouchOneByOneTest = EventTest.extend({
 
     },
     subtitle:function () {
-        return "Touches One by One. Touch and see console";
+        return "Touches One by One. Touch the left / right and see console";
     },
     onTouchBegan:function(touch, event) {
         var pos = touch.getLocation();
         cc.log("onTouchBegan at: " + pos.x + " " + pos.y );
-        return true;
+        if( pos.x < winSize.width/2)
+            return true;
+        return false;
     },
     onTouchMoved:function(touch, event) {
         var pos = touch.getLocation();
