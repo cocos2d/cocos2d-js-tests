@@ -268,9 +268,9 @@ var ActionSkew = ActionsDemo.extend({
 var ActionSkewRotateScale = ActionsDemo.extend({
     onEnter:function () {
         this._super();
-        this._tamara.removeFromParentAndCleanup(true);
-        this._grossini.removeFromParentAndCleanup(true);
-        this._kathia.removeFromParentAndCleanup(true);
+        this._tamara.removeFromParent();
+        this._grossini.removeFromParent();
+        this._kathia.removeFromParent();
 
         var winSize = director.getWinSize();
 
@@ -676,7 +676,7 @@ var ActionCallFuncND = ActionsDemo.extend({
     },
 
     removeFromParentAndCleanup:function (nodeExecutingAction, data) {
-        nodeExecutingAction.removeFromParentAndCleanup(data);
+        nodeExecutingAction.removeFromParent(data);
     },
 
     title:function () {
