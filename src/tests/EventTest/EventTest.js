@@ -42,17 +42,17 @@ var EventTest = cc.Layer.extend({
     restartCallback:function (sender) {
         var s = new EventTestScene();
         s.addChild(restartEventsTest());
-        cc.Director.getInstance().replaceScene(s);
+        director.replaceScene(s);
     },
     nextCallback:function (sender) {
         var s = new EventTestScene();
         s.addChild(nextEventsTest());
-        cc.Director.getInstance().replaceScene(s);
+        director.replaceScene(s);
     },
     backCallback:function (sender) {
         var s = new EventTestScene();
         s.addChild(previousEventsTest());
-        cc.Director.getInstance().replaceScene(s);
+        director.replaceScene(s);
     },
 
     title:function () {
@@ -62,7 +62,7 @@ var EventTest = cc.Layer.extend({
     onEnter:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 24);
         this.addChild(label);
@@ -294,7 +294,7 @@ var EventTestScene = TestScene.extend({
         // menu.addKeyboardNotificationLayer( layer );
 
         this.addChild(layer);
-        cc.Director.getInstance().replaceScene(this);
+        director.replaceScene(this);
     }
 });
 

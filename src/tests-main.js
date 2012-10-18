@@ -206,12 +206,6 @@ var testNames = [
         }
     },
     {
-        title:"CocosNodeTest",
-        testScene:function () {
-            return new CocosNodeTestScene();
-        }
-    },
-    {
         title:"CurrentLanguageTest",
         testScene:function () {
             return new CurrentLanguageTestScene();
@@ -281,6 +275,12 @@ var testNames = [
         title:"MultiTouchTest",
         testScene:function () {
             return new MultiTouchTestScene();
+        }
+    },
+    {
+        title:"Node Test",
+        testScene:function () {
+            return new NodeTestScene();
         }
     },
     //"MotionStreakTest",
