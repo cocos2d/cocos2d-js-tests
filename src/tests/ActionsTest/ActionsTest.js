@@ -956,7 +956,7 @@ var ActionFollow = ActionsDemo.extend({
         this.centerSprites(1);
         var s = director.getWinSize();
 
-        this._grossini.setPosition(cc.p(-200, s.height / 2));
+        this._grossini.setPosition(cc.p(-(s.width/2), s.height / 2));
         var move = cc.MoveBy.create(2, cc.p(s.width * 3, 0));
         var move_back = move.reverse();
         var seq = cc.Sequence.create(move, move_back);
