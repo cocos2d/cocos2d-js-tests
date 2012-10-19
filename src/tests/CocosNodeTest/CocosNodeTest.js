@@ -265,6 +265,7 @@ var StressTest1 = TestNodeDemo.extend({
 
         var sp1 = cc.Sprite.create(s_pathSister1);
         this.addChild(sp1, 0, TAG_SPRITE1);
+        this.setContentSize(cc.size(0,0));
 
         sp1.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
 
@@ -431,8 +432,10 @@ var CameraZoomTest = TestNodeDemo.extend({
         this.addChild(sprite, 0);
         sprite.setPosition(cc.p(winSize.width / 4 * 1, winSize.height / 2));
         var cam = sprite.getCamera();
-        cam.setEye(0, 0, 415);
-        cam.setCenter(0,0,0);
+        if(cam.setEye)
+            cam.setEye(0, 0, 415);
+        if(cam.setCenter)
+            cam.setCenter(0,0,0);
 
         // CENTER
         sprite = cc.Sprite.create(s_pathGrossini);
@@ -457,11 +460,13 @@ var CameraZoomTest = TestNodeDemo.extend({
 
         var sprite = this.getChildByTag(20);
         var cam = sprite.getCamera();
-        cam.setEye(0, 0, this._z);
+        if(cam.setEye)
+            cam.setEye(0, 0, this._z);
 
         sprite = this.getChildByTag(40);
         cam = sprite.getCamera();
-        cam.setEye(0, 0, this._z);
+        if(cam.setEye)
+            cam.setEye(0, 0, this._z);
     },
 
     onEnter:function () {
@@ -620,8 +625,10 @@ var BoundingBoxTest = TestNodeDemo.extend({
         sprite.setPosition(winSize.width/2, winSize.height/2);
         var bb = sprite.getBoundingBox();
         cc.log('BoundingBox:');
-        for( var i in bb )
-            cc.log( i + " = " + bb[i] );
+        //for( var i in bb )
+        //    cc.log( i + " = " + bb[i] );
+        cc.log('origin = [ ' + bb.origin.x + "," + bb.origin.y + "]");
+        cc.log('size = [ ' + bb.size.width + "," + bb.size.height + "]");
     },
     title:function () {
         return "Bounding Box Test";
