@@ -205,7 +205,8 @@ var AccelerometerTest = EventTest.extend({
             // not supported on desktop
             cc.log("Not supported");
         } else if( t == 'mobile' ) {
-            this.setAccelerometerInterval(1/2);
+            // call is called 5 times per second
+            this.setAccelerometerInterval(1/5);
             this.setAccelerometerEnabled(true);
         }
     },
@@ -213,7 +214,7 @@ var AccelerometerTest = EventTest.extend({
         return "Accelerometer test. Move device and see console";
     },
     onAccelerometer:function(x,y,z,timestamp) {
-        cc.log('Accel: '+ x + ' ' + y + ' ' + z );
+        cc.log('Accel x: '+ x + ' y:' + y + ' z:' + z + ' time:' + timestamp );
     }
 });
 
@@ -281,6 +282,11 @@ var KeyboardTest = EventTest.extend({
     },
     onKeyDown:function(key) {
         cc.log("Key down:" + key);
+    },
+    // this callback is only available on JSB + OS X
+    // Not supported on cocos2d-html5
+    onKeyFlagsChanged:function(key) {
+        cc.log("Key flags changed:" + key);
     }
 });
 
