@@ -772,7 +772,7 @@ var LabelTTFTest = AtlasDemo.extend({
         var s = director.getWinSize();
 
         if (this._label) {
-            this._label.removeFromParentAndCleanup(true);
+            this._label.removeFromParent();
         }
 
         this._label = cc.LabelTTF.create(this.getCurrentAlignment(), "Arial", 32, blockSize, this._horizAlign, this._vertAlign);

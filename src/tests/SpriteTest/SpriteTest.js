@@ -2360,7 +2360,7 @@ var SpriteHybrid = SpriteTestDemo.extend({
             retArray.push(node);
         }
 
-        p1.removeAllChildrenWithCleanup(false);
+        p1.removeAllChildren(false);
         for (i = 0; i < retArray.length; i++) {
             node = retArray[i];
             if (!node)
