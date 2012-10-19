@@ -108,7 +108,6 @@ var TouchOneByOneTest = EventTest.extend({
             this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
             this.setTouchEnabled(true);
         }
-
     },
     subtitle:function () {
         return "Touches One by One. Touch the left / right and see console";

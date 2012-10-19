@@ -111,7 +111,7 @@ var MultiTouchTestLayer = cc.Layer.extend({
 
     _clearSavePointArr:function () {
         for (var i = 0; i < this._savePointArr.length; i++) {
-            this._savePointArr[i].removeFromParentAndCleanup(true);
+            this._savePointArr[i].removeFromParent();
         }
     },
 
