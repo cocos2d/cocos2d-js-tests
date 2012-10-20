@@ -213,8 +213,8 @@ var AccelerometerTest = EventTest.extend({
     subtitle:function () {
         return "Accelerometer test. Move device and see console";
     },
-    onAccelerometer:function(x,y,z,timestamp) {
-        cc.log('Accel x: '+ x + ' y:' + y + ' z:' + z + ' time:' + timestamp );
+    onAccelerometer:function(accelEvent) {
+        cc.log('Accel x: '+ accelEvent.x + ' y:' + accelEvent.y + ' z:' + accelEvent.z + ' time:' + accelEvent.timestamp );
     }
 });
 
