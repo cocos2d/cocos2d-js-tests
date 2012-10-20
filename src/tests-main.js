@@ -157,7 +157,7 @@ var TestController = cc.Layer.extend({
             curPos = nextPos;
         }
     },
-    
+
     onTouchesEnded:function () {
         this.isMouseDown = false;
     },
@@ -173,65 +173,71 @@ var TestController = cc.Layer.extend({
 var testNames = [
     //"Accelerometer",
     {
-        title:"ActionManagerTest",
+        title:"ActionManager Test",
         testScene:function () {
             return new ActionManagerTestScene();
         }
     },
     {
-        title:"ActionsTest",
+        title:"Actions Test",
         testScene:function () {
             return new ActionsTestScene();
         }
     },
     {
-        title:"Box2DTest",
+        title:"Box2D Test",
         testScene:function () {
             return new Box2DTestScene();
+        }
+    },
+    {
+        title:"Chipmunk Test",
+        testScene:function () {
+            return new ChipmunkTestScene();
         }
     },
     //"Box2dTestBed",
     //"BugsTest",
     //"ChipmunkTest",
     {
-        title:"ClickAndMoveTest",
+        title:"Click and Move Test",
         testScene:function () {
             return new ClickAndMoveTestScene();
         }
     },
     {
-        title:"CocosDenshionTest",
+        title:"CocosDenshion Test",
         testScene:function () {
             return new CocosDenshionTestScene();
         }
     },
     {
-        title:"CurrentLanguageTest",
+        title:"CurrentLanguage Test",
         testScene:function () {
             return new CurrentLanguageTestScene();
         }
     },
     //"CurlTest",
     {
-        title:"DrawPrimitivesTest",
+        title:"DrawPrimitives Test",
         testScene:function () {
             return new DrawPrimitivesTestScene();
         }
     },
     {
-        title:"EaseActionsTest",
+        title:"EaseActions Test",
         testScene:function () {
             return new EaseActionsTestScene();
         }
     },
     {
-        title:"EventTest",
+        title:"Event Test",
         testScene:function () {
             return new EventTestScene();
         }
     },
     {
-        title:"ExtensionsTest",
+        title:"Extensions Test",
         testScene:function () {
             return new ExtensionsTestScene();
         }
@@ -240,39 +246,39 @@ var testNames = [
     //"EffectAdvancedTest",
     //"ExtensionsTest",
     {
-        title:"FontTest",
+        title:"Font Test",
         testScene:function () {
             return new FontTestScene();
         }
     },
     //"HiResTest",
     {
-        title:"IntervalTest",
+        title:"Interval Test",
         testScene:function () {
             return new IntervalTestScene();
         }
     },
     //"KeyboardTest",
     {
-        title:"LabelTest",
+        title:"Label Test",
         testScene:function () {
             return new LabelTestScene();
         }
     },
     {
-        title:"LayerTest",
+        title:"Layer Test",
         testScene:function () {
             return new LayerTestScene();
         }
     },
     {
-        title:"MenuTest",
+        title:"Menu Test",
         testScene:function () {
             return new MenuTestScene();
         }
     },
     {
-        title:"MultiTouchTest",
+        title:"Multi TouchTest",
         testScene:function () {
             return new MultiTouchTestScene();
         }
@@ -285,81 +291,81 @@ var testNames = [
     },
     //"MotionStreakTest",
     {
-        title:"ParallaxTest",
+        title:"Parallax Test",
         testScene:function () {
             return new ParallaxTestScene();
         }
     },
     {
-        title:"ParticleTest",
+        title:"Particle Test",
         testScene:function () {
             return new ParticleTestScene();
         }
     },
     {
-        title:"PerformanceTest",
+        title:"Performance Test",
         testScene:function () {
             return new PerformanceTestScene();
         }
     },
     {
-        title:"ProgressActionsTest",
+        title:"ProgressActions Test",
         testScene:function () {
             return new ProgressActionsTestScene();
         }
     },
     //"RenderTextureTest",
     {
-        title:"RotateWorldTest",
+        title:"RotateWorld Test",
         testScene:function () {
             return new RotateWorldTestScene();
         }
     },
     {
-        title:"SceneTest",
+        title:"Scene Test",
         testScene:function () {
             return new SceneTestScene();
         }
     },
     {
-        title:"SchedulerTest",
+        title:"Scheduler Test",
         testScene:function () {
             return new SchedulerTestScene();
         }
     },
     {
-        title:"SpriteTest",
+        title:"Sprite Test",
         testScene:function () {
             return new SpriteTestScene();
         }
     },
     {
-        title:"TextInputTest",
+        title:"TextInput Test",
         testScene:function () {
             return new TextInputTestScene();
         }
     },
     //"Texture2DTest",
     {
-        title:"TextureCacheTest",
+        title:"TextureCache Test",
         testScene:function () {
             return new TextureCacheTestScene();
         }
     },
     {
-        title:"TileMapTest",
+        title:"TileMap Test",
         testScene:function () {
             return new TileMapTestScene();
         }
     },
     {
-        title:"TouchesTest",
+        title:"Touches Test",
         testScene:function () {
             return new TouchesTestScene();
         }
     },
     {
-        title:"TransitionsTest",
+        title:"Transitions Test",
         testScene:function () {
             return new TransitionsTestScene();
         }
