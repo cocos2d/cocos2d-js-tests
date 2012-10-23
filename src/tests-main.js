@@ -365,7 +365,7 @@ var testNames = [
     },
     {
         title:"Scheduler Test",
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new SchedulerTestScene();
         }

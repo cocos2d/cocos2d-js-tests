@@ -20,6 +20,7 @@ var tests_files = [
 		'LayerTest.js',
 		'MenuTest.js',
 		'ParticleTest.js',
+		'SchedulerTest.js',
 		'SpriteTest.js'
 	];
 for( var i=0; i < tests_files.length; i++) {

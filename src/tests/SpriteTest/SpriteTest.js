@@ -3729,7 +3729,6 @@ var SpriteBatchBug1217 = SpriteTestDemo.extend({
 var SpriteTestScene = TestScene.extend({
     runThisTest:function () {
         sceneIdx = -1;
-        MAX_LAYER = 48;
         var layer = nextSpriteTest();
         this.addChild(layer);
 
