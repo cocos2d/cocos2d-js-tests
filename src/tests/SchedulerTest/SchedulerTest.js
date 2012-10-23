@@ -191,7 +191,7 @@ var SchedulerUnscheduleAll = SchedulerTestLayer.extend({
         cc.log("tick4");
     },
     onUnscheduleAll:function (dt) {
-        this.unscheduleAllSelectors();
+        this.unscheduleAllCallbacks();
     }
 });
 
@@ -228,7 +228,7 @@ var SchedulerUnscheduleAllHard = SchedulerTestLayer.extend({
         cc.log("tick4");
     },
     onUnscheduleAll:function (dt) {
-        director.getScheduler().unscheduleAllSelectors();
+        director.getScheduler().unscheduleAllCallbacks();
     }
 });
 
@@ -333,7 +333,7 @@ var SchedulerUpdate = SchedulerTestLayer.extend({
         for (var i = 0; i < children.length; i++) {
             var node = children[i];
             if (node) {
-                node.unscheduleAllSelectors();
+                node.unscheduleAllCallbacks();
             }
         }
     }
@@ -364,7 +364,7 @@ var SchedulerUpdateAndCustom = SchedulerTestLayer.extend({
         cc.log("custom callback called:" + dt);
     },
     onStopCallbacks:function (dt) {
-        this.unscheduleAllSelectors();
+        this.unscheduleAllCallbacks();
     }
 });
 
