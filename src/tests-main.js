@@ -29,6 +29,11 @@
 var director = null;
 var winSize = null;
 
+var PLATFORM_JSB = 1 << 0;
+var PLATFORM_HTML5 = 1 << 1;
+var PLATFORM_ALL = PLATFORM_JSB | PLATFORM_HTML5;
+
+
 var TestScene = cc.Scene.extend({
     ctor:function (bPortrait) {
         cc.associateWithNative( this, cc.Scene );
@@ -98,6 +103,13 @@ var TestController = cc.Layer.extend({
                 var menuItem = cc.MenuItemLabel.create(label, this, this.onMenuCallback);
                 this._itemMenu.addChild(menuItem, i + 10000);
                 menuItem.setPosition(cc.p(winSize.width / 2, (winSize.height - (i + 1) * LINE_SPACE)));
+
+                // enable disable
+                if (cc.config.deviceType == 'browser') {
+                    menuItem.setEnabled( testNames[i].platforms & PLATFORM_HTML5 );
+                } else { /* jsb */
+                    menuItem.setEnabled( testNames[i].platforms & PLATFORM_JSB );
+                }
             }
 
             this._itemMenu.setContentSize(cc.size(winSize.width, (testNames.length + 1) * LINE_SPACE));
@@ -174,24 +186,28 @@ var testNames = [
     //"Accelerometer",
     {
         title:"ActionManager Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new ActionManagerTestScene();
         }
     },
     {
         title:"Actions Test",
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new ActionsTestScene();
         }
     },
     {
         title:"Box2D Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new Box2DTestScene();
         }
     },
     {
         title:"Chipmunk Test",
+        platforms: PLATFORM_JSB,
         testScene:function () {
             return new ChipmunkTestScene();
         }
@@ -201,18 +217,21 @@ var testNames = [
     //"ChipmunkTest",
     {
         title:"Click and Move Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new ClickAndMoveTestScene();
         }
     },
     {
         title:"CocosDenshion Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new CocosDenshionTestScene();
         }
     },
     {
         title:"CurrentLanguage Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new CurrentLanguageTestScene();
         }
@@ -220,24 +239,28 @@ var testNames = [
     //"CurlTest",
     {
         title:"DrawPrimitives Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new DrawPrimitivesTestScene();
         }
     },
     {
         title:"EaseActions Test",
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new EaseActionsTestScene();
         }
     },
     {
         title:"Event Test",
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new EventTestScene();
         }
     },
     {
         title:"Extensions Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new ExtensionsTestScene();
         }
@@ -247,6 +270,7 @@ var testNames = [
     //"ExtensionsTest",
     {
         title:"Font Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new FontTestScene();
         }
@@ -254,6 +278,7 @@ var testNames = [
     //"HiResTest",
     {
         title:"Interval Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new IntervalTestScene();
         }
@@ -261,30 +286,35 @@ var testNames = [
     //"KeyboardTest",
     {
         title:"Label Test",
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new LabelTestScene();
         }
     },
     {
         title:"Layer Test",
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new LayerTestScene();
         }
     },
     {
         title:"Menu Test",
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new MenuTestScene();
         }
     },
     {
         title:"Multi TouchTest",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new MultiTouchTestScene();
         }
     },
     {
         title:"Node Test",
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new NodeTestScene();
         }
@@ -292,24 +322,28 @@ var testNames = [
     //"MotionStreakTest",
     {
         title:"Parallax Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new ParallaxTestScene();
         }
     },
     {
         title:"Particle Test",
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new ParticleTestScene();
         }
     },
     {
         title:"Performance Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new PerformanceTestScene();
         }
     },
     {
         title:"ProgressActions Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new ProgressActionsTestScene();
         }
@@ -317,30 +351,35 @@ var testNames = [
     //"RenderTextureTest",
     {
         title:"RotateWorld Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new RotateWorldTestScene();
         }
     },
     {
         title:"Scene Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new SceneTestScene();
         }
     },
     {
         title:"Scheduler Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new SchedulerTestScene();
         }
     },
     {
         title:"Sprite Test",
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new SpriteTestScene();
         }
     },
     {
         title:"TextInput Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new TextInputTestScene();
         }
@@ -348,24 +387,28 @@ var testNames = [
     //"Texture2DTest",
     {
         title:"TextureCache Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new TextureCacheTestScene();
         }
     },
     {
         title:"TileMap Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new TileMapTestScene();
         }
     },
     {
         title:"Touches Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new TouchesTestScene();
         }
     },
     {
         title:"Transitions Test",
+        platforms: PLATFORM_HTML5,
         testScene:function () {
             return new TransitionsTestScene();
         }
