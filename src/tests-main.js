@@ -183,7 +183,6 @@ var TestController = cc.Layer.extend({
 });
 
 var testNames = [
-    //"Accelerometer",
     {
         title:"ActionManager Test",
         platforms: PLATFORM_HTML5,
@@ -224,7 +223,7 @@ var testNames = [
     },
     {
         title:"CocosDenshion Test",
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new CocosDenshionTestScene();
         }
