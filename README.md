@@ -39,6 +39,6 @@ TODO
 
 ## Automated tests ##
 
-Automated tests are not ready yet.  In the meantime use the obsolete method of update the following spreadsheet:
+Automated tests are not ready yet.  In the meantime use the obsolete method of updating the following spreadsheet:
 
 - [cocos2d JS tests](https://docs.google.com/spreadsheet/ccc?key=0AtMnlkzywt1zdHlZcVZQZlp6RHhZd0lHcGtleXV4aUE#gid=1)
