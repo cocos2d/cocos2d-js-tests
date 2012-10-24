@@ -698,8 +698,8 @@ var ActionCallFunc3 = ActionsDemo.extend({
         this.centerSprites(1);
 
         var action = cc.CallFunc.create(this, function(nodeExecutingAction, value) {
-                        cc.log("Object: " + nodeExecutingAction + " value is: " + value);
-                    }, "Hello world");
+            cc.log("Object: " + nodeExecutingAction + " value is: " + value);
+        }, "Hello world");
 
         this.runAction(action);
     },
