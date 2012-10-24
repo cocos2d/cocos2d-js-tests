@@ -13,13 +13,16 @@ require("tests-main.js");
 var tests_files = [
 		'ActionsTest.js',
 		'ChipmunkTest.js',
+		'CocosDenshionTest.js',
 		'CocosNodeTest.js',
 		'EaseActionsTest.js',
+		'EffectsTest.js',
 		'EventTest.js',
 		'LabelTest.js',
 		'LayerTest.js',
 		'MenuTest.js',
 		'ParticleTest.js',
+		'RenderTextureTest.js',
 		'SchedulerTest.js',
 		'SpriteTest.js'
 	];
