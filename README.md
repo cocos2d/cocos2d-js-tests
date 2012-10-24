@@ -25,17 +25,26 @@ $ python -m SimpleHTTPServer
 ```shell
 $ git clone git://github.com/cocos2d/cocos2d-iphone.git
 $ cd cocos2d-iphone
+$ git checkout develop-v2
 $ git submodule update --init
 $ open cocos2d-ios.xcodeproj
 ```
-- Select the "JS Test" scheme from Xcode
+- Select the "JS Test" scheme in Xcode
 - Run it
 
 ![Xcode JS-Tests](https://lh4.googleusercontent.com/-qK1AiPbVggI/UIgeykWN1rI/AAAAAAAAqHA/hBegMW0VTkE/s800/Xcode_jstests.png)
 
 ### cocos2d-x ###
 
-TODO
+```shell
+$ git clone git://github.com/cocos2d/cocos2d-x.git
+$ cd cocos2d-x
+$ git checkout gles20
+$ git submodule update --init
+$ open samples/TestJavascript/proj.ios/TestJavascript.xcodeproj
+```
+- Select the "TestJavascript" scheme in Xcode
+- Run it
 
 ## Automated tests ##
 
