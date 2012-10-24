@@ -45,7 +45,7 @@ Automated tests are not ready yet.  In the meantime use the obsolete method of u
 
 ## Multiplatform ##
 
-__Code once, run everywhere__
+__Code once, run everywhere.__
 These tests can be run unmodified in the following platforms:
 
   - In any browser (_cocos2d-html5_)
