@@ -432,6 +432,50 @@ var RescheduleCallback = SchedulerTestLayer.extend({
     }
 });
 
+/*
+    ScheduleUsingSchedulerTest
+*/
+var ScheduleUsingSchedulerTest = SchedulerTestLayer.extend({
+    _accum:0,
+
+    onEnter:function () {
+        this._super();
+
+        this._accum = 0;
+        var scheduler = director.getScheduler();
+
+        var priority = 0;  // priority 0. default.
+        var paused = false; // not paused, queue it now.
+        scheduler.scheduleUpdateForTarget(this, priority, paused);
+
+        var interval = 0.25; // every 1/4 of second
+        var repeat = cc.REPEAT_FOREVER; // how many repeats. cc.REPEAT_FOREVER means forever
+        var delay = 2; // start after 2 seconds;
+        paused = false; // not paused. queue it now.
+        scheduler.scheduleCallbackForTarget(this, this.onSchedUpdate, interval, repeat, delay, paused);
+    },
+    title:function () {
+        return "Schedule / Unschedule using Scheduler";
+    },
+    subtitle:function () {
+        return "After 5 seconds all callbacks should be removed";
+    },
+
+    // callbacks
+    update:function(dt) {
+        cc.log("update: " + dt);
+    },
+    onSchedUpdate:function (dt) {
+        cc.log("onSchedUpdate delta: " + dt);
+
+        this._accum += dt;
+        if( this._accum > 3 ) {
+            var scheduler = director.getScheduler();
+            scheduler.unscheduleAllCallbacksForTarget(this);
+        }
+        cc.log("onSchedUpdate accum: " + this._accum);
+    }
+});
 
 /*
     main entry
@@ -459,7 +503,8 @@ var arrayOfSchedulerTest = [
     SchedulerUpdate,
     SchedulerUpdateAndCustom,
     SchedulerUpdateFromCustom,
-    RescheduleCallback
+    RescheduleCallback,
+    ScheduleUsingSchedulerTest
 ];
 
 var nextSchedulerTest = function () {
