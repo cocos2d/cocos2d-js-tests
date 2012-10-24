@@ -265,7 +265,13 @@ var testNames = [
             return new ExtensionsTestScene();
         }
     },
-    //"EffectsTest",
+    {
+        title:"Effects Test",
+        platforms: PLATFORM_JSB,
+        testScene:function () {
+            return new EffectsTestScene();
+        }
+    },
     //"EffectAdvancedTest",
     //"ExtensionsTest",
     {
@@ -348,7 +354,13 @@ var testNames = [
             return new ProgressActionsTestScene();
         }
     },
-    //"RenderTextureTest",
+    {
+        title:"RenderTexture Test",
+        platforms: PLATFORM_JSB,
+        testScene:function () {
+            return new RenderTextureTestScene();
+        }
+    },
     {
         title:"RotateWorld Test",
         platforms: PLATFORM_HTML5,
