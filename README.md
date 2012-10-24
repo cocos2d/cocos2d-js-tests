@@ -19,6 +19,7 @@ $ cd cocos2d-html5
 $ git submodule update --init
 $ python -m SimpleHTTPServer
 ```
+... and run a brower and open it in `localhost:8000/tests`
 
 ### cocos2d-iphone ###
 
