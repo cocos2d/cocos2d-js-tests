@@ -5,8 +5,7 @@ These tests are shared by the following projects:
   - [cocos2d-html5](http://www.cocos2d-html5.org)
   - [cocos2d-x](http://www.cocos2d-x.org)
   - [cocos2d-iphone](http://www.cocos2d-iphone.org)
-  
-  
+
 If you modify the a test, please test it with all the projects to ensure 100% API compatibility between all the projects.
 
 ## Running the tests ##
@@ -43,3 +42,14 @@ TODO
 Automated tests are not ready yet.  In the meantime use the obsolete method of updating the following spreadsheet:
 
 - [cocos2d JS tests](https://docs.google.com/spreadsheet/ccc?key=0AtMnlkzywt1zdHlZcVZQZlp6RHhZd0lHcGtleXV4aUE#gid=1)
+
+## Multiplatform ##
+
+__Code once, run everywhere__
+These tests can be run unmodified in the following platforms:
+
+  - In any browser (_cocos2d-html5_)
+  - iOS (_cocos2d-x / cocos2d-iphone_)
+  - Android (_cocos2d-x_)
+  - Mac (_cocos2d-iphone_)
+
