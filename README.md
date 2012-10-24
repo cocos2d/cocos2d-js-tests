@@ -48,8 +48,8 @@ Automated tests are not ready yet.  In the meantime use the obsolete method of u
 __Code once, run everywhere.__
 These tests can be run unmodified in the following platforms:
 
-  - In any browser (_cocos2d-html5_)
-  - iOS (_cocos2d-x / cocos2d-iphone_)
-  - Android (_cocos2d-x_)
-  - Mac (_cocos2d-iphone_)
+  - In any browser ( with _cocos2d-html5_ )
+  - iOS ( with _cocos2d-x / cocos2d-iphone_ + _JS Bindings_)
+  - Android ( with _cocos2d-x_ + _JS Bindings_ )
+  - Mac ( with _cocos2d-iphone_ + _JS Bindings_ )
 
