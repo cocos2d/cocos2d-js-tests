@@ -22,6 +22,7 @@ var tests_files = [
 		'LayerTest.js',
 		'MenuTest.js',
 		'ParticleTest.js',
+		'Presentation.js',
 		'RenderTextureTest.js',
 		'SchedulerTest.js',
 		'SpriteTest.js'

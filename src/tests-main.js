@@ -423,7 +423,15 @@ var testNames = [
         testScene:function () {
             return new TransitionsTestScene();
         }
+    },
+    {
+        title:"cocos2d JS Presentation",
+        platforms: PLATFORM_JSB,
+        testScene:function () {
+            return new PresentationScene();
+        }
     }
+
     //"UserDefaultTest",
     //"ZwoptexTest",
 ];
