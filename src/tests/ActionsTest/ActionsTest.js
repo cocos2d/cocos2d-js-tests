@@ -606,10 +606,10 @@ var ActionSequence2 = ActionsDemo.extend({
 });
 //------------------------------------------------------------------
 //
-//	ActionCallFunc
+//	ActionCallFunc1
 //
 //------------------------------------------------------------------
-var ActionCallFunc = ActionsDemo.extend({
+var ActionCallFunc1 = ActionsDemo.extend({
     onEnter:function () {
         this._super();
         this.centerSprites(3);
@@ -628,7 +628,7 @@ var ActionCallFunc = ActionsDemo.extend({
         var action3 = cc.Sequence.create(
             cc.RotateBy.create(3, 360),
             cc.FadeOut.create(2),
-            cc.CallFunc.create(this, this.onCallback3, 0xbebabeba)
+            cc.CallFunc.create(this, this.onCallback3, "Hi!")
         );
 
         this._grossini.runAction(action);
@@ -636,22 +636,22 @@ var ActionCallFunc = ActionsDemo.extend({
         this._kathia.runAction(action3);
 
     },
-    onCallback1:function () {
+    onCallback1:function (nodeExecutingAction, value) {
         var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 1 called", "Marker Felt", 16);
         label.setPosition(s.width / 4 * 1, s.height / 2);
         this.addChild(label);
     },
-    onCallback2:function () {
+    onCallback2:function (nodeExecutingAction, value) {
         var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 2 called", "Marker Felt", 16);
         label.setPosition(s.width / 4 * 2, s.height / 2);
 
         this.addChild(label);
     },
-    onCallback3:function () {
+    onCallback3:function (nodeExecutingAction, value) {
         var s = director.getWinSize();
-        var label = cc.LabelTTF.create("callback 3 called", "Marker Felt", 16);
+        var label = cc.LabelTTF.create("callback 3 called:" + value, "Marker Felt", 16);
         label.setPosition(s.width / 4 * 3, s.height / 2);
         this.addChild(label);
     },
@@ -661,10 +661,10 @@ var ActionCallFunc = ActionsDemo.extend({
 });
 //------------------------------------------------------------------
 //
-// ActionCallFuncND
+// ActionCallFunc2
 //
 //------------------------------------------------------------------
-var ActionCallFuncND = ActionsDemo.extend({
+var ActionCallFunc2 = ActionsDemo.extend({
     onEnter:function () {
         this._super();
         this.centerSprites(1);
@@ -680,12 +680,42 @@ var ActionCallFuncND = ActionsDemo.extend({
     },
 
     title:function () {
-        return "CallFuncND + auto remove";
+        return "CallFunc + auto remove";
     },
     subtitle:function () {
-        return "CallFuncND + removeFromParentAndCleanup. Grossini dissapears in 2s";
+        return "CallFunc + removeFromParentAndCleanup. Grossini dissapears in 2s";
     }
 });
+
+//------------------------------------------------------------------
+//
+// ActionCallFunc3
+//
+//------------------------------------------------------------------
+var ActionCallFunc3 = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+        this.centerSprites(1);
+
+        var action = cc.CallFunc.create(this, function(nodeExecutingAction, value) {
+            cc.log("Object: " + nodeExecutingAction + " value is: " + value);
+        }, "Hello world");
+
+        this.runAction(action);
+    },
+
+    removeFromParentAndCleanup:function (nodeExecutingAction, data) {
+        nodeExecutingAction.removeFromParent(data);
+    },
+
+    title:function () {
+        return "CallFunc + parameters";
+    },
+    subtitle:function () {
+        return "CallFunc + parameters. Take a look at the console";
+    }
+});
+
 //------------------------------------------------------------------
 //
 // ActionSpawn
@@ -1060,7 +1090,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
 var ActionCatmullRom = ActionsDemo.extend({
     _array1:null,
     _array2:null,
-    
+
     init:function () {
         this._super();
         this._array1 = [];
@@ -1178,7 +1208,7 @@ var ActionTargetedCopy = ActionsDemo.extend({
 
         var jump1 = cc.JumpBy.create(2, cc.p(0,0), 100, 3);
         var jump2 = jump1.copy();
-        
+
         var t1 = cc.TargetedAction.create(this._kathia, jump2);
         var t_copy = t1.copy();
 
@@ -1384,6 +1414,7 @@ var Issue1327 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
+
     ActionManual,
     ActionMove,
     ActionScale,
@@ -1406,8 +1437,9 @@ var arrayOfActionsTest = [
     ActionRepeatForever,
     ActionRotateToRepeat,
     ActionRotateJerk,
-    ActionCallFunc,
-    ActionCallFuncND,
+    ActionCallFunc1,
+    ActionCallFunc2,
+    ActionCallFunc3,
     ActionReverseSequence,
     ActionReverseSequence2,
     ActionOrbit,
