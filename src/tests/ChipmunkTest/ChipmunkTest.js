@@ -41,7 +41,7 @@ var ChipmunkBaseLayer = function() {
 	//
 	// VERY IMPORTANT
 	//
-	// Only subclasses of a native classes MUST call __associateObjectWithNative
+	// Only subclasses of a native classes MUST call cc.associateWithNative
 	// Failure to do so, it will crash.
 	//
 	var parent = cc.base(this);
