@@ -41,7 +41,7 @@ var PresentationBaseLayer = function() {
 	// Only subclasses of a native classes MUST call __associateObjectWithNative
 	// Failure to do so, it will crash.
 	//
-	var parent = goog.base(this);
+	var parent = cc.base(this);
 	__associateObjWithNative( this, parent );
 	this.init( cc.c4(0,0,0,255), cc.c4(98,99,117,255));
 
@@ -50,11 +50,11 @@ var PresentationBaseLayer = function() {
 	this.isMainTitle = false;
 
 };
-goog.inherits(PresentationBaseLayer, cc.LayerGradient );
+cc.inherits(PresentationBaseLayer, cc.LayerGradient );
 
 //
 // Instance 'base' methods
-// XXX: Should be defined after "goog.inherits"
+// XXX: Should be defined after "cc.inherits"
 //
 PresentationBaseLayer.prototype.onEnter = function() {
 
@@ -169,13 +169,13 @@ PresentationBaseLayer.prototype.onBackCallback = function (sender) {
 //------------------------------------------------------------------
 var IntroPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'cocos2d';
 	this.subtitle = 'Game Development Kit';
 	this.isMainTitle = true;
 };
-goog.inherits( IntroPage, PresentationBaseLayer );
+cc.inherits( IntroPage, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -184,7 +184,7 @@ goog.inherits( IntroPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var GoalPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Goals';
 	this.subtitle = '';
@@ -198,7 +198,7 @@ var GoalPage = function() {
 			'Good performance'
 			);
 };
-goog.inherits( GoalPage, PresentationBaseLayer );
+cc.inherits( GoalPage, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -207,13 +207,13 @@ goog.inherits( GoalPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var SolutionsPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Options';
 	this.subtitle = '';
 	this.isMainTitle = true;
 };
-goog.inherits( SolutionsPage, PresentationBaseLayer );
+cc.inherits( SolutionsPage, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -222,7 +222,7 @@ goog.inherits( SolutionsPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var HTML5EnginesPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Options';
 	this.subtitle = 'HTML5 engines';
@@ -236,7 +236,7 @@ var HTML5EnginesPage = function() {
 			'etc...'
 			);
 };
-goog.inherits( HTML5EnginesPage, PresentationBaseLayer );
+cc.inherits( HTML5EnginesPage, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -245,7 +245,7 @@ goog.inherits( HTML5EnginesPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var FeaturesHTML5Page = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'HTML5 Features';
 	this.subtitle = '';
@@ -259,7 +259,7 @@ var FeaturesHTML5Page = function() {
 			'Good Performance ???'
 			);
 };
-goog.inherits( FeaturesHTML5Page, PresentationBaseLayer );
+cc.inherits( FeaturesHTML5Page, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -268,7 +268,7 @@ goog.inherits( FeaturesHTML5Page, PresentationBaseLayer );
 //------------------------------------------------------------------
 var ComparisonPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'HTML5 performance';
 	this.subtitle = 'Performance';
@@ -277,7 +277,7 @@ var ComparisonPage = function() {
 	this.createImage( images_path + 'comparison.png');
 
 };
-goog.inherits( ComparisonPage, PresentationBaseLayer );
+cc.inherits( ComparisonPage, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -286,7 +286,7 @@ goog.inherits( ComparisonPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var WhatWeWantPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Performance';
 	this.subtitle = 'But what we want is...';
@@ -299,7 +299,7 @@ var WhatWeWantPage = function() {
 			);
 
 };
-goog.inherits( WhatWeWantPage, PresentationBaseLayer );
+cc.inherits( WhatWeWantPage, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -308,7 +308,7 @@ goog.inherits( WhatWeWantPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var ChipmunkPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	// batch node
 	this.batch = cc.SpriteBatchNode.create( 'grossini.png', 50 );
@@ -326,11 +326,11 @@ var ChipmunkPage = function() {
 
 	this.initMenu();
 };
-goog.inherits( ChipmunkPage, PresentationBaseLayer );
+cc.inherits( ChipmunkPage, PresentationBaseLayer );
 
 //
 // Instance 'base' methods
-// XXX: Should be defined after "goog.inherits"
+// XXX: Should be defined after "cc.inherits"
 //
 
 ChipmunkPage.prototype.onTogglePhysicsDebug = function() {
@@ -392,7 +392,7 @@ ChipmunkPage.prototype.createPhysicsSprite = function( pos ) {
 
 ChipmunkPage.prototype.onEnter = function () {
 
-	goog.base(this, 'onEnter');
+	cc.base(this, 'onEnter');
 
 	for(var i=0; i<20; i++) {
 		var x = 40 + Math.random() * (winSize.width-80);
@@ -440,7 +440,7 @@ ChipmunkPage.prototype.onTouchesEnded = function( touches, event ) {
 //------------------------------------------------------------------
 var ParticlesPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Performance';
 	this.subtitle = 'Particles';
@@ -496,7 +496,7 @@ var ParticlesPage = function() {
 		director.setDisplayStats( true );
 	};
 };
-goog.inherits( ParticlesPage, PresentationBaseLayer );
+cc.inherits( ParticlesPage, PresentationBaseLayer );
 
 
 //------------------------------------------------------------------
@@ -506,13 +506,13 @@ goog.inherits( ParticlesPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var HowToImprovePage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Improving the performance';
 	this.subtitle = 'Redefining "fast" for mobile';
 	this.isMainTitle = true;
 };
-goog.inherits( HowToImprovePage, PresentationBaseLayer );
+cc.inherits( HowToImprovePage, PresentationBaseLayer );
 
 
 //------------------------------------------------------------------
@@ -522,7 +522,7 @@ goog.inherits( HowToImprovePage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var HTML5AcceleratorPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'HTML5 Accelerators';
 	this.subtitle = '';
@@ -530,7 +530,7 @@ var HTML5AcceleratorPage = function() {
 
 	this.createImage( images_path + 'html5accelerator.png');
 };
-goog.inherits( HTML5AcceleratorPage, PresentationBaseLayer );
+cc.inherits( HTML5AcceleratorPage, PresentationBaseLayer );
 
 
 //------------------------------------------------------------------
@@ -540,7 +540,7 @@ goog.inherits( HTML5AcceleratorPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var GDKAcceleratorPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'cocos2d Acceleration';
 	this.subtitle = '';
@@ -548,7 +548,7 @@ var GDKAcceleratorPage = function() {
 
 		this.createImage( images_path + 'gdkaccelerator.png');
 };
-goog.inherits( GDKAcceleratorPage, PresentationBaseLayer );
+cc.inherits( GDKAcceleratorPage, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -557,7 +557,7 @@ goog.inherits( GDKAcceleratorPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var GDKComponentsPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Components';
 	this.subtitle = '';
@@ -569,7 +569,7 @@ var GDKComponentsPage = function() {
 			'World Editor: CocosBuilder'
 			);
 };
-goog.inherits( GDKComponentsPage, PresentationBaseLayer );
+cc.inherits( GDKComponentsPage, PresentationBaseLayer );
 
 
 //------------------------------------------------------------------
@@ -579,7 +579,7 @@ goog.inherits( GDKComponentsPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var CocosStatusPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Game Engine';
 	this.subtitle = '';
@@ -587,7 +587,7 @@ var CocosStatusPage = function() {
 
     this.createImage( images_path + 'cocos2d_status.png' );
 };
-goog.inherits( CocosStatusPage, PresentationBaseLayer );
+cc.inherits( CocosStatusPage, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -596,7 +596,7 @@ goog.inherits( CocosStatusPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var ChipmunkStatusPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Physics Engine';
 	this.subtitle = '';
@@ -604,7 +604,7 @@ var ChipmunkStatusPage = function() {
 
     this.createImage( images_path + 'chipmunk_status.png' );
 };
-goog.inherits( ChipmunkStatusPage, PresentationBaseLayer );
+cc.inherits( ChipmunkStatusPage, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -613,7 +613,7 @@ goog.inherits( ChipmunkStatusPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var CCBStatusPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'World Editor';
 	this.subtitle = '';
@@ -621,7 +621,7 @@ var CCBStatusPage = function() {
 
     this.createImage( images_path + 'cocosbuilder_status.png' );
 };
-goog.inherits( CCBStatusPage, PresentationBaseLayer );
+cc.inherits( CCBStatusPage, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -630,7 +630,7 @@ goog.inherits( CCBStatusPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var WhoIsUsingItPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = "Who is using it";
 	this.subtitle = '';
@@ -642,7 +642,7 @@ var WhoIsUsingItPage = function() {
 				'...and you ?'
                 );
 };
-goog.inherits( WhoIsUsingItPage, PresentationBaseLayer );
+cc.inherits( WhoIsUsingItPage, PresentationBaseLayer );
 
 
 //------------------------------------------------------------------
@@ -652,13 +652,13 @@ goog.inherits( WhoIsUsingItPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var DemoPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Demo';
 	this.subtitle = '';
 	this.isMainTitle = true;
 };
-goog.inherits( DemoPage, PresentationBaseLayer );
+cc.inherits( DemoPage, PresentationBaseLayer );
 
 //------------------------------------------------------------------
 //
@@ -667,13 +667,13 @@ goog.inherits( DemoPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var ThanksPage = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Thanks';
 	this.subtitle = '';
 	this.isMainTitle = true;
 };
-goog.inherits( ThanksPage, PresentationBaseLayer );
+cc.inherits( ThanksPage, PresentationBaseLayer );
 
 
 
@@ -682,9 +682,9 @@ goog.inherits( ThanksPage, PresentationBaseLayer );
 //
 
 var PresentationScene = function() {
-	var parent = goog.base(this);
+	var parent = cc.base(this);
 };
-goog.inherits(PresentationScene, TestScene );
+cc.inherits(PresentationScene, TestScene );
 
 PresentationScene.prototype.runThisTest = function () {
     sceneIdx = -1;
