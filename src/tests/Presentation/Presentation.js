@@ -43,7 +43,7 @@ var PresentationBaseLayer = function() {
 	//
 	var parent = cc.base(this);
 	cc.associateWithNative( this, parent );
-	this.init( cc.c4(0,0,0,255), cc.c4(98,99,117,255));
+	this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
 
 	this.title =  "No title";
 	this.subtitle = "No Subtitle";
@@ -698,8 +698,6 @@ PresentationScene.prototype.runThisTest = function () {
 // Flow control
 //
 var arrayOfPresentation = [
-	ChipmunkPage,
-
 	IntroPage,
 	GoalPage,
 	HTML5EnginesPage,
