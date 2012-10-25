@@ -289,7 +289,7 @@ var WhatWeWantPage = function() {
 	goog.base(this);
 
 	this.title = 'Performance';
-	this.subtitle = 'What we want is...';
+	this.subtitle = 'But what we want is...';
 	this.isMainTitle = false;
 
 	this.createBulletList(
@@ -320,7 +320,7 @@ var ChipmunkPage = function() {
 	};
 
 	this.title = 'Performance';
-	this.subtitle = 'Physics and sprites';
+	this.subtitle = 'Physics and Sprites';
 
 	this.initPhysics();
 
@@ -350,43 +350,43 @@ ChipmunkPage.prototype.initMenu = function() {
 
 // init physics
 ChipmunkPage.prototype.initPhysics = function() {
-	this.space =  cp.spaceNew();
-	var staticBody = cp.spaceGetStaticBody( this.space );
+	this.space =  new cp.Space();
+	var staticBody = this.space.getStaticBody();
 
 	// Walls
-	var walls = [cp.segmentShapeNew( staticBody, cp.v(0,0), cp.v(winSize.width,0), 0 ),				// bottom
-			cp.segmentShapeNew( staticBody, cp.v(0,winSize.height), cp.v(winSize.width,winSize.height), 0),	// top
-			cp.segmentShapeNew( staticBody, cp.v(0,0), cp.v(0,winSize.height), 0),				// left
-			cp.segmentShapeNew( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 0)	// right
+	var walls = [new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 0 ),				// bottom
+			new cp.SegmentShape( staticBody, cp.v(0,winSize.height), cp.v(winSize.width,winSize.height), 0),	// top
+			new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 0),				// left
+			new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 0)	// right
 			];
 	for( var i=0; i < walls.length; i++ ) {
 		var wall = walls[i];
-		cp.shapeSetElasticity(wall, 1);
-		cp.shapeSetFriction(wall, 1);
-		cp.spaceAddStaticShape( this.space, wall );
+		wall.setElasticity(1);
+		wall.setFriction(1);
+		this.space.addStaticShape(wall);
 	}
 
 	// Gravity
-	cp.spaceSetGravity( this.space, cp.v(0, -100) );
+	this.space.gravity = cp.v(0, -100);
 
 
 	// Physics debug layer
-	this.debugNode = cc.PhysicsDebugNode.create( this.space );
+	this.debugNode = cc.PhysicsDebugNode.create( this.space.handle );
 	this.debugNode.setVisible( false );
 	this.addChild( this.debugNode, 100 );
 };
 
 ChipmunkPage.prototype.createPhysicsSprite = function( pos ) {
-	var body = cp.bodyNew(1, cp.momentForBox(1, 48, 108) );
-	cp.bodySetPos( body, pos );
-	cp.spaceAddBody( this.space, body );
-	var shape = cp.boxShapeNew( body, 48, 108);
-	cp.shapeSetElasticity( shape, 0.5 );
-	cp.shapeSetFriction( shape, 0.5 );
-	cp.spaceAddShape( this.space, shape );
+	var body = new cp.Body(1, cp.momentForBox(1, 48, 108) );
+	body.setPos( pos );
+	this.space.addBody( body );
+	var shape = cp.BoxShape( body, 48, 108);
+	shape.setElasticity( 0.5 );
+	shape.setFriction( 0.5 );
+	this.space.addShape( shape );
 
 	var sprite = cc.PhysicsSprite.create( "grossini.png");
-	sprite.setBody( body );
+	sprite.setBody( body.handle );
 	return sprite;
 };
 
@@ -418,7 +418,7 @@ ChipmunkPage.prototype.onEnterTransitionDidFinish = function () {
 };
 
 ChipmunkPage.prototype.update = function( delta ) {
-	cp.spaceStep( this.space, delta );
+	this.space.step( delta );
 };
 
 ChipmunkPage.prototype.onMouseDown = function( event ) {
@@ -698,6 +698,8 @@ PresentationScene.prototype.runThisTest = function () {
 // Flow control
 //
 var arrayOfPresentation = [
+	ChipmunkPage,
+
 	IntroPage,
 	GoalPage,
 	HTML5EnginesPage,
