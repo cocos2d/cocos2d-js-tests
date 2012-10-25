@@ -42,7 +42,7 @@ var PresentationBaseLayer = function() {
 	// Failure to do so, it will crash.
 	//
 	var parent = cc.base(this);
-	__associateObjWithNative( this, parent );
+	cc.associateWithNative( this, parent );
 	this.init( cc.c4(0,0,0,255), cc.c4(98,99,117,255));
 
 	this.title =  "No title";

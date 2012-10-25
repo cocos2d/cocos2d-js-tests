@@ -25,7 +25,8 @@ var tests_files = [
 		'Presentation.js',
 		'RenderTextureTest.js',
 		'SchedulerTest.js',
-		'SpriteTest.js'
+		'SpriteTest.js',
+		'UnitTest.js'
 	];
 for( var i=0; i < tests_files.length; i++) {
 	cc.log(" Loading: " + tests_files[i] );

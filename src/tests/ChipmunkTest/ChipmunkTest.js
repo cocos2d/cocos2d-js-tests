@@ -45,7 +45,7 @@ var ChipmunkBaseLayer = function() {
 	// Failure to do so, it will crash.
 	//
 	var parent = cc.base(this);
-	__associateObjWithNative( this, parent );
+	cc.associateWithNative( this, parent );
 	this.init();
 
 	this.title =  "No title";

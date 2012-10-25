@@ -425,6 +425,13 @@ var testNames = [
         }
     },
     {
+        title:"Unit Tests",
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new UnitTestScene();
+        }
+    },
+    {
         title:"cocos2d JS Presentation",
         platforms: PLATFORM_JSB,
         testScene:function () {
