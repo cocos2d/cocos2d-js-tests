@@ -33,10 +33,10 @@ var sceneIdx = -1;
 
 //------------------------------------------------------------------
 //
-// BaseLayer
+// ChipmunkBaseLayer
 //
 //------------------------------------------------------------------
-var BaseLayer = function() {
+var ChipmunkBaseLayer = function() {
 
 	//
 	// VERY IMPORTANT
@@ -63,9 +63,9 @@ var BaseLayer = function() {
 	this.setupDebugNode();
 };
 
-goog.inherits(BaseLayer, cc.Layer );
+goog.inherits(ChipmunkBaseLayer, cc.Layer );
 
-BaseLayer.prototype.setupDebugNode = function()
+ChipmunkBaseLayer.prototype.setupDebugNode = function()
 {
     // debug only
 	this._debugNode = cc.PhysicsDebugNode.create( this.space.handle );
@@ -73,7 +73,7 @@ BaseLayer.prototype.setupDebugNode = function()
 	this.addChild( this._debugNode );
 };
 
-BaseLayer.prototype.onToggleDebug = function(sender) {
+ChipmunkBaseLayer.prototype.onToggleDebug = function(sender) {
     var state = this._debugNode.getVisible();
     this._debugNode.setVisible( !state );
 };
@@ -82,7 +82,7 @@ BaseLayer.prototype.onToggleDebug = function(sender) {
 // Instance 'base' methods
 // XXX: Should be defined after "goog.inherits"
 //
-BaseLayer.prototype.onEnter = function() {
+ChipmunkBaseLayer.prototype.onEnter = function() {
 	var label = cc.LabelTTF.create(this.title, "Arial", 28);
 	this.addChild(label, 1);
 	label.setPosition( cc.p(winSize.width / 2, winSize.height - 50));
@@ -111,26 +111,26 @@ BaseLayer.prototype.onEnter = function() {
 	this.addChild(menu, 1);
 };
 
-BaseLayer.prototype.onCleanup = function() {
+ChipmunkBaseLayer.prototype.onCleanup = function() {
 	// Not compulsory, but recommended: cleanup the scene
 	this.unscheduleUpdate();
 };
 
-BaseLayer.prototype.onRestartCallback = function (sender) {
+ChipmunkBaseLayer.prototype.onRestartCallback = function (sender) {
 	this.onCleanup();
     var s = new ChipmunkTestScene();
     s.addChild(restartChipmunkTest());
     director.replaceScene(s);
 };
 
-BaseLayer.prototype.onNextCallback = function (sender) {
+ChipmunkBaseLayer.prototype.onNextCallback = function (sender) {
 	this.onCleanup();
     var s = new ChipmunkTestScene();
     s.addChild(nextChipmunkTest());
     director.replaceScene(s);
 };
 
-BaseLayer.prototype.onBackCallback = function (sender) {
+ChipmunkBaseLayer.prototype.onBackCallback = function (sender) {
 	this.onCleanup();
     var s = new ChipmunkTestScene();
     s.addChild(previousChipmunkTest());
@@ -156,7 +156,7 @@ var ChipmunkChipmunk = function() {
 
 	this.initPhysics();
 };
-goog.inherits( ChipmunkChipmunk, BaseLayer );
+goog.inherits( ChipmunkChipmunk, ChipmunkBaseLayer );
 
 //
 // Instance 'base' methods
@@ -370,7 +370,7 @@ var ChipmunkCollisionTest = function() {
 	};
 
 };
-goog.inherits( ChipmunkCollisionTest, BaseLayer );
+goog.inherits( ChipmunkCollisionTest, ChipmunkBaseLayer );
 
 
 //------------------------------------------------------------------
@@ -494,7 +494,7 @@ var ChipmunkCollisionTestB = function() {
 	};
 
 };
-goog.inherits( ChipmunkCollisionTestB, BaseLayer );
+goog.inherits( ChipmunkCollisionTestB, ChipmunkBaseLayer );
 
 
 //------------------------------------------------------------------
@@ -544,7 +544,7 @@ var ChipmunkCollisionMemoryLeakTest = function() {
             this.space.removeCollisionHandler( i, i+1 );
 	};
 };
-goog.inherits( ChipmunkCollisionMemoryLeakTest, BaseLayer );
+goog.inherits( ChipmunkCollisionMemoryLeakTest, ChipmunkBaseLayer );
 
 
 //
@@ -570,7 +570,7 @@ var ChipmunkDemo = function() {
 
 	this.scheduleUpdate();
 };
-goog.inherits( ChipmunkDemo, BaseLayer );
+goog.inherits( ChipmunkDemo, ChipmunkBaseLayer );
 
 ChipmunkDemo.prototype.update = function(dt) {
 	this.space.step(dt);
