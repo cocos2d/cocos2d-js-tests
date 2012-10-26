@@ -25,115 +25,6 @@
  ****************************************************************************/
 var TAG_TILE_MAP = 1;
 
-var TileMapTests = [
-    //function(){ return new TileMapTest();}, //not support tga format
-    // function(){ return new TileMapEditTest();}, //not support tga format
-    function () {
-        return new TMXOrthoTest();
-    }, //ok
-    function () {
-        return new TMXOrthoTest2();
-    }, //camera bug
-    function () {
-        return new TMXOrthoTest3();
-    }, //ok
-    function () {
-        return new TMXOrthoTest4();
-    }, //ok
-    function () {
-        return new TMXReadWriteTest();
-    }, //ok
-    function () {
-        return new TMXHexTest();
-    }, //ok
-    function () {
-        return new TMXIsoTest();
-    }, //ok
-    function () {
-        return new TMXIsoTest1();
-    }, //ok
-    function () {
-        return new TMXIsoTest2();
-    }, //ok
-    function () {
-        return new TMXUncompressedTest();
-    }, //ok
-    function () {
-        return new TMXTilesetTest();
-    }, //ok
-    function () {
-        return new TMXOrthoObjectsTest();
-    }, //ok
-    function () {
-        return new TMXIsoObjectsTest();
-    }, //ok
-    function () {
-        return new TMXResizeTest();
-    }, //ok
-    function () {
-        return new TMXIsoZorder();
-    }, //ok
-    function () {
-        return new TMXOrthoZorder();
-    }, //ok
-    //function(){ return new TMXIsoVertexZ();}, //VertexZ bug
-    //function(){ return new TMXOrthoVertexZ();}, //VertexZ bug
-    function () {
-        return new TMXIsoMoveLayer();
-    }, //ok
-    function () {
-        return new TMXOrthoMoveLayer();
-    }, //ok
-    function () {
-        return new TMXTilePropertyTest();
-    }, //ok
-    function () {
-        return new TMXOrthoFlipTest();
-    }, //ok
-    function () {
-        return new TMXOrthoFlipRunTimeTest();
-    },
-    function () {
-        return new TMXOrthoFromXMLTest();
-    }, //ok
-    function () {
-        return new TMXBug987();
-    }, //ok
-    function () {
-        return new TMXBug787();
-    }, //ok
-    function () {
-        return new TMXGIDObjectsTest();
-    }//ok
-];
-var tileMapIdx = -1;
-function nextTileMapAction() {
-    ++tileMapIdx;
-    tileMapIdx = tileMapIdx % TileMapTests.length;
-    return TileMapTests[tileMapIdx]();
-}
-function backTileMapAction() {
-    --tileMapIdx;
-    if (tileMapIdx < 0) {
-        tileMapIdx += TileMapTests.length;
-    }
-    return TileMapTests[tileMapIdx]();
-}
-function restartTileMapAction() {
-    return TileMapTests[tileMapIdx]();
-}
-
-// the class inherit from TestScene
-// every .Scene each test used must inherit from TestScene,
-// make sure the test have the menu item for back to main menu
-var TileMapTestScene = TestScene.extend({
-    runThisTest:function () {
-        tileMapIdx = -1;
-        this.addChild(nextTileMapAction());
-        cc.Director.getInstance().replaceScene(this);
-    }
-});
-
 //------------------------------------------------------------------
 //
 // TileDemo
@@ -141,7 +32,19 @@ var TileMapTestScene = TestScene.extend({
 //------------------------------------------------------------------
 var TileDemo = cc.Layer.extend({
     ctor:function () {
-        this.setTouchEnabled(true);
+        this._super();
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
+
+        var t = cc.config.deviceType;
+        if( t == 'browser' )  {
+            this.setTouchEnabled(true);
+            // this.setKeyboardEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
+        } else if( t == 'mobile' ) {
+            this.setTouchEnabled(true);
+        }
     },
     title:function () {
         return "No title";
@@ -155,7 +58,7 @@ var TileDemo = cc.Layer.extend({
         //this.m_subtitle.setString(this.subtitle().toString());
 
         this._super();
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
         // add title and subtitle
         var title = this.title();
         var label = cc.LabelTTF.create(title, "Arial", 28);
@@ -170,65 +73,52 @@ var TileDemo = cc.Layer.extend({
         }
 
         // add menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.restartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.onBackCallback);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.onRestartCallback);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.onNextCallback);
 
-        var menu = cc.Menu.create(item1, item2, item3, null);
+        var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.p(0,0));
-        item1.setPosition(cc.p(s.width / 2 - 100, 30));
-        item2.setPosition(cc.p(s.width / 2, 30));
-        item3.setPosition(cc.p(s.width / 2 + 100, 30));
+        menu.setPosition(0,0);
+        item1.setPosition(s.width / 2 - 100, 30);
+        item2.setPosition(s.width / 2, 30);
+        item3.setPosition(s.width / 2 + 100, 30);
 
         this.addChild(menu, 1);
     },
 
-    restartCallback:function (sender) {
+    onRestartCallback:function (sender) {
         var s = new TileMapTestScene();
-        s.addChild(restartTileMapAction());
+        s.addChild(restartTileMapTest());
 
-        cc.Director.getInstance().replaceScene(s);
+        director.replaceScene(s);
     },
-    nextCallback:function (sender) {
+    onNextCallback:function (sender) {
         var s = new TileMapTestScene();
-        s.addChild(nextTileMapAction());
-        cc.Director.getInstance().replaceScene(s);
+        s.addChild(nextTileMapTest());
+        director.replaceScene(s);
     },
-    backCallback:function (sender) {
+    onBackCallback:function (sender) {
         var s = new TileMapTestScene();
-        s.addChild(backTileMapAction());
-        cc.Director.getInstance().replaceScene(s);
+        s.addChild(previousTileMapTest());
+        director.replaceScene(s);
     },
 
-    registerWithTouchDispatcher:function () {
-        cc.Director.getInstance().getTouchDispatcher().addTargetedDelegate(this, 0, true);
-    },
-    onTouchBegan:function (touch, event) {
-        return true;
-    },
-    onTouchEnded:function (touch, event) {
-        this.prevLocation = null;
-    },
-    onTouchCancelled:function (touch, event) {
-    },
-    prevLocation:null,
-    onTouchMoved:function (touch, event) {
-        var touchLocation = touch.getLocation();
+    onTouchesMoved:function (touches, event) {
+        var touch = touches[0];
+        var delta = touch.getDelta();
 
-        if (!this.prevLocation) {
-            this.prevLocation = cc.p(touchLocation.x, touchLocation.y);
-            return;
-        }
         var node = this.getChildByTag(TAG_TILE_MAP);
-        var diff = cc.pSub(touchLocation, this.prevLocation);
-        var currentPos = node.getPosition();
-
-        //diff = cc.p(diff.x * node.getScaleX(),diff.y * node.getScaleY());
-        var curPos = cc.pAdd(currentPos, diff);
-        node.setPosition(curPos);
-        this.prevLocation = cc.p(touchLocation.x, touchLocation.y);
+        var diff = cc.pAdd(delta, node.getPosition() );
+        node.setPosition( diff );
+    },
+    onMouseDragged:function (event) {
+        var delta = event.getDelta();
+        var node = this.getChildByTag(TAG_TILE_MAP);
+        var diff = cc.pAdd(delta, node.getPosition() );
+        node.setPosition( diff );
     }
+
 });
 
 var TileMapTest = TileDemo.extend({
@@ -249,7 +139,7 @@ var TileMapTest = TileDemo.extend({
         var scale = cc.ScaleBy.create(4, 0.8);
         var scaleBack = scale.reverse();
 
-        var seq = cc.Sequence.create(scale, scaleBack, null);
+        var seq = cc.Sequence.create(scale, scaleBack);
 
         map.runAction(cc.RepeatForever.create(seq));
     },
@@ -345,11 +235,11 @@ var TMXOrthoTest2 = TileDemo.extend({
     },
     onEnter:function () {
         this._super();
-        cc.Director.getInstance().setProjection(cc.DIRECTOR_PROJECTION_3D);
+        director.setProjection(cc.DIRECTOR_PROJECTION_3D);
     },
     onExit:function () {
         this._super();
-        cc.Director.getInstance().setProjection(cc.DIRECTOR_PROJECTION_2D);
+        director.setProjection(cc.DIRECTOR_PROJECTION_2D);
     }
 });
 
@@ -458,7 +348,7 @@ var TMXReadWriteTest = TileDemo.extend({
         var scaleback = cc.ScaleTo.create(1, 1);
         var finish = cc.CallFunc.create(this, this.removeSprite);
 
-        var seq0 = cc.Sequence.create(move, rotate, scale, opacity, fadein, scaleback, finish, null);
+        var seq0 = cc.Sequence.create(move, rotate, scale, opacity, fadein, scaleback, finish);
 
         tile0.runAction(seq0);
         tile1.runAction(seq0.copy());
@@ -836,12 +726,12 @@ var TMXIsoZorder = TileDemo.extend({
         this.tamara = cc.Sprite.create(s_pathSister1);
         map.addChild(this.tamara, map.getChildren().length);
         var mapWidth = map.getMapSize().width * map.getTileSize().width;
-        this.tamara.setPosition(cc.POINT_PIXELS_TO_POINTS(cc.p(mapWidth / 2, 0)));
+        this.tamara.setPosition(mapWidth / 2, 0);
         this.tamara.setAnchorPoint(cc.p(0.5, 0));
 
-        var move = cc.MoveBy.create(10, cc.pMult(cc.p(300, 250), 1 / cc.CONTENT_SCALE_FACTOR()));
+        var move = cc.MoveBy.create(10, cc.pMult(cc.p(300, 250), 1));
         var back = move.reverse();
-        var seq = cc.Sequence.create(move, back, null);
+        var seq = cc.Sequence.create(move, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
 
         this.schedule(this.repositionSprite);
@@ -858,7 +748,6 @@ var TMXIsoZorder = TileDemo.extend({
     },
     repositionSprite:function (dt) {
         var p = this.tamara.getPosition();
-        p = cc.POINT_POINTS_TO_PIXELS(p);
         var map = this.getChildByTag(TAG_TILE_MAP);
 
         // there are only 4 layers. (grass and 3 trees layers)
@@ -867,7 +756,7 @@ var TMXIsoZorder = TileDemo.extend({
         // if tamara < 144, z=2
 
         var newZ = 4 - (p.y / 48);
-        newZ = parseInt(Math.max(newZ, 0));
+        newZ = parseInt(Math.max(newZ, 0),10);
         map.reorderChild(this.tamara, newZ);
     }
 });
@@ -890,9 +779,9 @@ var TMXOrthoZorder = TileDemo.extend({
         map.addChild(this.tamara, map.getChildren().length, TAG_TILE_MAP);
         this.tamara.setAnchorPoint(cc.p(0.5, 0));
 
-        var move = cc.MoveBy.create(10, cc.pMult(cc.p(400, 450), 1 / cc.CONTENT_SCALE_FACTOR()));
+        var move = cc.MoveBy.create(10, cc.pMult(cc.p(400, 450), 1 ));
         var back = move.reverse();
-        var seq = cc.Sequence.create(move, back, null);
+        var seq = cc.Sequence.create(move, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
 
         this.schedule(this.repositionSprite);
@@ -905,7 +794,6 @@ var TMXOrthoZorder = TileDemo.extend({
     },
     repositionSprite:function (dt) {
         var p = this.tamara.getPosition();
-        p = cc.POINT_POINTS_TO_PIXELS(p);
         var map = this.getChildByTag(TAG_TILE_MAP);
 
         // there are only 4 layers. (grass and 3 trees layers)
@@ -942,12 +830,12 @@ var TMXIsoVertexZ = TileDemo.extend({
         var layer = map.layerNamed("Trees");
         this.tamara = layer.tileAt(cc.p(29, 29));
 
-        var move = cc.MoveBy.create(10, cc.pMult(cc.p(300, 250), 1 / cc.CONTENT_SCALE_FACTOR()));
+        var move = cc.MoveBy.create(10, cc.pMult(cc.p(300, 250), 1 ));
         var back = move.reverse();
-        var seq = cc.Sequence.create(move, back, null);
+        var seq = cc.Sequence.create(move, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
 
-        this.schedule(this.repositionSprite);
+        this.scheduleUpdate();
     },
     title:function () {
         return "TMX Iso VertexZ";
@@ -958,19 +846,19 @@ var TMXIsoVertexZ = TileDemo.extend({
     onEnter:function () {
         this._super();
         // TIP: 2d projection should be used
-        cc.Director.getInstance().setProjection(cc.DIRECTOR_PROJECTION_2D);
+        director.setProjection(cc.DIRECTOR_PROJECTION_2D);
     },
     onExit:function () {
-// At exit use any other projection.
-        //	cc.Director.getInstance().setProjection:cc.DIRECTOR_PROJECTION_3D);
+        // At exit use any other projection.
+        //	director.setProjection:cc.DIRECTOR_PROJECTION_3D);
         this._super();
     },
-    repositionSprite:function (dt) {
+    update:function (dt) {
         // tile height is 64x32
         // map size: 30x30
         var p = this.tamara.getPosition();
-        p = cc.POINT_POINTS_TO_PIXELS(p);
-        this.tamara.setVertexZ(-( (p.y + 32) / 16));
+        var z = -( (p.y + 32) / 16);
+        this.tamara.setVertexZ(z);
     }
 });
 
@@ -994,9 +882,9 @@ var TMXOrthoVertexZ = TileDemo.extend({
         this.tamara = layer.tileAt(cc.p(0, 11));
         cc.log("vertexZ: " + this.tamara.getVertexZ());
 
-        var move = cc.MoveBy.create(10, cc.pMult(cc.p(400, 450), 1 / cc.CONTENT_SCALE_FACTOR()));
+        var move = cc.MoveBy.create(10, cc.pMult(cc.p(400, 450), 1));
         var back = move.reverse();
-        var seq = cc.Sequence.create(move, back, null);
+        var seq = cc.Sequence.create(move, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
 
         this.schedule(this.repositionSprite);
@@ -1011,18 +899,17 @@ var TMXOrthoVertexZ = TileDemo.extend({
         this._super();
 
         // TIP: 2d projection should be used
-        cc.Director.getInstance().setProjection(cc.DIRECTOR_PROJECTION_2D);
+        director.setProjection(cc.DIRECTOR_PROJECTION_2D);
     },
     onExit:function () {
         // At exit use any other projection.
-        //	cc.Director.getInstance().setProjection:cc.DIRECTOR_PROJECTION_3D);
+        //	director.setProjection:cc.DIRECTOR_PROJECTION_3D);
         this._super();
     },
     repositionSprite:function (dt) {
         // tile height is 64x32
         // map size: 30x30
         var p = this.tamara.getPosition();
-        p = cc.POINT_POINTS_TO_PIXELS(p);
         this.tamara.setVertexZ(-( (p.y + 32) / 16));
     }
 });
@@ -1081,10 +968,13 @@ var TMXTilePropertyTest = TileDemo.extend({
         var map = cc.TMXTiledMap.create("res/TileMaps/ortho-tile-property.tmx");
         this.addChild(map, 0, TAG_TILE_MAP);
 
-        for (var i = 1; i <= 20; i++) {
-            cc.log("GID:" + i + ", Properties:" + JSON.stringify(map.propertiesForGID(i)));
+        if( cc.config.deviceType == 'browser') {
+            for (var i = 1; i <= 20; i++) {
+                cc.log("GID:" + i + ", Properties:" + JSON.stringify(map.propertiesForGID(i)));
+            }
+        } else {
+            cc.log("Test not supported on JSB");
         }
-
     },
     title:function () {
         return "TMX Tile Property Test";
@@ -1185,26 +1075,17 @@ var TMXOrthoFlipRunTimeTest = TileDemo.extend({
 //
 //------------------------------------------------------------------
 var TMXOrthoFromXMLTest = TileDemo.extend({
-    ctor:function () {
+    init:function () {
         this._super();
-        var resources = "res/TileMaps";        // partial paths are OK as resource paths.
-        var file = resources + "/orthogonal-test1.tmx";
-
-        var str = cc.FileUtils.getInstance().fullPathFromRelativePath(file);
-        cc.Assert(str != null, "Unable to open file");
-
-        var map = cc.TMXTiledMap.create(str, resources);
-        this.addChild(map, 0, TAG_TILE_MAP);
-
-        var s = map.getContentSize();
-        cc.log("ContentSize:" + s.width + "," + s.height);
-
-        var action = cc.ScaleBy.create(2, 0.5);
-        map.runAction(action);
+        cc.log("Test not available");
     },
     title:function () {
         return "TMX created from XML test";
+    },
+    subtitle:function () {
+        return "Test not available";
     }
+
 });
 
 //------------------------------------------------------------------
@@ -1305,3 +1186,65 @@ var TMXGIDObjectsTest = TileDemo.extend({
         }
     }
 });
+
+var TileMapTestScene = TestScene.extend({
+    runThisTest:function () {
+        sceneIdx = -1;
+        var layer = nextTileMapTest();
+        this.addChild(layer);
+
+        director.replaceScene(this);
+    }
+});
+
+//
+// Flow control
+//
+var arrayOfTileMapTest = [
+
+    TMXOrthoTest,
+    TMXOrthoTest2,
+    TMXOrthoTest3,
+    TMXOrthoTest4,
+    TMXReadWriteTest,
+    TMXHexTest,
+    TMXIsoTest,
+    TMXIsoTest1,
+    TMXIsoTest2,
+    TMXUncompressedTest,
+    TMXTilesetTest,
+    TMXOrthoObjectsTest,
+    TMXIsoObjectsTest,
+    TMXResizeTest,
+    TMXIsoZorder,
+    TMXOrthoZorder,
+    TMXIsoVertexZ,
+    TMXOrthoVertexZ,
+    TMXIsoMoveLayer,
+    TMXOrthoMoveLayer,
+    TMXTilePropertyTest,
+    TMXOrthoFlipTest,
+    TMXOrthoFlipRunTimeTest,
+    TMXOrthoFromXMLTest,
+    TMXBug987,
+    TMXBug787,
+    TMXGIDObjectsTest
+];
+
+var nextTileMapTest = function () {
+    sceneIdx++;
+    sceneIdx = sceneIdx % arrayOfTileMapTest.length;
+
+    return new arrayOfTileMapTest[sceneIdx]();
+};
+var previousTileMapTest = function () {
+    sceneIdx--;
+    if (sceneIdx < 0)
+        sceneIdx += arrayOfTileMapTest.length;
+
+    return new arrayOfTileMapTest[sceneIdx]();
+};
+var restartTileMapTest = function () {
+    return new arrayOfTileMapTest[sceneIdx]();
+};
+

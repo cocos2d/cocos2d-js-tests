@@ -41,11 +41,11 @@ var ChipmunkBaseLayer = function() {
 	//
 	// VERY IMPORTANT
 	//
-	// Only subclasses of a native classes MUST call __associateObjectWithNative
+	// Only subclasses of a native classes MUST call cc.associateWithNative
 	// Failure to do so, it will crash.
 	//
-	var parent = goog.base(this);
-	__associateObjWithNative( this, parent );
+	var parent = cc.base(this);
+	cc.associateWithNative( this, parent );
 	this.init();
 
 	this.title =  "No title";
@@ -63,7 +63,7 @@ var ChipmunkBaseLayer = function() {
 	this.setupDebugNode();
 };
 
-goog.inherits(ChipmunkBaseLayer, cc.Layer );
+cc.inherits(ChipmunkBaseLayer, cc.Layer );
 
 ChipmunkBaseLayer.prototype.setupDebugNode = function()
 {
@@ -80,7 +80,7 @@ ChipmunkBaseLayer.prototype.onToggleDebug = function(sender) {
 
 //
 // Instance 'base' methods
-// XXX: Should be defined after "goog.inherits"
+// XXX: Should be defined after "cc.inherits"
 //
 ChipmunkBaseLayer.prototype.onEnter = function() {
 	var label = cc.LabelTTF.create(this.title, "Arial", 28);
@@ -144,7 +144,7 @@ ChipmunkBaseLayer.prototype.onBackCallback = function (sender) {
 //------------------------------------------------------------------
 var ChipmunkChipmunk = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.addSprite = function( pos ) {
 		var sprite =  this.createPhysicsSprite( pos );
@@ -156,11 +156,11 @@ var ChipmunkChipmunk = function() {
 
 	this.initPhysics();
 };
-goog.inherits( ChipmunkChipmunk, ChipmunkBaseLayer );
+cc.inherits( ChipmunkChipmunk, ChipmunkBaseLayer );
 
 //
 // Instance 'base' methods
-// XXX: Should be defined after "goog.inherits"
+// XXX: Should be defined after "cc.inherits"
 //
 
 // init physics
@@ -201,7 +201,7 @@ ChipmunkChipmunk.prototype.createPhysicsSprite = function( pos ) {
 
 ChipmunkChipmunk.prototype.onEnter = function () {
 
-	goog.base(this, 'onEnter');
+	cc.base(this, 'onEnter');
 
 	this.scheduleUpdate();
 	for(var i=0; i<10; i++) {
@@ -241,7 +241,7 @@ ChipmunkChipmunk.prototype.onTouchesEnded = function( touches, event ) {
 //------------------------------------------------------------------
 var ChipmunkSpriteBatchTest = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	// batch node
 	this.batch = cc.SpriteBatchNode.create('grossini.png', 50 );
@@ -255,7 +255,7 @@ var ChipmunkSpriteBatchTest = function() {
 	this.title = 'Chipmunk SpriteBatch Test';
 	this.subtitle = 'Chipmunk + cocos2d sprite batch tests. Tap screen.';
 };
-goog.inherits( ChipmunkSpriteBatchTest, ChipmunkChipmunk );
+cc.inherits( ChipmunkSpriteBatchTest, ChipmunkChipmunk );
 
 
 //------------------------------------------------------------------
@@ -267,7 +267,7 @@ goog.inherits( ChipmunkSpriteBatchTest, ChipmunkChipmunk );
 //------------------------------------------------------------------
 var ChipmunkCollisionTest = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Chipmunk Collision test';
 	this.subtitle = 'Using Object Oriented API. ** Use this API **';
@@ -311,7 +311,7 @@ var ChipmunkCollisionTest = function() {
 	};
 
 	this.onEnter = function () {
-		goog.base(this, 'onEnter');
+		cc.base(this, 'onEnter');
 
         this.initPhysics();
 		this.scheduleUpdate();
@@ -370,7 +370,7 @@ var ChipmunkCollisionTest = function() {
 	};
 
 };
-goog.inherits( ChipmunkCollisionTest, ChipmunkBaseLayer );
+cc.inherits( ChipmunkCollisionTest, ChipmunkBaseLayer );
 
 
 //------------------------------------------------------------------
@@ -383,7 +383,7 @@ goog.inherits( ChipmunkCollisionTest, ChipmunkBaseLayer );
 //------------------------------------------------------------------
 var ChipmunkCollisionTestB = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.messageDisplayed = false;
 
@@ -435,7 +435,7 @@ var ChipmunkCollisionTestB = function() {
 	};
 
 	this.onEnter = function () {
-		goog.base(this, 'onEnter');
+		cc.base(this, 'onEnter');
 
         this.initPhysics();
 		this.scheduleUpdate();
@@ -494,7 +494,7 @@ var ChipmunkCollisionTestB = function() {
 	};
 
 };
-goog.inherits( ChipmunkCollisionTestB, ChipmunkBaseLayer );
+cc.inherits( ChipmunkCollisionTestB, ChipmunkBaseLayer );
 
 
 //------------------------------------------------------------------
@@ -504,7 +504,7 @@ goog.inherits( ChipmunkCollisionTestB, ChipmunkBaseLayer );
 //------------------------------------------------------------------
 var ChipmunkCollisionMemoryLeakTest = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.title = 'Chipmunk Memory Leak Test';
 	this.subtitle = 'Testing possible memory leak on the collision handler. No visual feedback';
@@ -526,7 +526,7 @@ var ChipmunkCollisionMemoryLeakTest = function() {
 	};
 
     this.onEnter = function() {
-        goog.base(this, 'onEnter');
+        cc.base(this, 'onEnter');
 
         for( var i=1 ; i < 100 ; i++ )
             this.space.addCollisionHandler( i, i+1,
@@ -544,7 +544,7 @@ var ChipmunkCollisionMemoryLeakTest = function() {
             this.space.removeCollisionHandler( i, i+1 );
 	};
 };
-goog.inherits( ChipmunkCollisionMemoryLeakTest, ChipmunkBaseLayer );
+cc.inherits( ChipmunkCollisionMemoryLeakTest, ChipmunkBaseLayer );
 
 
 //
@@ -561,7 +561,7 @@ var NOT_GRABABLE_MASK = ~GRABABLE_MASK_BIT;
 
 var ChipmunkDemo = function() {
 
-	goog.base(this);
+	cc.base(this);
 
 	this.remainder = 0;
 
@@ -570,7 +570,7 @@ var ChipmunkDemo = function() {
 
 	this.scheduleUpdate();
 };
-goog.inherits( ChipmunkDemo, ChipmunkBaseLayer );
+cc.inherits( ChipmunkDemo, ChipmunkBaseLayer );
 
 ChipmunkDemo.prototype.update = function(dt) {
 	this.space.step(dt);
@@ -604,7 +604,7 @@ ChipmunkDemo.prototype.addWalls = function() {
 //------------------------------------------------------------------
 var PyramidStack = function() {
 
-	goog.base(this);
+	cc.base(this);
 	this.title = 'Chipmunk Demo';
 	this.subtitle = 'Pyramid Stack';
 
@@ -641,7 +641,7 @@ var PyramidStack = function() {
 	shape.setElasticity(0);
 	shape.setFriction(0.9);
 };
-goog.inherits( PyramidStack, ChipmunkDemo );
+cc.inherits( PyramidStack, ChipmunkDemo );
 
 
 //------------------------------------------------------------------
@@ -651,7 +651,7 @@ goog.inherits( PyramidStack, ChipmunkDemo );
 //------------------------------------------------------------------
 var PyramidTopple = function() {
 
-	goog.base(this);
+	cc.base(this);
 	this.title = 'Chipmunk Demo';
 	this.subtitle = 'Pyramid Topple';
 
@@ -702,7 +702,7 @@ var PyramidTopple = function() {
 	}
 };
 
-goog.inherits( PyramidTopple, ChipmunkDemo );
+cc.inherits( PyramidTopple, ChipmunkDemo );
 
 PyramidTopple.prototype.update = function(dt)
 {
@@ -719,7 +719,7 @@ PyramidTopple.prototype.update = function(dt)
 //
 //------------------------------------------------------------------
 var Joints = function() {
-	goog.base(this);
+	cc.base(this);
 	this.title = 'Chipmunk Demo';
 	this.subtitle = 'Joints';
 
@@ -950,7 +950,7 @@ var Joints = function() {
 	space.addConstraint(new cp.DampedSpring(chassis, wheel2, v( 30, 0), v(0,0), 50, 20, 10));
 };
 
-goog.inherits( Joints, ChipmunkDemo );
+cc.inherits( Joints, ChipmunkDemo );
 
 
 //------------------------------------------------------------------
@@ -959,7 +959,7 @@ goog.inherits( Joints, ChipmunkDemo );
 //
 //------------------------------------------------------------------
 var Balls = function() {
-	goog.base(this);
+	cc.base(this);
 	this.title = 'Chipmunk Demo';
 	this.subtitle = 'Balls';
 
@@ -1011,7 +1011,7 @@ var Balls = function() {
 	ramp.setFriction(1);
 	ramp.setLayers(NOT_GRABABLE_MASK);
 };
-goog.inherits( Balls, ChipmunkDemo );
+cc.inherits( Balls, ChipmunkDemo );
 
 
 //------------------------------------------------------------------
@@ -1024,7 +1024,7 @@ var FLUID_DENSITY = 0.00014;
 var FLUID_DRAG = 2.0;
 
 var Buoyancy = function() {
-	goog.base(this);
+	cc.base(this);
 	this.title = 'Chipmunk Demo';
 	this.subtitle = 'Buoyancy';
 
@@ -1117,7 +1117,7 @@ var Buoyancy = function() {
 
 	space.addCollisionHandler( 1, 0, null, this.waterPreSolve, null, null);
 };
-goog.inherits( Buoyancy, ChipmunkDemo );
+cc.inherits( Buoyancy, ChipmunkDemo );
 
 Buoyancy.prototype.update = function(dt)
 {
@@ -1202,7 +1202,7 @@ Buoyancy.prototype.waterPreSolve = function(arb, space, ptr) {
 //------------------------------------------------------------------
 
 var Planet = function() {
-	goog.base(this);
+	cc.base(this);
 	this.title = 'Chipmunk Demo';
 	this.subtitle = 'Planet';
 
@@ -1226,7 +1226,7 @@ var Planet = function() {
 	shape.setFriction(1.0);
 	shape.setLayers(NOT_GRABABLE_MASK);
 };
-goog.inherits( Planet, ChipmunkDemo );
+cc.inherits( Planet, ChipmunkDemo );
 
 Planet.prototype.update = function(dt)
 {
@@ -1305,9 +1305,9 @@ Planet.prototype.add_box = function()
 //
 
 var ChipmunkTestScene = function() {
-	var parent = goog.base(this);
+	var parent = cc.base(this);
 };
-goog.inherits(ChipmunkTestScene, TestScene );
+cc.inherits(ChipmunkTestScene, TestScene );
 
 ChipmunkTestScene.prototype.runThisTest = function () {
     sceneIdx = -1;
