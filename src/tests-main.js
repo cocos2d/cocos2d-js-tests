@@ -405,7 +405,7 @@ var testNames = [
     },
     {
         title:"TileMap Test",
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new TileMapTestScene();
         }
@@ -422,6 +422,13 @@ var testNames = [
         platforms: PLATFORM_HTML5,
         testScene:function () {
             return new TransitionsTestScene();
+        }
+    },
+    {
+        title:"Unit Tests",
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new UnitTestScene();
         }
     },
     {
