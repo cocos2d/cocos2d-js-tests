@@ -26,6 +26,7 @@ var tests_files = [
 		'RenderTextureTest.js',
 		'SchedulerTest.js',
 		'SpriteTest.js',
+		'TileMapTest.js',
 		'UnitTest.js'
 	];
 for( var i=0; i < tests_files.length; i++) {
