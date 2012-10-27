@@ -177,7 +177,16 @@ var TestController = cc.Layer.extend({
     onMouseDragged : function( event ) {
         var delta = event.getDelta();
         var current = this._itemMenu.getPosition();
-        this._itemMenu.setPosition( cc.p( current.x, current.y + delta.y ) );
+
+        var newY = current.y + delta.y;
+
+        if (newY < 0 )
+            newY = 0;
+
+        if( newY > ((testNames.length + 1) * LINE_SPACE - winSize.height))
+            newY = ((testNames.length + 1) * LINE_SPACE - winSize.height);
+
+        this._itemMenu.setPosition( cc.p( current.x, newY ) );
         return true;
     }
 });
