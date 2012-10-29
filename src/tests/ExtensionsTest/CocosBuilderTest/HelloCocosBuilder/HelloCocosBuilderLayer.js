@@ -92,7 +92,7 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
 
         if(target == this && memberVariableName == "mTestTitleLabelTTF"){
             if(node instanceof  cc.LabelTTF){
-                this.mTestTitleLabelTTF = node;
+                this._testTitleLableTTF = node;
             }
             return true;
         }
@@ -106,23 +106,22 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
     },
 
     onMenuTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/MenuTest.ccbi", "MenuTestLayer", MenuTestLayerLoader.loader());
+        this.openTest("ccb/MenuTest.ccbi", "MenuTestLayer", new MenuTestLayerLoader());
     },
-
     onSpriteTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/SpriteTest.ccbi", "SpriteTestLayer", SpriteTestLayerLoader.loader());
+        this.openTest("ccb/SpriteTest.ccbi", "SpriteTestLayer", new SpriteTestLayerLoader());
     },
     onButtonTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/ButtonTest.ccbi", "ButtonTestLayer", ButtonTestLayerLoader.loader());
+        this.openTest("ccb/ButtonTest.ccbi", "ButtonTestLayer", new ButtonTestLayerLoader());
     },
     onLabelTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/LabelTest.ccbi", "LabelTestLayer", LabelTestLayerLoader.loader());
+        this.openTest("ccb/LabelTest.ccbi", "LabelTestLayer", new LabelTestLayerLoader());
     },
     onParticleSystemTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/ParticleSystemTest.ccbi", "ParticleSystemTestLayer", ParticleSystemTestLayerLoader.loader());
+        this.openTest("ccb/ParticleSystemTest.ccbi", "ParticleSystemTestLayer", new ParticleSystemTestLayerLoader());
     },
     onScrollViewTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/ScrollViewTest.ccbi", "ScrollViewTestLayer", ScrollViewTestLayerLoader.loader());
+        this.openTest("ccb/ScrollViewTest.ccbi", "ScrollViewTestLayer", new ScrollViewTestLayerLoader());
     }
 });
 
