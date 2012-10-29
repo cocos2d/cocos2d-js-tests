@@ -141,6 +141,26 @@ var RectUnitTest = UnitTestBase.extend({
         point = cc.p(1,-1);
         if( cc.rectContainsPoint(rectA, point) )
             throw "Fail rectContainsPoint 2";
+
+        cc.log("Test 7: rect property x");
+        rectA = cc.rect(1,2,3,4);
+        if( rectA.x != 1)
+            throw "Fail rect property x";
+
+        cc.log("Test 8: rect property y");
+        rectA = cc.rect(1,2,3,4);
+        if( rectA.y != 2)
+            throw "Fail rect property y";
+
+        cc.log("Test 9: rect property width");
+        rectA = cc.rect(1,2,3,4);
+        if( rectA.width != 3)
+            throw "Fail rect property width";
+
+        cc.log("Test 10: rect property height");
+        rectA = cc.rect(1,2,3,4);
+        if( rectA.height != 4)
+            throw "Fail rect property height";
     }
 });
 

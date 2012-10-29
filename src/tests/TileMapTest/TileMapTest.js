@@ -181,7 +181,7 @@ var TileMapEditTest = TileDemo.extend({
         var tilemap = this.getChildByTag(TAG_TILE_MAP);
 
         // NEW since v0.7
-        var c = tilemap.tileAt(cc.g(13, 21));
+        var c = tilemap.getTileAt(cc.g(13, 21));
         c.r++;
         c.r %= 50;
         if (c.r == 0)
@@ -276,20 +276,20 @@ var TMXOrthoTest4 = TileDemo.extend({
 
         map.setAnchorPoint(cc.p(0, 0));
 
-        var layer = map.layerNamed("Layer 0");
+        var layer = map.getLayer("Layer 0");
         var s = layer.getLayerSize();
 
         var sprite;
-        sprite = layer.tileAt(cc.p(0, 0));
+        sprite = layer.getTileAt(cc.p(0, 0));
         sprite.setScale(2);
 
-        sprite = layer.tileAt(cc.p(s.width - 1, 0));
+        sprite = layer.getTileAt(cc.p(s.width - 1, 0));
         sprite.setScale(2);
 
-        sprite = layer.tileAt(cc.p(0, s.height - 1));
+        sprite = layer.getTileAt(cc.p(0, s.height - 1));
         sprite.setScale(2);
 
-        sprite = layer.tileAt(cc.p(s.width - 1, s.height - 1));
+        sprite = layer.getTileAt(cc.p(s.width - 1, s.height - 1));
         sprite.setScale(2);
 
         this.schedule(this.removeSprite, 2);
@@ -299,10 +299,10 @@ var TMXOrthoTest4 = TileDemo.extend({
 
         var map = this.getChildByTag(TAG_TILE_MAP);
 
-        var layer = map.layerNamed("Layer 0");
+        var layer = map.getLayer("Layer 0");
         var s = layer.getLayerSize();
 
-        var sprite = layer.tileAt(cc.p(s.width - 1, 0));
+        var sprite = layer.getTileAt(cc.p(s.width - 1, 0));
         layer.removeChild(sprite, true);
     },
     title:function () {
@@ -325,15 +325,15 @@ var TMXReadWriteTest = TileDemo.extend({
 
         var s = map.getContentSize();
 
-        var layer = map.layerNamed("Layer 0");
+        var layer = map.getLayer("Layer 0");
         //layer.getTexture().setAntiAliasTexParameters();
 
         map.setScale(1);
 
-        var tile0 = layer.tileAt(cc.p(1, 63));
-        var tile1 = layer.tileAt(cc.p(2, 63));
-        var tile2 = layer.tileAt(cc.p(3, 62));//cc.p(1,62));
-        var tile3 = layer.tileAt(cc.p(2, 62));
+        var tile0 = layer.getTileAt(cc.p(1, 63));
+        var tile1 = layer.getTileAt(cc.p(2, 63));
+        var tile2 = layer.getTileAt(cc.p(3, 62));//cc.p(1,62));
+        var tile3 = layer.getTileAt(cc.p(2, 62));
 
         tile0.setAnchorPoint(cc.p(0.5, 0.5));
         tile1.setAnchorPoint(cc.p(0.5, 0.5));
@@ -355,7 +355,7 @@ var TMXReadWriteTest = TileDemo.extend({
         tile2.runAction(seq0.copy());
         tile3.runAction(seq0.copy());
 
-        this.gid = layer.tileGIDAt(cc.p(0, 63));
+        this.gid = layer.getTileGIDAt(cc.p(0, 63));
 
         this.schedule(this.updateCol, 2.0);
         this.schedule(this.repaintWithGID, 2.0);
@@ -389,7 +389,7 @@ var TMXReadWriteTest = TileDemo.extend({
         var s = layer.getLayerSize();
         for (var x = 0; x < s.width; x++) {
             var y = s.height - 1;
-            var tmpgid = layer.tileGIDAt(cc.p(x, y));
+            var tmpgid = layer.getTileGIDAt(cc.p(x, y));
             layer.setTileGID(tmpgid + 1, cc.p(x, y));
         }
     },
@@ -552,13 +552,13 @@ var TMXTilesetTest = TileDemo.extend({
         var s = map.getContentSize();
 
         /*var layer;
-         layer = map.layerNamed("Layer 0");
+         layer = map.getLayer("Layer 0");
          layer.getTexture().setAntiAliasTexParameters();
 
-         layer = map.layerNamed("Layer 1");
+         layer = map.getLayer("Layer 1");
          layer.getTexture().setAntiAliasTexParameters();
 
-         layer = map.layerNamed("Layer 2");
+         layer = map.getLayer("Layer 2");
          layer.getTexture().setAntiAliasTexParameters();*/
     },
     title:function () {
@@ -578,7 +578,7 @@ var TMXOrthoObjectsTest = TileDemo.extend({
         this.addChild(map, -1, TAG_TILE_MAP);
         var s = map.getContentSize();
 
-        var group = map.objectGroupNamed("Object Group 1");
+        var group = map.getObjectGroup("Object Group 1");
         var objects = group.getObjects();
 
         for (var i = 0; i < objects.length; i++) {
@@ -589,7 +589,7 @@ var TMXOrthoObjectsTest = TileDemo.extend({
     },
     draw:function () {
         var map = this.getChildByTag(TAG_TILE_MAP);
-        var group = map.objectGroupNamed("Object Group 1");
+        var group = map.getObjectGroup("Object Group 1");
         var objects = group.getObjects();
         for (var i = 0; i < objects.length; i++) {
             var dict = objects[i];
@@ -633,7 +633,7 @@ var TMXIsoObjectsTest = TileDemo.extend({
 
         var s = map.getContentSize();
 
-        var group = map.objectGroupNamed("Object Group 1");
+        var group = map.getObjectGroup("Object Group 1");
         var objects = group.getObjects();
 
         var dict;
@@ -648,7 +648,7 @@ var TMXIsoObjectsTest = TileDemo.extend({
     },
     draw:function () {
         var map = this.getChildByTag(TAG_TILE_MAP);
-        var group = map.objectGroupNamed("Object Group 1");
+        var group = map.getObjectGroup("Object Group 1");
         var objects = group.getObjects();
         var dict;
         for (var i = 0, len = objects.length; i < len; i++) {
@@ -691,7 +691,7 @@ var TMXResizeTest = TileDemo.extend({
         var s = map.getContentSize();
 
         var layer;
-        layer = map.layerNamed("Layer 0");
+        layer = map.getLayer("Layer 0");
 
         var ls = layer.getLayerSize();
         for (var y = 0; y < ls.height; y++) {
@@ -827,8 +827,8 @@ var TMXIsoVertexZ = TileDemo.extend({
 
         // because I'm lazy, I'm reusing a tile as an sprite, but since this method uses vertexZ, you
         // can use any cc.Sprite and it will work OK.
-        var layer = map.layerNamed("Trees");
-        this.tamara = layer.tileAt(cc.p(29, 29));
+        var layer = map.getLayer("Trees");
+        this.tamara = layer.getTileAt(cc.p(29, 29));
 
         var move = cc.MoveBy.create(10, cc.pMult(cc.p(300, 250), 1 ));
         var back = move.reverse();
@@ -878,8 +878,8 @@ var TMXOrthoVertexZ = TileDemo.extend({
 
         // because I'm lazy, I'm reusing a tile as an sprite, but since this method uses vertexZ, you
         // can use any cc.Sprite and it will work OK.
-        var layer = map.layerNamed("trees");
-        this.tamara = layer.tileAt(cc.p(0, 11));
+        var layer = map.getLayer("trees");
+        this.tamara = layer.getTileAt(cc.p(0, 11));
         cc.log("vertexZ: " + this.tamara.getVertexZ());
 
         var move = cc.MoveBy.create(10, cc.pMult(cc.p(400, 450), 1));
@@ -887,7 +887,9 @@ var TMXOrthoVertexZ = TileDemo.extend({
         var seq = cc.Sequence.create(move, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
 
-        this.schedule(this.repositionSprite);
+        this.scheduleUpdate();
+
+        cc.log("DEPTH BUFFER MUST EXIST IN ORDER");
     },
     title:function () {
         return "TMX Ortho vertexZ";
@@ -906,11 +908,11 @@ var TMXOrthoVertexZ = TileDemo.extend({
         //	director.setProjection:cc.DIRECTOR_PROJECTION_3D);
         this._super();
     },
-    repositionSprite:function (dt) {
-        // tile height is 64x32
-        // map size: 30x30
+    update:function (dt) {
+        // tile height is 101x81
+        // map size: 12x12
         var p = this.tamara.getPosition();
-        this.tamara.setVertexZ(-( (p.y + 32) / 16));
+        this.tamara.setVertexZ( -( (p.y + 81) / 81) );
     }
 });
 
@@ -1022,7 +1024,7 @@ var TMXOrthoFlipRunTimeTest = TileDemo.extend({
         var action = cc.ScaleBy.create(2, 0.5);
         map.runAction(action);
 
-        this.schedule(this.flipIt, 1);
+        this.schedule(this.onFlipIt, 1);
     },
     title:function () {
         return "TMX tile flip run time test";
@@ -1030,41 +1032,71 @@ var TMXOrthoFlipRunTimeTest = TileDemo.extend({
     subtitle:function () {
         return "in 2 sec bottom left tiles will flip";
     },
-    flipIt:function () {
+    onFlipIt:function () {
         var map = this.getChildByTag(TAG_TILE_MAP);
-        var layer = map.layerNamed("Layer 0");
+        var layer = map.getLayer("Layer 0");
+
+    // CGPoint tileCoord = ccp(1,10);
+    // ccTMXTileFlags flags;
+    // uint32_t GID = [layer tileGIDAt:tileCoord withFlags:&flags];
+    // // Vertical
+    // if( flags & kCCTMXTileVerticalFlag )
+    //     flags &= ~kCCTMXTileVerticalFlag;
+    // else
+    //     flags |= kCCTMXTileVerticalFlag;
+    // [layer setTileGID:GID  at:tileCoord withFlags:flags];
+
+
+    // tileCoord = ccp(1,8);
+    // GID = [layer tileGIDAt:tileCoord withFlags:&flags];
+    // // Vertical
+    // if( flags & kCCTMXTileVerticalFlag )
+    //     flags &= ~kCCTMXTileVerticalFlag;
+    // else
+    //     flags |= kCCTMXTileVerticalFlag;
+    // [layer setTileGID:GID at:tileCoord withFlags:flags];
+
+
+    // tileCoord = ccp(2,8);
+    // GID = [layer tileGIDAt:tileCoord withFlags:&flags];
+    // // Horizontal
+    // if( flags & kCCTMXTileHorizontalFlag )
+    //     flags &= ~kCCTMXTileHorizontalFlag;
+    // else
+    //     flags |= kCCTMXTileHorizontalFlag;
+    // [layer setTileGID:GID at:tileCoord withFlags:flags];
 
         //blue diamond
         var tileCoord = cc.p(1, 10);
-        var flags = layer.tileFlagAt(tileCoord);
-        var GID = layer.tileGIDAt(tileCoord);
+        var flags = layer.getTileFlagsAt(tileCoord);
+        var GID = layer.getTileGIDAt(tileCoord);
         // Vertical
-        if ((flags & cc.TMXTileVerticalFlag) >>> 0) {
-            flags = (flags & ~cc.TMXTileVerticalFlag >>> 0) >>> 0;
+        if ((flags & cc.TMX_TILE_VERTICAL_FLAG) >>> 0) {
+            flags = (flags & ~cc.TMX_TILE_VERTICAL_FLAG >>> 0) >>> 0;
         }
         else {
-            flags = (flags | cc.TMXTileVerticalFlag) >>> 0;
+            flags = (flags | cc.TMX_TILE_VERTICAL_FLAG) >>> 0;
         }
         layer.setTileGID(GID, tileCoord, flags);
 
         tileCoord = cc.p(1, 8);
-        flags = layer.tileFlagAt(tileCoord);
-        GID = layer.tileGIDAt(tileCoord);
+        flags = layer.getTileFlagsAt(tileCoord);
+        GID = layer.getTileGIDAt(tileCoord);
         // Vertical
-        if ((flags & cc.TMXTileVerticalFlag) >>> 0)
-            flags = (flags & ~cc.TMXTileVerticalFlag >>> 0) >>> 0;
+        if ((flags & cc.TMX_TILE_VERTICAL_FLAG) >>> 0)
+            flags = (flags & ~cc.TMX_TILE_VERTICAL_FLAG >>> 0) >>> 0;
         else
-            flags = (flags | cc.TMXTileVerticalFlag) >>> 0;
+            flags = (flags | cc.TMX_TILE_VERTICAL_FLAG) >>> 0;
         layer.setTileGID(GID, tileCoord, flags);
 
         tileCoord = cc.p(2, 8);
-        flags = layer.tileFlagAt(tileCoord);
-        GID = layer.tileGIDAt(tileCoord);
+        flags = layer.getTileFlagsAt(tileCoord);
+        GID = layer.getTileGIDAt(tileCoord);
         // Horizontal
-        if ((flags & cc.TMXTileHorizontalFlag) >>> 0)
-            flags = (flags & ~cc.TMXTileHorizontalFlag >>> 0) >>> 0;
+        if ((flags & cc.TMX_TILE_HORIZONTAL_FLAG) >>> 0)
+            flags = (flags & ~cc.TMX_TILE_HORIZONTAL_FLAG >>> 0) >>> 0;
         else
-            flags = (flags | cc.TMXTileHorizontalFlag) >>> 0;
+            flags = (flags | cc.TMX_TILE_HORIZONTAL_FLAG) >>> 0;
         layer.setTileGID(GID, tileCoord, flags);
     }
 });
@@ -1111,7 +1143,7 @@ var TMXBug987 = TileDemo.extend({
         }
 
         map.setAnchorPoint(cc.p(0, 0));
-        var layer = map.layerNamed("Tile Layer 1");
+        var layer = map.getLayer("Tile Layer 1");
         layer.setTileGID(3, cc.p(2, 2));
     },
     title:function () {
@@ -1161,7 +1193,7 @@ var TMXGIDObjectsTest = TileDemo.extend({
     },
     draw:function () {
         var map = this.getChildByTag(TAG_TILE_MAP);
-        var group = map.objectGroupNamed("Object Layer 1");
+        var group = map.getObjectGroup("Object Layer 1");
 
         var array = group.getObjects();
         var dict;
@@ -1201,6 +1233,10 @@ var TileMapTestScene = TestScene.extend({
 // Flow control
 //
 var arrayOfTileMapTest = [
+
+    TMXIsoVertexZ,
+    TMXOrthoVertexZ,
+
 
     TMXOrthoTest,
     TMXOrthoTest2,
