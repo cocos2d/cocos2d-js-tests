@@ -84,6 +84,12 @@
             'src/tests/ExtensionsTest/CocosBuilderTest/CocosBuilderTest.js',
             'src/tests/ExtensionsTest/CocosBuilderTest/TestHeader/TestHeaderLayer.js',
             'src/tests/ExtensionsTest/CocosBuilderTest/HelloCocosBuilder/HelloCocosBuilderLayer.js',
+            'src/tests/ExtensionsTest/CocosBuilderTest/ButtonTest/ButtonTestLayer.js',
+            'src/tests/ExtensionsTest/CocosBuilderTest/SpriteTest/SpriteTestLayer.js',
+            'src/tests/ExtensionsTest/CocosBuilderTest/MenuTest/MenuTestLayer.js',
+            'src/tests/ExtensionsTest/CocosBuilderTest/LabelTest/LabelTestLayer.js',
+            'src/tests/ExtensionsTest/CocosBuilderTest/ParticleSystemTest/ParticleSystemTestLayer.js',
+            'src/tests/ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js',
 
             'src/tests/Box2dTest/Box2dTest.js']
     };
