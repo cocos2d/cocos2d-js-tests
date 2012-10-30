@@ -161,6 +161,13 @@ var RectUnitTest = UnitTestBase.extend({
         rectA = cc.rect(1,2,3,4);
         if( rectA.height != 4)
             throw "Fail rect property height";
+
+        cc.log("Test 11: getBoundingBox()");
+        var node = cc.Node.create();
+        node.setContentSize( cc.size(99,101) );
+        var bb = node.getBoundingBox();
+        if( bb.height != 101 || bb.width != 99)
+            throw "Fail getBoundingBox()";
     }
 });
 
