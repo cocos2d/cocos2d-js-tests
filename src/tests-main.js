@@ -336,7 +336,7 @@ var testNames = [
     //"MotionStreakTest",
     {
         title:"Parallax Test",
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new ParallaxTestScene();
         }
@@ -428,7 +428,7 @@ var testNames = [
     },
     {
         title:"Transitions Test",
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new TransitionsTestScene();
         }

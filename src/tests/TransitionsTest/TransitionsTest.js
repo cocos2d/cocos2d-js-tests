@@ -130,16 +130,18 @@ var TransitionsTestScene = TestScene.extend({
     runThisTest:function () {
         var layer = new TestLayer1();
         this.addChild(layer);
-        cc.Director.getInstance().replaceScene(this);
+        director.replaceScene(this);
     }
 });
 
 var TestLayer1 = cc.Layer.extend({
     ctor:function () {
         this._super();
-        //this.init();
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
+
         var x, y;
-        var size = cc.Director.getInstance().getWinSize();
+        var size = director.getWinSize();
         x = size.width;
         y = size.height;
 
@@ -159,32 +161,31 @@ var TestLayer1 = cc.Layer.extend({
         this.addChild(label);
 
         // menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
 
-        var menu = cc.Menu.create(item1, item2, item3, null);
+        var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.p(0,0));
-        item1.setPosition(cc.p(size.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2));
-        item2.setPosition(cc.p(size.width / 2, item2.getContentSize().height / 2));
-        item3.setPosition(cc.p(size.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2));
+        menu.setPosition(0,0);
+        item1.setPosition(size.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2);
+        item2.setPosition(size.width / 2, item2.getContentSize().height / 2);
+        item3.setPosition(size.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2);
         this.addChild(menu, 1);
         this.schedule(this.step, 1.0);
 
     },
-    restartCallback:function (sender) {
+    onRestartCallback:function (sender) {
         var s = new TransitionsTestScene();
 
         var layer = new TestLayer2();
         s.addChild(layer);
         var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
 
-        if (scene) {
-            cc.Director.getInstance().replaceScene(scene);
-        }
+        if (scene)
+            director.replaceScene(scene);
     },
-    nextCallback:function (sender) {
+    onNextCallback:function (sender) {
         transitionsIdx++;
         transitionsIdx = transitionsIdx % TransitionsTests.length;
 
@@ -194,11 +195,10 @@ var TestLayer1 = cc.Layer.extend({
         s.addChild(layer);
 
         var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
-        if (scene) {
-            cc.Director.getInstance().replaceScene(scene);
-        }
+        if (scene)
+            director.replaceScene(scene);
     },
-    backCallback:function (sender) {
+    onBackCallback:function (sender) {
         transitionsIdx--;
         if (transitionsIdx < 0)
             transitionsIdx += TransitionsTests.length;
@@ -208,9 +208,8 @@ var TestLayer1 = cc.Layer.extend({
         s.addChild(layer);
 
         var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
-        if (scene) {
-            cc.Director.getInstance().replaceScene(scene);
-        }
+        if (scene)
+            director.replaceScene(scene);
     },
 
     step:function (dt) {
@@ -239,9 +238,11 @@ var TestLayer1 = cc.Layer.extend({
 var TestLayer2 = cc.Layer.extend({
     ctor:function () {
         this._super();
-        //this.init();
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
+
         var x, y;
-        var size = cc.Director.getInstance().getWinSize();
+        var size = director.getWinSize();
         x = size.width;
         y = size.height;
 
@@ -261,22 +262,22 @@ var TestLayer2 = cc.Layer.extend({
         this.addChild(label);
 
         // menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
 
-        var menu = cc.Menu.create(item1, item2, item3, null);
+        var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.p(0,0));
-        item1.setPosition(cc.p(size.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2));
-        item2.setPosition(cc.p(size.width / 2, item2.getContentSize().height / 2));
-        item3.setPosition(cc.p(size.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2));
+        menu.setPosition(0,0);
+        item1.setPosition(size.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2);
+        item2.setPosition(size.width / 2, item2.getContentSize().height / 2);
+        item3.setPosition(size.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2);
 
         this.addChild(menu, 1);
 
         this.schedule(this.step, 1.0);
     },
-    restartCallback:function (sender) {
+    onRestartCallback:function (sender) {
         var s = new TransitionsTestScene();
 
         var layer = new TestLayer1();
@@ -284,10 +285,10 @@ var TestLayer2 = cc.Layer.extend({
 
         var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
         if (scene) {
-            cc.Director.getInstance().replaceScene(scene);
+            director.replaceScene(scene);
         }
     },
-    nextCallback:function (sender) {
+    onNextCallback:function (sender) {
         transitionsIdx++;
         transitionsIdx = transitionsIdx % TransitionsTests.length;
 
@@ -298,10 +299,10 @@ var TestLayer2 = cc.Layer.extend({
 
         var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
         if (scene) {
-            cc.Director.getInstance().replaceScene(scene);
+            director.replaceScene(scene);
         }
     },
-    backCallback:function (sender) {
+    onBackCallback:function (sender) {
         transitionsIdx--;
         if (transitionsIdx < 0)
             transitionsIdx += TransitionsTests.length;
@@ -313,7 +314,7 @@ var TestLayer2 = cc.Layer.extend({
 
         var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
         if (scene) {
-            cc.Director.getInstance().replaceScene(scene);
+            director.replaceScene(scene);
         }
     },
 
@@ -349,55 +350,55 @@ var FadeTransition = function (t, s) {
 };
 
 var FadeWhiteTransition = function (t, s) {
-    return cc.TransitionFade.create(t, s, cc.white());
+    return cc.TransitionFade.create(t, s, cc.c3b(255,255,255));
 };
 
 var FlipXLeftOver = function (t, s) {
-    return cc.TransitionFlipX.create(t, s, cc.ORIENTATION_LEFT_OVER);
+    return cc.TransitionFlipX.create(t, s, cc.TRANSITION_ORIENTATION_LEFT_OVER);
 };
 
 var FlipXRightOver = function (t, s) {
-    return cc.TransitionFlipX.create(t, s, cc.ORIENTATION_RIGHT_OVER);
+    return cc.TransitionFlipX.create(t, s, cc.TRANSITION_ORIENTATION_RIGHT_OVER);
 };
 
 var FlipYUpOver = function (t, s) {
-    return cc.TransitionFlipY.create(t, s, cc.ORIENTATION_UP_OVER);
+    return cc.TransitionFlipY.create(t, s, cc.TRANSITION_ORIENTATION_UP_OVER);
 };
 
 var FlipYDownOver = function (t, s) {
-    return cc.TransitionFlipY.create(t, s, cc.ORIENTATION_DOWN_OVER);
+    return cc.TransitionFlipY.create(t, s, cc.TRANSITION_ORIENTATION_DOWN_OVER);
 };
 
 var FlipAngularLeftOver = function (t, s) {
-    return cc.TransitionFlipAngular.create(t, s, cc.ORIENTATION_LEFT_OVER);
+    return cc.TransitionFlipAngular.create(t, s, cc.TRANSITION_ORIENTATION_LEFT_OVER);
 };
 
 var FlipAngularRightOver = function (t, s) {
-    return cc.TransitionFlipAngular.create(t, s, cc.ORIENTATION_RIGHT_OVER);
+    return cc.TransitionFlipAngular.create(t, s, cc.TRANSITION_ORIENTATION_RIGHT_OVER);
 };
 
 var ZoomFlipXLeftOver = function (t, s) {
-    return cc.TransitionZoomFlipX.create(t, s, cc.ORIENTATION_LEFT_OVER);
+    return cc.TransitionZoomFlipX.create(t, s, cc.TRANSITION_ORIENTATION_LEFT_OVER);
 };
 
 var ZoomFlipXRightOver = function (t, s) {
-    return cc.TransitionZoomFlipX.create(t, s, cc.ORIENTATION_RIGHT_OVER);
+    return cc.TransitionZoomFlipX.create(t, s, cc.TRANSITION_ORIENTATION_RIGHT_OVER);
 };
 
 var ZoomFlipYUpOver = function (t, s) {
-    return cc.TransitionZoomFlipY.create(t, s, cc.ORIENTATION_UP_OVER);
+    return cc.TransitionZoomFlipY.create(t, s, cc.TRANSITION_ORIENTATION_UP_OVER);
 };
 
 var ZoomFlipYDownOver = function (t, s) {
-    return cc.TransitionZoomFlipY.create(t, s, cc.ORIENTATION_DOWN_OVER);
+    return cc.TransitionZoomFlipY.create(t, s, cc.TRANSITION_ORIENTATION_DOWN_OVER);
 };
 
 var ZoomFlipAngularLeftOver = function (t, s) {
-    return cc.TransitionZoomFlipAngular.create(t, s, cc.ORIENTATION_LEFT_OVER);
+    return cc.TransitionZoomFlipAngular.create(t, s, cc.TRANSITION_ORIENTATION_LEFT_OVER);
 };
 
 var ZoomFlipAngularRightOver = function (t, s) {
-    return cc.TransitionZoomFlipAngular.create(t, s, cc.ORIENTATION_RIGHT_OVER);
+    return cc.TransitionZoomFlipAngular.create(t, s, cc.TRANSITION_ORIENTATION_RIGHT_OVER);
 };
 
 var ShrinkGrowTransition = function (t, s) {
@@ -453,12 +454,12 @@ var CCTransitionRadialCW = function (t, s) {
 };
 
 var PageTransitionForward = function (t, s) {
-    cc.Director.getInstance().setDepthTest(true);
+    director.setDepthTest(true);
     return cc.TransitionPageTurn.create(t, s, false);
 };
 
 var PageTransitionBackward = function (t, s) {
-    cc.Director.getInstance().setDepthTest(true);
+    director.setDepthTest(true);
     return cc.TransitionPageTurn.create(t, s, true);
 };
 
