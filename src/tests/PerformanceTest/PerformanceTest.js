@@ -107,9 +107,9 @@ var PerformBasicLayer = cc.Layer.extend({
         menu.setPosition(cc.p(0,0));
 
         if (this._controlMenuVisible) {
-            var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);
-            var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.restartCallback);
-            var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
+            var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
+            var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
+            var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
             item1.setPosition(cc.p(s.width / 2 - 100, 30));
             item2.setPosition(cc.p(s.width / 2, 30));
             item3.setPosition(cc.p(s.width / 2 + 100, 30));

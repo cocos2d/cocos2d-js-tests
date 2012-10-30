@@ -48,7 +48,7 @@ var TestScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
         var label = cc.LabelTTF.create("MainMenu", "Arial", 20);
-        var menuItem = cc.MenuItemLabel.create(label, this, this.onMainMenuCallback);
+        var menuItem = cc.MenuItemLabel.create(label, this.onMainMenuCallback, this);
 
         var menu = cc.Menu.create(menuItem);
         menu.setPosition(cc.p(0,0));
@@ -90,7 +90,7 @@ var TestController = cc.Layer.extend({
             winSize = director.getWinSize();
 
             // add close menu
-            var closeItem = cc.MenuItemImage.create(s_pathClose, s_pathClose, this, this.onCloseCallback);
+            var closeItem = cc.MenuItemImage.create(s_pathClose, s_pathClose, this.onCloseCallback, this);
             var menu = cc.Menu.create(closeItem);//pmenu is just a holder for the close button
             menu.setPosition(cc.p(0,0));
             closeItem.setPosition(cc.p(winSize.width - 30, winSize.height - 30));
@@ -100,7 +100,7 @@ var TestController = cc.Layer.extend({
 
             for (var i = 0, len = testNames.length; i < len; i++) {
                 var label = cc.LabelTTF.create(testNames[i].title, "Arial", 24);
-                var menuItem = cc.MenuItemLabel.create(label, this, this.onMenuCallback);
+                var menuItem = cc.MenuItemLabel.create(label, this.onMenuCallback, this);
                 this._itemMenu.addChild(menuItem, i + 10000);
                 menuItem.setPosition(cc.p(winSize.width / 2, (winSize.height - (i + 1) * LINE_SPACE)));
 

@@ -53,9 +53,9 @@ var SchedulerTestLayer = cc.Layer.extend({
             subLabel.setPosition(s.width / 2, s.height - 80);
         }
 
-        var item1 = cc.MenuItemImage.create("res/Images/b1.png", "res/Images/b2.png", this, this.onBackCallback);
-        var item2 = cc.MenuItemImage.create("res/Images/r1.png", "res/Images/r2.png", this, this.onRestartCallback);
-        var item3 = cc.MenuItemImage.create("res/Images/f1.png", "res/Images/f2.png", this, this.onNextCallback);
+        var item1 = cc.MenuItemImage.create("res/Images/b1.png", "res/Images/b2.png", this.onBackCallback, this);
+        var item2 = cc.MenuItemImage.create("res/Images/r1.png", "res/Images/r2.png", this.onRestartCallback, this);
+        var item3 = cc.MenuItemImage.create("res/Images/f1.png", "res/Images/f2.png", this.onNextCallback.bind(this) ); // another way to pass 'this'
 
         var menu = cc.Menu.create(item1, item2, item3);
         menu.setPosition(0,0);
