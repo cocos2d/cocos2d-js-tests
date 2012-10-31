@@ -89,7 +89,7 @@ IntervalLayer = cc.Layer.extend({
         sprite.runAction(cc.RepeatForever.create(cc.Sequence.create(jump, jump.reverse(), null)));
 
         // pause button
-        var item1 = cc.MenuItemFont.create("Pause", this, this.onPause);
+        var item1 = cc.MenuItemFont.create("Pause", this.onPause, this);
         var menu = cc.Menu.create(item1, null);
         menu.setPosition(cc.p(s.width / 2, s.height - 50));
 

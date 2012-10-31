@@ -54,7 +54,7 @@ var TableViewTestLayer = cc.Layer.extend({
         tableView.reloadData();
 
         // Back Menu
-        var itemBack = cc.MenuItemFont.create("Back", this, this.toExtensionsMainLayer);
+        var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
         itemBack.setPosition(cc.p(winSize.width - 50, 25));
         var menuBack = cc.Menu.create(itemBack);
         menuBack.setPosition(cc.p(0,0));

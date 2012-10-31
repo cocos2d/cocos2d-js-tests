@@ -35,11 +35,11 @@ SceneTestLayer1 = cc.Layer.extend({
 
     ctor:function () {
         var s = cc.Director.getInstance().getWinSize();
-        var item1 = cc.MenuItemFont.create("Test pushScene", this, this.onPushScene);
-        var item2 = cc.MenuItemFont.create("Test pushScene w/transition", this, this.onPushSceneTran);
-        var item3 = cc.MenuItemFont.create("Quit", this, function () {
+        var item1 = cc.MenuItemFont.create("Test pushScene", this.onPushScene, this);
+        var item2 = cc.MenuItemFont.create("Test pushScene w/transition", this.onPushSceneTran, this);
+        var item3 = cc.MenuItemFont.create("Quit", function () {
             alert("quit")
-        });
+        }, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
         menu.alignItemsVertically();
@@ -100,9 +100,9 @@ SceneTestLayer2 = cc.Layer.extend({
 
         var s = cc.Director.getInstance().getWinSize();
 
-        var item1 = cc.MenuItemFont.create("replaceScene", this, this.onReplaceScene);
-        var item2 = cc.MenuItemFont.create("replaceScene w/transition", this, this.onReplaceSceneTran);
-        var item3 = cc.MenuItemFont.create("Go Back", this, this.onGoBack);
+        var item1 = cc.MenuItemFont.create("replaceScene", this.onReplaceScene, this);
+        var item2 = cc.MenuItemFont.create("replaceScene w/transition", this.onReplaceSceneTran, this);
+        var item3 = cc.MenuItemFont.create("Go Back", this.onGoBack, this);
 
         var menu = cc.Menu.create(item1, item2, item3, null);
         menu.alignItemsVertically();

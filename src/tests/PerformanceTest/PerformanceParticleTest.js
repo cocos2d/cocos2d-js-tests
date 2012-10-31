@@ -86,9 +86,9 @@ var ParticleMainScene = cc.Scene.extend({
         this._quantityParticles = particles;
 
         cc.MenuItemFont.setFontSize(65);
-        var decrease = cc.MenuItemFont.create(" - ", this, this.onDecrease);
+        var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
         decrease.setColor(cc.c3b(0, 200, 20));
-        var increase = cc.MenuItemFont.create(" + ", this, this.onIncrease);
+        var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
         increase.setColor(cc.c3b(0, 200, 20));
 
         var menu = cc.Menu.create(decrease, increase, null);
@@ -116,7 +116,7 @@ var ParticleMainScene = cc.Scene.extend({
         var subMenu = cc.Menu.create(null);
         for (var i = 1; i <= 3; ++i) {
             var str = i.toString();
-            var itemFont = cc.MenuItemFont.create(str, this, this.testNCallback);
+            var itemFont = cc.MenuItemFont.create(str, this.testNCallback, this);
             itemFont.setTag(i);
             subMenu.addChild(itemFont, 10);
 
