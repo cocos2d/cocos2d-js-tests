@@ -50,7 +50,7 @@ var PerformanceMainLayer = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(24);
 
         for (var i = 0; i < PerformanceTests.length; i++) {
-            var pItem = cc.MenuItemFont.create(PerformanceTests[i], this, this.menuCallback);
+            var pItem = cc.MenuItemFont.create(PerformanceTests[i], this.menuCallback, this);
             pItem.setPosition(cc.p(s.width / 2, s.height - (i + 1) * LINE_SPACE));
             menu.addChild(pItem, ITEM_TAG_BASIC + i);
         }
@@ -101,7 +101,7 @@ var PerformBasicLayer = cc.Layer.extend({
 
         cc.MenuItemFont.setFontName("Arial");
         cc.MenuItemFont.setFontSize(24);
-        var mainItem = cc.MenuItemFont.create("Back", this, this.toMainLayer);
+        var mainItem = cc.MenuItemFont.create("Back", this.toMainLayer, this);
         mainItem.setPosition(cc.p(s.width - 50, 25));
         var menu = cc.Menu.create(mainItem, null);
         menu.setPosition(cc.p(0,0));

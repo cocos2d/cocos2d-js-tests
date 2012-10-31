@@ -37,7 +37,7 @@ var ControlScene = cc.Layer.extend({
             // Get the sceensize
             var screensize = cc.Director.getInstance().getWinSize();
 
-            var pBackItem = cc.MenuItemFont.create("Back", this,this.toExtensionsMainLayer);
+            var pBackItem = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
             pBackItem.setPosition(cc.p(screensize.width - 50, 25));
             var pBackMenu = cc.Menu.create(pBackItem);
             pBackMenu.setPosition( cc.p(0,0));
