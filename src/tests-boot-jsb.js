@@ -21,12 +21,15 @@ var tests_files = [
 		'LabelTest.js',
 		'LayerTest.js',
 		'MenuTest.js',
+		'ParallaxTest.js',
 		'ParticleTest.js',
 		'Presentation.js',
+		'ProgressActionsTest.js',
 		'RenderTextureTest.js',
 		'SchedulerTest.js',
 		'SpriteTest.js',
 		'TileMapTest.js',
+		'TransitionsTest.js',
 		'UnitTest.js'
 	];
 for( var i=0; i < tests_files.length; i++) {

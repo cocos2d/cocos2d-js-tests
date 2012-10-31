@@ -342,7 +342,7 @@ ChipmunkPage.prototype.onTogglePhysicsDebug = function() {
 ChipmunkPage.prototype.initMenu = function() {
 	// menu
 	cc.MenuItemFont.setFontSize( 16 );
-	var menuItem = cc.MenuItemFont.create('Toggle Physics Debug', this, this.onTogglePhysicsDebug );
+	var menuItem = cc.MenuItemFont.create('Toggle Physics Debug', this.onTogglePhysicsDebug, this);
 	var menu = cc.Menu.create( menuItem );
 	this.addChild( menu, 99 );
 	menu.setPosition( cc.p( winSize.width-80, winSize.height-100) );

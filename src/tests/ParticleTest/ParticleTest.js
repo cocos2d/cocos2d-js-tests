@@ -193,11 +193,11 @@ var ParticleDemo = cc.Layer.extend({
         this.addChild(tapScreen, 100);
 
         var selfPoint = this;
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, function () {
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, function () {
             selfPoint._emitter.resetSystem();
         });
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
         var freeBtnNormal = cc.Sprite.create(s_MovementMenuItem, cc.rect(0, 23 * 2, 123, 23));
         var freeBtnSelected = cc.Sprite.create(s_MovementMenuItem, cc.rect(0, 23, 123, 23));
@@ -211,7 +211,7 @@ var ParticleDemo = cc.Layer.extend({
         var groupBtnSelected = cc.Sprite.create(s_MovementMenuItem, cc.rect(261, 23, 136, 23));
         var groupBtnDisabled = cc.Sprite.create(s_MovementMenuItem, cc.rect(261, 0, 136, 23));
 
-        this._freeMovementButton = cc.MenuItemSprite.create(freeBtnNormal, freeBtnSelected, freeBtnDisabled, this,
+        this._freeMovementButton = cc.MenuItemSprite.create(freeBtnNormal, freeBtnSelected, freeBtnDisabled,
             function () {
                 selfPoint._emitter.setPositionType(cc.PARTICLE_TYPE_RELATIVE);
                 selfPoint._relativeMovementButton.setVisible(true);
@@ -221,7 +221,7 @@ var ParticleDemo = cc.Layer.extend({
         this._freeMovementButton.setPosition(10, 150);
         this._freeMovementButton.setAnchorPoint(cc.p(0, 0));
 
-        this._relativeMovementButton = cc.MenuItemSprite.create(relativeBtnNormal, relativeBtnSelected, relativeBtnDisabled, this,
+        this._relativeMovementButton = cc.MenuItemSprite.create(relativeBtnNormal, relativeBtnSelected, relativeBtnDisabled,
             function () {
                 selfPoint._emitter.setPositionType(cc.PARTICLE_TYPE_GROUPED);
                 selfPoint._relativeMovementButton.setVisible(false);
@@ -232,7 +232,7 @@ var ParticleDemo = cc.Layer.extend({
         this._relativeMovementButton.setPosition(10, 150);
         this._relativeMovementButton.setAnchorPoint(cc.p(0, 0));
 
-        this._groupMovementButton = cc.MenuItemSprite.create(groupBtnNormal, groupBtnSelected, groupBtnDisabled, this,
+        this._groupMovementButton = cc.MenuItemSprite.create(groupBtnNormal, groupBtnSelected, groupBtnDisabled,
             function () {
                 selfPoint._emitter.setPositionType(cc.PARTICLE_TYPE_FREE);
                 selfPoint._relativeMovementButton.setVisible(false);
@@ -247,9 +247,10 @@ var ParticleDemo = cc.Layer.extend({
         var spriteSelected = cc.Sprite.create(s_shapeModeMenuItem, cc.rect(0, 23, 115, 23));
         var spriteDisabled = cc.Sprite.create(s_shapeModeMenuItem, cc.rect(0, 0, 115, 23));
 
-        this._shapeModeButton = cc.MenuItemSprite.create(spriteNormal, spriteSelected, spriteDisabled, this,
+        this._shapeModeButton = cc.MenuItemSprite.create(spriteNormal, spriteSelected, spriteDisabled,
             function () {
-                selfPoint._emitter.setDrawMode(cc.PARTICLE_TEXTURE_MODE);
+                if(selfPoint._emitter.setDrawMode)
+                    selfPoint._emitter.setDrawMode(cc.PARTICLE_TEXTURE_MODE);
                 selfPoint._textureModeButton.setVisible(true);
                 selfPoint._shapeModeButton.setVisible(false);
             });
@@ -265,9 +266,10 @@ var ParticleDemo = cc.Layer.extend({
         var spriteSelected_t = cc.Sprite.create(s_textureModeMenuItem, cc.rect(0, 23, 115, 23));
         var spriteDisabled_t = cc.Sprite.create(s_textureModeMenuItem, cc.rect(0, 0, 115, 23));
 
-        this._textureModeButton = cc.MenuItemSprite.create(spriteNormal_t, spriteSelected_t, spriteDisabled_t, this,
+        this._textureModeButton = cc.MenuItemSprite.create(spriteNormal_t, spriteSelected_t, spriteDisabled_t,
             function () {
-                selfPoint._emitter.setDrawMode(cc.PARTICLE_SHAPE_MODE);
+                if(selfPoint._emitter.setDrawMode)
+                    selfPoint._emitter.setDrawMode(cc.PARTICLE_SHAPE_MODE);
                 selfPoint._textureModeButton.setVisible(false);
                 selfPoint._shapeModeButton.setVisible(true);
             });
@@ -682,7 +684,7 @@ var DemoExplosion = ParticleDemo.extend({
             this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
 
         this._emitter.setAutoRemoveOnFinish(true);
-	
+
         this.setEmitterPosition();
     },
     title:function () {
@@ -1190,7 +1192,8 @@ var Issue870 = ParticleDemo.extend({
         system.setTextureWithRect(cc.TextureCache.getInstance().addImage(s_particles), cc.rect(0, 0, 32, 32));
         this.addChild(system, 10);
         this._emitter = system;
-        this._emitter.setDrawMode(cc.PARTICLE_TEXTURE_MODE);
+        if(this._emitter.setDrawMode)
+            this._emitter.setDrawMode(cc.PARTICLE_TEXTURE_MODE);
         this._emitter.setPosition(director.getWinSize().width / 2, director.getWinSize().height / 2 - 50);
         this._index = 0;
         this.schedule(this.updateQuads, 2.0);

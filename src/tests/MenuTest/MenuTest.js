@@ -59,32 +59,32 @@ var LayerMainMenu = cc.Layer.extend({
         var spriteSelected = cc.Sprite.create(s_menuItem, cc.rect(0, 23, 115, 23));
         var spriteDisabled = cc.Sprite.create(s_menuItem, cc.rect(0, 0, 115, 23));
 
-        var item1 = cc.MenuItemSprite.create(spriteNormal, spriteSelected, spriteDisabled, this, this.onMenuCallback);
+        var item1 = cc.MenuItemSprite.create(spriteNormal, spriteSelected, spriteDisabled, this.onMenuCallback, this);
 
         // Image Item
-        var item2 = cc.MenuItemImage.create(s_sendScore, s_pressSendScore, this, this.onMenuCallback2);
+        var item2 = cc.MenuItemImage.create(s_sendScore, s_pressSendScore, this.onMenuCallback2, this);
 
         // Label Item (LabelAtlas)
         var labelAtlas = cc.LabelAtlas.create("0123456789", s_fpsImages, 16, 24, '.');
-        var item3 = cc.MenuItemLabel.create(labelAtlas, this, this.onMenuCallbackDisabled);
+        var item3 = cc.MenuItemLabel.create(labelAtlas, this.onMenuCallbackDisabled, this);
         item3.setDisabledColor(cc.c3b(32, 32, 64));
         item3.setColor(cc.c3b(200, 200, 255));
 
         // Font Item
-        var item4 = cc.MenuItemFont.create("I toggle enable items", this, this.onMenuCallbackEnabled);
+        var item4 = cc.MenuItemFont.create("I toggle enable items", this.onMenuCallbackEnabled, this);
 
         item4.setFontSize(20);
         cc.MenuItemFont.setFontName("Marker Felt");
 
         // Label Item (CCLabelBMFont)
         var label = cc.LabelBMFont.create("configuration", s_bitmapFontTest3_fnt);
-        var item5 = cc.MenuItemLabel.create(label, this, this.onMenuCallbackConfig);
+        var item5 = cc.MenuItemLabel.create(label, this.onMenuCallbackConfig, this);
 
         // Testing issue #500
         item5.setScale(0.8);
 
         // Font Item
-        var item6 = cc.MenuItemFont.create("Quit", this, this.onQuit);
+        var item6 = cc.MenuItemFont.create("Quit", this.onQuit, this);
 
         var color_action = cc.TintBy.create(0.5, 0, -255, -255);
         var color_back = color_action.reverse();
@@ -176,9 +176,9 @@ var MenuLayer2 = cc.Layer.extend({
     init:function () {
         this._super();
         for (var i = 0; i < 2; i++) {
-            var item1 = cc.MenuItemImage.create(s_playNormal, s_playSelect, this, this.onMenuCallback);
-            var item2 = cc.MenuItemImage.create(s_highNormal, s_highSelect, this, this.onMenuCallbackOpacity);
-            var item3 = cc.MenuItemImage.create(s_aboutNormal, s_aboutSelect, this, this.onMenuCallbackAlign);
+            var item1 = cc.MenuItemImage.create(s_playNormal, s_playSelect, this.onMenuCallback, this);
+            var item2 = cc.MenuItemImage.create(s_highNormal, s_highSelect, this.onMenuCallbackOpacity, this);
+            var item3 = cc.MenuItemImage.create(s_aboutNormal, s_aboutSelect, this.onMenuCallbackAlign, this);
             item1.setScaleX(1.5);
             item2.setScaleX(0.5);
             item3.setScaleX(0.5);
@@ -261,15 +261,15 @@ var MenuLayer3 = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(28);
 
         var label = cc.LabelBMFont.create("Enable AtlasItem", s_bitmapFontTest3_fnt);
-        var item1 = cc.MenuItemLabel.create(label, this, this.onMenuCallback2);
-        var item2 = cc.MenuItemFont.create("--- Go Back ---", this, this.onMenuCallback);
+        var item1 = cc.MenuItemLabel.create(label, this.onMenuCallback2, this);
+        var item2 = cc.MenuItemFont.create("--- Go Back ---", this.onMenuCallback, this);
 
         var spriteNormal = cc.Sprite.create(s_menuItem, cc.rect(0, 23 * 2, 115, 23));
         var spriteSelected = cc.Sprite.create(s_menuItem, cc.rect(0, 23, 115, 23));
         var spriteDisabled = cc.Sprite.create(s_menuItem, cc.rect(0, 0, 115, 23));
 
 
-        var item3 = cc.MenuItemSprite.create(spriteNormal, spriteSelected, spriteDisabled, this, this.onMenuCallback3);
+        var item3 = cc.MenuItemSprite.create(spriteNormal, spriteSelected, spriteDisabled, this.onMenuCallback3, this);
         this._disabledItem = item3;
         this._disabledItem.setEnabled(false);
 
@@ -331,7 +331,7 @@ var MenuLayer4 = cc.Layer.extend({
         var item1 = cc.MenuItemToggle.create(
             cc.MenuItemFont.create("On"),
             cc.MenuItemFont.create("Off") );
-        item1.setCallback( this, this.onMenuCallback );
+        item1.setCallback( this.onMenuCallback, this);
 
         cc.MenuItemFont.setFontName("American Typewriter");
         cc.MenuItemFont.setFontSize(18);
@@ -347,8 +347,7 @@ var MenuLayer4 = cc.Layer.extend({
             cc.MenuItemFont.create("33%"),
             cc.MenuItemFont.create("66%"),
             cc.MenuItemFont.create("On"),
-            this,
-            this.onMenuCallback
+            this.onMenuCallback, this
             );
 
         cc.MenuItemFont.setFontName("American Typewriter");
@@ -360,8 +359,7 @@ var MenuLayer4 = cc.Layer.extend({
         var item3 = cc.MenuItemToggle.create(
             cc.MenuItemFont.create("High"),
             cc.MenuItemFont.create("Low"),
-            this,
-            this.onMenuCallback
+            this.onMenuCallback, this
             );
 
         cc.MenuItemFont.setFontName("American Typewriter");
@@ -374,8 +372,7 @@ var MenuLayer4 = cc.Layer.extend({
             cc.MenuItemFont.create("Landscape Left"),
             cc.MenuItemFont.create("Landscape Right"),
             cc.MenuItemFont.create("Portrait"),
-            this,
-            this.onMenuCallback
+            this.onMenuCallback, this
             );
 
         // you can change the one of the items by doing this
@@ -385,7 +382,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(34);
 
         var label = cc.LabelBMFont.create("go back", s_bitmapFontTest3_fnt);
-        var back = cc.MenuItemLabel.create(label, this, this.onBackCallback);
+        var back = cc.MenuItemLabel.create(label, this.onBackCallback, this);
 
         var menu = cc.Menu.create(
             title1, title2,
