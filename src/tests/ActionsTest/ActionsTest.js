@@ -143,9 +143,9 @@ var ActionsDemo = cc.Layer.extend({
         }
 
         // add menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.restartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
 
@@ -573,9 +573,9 @@ var ActionSequence2 = ActionsDemo.extend({
             cc.Place.create(cc.p(200, 200)),
             cc.Show.create(),
             cc.MoveBy.create(1, cc.p(100, 0)),
-            cc.CallFunc.create(this, this.onCallback1),
-            cc.CallFunc.create(this, this.onCallback2),
-            cc.CallFunc.create(this, this.onCallback3));
+            cc.CallFunc.create(this.onCallback1, this),
+            cc.CallFunc.create(this.onCallback2.bind(this)),
+            cc.CallFunc.create(this.onCallback3, this));
         this._grossini.runAction(action);
 
     },
@@ -614,21 +614,22 @@ var ActionCallFunc1 = ActionsDemo.extend({
         this._super();
         this.centerSprites(3);
 
+        // Testing different ways to pass "this"
         var action = cc.Sequence.create(
             cc.MoveBy.create(2, cc.p(200, 0)),
-            cc.CallFunc.create(this, this.onCallback1)
+            cc.CallFunc.create(this.onCallback1.bind(this))  // 'this' is bound to the callback function using "bind"
         );
 
         var action2 = cc.Sequence.create(
             cc.ScaleBy.create(2, 2),
             cc.FadeOut.create(2),
-            cc.CallFunc.create(this, this.onCallback2)
+            cc.CallFunc.create(this.onCallback2, this)      // 'this' is passed as 2nd argument.
         );
 
         var action3 = cc.Sequence.create(
             cc.RotateBy.create(3, 360),
             cc.FadeOut.create(2),
-            cc.CallFunc.create(this, this.onCallback3, "Hi!")
+            cc.CallFunc.create(this.onCallback3, this, "Hi!")  // If you want to pass a optional value, like "Hi!", then you should pass 'this' too
         );
 
         this._grossini.runAction(action);
@@ -670,7 +671,7 @@ var ActionCallFunc2 = ActionsDemo.extend({
         this.centerSprites(1);
 
         var action = cc.Sequence.create(cc.MoveBy.create(2.0, cc.p(200, 0)),
-            cc.CallFunc.create(this._grossini, this.removeFromParentAndCleanup, true));
+            cc.CallFunc.create(this.removeFromParentAndCleanup, this._grossini, true));
 
         this._grossini.runAction(action);
     },
@@ -697,9 +698,9 @@ var ActionCallFunc3 = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        var action = cc.CallFunc.create(this, function(nodeExecutingAction, value) {
+        var action = cc.CallFunc.create(function(nodeExecutingAction, value) {
             cc.log("Object: " + nodeExecutingAction + " value is: " + value);
-        }, "Hello world");
+        }, this, "Hello world");
 
         this.runAction(action);
     },
@@ -748,7 +749,7 @@ var ActionRepeatForever = ActionsDemo.extend({
         this.centerSprites(1);
         var action = cc.Sequence.create(
             cc.DelayTime.create(1),
-            cc.CallFunc.create(this, this.repeatForever));
+            cc.CallFunc.create(this.repeatForever));    // not passing 'this' since it is not used by the callback func
 
         this._grossini.runAction(action);
 
@@ -1268,16 +1269,16 @@ var Issue1305 = ActionsDemo.extend({
          }] ];
          */
 
-        this._spriteTmp.runAction(cc.CallFunc.create(this, this.log));
-        this.scheduleOnce(this.addSprite, 2);
+        this._spriteTmp.runAction(cc.CallFunc.create(this.onLog, this));
+        this.scheduleOnce(this.onAddSprite, 2);
     },
     onExit:function () {
         this._super();
     },
-    log:function (pSender) {
+    onLog:function (pSender) {
         cc.log("This message SHALL ONLY appear when the sprite is added to the scene, NOT BEFORE");
     },
-    addSprite:function (dt) {
+    onAddSprite:function (dt) {
         this._spriteTmp.setPosition(cc.p(250, 250));
         this.addChild(this._spriteTmp);
     },
@@ -1300,29 +1301,29 @@ var Issue1305_2 = ActionsDemo.extend({
 
         var act1 = cc.MoveBy.create(2, cc.p(0, 100));
 
-        var act2 = cc.CallFunc.create(this, this.log1);
+        var act2 = cc.CallFunc.create(this.onLog1);
         var act3 = cc.MoveBy.create(2, cc.p(0, -100));
-        var act4 = cc.CallFunc.create(this, this.log2);
+        var act4 = cc.CallFunc.create(this.onLog2, this);
         var act5 = cc.MoveBy.create(2, cc.p(100, -100));
-        var act6 = cc.CallFunc.create(this, this.log3);
+        var act6 = cc.CallFunc.create(this.onLog3.bind(this));
         var act7 = cc.MoveBy.create(2, cc.p(-100, 0));
-        var act8 = cc.CallFunc.create(this, this.log4);
+        var act8 = cc.CallFunc.create(this.onLog4, this);
 
         var actF = cc.Sequence.create(act1, act2, act3, act4, act5, act6, act7, act8);
 
         //    [spr runAction:actF];
         director.getActionManager().addAction(actF, spr, false);
     },
-    log1:function () {
+    onLog1:function () {
         cc.log("1st block");
     },
-    log2:function () {
+    onLog2:function () {
         cc.log("2nd block");
     },
-    log3:function () {
+    onLog3:function () {
         cc.log("3rd block");
     },
-    log4:function () {
+    onLog4:function () {
         cc.log("4th block");
     },
     title:function () {
@@ -1386,20 +1387,20 @@ var Issue1327 = ActionsDemo.extend({
         spr.setPosition(cc.p(100, 100));
         this.addChild(spr);
 
-        var act1 = cc.CallFunc.create(this, this.logSprRotation);
+        var act1 = cc.CallFunc.create(this.onLogSprRotation);
         var act2 = cc.RotateBy.create(0.25, 45);
-        var act3 = cc.CallFunc.create(this, this.logSprRotation);
+        var act3 = cc.CallFunc.create(this.onLogSprRotation, this);
         var act4 = cc.RotateBy.create(0.25, 45);
-        var act5 = cc.CallFunc.create(this, this.logSprRotation);
+        var act5 = cc.CallFunc.create(this.onLogSprRotation.bind(this));
         var act6 = cc.RotateBy.create(0.25, 45);
-        var act7 = cc.CallFunc.create(this, this.logSprRotation);
+        var act7 = cc.CallFunc.create(this.onLogSprRotation);
         var act8 = cc.RotateBy.create(0.25, 45);
-        var act9 = cc.CallFunc.create(this, this.logSprRotation);
+        var act9 = cc.CallFunc.create(this.onLogSprRotation);
 
         var actF = cc.Sequence.create(act1, act2, act3, act4, act5, act6, act7, act8, act9);
         spr.runAction(actF);
     },
-    logSprRotation:function (pSender) {
+    onLogSprRotation:function (pSender) {
         cc.log(pSender.getRotation());
     },
     title:function () {

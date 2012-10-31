@@ -90,9 +90,9 @@ var RenderTextureBaseLayer = cc.Layer.extend({
         }
 
         // Menu
-        var item1 = cc.MenuItemImage.create("b1.png", "b2.png", this, this.onBackCallback);
-        var item2 = cc.MenuItemImage.create("r1.png", "r2.png", this, this.onRestartCallback);
-        var item3 = cc.MenuItemImage.create("f1.png", "f2.png", this, this.onNextCallback);
+        var item1 = cc.MenuItemImage.create("b1.png", "b2.png", this.onBackCallback, this);
+        var item2 = cc.MenuItemImage.create("r1.png", "r2.png", this.onRestartCallback, this);
+        var item3 = cc.MenuItemImage.create("f1.png", "f2.png", this.onNextCallback.bind(this) );  // another way to pass 'this'
 
         var menu = cc.Menu.create(item1, item2, item3);
 
@@ -132,8 +132,8 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
         this._brush.setOpacity( 20 );
 
 
-        var save = cc.MenuItemFont.create("Save", this, this.saveCB );
-        var clear = cc.MenuItemFont.create("Clear", this, this.clearCB );
+        var save = cc.MenuItemFont.create("Save", this.saveCB, this );
+        var clear = cc.MenuItemFont.create("Clear", this.clearCB.bind(this) ); // another way to pass 'this'
         var menu = cc.Menu.create( save, clear );
         menu.alignItemsVertically();
         menu.setPosition( winSize.width-70, winSize.height-80  );

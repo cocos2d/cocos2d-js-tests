@@ -80,9 +80,9 @@ var AtlasDemo = cc.Layer.extend({
             l.setPosition(cc.p(s.width / 2, s.height - 80));
         }
 
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.restartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
 
@@ -746,17 +746,17 @@ var LabelTTFTest = AtlasDemo.extend({
 
         cc.MenuItemFont.setFontSize(30);
         var menu = cc.Menu.create(
-            cc.MenuItemFont.create("Left", this, this.setAlignmentLeft),
-            cc.MenuItemFont.create("Center", this, this.setAlignmentCenter),
-            cc.MenuItemFont.create("Right", this, this.setAlignmentRight));
+            cc.MenuItemFont.create("Left", this.setAlignmentLeft, this),
+            cc.MenuItemFont.create("Center", this.setAlignmentCenter, this),
+            cc.MenuItemFont.create("Right", this.setAlignmentRight, this));
         menu.alignItemsVerticallyWithPadding(4);
         menu.setPosition(cc.p(50, s.height / 2 - 20));
         this.addChild(menu);
 
         menu = cc.Menu.create(
-            cc.MenuItemFont.create("Top", this, this.setAlignmentTop),
-            cc.MenuItemFont.create("Middle", this, this.setAlignmentMiddle),
-            cc.MenuItemFont.create("Bottom", this, this.setAlignmentBottom));
+            cc.MenuItemFont.create("Top", this.setAlignmentTop, this),
+            cc.MenuItemFont.create("Middle", this.setAlignmentMiddle, this),
+            cc.MenuItemFont.create("Bottom", this.setAlignmentBottom, this));
         menu.alignItemsVerticallyWithPadding(4);
         menu.setPosition(cc.p(s.width - 50, s.height / 2 - 20));
         this.addChild(menu);
@@ -935,9 +935,9 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
         this.arrowsShouldRetain = cc.Sprite.create("res/Images/arrows.png");
 
         cc.MenuItemFont.setFontSize(20);
-        var longSentences = cc.MenuItemFont.create("Long Flowing Sentences", this, this.stringChanged);
-        var lineBreaks = cc.MenuItemFont.create("Short Sentences With Intentional Line Breaks", this, this.stringChanged);
-        var mixed = cc.MenuItemFont.create("Long Sentences Mixed With Intentional Line Breaks", this, this.stringChanged);
+        var longSentences = cc.MenuItemFont.create("Long Flowing Sentences", this.onStringChanged, this);
+        var lineBreaks = cc.MenuItemFont.create("Short Sentences With Intentional Line Breaks", this.onStringChanged, this);
+        var mixed = cc.MenuItemFont.create("Long Sentences Mixed With Intentional Line Breaks", this.onStringChanged.bind(this)); // another way to pass 'this'
         var stringMenu = cc.Menu.create(longSentences, lineBreaks, mixed);
         stringMenu.alignItemsVertically();
 
@@ -949,9 +949,9 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
 
         cc.MenuItemFont.setFontSize(30);
 
-        var left = cc.MenuItemFont.create("Left", this, this.alignmentChanged);
-        var center = cc.MenuItemFont.create("Center", this, this.alignmentChanged);
-        var right = cc.MenuItemFont.create("Right", this, this.alignmentChanged);
+        var left = cc.MenuItemFont.create("Left", this.onAlignmentChanged, this);
+        var center = cc.MenuItemFont.create("Center", this.onAlignmentChanged, this);
+        var right = cc.MenuItemFont.create("Right", this.onAlignmentChanged.bind(this));    // another way to pass 'this'
         var alignmentMenu = cc.Menu.create(left, center, right);
         alignmentMenu.alignItemsHorizontallyWithPadding(alignmentItemPadding);
 
@@ -987,7 +987,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
     subtitle:function () {
         return "";
     },
-    stringChanged:function (sender) {
+    onStringChanged:function (sender) {
         sender.setColor(cc.c3b(255,0,0));
         this.lastSentenceItem.setColor(cc.c3b(255,255,255));
         this.lastSentenceItem = sender;
@@ -1009,7 +1009,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
 
         this.snapArrowsToEdge();
     },
-    alignmentChanged:function (sender) {
+    onAlignmentChanged:function (sender) {
         var item = sender;
         item.setColor(cc.c3b(255,0,0));
         this.lastAlignmentItem.setColor(cc.c3b(255,255,255));

@@ -73,9 +73,9 @@ var TileDemo = cc.Layer.extend({
         }
 
         // add menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.onBackCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.onRestartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.onNextCallback);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
 
@@ -292,10 +292,10 @@ var TMXOrthoTest4 = TileDemo.extend({
         sprite = layer.getTileAt(cc.p(s.width - 1, s.height - 1));
         sprite.setScale(2);
 
-        this.schedule(this.removeSprite, 2);
+        this.schedule(this.onRemoveSprite, 2);
     },
-    removeSprite:function (dt) {
-        this.unschedule(this.removeSprite);
+    onRemoveSprite:function (dt) {
+        this.unschedule(this.onRemoveSprite);
 
         var map = this.getChildByTag(TAG_TILE_MAP);
 
@@ -346,7 +346,7 @@ var TMXReadWriteTest = TileDemo.extend({
         var opacity = cc.FadeOut.create(2);
         var fadein = cc.FadeIn.create(2);
         var scaleback = cc.ScaleTo.create(1, 1);
-        var finish = cc.CallFunc.create(this, this.removeSprite);
+        var finish = cc.CallFunc.create(this.onRemoveSprite);   // 'this' is optional. Since it is not used, it is not passed.
 
         var seq0 = cc.Sequence.create(move, rotate, scale, opacity, fadein, scaleback, finish);
 
@@ -363,7 +363,7 @@ var TMXReadWriteTest = TileDemo.extend({
 
         this.gid2 = 0;
     },
-    removeSprite:function (sender) {
+    onRemoveSprite:function (sender) {
         var p = sender.getParent();
         if (p) {
             p.removeChild(sender, true);

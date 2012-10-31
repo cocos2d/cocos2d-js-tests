@@ -172,12 +172,12 @@ CocosDenshionTest = cc.Layer.extend({
         this.init();
 
         this._itemMenu = cc.Menu.create();
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
         for (var i = 0; i < DenshionTests.length; i++) {
             var label = cc.LabelTTF.create(DenshionTests[i].title, "Arial", 24);
-            var menuItem = cc.MenuItemLabel.create(label, this, this.menuCallback);
+            var menuItem = cc.MenuItemLabel.create(label, this.onMenuCallback, this);
             this._itemMenu.addChild(menuItem, i + 10000);
-            menuItem.setPosition(cc.p(s.width / 2, (s.height - (i + 1) * LINE_SPACE)));
+            menuItem.setPosition( s.width / 2, (s.height - (i + 1) * LINE_SPACE) );
         }
         this._testCount = i;
         this._itemMenu.setContentSize(cc.size(s.width, (this._testCount + 1) * LINE_SPACE));
@@ -198,7 +198,7 @@ CocosDenshionTest = cc.Layer.extend({
         audioEngine.setEffectsVolume(0.5);
         audioEngine.setBackgroundMusicVolume(0.5);
     },
-    menuCallback:function (sender) {
+    onMenuCallback:function (sender) {
         var idx = sender.getZOrder() - 10000;
         // create the test scene and run it
         var scene = DenshionTests[idx].playFunc();
@@ -210,7 +210,7 @@ CocosDenshionTest = cc.Layer.extend({
             var curPos = this._itemMenu.getPosition();
 
             var nextPos = cc.p(curPos.x, curPos.y + nMoveY);
-            var winSize = cc.Director.getInstance().getWinSize();
+            var winSize = director.getWinSize();
             if (nextPos.y < 0.0) {
                 this._itemMenu.setPosition(cc.p(0,0));
                 return;
@@ -253,7 +253,7 @@ CocosDenshionTestScene = TestScene.extend({
         audioEngine = cc.AudioEngine.getInstance();
         var layer = new CocosDenshionTest();
         this.addChild(layer);
-        cc.Director.getInstance().replaceScene(this);
+        director.replaceScene(this);
     }
 });
 

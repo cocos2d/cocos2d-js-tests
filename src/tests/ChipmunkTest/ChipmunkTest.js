@@ -52,7 +52,7 @@ var ChipmunkBaseLayer = function() {
 	this.subtitle = "No Subtitle";
 
 	// Menu to toggle debug physics on / off
-    var item = cc.MenuItemFont.create("Physics On/Off", this, this.onToggleDebug);
+    var item = cc.MenuItemFont.create("Physics On/Off", this.onToggleDebug, this);
     var menu = cc.Menu.create( item );
     this.addChild( menu );
     menu.setPosition( cc._p( winSize.width-100, winSize.height-80 )  );
@@ -93,20 +93,17 @@ ChipmunkBaseLayer.prototype.onEnter = function() {
 		l.setPosition( cc.p(winSize.width / 2, winSize.height - 80));
 	}
 
-    // Menu
-    var item1 = cc.MenuItemImage.create("b1.png", "b2.png", this, this.onBackCallback);
-    var item2 = cc.MenuItemImage.create("r1.png", "r2.png", this, this.onRestartCallback);
-    var item3 = cc.MenuItemImage.create("f1.png", "f2.png", this, this.onNextCallback);
-    var item4 = cc.MenuItemFont.create("back", this, function() { require("js/main.js"); } );
-    item4.setFontSize( 22 );
+    // Menu: testing 3 different ways to pass 'this':
+    var item1 = cc.MenuItemImage.create("b1.png", "b2.png", this.onBackCallback, this);   // 'this' as 2nd argument
+    var item2 = cc.MenuItemImage.create("r1.png", "r2.png", this.onRestartCallback, this);  // 'this' as 2nd argument
+    var item3 = cc.MenuItemImage.create("f1.png", "f2.png", this.onNextCallback.bind(this) );	// 'this' bound to the callback func
 
-    var menu = cc.Menu.create(item1, item2, item3, item4 );
+    var menu = cc.Menu.create(item1, item2, item3 );
 
     menu.setPosition( cc.p(0,0) );
     item1.setPosition( cc.p(winSize.width / 2 - 100, 30));
     item2.setPosition( cc.p(winSize.width / 2, 30));
     item3.setPosition( cc.p(winSize.width / 2 + 100, 30));
-    item4.setPosition( cc.p(winSize.width - 60, winSize.height - 30 ) );
 
 	this.addChild(menu, 1);
 };

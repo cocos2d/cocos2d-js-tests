@@ -94,9 +94,9 @@ var EffecstsBaseLayer = cc.Layer.extend({
         }
 
         // Menu
-        var item1 = cc.MenuItemImage.create("b1.png", "b2.png", this, this.onBackCallback);
-        var item2 = cc.MenuItemImage.create("r1.png", "r2.png", this, this.onRestartCallback);
-        var item3 = cc.MenuItemImage.create("f1.png", "f2.png", this, this.onNextCallback);
+        var item1 = cc.MenuItemImage.create("b1.png", "b2.png", this.onBackCallback, this);
+        var item2 = cc.MenuItemImage.create("r1.png", "r2.png", this.onRestartCallback, this);
+        var item3 = cc.MenuItemImage.create("f1.png", "f2.png", this.onNextCallback, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
 

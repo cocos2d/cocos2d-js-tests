@@ -64,8 +64,10 @@ var createLayer = function (index) {
 };
 
 var SpriteDemo = cc.Layer.extend({
-    ctor:function () {
+    ctor:function() {
         this._super();
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
     },
 
     title:function () {
@@ -79,7 +81,7 @@ var SpriteDemo = cc.Layer.extend({
     onEnter:function () {
         this._super();
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = director.getWinSize();
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 18);
         this.addChild(label, 1);
@@ -92,45 +94,45 @@ var SpriteDemo = cc.Layer.extend({
             l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
         }
 
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.restartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback.bind(this)); // another way to pass 'this'
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.p(0,0));
-        item1.setPosition(cc.p(winSize.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2));
-        item2.setPosition(cc.p(winSize.width / 2, item2.getContentSize().height / 2));
-        item3.setPosition(cc.p(winSize.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2));
+        menu.setPosition(0,0);
+        item1.setPosition(winSize.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2);
+        item2.setPosition(winSize.width / 2, item2.getContentSize().height / 2);
+        item3.setPosition(winSize.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2);
 
         this.addChild(menu, 1);
         var background = cc.LayerColor.create(cc.c4b(0, 125, 0, 255));
         this.addChild(background, -10);
     },
 
-    restartCallback:function (sender) {
-        var scene = new ProgressActionsTestScene();
-        scene.addChild(restartProgressAction());
-        cc.Director.getInstance().replaceScene(scene);
-    },
-
-    nextCallback:function (sender) {
-        var scene = new ProgressActionsTestScene();
-        scene.addChild(nextProgressAction());
-        cc.Director.getInstance().replaceScene(scene);
-    },
-
-    backCallback:function (sender) {
+    onBackCallback:function (sender) {
         var scene = new ProgressActionsTestScene();
         scene.addChild(backProgressAction());
-        cc.Director.getInstance().replaceScene(scene);
+        director.replaceScene(scene);
+    },
+
+    onRestartCallback:function (sender) {
+        var scene = new ProgressActionsTestScene();
+        scene.addChild(restartProgressAction());
+        director.replaceScene(scene);
+    },
+
+    onNextCallback:function (sender) {
+        var scene = new ProgressActionsTestScene();
+        scene.addChild(nextProgressAction());
+        director.replaceScene(scene);
     }
 });
 
 var SpriteProgressToRadial = SpriteDemo.extend({
     onEnter:function () {
         this._super();
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = director.getWinSize();
 
         var to1 = cc.ProgressTo.create(2, 100);
         var to2 = cc.ProgressTo.create(2, 100);
@@ -158,7 +160,7 @@ var SpriteProgressToHorizontal = SpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = director.getWinSize();
 
         var to1 = cc.ProgressTo.create(2, 100);
         var to2 = cc.ProgressTo.create(2, 100);
@@ -192,7 +194,7 @@ var SpriteProgressToVertical = SpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = director.getWinSize();
 
         var to1 = cc.ProgressTo.create(2, 100);
         var to2 = cc.ProgressTo.create(2, 100);
@@ -226,7 +228,7 @@ var SpriteProgressToRadialMidpointChanged = SpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = director.getWinSize();
         var action = cc.ProgressTo.create(2, 100);
 
         /**
@@ -263,7 +265,7 @@ var SpriteProgressBarVarious = SpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
 
         var to = cc.ProgressTo.create(2, 100);
 
@@ -308,7 +310,7 @@ var SpriteProgressBarTintAndFade = SpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = director.getWinSize();
 
         var to = cc.ProgressTo.create(6, 100);
         var tint = cc.Sequence.create(cc.TintTo.create(1, 255, 0, 0),
@@ -368,7 +370,7 @@ var SpriteProgressWithSpriteFrame = SpriteDemo.extend({
     onEnter:function () {
         this._super();
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = director.getWinSize();
         var to = cc.ProgressTo.create(6, 100);
 
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_grossiniPlist);
@@ -414,6 +416,6 @@ var ProgressActionsTestScene = TestScene.extend({
         sceneIdx_Progress = -1;
         MAX_LAYER_Progress = 7;
         this.addChild(nextProgressAction());
-        cc.Director.getInstance().replaceScene(this);
+        director.replaceScene(this);
     }
 });

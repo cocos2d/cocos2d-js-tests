@@ -59,9 +59,9 @@ var TestNodeDemo = cc.Layer.extend({
             l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
         }
 
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.restartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
 
@@ -627,8 +627,8 @@ var BoundingBoxTest = TestNodeDemo.extend({
         cc.log('BoundingBox:');
         //for( var i in bb )
         //    cc.log( i + " = " + bb[i] );
-        cc.log('origin = [ ' + bb.origin.x + "," + bb.origin.y + "]");
-        cc.log('size = [ ' + bb.size.width + "," + bb.size.height + "]");
+        cc.log('origin = [ ' + bb.x + "," + bb.y + "]");
+        cc.log('size = [ ' + bb.width + "," + bb.height + "]");
     },
     title:function () {
         return "Bounding Box Test";

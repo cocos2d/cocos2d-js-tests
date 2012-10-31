@@ -64,8 +64,8 @@ var ControlScene = cc.Layer.extend({
 
             // Add the menu
             var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.previousCallback);
-            var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.restartCallback);
-            var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
+            var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
+            var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
             var menu = cc.Menu.create(item1, item3, item2);
             menu.setPosition(cc.p(0,0));

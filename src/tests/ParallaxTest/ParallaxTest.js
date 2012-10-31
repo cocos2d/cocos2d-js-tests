@@ -68,7 +68,10 @@ ParallaxDemo = cc.Layer.extend({
 
     _atlas:null,
 
-    ctor:function () {
+    ctor:function() {
+        this._super();
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
     },
 
     title:function () {
@@ -78,22 +81,22 @@ ParallaxDemo = cc.Layer.extend({
     onEnter:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = director.getWinSize();
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 28);
         this.addChild(label, 1);
         label.setPosition(cc.p(s.width / 2, s.height - 50));
 
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.backCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this, this.restartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this, this.nextCallback);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
-        var menu = cc.Menu.create(item1, item2, item3, null);
+        var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.p(0,0));
-        item1.setPosition(cc.p(s.width / 2 - 100, 30));
-        item2.setPosition(cc.p(s.width / 2, 30));
-        item3.setPosition(cc.p(s.width / 2 + 100, 30));
+        menu.setPosition(0,0);
+        item1.setPosition(s.width / 2 - 100, 30);
+        item2.setPosition(s.width / 2, 30);
+        item3.setPosition(s.width / 2 + 100, 30);
 
         this.addChild(menu, 1);
 
@@ -103,20 +106,20 @@ ParallaxDemo = cc.Layer.extend({
         var s = new ParallaxTestScene();
         s.addChild(restartParallaxAction());
 
-        cc.Director.getInstance().replaceScene(s);
+        director.replaceScene(s);
     },
 
     nextCallback:function (sender) {
         var s = new ParallaxTestScene();
         s.addChild(nextParallaxAction());
-        cc.Director.getInstance().replaceScene(s);
+        director.replaceScene(s);
 
     },
 
     backCallback:function (sender) {
         var s = new ParallaxTestScene();
         s.addChild(backParallaxAction());
-        cc.Director.getInstance().replaceScene(s);
+        director.replaceScene(s);
     }
 });
 
@@ -128,6 +131,8 @@ Parallax1 = ParallaxDemo.extend({
 
 
     ctor:function () {
+        this._super();
+
         // Top Layer, a simple image
         var cocosImage = cc.Sprite.create(s_power);
         // scale the image (optional)
@@ -178,7 +183,7 @@ Parallax1 = ParallaxDemo.extend({
         var goDown = goUp.reverse();
         var go = cc.MoveBy.create(8, cc.p(200, 0));
         var goBack = go.reverse();
-        var seq = cc.Sequence.create(goUp, go, goDown, goBack, null);
+        var seq = cc.Sequence.create(goUp, go, goDown, goBack);
         voidNode.runAction((cc.RepeatForever.create(seq) ));
 
         this.addChild(voidNode);
@@ -197,7 +202,18 @@ Parallax2 = ParallaxDemo.extend({
 
 
     ctor:function () {
-        this.setTouchEnabled(true);
+
+        this._super();
+
+        var t = cc.config.deviceType;
+        if( t == 'browser' )  {
+            this.setTouchEnabled(true);
+            // this.setKeyboardEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
+        } else if( t == 'mobile' ) {
+            this.setTouchEnabled(true);
+        }
 
         // Top Layer, a simple image
         var cocosImage = cc.Sprite.create(s_power);
@@ -243,17 +259,17 @@ Parallax2 = ParallaxDemo.extend({
 
     },
 
-    registerWithTouchDispatcher:function () {
-        cc.Director.getInstance().getTouchDispatcher().addTargetedDelegate(this, 0, true);
-    },
-    onTouchBegan:function (touch, event) {
-        return true;
-    },
-
-    onTouchMoved:function (touch, event) {
+    onTouchesMoved:function (touches, event) {
+        var touch = touches[0];
         var node = this.getChildByTag(TAG_NODE);
         var currentPos = node.getPosition();
         node.setPosition(cc.pAdd(currentPos, touch.getDelta() ));
+    },
+
+    onMouseDragged:function (event) {
+        var node = this.getChildByTag(TAG_NODE);
+        var currentPos = node.getPosition();
+        node.setPosition(cc.pAdd(currentPos, event.getDelta() ));
     },
 
     title:function () {
@@ -269,6 +285,6 @@ ParallaxTestScene = TestScene.extend({
         var layer = nextParallaxAction();
 
         this.addChild(layer);
-        cc.Director.getInstance().replaceScene(this);
+        director.replaceScene(this);
     }
 });
