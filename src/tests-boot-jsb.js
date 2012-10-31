@@ -24,6 +24,7 @@ var tests_files = [
 		'ParallaxTest.js',
 		'ParticleTest.js',
 		'Presentation.js',
+		'ProgressActionsTest.js',
 		'RenderTextureTest.js',
 		'SchedulerTest.js',
 		'SpriteTest.js',

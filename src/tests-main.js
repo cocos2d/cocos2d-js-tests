@@ -357,7 +357,7 @@ var testNames = [
     },
     {
         title:"ProgressActions Test",
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new ProgressActionsTestScene();
         }
