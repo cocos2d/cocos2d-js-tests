@@ -323,7 +323,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
                 cc.MoveTo.create(duration, endPos),
                 cc.ScaleTo.create(duration, 1),
                 cc.FadeOut.create(duration)),
-            cc.CallFunc.create(this, this.callbackRemoveNodeWhenDidAction));
+            cc.CallFunc.create(this.callbackRemoveNodeWhenDidAction, this));
         label.runAction(seq);
         return false;
     },
@@ -354,7 +354,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
                     cc.RotateBy.create(rotateDuration, (Math.random() % 2) ? 360 : -360),
                     repeatTime),
                 cc.FadeOut.create(duration)),
-            cc.CallFunc.create(this, this.callbackRemoveNodeWhenDidAction));
+            cc.CallFunc.create(this.callbackRemoveNodeWhenDidAction, this));
         label.runAction(seq);
         return false;
     },

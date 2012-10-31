@@ -146,7 +146,7 @@ var CrashTest = ActionManagerTest.extend({
         //After 1.5 second, self will be removed.
         this.runAction(cc.Sequence.create(
             cc.DelayTime.create(1.4),
-            cc.CallFunc.create(this, this.removeThis))
+            cc.CallFunc.create(this.removeThis, this))
         );
     },
     removeThis:function () {
@@ -173,7 +173,7 @@ var LogicTest = ActionManagerTest.extend({
 
         grossini.runAction(cc.Sequence.create(
             cc.MoveBy.create(1, cc.p(150, 0)),
-            cc.CallFunc.create(this, this.bugMe))
+            cc.CallFunc.create(this.bugMe, this))
         );
     },
     bugMe:function (node) {
@@ -241,7 +241,7 @@ var RemoveTest = ActionManagerTest.extend({
         l.setPosition(cc.p(s.width / 2, 245));
 
         var move = cc.MoveBy.create(2, cc.p(200, 0));
-        var callback = cc.CallFunc.create(this, this.stopAction);
+        var callback = cc.CallFunc.create(this.stopAction, this);
         var sequence = cc.Sequence.create(move, callback);
         sequence.setTag(TAG_SEQUENCE);
 

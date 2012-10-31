@@ -90,8 +90,8 @@ var ExtensionsMainLayer = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(24);
         for (var i = 0; i < extensionsTestItemNames.length; ++i){
             var selItem = extensionsTestItemNames[i];
-            var pItem = cc.MenuItemFont.create(selItem.itemTitle, this,
-                this.menuCallback);
+            var pItem = cc.MenuItemFont.create(selItem.itemTitle,
+                this.menuCallback, this);
             pItem.setPosition(cc.p(winSize.width / 2, winSize.height - (i + 1) * LINE_SPACE));
             pMenu.addChild(pItem, ITEM_TAG_BASIC + i);
         }

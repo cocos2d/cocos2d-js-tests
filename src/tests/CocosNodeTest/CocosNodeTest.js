@@ -282,7 +282,7 @@ var StressTest1 = TestNodeDemo.extend({
 
         this.runAction(cc.Sequence.create(
             cc.RotateBy.create(2, 360),
-            cc.CallFunc.create(this, this.onRemoveMe)));
+            cc.CallFunc.create(this.onRemoveMe, this)));
 
         this.addChild(explosion);
     },
