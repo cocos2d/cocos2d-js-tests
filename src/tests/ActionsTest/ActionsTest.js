@@ -415,6 +415,47 @@ var ActionBezier = ActionsDemo.extend({
 });
 //------------------------------------------------------------------
 //
+// Issue1008
+//
+//------------------------------------------------------------------
+var Issue1008 = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+
+        this.centerSprites(1);
+
+        // sprite 1
+
+        this._grossini.setPosition(428,279);
+
+        // 3 and only 3 control points should be used for Bezier actions.
+        var controlPoints1 = [ cc.p(428,279), cc.p(100,100), cc.p(100,100)];
+        var controlPoints2 = [ cc.p(100,100), cc.p(428,279), cc.p(428,279)];
+
+        var bz1 = cc.BezierTo.create(3, controlPoints1);
+        var bz2 = cc.BezierTo.create(3, controlPoints2);
+        var trace = cc.CallFunc.create(this.onTrace, this);
+
+        var rep = cc.RepeatForever.create(cc.Sequence.create(bz1, bz2, trace));
+
+        this._grossini.runAction(rep);
+
+    },
+    onTrace:function (sender){
+        var pos = sender.getPosition();
+        cc.log("Position x: " + pos.x + ' y:' + pos.y);
+        if( pos.x != 428 || pos.y != 279)
+            cc.log("Error: Issue 1008 is still open");
+    },
+    title:function () {
+        return "Issue 1008";
+    },
+    subtitle:function () {
+        return "BezierTo + Repeat. See console";
+    }
+});
+//------------------------------------------------------------------
+//
 // ActionBlink
 //
 //------------------------------------------------------------------
@@ -1424,6 +1465,7 @@ var arrayOfActionsTest = [
     ActionSkewRotateScale,
     ActionJump,
     ActionBezier,
+    Issue1008,
     ActionCardinalSpline,
     ActionCatmullRom,
     ActionBlink,
