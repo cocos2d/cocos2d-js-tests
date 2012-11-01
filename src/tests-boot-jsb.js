@@ -14,6 +14,7 @@ var tests_files = [
 		'ActionManagerTest.js',
 		'ActionsTest.js',
 		'ChipmunkTest.js',
+		'ClickAndMoveTest.js',
 		'CocosDenshionTest.js',
 		'CocosNodeTest.js',
 		'EaseActionsTest.js',
