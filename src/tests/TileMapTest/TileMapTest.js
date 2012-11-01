@@ -1232,9 +1232,6 @@ var TileMapTestScene = TestScene.extend({
 // Flow control
 //
 var arrayOfTileMapTest = [
-    TMXIsoVertexZ,
-    TMXOrthoVertexZ,
-
     TMXOrthoTest,
     TMXOrthoTest2,
     TMXOrthoTest3,

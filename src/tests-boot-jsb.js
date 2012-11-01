@@ -11,6 +11,7 @@ require("tests-main.js");
 // Load tests files
 
 var tests_files = [
+		'ActionManagerTest.js',
 		'ActionsTest.js',
 		'ChipmunkTest.js',
 		'CocosDenshionTest.js',

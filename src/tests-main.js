@@ -194,7 +194,7 @@ var TestController = cc.Layer.extend({
 var testNames = [
     {
         title:"ActionManager Test",
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new ActionManagerTestScene();
         }
@@ -220,9 +220,7 @@ var testNames = [
             return new ChipmunkTestScene();
         }
     },
-    //"Box2dTestBed",
     //"BugsTest",
-    //"ChipmunkTest",
     {
         title:"Click and Move Test",
         platforms: PLATFORM_HTML5,
