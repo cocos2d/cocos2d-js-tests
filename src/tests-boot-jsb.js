@@ -28,6 +28,7 @@ var tests_files = [
 		'Presentation.js',
 		'ProgressActionsTest.js',
 		'RenderTextureTest.js',
+		'RotateWorldTest.js',
 		'SchedulerTest.js',
 		'SpriteTest.js',
 		'TileMapTest.js',
