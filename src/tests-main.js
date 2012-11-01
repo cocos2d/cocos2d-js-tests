@@ -376,7 +376,7 @@ var testNames = [
     },
     {
         title:"Scene Test",
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new SceneTestScene();
         }
