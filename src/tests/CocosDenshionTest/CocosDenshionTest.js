@@ -37,139 +37,136 @@ if ( cc.config.deviceType == 'browser' ) {
 
 var DenshionTests = [
     {
-        title:"playBackgroundMusic",
+        title:"Play Music",
         playFunc:function () {
-            return new playBackgroundMusic();
+            return new playMusic();
         }
     },
     {
-        title:"stopBackgroundMusic",
+        title:"Stop Music",
         playFunc:function () {
-            return new stopBackgroundMusic();
+            return new stopMusic();
         }
     },
     {
-        title:"pauseBackgroundMusic",
+        title:"Pause Music",
         playFunc:function () {
-            return new pauseBackgroundMusic();
+            return new pauseMusic();
         }
     },
     {
-        title:"resumeBackgroundMusic",
+        title:"Resume Music",
         playFunc:function () {
-            return new resumeBackgroundMusic();
+            return new resumeMusic();
         }
     },
     {
-        title:"rewindBackgroundMusic",
+        title:"Rewind Music",
         playFunc:function () {
-            return new rewindBackgroundMusic();
+            return new rewindMusic();
         }
     },
     {
-        title:"isBackgroundMusicPlaying",
+        title:"is Music Playing",
         playFunc:function () {
-            return new isBackgroundMusicPlaying();
+            return new isMusicPlaying();
         }
     },
     {
-        title:"playEffect",
+        title:"Increase Music Volume",
+        playFunc:function () {
+            return new addMusicVolume();
+        }
+    },
+
+    {
+        title:"Decrease Music Volume",
+        playFunc:function () {
+            return new subMusicVolume();
+        }
+    },
+    {
+        title:"Play Sound Effect",
         playFunc:function () {
             return new playEffect();
         }
     },
     {
-        title:"playEffectRepeatly",
+        title:"Repeat Sound Effect",
         playFunc:function () {
             return new playEffectRepeatly();
         }
     },
     {
-        title:"stopEffect",
+        title:"Stop Sound Effect",
         playFunc:function () {
             return new stopEffect();
         }
     },
     {
-        title:"unloadEffect",
+        title:"Unload Sound Effect",
         playFunc:function () {
             return new unloadEffect();
         }
     },
     {
-        title:"addBackgroundMusicVolume",
-        playFunc:function () {
-            return new addBackgroundMusicVolume();
-        }
-    },
-
-    {
-        title:"subBackgroundMusicVolume",
-        playFunc:function () {
-            return new subBackgroundMusicVolume();
-        }
-    },
-
-    {
-        title:"addEffectsVolume",
+        title:"Increase Sound Effect Volume",
         playFunc:function () {
             return new addEffectsVolume();
         }
     },
 
     {
-        title:"subEffectsVolume",
+        title:"Decrease Sound Effect Volume",
         playFunc:function () {
             return new subEffectsVolume();
         }
     },
 
     {
-        title:"pauseEffect",
+        title:"Pause Sound Effect",
         playFunc:function () {
             return new pauseEffect();
         }
     },
 
     {
-        title:"resumeEffect",
+        title:"Resume Sound Effect",
         playFunc:function () {
             return new resumeEffect();
         }
     },
 
     {
-        title:"pauseAllEffects",
+        title:"Pause All Sound Effects",
         playFunc:function () {
             return new pauseAllEffects();
         }
     },
 
     {
-        title:"resumeAllEffects",
+        title:"Resume All Sound Effects",
         playFunc:function () {
             return new resumeAllEffects();
         }
     },
 
     {
-        title:"stopAllEffects",
+        title:"Stop All Sound Effects",
         playFunc:function () {
             return new stopAllEffects();
         }
     }
-
 ];
 
-CocosDenshionTest = cc.Layer.extend({
+CocosDenshionTest = cc.LayerGradient.extend({
     _itemMenu:null,
     _beginPos:cc.p(0,0),
-    isMouseDown:false,
     _testCount:0,
     ctor:function () {
-        // add menu items for tests
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
+        this._super();
+        cc.associateWithNative( this, cc.LayerGradient );
+        this.init( cc.c4b(0,0,0,255), cc.c4b(148,80,120,255));
 
         this._itemMenu = cc.Menu.create();
         var s = director.getWinSize();
@@ -181,14 +178,11 @@ CocosDenshionTest = cc.Layer.extend({
         }
         this._testCount = i;
         this._itemMenu.setContentSize(cc.size(s.width, (this._testCount + 1) * LINE_SPACE));
-        this._itemMenu.setPosition(cc.p(0,0));
+        this._itemMenu.setPosition(0,0);
         this.addChild(this._itemMenu);
 
         var t = cc.config.deviceType;
-        if( t == 'browser' )  {
-            this.setTouchEnabled(true);
-            // this.setKeyboardEnabled(true);
-        } else if( t == 'desktop' ) {
+        if( t == 'browser' || t == 'desktop')  {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
             this.setTouchEnabled(true);
@@ -196,55 +190,43 @@ CocosDenshionTest = cc.Layer.extend({
 
         // set default volume
         audioEngine.setEffectsVolume(0.5);
-        audioEngine.setBackgroundMusicVolume(0.5);
+        audioEngine.setMusicVolume(0.5);
     },
+    onExit:function () {
+        this._super();
+        audioEngine.end();
+    },
+
     onMenuCallback:function (sender) {
         var idx = sender.getZOrder() - 10000;
         // create the test scene and run it
         var scene = DenshionTests[idx].playFunc();
     },
+
     onTouchesMoved:function (touches, event) {
-        if (this.isMouseDown) {
-            var touchLocation = touches[0].getLocation();
-            var nMoveY = touchLocation.y - this._beginPos.y;
-            var curPos = this._itemMenu.getPosition();
-
-            var nextPos = cc.p(curPos.x, curPos.y + nMoveY);
-            var winSize = director.getWinSize();
-            if (nextPos.y < 0.0) {
-                this._itemMenu.setPosition(cc.p(0,0));
-                return;
-            }
-
-            if (nextPos.y > ((this._testCount + 1) * LINE_SPACE - winSize.height)) {
-                this._itemMenu.setPosition(cc.p(0, ((this._testCount + 1) * LINE_SPACE - winSize.height)));
-                return;
-            }
-
-            this._itemMenu.setPosition(nextPos);
-
-            this._beginPos = cc.p(0, touchLocation.y);
-        }
-    },
-    onTouchesBegan:function (touches, event) {
-        if (!this.isMouseDown) {
-            this._beginPos = touches[0].getLocation();
-        }
-        this.isMouseDown = true;
-    },
-    onTouchesEnded:function () {
-        this.isMouseDown = false;
+        var delta = touches[0].getDelta();
+        this.moveMenu(delta);
+        return true;
     },
 
     onMouseDragged : function( event ) {
         var delta = event.getDelta();
-        var current = this._itemMenu.getPosition();
-        this._itemMenu.setPosition( cc.p( current.x, current.y + delta.y ) );
+        this.moveMenu(delta);
         return true;
     },
-    onExit:function () {
-        this._super();
-        audioEngine.end();
+
+    moveMenu:function(delta) {
+        var current = this._itemMenu.getPosition();
+
+        var newY = current.y + delta.y;
+
+        if (newY < 0 )
+            newY = 0;
+
+        if( newY > ((DenshionTests.length + 1) * LINE_SPACE - winSize.height))
+            newY = ((DenshionTests.length + 1) * LINE_SPACE - winSize.height);
+
+        this._itemMenu.setPosition(current.x, newY);
     }
 });
 
@@ -259,34 +241,34 @@ CocosDenshionTestScene = TestScene.extend({
 
 var soundId = null;
 
-var playBackgroundMusic = function () {
+var playMusic = function () {
     cc.log("play background music");
-    audioEngine.playBackgroundMusic(MUSIC_FILE, false);
+    audioEngine.playMusic(MUSIC_FILE, false);
 };
 
-var stopBackgroundMusic = function () {
+var stopMusic = function () {
     cc.log("stop background music");
-    audioEngine.stopBackgroundMusic();
+    audioEngine.stopMusic();
 };
 
-var pauseBackgroundMusic = function () {
+var pauseMusic = function () {
     cc.log("pause background music");
-    audioEngine.pauseBackgroundMusic();
+    audioEngine.pauseMusic();
 };
 
-var resumeBackgroundMusic = function () {
+var resumeMusic = function () {
     cc.log("resume background music");
-    audioEngine.resumeBackgroundMusic();
+    audioEngine.resumeMusic();
 };
 
-var rewindBackgroundMusic = function () {
+var rewindMusic = function () {
     cc.log("rewind background music");
-    audioEngine.rewindBackgroundMusic();
+    audioEngine.rewindMusic();
 };
 
 // is background music playing
-var isBackgroundMusicPlaying = function () {
-    if (audioEngine.isBackgroundMusicPlaying()) {
+var isMusicPlaying = function () {
+    if (audioEngine.isMusicPlaying()) {
         cc.log("background music is playing");
     }
     else {
@@ -314,14 +296,14 @@ var unloadEffect = function () {
     audioEngine.unloadEffect(EFFECT_FILE);
 };
 
-var addBackgroundMusicVolume = function () {
+var addMusicVolume = function () {
     cc.log("add bakcground music volume");
-    audioEngine.setBackgroundMusicVolume(audioEngine.getBackgroundMusicVolume() + 0.1);
+    audioEngine.setMusicVolume(audioEngine.getMusicVolume() + 0.1);
 };
 
-var subBackgroundMusicVolume = function () {
+var subMusicVolume = function () {
     cc.log("sub backgroud music volume");
-    audioEngine.setBackgroundMusicVolume(audioEngine.getBackgroundMusicVolume() - 0.1);
+    audioEngine.setMusicVolume(audioEngine.getMusicVolume() - 0.1);
 };
 
 var addEffectsVolume = function () {
