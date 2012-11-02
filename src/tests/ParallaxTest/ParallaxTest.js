@@ -81,45 +81,43 @@ ParallaxDemo = cc.LayerGradient.extend({
     onEnter:function () {
         this._super();
 
-        var s = director.getWinSize();
-
         var label = cc.LabelTTF.create(this.title(), "Arial", 28);
         this.addChild(label, 1);
-        label.setPosition(cc.p(s.width / 2, s.height - 50));
+        label.setPosition(winSize.width / 2, winSize.height - 50);
 
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback);
 
         var menu = cc.Menu.create(item1, item2, item3);
 
         menu.setPosition(0,0);
-        item1.setPosition(s.width / 2 - 100, 30);
-        item2.setPosition(s.width / 2, 30);
-        item3.setPosition(s.width / 2 + 100, 30);
+        item1.setPosition(winSize.width / 2 - 100, 30);
+        item2.setPosition(winSize.width / 2, 30);
+        item3.setPosition(winSize.width / 2 + 100, 30);
 
         this.addChild(menu, 1);
 
     },
 
-    restartCallback:function (sender) {
+    onBackCallback:function (sender) {
+        var s = new ParallaxTestScene();
+        s.addChild(backParallaxAction());
+        director.replaceScene(s);
+    },
+
+    onRestartCallback:function (sender) {
         var s = new ParallaxTestScene();
         s.addChild(restartParallaxAction());
 
         director.replaceScene(s);
     },
 
-    nextCallback:function (sender) {
+    onNextCallback:function (sender) {
         var s = new ParallaxTestScene();
         s.addChild(nextParallaxAction());
         director.replaceScene(s);
 
-    },
-
-    backCallback:function (sender) {
-        var s = new ParallaxTestScene();
-        s.addChild(backParallaxAction());
-        director.replaceScene(s);
     }
 });
 
@@ -136,7 +134,7 @@ Parallax1 = ParallaxDemo.extend({
         // Top Layer, a simple image
         var cocosImage = cc.Sprite.create(s_power);
         // scale the image (optional)
-        cocosImage.setScale(0.5);
+        cocosImage.setScale(1.5);
         // change the transform anchor point to 0,0 (optional)
         cocosImage.setAnchorPoint(cc.p(0, 0));
 
@@ -151,7 +149,6 @@ Parallax1 = ParallaxDemo.extend({
 
         // Anti Aliased images
         //tilemap.getTexture().setAntiAliasTexParameters();
-
 
         // background layer: another image
         var background = cc.Sprite.create(s_back);
@@ -206,10 +203,7 @@ Parallax2 = ParallaxDemo.extend({
         this._super();
 
         var t = cc.config.deviceType;
-        if( t == 'browser' )  {
-            this.setTouchEnabled(true);
-            // this.setKeyboardEnabled(true);
-        } else if( t == 'desktop' ) {
+        if( t == 'browser' || t == 'desktop')  {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
             this.setTouchEnabled(true);
@@ -218,7 +212,7 @@ Parallax2 = ParallaxDemo.extend({
         // Top Layer, a simple image
         var cocosImage = cc.Sprite.create(s_power);
         // scale the image (optional)
-        cocosImage.setScale(0.5);
+        cocosImage.setScale(1.5);
         // change the transform anchor point to 0,0 (optional)
         cocosImage.setAnchorPoint(cc.p(0, 0));
 
