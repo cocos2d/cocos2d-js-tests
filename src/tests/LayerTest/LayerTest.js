@@ -116,8 +116,7 @@ var LayerTest1 = LayerTest.extend({
 
         var t = cc.config.deviceType;
         if( t == 'browser' )  {
-            this.setTouchEnabled(true);
-            // this.setKeyboardEnabled(true);
+            this.setMouseEnabled(true);
         } else if( t == 'desktop' ) {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
@@ -329,8 +328,7 @@ var LayerGradient = LayerTest.extend({
 
         var t = cc.config.deviceType;
         if( t == 'browser' )  {
-            this.setTouchEnabled(true);
-            // this.setKeyboardEnabled(true);
+            this.setMouseEnabled(true);
         } else if( t == 'desktop' ) {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
@@ -341,7 +339,7 @@ var LayerGradient = LayerTest.extend({
         var label2 = cc.LabelTTF.create("Compressed Interpolation: Disabled", "Marker Felt", 26);
         var item1 = cc.MenuItemLabel.create(label1);
         var item2 = cc.MenuItemLabel.create(label2);
-        var item = cc.MenuItemToggle.create(item1, item2, this.onToggleItem.bind(this));
+        var item = cc.MenuItemToggle.create(item1, item2, this.onToggleItem, this);
 
          var menu = cc.Menu.create(item);
          this.addChild(menu);

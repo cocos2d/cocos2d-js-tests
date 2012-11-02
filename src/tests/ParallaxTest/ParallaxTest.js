@@ -64,14 +64,14 @@ function restartParallaxAction() {
     var layer = createParallaxTestLayer(sceneIdx);
     return layer;
 }
-ParallaxDemo = cc.Layer.extend({
+ParallaxDemo = cc.LayerGradient.extend({
 
     _atlas:null,
 
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
+        cc.associateWithNative( this, cc.LayerGradient );
+        this.init( cc.c4b(0,0,0,255), cc.c4b(160,32,32,255));
     },
 
     title:function () {
