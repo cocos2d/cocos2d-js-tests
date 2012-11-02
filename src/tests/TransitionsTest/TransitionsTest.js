@@ -134,11 +134,11 @@ var TransitionsTestScene = TestScene.extend({
     }
 });
 
-var TestLayer1 = cc.Layer.extend({
-    ctor:function () {
+var TestLayer1 = cc.LayerGradient.extend({
+    ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
+        cc.associateWithNative( this, cc.LayerGradient );
+        this.init( cc.c4b(0,0,0,255), cc.c4b(160,99,117,255));
 
         var x, y;
         var size = director.getWinSize();
@@ -146,18 +146,18 @@ var TestLayer1 = cc.Layer.extend({
         y = size.height;
 
         var bg1 = cc.Sprite.create(s_back1);
-        bg1.setPosition(cc.p(size.width / 2, size.height / 2));
+        bg1.setPosition(size.width / 2, size.height / 2);
         bg1.setScale(1.7);
-        this.addChild(bg1, -1);
+        this.addChild(bg1);
 
         var title = cc.LabelTTF.create(TransitionsTests[transitionsIdx].title, "Thonburi", 32);
         this.addChild(title);
         title.setColor(cc.c3b(255, 32, 32));
-        title.setPosition(cc.p(x / 2, y - 100));
+        title.setPosition(x / 2, y - 100);
 
         var label = cc.LabelTTF.create("SCENE 1", "Marker Felt", 38);
         label.setColor(cc.c3b(16, 16, 255));
-        label.setPosition(cc.p(x / 2, y / 2));
+        label.setPosition(x / 2, y / 2);
         this.addChild(label);
 
         // menu
@@ -235,11 +235,11 @@ var TestLayer1 = cc.Layer.extend({
     }
 });
 
-var TestLayer2 = cc.Layer.extend({
-    ctor:function () {
+var TestLayer2 = cc.LayerGradient.extend({
+    ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
+        cc.associateWithNative( this, cc.LayerGradient );
+        this.init( cc.c4b(0,0,0,255), cc.c4b(99,160,117,255));
 
         var x, y;
         var size = director.getWinSize();
@@ -247,18 +247,18 @@ var TestLayer2 = cc.Layer.extend({
         y = size.height;
 
         var bg1 = cc.Sprite.create(s_back2);
-        bg1.setPosition(cc.p(size.width / 2, size.height / 2));
+        bg1.setPosition(size.width / 2, size.height / 2);
         bg1.setScale(1.7);
-        this.addChild(bg1, -1);
+        this.addChild(bg1);
 
         var title = cc.LabelTTF.create(TransitionsTests[transitionsIdx].title, "Thonburi", 32);
         this.addChild(title);
         title.setColor(cc.c3b(255, 32, 32));
-        title.setPosition(cc.p(x / 2, y - 100));
+        title.setPosition(x / 2, y - 100);
 
         var label = cc.LabelTTF.create("SCENE 2", "Marker Felt", 38);
         label.setColor(cc.c3b(16, 16, 255));
-        label.setPosition(cc.p(x / 2, y / 2));
+        label.setPosition(x / 2, y / 2);
         this.addChild(label);
 
         // menu
