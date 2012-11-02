@@ -42,7 +42,8 @@ var ActionsTestScene = TestScene.extend({
 var ActionsDemo = cc.LayerGradient.extend({
     _grossini:null,
     _tamara:null,
-    kathia:null,
+    _kathia:null,
+    _code:null,
 
     ctor:function() {
         this._super();
@@ -60,17 +61,17 @@ var ActionsDemo = cc.LayerGradient.extend({
         } else if (numberOfSprites == 1) {
             this._tamara.setVisible(false);
             this._kathia.setVisible(false);
-            this._grossini.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+            this._grossini.setPosition(winSize.width / 2, winSize.height / 2);
         }
         else if (numberOfSprites == 2) {
-            this._kathia.setPosition(cc.p(winSize.width / 3, winSize.height / 2));
-            this._tamara.setPosition(cc.p(2 * winSize.width / 3, winSize.height / 2));
+            this._kathia.setPosition(winSize.width / 3, winSize.height / 2);
+            this._tamara.setPosition(2 * winSize.width / 3, winSize.height / 2);
             this._grossini.setVisible(false);
         }
         else if (numberOfSprites == 3) {
-            this._grossini.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
-            this._tamara.setPosition(cc.p(winSize.width / 4, winSize.height / 2));
-            this._kathia.setPosition(cc.p(3 * winSize.width / 4, winSize.height / 2));
+            this._grossini.setPosition(winSize.width / 2, winSize.height / 2);
+            this._tamara.setPosition(winSize.width / 4, winSize.height / 2);
+            this._kathia.setPosition(3 * winSize.width / 4, winSize.height / 2);
         }
     },
     alignSpritesLeft:function (numberOfSprites) {
@@ -79,17 +80,17 @@ var ActionsDemo = cc.LayerGradient.extend({
         if (numberOfSprites == 1) {
             this._tamara.setVisible(false);
             this._kathia.setVisible(false);
-            this._grossini.setPosition(cc.p(60, s.height / 2));
+            this._grossini.setPosition(60, s.height / 2);
         }
         else if (numberOfSprites == 2) {
-            this._kathia.setPosition(cc.p(60, s.height / 3));
-            this._tamara.setPosition(cc.p(60, 2 * s.height / 3));
+            this._kathia.setPosition(60, s.height / 3);
+            this._tamara.setPosition(60, 2 * s.height / 3);
             this._grossini.setVisible(false);
         }
         else if (numberOfSprites == 3) {
-            this._grossini.setPosition(cc.p(60, s.height / 2));
-            this._tamara.setPosition(cc.p(60, 2 * s.height / 3));
-            this._kathia.setPosition(cc.p(60, s.height / 3));
+            this._grossini.setPosition(60, s.height / 2);
+            this._tamara.setPosition(60, 2 * s.height / 3);
+            this._kathia.setPosition(60, s.height / 3);
         }
     },
     title:function () {
@@ -98,19 +99,19 @@ var ActionsDemo = cc.LayerGradient.extend({
     subtitle:function () {
         return "";
     },
-    restartCallback:function (sender) {
+    onBackCallback:function (sender) {
+        var s = new ActionsTestScene();
+        s.addChild(previousActionsTest());
+        director.replaceScene(s);
+    },
+    onRestartCallback:function (sender) {
         var s = new ActionsTestScene();
         s.addChild(restartActionsTest());
         director.replaceScene(s);
     },
-    nextCallback:function (sender) {
+    onNextCallback:function (sender) {
         var s = new ActionsTestScene();
         s.addChild(nextActionsTest());
-        director.replaceScene(s);
-    },
-    backCallback:function (sender) {
-        var s = new ActionsTestScene();
-        s.addChild(previousActionsTest());
         director.replaceScene(s);
     },
     onEnter:function () {
@@ -122,36 +123,46 @@ var ActionsDemo = cc.LayerGradient.extend({
         this.addChild(this._tamara, 2);
         this.addChild(this._kathia, 3);
         var s = director.getWinSize();
-        this._grossini.setPosition(cc.p(s.width / 2, s.height / 3));
-        this._tamara.setPosition(cc.p(s.width / 2, 2 * s.height / 3));
-        this._kathia.setPosition(cc.p(s.width / 2, s.height / 2));
+        this._grossini.setPosition(s.width / 2, s.height / 3);
+        this._tamara.setPosition(s.width / 2, 2 * s.height / 3);
+        this._kathia.setPosition(s.width / 2, s.height / 2);
 
         // add title and subtitle
         var title = this.title();
         var label = cc.LabelTTF.create(title, "Arial", 18);
         this.addChild(label, 1);
-        label.setPosition(cc.p(s.width / 2, s.height - 30));
+        label.setPosition(s.width / 2, s.height - 30);
 
         var strSubtitle = this.subtitle();
         if (strSubtitle) {
             var l = cc.LabelTTF.create(strSubtitle, "Thonburi", 22);
             this.addChild(l, 1);
-            l.setPosition(cc.p(s.width / 2, s.height - 60));
+            l.setPosition(s.width / 2, s.height - 60);
+        }
+        if( this._code !== null ) {
+            label = cc.LabelTTF.create(this._code, 'Thonburi', 16);
+            label.setPosition( winSize.width/2, winSize.height-120 );
+            this.addChild( label,10 );
+
+            var labelbg = cc.LabelTTF.create(this._code, 'Thonburi', 16);
+            labelbg.setColor( cc.c3b(10,10,255) );
+            labelbg.setPosition( winSize.width/2 +1, winSize.height-120 -1 );
+            this.addChild( labelbg,9);
         }
 
         // add menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback);
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.p(0,0));
+        menu.setPosition(0,0);
 
         var cs = item2.getContentSize();
-        item1.setPosition( cc.p(winSize.width/2 - cs.width*2, cs.height/2) );
-        item2.setPosition( cc.p(winSize.width/2, cs.height/2) );
-        item3.setPosition( cc.p(winSize.width/2 + cs.width*2, cs.height/2) );
+        item1.setPosition( winSize.width/2 - cs.width*2, cs.height/2 );
+        item2.setPosition( winSize.width/2, cs.height/2 );
+        item3.setPosition( winSize.width/2 + cs.width*2, cs.height/2 );
 
         this.addChild(menu, 1);
     }
@@ -163,6 +174,10 @@ var ActionsDemo = cc.LayerGradient.extend({
 //
 //------------------------------------------------------------------
 var ActionManual = ActionsDemo.extend({
+    _code:"sprite.setPosition( 10,20 );\n" +
+            "sprite.setRotation( 90 );\n" +
+            "sprite.setScale( 2 );",
+
     onEnter:function () {
         this._super();
 
@@ -171,14 +186,14 @@ var ActionManual = ActionsDemo.extend({
         this._tamara.setScaleX(2.5);
         //window.tam = this._tamara;
         this._tamara.setScaleY(-1.0);
-        this._tamara.setPosition(cc.p(100, 70));
+        this._tamara.setPosition(100, 70);
         this._tamara.setOpacity(128);
 
         this._grossini.setRotation(120);
-        this._grossini.setPosition(cc.p(s.width / 2, s.height / 2));
+        this._grossini.setPosition(s.width / 2, s.height / 2);
         this._grossini.setColor(cc.c3b(255, 0, 0));
 
-        this._kathia.setPosition(cc.p(s.width - 100, s.height / 2));
+        this._kathia.setPosition(s.width - 100, s.height / 2);
         this._kathia.setColor(cc.c3b(0,0,255));
     },
     subtitle:function () {
@@ -193,6 +208,10 @@ var ActionManual = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionMove = ActionsDemo.extend({
+
+    _code:"a = cc.MoveBy.create( time, cc.p(x,y) );\n" +
+           "a = cc.MoveTo.create( time, cc.p(x,y) );",
+
     onEnter:function () {
         this._super();
 
@@ -219,6 +238,10 @@ var ActionMove = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionScale = ActionsDemo.extend({
+
+    _code:"a = cc.ScaleBy.create( time, scale );\n" +
+               "a = cc.ScaleTo.create( time, scaleX, scaleY );",
+
     onEnter:function () {
         this._super();
 
@@ -244,6 +267,10 @@ var ActionScale = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionSkew = ActionsDemo.extend({
+
+    _code:"a = cc.SkewBy.create( time, skew );\n" +
+           "a = cc.SkewTo.create( time, skewX, skewY );",
+
     onEnter:function () {
         this._super();
         this.centerSprites(3);
@@ -274,20 +301,20 @@ var ActionSkewRotateScale = ActionsDemo.extend({
         var boxSize = cc.size(100.0, 100.0);
         var box = cc.LayerColor.create(cc.c4b(255, 255, 0, 255));
         box.setAnchorPoint(cc.p(0, 0));
-        box.setPosition(cc.p((winSize.width - boxSize.width) / 2, (winSize.height - boxSize.height) / 2));
+        box.setPosition((winSize.width - boxSize.width) / 2, (winSize.height - boxSize.height) / 2);
         box.setContentSize(boxSize);
 
         var markrside = 10.0;
         var uL = cc.LayerColor.create(cc.c4b(255, 0, 0, 255));
         box.addChild(uL);
         uL.setContentSize(cc.size(markrside, markrside));
-        uL.setPosition(cc.p(0, boxSize.height - markrside));
+        uL.setPosition(0, boxSize.height - markrside);
         uL.setAnchorPoint(cc.p(0, 0));
 
         var uR = cc.LayerColor.create(cc.c4b(0, 0, 255, 255));
         box.addChild(uR);
         uR.setContentSize(cc.size(markrside, markrside));
-        uR.setPosition(cc.p(boxSize.width - markrside, boxSize.height - markrside));
+        uR.setPosition(boxSize.width - markrside, boxSize.height - markrside);
         uR.setAnchorPoint(cc.p(0, 0));
 
 
@@ -315,6 +342,10 @@ var ActionSkewRotateScale = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionRotate = ActionsDemo.extend({
+
+    _code:"a = cc.RotateBy.create( time, degrees );\n" +
+            "a = cc.RotateTo.create( time, degrees );",
+
     onEnter:function () {
         this._super();
         this.centerSprites(3);
@@ -342,6 +373,9 @@ var ActionRotate = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionJump = ActionsDemo.extend({
+    _code: "a = cc.JumpBy.create( time, point, height, #_of_jumps );\n" +
+           "a = cc.JumpTo.create( time, point, height, #_of_jumps );",
+
     onEnter:function () {
         this._super();
         this.centerSprites(3);
@@ -457,6 +491,8 @@ var Issue1008 = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionBlink = ActionsDemo.extend({
+    _code: "a = cc.Blink.create( time, #_of_blinks );",
+
     onEnter:function () {
         this._super();
         this.centerSprites(2);
@@ -478,6 +514,9 @@ var ActionBlink = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionFade = ActionsDemo.extend({
+    _code:"a = cc.FadeIn.create( time );\n" +
+            "a = cc.FadeOut.create( time );",
+
     onEnter:function () {
         this._super();
         this.centerSprites(2);
@@ -503,6 +542,10 @@ var ActionFade = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionTint = ActionsDemo.extend({
+
+    _code:"a = cc.TintBy.create( time, red, green, blue );\n" +
+            "a = cc.TintTo.create( time, red, green, blue );",
+
     onEnter:function () {
         this._super();
         this.centerSprites(2);
@@ -581,6 +624,9 @@ var ActionAnimate = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionSequence = ActionsDemo.extend({
+
+    _code:"a = cc.Sequence.create( a1, a2, a3,..., aN);",
+
     onEnter:function () {
         this._super();
         this.alignSpritesLeft(1);
@@ -648,6 +694,9 @@ var ActionSequence2 = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionCallFunc1 = ActionsDemo.extend({
+    _code:"a = cc.CallFunc.create( this.callback );\n" +
+            "a = cc.CallFunc.create( this.callback, this, optional_arg );",
+
     onEnter:function () {
         this._super();
         this.centerSprites(3);
@@ -761,6 +810,9 @@ var ActionCallFunc3 = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionSpawn = ActionsDemo.extend({
+
+    _code:"a = cc.Spawn.create( a1, a2, ..., aN );",
+
     onEnter:function () {
         this._super();
         this.alignSpritesLeft(1);
@@ -782,6 +834,8 @@ var ActionSpawn = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionRepeatForever = ActionsDemo.extend({
+    _code:"a = cc.RepeatForever.create( action_to_repeat );",
+
     onEnter:function () {
         this._super();
         this.centerSprites(1);
@@ -807,6 +861,8 @@ var ActionRepeatForever = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionRotateToRepeat = ActionsDemo.extend({
+    _code:"a = cc.Repeat.create( action_to_repeat, #_of_times );",
+
     onEnter:function () {
         this._super();
         this.centerSprites(2);
@@ -854,6 +910,9 @@ var ActionRotateJerk = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionReverse = ActionsDemo.extend({
+
+    _code:"a = action.reverse();",
+
     onEnter:function () {
         this._super();
         this.alignSpritesLeft(1);
@@ -873,6 +932,9 @@ var ActionReverse = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionDelayTime = ActionsDemo.extend({
+
+    _code:"a = cc.DelayTime.create( time );",
+
     onEnter:function () {
         this._super();
         this.alignSpritesLeft(1);
@@ -1025,7 +1087,7 @@ var ActionFollow = ActionsDemo.extend({
         this.centerSprites(1);
         var s = director.getWinSize();
 
-        this._grossini.setPosition(cc.p(-(s.width/2), s.height / 2));
+        this._grossini.setPosition(-(s.width/2), s.height / 2);
         var move = cc.MoveBy.create(2, cc.p(s.width * 3, 0));
         var move_back = move.reverse();
         var seq = cc.Sequence.create(move, move_back);
@@ -1047,6 +1109,10 @@ var ActionFollow = ActionsDemo.extend({
 //------------------------------------------------------------------
 var ActionCardinalSpline = ActionsDemo.extend({
     _array:null,
+
+    _code:" a = cc.CadinalSplineBy.create( time, array_of_points, tension );\n" +
+            " a = cc.CadinalSplineTo.create( time, array_of_points, tension );",
+
     ctor:function () {
         this._super();
         this._array = [];
@@ -1074,7 +1140,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
         var reverse1 = action1.reverse();
         var seq = cc.Sequence.create(action1, reverse1);
 
-        this._tamara.setPosition(cc.p(50, 50));
+        this._tamara.setPosition(50, 50);
         this._tamara.runAction(seq);
 
         //
@@ -1086,7 +1152,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
         var reverse2 = action2.reverse();
         var seq2 = cc.Sequence.create(action2, reverse2);
 
-        this._kathia.setPosition(cc.p(winSize.width / 2, 50));
+        this._kathia.setPosition(winSize.width / 2, 50);
         this._kathia.runAction(seq2);
 
         this._array = array;
@@ -1130,6 +1196,9 @@ var ActionCatmullRom = ActionsDemo.extend({
     _array1:null,
     _array2:null,
 
+    _code:"a = cc.CatmullRomBy.create( time, array_of_points );\n" +
+            " a = cc.CatmullRomTo.create( time, array_of_points );",
+
     ctor:function () {
         this._super();
         this._array1 = [];
@@ -1147,7 +1216,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         // startPosition can be any coordinate, but since the movement
         // is relative to the Catmull Rom curve, it is better to start with (0,0).
         //
-        this._tamara.setPosition(cc.p(50, 50));
+        this._tamara.setPosition(50, 50);
 
         var array = [
                 cc.p(0, 0),
@@ -1215,6 +1284,8 @@ var ActionCatmullRom = ActionsDemo.extend({
 });
 
 var ActionTargeted = ActionsDemo.extend({
+    _code:"a = cc.TargetedAction.create( target, action );",
+
     onEnter:function () {
         this._super();
         this.centerSprites(2);
@@ -1317,7 +1388,7 @@ var Issue1305 = ActionsDemo.extend({
         cc.log("This message SHALL ONLY appear when the sprite is added to the scene, NOT BEFORE");
     },
     onAddSprite:function (dt) {
-        this._spriteTmp.setPosition(cc.p(250, 250));
+        this._spriteTmp.setPosition(250, 250);
         this.addChild(this._spriteTmp);
     },
     title:function () {
@@ -1334,7 +1405,7 @@ var Issue1305_2 = ActionsDemo.extend({
         this.centerSprites(0);
 
         var spr = cc.Sprite.create(s_pathGrossini);
-        spr.setPosition(cc.p(200, 200));
+        spr.setPosition(200, 200);
         this.addChild(spr);
 
         var act1 = cc.MoveBy.create(2, cc.p(0, 100));
@@ -1378,7 +1449,7 @@ var Issue1288 = ActionsDemo.extend({
         this.centerSprites(0);
 
         var spr = cc.Sprite.create(s_pathGrossini);
-        spr.setPosition(cc.p(100, 100));
+        spr.setPosition(100, 100);
         this.addChild(spr);
 
         var act1 = cc.MoveBy.create(0.5, cc.p(100, 0));
@@ -1402,7 +1473,7 @@ var Issue1288_2 = ActionsDemo.extend({
         this.centerSprites(0);
 
         var spr = cc.Sprite.create(s_pathGrossini);
-        spr.setPosition(cc.p(100, 100));
+        spr.setPosition(100, 100);
         this.addChild(spr);
 
         var act1 = cc.MoveBy.create(0.5, cc.p(100, 0));
@@ -1422,7 +1493,7 @@ var Issue1327 = ActionsDemo.extend({
         this.centerSprites(0);
 
         var spr = cc.Sprite.create(s_pathGrossini);
-        spr.setPosition(cc.p(100, 100));
+        spr.setPosition(100, 100);
         this.addChild(spr);
 
         var act1 = cc.CallFunc.create(this.onLogSprRotation);
