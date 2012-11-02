@@ -11,8 +11,10 @@ require("tests-main.js");
 // Load tests files
 
 var tests_files = [
+		'ActionManagerTest.js',
 		'ActionsTest.js',
 		'ChipmunkTest.js',
+		'ClickAndMoveTest.js',
 		'CocosDenshionTest.js',
 		'CocosNodeTest.js',
 		'EaseActionsTest.js',
@@ -26,6 +28,8 @@ var tests_files = [
 		'Presentation.js',
 		'ProgressActionsTest.js',
 		'RenderTextureTest.js',
+		'RotateWorldTest.js',
+		'SceneTest.js',
 		'SchedulerTest.js',
 		'SpriteTest.js',
 		'TileMapTest.js',
