@@ -347,7 +347,7 @@ var MenuLayer4 = cc.Layer.extend({
             cc.MenuItemFont.create("33%"),
             cc.MenuItemFont.create("66%"),
             cc.MenuItemFont.create("On"),
-            this.onMenuCallback, this
+            this.onMenuCallback.bind(this)
             );
 
         cc.MenuItemFont.setFontName("American Typewriter");
