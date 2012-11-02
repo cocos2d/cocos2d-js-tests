@@ -158,8 +158,8 @@ SceneTestLayer3 = cc.LayerColor.extend({
 
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.Layer);
-        this.init();
+        cc.associateWithNative(this, cc.LayerColor);
+        this.init( cc.c4b(0,128,255,255) );
 
         var t = cc.config.deviceType;
         if (t == 'browser') {

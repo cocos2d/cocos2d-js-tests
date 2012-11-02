@@ -39,18 +39,15 @@ var ActionsTestScene = TestScene.extend({
 });
 
 
-var ActionsDemo = cc.Layer.extend({
+var ActionsDemo = cc.LayerGradient.extend({
     _grossini:null,
     _tamara:null,
     kathia:null,
 
     ctor:function() {
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
-    },
-    init:function() {
-        // this._super(cc.c4b(0, 0, 0, 255), cc.c4b(0, 128, 255, 255));
         this._super();
+        cc.associateWithNative( this, cc.LayerGradient );
+        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
     },
 
     centerSprites:function (numberOfSprites) {
@@ -1050,7 +1047,7 @@ var ActionFollow = ActionsDemo.extend({
 //------------------------------------------------------------------
 var ActionCardinalSpline = ActionsDemo.extend({
     _array:null,
-    init:function () {
+    ctor:function () {
         this._super();
         this._array = [];
     },
@@ -1133,7 +1130,7 @@ var ActionCatmullRom = ActionsDemo.extend({
     _array1:null,
     _array2:null,
 
-    init:function () {
+    ctor:function () {
         this._super();
         this._array1 = [];
         this._array2 = [];
