@@ -49,14 +49,11 @@ var LabelTestScene = TestScene.extend({
     }
 });
 
-var AtlasDemo = cc.Layer.extend({
+var AtlasDemo = cc.LayerGradient.extend({
     ctor:function() {
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
-    },
-    init:function() {
-        // this._super(cc.c4b(0, 0, 0, 255), cc.c4b(0, 128, 255, 255));
         this._super();
+        cc.associateWithNative( this, cc.LayerGradient );
+        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
     },
     title:function () {
         return "No title";
@@ -120,7 +117,7 @@ var AtlasDemo = cc.Layer.extend({
 //------------------------------------------------------------------
 var Atlas1 = AtlasDemo.extend({
     textureAtlas:null,
-    init:function () {
+    ctor:function () {
         this._super();
         this.textureAtlas = cc.TextureAtlas.create(s_atlasTest, 3);
 
@@ -177,7 +174,7 @@ var Atlas1 = AtlasDemo.extend({
 //------------------------------------------------------------------
 var LabelAtlasTest = AtlasDemo.extend({
     time:null,
-    init:function () {
+    ctor:function () {
         this._super();
         this.time = 0;
 
@@ -219,7 +216,7 @@ var LabelAtlasTest = AtlasDemo.extend({
 //------------------------------------------------------------------
 var LabelAtlasColorTest = AtlasDemo.extend({
     time:null,
-    init:function () {
+    ctor:function () {
         this._super();
         var label1 = cc.LabelAtlas.create("123 Test", "res/fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
         this.addChild(label1, 0, TAG_LABEL_SPRITE1);
@@ -268,7 +265,7 @@ var LabelAtlasColorTest = AtlasDemo.extend({
 //------------------------------------------------------------------
 var Atlas3 = AtlasDemo.extend({
     time:0,
-    init:function () {
+    ctor:function () {
         this._super();
         var col = cc.LayerColor.create(cc.c4b(128, 128, 128, 255));
         this.addChild(col, -10);
@@ -339,7 +336,7 @@ var Atlas3 = AtlasDemo.extend({
 //------------------------------------------------------------------
 var Atlas4 = AtlasDemo.extend({
     time:null,
-    init:function () {
+    ctor:function () {
         this._super();
         this.time = 0;
 
@@ -418,7 +415,7 @@ var Atlas4 = AtlasDemo.extend({
 //
 //------------------------------------------------------------------
 var Atlas5 = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var label = cc.LabelBMFont.create("abcdefg", "res/fonts/bitmapFontTest4.fnt");
         this.addChild(label);
@@ -444,7 +441,7 @@ var Atlas5 = AtlasDemo.extend({
 //
 //------------------------------------------------------------------
 var Atlas6 = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var s = director.getWinSize();
 
@@ -480,7 +477,7 @@ var Atlas6 = AtlasDemo.extend({
 //
 //------------------------------------------------------------------
 var AtlasBitmapColor = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var s = director.getWinSize();
 
@@ -520,7 +517,7 @@ var AtlasBitmapColor = AtlasDemo.extend({
 //
 //------------------------------------------------------------------
 var AtlasFastBitmap = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         // Upper Label
         for (var i = 0; i < 100; i++) {
@@ -550,7 +547,7 @@ var AtlasFastBitmap = AtlasDemo.extend({
 //
 //------------------------------------------------------------------
 var BitmapFontMultiLine = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var s;
 
@@ -599,7 +596,7 @@ var BitmapFontMultiLine = AtlasDemo.extend({
 //------------------------------------------------------------------
 var LabelsEmpty = AtlasDemo.extend({
     setEmpty:null,
-    init:function () {
+    ctor:function () {
         this._super();
 
 
@@ -656,7 +653,7 @@ var LabelsEmpty = AtlasDemo.extend({
 //
 //------------------------------------------------------------------
 var LabelBMFontHD = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var s = director.getWinSize();
 
@@ -679,7 +676,7 @@ var LabelBMFontHD = AtlasDemo.extend({
 //
 //------------------------------------------------------------------
 var LabelAtlasHD = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var s = director.getWinSize();
 
@@ -704,7 +701,7 @@ var LabelAtlasHD = AtlasDemo.extend({
 //
 //------------------------------------------------------------------
 var LabelGlyphDesigner = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var s = director.getWinSize();
 
@@ -733,7 +730,7 @@ var LabelTTFTest = AtlasDemo.extend({
     _label:null,
     _horizAlign:null,
     _vertAlign:null,
-    init:function () {
+    ctor:function () {
         this._super();
         var blockSize = cc.size(200, 160);
         var s = director.getWinSize();
@@ -843,7 +840,7 @@ var LabelTTFTest = AtlasDemo.extend({
 });
 
 var LabelTTFMultiline = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var s = director.getWinSize();
 
@@ -863,7 +860,7 @@ var LabelTTFMultiline = AtlasDemo.extend({
 });
 
 var LabelTTFChinese = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var size = director.getWinSize();
         var label = cc.LabelTTF.create("中国", "Microsoft Yahei", 30);
@@ -876,7 +873,7 @@ var LabelTTFChinese = AtlasDemo.extend({
 });
 
 var LabelBMFontChinese = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var size = director.getWinSize();
         var label = cc.LabelBMFont.create("中国", "res/fonts/bitmapFontChinese.fnt");
@@ -913,7 +910,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
     lastSentenceItem:null,
     lastAlignmentItem:null,
     drag:null,
-    init:function () {
+    ctor:function () {
         this._super();
 
         var t = cc.config.deviceType;
@@ -1071,7 +1068,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
 
 /// LabelTTFA8Test
 var LabelTTFA8Test = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var s = director.getWinSize();
 
@@ -1100,7 +1097,7 @@ var LabelTTFA8Test = AtlasDemo.extend({
 
 /// BMFontOneAtlas
 var BMFontOneAtlas = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var s = director.getWinSize();
 
@@ -1124,7 +1121,7 @@ var BMFontOneAtlas = AtlasDemo.extend({
 
 /// BMFontUnicode
 var BMFontUnicode = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var chinese = "美好的一天";
         var japanese = "良い一日を";
@@ -1152,7 +1149,7 @@ var BMFontUnicode = AtlasDemo.extend({
 
 // BMFontInit
 var BMFontInit = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
 
         var bmFont = cc.LabelBMFont.create();
@@ -1171,7 +1168,7 @@ var BMFontInit = AtlasDemo.extend({
 
 // TTFFontInit
 var TTFFontInit = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var font = cc.LabelTTF.create();
         font.setFontName("Courier New");
@@ -1190,7 +1187,7 @@ var TTFFontInit = AtlasDemo.extend({
 
 
 var LabelTTFAlignment = AtlasDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
         var s = director.getWinSize();
         var ttf0 = cc.LabelTTF.create("Alignment 0\nnew line", "Arial", 12, cc.size(256, 32), cc.TEXT_ALIGNMENT_LEFT);

@@ -52,15 +52,14 @@ var spriteFrameCache = cc.SpriteFrameCache.getInstance();
 // SpriteTestDemo
 //
 //------------------------------------------------------------------
-// var SpriteTestDemo = cc.LayerGradient.extend({
-var SpriteTestDemo = cc.Layer.extend({
+var SpriteTestDemo = cc.LayerGradient.extend({
     _title:"",
     _subtitle:"",
 
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
+        cc.associateWithNative( this, cc.LayerGradient );
+        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
     },
     onEnter:function () {
         this._super();
@@ -120,7 +119,7 @@ var Sprite1 = SpriteTestDemo.extend({
     _title:"Non Batched Sprite ",
     _subtitle:"Tap screen to add more sprites",
 
-    init:function () {
+    ctor:function () {
         this._super();
 
         this.addNewSpriteWithCoords(cc.p(winSize.width / 2, winSize.height / 2));
@@ -193,7 +192,7 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
     _title:"Batched Sprite ",
     _subtitle:"Tap screen to add more sprites",
 
-    init:function () {
+    ctor:function () {
         this._super();
         var t = cc.config.deviceType;
         if( t == 'browser' )  {
@@ -269,7 +268,7 @@ var SpriteColorOpacity = SpriteTestDemo.extend({
 
     _title:"Sprite: Color & Opacity",
 
-    init:function () {
+    ctor:function () {
         this._super();
         var sprite1 = cc.Sprite.create(s_grossini_dance_atlas, cc.rect(0, 121, 85, 121));
         var sprite2 = cc.Sprite.create(s_grossini_dance_atlas, cc.rect(85, 121, 85, 121));
@@ -342,7 +341,7 @@ var SpriteBatchNodeColorOpacity = SpriteTestDemo.extend({
 
     _title:"SpriteBatchNode: Color & Opacity",
 
-    init:function () {
+    ctor:function () {
         this._super();
         // small capacity. Testing resizing.
         // Don't use capacity=1 in your real game. It is expensive to resize the capacity
@@ -420,7 +419,7 @@ var SpriteBatchNodeColorOpacity = SpriteTestDemo.extend({
 var SpriteZOrder = SpriteTestDemo.extend({
     _dir:0,
     _title:"Sprite: Z order",
-    init:function () {
+    ctor:function () {
         this._super();
         this._dir = 1;
 
@@ -471,7 +470,7 @@ var SpriteZOrder = SpriteTestDemo.extend({
 var SpriteBatchNodeZOrder = SpriteTestDemo.extend({
     _dir:0,
     _title:"SpriteBatch: Z order",
-    init:function () {
+    ctor:function () {
         this._super();
         this._dir = 1;
 
@@ -529,7 +528,7 @@ var SpriteBatchNodeReorder = SpriteTestDemo.extend({
     _title:"SpriteBatchNode: reorder #1",
     _subtitle:"Should not crash",
 
-    init:function () {
+    ctor:function () {
         this._super();
         var a = [];
         var asmtest = cc.SpriteBatchNode.create(s_ghosts);
@@ -584,7 +583,7 @@ var SpriteBatchNodeReorderIssue744 = SpriteTestDemo.extend({
     _title:"SpriteBatchNode: reorder issue #744",
     _subtitle:"Should not crash",
 
-    init:function () {
+    ctor:function () {
         this._super();
 
         // Testing issue #744
@@ -613,7 +612,7 @@ var SpriteBatchNodeReorderIssue766 = SpriteTestDemo.extend({
     _title:"SpriteBatchNode: reorder issue #766",
     _subtitle:"In 2 seconds 1 sprite will be reordered",
 
-    init:function () {
+    ctor:function () {
         this._super();
         this._batchNode = cc.SpriteBatchNode.create(s_piece, 15);
         this.addChild(this._batchNode, 1, 0);
@@ -659,7 +658,7 @@ var SpriteBatchNodeReorderIssue767 = SpriteTestDemo.extend({
     _title:"SpriteBatchNode: reorder issue #767",
     _subtitle:"Should not crash",
 
-    init:function () {
+    ctor:function () {
         this._super();
 
         spriteFrameCache.addSpriteFrames(s_ghostsPlist, s_ghosts);
@@ -741,7 +740,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
     _time:0,
     _title:"Sprite: openGL Z vertex",
 
-    init:function () {
+    ctor:function () {
         //
         // This test tests z-order
         // If you are going to use it is better to use a 3D projection
@@ -815,7 +814,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
     _time:0,
     _title:"SpriteBatchNode: openGL Z vertex",
 
-    init:function () {
+    ctor:function () {
         //
         // This test tests z-order
         // If you are going to use it is better to use a 3D projection
@@ -886,7 +885,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
 var SpriteAnchorPoint = SpriteTestDemo.extend({
     _title:"Sprite: anchor point",
 
-    init:function () {
+    ctor:function () {
         this._super();
 
         for (var i = 0; i < 3; i++) {
@@ -929,7 +928,7 @@ var SpriteAnchorPoint = SpriteTestDemo.extend({
 var SpriteBatchNodeAnchorPoint = SpriteTestDemo.extend({
     _title:"SpriteBatchNode: anchor point",
 
-    init:function () {
+    ctor:function () {
         this._super();
         // small capacity. Testing resizing.
         // Don't use capacity=1 in your real game. It is expensive to resize the capacity
@@ -974,7 +973,7 @@ var SpriteBatchNodeAnchorPoint = SpriteTestDemo.extend({
 var Sprite6 = SpriteTestDemo.extend({
     _title:"SpriteBatchNode transformation",
 
-    init:function () {
+    ctor:function () {
         this._super();
         // small capacity. Testing resizing
         // Don't use capacity=1 in your real game. It is expensive to resize the capacity
@@ -1021,7 +1020,7 @@ var Sprite6 = SpriteTestDemo.extend({
 var SpriteFlip = SpriteTestDemo.extend({
     _title:"Sprite Flip X & Y",
 
-    init:function () {
+    ctor:function () {
         this._super();
         var sprite1 = cc.Sprite.create(s_grossini_dance_atlas, cc.rect(85, 121, 85, 121));
         sprite1.setPosition(cc.p(winSize.width / 2 - 100, winSize.height / 2));
@@ -1050,7 +1049,7 @@ var SpriteFlip = SpriteTestDemo.extend({
 var SpriteBatchNodeFlip = SpriteTestDemo.extend({
     _title:"SpriteBatchNode Flip X & Y",
 
-    init:function () {
+    ctor:function () {
         this._super();
         var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 10);
         this.addChild(batch, 0, TAG_SPRITE_BATCH_NODE);
@@ -1085,7 +1084,7 @@ var SpriteAliased = SpriteTestDemo.extend({
     _title:"Sprite Aliased",
     _subtitle:"You should see pixelated sprites",
 
-    init:function () {
+    ctor:function () {
         this._super();
         var sprite1 = cc.Sprite.create(s_grossini_dance_atlas, cc.rect(85, 121, 85, 121));
         sprite1.setPosition(cc.p(winSize.width / 2 - 100, winSize.height / 2));
@@ -1144,7 +1143,7 @@ var SpriteBatchNodeAliased = SpriteTestDemo.extend({
     _title:"SpriteBatchNode Aliased",
     _subtitle:"You should see pixelated sprites",
 
-    init:function () {
+    ctor:function () {
         this._super();
         var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 10);
         this.addChild(batch, 0, TAG_SPRITE_BATCH_NODE);
@@ -1208,7 +1207,7 @@ var SpriteNewTexture = SpriteTestDemo.extend({
     _texture2:null,
     _title:"Sprite New texture (tap)",
 
-    init:function () {
+    ctor:function () {
         this._super();
 
         var t = cc.config.deviceType;
@@ -1312,7 +1311,7 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
     _texture2:null,
     _title:"SpriteBatchNode new texture (tap)",
 
-    init:function() {
+    ctor:function() {
         this._super();
         var t = cc.config.deviceType;
         if( t == 'browser' )  {
@@ -1573,7 +1572,7 @@ var SpriteFrameAliasNameTest = SpriteTestDemo.extend({
 var SpriteOffsetAnchorRotation = SpriteTestDemo.extend({
 
     _title:"Sprite offset + anchor + rot",
-    init:function () {
+    ctor:function () {
         this._super();
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
         spriteFrameCache.addSpriteFrames(s_grossini_grayPlist, s_grossini_gray);
@@ -1635,7 +1634,7 @@ var SpriteBatchNodeOffsetAnchorRotation = SpriteTestDemo.extend({
 
     _title:"SpriteBatchNode offset + anchor + rot",
 
-    init:function () {
+    ctor:function () {
         this._super();
 
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
@@ -1700,7 +1699,7 @@ var SpriteOffsetAnchorScale = SpriteTestDemo.extend({
 
     _title: "Sprite offset + anchor + scale",
 
-    init:function () {
+    ctor:function () {
         this._super();
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
         spriteFrameCache.addSpriteFrames(s_grossini_grayPlist, s_grossini_gray);
@@ -1767,7 +1766,7 @@ var SpriteBatchNodeOffsetAnchorScale = SpriteTestDemo.extend({
 
     _title:"SpriteBatchNode offset + anchor + scale",
 
-    init:function () {
+    ctor:function () {
         this._super();
         var batch = cc.SpriteBatchNode.create(s_grossini);
         this.addChild(batch);
@@ -1834,7 +1833,7 @@ var SpriteOffsetAnchorSkew = SpriteTestDemo.extend({
 
     _title:"Sprite offset + anchor + scale",
 
-    init:function () {
+    ctor:function () {
         this._super();
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
         spriteFrameCache.addSpriteFrames(s_grossini_grayPlist, s_grossini_gray);
@@ -1896,7 +1895,7 @@ var SpriteBatchNodeOffsetAnchorSkew = SpriteTestDemo.extend({
 
     _title:"SpriteBatchNode offset + anchor + skew",
 
-    init:function () {
+    ctor:function () {
         this._super();
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
         spriteFrameCache.addSpriteFrames(s_grossini_grayPlist, s_grossini_gray);
@@ -1962,7 +1961,7 @@ var SpriteBatchNodeOffsetAnchorSkew = SpriteTestDemo.extend({
 var SpriteOffsetAnchorSkewScale = SpriteTestDemo.extend({
 
     _title:"Sprite anchor + skew + scale",
-    init:function () {
+    ctor:function () {
         this._super();
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
         spriteFrameCache.addSpriteFrames(s_grossini_grayPlist, s_grossini_gray);
@@ -2033,7 +2032,7 @@ var SpriteBatchNodeOffsetAnchorSkewScale = SpriteTestDemo.extend({
 
     _title:"SpriteBatchNode anchor + skew + scale",
 
-    init:function () {
+    ctor:function () {
         this._super();
 
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
@@ -2109,7 +2108,7 @@ var SpriteOffsetAnchorFlip = SpriteTestDemo.extend({
     _title:"Sprite offset + anchor + flip",
     _subtitle:"issue #1078",
 
-    init:function () {
+    ctor:function () {
         this._super();
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
         spriteFrameCache.addSpriteFrames(s_grossini_grayPlist, s_grossini_gray);
@@ -2173,7 +2172,7 @@ var SpriteBatchNodeOffsetAnchorFlip = SpriteTestDemo.extend({
     _title:"SpriteBatchNode offset + anchor + flip",
     _subtitle:"issue #1078",
 
-    init:function () {
+    ctor:function () {
         this._super();
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
         spriteFrameCache.addSpriteFrames(s_grossini_grayPlist, s_grossini_gray);
@@ -2239,7 +2238,7 @@ var SpriteBatchNodeOffsetAnchorFlip = SpriteTestDemo.extend({
 var SpriteAnimationSplit = SpriteTestDemo.extend({
 
     _title:"Sprite: Animation + flip",
-    init:function () {
+    ctor:function () {
         this._super();
         var texture = cc.TextureCache.getInstance().addImage(s_dragon_animation);
 
@@ -2289,7 +2288,7 @@ var SpriteHybrid = SpriteTestDemo.extend({
     _usingSpriteBatchNode:false,
     _title:"Hibryd.Sprite* sprite Test",
 
-    init:function () {
+    ctor:function () {
         this._super();
         // parents
         var parent1 = cc.Node.create();
@@ -2379,7 +2378,7 @@ var SpriteBatchNodeChildren = SpriteTestDemo.extend({
 
     _title:"SpriteBatchNode Grand Children",
 
-    init:function () {
+    ctor:function () {
         this._super();
         // parents
         var batch = cc.SpriteBatchNode.create(s_grossini, 50);
@@ -2440,7 +2439,7 @@ var SpriteBatchNodeChildrenZ = SpriteTestDemo.extend({
 
     _title:"SpriteBatchNode Children Z",
 
-    init:function () {
+    ctor:function () {
         this._super();
         // parents
         var batch;
@@ -2528,7 +2527,7 @@ var SpriteBatchNodeChildrenZ = SpriteTestDemo.extend({
 var SpriteChildrenVisibility = SpriteTestDemo.extend({
     _title:"Sprite & SpriteBatchNode Visibility",
 
-    init:function () {
+    ctor:function () {
         this._super();
 
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
@@ -2592,7 +2591,7 @@ var SpriteChildrenVisibilityIssue665 = SpriteTestDemo.extend({
     _title:"Sprite & SpriteBatchNode Visibility",
     _subtitle:"No sprites should be visible",
 
-    init:function () {
+    ctor:function () {
         this._super();
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
         //
@@ -2653,7 +2652,7 @@ var SpriteChildrenAnchorPoint = SpriteTestDemo.extend({
 
     _title:"Sprite: children + anchor",
 
-    init:function() {
+    ctor:function() {
         this._super();
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
 
@@ -2749,7 +2748,7 @@ var SpriteBatchNodeChildrenAnchorPoint = SpriteTestDemo.extend({
 
     _title:"SpriteBatchNode: children + anchor",
 
-    init:function() {
+    ctor:function() {
         this._super();
 
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
@@ -2850,7 +2849,7 @@ var SpriteBatchNodeChildrenScale = SpriteTestDemo.extend({
 
     _title:"Sprite/BatchNode + child + scale + rot",
 
-    init:function() {
+    ctor:function() {
         this._super();
         spriteFrameCache.addSpriteFrames(s_grossini_familyPlist);
 
@@ -2947,7 +2946,7 @@ var SpriteChildrenChildren = SpriteTestDemo.extend({
 
     _title:"Sprite/BatchNode + child + scale + rot",
 
-    init:function() {
+    ctor:function() {
         this._super();
 
         spriteFrameCache.addSpriteFrames(s_ghostsPlist);
@@ -3024,7 +3023,7 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
 
     _title:"SpriteBatchNode multiple levels of children",
 
-    init:function() {
+    ctor:function() {
         this._super();
 
         spriteFrameCache.addSpriteFrames(s_ghostsPlist);
@@ -3104,7 +3103,7 @@ var SpriteNilTexture = SpriteTestDemo.extend({
     _title:"Sprite without texture",
     _subtitle:"opacity and color should work",
 
-    init:function() {
+    ctor:function() {
         this._super();
 
         // TEST: If no texture is given, then Opacity + Color should work.
@@ -3133,7 +3132,7 @@ var SpriteNilTexture = SpriteTestDemo.extend({
 //------------------------------------------------------------------
 var MySprite1 = cc.Sprite.extend({
     _ivar:0,
-    init:function() {
+    ctor:function() {
         this._super();
     }
 });
@@ -3147,7 +3146,7 @@ MySprite1.spriteWithSpriteFrameName = function (spriteFrameName) {
 
 var MySprite2 = cc.Sprite.extend({
     _ivar:0,
-    init:function() {
+    ctor:function() {
         this._super();
     }
 });
@@ -3162,7 +3161,7 @@ var SpriteSubclass = SpriteTestDemo.extend({
     _title:"Sprite subclass",
     _subtitle:"Testing initWithTexture:rect method",
 
-    init:function() {
+    ctor:function() {
         this._super();
 
         spriteFrameCache.addSpriteFrames(s_ghostsPlist);
@@ -3191,7 +3190,7 @@ var AnimationCache = SpriteTestDemo.extend({
     _title:"AnimationCache",
     _subtitle:"Sprite should be animated",
 
-    init:function() {
+    ctor:function() {
         this._super();
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
         spriteFrameCache.addSpriteFrames(s_grossini_grayPlist);
@@ -3281,7 +3280,7 @@ var NodeSort = SpriteTestDemo.extend({
     _title:"node sort same index",
     _subtitle:"tag order in console should be 2,1,3,4,5",
 
-    init:function() {
+    ctor:function() {
         this._super();
         this._node = cc.Node.create();
         this.addChild(this._node, 0, 0);
@@ -3347,7 +3346,7 @@ var SpriteBatchNodeReorderSameIndex = SpriteTestDemo.extend({
     _title:"SpriteBatchNodeReorder same index",
     _subtitle:"tag order in console should be 2,3,4,5,1",
 
-    init:function() {
+    ctor:function() {
         this._super();
         this._batchNode = cc.SpriteBatchNode.create(s_piece, 15);
         this.addChild(this._batchNode, 1, 0);
@@ -3397,7 +3396,7 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
 
     _title:"SpriteBatchNode reorder 1 child",
 
-    init:function() {
+    ctor:function() {
         this._super();
 
         spriteFrameCache.addSpriteFrames(s_ghostsPlist);
@@ -3475,7 +3474,7 @@ var SpriteBatchNodeSkewNegativeScaleChildren = SpriteTestDemo.extend({
     _title:"SpriteBatchNode + children + skew",
     _subtitle:"SpriteBatchNode skew + negative scale with children",
 
-    init:function() {
+    ctor:function() {
         this._super();
 
         var cache = spriteFrameCache;
@@ -3518,7 +3517,7 @@ var SpriteSkewNegativeScaleChildren = SpriteTestDemo.extend({
     _title:"Sprite + children + skew",
     _subtitle:"Sprite skew + negative scale with children",
 
-    init:function() {
+    ctor:function() {
         this._super();
 
         var cache = spriteFrameCache;
@@ -3597,7 +3596,7 @@ var SpriteDoubleResolution = SpriteTestDemo.extend({
     _title:"Sprite Double resolution",
     _subtitle:"Retina Display. SD (left) should be equal to HD (right)",
 
-    init:function() {
+    ctor:function() {
         this._super();
 
         //
@@ -3650,7 +3649,7 @@ var AnimationCacheFile = SpriteTestDemo.extend({
     _title:"AnimationCache - Load file",
     _subtitle:"Sprite should be animated",
 
-    init:function () {
+    ctor:function () {
         this._super();
         var frameCache = spriteFrameCache;
         frameCache.addSpriteFrames(s_grossiniPlist);
@@ -3696,7 +3695,7 @@ var SpriteBatchBug1217 = SpriteTestDemo.extend({
     _title:"SpriteBatch - Bug 1217",
     _subtitle:"Adding big family to spritebatch. You shall see 3 heads",
 
-    init:function() {
+    ctor:function() {
         this._super();
         var bn = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 15);
 

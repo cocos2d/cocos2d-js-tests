@@ -26,20 +26,26 @@
 
 var RotateWorldTestScene = TestScene.extend({
     runThisTest:function () {
-        var layer = RotateWorldMainLayer.node();
+        var layer = RotateWorldMainLayer.create();
         this.addChild(layer);
         this.runAction(cc.RotateBy.create(4, -360));
-        cc.Director.getInstance().replaceScene(this);
+        director.replaceScene(this);
     }
 });
 
 var SpriteLayer = cc.Layer.extend({
+    ctor:function () {
+        this._super();
+        cc.associateWithNative(this, cc.Layer);
+        this.init();
+    },
+
     onEnter:function () {
         this._super();
 
         var x, y;
 
-        var size = cc.Director.getInstance().getWinSize();
+        var size = director.getWinSize();
         x = size.width;
         y = size.height;
 
@@ -51,9 +57,9 @@ var SpriteLayer = cc.Layer.extend({
         spriteSister1.setScale(1.5);
         spriteSister2.setScale(1.5);
 
-        sprite.setPosition(cc.p(x / 2, y / 2));
-        spriteSister1.setPosition(cc.p(40, y / 2));
-        spriteSister2.setPosition(cc.p(x - 40, y / 2));
+        sprite.setPosition(x / 2, y / 2);
+        spriteSister1.setPosition(40, y / 2);
+        spriteSister2.setPosition(x - 40, y / 2);
 
         var rot = cc.RotateBy.create(16, -3600);
 
@@ -69,27 +75,31 @@ var SpriteLayer = cc.Layer.extend({
         var rot1 = cc.RotateBy.create(4, 360 * 2);
         var rot2 = rot1.reverse();
 
-        spriteSister1.runAction(cc.Repeat.create(cc.Sequence.create(jump2, jump1, null), 5));
-        spriteSister2.runAction(cc.Repeat.create(cc.Sequence.create(jump1.copy(), jump2.copy(), null), 5));
+        spriteSister1.runAction(cc.Repeat.create(cc.Sequence.create(jump2, jump1), 5));
+        spriteSister2.runAction(cc.Repeat.create(cc.Sequence.create(jump1.copy(), jump2.copy()), 5));
 
-        spriteSister1.runAction(cc.Repeat.create(cc.Sequence.create(rot1, rot2, null), 5));
-        spriteSister2.runAction(cc.Repeat.create(cc.Sequence.create(rot2.copy(), rot1.copy(), null), 5));
+        spriteSister1.runAction(cc.Repeat.create(cc.Sequence.create(rot1, rot2), 5));
+        spriteSister2.runAction(cc.Repeat.create(cc.Sequence.create(rot2.copy(), rot1.copy()), 5));
     }
 });
 
-SpriteLayer.node = function () {
-    var node = new SpriteLayer();
-    node.init();
-    return node;
+SpriteLayer.create = function () {
+    return new SpriteLayer();
 };
 
 var TestLayer = cc.Layer.extend({
+    ctor:function () {
+        this._super();
+        cc.associateWithNative(this, cc.Layer);
+        this.init();
+    },
+
     onEnter:function () {
         this._super();
 
         var x, y;
 
-        var size = cc.Director.getInstance().getWinSize();
+        var size = director.getWinSize();
         x = size.width;
         y = size.height;
 
@@ -98,24 +108,28 @@ var TestLayer = cc.Layer.extend({
         //	NSLog( s );
         var label = cc.LabelTTF.create("cocos2d", "Tahoma", 64);
 
-        label.setPosition(cc.p(x / 2, y / 2));
+        label.setPosition(x / 2, y / 2);
 
         this.addChild(label);
     }
 });
 
-TestLayer.node = function () {
-    var node = new TestLayer();
-    node.init();
-    return node;
+TestLayer.create = function () {
+    return new TestLayer();
 };
 
 var RotateWorldMainLayer = cc.Layer.extend({
+    ctor:function () {
+        this._super();
+        cc.associateWithNative(this, cc.Layer);
+        this.init();
+    },
+
     onEnter:function () {
         this._super();
         var x, y;
 
-        var size = cc.Director.getInstance().getWinSize();
+        var size = director.getWinSize();
         x = size.width;
         y = size.height;
 
@@ -125,18 +139,18 @@ var RotateWorldMainLayer = cc.Layer.extend({
         var white = cc.LayerColor.create(cc.c4b(255, 255, 255, 255));
 
         blue.setScale(0.5);
-        blue.setPosition(cc.p(-x / 4, -y / 4));
-        blue.addChild(SpriteLayer.node());
+        blue.setPosition(-x / 4, -y / 4);
+        blue.addChild(SpriteLayer.create());
 
         red.setScale(0.5);
-        red.setPosition(cc.p(x / 4, -y / 4));
+        red.setPosition(x / 4, -y / 4);
 
         green.setScale(0.5);
-        green.setPosition(cc.p(-x / 4, y / 4));
-        green.addChild(TestLayer.node());
+        green.setPosition(-x / 4, y / 4);
+        green.addChild(TestLayer.create());
 
         white.setScale(0.5);
-        white.setPosition(cc.p(x / 4, y / 4));
+        white.setPosition(x / 4, y / 4);
 
         this.addChild(blue, -1);
         this.addChild(white);
@@ -152,8 +166,6 @@ var RotateWorldMainLayer = cc.Layer.extend({
     }
 });
 
-RotateWorldMainLayer.node = function () {
-    var node = new RotateWorldMainLayer();
-    node.init();
-    return node;
+RotateWorldMainLayer.create = function () {
+    return new RotateWorldMainLayer();
 };

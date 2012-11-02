@@ -154,22 +154,20 @@ var restartParticleAction = function () {
     return particleSceneArr[sceneIdx]();
 };
 
-var ParticleDemo = cc.Layer.extend({
+var ParticleDemo = cc.LayerGradient.extend({
     _emitter: null,
     _background: null,
     _shapeModeButton: null,
     _textureModeButton: null,
     _isPressed:false,
 
-    ctor: function() {
-        cc.associateWithNative(this, cc.Layer);
-        this.init();
-        this._isPressed = false;
-    },
     setColor:function() {},
-    init: function() {
+
+    ctor:function() {
         this._super();
-        // this.initWithColor(cc.c4b(127, 127, 127, 255));
+        cc.associateWithNative( this, cc.LayerGradient );
+        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+        this._isPressed = false;
 
         this._emitter = null;
 
