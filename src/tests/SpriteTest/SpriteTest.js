@@ -125,10 +125,7 @@ var Sprite1 = SpriteTestDemo.extend({
         this.addNewSpriteWithCoords(cc.p(winSize.width / 2, winSize.height / 2));
 
         var t = cc.config.deviceType;
-        if( t == 'browser' )  {
-            this.setTouchEnabled(true);
-            // this.setKeyboardEnabled(true);
-        } else if( t == 'desktop' ) {
+        if( t == 'browser' || t == 'desktop')  {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
             this.setTouchEnabled(true);
@@ -195,10 +192,7 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
     ctor:function () {
         this._super();
         var t = cc.config.deviceType;
-        if( t == 'browser' )  {
-            this.setTouchEnabled(true);
-            // this.setKeyboardEnabled(true);
-        } else if( t == 'desktop' ) {
+        if( t == 'browser' || t == 'desktop')  {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
             this.setTouchEnabled(true);
@@ -1211,10 +1205,7 @@ var SpriteNewTexture = SpriteTestDemo.extend({
         this._super();
 
         var t = cc.config.deviceType;
-        if( t == 'browser' )  {
-            this.setTouchEnabled(true);
-            // this.setKeyboardEnabled(true);
-        } else if( t == 'desktop' ) {
+        if( t == 'browser' || t == 'desktop')  {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
             this.setTouchEnabled(true);
@@ -1314,10 +1305,7 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
     ctor:function() {
         this._super();
         var t = cc.config.deviceType;
-        if( t == 'browser' )  {
-            this.setTouchEnabled(true);
-            // this.setKeyboardEnabled(true);
-        } else if( t == 'desktop' ) {
+        if( t == 'browser' || t == 'desktop')  {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
             this.setTouchEnabled(true);
