@@ -140,13 +140,13 @@ var LayerMainMenu = cc.Layer.extend({
     },
     onAllowTouches:function (dt) {
         director.getTouchDispatcher().setPriority(cc.MENU_HANDLER_PRIORITY + 1, this);
-        this.unscheduleAllSelectors();
+        this.unscheduleAllCallbacks();
         cc.log("Touches allowed again!");
     },
     onMenuCallbackDisabled:function (sender) {
         // hijack all touch events for 5 seconds
         director.getTouchDispatcher().setPriority(cc.MENU_HANDLER_PRIORITY - 1, this);
-        this.schedule(this.allowTouches, 5.0);
+        this.schedule(this.onAllowTouches, 5.0);
         cc.log("TOUCHES DISABLED FOR 5 SECONDS");
     },
     onMenuCallbackEnabled:function (sender) {

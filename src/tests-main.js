@@ -267,7 +267,6 @@ var testNames = [
             return new IntervalTestScene();
         }
     },
-    //"KeyboardTest",
     {
         title:"Label Test",
         platforms: PLATFORM_ALL,
