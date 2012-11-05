@@ -254,7 +254,7 @@ var testNames = [
     //"ExtensionsTest",
     {
         title:"Font Test",
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new FontTestScene();
         }
