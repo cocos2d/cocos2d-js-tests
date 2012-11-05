@@ -94,9 +94,9 @@ var EffecstsBaseLayer = cc.Layer.extend({
         }
 
         // Menu
-        var item1 = cc.MenuItemImage.create("b1.png", "b2.png", this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create("r1.png", "r2.png", this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create("f1.png", "f2.png", this.onNextCallback, this);
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
 
@@ -114,15 +114,15 @@ var EffecstsBaseLayer = cc.Layer.extend({
         node.runAction( this.getEffect(3) );
         this.addChild( node );
 
-        var bg = cc.Sprite.create("background3.png");
+        var bg = cc.Sprite.create(s_back3);
         bg.setPosition( cc._p( winSize.width/2, winSize.height/2) );
         node.addChild( bg );
 
-        var sister1 = cc.Sprite.create("grossinis_sister1.png");
+        var sister1 = cc.Sprite.create(s_pathSister1);
         sister1.setPosition( cc._p( winSize.width/3, winSize.height/2 ) );
         node.addChild( sister1, 1 );
 
-        var sister2 = cc.Sprite.create("grossinis_sister2.png");
+        var sister2 = cc.Sprite.create(s_pathSister2);
         sister2.setPosition( cc._p( winSize.width*2/3, winSize.height/2 ) );
         node.addChild( sister2, 1 );
 

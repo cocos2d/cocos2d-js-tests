@@ -90,9 +90,9 @@ var RenderTextureBaseLayer = cc.Layer.extend({
         }
 
         // Menu
-        var item1 = cc.MenuItemImage.create("b1.png", "b2.png", this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create("r1.png", "r2.png", this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create("f1.png", "f2.png", this.onNextCallback.bind(this) );  // another way to pass 'this'
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback.bind(this) );  // another way to pass 'this'
 
         var menu = cc.Menu.create(item1, item2, item3);
 
@@ -125,7 +125,7 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
         else if( t == 'mobile' )
             this.setTouchEnabled( true );
 
-        this._brush = cc.Sprite.create("fire.png");
+        this._brush = cc.Sprite.create(s_fire);
         this._brush.retain();
 
         this._brush.setColor( cc.RED );

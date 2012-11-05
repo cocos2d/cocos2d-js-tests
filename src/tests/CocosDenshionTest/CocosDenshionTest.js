@@ -29,6 +29,9 @@ var audioEngine = cc.AudioEngine.getInstance();
 if ( cc.config.deviceType == 'browser' ) {
     var MUSIC_FILE = "res/background";
     var EFFECT_FILE = "res/effect2";
+} else if (cc.config.engine == 'cocos2d-x') {
+    var MUSIC_FILE = "res/background.mp3";
+    var EFFECT_FILE = "res/effect2.mp3"; 
 } else {
     var MUSIC_FILE = "Cyber Advance!.mp3";
     var EFFECT_FILE = "cowbell.wav";
