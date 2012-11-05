@@ -289,13 +289,6 @@ var testNames = [
         }
     },
     {
-        title:"Multi TouchTest",
-        platforms: PLATFORM_HTML5,
-        testScene:function () {
-            return new MultiTouchTestScene();
-        }
-    },
-    {
         title:"Node Test",
         platforms: PLATFORM_ALL,
         testScene:function () {
