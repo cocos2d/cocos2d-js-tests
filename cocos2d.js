@@ -59,7 +59,7 @@
             'src/tests/CocosDenshionTest/CocosDenshionTest.js',
             'src/tests/CocosNodeTest/CocosNodeTest.js',
             'src/tests/RotateWorldTest/RotateWorldTest.js',
-            'src/tests/IntervelTest/IntervelTest.js',
+            'src/tests/IntervalTest/IntervalTest.js',
             'src/tests/ActionManagerTest/ActionManagerTest.js',
             'src/tests/EaseActionsTest/EaseActionsTest.js',
             'src/tests/ParallaxTest/ParallaxTest.js',
