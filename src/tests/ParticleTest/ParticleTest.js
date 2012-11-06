@@ -172,10 +172,7 @@ var ParticleDemo = cc.LayerGradient.extend({
         this._emitter = null;
 
         var t = cc.config.deviceType;
-        if( t == 'browser' )  {
-            this.setTouchEnabled(true);
-            // this.setKeyboardEnabled(true);
-        } else if( t == 'desktop' ) {
+        if( t == 'browser' || t == 'desktop' ) {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
             this.setTouchEnabled(true);

@@ -114,7 +114,13 @@ var KeyboardNotificationLayer = TextInputTest.extend({
 
     ctor:function () {
         this._super();
-        this.setTouchEnabled(true);
+
+        var t = cc.config.deviceType;
+        if( t == 'browser' || t == 'desktop' ) {
+            this.setMouseEnabled(true);
+        } else if( t == 'mobile' ) {
+            this.setTouchEnabled(true);
+        }
     },
 
     subtitle:function () {
@@ -172,7 +178,24 @@ var KeyboardNotificationLayer = TextInputTest.extend({
 
         this.onClickTrackNode(cc.Rect.CCRectContainsPoint(rect, point));
         cc.log("----------------------------------");
+    },
+    onMouseDown:function (event) {
+        if (!this._pTrackNode)
+            return;
+
+        var point = event.getLocation();
+
+        // decide the trackNode is clicked.
+        cc.log("KeyboardNotificationLayer:clickedAt(" + point.x + "," + point.y + ")");
+
+        var rect = textInputGetRect(this._pTrackNode);
+        cc.log("KeyboardNotificationLayer:TrackNode at(origin:" + rect.origin.x + "," + rect.origin.y
+            + ", size:" + rect.size.width + "," + rect.size.height + ")");
+
+        this.onClickTrackNode(cc.Rect.CCRectContainsPoint(rect, point));
+        cc.log("----------------------------------");
     }
+
 });
 
 //////////////////////////////////////////////////////////////////////////

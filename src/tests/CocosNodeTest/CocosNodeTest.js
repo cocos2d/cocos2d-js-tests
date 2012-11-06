@@ -346,7 +346,7 @@ var NodeToWorld = TestNodeDemo.extend({
         back.setAnchorPoint(cc.p(0, 0));
         var backSize = back.getContentSize();
 
-        var item = cc.MenuItemImage.create(s_playNormal, s_playSelect);
+        var item = cc.MenuItemImage.create(s_playNormal, s_playSelect, this.onClicked);
         var menu = cc.Menu.create(item);
         menu.alignItemsVertically();
         menu.setPosition(cc.p(backSize.width / 2, backSize.height / 2));
@@ -361,6 +361,9 @@ var NodeToWorld = TestNodeDemo.extend({
         var seq = cc.Sequence.create(move, move_back);
         var fe2 = cc.RepeatForever.create(seq);
         back.runAction(fe2);
+    },
+    onClicked:function() {
+        cc.log("On clicked");
     },
     title:function () {
         return "nodeToParent transform";
@@ -547,7 +550,7 @@ var ConvertToNode = TestNodeDemo.extend({
         this._super();
         var t = cc.config.deviceType;
         if( t == 'browser' )  {
-            this.setTouchEnabled(true);
+            this.setMouseEnabled(true);
         } else if( t == 'desktop' ) {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {

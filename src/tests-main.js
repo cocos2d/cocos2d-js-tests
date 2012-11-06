@@ -254,7 +254,7 @@ var testNames = [
     //"ExtensionsTest",
     {
         title:"Font Test",
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new FontTestScene();
         }
@@ -262,12 +262,11 @@ var testNames = [
     //"HiResTest",
     {
         title:"Interval Test",
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new IntervalTestScene();
         }
     },
-    //"KeyboardTest",
     {
         title:"Label Test",
         platforms: PLATFORM_ALL,
@@ -287,13 +286,6 @@ var testNames = [
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new MenuTestScene();
-        }
-    },
-    {
-        title:"Multi TouchTest",
-        platforms: PLATFORM_HTML5,
-        testScene:function () {
-            return new MultiTouchTestScene();
         }
     },
     {
