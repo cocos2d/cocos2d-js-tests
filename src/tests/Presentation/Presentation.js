@@ -93,13 +93,13 @@ PresentationBaseLayer.prototype.onEnter = function() {
 		this.sublabel = null;
 
     // Menu
-    var item1 = cc.MenuItemImage.create("b1.png", "b2.png", this, this.onBackCallback);
-    var item2 = cc.MenuItemImage.create("r1.png", "r2.png", this, this.onRestartCallback);
-    var item3 = cc.MenuItemImage.create("f1.png", "f2.png", this, this.onNextCallback);
+    var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback);
+    var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback);
+    var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback);
 
 	[item1, item2, item3 ].forEach( function(item) {
-		item.normalImage().setOpacity(45);
-		item.selectedImage().setOpacity(45);
+		item.getNormalImage().setOpacity(45);
+		item.getSelectedImage().setOpacity(45);
 		} );
 
 	var menu = cc.Menu.create( item1, item2, item3 );
@@ -311,7 +311,7 @@ var ChipmunkPage = function() {
 	cc.base(this);
 
 	// batch node
-	this.batch = cc.SpriteBatchNode.create( 'grossini.png', 50 );
+	this.batch = cc.SpriteBatchNode.create( s_grossini, 50 );
 	this.addChild( this.batch );
 
 	this.addSprite = function( pos ) {
@@ -446,15 +446,20 @@ var ParticlesPage = function() {
 	this.title = 'Performance';
 	this.subtitle = 'Particles';
 
+	var tex = cc.TextureCache.getInstance().addImage(s_fire);
+    
 	var firework = cc.ParticleFireworks.create();
+	firework.setTexture(tex);
 	this.addChild( firework );
 	firework.setPosition( centerPos );
 
 	var sun = cc.ParticleSun.create();
+	sun.setTexture(tex);
 	this.addChild( sun );
 	sun.setPosition( cc.p( winSize.width/4, winSize.height/2) );
 
 	var meteor = cc.ParticleMeteor.create();
+	meteor.setTexture(tex);
 	this.addChild( meteor );
 	meteor.setPosition( cc.p( winSize.width*3/4, winSize.height/2) );
 
