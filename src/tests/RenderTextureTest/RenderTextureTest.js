@@ -120,10 +120,11 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
         this._super();
 
         var t = cc.config.deviceType;
-        if( t == 'desktop' )
-            this.setMouseEnabled( true );
-        else if( t == 'mobile' )
-            this.setTouchEnabled( true );
+        if( t == 'browser' || t == 'desktop' ) {
+            this.setMouseEnabled(true);
+        } else if( t == 'mobile' ) {
+            this.setTouchEnabled(true);
+        }
 
         this._brush = cc.Sprite.create("fire.png");
         this._brush.retain();

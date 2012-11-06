@@ -37,12 +37,9 @@ var TileDemo = cc.Layer.extend({
         this.init();
 
         var t = cc.config.deviceType;
-        if (t == 'browser') {
+        if( t == 'browser' || t == 'desktop' ) {
             this.setMouseEnabled(true);
-            // this.setKeyboardEnabled(true);
-        } else if (t == 'desktop') {
-            this.setMouseEnabled(true);
-        } else if (t == 'mobile') {
+        } else if( t == 'mobile' ) {
             this.setTouchEnabled(true);
         }
     },

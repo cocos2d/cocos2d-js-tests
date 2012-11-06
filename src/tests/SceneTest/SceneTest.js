@@ -162,13 +162,12 @@ SceneTestLayer3 = cc.LayerColor.extend({
         this.init( cc.c4b(0,128,255,255) );
 
         var t = cc.config.deviceType;
-        if (t == 'browser') {
+        if( t == 'browser' || t == 'desktop' ) {
             this.setMouseEnabled(true);
-        } else if (t == 'desktop') {
-            this.setMouseEnabled(true);
-        } else if (t == 'mobile') {
+        } else if( t == 'mobile' ) {
             this.setTouchEnabled(true);
         }
+
         var label = cc.LabelTTF.create("Touch to popScene", "Arial", 28);
         this.addChild(label);
         var s = director.getWinSize();
