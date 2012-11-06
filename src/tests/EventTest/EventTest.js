@@ -279,9 +279,18 @@ var AccelerometerTest = EventTest.extend({
             // not supported on desktop
             cc.log("Not supported");
         } else if( t == 'mobile' ) {
-            // call is called 5 times per second
-            this.setAccelerometerInterval(1/5);
+            // call is called 30 times per second
+            this.setAccelerometerInterval(1/30);
             this.setAccelerometerEnabled(true);
+
+            var sprite = this.sprite = cc.Sprite.create(s_pathR2);
+            this.addChild( sprite );
+            sprite.setPosition( winSize.width/2, winSize.height/2);
+
+            // for low-pass filter
+            this.prevX = 0;
+            this.prevY = 0;
+
         }
     },
     subtitle:function () {
@@ -289,6 +298,20 @@ var AccelerometerTest = EventTest.extend({
     },
     onAccelerometer:function(accelEvent) {
         cc.log('Accel x: '+ accelEvent.x + ' y:' + accelEvent.y + ' z:' + accelEvent.z + ' time:' + accelEvent.timestamp );
+
+        var w = winSize.width;
+        var h = winSize.height;
+
+        var x = w * accelEvent.x + w/2;
+        var y = h * accelEvent.y + h/2;
+
+        // Low pass filter
+        x = x*0.2 + this.prevX*0.8;
+        y = y*0.2 + this.prevY*0.8;
+
+        this.prevX = x;
+        this.prevY = y;
+        this.sprite.setPosition( x, y );
     }
 });
 
@@ -388,6 +411,8 @@ var EventTestScene = TestScene.extend({
 // Flow control
 //
 var arrayOfEventsTest = [
+    AccelerometerTest,
+
     TouchOneByOneTest,
     TouchAllAtOnce,
     AccelerometerTest,
