@@ -400,11 +400,12 @@ ChipmunkPage.prototype.onEnter = function () {
 		this.addSprite( cp.v(x, y) );
 	}
 
-	var t = cc.config.deviceType;
-    if( t == 'desktop' )
+    var t = cc.config.deviceType;
+    if( t == 'browser' || t == 'desktop' ) {
         this.setMouseEnabled(true);
-    else if( t == 'mobile' )
+    } else if( t == 'mobile' ) {
         this.setTouchEnabled(true);
+    }
 };
 
 ChipmunkPage.prototype.onExitTransitionDidStart = function () {
@@ -464,10 +465,11 @@ var ParticlesPage = function() {
 	this.particle = firework;
 
     var t = cc.config.deviceType;
-    if( t == 'desktop' )
+    if( t == 'browser' || t == 'desktop' ) {
         this.setMouseEnabled(true);
-    else if( t == 'mobile' )
+    } else if( t == 'mobile' ) {
         this.setTouchEnabled(true);
+    }
 
 	this.onMouseDown = function( event ) {
 		this.particle.setPosition( event.getLocation() );

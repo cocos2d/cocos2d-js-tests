@@ -97,6 +97,8 @@ var EventTest = cc.Layer.extend({
 var TouchOneByOneTest = EventTest.extend({
     init:function () {
         this._super();
+        this.ids = {};
+        this.unused_sprites = [];
 
         var t = cc.config.deviceType;
         if( t == 'browser' )  {
@@ -108,28 +110,63 @@ var TouchOneByOneTest = EventTest.extend({
             this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
             this.setTouchEnabled(true);
         }
+
+        for( var i=0; i < 5;i++) {
+            var sprite = this.sprite = cc.Sprite.create(s_pathR2);
+            this.addChild(sprite,i+10);
+            sprite.setPosition(0,0);
+            sprite.setScale(1);
+            sprite.setColor( cc.c3b( Math.random()*200+55, Math.random()*200+55, Math.random()*200+55 ) );
+            this.unused_sprites.push(sprite);
+        }
     },
     subtitle:function () {
         return "Touches One by One. Touch the left / right and see console";
     },
+
+    new_id:function( id, pos) {
+        var s = this.unused_sprites.pop();
+        this.ids[ id ] = s;
+        s.setPosition( pos );
+    },
+    update_id:function(id, pos) {
+        var s = this.ids[ id ];
+        s.setPosition( pos );
+    },
+    release_id:function(id, pos) {
+        var s = this.ids[ id ];
+        this.ids[ id ] = null;
+        this.unused_sprites.push( s );
+        s.setPosition(0,0);
+    },
+
     onTouchBegan:function(touch, event) {
         var pos = touch.getLocation();
-        cc.log("onTouchBegan at: " + pos.x + " " + pos.y );
-        if( pos.x < winSize.width/2)
+        var id = touch.getId();
+        cc.log("onTouchBegan at: " + pos.x + " " + pos.y + " Id:" + id );
+        if( pos.x < winSize.width/2) {
+            this.new_id(id,pos);
             return true;
+        }
         return false;
     },
     onTouchMoved:function(touch, event) {
         var pos = touch.getLocation();
-        cc.log("onTouchMoved at: " + pos.x + " " + pos.y );
+        var id = touch.getId();
+        cc.log("onTouchMoved at: " + pos.x + " " + pos.y + " Id:" + id );
+        this.update_id(id,pos);
     },
     onTouchEnded:function(touch, event) {
         var pos = touch.getLocation();
-        cc.log("onTouchEnded at: " + pos.x + " " + pos.y );
+        var id = touch.getId();
+        cc.log("onTouchEnded at: " + pos.x + " " + pos.y + " Id:" + id );
+        this.release_id(id,pos);
     },
     onTouchCancelled:function(touch, event) {
         var pos = touch.getLocation();
-        cc.log("onTouchCancelled at: " + pos.x + " " + pos.y );
+        var id = touch.getId();
+        cc.log("onTouchCancelled at: " + pos.x + " " + pos.y + " Id:" + id );
+        this.update_id(id,pos);
     }
 });
 
@@ -142,6 +179,9 @@ var TouchAllAtOnce = EventTest.extend({
     init:function () {
         this._super();
 
+        this.ids = {};
+        this.unused_sprites = [];
+
         var t = cc.config.deviceType;
         if( t == 'browser' )  {
             // this is the default behavior. No need to set it explicitly.
@@ -154,36 +194,70 @@ var TouchAllAtOnce = EventTest.extend({
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
             this.setTouchEnabled(true);
         }
+
+        for( var i=0; i < 5;i++) {
+            var sprite = this.sprite = cc.Sprite.create(s_pathR2);
+            this.addChild(sprite,i+10);
+            sprite.setPosition(0,0);
+            sprite.setScale(1);
+            sprite.setColor( cc.c3b( Math.random()*200+55, Math.random()*200+55, Math.random()*200+55 ) );
+            this.unused_sprites.push(sprite);
+        }
     },
     subtitle:function () {
         return "Touches All At Once. Touch and see console";
     },
+
+    new_id:function( id, pos) {
+        var s = this.unused_sprites.pop();
+        this.ids[ id ] = s;
+        s.setPosition( pos );
+    },
+    update_id:function(id, pos) {
+        var s = this.ids[ id ];
+        s.setPosition( pos );
+    },
+    release_id:function(id, pos) {
+        var s = this.ids[ id ];
+        this.ids[ id ] = null;
+        this.unused_sprites.push( s );
+        s.setPosition(0,0);
+    },
+
     onTouchesBegan:function(touches, event) {
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
-            cc.log("Touch #" + i + ". onTouchesBegan at: " + pos.x + " " + pos.y );
+            var id = touch.getId();
+            cc.log("Touch #" + i + ". onTouchesBegan at: " + pos.x + " " + pos.y + " Id:" + id);
+            this.new_id(id,pos);
         }
     },
     onTouchesMoved:function(touches, event) {
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
-            cc.log("Touch #" + i + ". onTouchesMoved at: " + pos.x + " " + pos.y );
+            var id = touch.getId();
+            cc.log("Touch #" + i + ". onTouchesMoved at: " + pos.x + " " + pos.y + " Id:" + id);
+            this.update_id(id, pos);
         }
     },
     onTouchesEnded:function(touches, event) {
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
-            cc.log("Touch #" + i + ". onTouchesEnded at: " + pos.x + " " + pos.y );
+            var id = touch.getId();
+            cc.log("Touch #" + i + ". onTouchesEnded at: " + pos.x + " " + pos.y + " Id:" + id);
+            this.release_id(id);
         }
     },
     onTouchesCancelled:function(touches, event) {
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
-            cc.log("Touch #" + i + ". onTouchesCancelled at: " + pos.x + " " + pos.y );
+            var id = touch.getId();
+            cc.log("Touch #" + i + ". onTouchesCancelled at: " + pos.x + " " + pos.y + " Id:" + id);
+            this.release_id(id);
         }
     }
 });
@@ -205,9 +279,18 @@ var AccelerometerTest = EventTest.extend({
             // not supported on desktop
             cc.log("Not supported");
         } else if( t == 'mobile' ) {
-            // call is called 5 times per second
-            this.setAccelerometerInterval(1/5);
+            // call is called 30 times per second
+            this.setAccelerometerInterval(1/30);
             this.setAccelerometerEnabled(true);
+
+            var sprite = this.sprite = cc.Sprite.create(s_pathR2);
+            this.addChild( sprite );
+            sprite.setPosition( winSize.width/2, winSize.height/2);
+
+            // for low-pass filter
+            this.prevX = 0;
+            this.prevY = 0;
+
         }
     },
     subtitle:function () {
@@ -215,6 +298,20 @@ var AccelerometerTest = EventTest.extend({
     },
     onAccelerometer:function(accelEvent) {
         cc.log('Accel x: '+ accelEvent.x + ' y:' + accelEvent.y + ' z:' + accelEvent.z + ' time:' + accelEvent.timestamp );
+
+        var w = winSize.width;
+        var h = winSize.height;
+
+        var x = w * accelEvent.x + w/2;
+        var y = h * accelEvent.y + h/2;
+
+        // Low pass filter
+        x = x*0.2 + this.prevX*0.8;
+        y = y*0.2 + this.prevY*0.8;
+
+        this.prevX = x;
+        this.prevY = y;
+        this.sprite.setPosition( x, y );
     }
 });
 
@@ -226,12 +323,16 @@ var AccelerometerTest = EventTest.extend({
 var MouseTest = EventTest.extend({
     init:function () {
         this._super();
+        var sprite = this.sprite = cc.Sprite.create(s_pathR2);
+        this.addChild(sprite);
+        sprite.setPosition(0,0);
+        sprite.setScale(1);
+        sprite.setColor( cc.c3b(Math.random()*200+55, Math.random()*200+55, Math.random()*200+55) );
 
         var t = cc.config.deviceType;
         if( t == 'browser' )  {
             this.setMouseEnabled(true);
         } else if( t == 'desktop' ) {
-            // not supported on desktop
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
             // not supported on device
@@ -244,13 +345,16 @@ var MouseTest = EventTest.extend({
     onMouseDown:function(event) {
         var pos = event.getLocation();
         cc.log("onMouseDown at: " + pos.x + " " + pos.y );
+        this.sprite.setPosition( pos );
     },
     onMouseDragged:function(event) {
         var pos = event.getLocation();
         cc.log("onMouseDragged at: " + pos.x + " " + pos.y );
+        this.sprite.setPosition( pos );
     },
     onMouseUp:function(event) {
         var pos = event.getLocation();
+        this.sprite.setPosition( pos );
         cc.log("onMouseUp at: " + pos.x + " " + pos.y );
     }
 });
@@ -307,6 +411,8 @@ var EventTestScene = TestScene.extend({
 // Flow control
 //
 var arrayOfEventsTest = [
+    AccelerometerTest,
+
     TouchOneByOneTest,
     TouchAllAtOnce,
     AccelerometerTest,
