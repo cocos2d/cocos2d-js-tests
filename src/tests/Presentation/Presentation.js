@@ -171,7 +171,7 @@ var IntroPage = function() {
 
 	cc.base(this);
 
-	this.title = 'cocos2d';
+	this.title = 'cocos2d JS';
 	this.subtitle = 'Game Development Kit';
 	this.isMainTitle = true;
 };
@@ -270,8 +270,8 @@ var ComparisonPage = function() {
 
 	cc.base(this);
 
-	this.title = 'HTML5 performance';
-	this.subtitle = 'Performance';
+	this.title = 'HTML5 Mobile performance';
+	this.subtitle = 'Bad performance, even with accel frameworks';
 	this.isMainTitle = false;
 
 	this.createImage( images_path + 'comparison.png');
@@ -531,7 +531,7 @@ var HTML5AcceleratorPage = function() {
 
 	cc.base(this);
 
-	this.title = 'HTML5 Accelerators';
+	this.title = 'HTML5 Mobile Accelerators';
 	this.subtitle = '';
 	this.isMainTitle = false;
 
@@ -717,9 +717,9 @@ var arrayOfPresentation = [
 	HTML5AcceleratorPage,
 	GDKAcceleratorPage,
 	GDKComponentsPage,
-	CocosStatusPage,
-	ChipmunkStatusPage,
-	CCBStatusPage,
+	// CocosStatusPage,
+	// ChipmunkStatusPage,
+	// CCBStatusPage,
 	DemoPage,
 	WhoIsUsingItPage,
 	ThanksPage
