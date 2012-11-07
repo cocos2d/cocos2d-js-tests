@@ -311,7 +311,7 @@ var ChipmunkPage = function() {
 	cc.base(this);
 
 	// batch node
-	this.batch = cc.SpriteBatchNode.create( s_grossini, 50 );
+	this.batch = cc.SpriteBatchNode.create( s_pathGrossini, 50 );
 	this.addChild( this.batch );
 
 	this.addSprite = function( pos ) {
@@ -385,7 +385,7 @@ ChipmunkPage.prototype.createPhysicsSprite = function( pos ) {
 	shape.setFriction( 0.5 );
 	this.space.addShape( shape );
 
-	var sprite = cc.PhysicsSprite.create( "grossini.png");
+	var sprite = cc.PhysicsSprite.create(s_pathGrossini);
 	sprite.setBody( body.handle );
 	return sprite;
 };
@@ -446,20 +446,20 @@ var ParticlesPage = function() {
 	this.title = 'Performance';
 	this.subtitle = 'Particles';
 
-	var tex = cc.TextureCache.getInstance().addImage(s_fire);
-    
+	// var tex = cc.TextureCache.getInstance().addImage(s_fire);
+
 	var firework = cc.ParticleFireworks.create();
-	firework.setTexture(tex);
+	// firework.setTexture(tex);
 	this.addChild( firework );
 	firework.setPosition( centerPos );
 
 	var sun = cc.ParticleSun.create();
-	sun.setTexture(tex);
+	// sun.setTexture(tex);
 	this.addChild( sun );
 	sun.setPosition( cc.p( winSize.width/4, winSize.height/2) );
 
 	var meteor = cc.ParticleMeteor.create();
-	meteor.setTexture(tex);
+	// meteor.setTexture(tex);
 	this.addChild( meteor );
 	meteor.setPosition( cc.p( winSize.width*3/4, winSize.height/2) );
 
