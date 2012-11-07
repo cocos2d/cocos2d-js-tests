@@ -114,7 +114,7 @@ var LayerTest1 = LayerTest.extend({
     onEnter:function () {
         this._super();
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' || t == 'desktop' ) {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
@@ -324,7 +324,7 @@ var LayerGradient = LayerTest.extend({
         var layer1 = cc.LayerGradient.create(cc.c4b(255, 0, 0, 255), cc.c4b(0, 255, 0, 255), cc.p(0.9, 0.9));
         this.addChild(layer1, 0, cc.TAG_LAYER);
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' || t == 'desktop' ) {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {

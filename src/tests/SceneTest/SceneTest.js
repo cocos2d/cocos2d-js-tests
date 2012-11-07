@@ -161,7 +161,7 @@ SceneTestLayer3 = cc.LayerColor.extend({
         cc.associateWithNative(this, cc.LayerColor);
         this.init( cc.c4b(0,128,255,255) );
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' || t == 'desktop' ) {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {

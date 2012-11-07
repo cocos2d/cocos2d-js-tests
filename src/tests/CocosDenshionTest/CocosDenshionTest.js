@@ -26,7 +26,7 @@
 
 var audioEngine = cc.AudioEngine.getInstance();
 
-if ( cc.config.deviceType == 'browser' ) {
+if ( cc.config.platform == 'browser' ) {
     var MUSIC_FILE = "res/background";
     var EFFECT_FILE = "res/effect2";
 } else if (cc.config.engine == 'cocos2d-x') {
@@ -184,7 +184,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
         this._itemMenu.setPosition(0,0);
         this.addChild(this._itemMenu);
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' || t == 'desktop')  {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
