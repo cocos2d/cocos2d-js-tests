@@ -44,7 +44,7 @@ var LayerMainMenu = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(30);
         cc.MenuItemFont.setFontName("Courier New");
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' || t == 'desktop' ) {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {

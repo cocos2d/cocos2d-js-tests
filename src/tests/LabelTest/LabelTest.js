@@ -913,7 +913,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
     ctor:function () {
         this._super();
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' || t == 'desktop' ) {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {

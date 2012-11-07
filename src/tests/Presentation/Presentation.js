@@ -171,7 +171,7 @@ var IntroPage = function() {
 
 	cc.base(this);
 
-	this.title = 'cocos2d';
+	this.title = 'cocos2d JS';
 	this.subtitle = 'Game Development Kit';
 	this.isMainTitle = true;
 };
@@ -270,8 +270,8 @@ var ComparisonPage = function() {
 
 	cc.base(this);
 
-	this.title = 'HTML5 performance';
-	this.subtitle = 'Performance';
+	this.title = 'HTML5 Mobile performance';
+	this.subtitle = 'Bad performance, even with accel frameworks';
 	this.isMainTitle = false;
 
 	this.createImage( images_path + 'comparison.png');
@@ -311,7 +311,7 @@ var ChipmunkPage = function() {
 	cc.base(this);
 
 	// batch node
-	this.batch = cc.SpriteBatchNode.create( s_grossini, 50 );
+	this.batch = cc.SpriteBatchNode.create( s_pathGrossini, 50 );
 	this.addChild( this.batch );
 
 	this.addSprite = function( pos ) {
@@ -385,7 +385,7 @@ ChipmunkPage.prototype.createPhysicsSprite = function( pos ) {
 	shape.setFriction( 0.5 );
 	this.space.addShape( shape );
 
-	var sprite = cc.PhysicsSprite.create( "grossini.png");
+	var sprite = cc.PhysicsSprite.create(s_pathGrossini);
 	sprite.setBody( body.handle );
 	return sprite;
 };
@@ -400,7 +400,7 @@ ChipmunkPage.prototype.onEnter = function () {
 		this.addSprite( cp.v(x, y) );
 	}
 
-    var t = cc.config.deviceType;
+    var t = cc.config.platform;
     if( t == 'browser' || t == 'desktop' ) {
         this.setMouseEnabled(true);
     } else if( t == 'mobile' ) {
@@ -446,20 +446,20 @@ var ParticlesPage = function() {
 	this.title = 'Performance';
 	this.subtitle = 'Particles';
 
-	var tex = cc.TextureCache.getInstance().addImage(s_fire);
-    
+	// var tex = cc.TextureCache.getInstance().addImage(s_fire);
+
 	var firework = cc.ParticleFireworks.create();
-	firework.setTexture(tex);
+	// firework.setTexture(tex);
 	this.addChild( firework );
 	firework.setPosition( centerPos );
 
 	var sun = cc.ParticleSun.create();
-	sun.setTexture(tex);
+	// sun.setTexture(tex);
 	this.addChild( sun );
 	sun.setPosition( cc.p( winSize.width/4, winSize.height/2) );
 
 	var meteor = cc.ParticleMeteor.create();
-	meteor.setTexture(tex);
+	// meteor.setTexture(tex);
 	this.addChild( meteor );
 	meteor.setPosition( cc.p( winSize.width*3/4, winSize.height/2) );
 
@@ -469,7 +469,7 @@ var ParticlesPage = function() {
 
 	this.particle = firework;
 
-    var t = cc.config.deviceType;
+    var t = cc.config.platform;
     if( t == 'browser' || t == 'desktop' ) {
         this.setMouseEnabled(true);
     } else if( t == 'mobile' ) {
@@ -531,7 +531,7 @@ var HTML5AcceleratorPage = function() {
 
 	cc.base(this);
 
-	this.title = 'HTML5 Accelerators';
+	this.title = 'HTML5 Mobile Accelerators';
 	this.subtitle = '';
 	this.isMainTitle = false;
 
@@ -717,9 +717,9 @@ var arrayOfPresentation = [
 	HTML5AcceleratorPage,
 	GDKAcceleratorPage,
 	GDKComponentsPage,
-	CocosStatusPage,
-	ChipmunkStatusPage,
-	CCBStatusPage,
+	// CocosStatusPage,
+	// ChipmunkStatusPage,
+	// CCBStatusPage,
 	DemoPage,
 	WhoIsUsingItPage,
 	ThanksPage

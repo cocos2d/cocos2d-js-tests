@@ -171,7 +171,7 @@ var ParticleDemo = cc.LayerGradient.extend({
 
         this._emitter = null;
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' || t == 'desktop' ) {
             this.setMouseEnabled(true);
         } else if( t == 'mobile' ) {
@@ -252,7 +252,7 @@ var ParticleDemo = cc.LayerGradient.extend({
         this._shapeModeButton.setPosition(10, 100);
         this._shapeModeButton.setAnchorPoint(cc.p(0, 0));
 
-        if( cc.config.deviceType != "browser" ) {
+        if( cc.config.platform != "browser" ) {
             // Shape type is not compatible with JSB
             this._shapeModeButton.setEnabled(false);
         }
