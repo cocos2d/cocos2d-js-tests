@@ -101,7 +101,7 @@ var TestController = cc.LayerGradient.extend({
             menuItem.setPosition(winSize.width / 2, (winSize.height - (i + 1) * LINE_SPACE));
 
             // enable disable
-            if (cc.config.deviceType == 'browser') {
+            if (cc.config.platform == 'browser') {
                 menuItem.setEnabled( testNames[i].platforms & PLATFORM_HTML5 );
             } else { /* jsb */
                 menuItem.setEnabled( testNames[i].platforms & PLATFORM_JSB );
@@ -113,7 +113,7 @@ var TestController = cc.LayerGradient.extend({
         this.addChild(this._itemMenu);
         this.addChild(menu, 1);
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' )  {
             this.setMouseEnabled(true);
             // this.setKeyboardEnabled(true);

@@ -40,7 +40,7 @@ var MainLayer = cc.Layer.extend({
         cc.associateWithNative(this, cc.Layer);
         this.init();
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if (t == 'browser') {
             this.setMouseEnabled(true);
         } else if (t == 'desktop') {
