@@ -100,7 +100,7 @@ var TouchOneByOneTest = EventTest.extend({
         this.ids = {};
         this.unused_sprites = [];
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' )  {
             this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
             this.setTouchEnabled(true);
@@ -182,7 +182,7 @@ var TouchAllAtOnce = EventTest.extend({
         this.ids = {};
         this.unused_sprites = [];
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' )  {
             // this is the default behavior. No need to set it explicitly.
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
@@ -271,7 +271,7 @@ var AccelerometerTest = EventTest.extend({
     init:function () {
         this._super();
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' )  {
             // not supported on browser
             cc.log("Not supported");
@@ -329,7 +329,7 @@ var MouseTest = EventTest.extend({
         sprite.setScale(1);
         sprite.setColor( cc.c3b(Math.random()*200+55, Math.random()*200+55, Math.random()*200+55) );
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' )  {
             this.setMouseEnabled(true);
         } else if( t == 'desktop' ) {
@@ -368,7 +368,7 @@ var KeyboardTest = EventTest.extend({
     init:function () {
         this._super();
 
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' )  {
             this.setKeyboardEnabled(true);
         } else if( t == 'desktop' ) {

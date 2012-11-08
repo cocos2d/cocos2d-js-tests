@@ -548,7 +548,7 @@ var CameraCenterTest = TestNodeDemo.extend({
 var ConvertToNode = TestNodeDemo.extend({
     ctor:function () {
         this._super();
-        var t = cc.config.deviceType;
+        var t = cc.config.platform;
         if( t == 'browser' )  {
             this.setMouseEnabled(true);
         } else if( t == 'desktop' ) {
