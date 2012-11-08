@@ -68,14 +68,14 @@ cc.inherits(ChipmunkBaseLayer, cc.Layer );
 ChipmunkBaseLayer.prototype.setupDebugNode = function()
 {
     // debug only
-/*	this._debugNode = cc.PhysicsDebugNode.create( this.space.handle );
+	this._debugNode = cc.PhysicsDebugNode.create( this.space );
 	this._debugNode.setVisible( false );
-	this.addChild( this._debugNode );*/
+	this.addChild( this._debugNode );
 };
 
 ChipmunkBaseLayer.prototype.onToggleDebug = function(sender) {
-/*    var state = this._debugNode.getVisible();
-    this._debugNode.setVisible( !state );*/
+    var state = this._debugNode.isVisible();
+    this._debugNode.setVisible( !state );
 };
 
 //
@@ -345,7 +345,7 @@ var ChipmunkCollisionTest = function() {
 		}
 		cc.log('collision begin');
 		// var bodies = arbiter.getBodies();
-		var shapes = [arbiter.a, arbiter.b];
+		var shapes = [arbiter.b, arbiter.a];
 		var collTypeA = shapes[0].collision_type;
 		var collTypeB = shapes[1].collision_type;
 		cc.log( 'Collision Type A:' + collTypeA );
@@ -396,7 +396,7 @@ cc.inherits( ChipmunkCollisionTestB, ChipmunkBaseLayer );
      this.space =  new cp.Space();
 
      // update Physics Debug Node with new space
-     //this._debugNode.setSpace(this.space);
+     this._debugNode.setSpace(this.space);
 
      var staticBody = this.space.staticBody;
 
@@ -468,7 +468,7 @@ cc.inherits( ChipmunkCollisionTestB, ChipmunkBaseLayer );
          this.messageDisplayed = true;
      }
      cc.log('collision begin');
-     var shapes = [arbiter.a, arbiter.b];
+     var shapes = [arbiter.b, arbiter.a];
      var collTypeA = shapes[0].collision_type;
      var collTypeB = shapes[1].collision_type;
      cc.log( 'Collision Type A:' + collTypeA );
@@ -558,7 +558,7 @@ var ChipmunkDemo = function() {
 	this.remainder = 0;
 
 	// debug only
-//	this._debugNode.setVisible( true );
+this._debugNode.setVisible( true );
 
 	this.scheduleUpdate();
 };
@@ -1071,9 +1071,9 @@ var Buoyancy = function() {
 		shape.setLayers(NOT_GRABABLE_MASK);
 
 		// Add the sensor for the water.
-		shape = space.addShape( new cp.BoxShape2(staticBody, bb) );
-		shape.setSensor(true);
-		shape.setCollisionType(1);
+		var shape1 = space.addShape( new cp.BoxShape2(staticBody, bb) );
+    shape1.setSensor(true);
+    shape1.setCollisionType(1);
 	// }
 
 
@@ -1084,12 +1084,14 @@ var Buoyancy = function() {
 		var moment = cp.momentForBox(mass, width, height);
 
 		body = space.addBody( new cp.Body(mass, moment));
-		body.setPos( cp.v(270, 140));
-		body.setVelocity( cp.v(0, -100));
+		body.setPos( cp.v(270, 340));
+		body.setVelocity( cp.v(0, 0));
 		body.setAngularVelocity( 1 );
+    //body.applyImpulse(new cp.Vect(0,100),new cp.Vect(0,0));
 
-		shape = space.addShape( new cp.BoxShape(body, width, height));
-		shape.setFriction(0.8);
+		var shape2 = space.addShape( new cp.BoxShape(body, width, height));
+    shape2.setFriction(0.8);
+    shape2.setCollisionType(2);
 	// }
 
 	// {
@@ -1099,15 +1101,17 @@ var Buoyancy = function() {
 		moment = cp.momentForBox(mass, width, height);
 
 		body = space.addBody( new cp.Body(mass, moment));
-		body.setPos(cp.v(120, 190));
-		body.setVelocity(cp.v(0, -100));
+		body.setPos(cp.v(120, 390));
+		body.setVelocity(cp.v(0, 0));
 		body.setAngularVelocity(1);
 
-		shape = space.addShape(new cp.BoxShape(body, width, height));
-		shape.setFriction(0.8);
-	// }
+		var shape3 = space.addShape(new cp.BoxShape(body, width, height));
+    shape3.setFriction(0.8);
+    shape3.setCollisionType(2);
 
-	space.addCollisionHandler( 1, 0, null, this.waterPreSolve, null, null);
+    // }
+
+	space.addCollisionHandler( 1, 2, null, this.waterPreSolve.bind(this), null, null);
 };
 cc.inherits( Buoyancy, ChipmunkDemo );
 
@@ -1121,8 +1125,7 @@ Buoyancy.prototype.update = function(dt)
 };
 
 Buoyancy.prototype.waterPreSolve = function(arb, space, ptr) {
-
-	var shapes = [arb.a, arb.b];
+	var shapes = [arb.b, arb.a];
 	var water = shapes[0];
 	var poly = shapes[1];
 
@@ -1169,8 +1172,9 @@ Buoyancy.prototype.waterPreSolve = function(arb, space, ptr) {
 	var dt = space.curr_dt;
 	var g = space.gravity;
 
-	// Apply the buoyancy force as an impulse.
+    // Apply the buoyancy force as an impulse.
 	body.applyImpulse( cp.v.mult(g, -displacedMass*dt), r);
+    //body.applyImpulse(new cp.Vect(0,100), new cp.Vect(0,100));
 
 	// Apply linear damping for the fluid drag.
 	var v_centroid = cp.v.add(new cp.Vect(body.vx, body.vy), cp.v.mult(cp.v.perp(r), body.w));
