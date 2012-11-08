@@ -30,6 +30,7 @@
         menuType:'canvas', //whether to use canvas mode menu or dom menu
         COCOS2D_DEBUG:2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
         box2d:true,
+        chipmunk:true,
         showFPS:true,
         loadExtension:true,
         frameRate:60,
@@ -90,8 +91,10 @@
             'src/tests/ExtensionsTest/CocosBuilderTest/ParticleSystemTest/ParticleSystemTestLayer.js',
             'src/tests/ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js',
 
-            'src/tests/Box2dTest/Box2dTest.js']
-    };
+            'src/tests/Box2dTest/Box2dTest.js',
+            'src/tests/ChipmunkTest/ChipmunkTest.js']
+
+};
     window.addEventListener('DOMContentLoaded', function () {
         //first load engine file if specified
         var s = d.createElement('script');
