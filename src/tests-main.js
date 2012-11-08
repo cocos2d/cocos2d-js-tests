@@ -147,7 +147,11 @@ var TestController = cc.LayerGradient.extend({
         this.moveMenu(delta);
         return true;
     },
-
+    onScrollWheel:function(event){
+        var delta = event.getWheelDelta();
+        this.moveMenu({y:-delta});
+        return true;
+    },
     moveMenu:function(delta) {
         var current = this._itemMenu.getPosition();
 
@@ -187,7 +191,7 @@ var testNames = [
     },
     {
         title:"Chipmunk Test",
-        platforms: PLATFORM_JSB,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new ChipmunkTestScene();
         }
