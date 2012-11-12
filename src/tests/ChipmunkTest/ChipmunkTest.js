@@ -1085,8 +1085,8 @@ var Buoyancy = function() {
 
 		body = space.addBody( new cp.Body(mass, moment));
 		body.setPos( cp.v(270, 340));
-		body.setVelocity( cp.v(0, 0));
-		body.setAngularVelocity( 1 );
+		body.setVel( cp.v(0, 0));
+		body.setAngVel( 1 );
     //body.applyImpulse(new cp.Vect(0,100),new cp.Vect(0,0));
 
 		var shape2 = space.addShape( new cp.BoxShape(body, width, height));
@@ -1102,8 +1102,8 @@ var Buoyancy = function() {
 
 		body = space.addBody( new cp.Body(mass, moment));
 		body.setPos(cp.v(120, 390));
-		body.setVelocity(cp.v(0, 0));
-		body.setAngularVelocity(1);
+		body.setVel(cp.v(0, 0));
+		body.setAngVel(1);
 
 		var shape3 = space.addShape(new cp.BoxShape(body, width, height));
     shape3.setFriction(0.8);
@@ -1205,12 +1205,12 @@ var Planet = function() {
 	var space = this.space;
 
 	// global
-	this.gravityStrength = 5.0e6;
+	this.gravityStrength = 5000000;
 
 	// Create a rouge body to control the planet manually.
 	//var planetBody = this.planetBody = new cp.BodyStatic();
-    var planetBody = this.planetBody = cp.createStaticBody();
-	planetBody.setAngularVelocity(0.2);
+    var planetBody = this.planetBody = new cp.StaticBody();
+	planetBody.setAngVel(0.2);
 	planetBody.setPos( cp.v(winSize.width/2, winSize.height/2) );
 
 	space.iterations = 20;
@@ -1244,7 +1244,7 @@ Planet.prototype.planetGravityVelocityFunc = function(gravity, damping, dt)
 	// to be massive enough that it affects the satellites but not vice versa.
 	var p = this.p;
 	var sqdist = cp.v.lengthsq(p);
-	var g = cp.v.mult(p, -this.gravityStrength / (sqdist * Math.sqrt(sqdist)));
+	var g = cp.v.mult(p, this.gravityStrength / (sqdist * Math.sqrt(sqdist)));
 
 	body.velocity_func(g, damping, dt);
 };
@@ -1277,7 +1277,6 @@ Planet.prototype.add_box = function()
 	var pos = this.rand_pos(radius);
 
 	var body = this.space.addBody( new cp.Body(mass, cp.momentForPoly(mass, verts, cp.vzero)));
-    body.updateVelocity = body.velocity_func;
 	body.velocity_func = this.planetGravityVelocityFunc;
 	body.setPos( cp.v.add(pos, cp.v(winSize.width/2, winSize.height/2) ) );
 
@@ -1285,11 +1284,11 @@ Planet.prototype.add_box = function()
 	// starting position.
 	var r = cp.v.len(pos);
 	var v = Math.sqrt(this.gravityStrength / r) / r;
-	body.setVelocity( cp.v.mult(cp.v.perp(pos), v));
+	body.setVel( cp.v.mult(cp.v.perp(pos), v));
 
 	// Set the box's angular velocity to match its orbital period and
 	// align its initial angle with its position.
-	body.setAngularVelocity(v);
+	body.setAngVel(v);
 	body.setAngle( Math.atan2(pos.y, pos.x));
 
 	var shape = this.space.addShape( new cp.PolyShape(body, verts, cp.vzero));
