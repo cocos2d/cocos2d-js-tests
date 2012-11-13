@@ -205,7 +205,7 @@ ChipmunkChipmunk.prototype.onEnter = function () {
 		this.addSprite( cp.v(winSize.width/2, winSize.height/2) );
 	}
 
-    var t = cc.config.deviceType;
+    var t = cc.config.platform;
     if( t == 'browser' )  {
         this.setTouchEnabled(true);
         this.setKeyboardEnabled(true);

@@ -400,7 +400,7 @@ ChipmunkPage.prototype.onEnter = function () {
 		this.addSprite( cp.v(x, y) );
 	}
 
-    var t = cc.config.deviceType;
+    var t = cc.config.platform;
     if( t == 'browser' || t == 'desktop' ) {
         this.setMouseEnabled(true);
     } else if( t == 'mobile' ) {
@@ -464,7 +464,7 @@ var ParticlesPage = function() {
 
 	this.particle = firework;
 
-    var t = cc.config.deviceType;
+    var t = cc.config.platform;
     if( t == 'browser' || t == 'desktop' ) {
         this.setMouseEnabled(true);
     } else if( t == 'mobile' ) {
