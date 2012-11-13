@@ -411,8 +411,6 @@ var EventTestScene = TestScene.extend({
 // Flow control
 //
 var arrayOfEventsTest = [
-    AccelerometerTest,
-
     TouchOneByOneTest,
     TouchAllAtOnce,
     AccelerometerTest,

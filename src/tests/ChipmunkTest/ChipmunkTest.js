@@ -46,16 +46,17 @@ var ChipmunkBaseLayer = function() {
 	//
 	var parent = cc.base(this);
 	cc.associateWithNative( this, parent );
-	this.init();
+	this.init( cc.c4b(0,0,0,255), cc.c4b(98*0.5,99*0.5,117*0.5,255) );
 
 	this.title =  "No title";
 	this.subtitle = "No Subtitle";
 
 	// Menu to toggle debug physics on / off
     var item = cc.MenuItemFont.create("Physics On/Off", this.onToggleDebug, this);
+    item.setFontSize(24);
     var menu = cc.Menu.create( item );
     this.addChild( menu );
-    menu.setPosition( cc._p( winSize.width-100, winSize.height-80 )  );
+    menu.setPosition( cc._p( winSize.width-100, winSize.height-90 )  );
 
     // Create the initial space
 	this.space = new cp.Space();
@@ -63,7 +64,7 @@ var ChipmunkBaseLayer = function() {
 	this.setupDebugNode();
 };
 
-cc.inherits(ChipmunkBaseLayer, cc.Layer );
+cc.inherits(ChipmunkBaseLayer, cc.LayerGradient );
 
 ChipmunkBaseLayer.prototype.setupDebugNode = function()
 {
@@ -205,14 +206,13 @@ ChipmunkChipmunk.prototype.onEnter = function () {
 		this.addSprite( cp.v(winSize.width/2, winSize.height/2) );
 	}
 
+    // 'browser' can use touches or mouse.
+    // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
     var t = cc.config.platform;
-    if( t == 'browser' )  {
+    if( t == 'browser' || t == 'mobile')  {
         this.setTouchEnabled(true);
-        this.setKeyboardEnabled(true);
     } else if( t == 'desktop' ) {
         this.setMouseEnabled(true);
-    } else if( t == 'mobile' ) {
-        this.setTouchEnabled(true);
     }
 };
 
