@@ -548,13 +548,13 @@ var CameraCenterTest = TestNodeDemo.extend({
 var ConvertToNode = TestNodeDemo.extend({
     ctor:function () {
         this._super();
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' )  {
-            this.setMouseEnabled(true);
+        if( t == 'browser' || t == 'mobile')  {
+            this.setTouchEnabled(true);
         } else if( t == 'desktop' ) {
             this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
-            this.setTouchEnabled(true);
         }
 
         var rotate = cc.RotateBy.create(10, 360);

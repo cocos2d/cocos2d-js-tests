@@ -113,14 +113,13 @@ var TestController = cc.LayerGradient.extend({
         this.addChild(this._itemMenu);
         this.addChild(menu, 1);
 
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' )  {
-            this.setMouseEnabled(true);
-            // this.setKeyboardEnabled(true);
+        if( t == 'browser' || t == 'mobile')  {
+            this.setTouchEnabled(true);
         } else if( t == 'desktop' ) {
             this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
-            this.setTouchEnabled(true);
         }
     },
     onMenuCallback:function (sender) {
