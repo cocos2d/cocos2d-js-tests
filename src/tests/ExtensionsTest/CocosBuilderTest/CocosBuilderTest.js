@@ -33,9 +33,10 @@ var CocosBuilderTestScene = TestScene.extend({
 
          /* Create an autorelease CCBReader. */
          var ccbReader = new cc.CCBReader(ccNodeLoaderLibrary);
+         ccbReader.setCCBRootPath("res/");
 
          /* Read a ccbi file. */
-         var node = ccbReader.readNodeGraphFromFile("res/ccb/official/pub/", "ccb/HelloCocosBuilder.ccbi", this);
+         var node = ccbReader.readNodeGraphFromFile("ccb/HelloCocosBuilder.ccbi", this);
 
          if(node != null) {
              this.addChild(node);
