@@ -1283,6 +1283,11 @@ var ActionCatmullRom = ActionsDemo.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// ActionTargeted
+//
+//------------------------------------------------------------------
 var ActionTargeted = ActionsDemo.extend({
     _code:"a = cc.TargetedAction.create( target, action );",
 
@@ -1311,6 +1316,11 @@ var ActionTargeted = ActionsDemo.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// ActionTargetedCopy
+//
+//------------------------------------------------------------------
 var ActionTargetedCopy = ActionsDemo.extend({
     onEnter:function () {
         this._super();
@@ -1334,6 +1344,11 @@ var ActionTargetedCopy = ActionsDemo.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// PauseResumeActions
+//
+//------------------------------------------------------------------
 var PauseResumeActions = ActionsDemo.extend({
     _pausedTargets:[],
     onEnter:function () {
@@ -1365,6 +1380,11 @@ var PauseResumeActions = ActionsDemo.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// Issue1305
+//
+//------------------------------------------------------------------
 var Issue1305 = ActionsDemo.extend({
     _spriteTemp:null,
     onEnter:function () {
@@ -1399,6 +1419,11 @@ var Issue1305 = ActionsDemo.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// Issue1305_2
+//
+//------------------------------------------------------------------
 var Issue1305_2 = ActionsDemo.extend({
     onEnter:function () {
         this._super();
@@ -1443,6 +1468,11 @@ var Issue1305_2 = ActionsDemo.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// Issue1288
+//
+//------------------------------------------------------------------
 var Issue1288 = ActionsDemo.extend({
     onEnter:function () {
         this._super();
@@ -1467,6 +1497,11 @@ var Issue1288 = ActionsDemo.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// Issue1288_2
+//
+//------------------------------------------------------------------
 var Issue1288_2 = ActionsDemo.extend({
     onEnter:function () {
         this._super();
@@ -1487,6 +1522,11 @@ var Issue1288_2 = ActionsDemo.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// Issue1327
+//
+//------------------------------------------------------------------
 var Issue1327 = ActionsDemo.extend({
     onEnter:function () {
         this._super();
@@ -1520,6 +1560,56 @@ var Issue1327 = ActionsDemo.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// Issue1438
+//
+//------------------------------------------------------------------
+var Issue1438 = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+        this.centerSprites(2);
+
+        //
+        // manual animation
+        //
+        var animation = cc.Animation.create();
+
+        // Add 60 frames
+        for( var j=0; j<4; j++) {
+            for (var i = 1; i < 15; i++) {
+                var frameName = "res/Images/grossini_dance_" + ((i < 10) ? ("0" + i) : i) + ".png";
+                animation.addSpriteFrameWithFile(frameName);
+            }
+        }
+        // And display 60 frames per second
+        animation.setDelayPerUnit(1/60);
+        animation.setRestoreOriginalFrame(true);
+
+        var action = cc.Animate.create(animation);
+        this._kathia.runAction(action);
+
+        //
+        // File animation
+        //
+        var animCache = cc.AnimationCache.getInstance();
+        animCache.addAnimations(s_animations2Plist);
+        var animation2 = animCache.getAnimation("dance_1");
+        animation2.setDelayPerUnit(1/60);
+
+        var action2 = cc.Animate.create(animation2);
+        this._tamara.runAction(cc.Sequence.create(action2, action2.reverse()));
+    },
+
+    title:function () {
+        return "Animation";
+    },
+
+    subtitle:function () {
+        return "Issue 1438. Set FPS to 30 to test this bug.";
+    }
+});
+//-
 //
 // Flow control
 //
@@ -1563,7 +1653,8 @@ var arrayOfActionsTest = [
     Issue1288,
     Issue1288_2,
     Issue1327,
-    ActionAnimate
+    ActionAnimate,
+    Issue1438
 ];
 
 var nextActionsTest = function () {
