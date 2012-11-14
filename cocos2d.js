@@ -90,6 +90,7 @@
             'src/tests/ExtensionsTest/CocosBuilderTest/LabelTest/LabelTestLayer.js',
             'src/tests/ExtensionsTest/CocosBuilderTest/ParticleSystemTest/ParticleSystemTestLayer.js',
             'src/tests/ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js',
+            'src/tests/ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.js',
 
             'src/tests/Box2dTest/Box2dTest.js',
             'src/tests/ChipmunkTest/ChipmunkTest.js']
