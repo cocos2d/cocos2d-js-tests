@@ -1053,7 +1053,7 @@ var GameLayer = cc.LayerGradient.extend({
         var headSprint = new cp.DampedRotarySpring(this.head._body, this.person._body, 0, 20000, 80);
         this._space.addConstraint(headSprint);
 
-        var headJoint = new cp.PivotJoint(this.head._body, this.person._body, cp.v.add(this.head.getPosition(), cp.v(0, -20)));
+        var headJoint = new cp.PivotJoint(this.head._body, this.person._body, cp.v.add(this.head.getPosition(), cp.v(-1, -20)));
         this._space.addConstraint(headJoint);
 
 
