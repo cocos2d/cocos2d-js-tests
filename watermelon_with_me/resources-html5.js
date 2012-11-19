@@ -34,9 +34,14 @@ var s_Konqa32IPADFNT = "Resources/CCB/konqa32-ipad.fnt";
 var s_Konqa32IPADPNG = "Resources/CCB/konqa32-ipad.PNG";
 
 
-var s_GameOverWAV = "Resources/GameOver.wav";
-var PickupCointWAV = "Resources/pickup_coin.wav";
-var s_LevelComplete = "Resources/LevelComplete.wav";
+var s_GameOverWAV = "Resources/sound/GameOver";
+var PickupCointWAV = "Resources/sound/pickup_coin";
+var s_LevelComplete = "Resources/sound/LevelComplete";
+var s_game_music = "Resources/sound/game-music";
+
+
+var s_body = "Resources/body.png";
+var s_head = "Resources/head3.png";
 
 var g_ressources = [
     {type:'plist', src:s_coinsPlist},
@@ -64,7 +69,15 @@ var g_ressources = [
     {type:'effect', src:PickupCointWAV},
     {type:'effect', src:s_LevelComplete},
 
+    {type:'image', src:s_body},
+    {type:'image', src:s_head},
+
+    {type:'plist', src:"Resources/CCB/labels.plist"},
+    {type:'image', src:"Resources/CCB/labels.png"},
+
+    {type:'image', src:"Resources/CCB/watermelon.png"},
     {type:'image', src:"Resources/CCB/Gas40.png"},
     {type:'image', src:s_parallax},
-    {type: 'ccbi', src:s_HUD}
+    {type: 'ccbi', src:s_HUD},
+    {type: 'ccbi', src:"Resources/CCB/MainMenu.ccbi"}
 ];
