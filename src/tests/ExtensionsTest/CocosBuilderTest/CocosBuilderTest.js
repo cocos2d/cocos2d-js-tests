@@ -32,7 +32,7 @@ var CocosBuilderTestScene = TestScene.extend({
          ccNodeLoaderLibrary.registerCCNodeLoader("HelloCocosBuilderLayer", new HelloCocosBuilderLayerLoader());
 
          /* Create an autorelease CCBReader. */
-         var ccbReader = new cc.CCBReader(ccNodeLoaderLibrary);
+         var ccbReader = new cc.BuilderReader(ccNodeLoaderLibrary);
          ccbReader.setCCBRootPath("res/");
 
          /* Read a ccbi file. */

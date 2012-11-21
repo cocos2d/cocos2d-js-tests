@@ -187,6 +187,26 @@ var g_ressources = [
     {type:"plist",src:"res/ccb/grossini-generic.plist"} ,
     {type:"plist",src:"res/ccb/animated-grossini.plist"} ,
 
+    //@face-font for WebFonts
+    {type: "face-font",fontName:"Thonburi",
+        srcArr:[
+            {src:"res/fonts/Thonburi.eot", type:"embedded-opentype"},
+            {src:"res/fonts/Thonburi.ttf",type:"truetype"}]},
+            //{src:"res/fonts/Schwarzwald_Regular.woff", type:"woff"},
+            //{src:"res/fonts/Schwarzwald Regular.svg",type:"svg"}]},
+    {type: "face-font",fontName:"Schwarzwald Regular",
+        srcArr:[
+            {src:"res/fonts/Schwarzwald_Regular.eot", type:"embedded-opentype"},
+            {src:"res/fonts/Schwarzwald Regular.ttf",type:"truetype"}]},
+    {type: "face-font",fontName:"ThonburiBold",
+        srcArr:[
+            {src:"res/fonts/ThonburiBold.eot", type:"embedded-opentype"},
+            {src:"res/fonts/ThonburiBold.ttf",type:"truetype"}]},
+    {type: "face-font",fontName:"Courier New",
+        srcArr:[
+            {src:"res/fonts/Courier New.eot", type:"embedded-opentype"},
+            {src:"res/fonts/Courier New.ttf",type:"truetype"}]},
+
     //image ressources
     {type:"image", src:s_extensions_background},
     {type:"image", src:s_extensions_buttonBackground},
