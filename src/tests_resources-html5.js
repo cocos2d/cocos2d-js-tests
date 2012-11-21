@@ -48,6 +48,11 @@ var s_dragon_animation = "res/animations/dragon_animation.png";
 var s_ghosts = "res/animations/ghosts.png";
 var s_grossini_family = "res/animations/grossini_family.png";
 
+var s_tcc_issue_1 = "res/animations/tcc_issue_1.png";
+var s_tcc_issue_2 = "res/animations/tcc_issue_2.png";
+var s_tcc_issue_1_plist = "res/animations/tcc_issue_1.plist";
+var s_tcc_issue_2_plist = "res/animations/tcc_issue_2.plist";
+
 var s_boilingFoamPlist = "res/Images/BoilingFoam.plist";
 var s_grossiniPlist = "res/animations/grossini.plist";
 var s_grossini_grayPlist = "res/animations/grossini_gray.plist";
@@ -378,5 +383,11 @@ var g_ressources = [
     {type:"plist", src:"res/Particles/Spiral.plist"},
     {type:"plist", src:"res/Particles/SpookyPeas.plist"},
     {type:"plist", src:"res/Particles/TestPremultipliedAlpha.plist"},
-    {type:"plist", src:"res/Particles/Upsidedown.plist"}
+    {type:"plist", src:"res/Particles/Upsidedown.plist"},
+
+    {type:"plist", src:s_tcc_issue_1_plist},
+    {type:"plist", src:s_tcc_issue_2_plist},
+    {type:"image", src:s_tcc_issue_1},
+    {type:"image", src:s_tcc_issue_2}
+    
 ];

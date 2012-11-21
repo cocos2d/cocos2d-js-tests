@@ -3726,6 +3726,32 @@ var SpriteBatchBug1217 = SpriteTestDemo.extend({
     }
 });
 
+var TextureColorCacheIssue = SpriteTestDemo.extend({
+
+    _title:"Texture Color Cache Issue Test",
+    _subtitle:"You should see two different sprites colored green and blue",
+
+    ctor:function() {
+        this._super();
+
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_tcc_issue_1_plist, s_tcc_issue_1);
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
+
+        var grossini = cc.Sprite.createWithSpriteFrameName('grossini_dance_01.png');
+        grossini.setPosition(cc.p(200, 200));
+
+        var sister = cc.Sprite.createWithSpriteFrameName('grossinis_sister1.png');
+        sister.setPosition(cc.p(400, 200));
+
+        this.addChild(grossini);
+        this.addChild(sister);
+               
+        grossini.setColor(cc.c3b(0, 255, 0));
+        sister.setColor(cc.c3b(0, 0, 255));
+    }
+});
+
+
 var SpriteTestScene = TestScene.extend({
     runThisTest:function () {
         sceneIdx = -1;
@@ -3796,7 +3822,8 @@ var arrayOfSpriteTest = [
     SpriteBatchNodeSkewNegativeScaleChildren,
     SpriteDoubleResolution,
     SpriteBatchBug1217,
-    AnimationCacheFile
+    AnimationCacheFile,
+    TextureColorCacheIssue
 ];
 
 var nextSpriteTest = function () {
