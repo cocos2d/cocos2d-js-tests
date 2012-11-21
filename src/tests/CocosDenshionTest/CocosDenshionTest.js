@@ -31,7 +31,7 @@ if ( cc.config.platform == 'browser' ) {
     var EFFECT_FILE = "res/effect2";
 } else if (cc.config.engine == 'cocos2d-x') {
     var MUSIC_FILE = "res/background.mp3";
-    var EFFECT_FILE = "res/effect2.mp3"; 
+    var EFFECT_FILE = "res/effect2.mp3";
 } else {
     var MUSIC_FILE = "Cyber Advance!.mp3";
     var EFFECT_FILE = "cowbell.wav";
@@ -184,11 +184,13 @@ CocosDenshionTest = cc.LayerGradient.extend({
         this._itemMenu.setPosition(0,0);
         this.addChild(this._itemMenu);
 
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'desktop')  {
-            this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
+        if( t == 'browser' || t == 'mobile')  {
             this.setTouchEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
         }
 
         // set default volume

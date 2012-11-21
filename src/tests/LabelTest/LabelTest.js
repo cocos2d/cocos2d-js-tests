@@ -260,8 +260,6 @@ var LabelAtlasColorTest = AtlasDemo.extend({
 //
 // Atlas3
 //
-// Use any of these editors to generate BMFonts:
-//
 //------------------------------------------------------------------
 var Atlas3 = AtlasDemo.extend({
     time:0,
@@ -330,8 +328,6 @@ var Atlas3 = AtlasDemo.extend({
 //------------------------------------------------------------------
 //
 // Atlas4
-//
-// Use any of these editors to generate BMFonts:
 //
 //------------------------------------------------------------------
 var Atlas4 = AtlasDemo.extend({
@@ -410,9 +406,6 @@ var Atlas4 = AtlasDemo.extend({
 //
 // Atlas5
 //
-// Use any of these editors to generate BMFonts:
-//
-//
 //------------------------------------------------------------------
 var Atlas5 = AtlasDemo.extend({
     ctor:function () {
@@ -436,8 +429,6 @@ var Atlas5 = AtlasDemo.extend({
 //------------------------------------------------------------------
 //
 // Atlas6
-//
-// Use any of these editors to generate BMFonts:
 //
 //------------------------------------------------------------------
 var Atlas6 = AtlasDemo.extend({
@@ -472,8 +463,6 @@ var Atlas6 = AtlasDemo.extend({
 //------------------------------------------------------------------
 //
 // AtlasBitmapColor
-//
-// Use any of these editors to generate BMFonts:
 //
 //------------------------------------------------------------------
 var AtlasBitmapColor = AtlasDemo.extend({
@@ -513,8 +502,6 @@ var AtlasBitmapColor = AtlasDemo.extend({
 //
 // AtlasFastBitmap
 //
-// Use any of these editors to generate BMFonts:
-//
 //------------------------------------------------------------------
 var AtlasFastBitmap = AtlasDemo.extend({
     ctor:function () {
@@ -539,11 +526,10 @@ var AtlasFastBitmap = AtlasDemo.extend({
         return "Creating several cc.LabelBMFont with the same .fnt file should be fast";
     }
 });
+
 //------------------------------------------------------------------
 //
 // BitmapFontMultiLine
-//
-// Use any of these editors to generate BMFonts:
 //
 //------------------------------------------------------------------
 var BitmapFontMultiLine = AtlasDemo.extend({
@@ -586,6 +572,58 @@ var BitmapFontMultiLine = AtlasDemo.extend({
     },
     subtitle:function () {
         return "Multiline + anchor point";
+    }
+});
+
+//------------------------------------------------------------------
+//
+// BitmapFontMultiLine2
+//
+//------------------------------------------------------------------
+var BitmapFontMultiLine2 = AtlasDemo.extend({
+    ctor:function () {
+        this._super();
+        var s;
+
+        // Left
+        var label1 = cc.LabelBMFont.create("Multi line\n\nAligned to the left", "res/fonts/bitmapFontTest3.fnt");
+        label1.setAnchorPoint(cc.p(0, 0));
+        label1.setAlignment(cc.TEXT_ALIGNMENT_LEFT);
+        label1.setWidth( 400 );
+        this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
+        s = label1.getContentSize();
+        cc.log("content size:" + s.width + "," + s.height);
+
+
+        // Center
+        var label2 = cc.LabelBMFont.create("Error\n\nSome error message", "res/fonts/bitmapFontTest3.fnt");
+        label2.setAnchorPoint(cc.p(0.5, 0.5));
+        label2.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
+        label2.setWidth( 290 );
+        this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
+        s = label2.getContentSize();
+        cc.log("content size:" + s.width + "," + s.height);
+
+        // right
+        var label3 = cc.LabelBMFont.create("Multi line\n\nAligned to the right", "res/fonts/bitmapFontTest3.fnt");
+        label3.setAnchorPoint(cc.p(1, 1));
+        label3.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
+        label3.setWidth( 400 );
+        this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
+
+        s = label3.getContentSize();
+        cc.log("content size:" + s.width + "," + s.height);
+
+        s = director.getWinSize();
+        label1.setPosition(cc.p(0, 0));
+        label2.setPosition(cc.p(s.width / 2, s.height / 2));
+        label3.setPosition(cc.p(s.width, s.height));
+    },
+    title:function () {
+        return "cc.LabelBMFont";
+    },
+    subtitle:function () {
+        return "Multiline with 2 new lines. All characters should appear";
     }
 });
 
@@ -912,11 +950,13 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
     ctor:function () {
         this._super();
 
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'desktop' ) {
-            this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
+        if( t == 'browser' || t == 'mobile')  {
             this.setTouchEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
         }
 
         // ask director the the window size
@@ -1238,6 +1278,7 @@ var arrayOfLabelTest = [
     AtlasBitmapColor,
     AtlasFastBitmap,
     BitmapFontMultiLine,
+    BitmapFontMultiLine2,
     LabelsEmpty,
     LabelBMFontHD,
     LabelAtlasHD,

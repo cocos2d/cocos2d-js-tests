@@ -46,16 +46,17 @@ var ChipmunkBaseLayer = function() {
 	//
 	var parent = cc.base(this);
 	cc.associateWithNative( this, parent );
-	this.init();
+	this.init( cc.c4b(0,0,0,255), cc.c4b(98*0.5,99*0.5,117*0.5,255) );
 
 	this.title =  "No title";
 	this.subtitle = "No Subtitle";
 
 	// Menu to toggle debug physics on / off
     var item = cc.MenuItemFont.create("Physics On/Off", this.onToggleDebug, this);
+    item.setFontSize(24);
     var menu = cc.Menu.create( item );
     this.addChild( menu );
-    menu.setPosition( cc._p( winSize.width-100, winSize.height-80 )  );
+    menu.setPosition( cc._p( winSize.width-100, winSize.height-90 )  );
 
     // Create the initial space
 	this.space = new cp.Space();
@@ -63,7 +64,7 @@ var ChipmunkBaseLayer = function() {
 	this.setupDebugNode();
 };
 
-cc.inherits(ChipmunkBaseLayer, cc.Layer );
+cc.inherits(ChipmunkBaseLayer, cc.LayerGradient );
 
 ChipmunkBaseLayer.prototype.setupDebugNode = function()
 {
@@ -139,7 +140,7 @@ ChipmunkBaseLayer.prototype.onBackCallback = function (sender) {
 // Chipmunk + Sprite
 //
 //------------------------------------------------------------------
-var ChipmunkChipmunk = function() {
+var ChipmunkSprite = function() {
 
 	cc.base(this);
 
@@ -153,7 +154,7 @@ var ChipmunkChipmunk = function() {
 
 	this.initPhysics();
 };
-cc.inherits( ChipmunkChipmunk, ChipmunkBaseLayer );
+cc.inherits( ChipmunkSprite, ChipmunkBaseLayer );
 
 //
 // Instance 'base' methods
@@ -161,7 +162,7 @@ cc.inherits( ChipmunkChipmunk, ChipmunkBaseLayer );
 //
 
 // init physics
-ChipmunkChipmunk.prototype.initPhysics = function() {
+ChipmunkSprite.prototype.initPhysics = function() {
 	var space = this.space ;
 	var staticBody = space.staticBody;
 
@@ -182,7 +183,7 @@ ChipmunkChipmunk.prototype.initPhysics = function() {
 	space.gravity = cp.v(0, -100);
 };
 
-ChipmunkChipmunk.prototype.createPhysicsSprite = function( pos ) {
+ChipmunkSprite.prototype.createPhysicsSprite = function( pos ) {
 	var body = new cp.Body(1, cp.momentForBox(1, 48, 108) );
 	body.setPos( pos );
 	this.space.addBody( body );
@@ -196,7 +197,7 @@ ChipmunkChipmunk.prototype.createPhysicsSprite = function( pos ) {
 	return sprite;
 };
 
-ChipmunkChipmunk.prototype.onEnter = function () {
+ChipmunkSprite.prototype.onEnter = function () {
 
 	cc.base(this, 'onEnter');
 
@@ -205,26 +206,25 @@ ChipmunkChipmunk.prototype.onEnter = function () {
 		this.addSprite( cp.v(winSize.width/2, winSize.height/2) );
 	}
 
+    // 'browser' can use touches or mouse.
+    // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
     var t = cc.config.platform;
-    if( t == 'browser' )  {
+    if( t == 'browser' || t == 'mobile')  {
         this.setTouchEnabled(true);
-        this.setKeyboardEnabled(true);
     } else if( t == 'desktop' ) {
         this.setMouseEnabled(true);
-    } else if( t == 'mobile' ) {
-        this.setTouchEnabled(true);
     }
 };
 
-ChipmunkChipmunk.prototype.update = function( delta ) {
+ChipmunkSprite.prototype.update = function( delta ) {
 	this.space.step( delta );
 };
 
-ChipmunkChipmunk.prototype.onMouseDown = function( event ) {
+ChipmunkSprite.prototype.onMouseDown = function( event ) {
 	this.addSprite( event.getLocation() );
 };
 
-ChipmunkChipmunk.prototype.onTouchesEnded = function( touches, event ) {
+ChipmunkSprite.prototype.onTouchesEnded = function( touches, event ) {
 	var l = touches.length;
 	for( var i=0; i < l; i++) {
 		this.addSprite( touches[i].getLocation() );
@@ -252,7 +252,7 @@ var ChipmunkSpriteBatchTest = function() {
 	this.title = 'Chipmunk SpriteBatch Test';
 	this.subtitle = 'Chipmunk + cocos2d sprite batch tests. Tap screen.';
 };
-cc.inherits( ChipmunkSpriteBatchTest, ChipmunkChipmunk );
+cc.inherits( ChipmunkSpriteBatchTest, ChipmunkSprite );
 
 
 //------------------------------------------------------------------
@@ -541,6 +541,84 @@ var ChipmunkCollisionMemoryLeakTest = function() {
 	};
 };
 cc.inherits( ChipmunkCollisionMemoryLeakTest, ChipmunkBaseLayer );
+
+//------------------------------------------------------------------
+//
+// Test Anchor Point with PhysicsSprite
+//
+//------------------------------------------------------------------
+var ChipmunkSpriteAnchorPoint = function() {
+
+	cc.base(this);
+
+	this.title = 'AnchorPoint in PhysicsSprite';
+	this.subtitle = 'Tests AnchorPoint in PhysicsSprite. See animated sprites';
+
+    this.onEnter = function() {
+        cc.base(this, 'onEnter');
+
+		this._debugNode.setVisible( true );
+
+		this.space.gravity = v(0, 0);
+
+		var sprite1 = this.createPhysicsSprite( cp.v(winSize.width/4*1, winSize.height/2) );
+		var sprite2 = this.createPhysicsSprite( cp.v(winSize.width/4*2, winSize.height/2) );
+		var sprite3 = this.createPhysicsSprite( cp.v(winSize.width/4*3, winSize.height/2) );
+
+		sprite1.setAnchorPoint( cc.p(0,0) );
+		sprite2.setAnchorPoint( cc.p(0.5,0.5) );
+		sprite3.setAnchorPoint( cc.p(1,1) );
+
+		// scale sprite
+		var scaledown = cc.ScaleBy.create(0.5, 0.5);
+		var scaleup = scaledown.reverse();
+		var seq = cc.Sequence.create( scaledown, scaleup);
+		var repeat = cc.RepeatForever.create( seq );
+
+		sprite1.runAction( repeat );
+		sprite2.runAction( repeat.copy() );
+		sprite3.runAction( repeat.copy() );
+
+		this.addChild(sprite1);
+		this.addChild(sprite2);
+		this.addChild(sprite3);
+
+		this.scheduleUpdate();
+    };
+
+};
+cc.inherits( ChipmunkSpriteAnchorPoint, ChipmunkBaseLayer );
+
+ChipmunkSpriteAnchorPoint.prototype.createPhysicsSprite = function(pos) {
+
+    // create body
+	var body = new cp.Body(1, cp.momentForBox(1, 48, 108) );
+	body.setPos( pos );
+	this.space.addBody( body );
+
+	// create shape
+	var shape = new cp.BoxShape( body, 48, 108);
+	shape.setElasticity( 0.5 );
+	shape.setFriction( 0.5 );
+	this.space.addShape( shape );
+
+	// create sprite
+	var sprite = cc.PhysicsSprite.create(s_pathGrossini);
+
+	// associate sprite with body
+	sprite.setBody( body );
+
+	return sprite;
+};
+
+ChipmunkSpriteAnchorPoint.prototype.update = function(dt)
+{
+	var steps = 1;
+	dt /= steps;
+	for (var i = 0; i < steps; i++){
+		this.space.step(dt);
+	}
+};
 
 
 //
@@ -1329,10 +1407,11 @@ var arrayOfChipmunkTest =  [
 		Balls,
 
 // Custom Tests
-		ChipmunkChipmunk ,
+		ChipmunkSprite ,
 		ChipmunkSpriteBatchTest ,
 		ChipmunkCollisionTest,
-		ChipmunkCollisionMemoryLeakTest
+		ChipmunkCollisionMemoryLeakTest,
+		ChipmunkSpriteAnchorPoint
 		];
 
 if( cc.config.platform !== 'browser' )
