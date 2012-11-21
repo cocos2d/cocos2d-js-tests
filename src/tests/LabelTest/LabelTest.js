@@ -909,7 +909,6 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
     arrowsShouldRetain:null,
     lastSentenceItem:null,
     lastAlignmentItem:null,
-    drag:null,
     ctor:function () {
         this._super();
 
@@ -1019,7 +1018,6 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
             case RightAlign:
                 this.labelShouldRetain.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
                 break;
-
             default:
                 break;
         }
@@ -1031,20 +1029,14 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
         var location = touch.getLocation();
 
         if (cc.Rect.CCRectContainsPoint(this.arrowsShouldRetain.getBoundingBox(), location)) {
-            this.drag = true;
             this.arrowsBarShouldRetain.setVisible(true);
         }
     },
     onTouchesEnded:function () {
-        this.drag = false;
         this.snapArrowsToEdge();
         this.arrowsBarShouldRetain.setVisible(false);
     },
     onTouchesMoved:function (touches) {
-        if (!this.drag) {
-            return;
-        }
-
         var touch = touches[0];
         var location = touch.getLocation();
 
@@ -1057,6 +1049,28 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
 
         this.labelShouldRetain.setWidth(labelWidth);
     },
+
+    onMouseDown:function(touch){
+        var location = touch.getLocation();
+
+        if (cc.Rect.CCRectContainsPoint(this.arrowsShouldRetain.getBoundingBox(), location)) {
+            this.arrowsBarShouldRetain.setVisible(true);
+        }
+    },
+    onMouseDragged:function(touch){
+        var location = touch.getLocation();
+        var winSize = director.getWinSize();
+
+        this.arrowsShouldRetain.setPosition(cc.p(Math.max(Math.min(location.x, ArrowsMax * winSize.width), ArrowsMin * winSize.width),
+            this.arrowsShouldRetain.getPosition().y));
+        var labelWidth = Math.abs(this.arrowsShouldRetain.getPosition().x - this.labelShouldRetain.getPosition().x) * 2;
+        this.labelShouldRetain.setWidth(labelWidth);
+    },
+    onMouseUp:function(touch){
+        this.snapArrowsToEdge();
+        this.arrowsBarShouldRetain.setVisible(false);
+    },
+
     snapArrowsToEdge:function () {
         this.arrowsShouldRetain.setPosition(cc.p(this.labelShouldRetain.getPosition().x + this.labelShouldRetain.getContentSize().width / 2,
             this.labelShouldRetain.getPosition().y));
@@ -1214,6 +1228,7 @@ var LabelTTFAlignment = AtlasDemo.extend({
 // Flow control
 //
 var arrayOfLabelTest = [
+    BitmapFontMultiLineAlignment,
     LabelAtlasTest,
     LabelAtlasColorTest,
     Atlas3,

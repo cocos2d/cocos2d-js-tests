@@ -38,7 +38,7 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
         }
 
         /* Create an autorelease CCBReader. */
-        var ccbReader = new cc.CCBReader(ccNodeLoaderLibrary);
+        var ccbReader = new cc.BuilderReader(ccNodeLoaderLibrary);
         ccbReader.setCCBRootPath("res/");
 
         /* Read a ccbi file. */
@@ -127,7 +127,7 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
         ccNodeLoaderLibrary.registerCCNodeLoader("TestAnimationsLayer", new AnimationsTestLayerLoader());
 
         /* Create an autorelease CCBReader. */
-        var ccbReader = new cc.CCBReader(ccNodeLoaderLibrary);
+        var ccbReader = new cc.BuilderReader(ccNodeLoaderLibrary);
         ccbReader.setCCBRootPath("res/");
 
         /* Read a ccbi file. */
