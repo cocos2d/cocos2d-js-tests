@@ -3734,20 +3734,21 @@ var TextureColorCacheIssue = SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_tcc_issue_1_plist, s_tcc_issue_1);
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
+        var spriteFrameCache = cc.SpriteFrameCache.getInstance();
+        spriteFrameCache.addSpriteFrames(s_tcc_issue_1_plist, s_tcc_issue_1);
+        spriteFrameCache.addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
 
         var grossini = cc.Sprite.createWithSpriteFrameName('grossini_dance_01.png');
-        grossini.setPosition(cc.p(200, 200));
+        grossini.setPosition(winSize.width/3*1,winSize.height/2);
 
         var sister = cc.Sprite.createWithSpriteFrameName('grossinis_sister1.png');
-        sister.setPosition(cc.p(400, 200));
+        sister.setPosition(winSize.width/3*2,winSize.height/2);
 
         this.addChild(grossini);
         this.addChild(sister);
-               
-        grossini.setColor(cc.c3b(0, 255, 0));
-        sister.setColor(cc.c3b(0, 0, 255));
+
+        grossini.setColor(cc.c3b(1, 255, 1));
+        sister.setColor(cc.c3b(1, 1, 255));
     }
 });
 
