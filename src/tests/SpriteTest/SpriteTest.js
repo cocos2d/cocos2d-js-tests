@@ -124,11 +124,13 @@ var Sprite1 = SpriteTestDemo.extend({
 
         this.addNewSpriteWithCoords(cc.p(winSize.width / 2, winSize.height / 2));
 
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'desktop')  {
-            this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
+        if( t == 'browser' || t == 'mobile')  {
             this.setTouchEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
         }
     },
 
@@ -191,11 +193,13 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
 
     ctor:function () {
         this._super();
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'desktop')  {
-            this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
+        if( t == 'browser' || t == 'mobile')  {
             this.setTouchEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
         }
 
         var batchNode = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 50);
@@ -1204,11 +1208,13 @@ var SpriteNewTexture = SpriteTestDemo.extend({
     ctor:function () {
         this._super();
 
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'desktop')  {
-            this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
+        if( t == 'browser' || t == 'mobile')  {
             this.setTouchEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
         }
 
         var node = cc.Node.create();
@@ -1304,11 +1310,13 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
 
     ctor:function() {
         this._super();
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'desktop')  {
-            this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
+        if( t == 'browser' || t == 'mobile')  {
             this.setTouchEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
         }
 
         var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 50);
@@ -3122,6 +3130,7 @@ var MySprite1 = cc.Sprite.extend({
     _ivar:0,
     ctor:function() {
         this._super();
+        cc.associateWithNative( this, cc.Sprite );
     }
 });
 MySprite1.spriteWithSpriteFrameName = function (spriteFrameName) {
@@ -3136,6 +3145,7 @@ var MySprite2 = cc.Sprite.extend({
     _ivar:0,
     ctor:function() {
         this._super();
+        cc.associateWithNative( this, cc.Sprite );
     }
 });
 MySprite2.spriteWithFile = function (name) {
@@ -3544,6 +3554,12 @@ var SpriteSkewNegativeScaleChildren = SpriteTestDemo.extend({
 
 var DoubleSprite = cc.Sprite.extend({
     HD:false,
+
+    ctor:function() {
+        this._super();
+        cc.associateWithNative( this, cc.Sprite );
+    },
+
     initWithTexture:function (texture, rect) {
         if (this._super(texture, rect)) {
             //var resolutionType = texture.getResolutionType();
@@ -3710,6 +3726,33 @@ var SpriteBatchBug1217 = SpriteTestDemo.extend({
     }
 });
 
+var TextureColorCacheIssue = SpriteTestDemo.extend({
+
+    _title:"Texture Color Cache Issue Test",
+    _subtitle:"You should see two different sprites colored green and blue",
+
+    ctor:function() {
+        this._super();
+
+        var spriteFrameCache = cc.SpriteFrameCache.getInstance();
+        spriteFrameCache.addSpriteFrames(s_tcc_issue_1_plist, s_tcc_issue_1);
+        spriteFrameCache.addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
+
+        var grossini = cc.Sprite.createWithSpriteFrameName('grossini_dance_01.png');
+        grossini.setPosition(winSize.width/3*1,winSize.height/2);
+
+        var sister = cc.Sprite.createWithSpriteFrameName('grossinis_sister1.png');
+        sister.setPosition(winSize.width/3*2,winSize.height/2);
+
+        this.addChild(grossini);
+        this.addChild(sister);
+
+        grossini.setColor(cc.c3b(1, 255, 1));
+        sister.setColor(cc.c3b(1, 1, 255));
+    }
+});
+
+
 var SpriteTestScene = TestScene.extend({
     runThisTest:function () {
         sceneIdx = -1;
@@ -3780,7 +3823,8 @@ var arrayOfSpriteTest = [
     SpriteBatchNodeSkewNegativeScaleChildren,
     SpriteDoubleResolution,
     SpriteBatchBug1217,
-    AnimationCacheFile
+    AnimationCacheFile,
+    TextureColorCacheIssue
 ];
 
 var nextSpriteTest = function () {

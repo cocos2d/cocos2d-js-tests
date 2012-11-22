@@ -36,11 +36,13 @@ var TileDemo = cc.Layer.extend({
         cc.associateWithNative(this, cc.Layer);
         this.init();
 
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'desktop' ) {
-            this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
+        if( t == 'browser' || t == 'mobile')  {
             this.setTouchEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
         }
     },
     title:function () {
@@ -576,12 +578,15 @@ var TMXOrthoObjectsTest = TileDemo.extend({
         var s = map.getContentSize();
 
         var group = map.getObjectGroup("Object Group 1");
-        var objects = group.getObjects();
-
-        for (var i = 0; i < objects.length; i++) {
-            var dict = objects[i];
+        var array = group.getObjects();
+        var dict;
+        for (var i = 0, len = array.length; i < len; i++) {
+            dict = array[i];
             if (!dict)
                 break;
+            for( var k in dict) {
+                cc.log( k + ' = ' + dict[k] );
+            }
         }
     },
     draw:function () {
@@ -631,13 +636,15 @@ var TMXIsoObjectsTest = TileDemo.extend({
         var s = map.getContentSize();
 
         var group = map.getObjectGroup("Object Group 1");
-        var objects = group.getObjects();
-
+        var array = group.getObjects();
         var dict;
-        for (var i = 0, len = objects.length; i < len; i++) {
-            dict = objects[i];
+        for (var i = 0, len = array.length; i < len; i++) {
+            dict = array[i];
             if (!dict)
                 break;
+            for( var k in dict) {
+                cc.log( k + ' = ' + dict[k] );
+            }
         }
     },
     title:function () {
@@ -1180,6 +1187,18 @@ var TMXGIDObjectsTest = TileDemo.extend({
         var s = map.getContentSize();
         cc.log("ContentSize:" + s.width + "," + s.height);
         cc.log("---. Iterating over all the group objets");
+
+        var group = map.getObjectGroup("Object Layer 1");
+        var array = group.getObjects();
+        var dict;
+        for (var i = 0, len = array.length; i < len; i++) {
+            dict = array[i];
+            if (!dict)
+                break;
+            for( var k in dict) {
+                cc.log( k + ' = ' + dict[k] );
+            }
+        }
     },
     title:function () {
         return "TMX GID objects";

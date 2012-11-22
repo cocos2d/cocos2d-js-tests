@@ -171,11 +171,13 @@ var ParticleDemo = cc.LayerGradient.extend({
 
         this._emitter = null;
 
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'desktop' ) {
-            this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
+        if( t == 'browser' || t == 'mobile')  {
             this.setTouchEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
         }
 
         var s = director.getWinSize();

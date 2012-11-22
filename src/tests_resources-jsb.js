@@ -48,6 +48,11 @@ var s_dragon_animation = "res/animations/dragon_animation.png";
 var s_ghosts = "res/animations/ghosts.png";
 var s_grossini_family = "res/animations/grossini_family.png";
 
+var s_tcc_issue_1 = "res/animations/tcc_issue_1.png";
+var s_tcc_issue_2 = "res/animations/tcc_issue_2.png";
+var s_tcc_issue_1_plist = "res/animations/tcc_issue_1.plist";
+var s_tcc_issue_2_plist = "res/animations/tcc_issue_2.plist";
+
 var s_boilingFoamPlist = "res/Images/BoilingFoam.plist";
 var s_grossiniPlist = "res/animations/grossini.plist";
 var s_grossini_grayPlist = "res/animations/grossini_gray.plist";
@@ -142,38 +147,50 @@ var s_image_icon = "res/Images/Icon.png";
 
 var g_ressources = [
     //ccbi resource
-    {type:"ccbi", src:"res/ccb/official/pub/ccb/HelloCocosBuilder.ccbi"},
-    {type:"ccbi", src:"res/ccb/official/pub/ccb/ButtonTest.ccbi"},
-    {type:"ccbi", src:"res/ccb/official/pub/ccb/SpriteTest.ccbi"},
-    {type:"ccbi", src:"res/ccb/official/pub/ccb/MenuTest.ccbi"},
-    {type:"ccbi", src:"res/ccb/official/pub/ccb/ParticleSystemTest.ccbi"},
-    {type:"ccbi", src:"res/ccb/official/pub/ccb/ScrollViewTest.ccbi"},
-    {type:"ccbi", src:"res/ccb/official/pub/ccb/ScrollViewTestContent.ccbi"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-test-0.png"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-test-1.png"},
-    {type:"image", src:"res/ccb/official/pub/res/logo.png"},
-    {type:"image", src:"res/ccb/official/pub/res/jungle-right.png"},
-    {type:"image", src:"res/ccb/official/pub/res/jungle-left.png"},
-    {type:"image", src:"res/ccb/official/pub/res/burst.png"},
-    {type:"image", src:"res/ccb/official/pub/res/jungle-left.png"},
-    {type:"image", src:"res/ccb/official/pub/res/logo-icon.png"},
-    {type:"image", src:"res/ccb/official/pub/res/particle-snow.png"},
-    {type:"image", src:"res/ccb/official/pub/res/particle-fire.png"},
-    {type:"image", src:"res/ccb/official/pub/res/particle-smoke.png"},
-    {type:"image", src:"res/ccb/official/pub/res/particle-stars.png"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-back-0.png"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-back-1.png"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-a-0.png"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-a-1.png"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-a-2.png"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-b-0.png"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-b-1.png"},
-    {type:"image", src:"res/ccb/official/pub/res/btn-b-2.png"},
-    {type:"image", src:"res/ccb/official/pub/res/flower.jpg"},
-    {type:"image", src:"res/ccb/official/pub/res/scale-9-demo.png"},
-    {type:"image", src:"res/ccb/official/pub/res/markerfelt24shadow.png"},
-    {type:"fnt", src:"res/ccb/official/pub/res/markerfelt24shadow.fnt"},
-    {type:"plist",src:"res/ccb/official/pub/res/grossini-generic.plist"} ,
+    {type:"ccbi", src:"res/ccb/HelloCocosBuilder.ccbi"},
+    {type:"ccbi", src:"res/ccb/ccb/TestAnimations.ccbi"},
+    {type:"ccbi", src:"res/ccb/ccb/TestAnimationsSub.ccbi"},
+    {type:"ccbi", src:"res/ccb/ccb/TestButtons.ccbi"},
+    {type:"ccbi", src:"res/ccb/ccb/TestHeader.ccbi"},
+    {type:"ccbi", src:"res/ccb/ccb/TestLabels.ccbi"},
+    {type:"ccbi", src:"res/ccb/ccb/TestMenus.ccbi"},
+    {type:"ccbi", src:"res/ccb/ccb/TestParticleSystems.ccbi"},
+    {type:"ccbi", src:"res/ccb/ccb/TestScrollViews.ccbi"},
+    {type:"ccbi", src:"res/ccb/ccb/TestScrollViewsContentA.ccbi"},
+    {type:"ccbi", src:"res/ccb/ccb/TestSprites.ccbi"},
+
+    {type:"image", src:"res/ccb/btn-test-0.png"},
+    {type:"image", src:"res/ccb/animated-grossini.png"},
+    {type:"image", src:"res/ccb/btn-a-0.png"},
+    {type:"image", src:"res/ccb/btn-a-1.png"},
+    {type:"image", src:"res/ccb/btn-a-2.png"},
+    {type:"image", src:"res/ccb/btn-b-0.png"},
+    {type:"image", src:"res/ccb/btn-b-1.png"},
+    {type:"image", src:"res/ccb/btn-b-2.png"},
+    {type:"image", src:"res/ccb/btn-back-0.png"},
+    {type:"image", src:"res/ccb/btn-back-1.png"},
+    {type:"image", src:"res/ccb/btn-test-0.png"},
+    {type:"image", src:"res/ccb/btn-test-1.png"},
+    {type:"image", src:"res/ccb/btn-test-2.png"},
+    {type:"image", src:"res/ccb/burst.png"},
+    {type:"image", src:"res/ccb/flower.jpg"},
+    {type:"image", src:"res/ccb/grossini-generic.png"},
+    {type:"image", src:"res/ccb/jungle.png"},
+    {type:"image", src:"res/ccb/jungle-left.png"},
+    {type:"image", src:"res/ccb/jungle-right.png"},
+    {type:"image", src:"res/ccb/logo.png"},
+    {type:"image", src:"res/ccb/logo-icon.png"},
+    {type:"image", src:"res/ccb/markerfelt24shadow.png"},
+    {type:"image", src:"res/ccb/particle-fire.png"},
+    {type:"image", src:"res/ccb/particle-smoke.png"},
+    {type:"image", src:"res/ccb/particle-snow.png"},
+    {type:"image", src:"res/ccb/particle-stars.png"},
+    {type:"image", src:"res/ccb/scale-9-demo.png"},
+
+    {type:"fnt", src:"res/ccb/markerfelt24shadow.fnt"},
+
+    {type:"plist",src:"res/ccb/grossini-generic.plist"} ,
+    {type:"plist",src:"res/ccb/animated-grossini.plist"} ,
 
     //image ressources
     {type:"image", src:s_extensions_background},
@@ -366,5 +383,11 @@ var g_ressources = [
     {type:"plist", src:"res/Particles/Spiral.plist"},
     {type:"plist", src:"res/Particles/SpookyPeas.plist"},
     {type:"plist", src:"res/Particles/TestPremultipliedAlpha.plist"},
-    {type:"plist", src:"res/Particles/Upsidedown.plist"}
+    {type:"plist", src:"res/Particles/Upsidedown.plist"},
+
+    {type:"plist", src:s_tcc_issue_1_plist},
+    {type:"plist", src:s_tcc_issue_2_plist},
+    {type:"image", src:s_tcc_issue_1},
+    {type:"image", src:s_tcc_issue_2}
+
 ];

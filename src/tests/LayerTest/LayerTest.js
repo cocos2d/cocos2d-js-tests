@@ -114,11 +114,13 @@ var LayerTest1 = LayerTest.extend({
     onEnter:function () {
         this._super();
 
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'desktop' ) {
-            this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
+        if( t == 'browser' || t == 'mobile')  {
             this.setTouchEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
         }
 
         var s = director.getWinSize();
@@ -324,11 +326,13 @@ var LayerGradient = LayerTest.extend({
         var layer1 = cc.LayerGradient.create(cc.c4b(255, 0, 0, 255), cc.c4b(0, 255, 0, 255), cc.p(0.9, 0.9));
         this.addChild(layer1, 0, cc.TAG_LAYER);
 
+        // 'browser' can use touches or mouse.
+        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'desktop' ) {
-            this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
+        if( t == 'browser' || t == 'mobile')  {
             this.setTouchEnabled(true);
+        } else if( t == 'desktop' ) {
+            this.setMouseEnabled(true);
         }
 
         var label1 = cc.LabelTTF.create("Compressed Interpolation: Enabled", "Marker Felt", 26);

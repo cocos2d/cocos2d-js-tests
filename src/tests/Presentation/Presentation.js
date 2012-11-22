@@ -93,13 +93,13 @@ PresentationBaseLayer.prototype.onEnter = function() {
 		this.sublabel = null;
 
     // Menu
-    var item1 = cc.MenuItemImage.create("b1.png", "b2.png", this, this.onBackCallback);
-    var item2 = cc.MenuItemImage.create("r1.png", "r2.png", this, this.onRestartCallback);
-    var item3 = cc.MenuItemImage.create("f1.png", "f2.png", this, this.onNextCallback);
+    var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback);
+    var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback);
+    var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback);
 
 	[item1, item2, item3 ].forEach( function(item) {
-		item.normalImage().setOpacity(45);
-		item.selectedImage().setOpacity(45);
+		item.getNormalImage().setOpacity(45);
+		item.getSelectedImage().setOpacity(45);
 		} );
 
 	var menu = cc.Menu.create( item1, item2, item3 );
@@ -171,7 +171,7 @@ var IntroPage = function() {
 
 	cc.base(this);
 
-	this.title = 'cocos2d';
+	this.title = 'cocos2d JS';
 	this.subtitle = 'Game Development Kit';
 	this.isMainTitle = true;
 };
@@ -270,8 +270,8 @@ var ComparisonPage = function() {
 
 	cc.base(this);
 
-	this.title = 'HTML5 performance';
-	this.subtitle = 'Performance';
+	this.title = 'HTML5 Mobile performance';
+	this.subtitle = 'Bad performance, even with accel frameworks';
 	this.isMainTitle = false;
 
 	this.createImage( images_path + 'comparison.png');
@@ -311,7 +311,7 @@ var ChipmunkPage = function() {
 	cc.base(this);
 
 	// batch node
-	this.batch = cc.SpriteBatchNode.create( 'grossini.png', 50 );
+	this.batch = cc.SpriteBatchNode.create( s_pathGrossini, 50 );
 	this.addChild( this.batch );
 
 	this.addSprite = function( pos ) {
@@ -385,7 +385,7 @@ ChipmunkPage.prototype.createPhysicsSprite = function( pos ) {
 	shape.setFriction( 0.5 );
 	this.space.addShape( shape );
 
-	var sprite = cc.PhysicsSprite.create( "grossini.png");
+	var sprite = cc.PhysicsSprite.create(s_pathGrossini);
 	sprite.setBody( body.handle );
 	return sprite;
 };
@@ -400,11 +400,13 @@ ChipmunkPage.prototype.onEnter = function () {
 		this.addSprite( cp.v(x, y) );
 	}
 
+    // 'browser' can use touches or mouse.
+    // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
     var t = cc.config.platform;
-    if( t == 'browser' || t == 'desktop' ) {
-        this.setMouseEnabled(true);
-    } else if( t == 'mobile' ) {
+    if( t == 'browser' || t == 'mobile')  {
         this.setTouchEnabled(true);
+    } else if( t == 'desktop' ) {
+        this.setMouseEnabled(true);
     }
 };
 
@@ -446,15 +448,20 @@ var ParticlesPage = function() {
 	this.title = 'Performance';
 	this.subtitle = 'Particles';
 
+	// var tex = cc.TextureCache.getInstance().addImage(s_fire);
+
 	var firework = cc.ParticleFireworks.create();
+	// firework.setTexture(tex);
 	this.addChild( firework );
 	firework.setPosition( centerPos );
 
 	var sun = cc.ParticleSun.create();
+	// sun.setTexture(tex);
 	this.addChild( sun );
 	sun.setPosition( cc.p( winSize.width/4, winSize.height/2) );
 
 	var meteor = cc.ParticleMeteor.create();
+	// meteor.setTexture(tex);
 	this.addChild( meteor );
 	meteor.setPosition( cc.p( winSize.width*3/4, winSize.height/2) );
 
@@ -464,11 +471,13 @@ var ParticlesPage = function() {
 
 	this.particle = firework;
 
+    // 'browser' can use touches or mouse.
+    // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
     var t = cc.config.platform;
-    if( t == 'browser' || t == 'desktop' ) {
-        this.setMouseEnabled(true);
-    } else if( t == 'mobile' ) {
+    if( t == 'browser' || t == 'mobile')  {
         this.setTouchEnabled(true);
+    } else if( t == 'desktop' ) {
+        this.setMouseEnabled(true);
     }
 
 	this.onMouseDown = function( event ) {
@@ -526,7 +535,7 @@ var HTML5AcceleratorPage = function() {
 
 	cc.base(this);
 
-	this.title = 'HTML5 Accelerators';
+	this.title = 'HTML5 Mobile Accelerators';
 	this.subtitle = '';
 	this.isMainTitle = false;
 
@@ -712,9 +721,9 @@ var arrayOfPresentation = [
 	HTML5AcceleratorPage,
 	GDKAcceleratorPage,
 	GDKComponentsPage,
-	CocosStatusPage,
-	ChipmunkStatusPage,
-	CCBStatusPage,
+	// CocosStatusPage,
+	// ChipmunkStatusPage,
+	// CCBStatusPage,
 	DemoPage,
 	WhoIsUsingItPage,
 	ThanksPage

@@ -32,10 +32,11 @@ var CocosBuilderTestScene = TestScene.extend({
          ccNodeLoaderLibrary.registerCCNodeLoader("HelloCocosBuilderLayer", new HelloCocosBuilderLayerLoader());
 
          /* Create an autorelease CCBReader. */
-         var ccbReader = new cc.CCBReader(ccNodeLoaderLibrary);
+         var ccbReader = new cc.BuilderReader(ccNodeLoaderLibrary);
+         ccbReader.setCCBRootPath("res/");
 
          /* Read a ccbi file. */
-         var node = ccbReader.readNodeGraphFromFile("res/ccb/official/pub/", "ccb/HelloCocosBuilder.ccbi", this);
+         var node = ccbReader.readNodeGraphFromFile("ccb/HelloCocosBuilder.ccbi", this);
 
          if(node != null) {
              this.addChild(node);

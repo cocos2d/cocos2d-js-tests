@@ -26,7 +26,7 @@
 
 var HelloCocosBuilderLayer = cc.Layer.extend({
     _burstSprite:null,
-    _testTitleLableTTF:null,
+    _testTitleLabelTTF:null,
 
     openTest:function(ccbFileName, nodeName,nodeLoader){
         /* Create an autorelease CCNodeLoaderLibrary. */
@@ -38,16 +38,17 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
         }
 
         /* Create an autorelease CCBReader. */
-        var ccbReader = new cc.CCBReader(ccNodeLoaderLibrary);
+        var ccbReader = new cc.BuilderReader(ccNodeLoaderLibrary);
+        ccbReader.setCCBRootPath("res/");
 
         /* Read a ccbi file. */
         // Load the scene from the ccbi-file, setting this class as
         // the owner will cause lblTestTitle to be set by the CCBReader.
         // lblTestTitle is in the TestHeader.ccbi, which is referenced
         // from each of the test scenes.
-        var node = ccbReader.readNodeGraphFromFile("res/ccb/official/pub/", ccbFileName, this);
+        var node = ccbReader.readNodeGraphFromFile(ccbFileName, this);
 
-        this._testTitleLableTTF.setString(ccbFileName);
+        this._testTitleLabelTTF.setString(ccbFileName);
         var scene = cc.Scene.create();
         if(node != null)
             scene.addChild(node);
@@ -69,8 +70,8 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
         if(this == target && "onButtonTestClicked" == selectorName){
             return this.onButtonTestClicked;
         }
-        if(this == target && "onLabelTestClicked" == selectorName){
-            return this.onLabelTestClicked;
+        if(this == target && "onAnimationsTestClicked" == selectorName){
+            return this.onAnimationsTestClicked;
         }
         if(this == target && "onParticleSystemTestClicked" == selectorName){
             return this.onParticleSystemTestClicked;
@@ -92,7 +93,7 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
 
         if(target == this && memberVariableName == "mTestTitleLabelTTF"){
             if(node instanceof  cc.LabelTTF){
-                this._testTitleLableTTF = node;
+                this._testTitleLabelTTF = node;
             }
             return true;
         }
@@ -100,28 +101,63 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
         return false;
     },
     onNodeLoaded:function(node,nodeLoader){
-        var ccRotateBy = cc.RotateBy.create(0.5, 10);
+        var ccRotateBy = cc.RotateBy.create(20.0, 360);
         var ccRepeatForever = cc.RepeatForever.create(ccRotateBy);
         this._burstSprite.runAction(ccRepeatForever);
     },
 
     onMenuTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/MenuTest.ccbi", "MenuTestLayer", new MenuTestLayerLoader());
+        this.openTest("ccb/ccb/TestMenus.ccbi", "TestMenusLayer", new MenuTestLayerLoader());
     },
     onSpriteTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/SpriteTest.ccbi", "SpriteTestLayer", new SpriteTestLayerLoader());
+        this.openTest("ccb/ccb/TestSprites.ccbi", "TestSpritesLayer", new SpriteTestLayerLoader());
     },
     onButtonTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/ButtonTest.ccbi", "ButtonTestLayer", new ButtonTestLayerLoader());
+        this.openTest("ccb/ccb/TestButtons.ccbi", "TestButtonsLayer", new ButtonTestLayerLoader());
     },
-    onLabelTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/LabelTest.ccbi", "LabelTestLayer", new LabelTestLayerLoader());
+    onAnimationsTestClicked:function(sender,controlEvent){
+        //load node graph (testAnimations is a sub class of CCLayer) and retriveve the ccb action manager
+
+        var actionManager;
+
+        /* Create an autorelease CCNodeLoaderLibrary. */
+        var ccNodeLoaderLibrary = cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary();
+
+        ccNodeLoaderLibrary.registerCCNodeLoader("TestHeaderLayer", new TestHeaderLayerLoader());
+        ccNodeLoaderLibrary.registerCCNodeLoader("TestAnimationsLayer", new AnimationsTestLayerLoader());
+
+        /* Create an autorelease CCBReader. */
+        var ccbReader = new cc.BuilderReader(ccNodeLoaderLibrary);
+        ccbReader.setCCBRootPath("res/");
+
+        /* Read a ccbi file. */
+        // Load the scene from the ccbi-file, setting this class as
+        // the owner will cause lblTestTitle to be set by the CCBReader.
+        // lblTestTitle is in the TestHeader.ccbi, which is referenced
+        // from each of the test scenes.
+        var animationsTest = ccbReader.readNodeGraphFromFile("ccb/ccb/TestAnimations.ccbi", this, actionManager);
+        actionManager = ccbReader.getAnimationManager();
+        animationsTest.setAnimationManager(actionManager);
+
+        this._testTitleLabelTTF.setString("TestAnimations.ccbi");
+
+        var scene = cc.Scene.create();
+        if(animationsTest != null) {
+            scene.addChild(animationsTest);
+        }
+
+        /* Push the new scene with a fancy transition. */
+        var transitionColor = cc.c3b(0,0,0);
+
+        cc.Director.getInstance().pushScene(cc.TransitionFade.create(0.5, scene, transitionColor));
+
+        //this.openTest("ccb/ccb/TestAnimations.ccbi", "TestAnimationsLayer", new AnimationsTestLayerLoader());
     },
     onParticleSystemTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/ParticleSystemTest.ccbi", "ParticleSystemTestLayer", new ParticleSystemTestLayerLoader());
+        this.openTest("ccb/ccb/TestParticleSystems.ccbi", "TestParticleSystemsLayer", new ParticleSystemTestLayerLoader());
     },
     onScrollViewTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/ScrollViewTest.ccbi", "ScrollViewTestLayer", new ScrollViewTestLayerLoader());
+        this.openTest("ccb/ccb/TestScrollViews.ccbi", "TestScrollViewsLayer", new ScrollViewTestLayerLoader());
     }
 });
 
