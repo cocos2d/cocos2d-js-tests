@@ -517,13 +517,13 @@ COLLISION_LAYERS_BUGGY = (COLLISION_RULE_TERRAIN_BUGGY | COLLISION_RULE_BUGGY_ON
 
 // Some constants for controlling the car and world:
 GRAVITY = 1200.0;
-WHEEL_MASS = 0.5;
-CHASSIS_MASS = 1;
-FRONT_SPRING = 120; //150;
-FRONT_DAMPING = 5;
+WHEEL_MASS = 0.25;
+CHASSIS_MASS = 0.7;
+FRONT_SPRING = 150;
+FRONT_DAMPING = 3;
 COG_ADJUSTMENT = cp.v(0.0, -10.0);
-REAR_SPRING = 200;
-REAR_DAMPING = 5;
+REAR_SPRING = 100;
+REAR_DAMPING = 3;
 ROLLING_FRICTION = 5e2;
 ENGINE_MAX_TORQUE = 6.0e4;
 ENGINE_MAX_W = 60;
@@ -534,7 +534,7 @@ DIFFERENTIAL_TORQUE = 0.5;
 GROUP_BUGGY = 1;
 GROUP_COIN = 2;
 
-WATERMELON_MASS = 0.1;
+WATERMELON_MASS = 0.05;
 
 // Node Tags (used by CocosBuilder)
 SCORE_LABEL_TAG = 10;
@@ -647,7 +647,7 @@ var GameLayer = cc.LayerGradient.extend({
 
     // HUD stuff
     initHUD:function () {
-        cc.Reader = new cc.CCBReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
+        cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
         cc.Reader.setCCBRootPath("Resources/CCB/");
         cc.Reader.load = cc.Reader.readNodeGraphFromFile;
         var hud = cc.Reader.load("HUD.ccbi", this);
@@ -698,7 +698,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     onMainMenu:function (sender) {
-        cc.Reader = new cc.CCBReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
+        cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
         cc.Reader.setCCBRootPath("Resources/CCB/");
         cc.Reader.load = cc.Reader.readNodeGraphFromFile;
         var menuNode = cc.Reader.load("MainMenu.ccbi", this);
@@ -758,12 +758,12 @@ var GameLayer = cc.LayerGradient.extend({
         this._super();
         //this.schedule(this.updatePhysics,1/30);
         var that = this;
-        setInterval(function(){that.updatePhysics()},1000/30);
+        setInterval(function(){that.updatePhysics()},1000/60);
     },
     updatePhysics:function(){
         // Don't update physics on game over
         if (this._state != STATE_PAUSE) {
-            this._space.step(1/50);
+            this._space.step(1/60);
         }
     },
 
@@ -989,12 +989,12 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createCar:function (pos) {
-        pos = cp.v.add(pos, cp.v(0, 20));
-        var front = this.createWheel(cp.v.add(pos, cp.v(40, -30)));
+        //pos = cp.v.add(pos, cp.v(0, 20));
+        var front = this.createWheel(cp.v.add(pos, cp.v(40, -25)));
         this._chassis = this.createChassis(cp.v.add(pos, COG_ADJUSTMENT));
-        this._rearWheel = this.createWheel(cp.v.add(pos, cp.v(-35, -30)));
+        this._rearWheel = this.createWheel(cp.v.add(pos, cp.v(-35, -25)));
         this.createCarJoints(this._chassis, front, this._rearWheel);
-        this.createCarFruits(cp.v.add(pos, cp.v(0, 20)));
+        this.createCarFruits(pos);
 
         this.setThrottle(0);
     },
@@ -1004,7 +1004,7 @@ var GameLayer = cc.LayerGradient.extend({
         // The front wheel strut telescopes, so we'll attach the center of the wheel to a groov joint on the chassis.
         // I created the graphics specifically to have a 45 degree angle. So it's easy to just fudge the numbers.
         var grv_a = chassis.world2Local(front.getPos());
-        var grv_b = cp.v.add(grv_a, cp.v.mult(cp.v(-0.75, 1), 28));
+        var grv_b = cp.v.add(grv_a, cp.v.mult(cp.v(-1, 1), 7));
         var frontJoint = new cp.GrooveJoint(chassis, front, grv_a, grv_b, cp.v(0, 0));
 
         // Create the front zero-length spring.
@@ -1013,7 +1013,7 @@ var GameLayer = cc.LayerGradient.extend({
 
         // The rear strut is a swinging arm that holds the wheel a at a certain distance from a pivot on the chassis.
         // A perfect fit for a pin joint conected between the chassis and the wheel's center.
-        var rearJoint = new cp.PinJoint(chassis, rear, cp.v.sub(cp.v(-4, -15), COG_ADJUSTMENT), cp.v(0, 0));
+        var rearJoint = new cp.PinJoint(chassis, rear, cp.v.sub(cp.v(-14, -8), COG_ADJUSTMENT), cp.v(0, 0));
 
         // return cpvtoangle(cpvsub([_chassis.body local2world:_rearJoint.anchr1], _rearWheel.body.pos));
         var rearStrutRestAngle = cp.v.toangle(cp.v.sub(
@@ -1045,7 +1045,7 @@ var GameLayer = cc.LayerGradient.extend({
         var rearBrake = new cp.SimpleMotor(chassis, rear, 0);
         rearBrake.maxForce = ( ROLLING_FRICTION );
 
-        var handJoint = new cp.PivotJoint(this.person._body, chassis, cp.v.add(this.person.getPosition(),cp.v(9,10)));
+/*        var handJoint = new cp.PivotJoint(this.person._body, chassis, cp.v.add(this.person.getPosition(),cp.v(9,10)));
         this._space.addConstraint(handJoint);
         var rotarylimit = new cp.RotaryLimitJoint(this.person._body, chassis, 0, cc.DEGREES_TO_RADIANS(15));
         this._space.addConstraint(rotarylimit);
@@ -1054,7 +1054,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._space.addConstraint(headSprint);
 
         var headJoint = new cp.PivotJoint(this.head._body, this.person._body, cp.v.add(this.head.getPosition(), cp.v(-1, -20)));
-        this._space.addConstraint(headJoint);
+        this._space.addConstraint(headJoint);*/
 
 
         this._space.addConstraint(frontJoint);
@@ -1080,7 +1080,7 @@ var GameLayer = cc.LayerGradient.extend({
         sprite.setBody(body);
 
         var shape = new cp.CircleShape(body, radius, cp.v(0, 0));
-        shape.setFriction(0.7);
+        shape.setFriction(0.9);
         shape.group = GROUP_BUGGY;
         shape.setLayers(COLLISION_LAYERS_BUGGY);
         shape.setCollisionType(COLLISION_TYPE_CAR);
@@ -1117,7 +1117,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._batch.addChild(sprite, Z_CHASSIS);
         this._carSprite = sprite;
 
-        this.person = cc.PhysicsSprite.create(s_body);
+/*        this.person = cc.PhysicsSprite.create(s_body);
         var personbody = new cp.Body(0.1, cp.momentForBox(0.1, 10, 20));
         personbody.setPos(cp.v.add(pos, cp.v(-60,15)));
         this.person.setBody(personbody);
@@ -1143,7 +1143,7 @@ var GameLayer = cc.LayerGradient.extend({
         headshape.setCollisionType(COLLISION_TYPE_CAR);
         this._space.addShape(headshape);
         this._batch.addChild(this.head, Z_CHASSIS+2);
-        this._space.addBody(headbody);
+        this._space.addBody(headbody);*/
 
         // bottom of chassis
         var shape = new cp.BoxShape(body, cs.width, 15);
@@ -1404,7 +1404,7 @@ var BootLayer = cc.Layer.extend({
     onEnter:function () {
         /*        var scene = cc.Reader.loadAsScene("MainMenu.ccbi");
          director.replaceScene( scene );*/
-        cc.Reader = new cc.CCBReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
+        cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
         cc.Reader.setCCBRootPath("Resources/CCB/");
         cc.Reader.load = cc.Reader.readNodeGraphFromFile;
         var menuNode = cc.Reader.load("MainMenu.ccbi", this);
@@ -1508,7 +1508,7 @@ var OptionsLayer = cc.LayerGradient.extend({
     onBack:function (sender) {
         //var scene = cc.Reader.loadAsScene("MainMenu.ccbi");
         //director.replaceScene(scene);
-        cc.Reader = new cc.CCBReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
+        cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
         cc.Reader.setCCBRootPath("Resources/CCB/");
         cc.Reader.load = cc.Reader.readNodeGraphFromFile;
         var menuNode = cc.Reader.load("MainMenu.ccbi", this);
