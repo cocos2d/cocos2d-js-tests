@@ -49,7 +49,7 @@ var AnimationsTestLayer = cc.Layer.extend({
 
     onAssignCCBMemberVariable:function(target, memberVariableName, node){
         if (this._target == this && memberVariableName == "mAnimationManager") {
-            if(node instanceof  cc.CCBAnimationManager){
+            if(node instanceof  cc.BuilderAnimationManager){
                 this._animationManager = node;
             }
             return true;
