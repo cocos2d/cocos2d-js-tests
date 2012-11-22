@@ -48,11 +48,6 @@ var s_dragon_animation = "res/animations/dragon_animation.png";
 var s_ghosts = "res/animations/ghosts.png";
 var s_grossini_family = "res/animations/grossini_family.png";
 
-var s_tcc_issue_1 = "res/animations/tcc_issue_1.png";
-var s_tcc_issue_2 = "res/animations/tcc_issue_2.png";
-var s_tcc_issue_1_plist = "res/animations/tcc_issue_1.plist";
-var s_tcc_issue_2_plist = "res/animations/tcc_issue_2.plist";
-
 var s_boilingFoamPlist = "res/Images/BoilingFoam.plist";
 var s_grossiniPlist = "res/animations/grossini.plist";
 var s_grossini_grayPlist = "res/animations/grossini_gray.plist";
@@ -191,26 +186,6 @@ var g_ressources = [
 
     {type:"plist",src:"res/ccb/grossini-generic.plist"} ,
     {type:"plist",src:"res/ccb/animated-grossini.plist"} ,
-
-    //@face-font for WebFonts
-    {type: "face-font",fontName:"Thonburi",
-        srcArr:[
-            {src:"res/fonts/Thonburi.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Thonburi.ttf",type:"truetype"}]},
-            //{src:"res/fonts/Schwarzwald_Regular.woff", type:"woff"},
-            //{src:"res/fonts/Schwarzwald Regular.svg",type:"svg"}]},
-    {type: "face-font",fontName:"Schwarzwald Regular",
-        srcArr:[
-            {src:"res/fonts/Schwarzwald_Regular.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Schwarzwald Regular.ttf",type:"truetype"}]},
-    {type: "face-font",fontName:"ThonburiBold",
-        srcArr:[
-            {src:"res/fonts/ThonburiBold.eot", type:"embedded-opentype"},
-            {src:"res/fonts/ThonburiBold.ttf",type:"truetype"}]},
-    {type: "face-font",fontName:"Courier New",
-        srcArr:[
-            {src:"res/fonts/Courier New.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Courier New.ttf",type:"truetype"}]},
 
     //image ressources
     {type:"image", src:s_extensions_background},
@@ -365,8 +340,10 @@ var g_ressources = [
     {type:"tmx", src:"res/TileMaps/ortho-rotation-test.tmx"},
 
     //audio ressources
-    {type:"bgm", src:"res/background"},
-    {type:"effect", src:"res/effect2"},
+    {type:"bgm", src:"res/background.mp3"},
+    {type:"effect", src:"res/effect2.mp3"},
+    {type:"bgm", src:"res/background.ogg"},
+    {type:"effect", src:"res/effect2.ogg"},
 
     //tga ressources
     //{type:"tga", src:s_levelMapTga},
@@ -403,11 +380,5 @@ var g_ressources = [
     {type:"plist", src:"res/Particles/Spiral.plist"},
     {type:"plist", src:"res/Particles/SpookyPeas.plist"},
     {type:"plist", src:"res/Particles/TestPremultipliedAlpha.plist"},
-    {type:"plist", src:"res/Particles/Upsidedown.plist"},
-
-    {type:"plist", src:s_tcc_issue_1_plist},
-    {type:"plist", src:s_tcc_issue_2_plist},
-    {type:"image", src:s_tcc_issue_1},
-    {type:"image", src:s_tcc_issue_2}
-    
+    {type:"plist", src:"res/Particles/Upsidedown.plist"}
 ];
