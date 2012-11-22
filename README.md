@@ -41,10 +41,27 @@ $ git clone git://github.com/cocos2d/cocos2d-x.git
 $ cd cocos2d-x
 $ git checkout gles20
 $ git submodule update --init
+```
+
+#### run on iOS ####
+
+```shell
 $ open samples/TestJavascript/proj.ios/TestJavascript.xcodeproj
 ```
 - Select the "TestJavascript" scheme in Xcode
 - Run it
+
+#### run on Android ####
+
+- Install Android NDK developement environment
+- Define environment variable "NDK_ROOT" which means the directory NDK installed in
+- Run the following command
+
+```shell
+$ cd Samples/TestJavascript/proj.android
+$ ./build.native.sh
+```
+- Import android projects into Eclipses and run, please refer to http://www.cocos2d-x.org/projects/cocos2d-x/wiki/How_to_build_and_run_HelloWorld_on_Android(gles20_branch)
 
 ## Automated tests ##
 
