@@ -436,8 +436,8 @@ var ChipmunkCollisionTestB = function() {
         this.initPhysics();
 		this.scheduleUpdate();
 
-		var sprite1 = this.createPhysicsSprite( cc.p(winSize.width/2, winSize.height-20), "grossini.png", 1);
-		var sprite2 = this.createPhysicsSprite( cc.p(winSize.width/2, 50), "grossinis_sister1.png", 2);
+		var sprite1 = this.createPhysicsSprite( cc.p(winSize.width/2, winSize.height-20), s_pathGrossini, 1);
+		var sprite2 = this.createPhysicsSprite( cc.p(winSize.width/2, 50), s_pathSister1, 2);
 
 		this.addChild( sprite1 );
 		this.addChild( sprite2 );
@@ -461,7 +461,7 @@ var ChipmunkCollisionTestB = function() {
 	this.collisionBegin = function ( arbiter, space ) {
 
 		if( ! this.messageDisplayed ) {
-			var label = cc.LabelBMFont.create("Collision Detected", "bitmapFontTest5.fnt");
+			var label = cc.LabelBMFont.create("Collision Detected", s_bitmapFontTest5_fnt);
 			this.addChild( label );
 			label.setPosition( winSize.width/2, winSize.height/2 );
 			this.messageDisplayed = true;
