@@ -26,17 +26,13 @@
 
 var audioEngine = cc.AudioEngine.getInstance();
 
-if ( cc.config.platform == 'browser' ) {
-    var MUSIC_FILE = "res/background";
-    var EFFECT_FILE = "res/effect2";
-} else if (cc.config.engine == 'cocos2d-x') {
+if (cc.config.platform == 'browser' || cc.config.engine == 'cocos2d-x') {
     var MUSIC_FILE = "res/background.mp3";
     var EFFECT_FILE = "res/effect2.mp3";
 } else {
     var MUSIC_FILE = "Cyber Advance!.mp3";
     var EFFECT_FILE = "cowbell.wav";
 }
-
 
 var DenshionTests = [
     {
@@ -164,12 +160,12 @@ var DenshionTests = [
 
 CocosDenshionTest = cc.LayerGradient.extend({
     _itemMenu:null,
-    _beginPos:cc.p(0,0),
+    _beginPos:cc.p(0, 0),
     _testCount:0,
     ctor:function () {
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(148,80,120,255));
+        cc.associateWithNative(this, cc.LayerGradient);
+        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(148, 80, 120, 255));
 
         this._itemMenu = cc.Menu.create();
         var s = director.getWinSize();
@@ -177,19 +173,19 @@ CocosDenshionTest = cc.LayerGradient.extend({
             var label = cc.LabelTTF.create(DenshionTests[i].title, "Arial", 24);
             var menuItem = cc.MenuItemLabel.create(label, this.onMenuCallback, this);
             this._itemMenu.addChild(menuItem, i + 10000);
-            menuItem.setPosition( s.width / 2, (s.height - (i + 1) * LINE_SPACE) );
+            menuItem.setPosition(s.width / 2, (s.height - (i + 1) * LINE_SPACE));
         }
         this._testCount = i;
         this._itemMenu.setContentSize(cc.size(s.width, (this._testCount + 1) * LINE_SPACE));
-        this._itemMenu.setPosition(0,0);
+        this._itemMenu.setPosition(0, 0);
         this.addChild(this._itemMenu);
 
         // 'browser' can use touches or mouse.
         // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'mobile')  {
+        if (t == 'browser' || t == 'mobile') {
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        } else if (t == 'desktop') {
             this.setMouseEnabled(true);
         }
 
@@ -214,21 +210,21 @@ CocosDenshionTest = cc.LayerGradient.extend({
         return true;
     },
 
-    onMouseDragged : function( event ) {
+    onMouseDragged:function (event) {
         var delta = event.getDelta();
         this.moveMenu(delta);
         return true;
     },
 
-    moveMenu:function(delta) {
+    moveMenu:function (delta) {
         var current = this._itemMenu.getPosition();
 
         var newY = current.y + delta.y;
 
-        if (newY < 0 )
+        if (newY < 0)
             newY = 0;
 
-        if( newY > ((DenshionTests.length + 1) * LINE_SPACE - winSize.height))
+        if (newY > ((DenshionTests.length + 1) * LINE_SPACE - winSize.height))
             newY = ((DenshionTests.length + 1) * LINE_SPACE - winSize.height);
 
         this._itemMenu.setPosition(current.x, newY);
