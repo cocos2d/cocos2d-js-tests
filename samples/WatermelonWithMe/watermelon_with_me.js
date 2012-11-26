@@ -570,7 +570,7 @@ var GameLayer = cc.LayerGradient.extend({
 
     ctor:function (level) {
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_coinsPlist);
-
+        audioEngine.playMusic(s_game_music);
         this._super();//if you extend CC object, and write your own constructor, you should always call paren'ts constructor
         cc.associateWithNative(this, cc.LayerGradient);
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
@@ -743,7 +743,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._state = STATE_PLAYING;
 
         // Level Label
-        var label = cc.LabelBMFont.create("LEVEL " + (this._level+1), s_Gas40HDFNT);
+        var label = cc.LabelBMFont.create("LEVEL " + (this._level + 1), s_Gas40HDFNT);
         label.setPosition(centerPos);
         this.addChild(label, Z_LABEL);
         var d = cc.DelayTime.create(1);
@@ -754,16 +754,18 @@ var GameLayer = cc.LayerGradient.extend({
         var seq = cc.Sequence.create(d, s, selfremove);
         label.runAction(seq);
     },
-    onEnter:function(){
+    onEnter:function () {
         this._super();
         //this.schedule(this.updatePhysics,1/30);
         var that = this;
-        setInterval(function(){that.updatePhysics()},1000/60);
+        setInterval(function () {
+            that.updatePhysics()
+        }, 1000 / 60);
     },
-    updatePhysics:function(){
+    updatePhysics:function () {
         // Don't update physics on game over
         if (this._state != STATE_PAUSE) {
-            this._space.step(1/60);
+            this._space.step(1 / 60);
         }
     },
 
@@ -831,7 +833,7 @@ var GameLayer = cc.LayerGradient.extend({
         // sync smoke with car
         if (this._carSprite) {
             //var p = this._carSprite.convertToWorldSpace(this._carSprite.getPosition());
-            var p = this._carSprite.convertToWorldSpace(cc.p(0,0));
+            var p = this._carSprite.convertToWorldSpace(cc.p(0, 0));
             this._carSmoke.setPosition(p.x, p.y);
         }
 
@@ -1045,16 +1047,16 @@ var GameLayer = cc.LayerGradient.extend({
         var rearBrake = new cp.SimpleMotor(chassis, rear, 0);
         rearBrake.maxForce = ( ROLLING_FRICTION );
 
-/*        var handJoint = new cp.PivotJoint(this.person._body, chassis, cp.v.add(this.person.getPosition(),cp.v(9,10)));
-        this._space.addConstraint(handJoint);
-        var rotarylimit = new cp.RotaryLimitJoint(this.person._body, chassis, 0, cc.DEGREES_TO_RADIANS(15));
-        this._space.addConstraint(rotarylimit);
+        /*        var handJoint = new cp.PivotJoint(this.person._body, chassis, cp.v.add(this.person.getPosition(),cp.v(9,10)));
+         this._space.addConstraint(handJoint);
+         var rotarylimit = new cp.RotaryLimitJoint(this.person._body, chassis, 0, cc.DEGREES_TO_RADIANS(15));
+         this._space.addConstraint(rotarylimit);
 
-        var headSprint = new cp.DampedRotarySpring(this.head._body, this.person._body, 0, 20000, 80);
-        this._space.addConstraint(headSprint);
+         var headSprint = new cp.DampedRotarySpring(this.head._body, this.person._body, 0, 20000, 80);
+         this._space.addConstraint(headSprint);
 
-        var headJoint = new cp.PivotJoint(this.head._body, this.person._body, cp.v.add(this.head.getPosition(), cp.v(-1, -20)));
-        this._space.addConstraint(headJoint);*/
+         var headJoint = new cp.PivotJoint(this.head._body, this.person._body, cp.v.add(this.head.getPosition(), cp.v(-1, -20)));
+         this._space.addConstraint(headJoint);*/
 
 
         this._space.addConstraint(frontJoint);
@@ -1092,12 +1094,12 @@ var GameLayer = cc.LayerGradient.extend({
         return body;
     },
 
-    showCarSpritePosition:function(){
+    showCarSpritePosition:function () {
         var carPos = this._carSprite.getPosition();
         var batchPos = this._carSprite.getParent().getPosition();
         var parallaxPos = this._carSprite.getParent().getParent().getPosition();
         var smokePos = this._carSmoke.getPosition();
-        var convertPos = this._carSprite.convertToWorldSpace(cc.p(0,0));
+        var convertPos = this._carSprite.convertToWorldSpace(cc.p(0, 0));
     },
 
     createChassis:function (pos) {
@@ -1117,33 +1119,33 @@ var GameLayer = cc.LayerGradient.extend({
         this._batch.addChild(sprite, Z_CHASSIS);
         this._carSprite = sprite;
 
-/*        this.person = cc.PhysicsSprite.create(s_body);
-        var personbody = new cp.Body(0.1, cp.momentForBox(0.1, 10, 20));
-        personbody.setPos(cp.v.add(pos, cp.v(-60,15)));
-        this.person.setBody(personbody);
-        var personShape = new cp.BoxShape(personbody, 10, 20);
-        personShape.setFriction(1);
-        personShape.setElasticity(0);
-        personShape.group = GROUP_BUGGY;
-        personShape.setLayers(COLLISION_LAYERS_BUGGY);
-        personShape.setCollisionType(COLLISION_TYPE_CAR);
-        this._space.addShape(personShape);
-        this._batch.addChild(this.person, Z_CHASSIS+1);
-        this._space.addBody(personbody);
+        /*        this.person = cc.PhysicsSprite.create(s_body);
+         var personbody = new cp.Body(0.1, cp.momentForBox(0.1, 10, 20));
+         personbody.setPos(cp.v.add(pos, cp.v(-60,15)));
+         this.person.setBody(personbody);
+         var personShape = new cp.BoxShape(personbody, 10, 20);
+         personShape.setFriction(1);
+         personShape.setElasticity(0);
+         personShape.group = GROUP_BUGGY;
+         personShape.setLayers(COLLISION_LAYERS_BUGGY);
+         personShape.setCollisionType(COLLISION_TYPE_CAR);
+         this._space.addShape(personShape);
+         this._batch.addChild(this.person, Z_CHASSIS+1);
+         this._space.addBody(personbody);
 
-        this.head = cc.PhysicsSprite.create(s_head);
-        var headbody = new cp.Body(0.1, cp.momentForCircle(0.1, 0, this.head.getContentSize().width/2, cp.v(0, 0)));
-        headbody.setPos(cp.v.add(pos, cp.v(-65,50)));
-        this.head.setBody(headbody);
-        var headshape = new cp.CircleShape(headbody, this.head.getContentSize().width/2, cp.v(0,0));
-        headshape.setFriction(1);
-        headshape.setElasticity(0);
-        headshape.group = GROUP_BUGGY;
-        headshape.setLayers(COLLISION_LAYERS_BUGGY);
-        headshape.setCollisionType(COLLISION_TYPE_CAR);
-        this._space.addShape(headshape);
-        this._batch.addChild(this.head, Z_CHASSIS+2);
-        this._space.addBody(headbody);*/
+         this.head = cc.PhysicsSprite.create(s_head);
+         var headbody = new cp.Body(0.1, cp.momentForCircle(0.1, 0, this.head.getContentSize().width/2, cp.v(0, 0)));
+         headbody.setPos(cp.v.add(pos, cp.v(-65,50)));
+         this.head.setBody(headbody);
+         var headshape = new cp.CircleShape(headbody, this.head.getContentSize().width/2, cp.v(0,0));
+         headshape.setFriction(1);
+         headshape.setElasticity(0);
+         headshape.group = GROUP_BUGGY;
+         headshape.setLayers(COLLISION_LAYERS_BUGGY);
+         headshape.setCollisionType(COLLISION_TYPE_CAR);
+         this._space.addShape(headshape);
+         this._batch.addChild(this.head, Z_CHASSIS+2);
+         this._space.addBody(headbody);*/
 
         // bottom of chassis
         var shape = new cp.BoxShape(body, cs.width, 15);
@@ -1183,7 +1185,7 @@ var GameLayer = cc.LayerGradient.extend({
             var radius = 0.95 * sprite.getContentSize().width / 2 * 1;
 
             var body = new cp.Body(WATERMELON_MASS, cp.momentForCircle(WATERMELON_MASS, 0, radius, cp.v(0, 0)));
-            body.setPos(cp.v(pos.x-i, pos.y));
+            body.setPos(cp.v(pos.x - i, pos.y));
             sprite.setBody(body);
 
             var shape = new cp.CircleShape(body, radius, cp.v(0, 0));
@@ -1389,10 +1391,8 @@ var BootLayer = cc.Layer.extend({
     ctor:function () {
         cc.associateWithNative(this, cc.Layer);
         this.init();
-
         // music
-        audioEngine.playMusic("game-music.mp3");
-        audioEngine.preloadEffect("pickup_coin.wav");
+        //audioEngine.playMusic(s_game_music);
 
         var cache = cc.SpriteFrameCache.getInstance();
         cache.addSpriteFrames(s_coinsPlist);
@@ -1522,7 +1522,7 @@ var OptionsLayer = cc.LayerGradient.extend({
         if (audioEngine.isMusicPlaying()) {
             audioEngine.stopMusic();
         } else {
-            audioEngine.playMusic("game-music.mp3");
+            audioEngine.playMusic(s_game_music);
         }
     }
 });

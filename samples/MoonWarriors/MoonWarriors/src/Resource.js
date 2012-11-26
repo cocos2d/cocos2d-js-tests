@@ -1,10 +1,8 @@
 var dirImg = "";
 var dirMusic = "";
-var musicSuffix = ".mp3";
 if( cc.config.platform == 'browser' ) {
     dirImg = "MoonWarriors/res/";
     dirMusic = "MoonWarriors/res/Music/";
-    musicSuffix = "";
 }
 
 //image
@@ -28,14 +26,14 @@ var s_arial14 = dirImg + "arial-14.png";
 var s_arial14_fnt = dirImg + "arial-14.fnt";
 
 //music
-var s_bgMusic = dirMusic + "bgMusic" + musicSuffix;
-var s_mainMainMusic = dirMusic + "mainMainMusic" + musicSuffix;
+var s_bgMusic = dirMusic + "bgMusic.mp3";
+var s_mainMainMusic = dirMusic + "mainMainMusic.mp3";
 
 //effect
-var s_buttonEffect = dirMusic + "buttonEffet" + musicSuffix;
-var s_explodeEffect = dirMusic + "explodeEffect" + musicSuffix;
-var s_fireEffect = dirMusic + "fireEffect" + musicSuffix;
-var s_shipDestroyEffect = dirMusic + "shipDestroyEffect" + musicSuffix;
+var s_buttonEffect = dirMusic + "buttonEffet.mp3";
+var s_explodeEffect = dirMusic + "explodeEffect.mp3";
+var s_fireEffect = dirMusic + "fireEffect.mp3";
+var s_shipDestroyEffect = dirMusic + "shipDestroyEffect.mp3";
 
 //tmx
 var s_level01 = dirImg + "level01.tmx";
