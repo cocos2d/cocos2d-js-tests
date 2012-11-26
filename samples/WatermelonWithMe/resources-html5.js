@@ -34,10 +34,10 @@ var s_Konqa32IPADFNT = "Resources/CCB/konqa32-ipad.fnt";
 var s_Konqa32IPADPNG = "Resources/CCB/konqa32-ipad.PNG";
 
 
-var s_GameOverWAV = "Resources/sound/GameOver";
-var PickupCointWAV = "Resources/sound/pickup_coin";
-var s_LevelComplete = "Resources/sound/LevelComplete";
-var s_game_music = "Resources/sound/game-music";
+var s_GameOverWAV = "Resources/sound/GameOver.mp3";
+var PickupCointWAV = "Resources/sound/pickup_coin.mp3";
+var s_LevelComplete = "Resources/sound/LevelComplete.mp3";
+var s_game_music = "Resources/sound/game-music.mp3";
 
 
 var s_body = "Resources/body.png";
@@ -68,9 +68,6 @@ var g_ressources = [
     {type:'effect', src:s_GameOverWAV},
     {type:'effect', src:PickupCointWAV},
     {type:'effect', src:s_LevelComplete},
-
-    {type:'image', src:s_body},
-    {type:'image', src:s_head},
 
     {type:'plist', src:"Resources/CCB/labels.plist"},
     {type:'image', src:"Resources/CCB/labels.png"},
