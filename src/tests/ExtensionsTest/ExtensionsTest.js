@@ -69,16 +69,20 @@ var extensionsTestItemNames = [
         testScene:function () {
             runTableViewTest();
         }
-    }
-/*    {
-        itemTitle:"EditBoxTest",
-        testScene:function () {
-            //runEditBoxTest();
-        }
-    }*/
+    },
+   {
+       itemTitle:"EditBoxTest",
+       testScene:function () {
+//           var pManager = ControlSceneManager.getInstance();
+//           var pScene = pManager.currentControlScene();
+//           cc.Director.getInstance().replaceScene(pScene);
+           //testEditBox();
+           runEditBoxTest();
+       }
+   }
 ];
 
-var ExtensionsMainLayer = cc.Layer.extend({
+var  ExtensionsMainLayer = cc.Layer.extend({
     onEnter:function () {
         this._super();
 
@@ -111,3 +115,4 @@ var ExtensionsTestScene = TestScene.extend({
         cc.Director.getInstance().replaceScene(this);
     }
 });
+

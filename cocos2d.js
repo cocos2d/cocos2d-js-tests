@@ -81,6 +81,7 @@
             'src/tests/ExtensionsTest/ControlExtensionTest/CCControlScene.js',
             'src/tests/ExtensionsTest/ControlExtensionTest/CCControlButtonTest/CCControlButtonTest.js',
             'src/tests/ExtensionsTest/TableViewTest/TableViewTestScene.js',
+            'src/tests/ExtensionsTest/EditBoxTest/EditBoxTestScene.js',
             'src/tests/ExtensionsTest/CocosBuilderTest/CocosBuilderTest.js',
             'src/tests/ExtensionsTest/CocosBuilderTest/TestHeader/TestHeaderLayer.js',
             'src/tests/ExtensionsTest/CocosBuilderTest/HelloCocosBuilder/HelloCocosBuilderLayer.js',
