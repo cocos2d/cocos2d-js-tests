@@ -26,7 +26,7 @@
  ****************************************************************************/
 
 var cocos2dApp = cc.Application.extend({
-    config:document.querySelector('#cocos2d-html5').c,
+    config:document['ccConfig'],
     ctor:function (scene) {
         this._super();
         this.startScene = scene;
