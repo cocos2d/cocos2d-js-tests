@@ -122,7 +122,12 @@ var TestController = cc.LayerGradient.extend({
             this.setMouseEnabled(true);
         }
     },
+    onEnter:function(){
+        this._super();
+        this._itemMenu.setPositionY(TestController.YOffset);
+    },
     onMenuCallback:function (sender) {
+        TestController.YOffset = this._itemMenu.getPosition().y;
         var idx = sender.getZOrder() - 10000;
         // get the userdata, it's the index of the menu item clicked
         // create the test scene and run it
@@ -149,6 +154,7 @@ var TestController = cc.LayerGradient.extend({
     onScrollWheel:function(event){
         var delta = event.getWheelDelta();
         this.moveMenu({y:-delta});
+        console.log(1);
         return true;
     },
     moveMenu:function(delta) {
@@ -165,7 +171,7 @@ var TestController = cc.LayerGradient.extend({
         this._itemMenu.setPosition(current.x, newY);
     }
 });
-
+TestController.YOffset = 0;
 var testNames = [
     {
         title:"ActionManager Test",
