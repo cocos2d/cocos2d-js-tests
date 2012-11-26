@@ -76,7 +76,7 @@ var MW = MW || {};
             //s.src = 'Packed_Release_File.js'; //IMPORTANT: Un-comment this line if you have packed all files into one
 
         d.body.appendChild(s);
-        s.c = c;
+        document.ccConfig = c;
         s.id = 'cocos2d-html5';
         //else if single file specified, load singlefile
     });
