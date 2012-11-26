@@ -2,8 +2,8 @@ var dirImg = "";
 var dirMusic = "";
 var musicSuffix = ".mp3";
 if( cc.config.platform == 'browser' ) {
-    dirImg = "MoonWarriors/res/";
-    dirMusic = "MoonWarriors/res/Music/";
+    dirImg = "res/";
+    dirMusic = "res/Music/";
     musicSuffix = "";
 }
 
