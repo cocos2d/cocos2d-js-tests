@@ -37,7 +37,7 @@ var MW = MW || {};
         loadExtension:true,
         frameRate:60,
         tag:'gameCanvas', //the dom element to run cocos2d on
-        engineDir:'../../cocos2d/',
+        engineDir:'../../../cocos2d/',
         appFiles:[
             'MoonWarriors/src/Resource.js',
             'MoonWarriors/src/config/GameConfig.js',
