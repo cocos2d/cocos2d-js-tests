@@ -1,6 +1,6 @@
 # cocos2d JavaScript tests
 
-These tests are shared by the following projects:
+These tests and samples are shared by the following projects:
 
   - [cocos2d-html5](http://www.cocos2d-html5.org)
   - [cocos2d-x](http://www.cocos2d-x.org)
@@ -79,3 +79,34 @@ These tests can be run unmodified in the following platforms:
   - Android ( with _cocos2d-x_ + _JS Bindings_ )
   - Mac ( with _cocos2d-iphone_ + _JS Bindings_ )
 
+# cocos2d JavaScript samples
+
+MoonWarriors
+==================
+Art and audio is copyrighted by Enigmata Genus Revenge,
+you may not use any copyrighted material without permission.
+
+This showcase is licensed under GPL
+
+Authors
+------------------
+   * Programmer: Shengxiang Chen, Dingping Lv
+   * Effects animation: Hao Wu
+   * Quality Assurance:  Shun Lin
+
+Website
+------------------
+   * HTML5China: [bbs.html5china.com][1]
+   * Cocos2d-html5: [www.cocos2d-x.org][2]
+
+   [1]: http://bbs.html5china.com/forum-cocos2d_html5-1.html "HTML5China"
+   [2]: http://www.cocos2d-x.org "Cocos2d-html5"
+   [3]: http://www.cocos2d-x.org/MoonWarriors/index.html "MoonWarriors"
+
+Watermelon with Me
+==================
+This showcase is licensed under MIT.
+
+Authors
+------------------
+    Ricardo Quesada
