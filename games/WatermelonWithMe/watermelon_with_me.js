@@ -566,7 +566,7 @@ var GameLayer = cc.LayerGradient.extend({
 
     ctor:function (level) {
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_coinsPlist);
-
+        audioEngine.playMusic(s_game_music);
         this._super();//if you extend CC object, and write your own constructor, you should always call paren'ts constructor
         cc.associateWithNative(this, cc.LayerGradient);
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
@@ -738,7 +738,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._state = STATE_PLAYING;
 
         // Level Label
-        var label = cc.LabelBMFont.create("LEVEL " + (this._level+1), s_Gas40HDFNT);
+        var label = cc.LabelBMFont.create("LEVEL " + (this._level + 1), s_Gas40HDFNT);
         label.setPosition(centerPos);
         this.addChild(label, Z_LABEL);
         var d = cc.DelayTime.create(1);
@@ -749,7 +749,7 @@ var GameLayer = cc.LayerGradient.extend({
         var seq = cc.Sequence.create(d, s, selfremove);
         label.runAction(seq);
     },
-    onEnter:function(){
+    onEnter:function () {
         this._super();
 
         // XXX: html5-only
@@ -1335,10 +1335,8 @@ var BootLayer = cc.Layer.extend({
     ctor:function () {
         cc.associateWithNative(this, cc.Layer);
         this.init();
-
         // music
-        audioEngine.playMusic("game-music.mp3");
-        audioEngine.preloadEffect("pickup_coin.wav");
+        //audioEngine.playMusic(s_game_music);
 
         var cache = cc.SpriteFrameCache.getInstance();
         cache.addSpriteFrames(s_coinsPlist);
@@ -1470,7 +1468,7 @@ var OptionsLayer = cc.LayerGradient.extend({
         if (audioEngine.isMusicPlaying()) {
             audioEngine.stopMusic();
         } else {
-            audioEngine.playMusic("game-music.mp3");
+            audioEngine.playMusic(s_game_music);
         }
     }
 });
