@@ -39,7 +39,7 @@ var tests_files = [
 		'UnitTest/UnitTest.js'
 	];
 for( var i=0; i < tests_files.length; i++) {
-	var name = "src/tests/" + tests_files[i];
+	var name = "tests/" + tests_files[i];
 	cc.log(" Loading: " + name );
 	require( name );
 }

@@ -1,8 +1,9 @@
 var dirImg = "";
 var dirMusic = "";
 if( cc.config.platform == 'browser' ) {
-    dirImg = "MoonWarriors/res/";
-    dirMusic = "MoonWarriors/res/Music/";
+    dirImg = "res/";
+    dirMusic = "res/Music/";
+    musicSuffix = "";
 }
 
 //image
