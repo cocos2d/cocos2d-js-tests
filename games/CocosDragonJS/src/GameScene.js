@@ -37,7 +37,7 @@ GameScene.prototype.onDidLoadFromCCB = function()
 
     this.score = 0;
 
-    var level = cc.Reader.load("Level.ccbi");
+    var level = cc.BuilderReader.load("Level.ccbi",null,null,"Resources/");
     
     // Center the level on Screen
     gLevelOffsetX = (gWinSize.width-CD_LEVEL_WIDTH*gScaleFactor)/2;
@@ -60,12 +60,12 @@ GameScene.prototype.getScore = function()
 
 GameScene.prototype.handleGameOver = function()
 {
-    var scene = cc.Reader.loadAsScene("MainMenuScene.ccbi");
+    var scene = cc.BuilderReader.loadAsScene("MainMenuScene.ccbi",null,null,"Resources/");
     cc.Director.getInstance().replaceScene(scene);
 };
 
 GameScene.prototype.handleLevelComplete = function()
 {
-    var scene = cc.Reader.loadAsScene("MainMenuScene.ccbi");
+    var scene = cc.BuilderReader.loadAsScene("MainMenuScene.ccbi",null,null,"Resources/");
     cc.Director.getInstance().replaceScene(scene);
 };
