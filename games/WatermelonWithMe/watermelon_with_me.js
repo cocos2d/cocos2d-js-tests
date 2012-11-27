@@ -647,7 +647,7 @@ var GameLayer = cc.LayerGradient.extend({
         // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
         // cc.Reader.setCCBRootPath("Resources/CCB/");
         // cc.Reader.load = cc.Reader.readNodeGraphFromFile;
-        var hud = cc.Reader.load("HUD.ccbi", this);
+        var hud = cc.BuilderReader.load("HUD.ccbi", this);
         this.addChild(hud, Z_HUD);
         this._scoreLabel = hud.getChildByTag(SCORE_LABEL_TAG);
         this._timeLabel = hud.getChildByTag(TIME_LABEL_TAG);
@@ -702,7 +702,7 @@ var GameLayer = cc.LayerGradient.extend({
         // var menuNode = cc.Reader.load("MainMenu.ccbi", this);
         // var scene = cc.Scene.create();
         // scene.addChild(menuNode);
-        var scene = cc.Reader.loadAsScene("MainMenu.ccbi");
+        var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi");
         director.replaceScene(scene);
     },
 
@@ -1346,7 +1346,7 @@ var BootLayer = cc.Layer.extend({
     },
 
     onEnter:function () {
-        var scene = cc.Reader.loadAsScene("MainMenu.ccbi");
+        var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi");
          director.replaceScene( scene );
         // XXX: html5-only
         // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
@@ -1398,7 +1398,7 @@ MenuLayerController.prototype.onAbout = function () {
     /*var scene = cc.Scene.create();
      var layer = new AboutLayer();
      scene.addChild( layer );*/
-    var scene = cc.Reader.loadAsScene("About.ccbi");
+    var scene = cc.BuilderReader.loadAsScene("About.ccbi");
     director.replaceScene(cc.TransitionZoomFlipY.create(1, scene));
 };
 
@@ -1419,7 +1419,7 @@ AboutLayerController.prototype.onDidLoadFromCCB = function () {
 };
 
 AboutLayerController.prototype.onBack = function () {
-    var scene = cc.Reader.loadAsScene("MainMenu.ccbi");
+    var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi");
     director.replaceScene(scene);
 };
 
@@ -1451,7 +1451,7 @@ var OptionsLayer = cc.LayerGradient.extend({
     },
 
     onBack:function (sender) {
-        var scene = cc.Reader.loadAsScene("MainMenu.ccbi");
+        var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi");
         director.replaceScene(scene);
         // XXX: html5-only
         // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
