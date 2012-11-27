@@ -37,21 +37,19 @@ var CD_GRAVITY_SPEED = 0.1;
 var CD_GAMEOVER_SPEED = -10;
 var CD_DELTA_TO_ROTATION_FACTOR = 5;
 
-var Dragon = function()
-{
-    this.xTarget = CD_START_TARGET*gScaleFactor;
+var Dragon = function () {
+    this.xTarget = CD_START_TARGET * gScaleFactor;
     this.ySpeed = CD_START_SPEED;
     this.radius = 25;
 };
 
-Dragon.prototype.onUpdate = function()
-{
+Dragon.prototype.onUpdate = function () {
     // Calculate the new position
-    var oldPosition = cc.pMult(this.rootNode.getPosition(), 1.0/gScaleFactor);
+    var oldPosition = cc.pMult(this.rootNode.getPosition(), 1.0 / gScaleFactor);
 
-    var xNew = (this.xTarget/gScaleFactor) * CD_TARGET_FILTER_FACTOR + oldPosition.x * (1-CD_TARGET_FILTER_FACTOR);
+    var xNew = (this.xTarget / gScaleFactor) * CD_TARGET_FILTER_FACTOR + oldPosition.x * (1 - CD_TARGET_FILTER_FACTOR);
     var yNew = oldPosition.y + this.ySpeed;
-    this.rootNode.setPosition(xNew*gScaleFactor, yNew*gScaleFactor);
+    this.rootNode.setPosition(xNew * gScaleFactor, yNew * gScaleFactor);
 
     // Update the vertical speed
     this.ySpeed = (this.ySpeed - CD_GRAVITY_SPEED) * CD_SLOW_DOWN_FACTOR;
@@ -61,22 +59,18 @@ Dragon.prototype.onUpdate = function()
     this.rootNode.setRotation(xDelta * CD_DELTA_TO_ROTATION_FACTOR);
 
     // Check for game over
-    if (this.ySpeed < CD_GAMEOVER_SPEED)
-    {
+    if (this.ySpeed < CD_GAMEOVER_SPEED) {
         sharedGameScene.handleGameOver();
     }
 };
 
-Dragon.prototype.handleCollisionWith = function(gameObjectController)
-{
-    if (gameObjectController.controllerName == "Coin")
-    {
+Dragon.prototype.handleCollisionWith = function (gameObjectController) {
+    if (gameObjectController.controllerName == "Coin") {
         // Took a coin
         this.ySpeed = CD_COIN_SPEED;
-        sharedGameScene.setScore(sharedGameScene.score+1);
+        sharedGameScene.setScore(sharedGameScene.score + 1);
     }
-    else if (gameObjectController.controllerName == "Bomb")
-    {
+    else if (gameObjectController.controllerName == "Bomb") {
         // Hit a bomb
         if (this.ySpeed > 0) this.ySpeed = 0;
 
