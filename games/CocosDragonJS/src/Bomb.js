@@ -26,24 +26,21 @@
 // Controller for the Bomb Object
 // When the Dragon (hero) touches this object, the Dragon moves downwards.
 //
-var Bomb = function()
-{
+var Bomb = function () {
     this.radius = 15;
 };
 
-Bomb.prototype.onUpdate = function()
-{};
+Bomb.prototype.onUpdate = function () {
+};
 
-Bomb.prototype.handleCollisionWith = function(gameObjectController)
-{
-    if (gameObjectController.controllerName == "Dragon")
-    {
+Bomb.prototype.handleCollisionWith = function (gameObjectController) {
+    if (gameObjectController.controllerName == "Dragon") {
         // Collided with the dragon, remove object and add an exposion instead
         this.isScheduledForRemove = true;
-        
-        cc.AudioEngine.getInstance().playEffect("Explo.caf");
 
-        var explosion = cc.Reader.load("Explosion.ccbi");
+        cc.AudioEngine.getInstance().playEffect(s_exploEffect);
+
+        var explosion = cc.BuilderReader.load("Explosion.ccbi", null, null, "Resources/");
         explosion.setPosition(this.rootNode.getPosition());
 
         this.rootNode.getParent().addChild(explosion);
