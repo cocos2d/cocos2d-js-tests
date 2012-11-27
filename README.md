@@ -1,12 +1,17 @@
 # cocos2d JavaScript tests and games
 
-These tests and samples are shared by the following projects:
+These tests and games are shared by the following projects:
 
   - [cocos2d-html5](http://www.cocos2d-html5.org)
   - [cocos2d-x](http://www.cocos2d-x.org)
   - [cocos2d-iphone](http://www.cocos2d-iphone.org)
 
 If you modify the a test, please test it with all the projects to ensure 100% API compatibility between all the projects.
+
+# Tests #
+
+
+![cocos2d JS tests](https://lh4.googleusercontent.com/-BKnI0dmMjn0/ULVSA8rPnYI/AAAAAAAAqWU/jy2cL6ZzuHA/s400/Screen%2520Shot%25202012-11-27%2520at%25203.48.56%2520PM.png)
 
 ## Running the tests ##
 
@@ -80,9 +85,11 @@ These tests can be run unmodified in the following platforms:
   - Android ( with _cocos2d-x_ + _JS Bindings_ )
   - Mac ( with _cocos2d-iphone_ + _JS Bindings_ )
 
-# cocos2d JavaScript samples
+# Games
 
 ## Watermelon with Me ##
+
+![Watermelon With Me](https://lh6.googleusercontent.com/-P4-hvCiDGP8/ULVSBBtYluI/AAAAAAAAqWY/wZv4vsFQw1M/s400/Screen%2520Shot%25202012-11-27%2520at%25203.49.36%2520PM.png)
 
 It is a simple physics game. It uses:
 
@@ -94,6 +101,8 @@ Licensed under MIT.
   
 ## CocosDragon ##
 
+![CocosDragon](https://lh3.googleusercontent.com/-bu3ANISoS6Y/ULVSBhFXkfI/AAAAAAAAqWc/GFcDwB6iO04/s400/Screen%2520Shot%25202012-11-27%2520at%25203.49.52%2520PM.png)
+
 It is a simple _platformer_ game. It uses:
 
   * cocos2d
@@ -101,7 +110,9 @@ It is a simple _platformer_ game. It uses:
 
 Licensed under MIT.
 
-## MoonWarriors ##
+## Moon Warriors ##
+
+![Moon Warriors](https://lh5.googleusercontent.com/-Lov8RC1s5xc/ULVSBwWg8II/AAAAAAAAqWg/cwY_JRbYX8U/s400/Screen%2520Shot%25202012-11-27%2520at%25203.50.37%2520PM.png)
 
 It is a simple shooter game. It uses:
 
