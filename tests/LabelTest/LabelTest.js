@@ -1068,7 +1068,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
         var touch = touches[0];
         var location = touch.getLocation();
 
-        if (cc.Rect.CCRectContainsPoint(this.arrowsShouldRetain.getBoundingBox(), location)) {
+        if (cc.rectContainsPoint(this.arrowsShouldRetain.getBoundingBox(), location)) {
             this.arrowsBarShouldRetain.setVisible(true);
         }
     },
@@ -1093,7 +1093,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
     onMouseDown:function(touch){
         var location = touch.getLocation();
 
-        if (cc.Rect.CCRectContainsPoint(this.arrowsShouldRetain.getBoundingBox(), location)) {
+        if (cc.rectContainsPoint(this.arrowsShouldRetain.getBoundingBox(), location)) {
             this.arrowsBarShouldRetain.setVisible(true);
         }
     },
