@@ -39,23 +39,23 @@ var MW = MW || {};
         tag:'gameCanvas', //the dom element to run cocos2d on
         engineDir:'../../../cocos2d/',
         appFiles:[
-            'MoonWarriors/src/Resource.js',
-            'MoonWarriors/src/config/GameConfig.js',
-            'MoonWarriors/src/config/EnemyType.js',
-            'MoonWarriors/src/config/Level.js',
-            'MoonWarriors/src/Effect.js',
-            'MoonWarriors/src/Bullet.js',
-            'MoonWarriors/src/Enemy.js',
-            'MoonWarriors/src/Explosion.js',
-            'MoonWarriors/src/Ship.js',
-            'MoonWarriors/src/LevelManager.js',
-            'MoonWarriors/src/GameController.js',
-            'MoonWarriors/src/GameControlMenu.js',
-            'MoonWarriors/src/GameLayer.js',
-            'MoonWarriors/src/GameOver.js',
-            'MoonWarriors/src/AboutLayer.js',
-            'MoonWarriors/src/SettingsLayer.js',
-            'MoonWarriors/src/SysMenu.js'
+            'src/Resource.js',
+            'src/config/GameConfig.js',
+            'src/config/EnemyType.js',
+            'src/config/Level.js',
+            'src/Effect.js',
+            'src/Bullet.js',
+            'src/Enemy.js',
+            'src/Explosion.js',
+            'src/Ship.js',
+            'src/LevelManager.js',
+            'src/GameController.js',
+            'src/GameControlMenu.js',
+            'src/GameLayer.js',
+            'src/GameOver.js',
+            'src/AboutLayer.js',
+            'src/SettingsLayer.js',
+            'src/SysMenu.js'
         ]
     };
     window.addEventListener('DOMContentLoaded', function () {
