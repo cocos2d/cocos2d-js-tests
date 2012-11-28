@@ -76,5 +76,7 @@ var g_ressources = [
     {type:'image', src:"Resources/CCB/Gas40.png"},
     {type:'image', src:s_parallax},
     {type: 'ccbi', src:s_HUD},
-    {type: 'ccbi', src:"Resources/CCB/MainMenu.ccbi"}
+    {type: 'ccbi', src:"Resources/CCB/MainMenu.ccbi"},
+    {type: 'ccbi', src:"Resources/CCB/HUD.ccbi"}
+
 ];
