@@ -67,9 +67,13 @@ var SettingsLayer = cc.Layer.extend({
         cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
     },
     onSoundControl:function(){
-        MW.SOUND = MW.SOUND ? false : true;
-        if(!MW.SOUND){
-            cc.AudioEngine.getInstance().stopMusic();
+        MW.SOUND = !MW.SOUND;
+        var audioEngine = cc.AudioEngine.getInstance();
+        if(MW.SOUND){
+            audioEngine.playMusic(s_mainMainMusic);
+        }
+        else{
+            audioEngine.stopMusic(false);
         }
     },
     onModeControl:function(){
