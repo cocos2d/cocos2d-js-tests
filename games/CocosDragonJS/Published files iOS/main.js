@@ -10,6 +10,7 @@ require("Explosion.js");
 require("GameScene.js");
 require("Level.js");
 require("MainMenuScene.js");
+require("resources-html5.js");
 require("resources-jsb.js");
 
 
