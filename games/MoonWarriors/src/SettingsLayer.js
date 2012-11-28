@@ -26,6 +26,8 @@ var SettingsLayer = cc.Layer.extend({
                 cc.MenuItemFont.create("On"),
                 cc.MenuItemFont.create("Off") );
             item1.setCallback(this.onSoundControl );
+            var state = MW.SOUND ? 0 : 1;
+            item1.setSelectedIndex(state);
 
             cc.MenuItemFont.setFontName("Arial");
             cc.MenuItemFont.setFontSize(18);
@@ -67,9 +69,13 @@ var SettingsLayer = cc.Layer.extend({
         cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
     },
     onSoundControl:function(){
-        MW.SOUND = MW.SOUND ? false : true;
-        if(!MW.SOUND){
-            cc.AudioEngine.getInstance().stopMusic();
+        MW.SOUND = !MW.SOUND;
+        var audioEngine = cc.AudioEngine.getInstance();
+        if(MW.SOUND){
+            audioEngine.playMusic(s_mainMainMusic);
+        }
+        else{
+            audioEngine.stopMusic(false);
         }
     },
     onModeControl:function(){
