@@ -26,6 +26,8 @@ var SettingsLayer = cc.Layer.extend({
                 cc.MenuItemFont.create("On"),
                 cc.MenuItemFont.create("Off") );
             item1.setCallback(this.onSoundControl );
+            var state = MW.SOUND ? 0 : 1;
+            item1.setSelectedIndex(state);
 
             cc.MenuItemFont.setFontName("Arial");
             cc.MenuItemFont.setFontSize(18);
