@@ -1,6 +1,6 @@
 var s_coinsPlist = 'coins.plist';
 var s_coinsAnimation = 'coins_animation.plist';
-var s_parallax = 'single_files/Parallax.png';
+var s_parallax = 'Parallax.png';
 var s_carSmoke = 'car_smoke.plist';
 var s_HUD = "HUD.ccbi";
 
