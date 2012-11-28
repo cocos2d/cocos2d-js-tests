@@ -1,6 +1,6 @@
-var s_coinEffect = 'sound/Coin.mp3';
-var s_exploEffect = 'sound/Explo.mp3';
-var s_musicBgm = "sound/Music.mp3";
+var s_coinEffect = 'Coin.mp3';
+var s_exploEffect = 'Explo.mp3';
+var s_musicBgm = 'Music.mp3';
 
 
 var g_ressources = [

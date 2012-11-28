@@ -5,13 +5,6 @@ var CCBMainScene = cc.Scene.extend({
         audioEngine = cc.AudioEngine.getInstance();
         director = cc.Director.getInstance();
 
-        gWinSize = cc.Director.getInstance().getWinSize();
-        gScaleFactor;
-        if (gWinSize.width <= 320)
-            gScaleFactor = 1;
-        else
-            gScaleFactor = 2;
-
         var node = cc.BuilderReader.load("MainMenuScene.ccbi");
 
         this.addChild(node);

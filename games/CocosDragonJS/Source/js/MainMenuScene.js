@@ -55,6 +55,12 @@ MainMenuScene.prototype.updateSettingsDisplay = function () {
 };
 
 MainMenuScene.prototype.onDidLoadFromCCB = function () {
+    gWinSize = cc.Director.getInstance().getWinSize();
+    if (gWinSize.width <= 320)
+        gScaleFactor = 1;
+    else
+        gScaleFactor = 2;
+
     // Start playing looped background music
     cc.AudioEngine.getInstance().setEffectsVolume(0.2);
     cc.AudioEngine.getInstance().playMusic(s_musicBgm);
