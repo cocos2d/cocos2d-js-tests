@@ -5,7 +5,7 @@ var s_musicBgm = "Music.mp3";
 
 var g_ressources = [
     {type:'plist', src:"gameobjects.plist"},
-    {type:'plist', src:"cbResources/ccbDefaultImages-hd.plist"},
+    {type:'plist', src:"ccbResources/ccbDefaultImages-hd.plist"},
 
     {type:'image', src:"ccbResources/ccbDefaultImages-hd.png"},
     {type:'image', src:"ccbResources/ccbParticleFire.png"},
