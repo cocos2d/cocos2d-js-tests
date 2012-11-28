@@ -29,76 +29,62 @@ var CD_CONTROLTYPE_TILT = 1;
 var gSettingMusicEnabled = true;
 var gSettingControlType = CD_CONTROLTYPE_TOUCH;
 
-var gWinSize = cc.Director.getInstance().getWinSize();
-
+var gWinSize;
 var gScaleFactor;
-if (gWinSize.width <= 320) gScaleFactor = 1;
-else gScaleFactor = 2;
-
-// Start playing looped background music
-cc.AudioEngine.getInstance().setEffectsVolume(0.2);
-cc.AudioEngine.getInstance().playMusic("Music.mp3");
 
 //
 // MainMenuScene class
 //
 
-var MainMenuScene = function(){};
-
-MainMenuScene.prototype.updateSettingsDisplay = function()
-{
-	// Music on/off
-	this.sprtMusicOff.setVisible(!gSettingMusicEnabled);
-	
-	// Controls
-	if (gSettingControlType == CD_CONTROLTYPE_TOUCH)
-	{
-		this.sprtControlTouch.setVisible(true);
-		this.sprtControlTilt.setVisible(false);
-	}
-	else
-	{
-		this.sprtControlTouch.setVisible(false);
-		this.sprtControlTilt.setVisible(true);
-	}
+var MainMenuScene = function () {
 };
 
-MainMenuScene.prototype.onDidLoadFromCCB = function()
-{
-	this.updateSettingsDisplay();
+MainMenuScene.prototype.updateSettingsDisplay = function () {
+    // Music on/off
+    this.sprtMusicOff.setVisible(!gSettingMusicEnabled);
+
+    // Controls
+    if (gSettingControlType == CD_CONTROLTYPE_TOUCH) {
+        this.sprtControlTouch.setVisible(true);
+        this.sprtControlTilt.setVisible(false);
+    }
+    else {
+        this.sprtControlTouch.setVisible(false);
+        this.sprtControlTilt.setVisible(true);
+    }
 };
 
-MainMenuScene.prototype.onPressedPlay = function()
-{
+MainMenuScene.prototype.onDidLoadFromCCB = function () {
+    // Start playing looped background music
+    cc.AudioEngine.getInstance().setEffectsVolume(0.2);
+    cc.AudioEngine.getInstance().playMusic(s_musicBgm);
+
+    this.updateSettingsDisplay();
+};
+
+MainMenuScene.prototype.onPressedPlay = function () {
     var scene = cc.BuilderReader.loadAsScene("GameScene.ccbi");
     cc.Director.getInstance().replaceScene(scene);
 };
 
-MainMenuScene.prototype.onPressedMusic = function()
-{
-	gSettingMusicEnabled = !gSettingMusicEnabled;
-	
-	if (gSettingMusicEnabled)
-	{
-    	cc.AudioEngine.getInstance().playMusic("Music.mp3");
+MainMenuScene.prototype.onPressedMusic = function () {
+    gSettingMusicEnabled = !gSettingMusicEnabled;
+
+    if (gSettingMusicEnabled) {
+        cc.AudioEngine.getInstance().playMusic(s_musicBgm);
+    } else {
+        cc.AudioEngine.getInstance().stopMusic();
     }
-    else
-    {
-    	cc.AudioEngine.getInstance().stopMusic();
-    }
-	
-	this.updateSettingsDisplay();
+
+    this.updateSettingsDisplay();
 };
 
-MainMenuScene.prototype.onPressedControl = function()
-{
-	if (gSettingControlType == CD_CONTROLTYPE_TOUCH)
-	{
-		gSettingControlType = CD_CONTROLTYPE_TILT;
-	}
-	else
-	{
-		gSettingControlType = CD_CONTROLTYPE_TOUCH;
-	}
-	this.updateSettingsDisplay();
+MainMenuScene.prototype.onPressedControl = function () {
+    if (gSettingControlType == CD_CONTROLTYPE_TOUCH) {
+        gSettingControlType = CD_CONTROLTYPE_TILT;
+    }
+    else {
+        gSettingControlType = CD_CONTROLTYPE_TOUCH;
+    }
+    this.updateSettingsDisplay();
 };
