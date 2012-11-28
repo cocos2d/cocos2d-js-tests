@@ -3752,6 +3752,36 @@ var TextureColorCacheIssue = SpriteTestDemo.extend({
     }
 });
 
+var TextureColorCacheIssue2 = SpriteTestDemo.extend({
+
+    _title:"Texture Color Cache Issue Test #2",
+    _subtitle:"You should see two different sprites magenta and yellow",
+
+    ctor:function() {
+        this._super();
+
+        var spriteFrameCache = cc.SpriteFrameCache.getInstance();
+        spriteFrameCache.addSpriteFrames(s_tcc_issue_1_plist, s_tcc_issue_1);
+        spriteFrameCache.addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
+
+        var grossini = cc.Sprite.createWithSpriteFrameName('grossini_dance_01.png');
+        grossini.setPosition(winSize.width/3*1,winSize.height/2);
+
+        var sister = cc.Sprite.createWithSpriteFrameName('grossinis_sister1.png');
+        sister.setPosition(winSize.width/3*2,winSize.height/2);
+
+        this.addChild(grossini);
+        this.addChild(sister);
+
+        for (var i = 0; i < 10; ++i) {
+            sister.setColor(cc.c3b(128, 128, 128 + i));
+            grossini.setColor(cc.c3b(128, 128, 128 + i));
+        }
+        grossini.setColor(cc.c3b(255, 255, 0));
+        sister.setColor(cc.c3b(255, 0, 255));
+    }
+});
+
 
 var SpriteTestScene = TestScene.extend({
     runThisTest:function () {
@@ -3824,7 +3854,8 @@ var arrayOfSpriteTest = [
     SpriteDoubleResolution,
     SpriteBatchBug1217,
     AnimationCacheFile,
-    TextureColorCacheIssue
+    TextureColorCacheIssue,
+    TextureColorCacheIssue2
 ];
 
 var nextSpriteTest = function () {
