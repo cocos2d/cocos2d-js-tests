@@ -20,8 +20,6 @@
     'GameScene.js',
     'Level.js',
     'MainMenuScene.js',
-    'resources-html5.js',
-    'resources-jsb.js',
 
             'resources-html5.js',
             'boot2-html5.js'

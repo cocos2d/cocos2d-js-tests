@@ -63,7 +63,7 @@ MainMenuScene.prototype.onDidLoadFromCCB = function () {
 
     // Start playing looped background music
     cc.AudioEngine.getInstance().setEffectsVolume(0.2);
-    cc.AudioEngine.getInstance().playMusic(s_musicBgm);
+    cc.AudioEngine.getInstance().playMusic("Music.mp3");
 
     this.updateSettingsDisplay();
 };
@@ -77,7 +77,7 @@ MainMenuScene.prototype.onPressedMusic = function () {
     gSettingMusicEnabled = !gSettingMusicEnabled;
 
     if (gSettingMusicEnabled) {
-        cc.AudioEngine.getInstance().playMusic(s_musicBgm);
+        cc.AudioEngine.getInstance().playMusic("Music.mp3");
     } else {
         cc.AudioEngine.getInstance().stopMusic();
     }

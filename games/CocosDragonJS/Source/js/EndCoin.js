@@ -38,7 +38,7 @@ EndCoin.prototype.handleCollisionWith = function(gameObjectController)
 {
     if (gameObjectController.controllerName == "Dragon")
     {
-    	cc.AudioEngine.getInstance().playEffect(s_coinEffect);
+    	cc.AudioEngine.getInstance().playEffect("Coin.mp3");
         this.isScheduledForRemove = true;
         sharedGameScene.handleLevelComplete();
     }
