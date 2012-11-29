@@ -1,3 +1,6 @@
+// Resources prefix
+var s_resprefix = "res/";
+
 var s_pathGrossini = "res/Images/grossini.png";
 var s_pathSister1 = "res/Images/grossinis_sister1.png";
 var s_pathSister2 = "res/Images/grossinis_sister2.png";

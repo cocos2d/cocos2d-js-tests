@@ -87,7 +87,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
 
         // Font Item
         var item7 = cc.MenuItemFont.create("Quit", this.onQuit, this);
-        item7.setColor(cc.white());
+        item7.setColor(cc.c3b(255,255,255));
         var color_action = cc.TintBy.create(0.5, 0, -255, -255);
         var color_back = color_action.reverse();
         var seq = cc.Sequence.create(color_action, color_back);

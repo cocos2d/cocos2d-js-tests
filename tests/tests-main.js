@@ -124,7 +124,8 @@ var TestController = cc.LayerGradient.extend({
     },
     onEnter:function(){
         this._super();
-        this._itemMenu.setPositionY(TestController.YOffset);
+        var pos = this._itemMenu.getPosition();
+        this._itemMenu.setPosition(pos.x, TestController.YOffset);
     },
     onMenuCallback:function (sender) {
         TestController.YOffset = this._itemMenu.getPosition().y;

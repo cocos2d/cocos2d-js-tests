@@ -913,7 +913,7 @@ var DemoParticleFromFile = ParticleDemo.extend({
         this.removeChild(this._background, true);
         this._background = null;
 
-        var filename = "res/Particles/" + this._title + ".plist";
+        var filename = s_resprefix + "Particles/" + this._title + ".plist";
         this._emitter = cc.ParticleSystem.create(filename);
         this.addChild(this._emitter, 10);
 
@@ -1185,7 +1185,7 @@ var Issue870 = ParticleDemo.extend({
         this.removeChild(this._background, true);
         this._background = null;
 
-        var system = cc.ParticleSystem.create("res/Particles/SpinningPeas.plist");
+        var system = cc.ParticleSystem.create(s_resprefix + "Particles/SpinningPeas.plist");
         system.setTextureWithRect(cc.TextureCache.getInstance().addImage(s_particles), cc.rect(0, 0, 32, 32));
         this.addChild(system, 10);
         this._emitter = system;
