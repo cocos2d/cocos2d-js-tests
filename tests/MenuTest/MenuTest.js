@@ -130,10 +130,10 @@ var MenuLayerMainMenu = cc.Layer.extend({
         return true;
     },
     onMenuCallback:function (sender) {
-        this._parent.switchTo(1);
+        this.getParent().switchTo(1);
     },
     onMenuCallbackConfig:function (sender) {
-        this._parent.switchTo(3);
+        this.getParent().switchTo(3);
     },
     onAllowTouches:function (dt) {
         director.getTouchDispatcher().setPriority(cc.MENU_HANDLER_PRIORITY + 1, this);
@@ -150,10 +150,10 @@ var MenuLayerMainMenu = cc.Layer.extend({
         this._disabledItem.setEnabled(!this._disabledItem.isEnabled());
     },
     onMenuCallback2:function (sender) {
-        this._parent.switchTo(2);
+        this.getParent().switchTo(2);
     },
     onMenuCallbackPriorityTest:function(sender){
-        this._parent.switchTo(4);
+        this.getParent().switchTo(4);
     },
     onQuit:function (sender) {
         cc.log("Quit called");
@@ -227,7 +227,7 @@ var MenuLayer2 = cc.Layer.extend({
     },
     // callbacks
     onMenuCallback:function (sender) {
-        this._parent.switchTo(0);
+        this.getParent().switchTo(0);
     },
     onMenuCallbackOpacity:function (sender) {
         var menu = sender.getParent();
@@ -303,7 +303,7 @@ var MenuLayer3 = cc.Layer.extend({
     },
     // callbacks
     onMenuCallback:function (sender) {
-        this._parent.switchTo(0);
+        this.getParent().switchTo(0);
     },
     onMenuCallback2:function (sender) {
         this._disabledItem.setEnabled(!this._disabledItem.isEnabled());
@@ -404,7 +404,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.log("Callback called");
     },
     onBackCallback:function (sender) {
-        this._parent.switchTo(0);
+        this.getParent().switchTo(0);
     }
 });
 
@@ -440,7 +440,7 @@ var MenuLayerPriorityTest = cc.Layer.extend({
     },
 
     onMenuCallback:function(sender){
-        this._parent.switchTo(0);
+        this.getParent().switchTo(0);
     },
 
     onDisableMenuCallback:function(sender){
