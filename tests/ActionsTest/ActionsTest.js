@@ -1614,7 +1614,6 @@ var Issue1438 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
-
     ActionManual,
     ActionMove,
     ActionScale,
