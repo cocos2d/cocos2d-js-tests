@@ -371,11 +371,11 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(34);
         var item4 = cc.MenuItemToggle.create(
             cc.MenuItemFont.create("Off"),
+            cc.MenuItemFont.create("33%"),
+            cc.MenuItemFont.create("66%"),
+            cc.MenuItemFont.create("100%"),
             this.onMenuCallback, this
             );
-        item4.getSubItems().push(cc.MenuItemFont.create("33%"));
-        item4.getSubItems().push(cc.MenuItemFont.create("66%"));
-        item4.getSubItems().push(cc.MenuItemFont.create("100%"));
 
         // you can change the one of the items by doing this
         item4.setSelectedIndex(2);
@@ -414,6 +414,9 @@ var MenuLayerPriorityTest = cc.Layer.extend({
     _priority:false,
 
     ctor:function(){
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
+
         this._menu1 = cc.Menu.create();
         this._menu2 = cc.Menu.create();
 
@@ -431,7 +434,7 @@ var MenuLayerPriorityTest = cc.Layer.extend({
         this._priority = true;
         cc.MenuItemFont.setFontSize(48);
         item1 = cc.MenuItemFont.create("Toggle priority", this.onTogglePriorityCallback, this);
-        item1.setColor(cc.c3(0,0,255));
+        item1.setColor(cc.c3b(0,0,255));
         this._menu2.addChild(item1);
         this.addChild(this._menu2);
     },
