@@ -38,7 +38,7 @@ Bomb.prototype.handleCollisionWith = function (gameObjectController) {
         // Collided with the dragon, remove object and add an exposion instead
         this.isScheduledForRemove = true;
 
-        cc.AudioEngine.getInstance().playEffect(s_exploEffect);
+        cc.AudioEngine.getInstance().playEffect("Explo.mp3");
 
         var explosion = cc.BuilderReader.load("Explosion.ccbi");
         explosion.setPosition(this.rootNode.getPosition());

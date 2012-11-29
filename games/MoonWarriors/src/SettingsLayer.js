@@ -75,7 +75,7 @@ var SettingsLayer = cc.Layer.extend({
             audioEngine.playMusic(s_mainMainMusic);
         }
         else{
-            audioEngine.stopMusic(false);
+            audioEngine.stopMusic();
         }
     },
     onModeControl:function(){
