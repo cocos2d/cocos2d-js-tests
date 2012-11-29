@@ -1268,7 +1268,6 @@ var LabelTTFAlignment = AtlasDemo.extend({
 // Flow control
 //
 var arrayOfLabelTest = [
-    BitmapFontMultiLineAlignment,
     LabelAtlasTest,
     LabelAtlasColorTest,
     Atlas3,
