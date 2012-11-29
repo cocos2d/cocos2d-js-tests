@@ -32,19 +32,12 @@ var runEditBoxTest = function () {
     cc.Director.getInstance().replaceScene(pScene);
 };
 
-var box1 = null;
-var box2 = null;
-var box3 = null;
-var box4 = null;
+
 
 var EditBoxTestLayer = cc.Layer.extend({
     init:function () {
 
-        box1 = cc.ControlEditBox.create(new cc.size(170,50),new cc.Color3B(255,255,0));
-        box2 = cc.ControlEditBox.create(new cc.size(130,40),new cc.Color3B(255,255,0));
-        box3 = cc.ControlEditBox.create(new cc.size(65,40),new cc.Color3B(255,255,0));
-        box4 = cc.ControlEditBox.create(new cc.size(180,40),new cc.Color3B(255,255,0));
-
+        var box1 = cc.ControlEditBox.create(new cc.size(170,50),new cc.Color3B(255,255,0));
         box1.setText("EditBoxs");
         box1.setPosition(220,50);
         box1.setBgClr(new cc.Color3B(255,0,0));
@@ -52,7 +45,7 @@ var EditBoxTestLayer = cc.Layer.extend({
         box1.setBorderClr(new cc.Color3B(55,250,120));
         this.addChild(box1);
 
-
+        var box2 = cc.ControlEditBox.create(new cc.size(130,40),new cc.Color3B(255,255,0));
         box2.setText("EditBox Sample");
         box2.setPosition(220,150);
         box2.setInputFlag(cc.EDITBOX_INPUT_FLAG_PASSWORD);
@@ -61,7 +54,7 @@ var EditBoxTestLayer = cc.Layer.extend({
         box2.setBorderClr(new cc.Color3B(55,250,120));
         this.addChild(box2);
 
-
+        var box3 = cc.ControlEditBox.create(new cc.size(65,40),new cc.Color3B(255,255,0));
         box3.setText("Image");
         box3.setPosition(220,250);
         box3.setBgClr(new cc.Color3B(255,250,0));
@@ -71,7 +64,7 @@ var EditBoxTestLayer = cc.Layer.extend({
         this.addChild(box3);
 
         //var box4 = cc.ControlEditBox.create(240,35,14);
-
+        var box4 = cc.ControlEditBox.create(new cc.size(180,40),new cc.Color3B(255,255,0));
         box4.setPlaceholderFontColor(new cc.Color3B(255,0,0));
         box4.setPlaceHolder("Tooltip:");
         box4.setPosition(220,350);
@@ -93,10 +86,7 @@ var EditBoxTestLayer = cc.Layer.extend({
     toExtensionsMainLayer:function (sender) {
         var scene = new ExtensionsTestScene();
         scene.runThisTest();
-        box1.disposeEditBox();
-        box2.disposeEditBox();
-        box3.disposeEditBox();
-        box4.disposeEditBox();
+
     },
 
     scrollViewDidScroll:function (view) {
