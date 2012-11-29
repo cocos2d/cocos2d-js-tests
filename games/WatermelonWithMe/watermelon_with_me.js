@@ -566,7 +566,6 @@ var GameLayer = cc.LayerGradient.extend({
 
     ctor:function (level) {
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_coinsPlist);
-        audioEngine.playMusic(s_game_music);
         this._super();//if you extend CC object, and write your own constructor, you should always call paren'ts constructor
         cc.associateWithNative(this, cc.LayerGradient);
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
@@ -647,7 +646,7 @@ var GameLayer = cc.LayerGradient.extend({
         // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
         // cc.Reader.setCCBRootPath("Resources/CCB/");
         // cc.Reader.load = cc.Reader.readNodeGraphFromFile;
-        var hud = cc.BuilderReader.load("HUD.ccbi", this, null, "Resources/CCB/");
+        var hud = cc.BuilderReader.load("HUD.ccbi", this);
         this.addChild(hud, Z_HUD);
         this._scoreLabel = hud.getChildByTag(SCORE_LABEL_TAG);
         this._timeLabel = hud.getChildByTag(TIME_LABEL_TAG);
@@ -972,24 +971,24 @@ var GameLayer = cc.LayerGradient.extend({
 
             // _motor.maxForce = cpfclamp01(1.0 - (_chassis.body.angVel - _rearWheel.body.angVel)/ENGINE_MAX_W)*ENGINE_MAX_TORQUE;
             var maxForce = cp.clamp01(1.0 - ( (this._chassis.getAngVel() - this._rearWheel.getAngVel()) / ENGINE_MAX_W)) * ENGINE_MAX_TORQUE;
-            this._motor.maxForce = ( maxForce );
+            this._motor.maxForce =  maxForce;
 
             // Set the brakes to apply the baseline rolling friction torque.
-            this._frontBrake.maxForce = ( ROLLING_FRICTION );
-            this._rearBrake.maxForce = ( ROLLING_FRICTION );
+            this._frontBrake.maxForce = ROLLING_FRICTION;
+            this._rearBrake.maxForce = ROLLING_FRICTION;
         } else if (throttle < 0) {
             // Disable the motor.
             cp.constraintSetMaxForce(this._motor, 0);
             // It would be a pretty good idea to give the front and rear brakes different torques.
             // The buggy as is now has a tendency to tip forward when braking hard.
-            this._frontBrake.maxForce = ( BRAKING_TORQUE);
-            this._rearBrake.maxForce = ( BRAKING_TORQUE);
+            this._frontBrake.maxForce = BRAKING_TORQUE;
+            this._rearBrake.maxForce = BRAKING_TORQUE;
         } else {
             // Disable the motor.
-            this._motor.maxForce = ( 0 );
+            this._motor.maxForce = 0;
             // Set the brakes to apply the baseline rolling friction torque.
-            this._frontBrake.maxForce = ( ROLLING_FRICTION );
-            this._rearBrake.maxForce = ( ROLLING_FRICTION );
+            this._frontBrake.maxForce = ROLLING_FRICTION;
+            this._rearBrake.maxForce = ROLLING_FRICTION;
         }
     },
 
@@ -1033,12 +1032,12 @@ var GameLayer = cc.LayerGradient.extend({
 
         // The main motor that drives the buggy.
         var motor = new cp.SimpleMotor( chassis, rear, ENGINE_MAX_W );
-        motor.maxForce = (  0.0 );
+        motor.maxForce = 0.0;
 
         // I don't know if "differential" is the correct word, but it transfers a fraction of the rear torque to the front wheels.
         // In case the rear wheels are slipping. This makes the buggy less frustrating when climbing steep hills.
         var differential = new cp.SimpleMotor( rear, front, 0 );
-        differential.maxForce = ( ENGINE_MAX_TORQUE*DIFFERENTIAL_TORQUE );
+        differential.maxForce = ENGINE_MAX_TORQUE*DIFFERENTIAL_TORQUE;
 
         // Wheel brakes.
         // While you could reuse the main motor for the brakes, it's easier not to.
@@ -1074,7 +1073,7 @@ var GameLayer = cc.LayerGradient.extend({
 
         var shape = new cp.CircleShape( body, radius, cp.vzero );
         shape.setFriction( 1 );
-        shape.group = ( GROUP_BUGGY );
+        shape.group = GROUP_BUGGY;
         shape.setLayers( COLLISION_LAYERS_BUGGY );
         shape.setCollisionType( COLLISION_TYPE_CAR );
 
@@ -1105,7 +1104,7 @@ var GameLayer = cc.LayerGradient.extend({
         // bottom of chassis
         var shape = new cp.BoxShape( body, cs.width, 15 );
         shape.setFriction(0.3);
-        shape.group = ( GROUP_BUGGY );
+        shape.group = GROUP_BUGGY;
         shape.setLayers( COLLISION_LAYERS_BUGGY );
         shape.setCollisionType( COLLISION_TYPE_CAR );
 
@@ -1114,7 +1113,7 @@ var GameLayer = cc.LayerGradient.extend({
         // box for fruits (left)
         shape = new cp.BoxShape2( body, cp.bb(-50, 0, -46, 30) );
         shape.setFriction(0.3);
-        shape.group = ( GROUP_BUGGY );
+        shape.group = GROUP_BUGGY;
         shape.setLayers( COLLISION_LAYERS_BUGGY );
         shape.setCollisionType( COLLISION_TYPE_CAR );
         this._space.addShape( shape );
@@ -1122,7 +1121,7 @@ var GameLayer = cc.LayerGradient.extend({
         // box for fruits (right)
         shape = new cp.BoxShape2( body, cp.bb(8, 0, 12, 30) );
         shape.setFriction(0.3);
-        shape.group = ( GROUP_BUGGY );
+        shape.group = GROUP_BUGGY;
         shape.setLayers( COLLISION_LAYERS_BUGGY );
         shape.setCollisionType( COLLISION_TYPE_CAR );
         this._space.addShape( shape );
@@ -1176,7 +1175,7 @@ var GameLayer = cc.LayerGradient.extend({
         sprite.runAction( repeat );
 
         // Needed for deletion
-        body.userData = ( sprite );
+        body.userData = sprite;
 
         return body;
     },
@@ -1338,17 +1337,18 @@ var BootLayer = cc.Layer.extend({
         cc.associateWithNative(this, cc.Layer);
         this.init();
         // music
-        //audioEngine.playMusic(s_game_music);
+        audioEngine.playMusic(s_game_music);
 
         var cache = cc.SpriteFrameCache.getInstance();
         cache.addSpriteFrames(s_coinsPlist);
 
         __jsc__.dumpRoot();
         __jsc__.garbageCollect();
+        cc.BuilderReader.setResourcePath("Resources/CCB/");
     },
 
     onEnter:function () {
-        var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi", null, null, "Resources/CCB/");
+        var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi");
         director.replaceScene( scene );
         // XXX: html5-only
         // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
