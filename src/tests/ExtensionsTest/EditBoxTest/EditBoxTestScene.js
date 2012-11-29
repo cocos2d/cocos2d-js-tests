@@ -37,38 +37,40 @@ var runEditBoxTest = function () {
 var EditBoxTestLayer = cc.Layer.extend({
     init:function () {
 
-        var box1 = cc.ControlEditBox.create(200,30,16);
+        var box1 = cc.ControlEditBox.create(new cc.size(170,50),new cc.Color3B(255,255,0));
         box1.setText("EditBoxs");
         box1.setPosition(220,50);
-        box1.setBgClr("darkorange");
-        box1.setFontColor("black");
-        box1.setBorderClr("azure");
+        box1.setBgClr(new cc.Color3B(255,0,0));
+        box1.setFontColor(new cc.Color3B(251,250,0));
+        box1.setBorderClr(new cc.Color3B(55,250,120));
         this.addChild(box1);
 
-        var box2 = cc.ControlEditBox.create(220,25,10);
+        var box2 = cc.ControlEditBox.create(new cc.size(130,40),new cc.Color3B(255,255,0));
         box2.setText("EditBox Sample");
         box2.setPosition(220,150);
-        box2.setInputMode("Password");
-        box2.setBgClr("lightgreen");
-        box2.setFontColor("blue");
-        box2.setBorderClr("coral");
+        box2.setInputFlag(cc.EDITBOX_INPUT_FLAG_PASSWORD);
+        box2.setBgClr(new cc.Color3B(55,150,120));
+        box2.setFontColor(new cc.Color3B(255,250,0));
+        box2.setBorderClr(new cc.Color3B(55,250,120));
         this.addChild(box2);
 
-        var box3 = cc.ControlEditBox.create(76,40,10);
-        box3.setText("ImageStyle");
+        var box3 = cc.ControlEditBox.create(new cc.size(65,40),new cc.Color3B(255,255,0));
+        box3.setText("Image");
         box3.setPosition(220,250);
-        box3.setBgClr("salmon");
-        box3.setFontColor("indigo");
-        box3.setBorderClr("teal");
+        box3.setBgClr(new cc.Color3B(255,250,0));
+        box3.setFontColor(new cc.Color3B(15,250,245));
+        box3.setBorderClr(new cc.Color3B(55,150,120));
         box3.setImgStyle("res/extensions/orange_edit.png");
         this.addChild(box3);
 
-        var box4 = cc.ControlEditBox.create(240,35,14);
-        box4.setText("input-limited 10");
+        //var box4 = cc.ControlEditBox.create(240,35,14);
+        var box4 = cc.ControlEditBox.create(new cc.size(180,40),new cc.Color3B(255,255,0));
+        box4.setPlaceholderFontColor(new cc.Color3B(255,0,0));
+        box4.setPlaceHolder("Tooltip:");
         box4.setPosition(220,350);
-        box4.setBgClr("bisque");
-        box4.setFontColor("black");
-        box4.setBorderClr("skyblue");
+        box4.setBgClr(new cc.Color3B(255,210,50));
+        box4.setFontColor(new cc.Color3B(5,4,10));
+        box4.setBorderClr(new cc.Color3B(155,160,120));
         box4.setMaxLength(10);
         this.addChild(box4);
 
@@ -107,5 +109,7 @@ EditBoxTestLayer.create = function () {
     if (retObj && retObj.init()) {
         return retObj;
     }
+
+
     return null;
 };
