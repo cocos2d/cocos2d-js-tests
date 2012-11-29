@@ -141,7 +141,7 @@ Parallax1 = ParallaxDemo.extend({
 
         // Middle layer: a Tile map atlas
         //var tilemap = cc.TileMapAtlas.create(s_tilesPng, s_levelMapTga, 16, 16);
-        var tilemap = cc.TMXTiledMap.create("res/TileMaps/orthogonal-test2.tmx");
+        var tilemap = cc.TMXTiledMap.create(s_resprefix + "TileMaps/orthogonal-test2.tmx");
 
 
         // change the transform anchor to 0,0 (optional)
@@ -221,7 +221,7 @@ Parallax2 = ParallaxDemo.extend({
 
         // Middle layer: a Tile map atlas
         //var tilemap = cc.TileMapAtlas.create(s_tilesPng, s_levelMapTga, 16, 16);
-        var tilemap = cc.TMXTiledMap.create("res/TileMaps/orthogonal-test2.tmx");
+        var tilemap = cc.TMXTiledMap.create(s_resprefix + "TileMaps/orthogonal-test2.tmx");
 
         // change the transform anchor to 0,0 (optional)
         tilemap.setAnchorPoint(cc.p(0, 0));
