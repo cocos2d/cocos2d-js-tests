@@ -3,10 +3,10 @@
 require("jsb_constants.js");
 
 // Resources definitions
-require("src/tests_resources-jsb.js");
+require("tests/tests_resources-jsb.js");
 
 // Load main file
-require("src/tests-main.js");
+require("tests/tests-main.js");
 
 // Load tests files
 
