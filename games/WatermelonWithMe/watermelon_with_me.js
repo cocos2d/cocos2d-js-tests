@@ -599,22 +599,26 @@ var GameLayer = cc.LayerGradient.extend({
         this._batch = cc.SpriteBatchNode.createWithTexture(coin.getTexture(), 100);
         scroll.addChild(this._batch, Z_SPRITES, cc._p(1, 1), cc.p(0,0));
 
-        // XXX: html5-only
-        var background1 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
-        var background2 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
-        var backLayer = cc.Layer.create();
-        backLayer.addChild(background1, Z_MOUNTAINS);
-        backLayer.addChild(background2, Z_MOUNTAINS+1);
-        background2.setPosition(cc.p(1024, 0));
-        scroll.addChild(backLayer, Z_MOUNTAINS, cc._p(0.2, 0.2), cc._p(0, -150));
-        background1.setAnchorPoint(cc._p(0,0));
-        background2.setAnchorPoint(cc.p(0, 0));
-
-        // "endless" background image - this is not compatible with current -html5
-        //var background = cc.Sprite.create(s_parallax, cc.rect(0,0,4096,512) );
-        //scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
-        //background.setAnchorPoint( cc._p(0,0) );
-        //background.getTexture().setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE);
+        if(cc.config.platform = "browser")
+        {
+            //This runs on both HTML5 and JSB
+            var background1 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
+            var background2 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
+            var backLayer = cc.Layer.create();
+            backLayer.addChild(background1, Z_MOUNTAINS);
+            backLayer.addChild(background2, Z_MOUNTAINS+1);
+            background2.setPosition(cc.p(1024, 0));
+            scroll.addChild(backLayer, Z_MOUNTAINS, cc._p(0.2, 0.2), cc._p(0, -150));
+            background1.setAnchorPoint(cc._p(0,0));
+            background2.setAnchorPoint(cc.p(0, 0));
+        }
+        else{
+            //Optimized for JSB, does not run on html5 yet
+            var background = cc.Sprite.create(s_parallax, cc.rect(0,0,4096,512) );
+            scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
+            background.setAnchorPoint( cc._p(0,0) );
+            background.getTexture().setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE);
+        }
 
         // Terrain
         this._terrain = cc.DrawNode.create();
