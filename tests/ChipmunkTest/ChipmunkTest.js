@@ -621,6 +621,67 @@ ChipmunkSpriteAnchorPoint.prototype.update = function(dt)
 };
 
 
+//------------------------------------------------------------------
+//
+// ChipmunkReleaseTest
+//
+//------------------------------------------------------------------
+var ChipmunkReleaseTest = function() {
+
+	cc.base(this);
+
+	this.title = 'Chipmunk Release Test';
+	this.subtitle = 'Space finalizer should be called';
+
+	this.collisionBegin = function ( arbiter, space ) {
+		return true;
+	};
+
+	this.collisionPre = function ( arbiter, space ) {
+		return true;
+	};
+
+	this.collisionPost = function ( arbiter, space ) {
+		cc.log('collision post');
+	};
+
+	this.collisionSeparate = function ( arbiter, space ) {
+		cc.log('collision separate');
+	};
+
+    this.onEnter = function() {
+        cc.base(this, 'onEnter');
+
+        cc.log("OnEnter");
+        __jsc__.dumpRoot();
+        __jsc__.garbageCollect();
+
+        this.space.addCollisionHandler( 10,11,
+			this.collisionBegin.bind(this),
+			this.collisionPre.bind(this),
+			this.collisionPost.bind(this),
+			this.collisionSeparate.bind(this)
+			);
+
+    };
+
+	this.onExit = function() {
+
+        cc.log("OnExit");
+
+		// not calling this on purpose
+		// this.space.removeCollisionHandler( 10, 11 );
+
+		this.space = null;
+
+        __jsc__.dumpRoot();
+        __jsc__.garbageCollect();
+
+        cc.base(this, 'onExit');
+	};
+};
+cc.inherits( ChipmunkReleaseTest, ChipmunkBaseLayer );
+
 //
 // Base class for Chipmunk Demo
 //
@@ -1414,8 +1475,10 @@ var arrayOfChipmunkTest =  [
 		ChipmunkSpriteAnchorPoint
 		];
 
-if( cc.config.platform !== 'browser' )
+if( cc.config.platform !== 'browser' ) {
 	arrayOfChipmunkTest.push( ChipmunkCollisionTestB );
+	arrayOfChipmunkTest.push( ChipmunkReleaseTest );
+}
 
 var nextChipmunkTest = function () {
     sceneIdx++;
