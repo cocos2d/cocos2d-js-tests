@@ -17,7 +17,7 @@
 //              License: Creative Commons 3.0: No-Commercial, Attribution
 //
 //
-// Most of the comments in the physics code were copied+pased from Space Patrol
+// Most of the comments in the physics code were copied + pasted from Space Patrol
 //
 //
 // LICENSE:
@@ -78,419 +78,6 @@ STATE_PLAYING = 2;
 STATE_GAME_OVER = 3;
 STATE_LEVEL_COMPLETE = 4;
 
-//
-// Levels
-//
-levels = [];
-
-// Level 0
-levels.push({'coins':[
-        {x:300, y:50},
-        {x:350, y:50},
-        {x:400, y:50},
-        {x:450, y:50},
-        {x:500, y:50},
-        {x:550, y:50},
-        {x:600, y:50},
-        {x:1300, y:50},
-        {x:1350, y:50},
-        {x:1400, y:50},
-        {x:1450, y:50},
-        {x:1500, y:50},
-        {x:1550, y:50},
-        {x:1600, y:50}
-    ],
-
-        'car':{x:80, y:60},
-        'finish':{x:3000, y:20},
-
-        // points relatives to the previous point
-        'lines':[
-            {x:0, y:0},
-            {x:850, y:0},
-            {x:20, y:5},
-            {x:20, y:-5},
-            {x:20, y:10},
-            {x:20, y:-10},
-            {x:20, y:5},
-            {x:20, y:-5},
-            {x:500, y:0},
-            {x:20, y:5},
-            {x:20, y:-5},
-            {x:20, y:10},
-            {x:20, y:-10},
-            {x:20, y:5},
-            {x:20, y:-5},
-            {x:500, y:0},
-            {x:20, y:5},
-            {x:20, y:-5},
-            {x:20, y:10},
-            {x:20, y:-10},
-            {x:20, y:5},
-            {x:20, y:-5},
-            {x:500, y:0},
-            {x:20, y:5},
-            {x:20, y:-5},
-            {x:20, y:10},
-            {x:20, y:-10},
-            {x:20, y:5},
-            {x:20, y:-5},
-            {x:300, y:0}
-        ]
-    }
-);
-
-// Level 1
-levels.push({'coins':[
-        {x:1120, y:150},
-        {x:1160, y:140},
-        {x:1200, y:130},
-        {x:1240, y:120},
-        {x:1280, y:110},
-        {x:2470, y:150},
-        {x:2510, y:140},
-        {x:2550, y:130},
-        {x:2590, y:120},
-        {x:2630, y:110},
-        {x:2220, y:60},
-        {x:2260, y:70},
-        {x:2300, y:80},
-        {x:2340, y:90},
-        {x:2380, y:100}
-    ],
-
-        'car':{x:80, y:60},
-        'finish':{x:3400, y:20},
-
-        // points relatives to the previous point
-        'lines':[
-            {x:0, y:0},
-            {x:350, y:10},
-            {x:20, y:5},
-            {x:500, y:-20},
-            {x:200, y:80},
-            {x:100, y:-40},
-            {x:200, y:-10},
-            {x:400, y:-50},
-            {x:300, y:0},
-            {x:400, y:100},
-            {x:200, y:-100},
-            {x:400, y:0},
-            {x:20, y:15},
-            {x:20, y:-15},
-            {x:400, y:0}
-        ]
-    }
-);
-
-// Level 2
-levels.push({'coins':[
-        {x:1120, y:150},
-        {x:1160, y:140},
-        {x:1200, y:130},
-        {x:1240, y:120},
-        {x:1280, y:110}
-    ],
-
-        'car':{x:80, y:60},
-        'finish':{x:4100, y:-100},
-
-        // points relatives to the previous point
-        'lines':[
-            {x:0, y:0},
-            {x:350, y:0},
-            {x:300, y:100},
-            {x:100, y:50},
-            {x:50, y:12},
-            {x:25, y:0},
-            {x:50, y:-12},
-            {x:100, y:-25},
-            {x:400, y:-200},
-            {x:500, y:0},
-            {x:20, y:15},
-            {x:20, y:-15},
-            {x:20, y:5},
-            {x:20, y:-5},
-            {x:300, y:0},
-            {x:300, y:100},
-            {x:100, y:50},
-            {x:50, y:12},
-            {x:25, y:0},
-            {x:50, y:-12},
-            {x:100, y:-25},
-            {x:400, y:-200},
-            {x:500, y:0},
-            {x:20, y:15},
-            {x:20, y:-15},
-            {x:20, y:5},
-            {x:20, y:-5},
-            {x:300, y:0}
-        ]
-    }
-);
-// Level 3
-levels.push({'coins':[
-        {x:1120, y:150},
-        {x:1160, y:140},
-        {x:1200, y:130},
-        {x:1240, y:120},
-        {x:1280, y:110}
-    ],
-
-        'car':{x:80, y:60},
-        'finish':{x:4180, y:80},
-
-        // points relatives to the previous point
-        'lines':[
-            {x:0, y:0},
-            {x:110, y:0},
-            //---------Spikes
-            {x:13, y:-55},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            //---------End spikes
-            //---------Spikes
-            {x:10, y:-60},
-            {x:10, y:60},
-            {x:10, y:-60},
-            {x:10, y:60},
-            {x:10, y:-60},
-            {x:10, y:60},
-            {x:10, y:-60},
-            {x:10, y:60},
-            {x:10, y:-60},
-            {x:10, y:60},
-            {x:10, y:-60},
-            {x:10, y:60},
-            {x:10, y:-60},
-            {x:10, y:60},
-            {x:10, y:-60},
-            {x:10, y:60},
-            //---------End spikes
-            //---------Spikes
-            {x:13, y:-55},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            {x:13, y:-60},
-            {x:13, y:60},
-            //---------End spikes
-            {x:180, y:0},
-            //-----------start stairs
-            {x:0, y:10},
-            {x:20, y:0},
-            {x:0, y:10},
-            {x:20, y:0},
-            {x:0, y:10},
-            {x:20, y:0},
-            {x:0, y:10},
-            {x:20, y:0},
-            {x:0, y:10},
-            {x:20, y:0},
-            {x:0, y:10},
-            {x:20, y:0},
-            {x:0, y:10},
-            {x:20, y:0},
-            {x:0, y:10},
-            {x:20, y:0},
-            {x:0, y:10},
-            //-----------end stairs
-            {x:50, y:0},
-            //-----------start stairs
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            //-----------end stairs
-            {x:100, y:0},
-            //-----------start stairs
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            {x:20, y:0},
-            {x:0, y:-10},
-            //-----------end stairs
-            {x:100, y:0},
-
-            {x:200, y:-20},
-            //---------tiny spikes
-            {x:0, y:1},
-            {x:0, y:-1},
-            {x:12, y:0},
-            {x:0, y:2},
-            {x:0, y:-2},
-            {x:12, y:0},
-            {x:0, y:3},
-            {x:0, y:-3},
-            {x:12, y:0},
-            {x:0, y:4},
-            {x:0, y:-4},
-            {x:12, y:0},
-            {x:0, y:5},
-            {x:0, y:-5},
-            {x:12, y:0},
-            {x:0, y:6},
-            {x:0, y:-6},
-            {x:12, y:0},
-            {x:0, y:7},
-            {x:0, y:-7},
-            {x:12, y:0},
-            {x:0, y:8},
-            {x:0, y:-8},
-            {x:12, y:0},
-            {x:0, y:9},
-            {x:0, y:-9},
-            {x:12, y:0},
-            {x:0, y:10},
-            {x:0, y:-10},
-            {x:12, y:0},
-            {x:0, y:11},
-            {x:0, y:-11},
-            {x:12, y:0},
-            {x:0, y:12},
-            {x:0, y:-12},
-            {x:12, y:0},
-            {x:0, y:13},
-            {x:0, y:-13},
-            {x:12, y:0},
-            {x:0, y:14},
-            {x:0, y:-14},
-            {x:12, y:0},
-            {x:0, y:15},
-            {x:0, y:-15},
-            {x:12, y:0},
-            {x:0, y:16},
-            {x:0, y:-16},
-            {x:12, y:0},
-            {x:0, y:17},
-            {x:0, y:-17},
-            {x:12, y:0},
-            {x:0, y:18},
-            {x:0, y:-18},
-            {x:12, y:0},
-            {x:0, y:19},
-            {x:0, y:-19},
-            {x:12, y:0},
-            {x:0, y:20},
-            {x:0, y:-20},
-            {x:12, y:0},
-            {x:0, y:22},
-            {x:0, y:-22},
-            {x:12, y:0},
-            {x:0, y:24},
-            {x:0, y:-24},
-            {x:12, y:0},
-            {x:0, y:27},
-            {x:0, y:-27},
-            {x:12, y:0},
-            {x:0, y:30},
-            {x:0, y:-30},
-            {x:12, y:0},
-            {x:0, y:34},
-            {x:0, y:-34},
-            {x:12, y:0},
-            {x:0, y:38},
-            {x:0, y:-38},
-            {x:12, y:0},
-            {x:0, y:45},
-            {x:0, y:-45},
-            {x:12, y:0},
-            {x:0, y:50},
-            {x:0, y:-50},
-            {x:800, y:0},
-            //----------a jump and a dip
-            {x:100, y:30},
-            {x:0, y:-100},
-            {x:200, y:0},
-            {x:0, y:100},
-            {x:900, y:0},
-            {x:13, y:1},
-            {x:12, y:1},
-            {x:11, y:1},
-            {x:10, y:1},
-            {x:13, y:2},
-            {x:12, y:2},
-            {x:11, y:2},
-            {x:10, y:2},
-            {x:9, y:2},
-            {x:12, y:3},
-            {x:11, y:3},
-            {x:10, y:3},
-            {x:9, y:3},
-            {x:8, y:3},
-            {x:11, y:7},
-            {x:10, y:7},
-            {x:9, y:7},
-            {x:8, y:7},
-            {x:7, y:7},
-            {x:9, y:8},
-            {x:8, y:8},
-            {x:7, y:8},
-            {x:6, y:9},
-            {x:6, y:10},
-            {x:5, y:10},
-            {x:5, y:11},
-            {x:4, y:11},
-            {x:4, y:12},
-            {x:3, y:12},
-            {x:2, y:13},
-            {x:1, y:13},
-            {x:-1, y:14},
-            {x:-3, y:14},
-            {x:-5, y:14},
-            {x:-8, y:10}
-            //---------end jump
-        ]
-    }
-);
 //
 // Physics constants
 //
@@ -599,9 +186,11 @@ var GameLayer = cc.LayerGradient.extend({
         this._batch = cc.SpriteBatchNode.createWithTexture(coin.getTexture(), 100);
         scroll.addChild(this._batch, Z_SPRITES, cc._p(1, 1), cc.p(0,0));
 
-        if(cc.config.platform = "browser")
+        if(cc.config.platform == "browser")
         {
-            //This runs on both HTML5 and JSB
+            // This code runs on both HTML5 and JSB
+            // It places two big sprites in the screen, one after the other.
+            // (...see below...)
             var background1 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
             var background2 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
             var backLayer = cc.Layer.create();
@@ -610,10 +199,12 @@ var GameLayer = cc.LayerGradient.extend({
             background2.setPosition(cc.p(1024, 0));
             scroll.addChild(backLayer, Z_MOUNTAINS, cc._p(0.2, 0.2), cc._p(0, -150));
             background1.setAnchorPoint(cc._p(0,0));
-            background2.setAnchorPoint(cc.p(0, 0));
+            background2.setAnchorPoint(cc._p(0,0));
         }
         else{
-            //Optimized for JSB, does not run on html5 yet
+            // (...see above...)
+            // But since JSB runs on top of OpenGL (cocos2d-iphone or cocos2d-x), you can use
+            // OpenGL commands, and your code will run faster (but it is not compatible with cocos2d-html5... yet)
             var background = cc.Sprite.create(s_parallax, cc.rect(0,0,4096,512) );
             scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
             background.setAnchorPoint( cc._p(0,0) );
@@ -645,11 +236,10 @@ var GameLayer = cc.LayerGradient.extend({
         __jsc__.garbageCollect();
     },
 
+    //
     // HUD stuff
+    //
     initHUD:function () {
-        // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
-        // cc.Reader.setCCBRootPath("Resources/CCB/");
-        // cc.Reader.load = cc.Reader.readNodeGraphFromFile;
         var hud = cc.BuilderReader.load("HUD.ccbi", this);
         this.addChild(hud, Z_HUD);
         this._scoreLabel = hud.getChildByTag(SCORE_LABEL_TAG);
@@ -698,13 +288,6 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     onMainMenu:function (sender) {
-        // XXX: html5-only
-        // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
-        // cc.Reader.setCCBRootPath("Resources/CCB/");
-        // cc.Reader.load = cc.Reader.readNodeGraphFromFile;
-        // var menuNode = cc.Reader.load("MainMenu.ccbi", this);
-        // var scene = cc.Scene.create();
-        // scene.addChild(menuNode);
         var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi");
         director.replaceScene(scene);
     },
@@ -754,20 +337,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
     onEnter:function () {
         this._super();
-
-        // XXX: html5-only
-        // this.schedule(this.updatePhysics,1/30);
-        // var that = this;
-        // setInterval(function(){that.updatePhysics()},1000/60);
     },
-
-    // XXX: html5-only
-    // updatePhysics:function(){
-    //     // Don't update physics on game over
-    //     if (this._state != STATE_PAUSE) {
-    //         this._space.step(1/60);
-    //     }
-    // },
 
     onRemoveMe:function (sender) {
         sender.removeFromParent();
@@ -817,8 +387,6 @@ var GameLayer = cc.LayerGradient.extend({
         this.setGameStateDeferred(STATE_LEVEL_COMPLETE);
         return true;
     },
-
-    _prePoint:cc.p(0, 0),
 
     update:function(dt) {
 
@@ -1348,7 +916,6 @@ var BootLayer = cc.Layer.extend({
 
         __jsc__.dumpRoot();
         __jsc__.garbageCollect();
-        cc.BuilderReader.setResourcePath("Resources/CCB/");
     },
 
     onEnter:function () {
@@ -1524,6 +1091,9 @@ var WaterMelonScene = cc.Scene.extend({
         winSize = director.getWinSize();
         centerPos = cc.p(winSize.width / 2, winSize.height / 2);
         sizeRatio = winSize.width / 480;
+
+        // Tell CocosBuilderReader to load
+        cc.BuilderReader.setResourcePath("Resources/CCB/");
 
         //var menu = new BootLayer();
         var menu = new BootLayer();
