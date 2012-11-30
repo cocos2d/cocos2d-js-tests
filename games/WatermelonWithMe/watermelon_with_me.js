@@ -566,7 +566,6 @@ var GameLayer = cc.LayerGradient.extend({
 
     ctor:function (level) {
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_coinsPlist);
-        audioEngine.playMusic(s_game_music);
         this._super();//if you extend CC object, and write your own constructor, you should always call paren'ts constructor
         cc.associateWithNative(this, cc.LayerGradient);
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
@@ -600,22 +599,26 @@ var GameLayer = cc.LayerGradient.extend({
         this._batch = cc.SpriteBatchNode.createWithTexture(coin.getTexture(), 100);
         scroll.addChild(this._batch, Z_SPRITES, cc._p(1, 1), cc.p(0,0));
 
-        // XXX: html5-only
-        // var background1 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
-        // var background2 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
-        // var backLayer = cc.Layer.create();
-        // backLayer.addChild(background1, Z_MOUNTAINS);
-        // backLayer.addChild(background2, Z_MOUNTAINS);
-        // background2.setPosition(cc.p(1024, 0));
-        // scroll.addChild(backLayer, Z_MOUNTAINS, cc._p(0.2, 0.2), cc._p(0, -150));
-        // background1.setAnchorPoint(cc.p(0,0));
-        // background2.setAnchorPoint(cc.p(0, 0));
-
-        // "endless" background image - this is not compatible with current -html5
-        var background = cc.Sprite.create("Parallax.pvr.gz", cc.rect(0,0,4096,512) );
-        scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
-        background.setAnchorPoint( cc._p(0,0) );
-        background.getTexture().setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE);
+        if(cc.config.platform = "browser")
+        {
+            //This runs on both HTML5 and JSB
+            var background1 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
+            var background2 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
+            var backLayer = cc.Layer.create();
+            backLayer.addChild(background1, Z_MOUNTAINS);
+            backLayer.addChild(background2, Z_MOUNTAINS+1);
+            background2.setPosition(cc.p(1024, 0));
+            scroll.addChild(backLayer, Z_MOUNTAINS, cc._p(0.2, 0.2), cc._p(0, -150));
+            background1.setAnchorPoint(cc._p(0,0));
+            background2.setAnchorPoint(cc.p(0, 0));
+        }
+        else{
+            //Optimized for JSB, does not run on html5 yet
+            var background = cc.Sprite.create(s_parallax, cc.rect(0,0,4096,512) );
+            scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
+            background.setAnchorPoint( cc._p(0,0) );
+            background.getTexture().setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE);
+        }
 
         // Terrain
         this._terrain = cc.DrawNode.create();
@@ -972,31 +975,31 @@ var GameLayer = cc.LayerGradient.extend({
 
             // _motor.maxForce = cpfclamp01(1.0 - (_chassis.body.angVel - _rearWheel.body.angVel)/ENGINE_MAX_W)*ENGINE_MAX_TORQUE;
             var maxForce = cp.clamp01(1.0 - ( (this._chassis.getAngVel() - this._rearWheel.getAngVel()) / ENGINE_MAX_W)) * ENGINE_MAX_TORQUE;
-            this._motor.maxForce = ( maxForce );
+            this._motor.maxForce =  maxForce;
 
             // Set the brakes to apply the baseline rolling friction torque.
-            this._frontBrake.maxForce = ( ROLLING_FRICTION );
-            this._rearBrake.maxForce = ( ROLLING_FRICTION );
+            this._frontBrake.maxForce = ROLLING_FRICTION;
+            this._rearBrake.maxForce = ROLLING_FRICTION;
         } else if (throttle < 0) {
             // Disable the motor.
             cp.constraintSetMaxForce(this._motor, 0);
             // It would be a pretty good idea to give the front and rear brakes different torques.
             // The buggy as is now has a tendency to tip forward when braking hard.
-            this._frontBrake.maxForce = ( BRAKING_TORQUE);
-            this._rearBrake.maxForce = ( BRAKING_TORQUE);
+            this._frontBrake.maxForce = BRAKING_TORQUE;
+            this._rearBrake.maxForce = BRAKING_TORQUE;
         } else {
             // Disable the motor.
-            this._motor.maxForce = ( 0 );
+            this._motor.maxForce = 0;
             // Set the brakes to apply the baseline rolling friction torque.
-            this._frontBrake.maxForce = ( ROLLING_FRICTION );
-            this._rearBrake.maxForce = ( ROLLING_FRICTION );
+            this._frontBrake.maxForce = ROLLING_FRICTION;
+            this._rearBrake.maxForce = ROLLING_FRICTION;
         }
     },
 
     createCar : function(pos) {
-        var front = this.createWheel( cp.v.add(pos, cp._v(47,-25) ) );
+        var front = this.createWheel( cp.v.add(pos, cp.v(47,-25) ) );
         this._chassis = this.createChassis( cp.v.add( pos, COG_ADJUSTMENT ) );
-        this._rearWheel = this.createWheel( cp.v.add( pos, cp._v(-35, -25) ) );
+        this._rearWheel = this.createWheel( cp.v.add( pos, cp.v(-35, -25) ) );
         this.createCarJoints( this._chassis, front, this._rearWheel );
         this.createCarFruits( pos );
 
@@ -1008,7 +1011,7 @@ var GameLayer = cc.LayerGradient.extend({
         // The front wheel strut telescopes, so we'll attach the center of the wheel to a groov joint on the chassis.
         // I created the graphics specifically to have a 45 degree angle. So it's easy to just fudge the numbers.
         var grv_a = chassis.world2Local( front.getPos() );
-        var grv_b = cp.v.add( grv_a, cp.v.mult( cp._v(-1, 1), 7 ) );
+        var grv_b = cp.v.add( grv_a, cp.v.mult( cp.v(-1, 1), 7 ) );
         var frontJoint = new cp.GrooveJoint( chassis, front, grv_a, grv_b, cp.vzero );
 
         // Create the front zero-length spring.
@@ -1017,12 +1020,12 @@ var GameLayer = cc.LayerGradient.extend({
 
         // The rear strut is a swinging arm that holds the wheel a at a certain distance from a pivot on the chassis.
         // A perfect fit for a pin joint conected between the chassis and the wheel's center.
-        var rearJoint = new cp.PinJoint( chassis, rear, cp.v.sub( cp._v(-14,-8), COG_ADJUSTMENT), cp.vzero );
+        var rearJoint = new cp.PinJoint( chassis, rear, cp.v.sub( cp.v(-14,-8), COG_ADJUSTMENT), cp.vzero );
 
         // return cpvtoangle(cpvsub([_chassis.body local2world:_rearJoint.anchr1], _rearWheel.body.pos));
         var rearStrutRestAngle = cp.v.toangle( cp.v.sub(
-                                                chassis.local2World( rearJoint.getAnchr1() ),
-                                                rear.getPos() ) );
+            chassis.local2World( rearJoint.anchr1 ),
+            rear.getPos() ) );
 
         // Create the rear zero-length spring.
         var rear_anchor = chassis.world2Local( rear.getPos() );
@@ -1033,22 +1036,24 @@ var GameLayer = cc.LayerGradient.extend({
 
         // The main motor that drives the buggy.
         var motor = new cp.SimpleMotor( chassis, rear, ENGINE_MAX_W );
-        motor.setMaxForce(  0.0 );
+        motor.maxForce = 0.0;
 
         // I don't know if "differential" is the correct word, but it transfers a fraction of the rear torque to the front wheels.
         // In case the rear wheels are slipping. This makes the buggy less frustrating when climbing steep hills.
         var differential = new cp.SimpleMotor( rear, front, 0 );
-        differential.setMaxForce( ENGINE_MAX_TORQUE*DIFFERENTIAL_TORQUE );
+        differential.maxForce = ENGINE_MAX_TORQUE*DIFFERENTIAL_TORQUE;
 
         // Wheel brakes.
         // While you could reuse the main motor for the brakes, it's easier not to.
         // It won't cause a performance issue to have too many extra motors unless you have hundreds of buggies in the game.
         // Even then, the motor constraints would be the least of your performance worries.
         var frontBrake = new cp.SimpleMotor( chassis, front, 0 );
-        frontBrake.setMaxForce( ROLLING_FRICTION );
+        frontBrake.maxForce =( ROLLING_FRICTION );
         var rearBrake = new cp.SimpleMotor( chassis, rear, 0 );
-        rearBrake.setMaxForce( ROLLING_FRICTION );
+        rearBrake.maxForce =( ROLLING_FRICTION );
 
+        this._space.addConstraint( frontSpring );
+        this._space.addConstraint( rearStrutLimit );
         this._space.addConstraint( frontJoint );
         this._space.addConstraint( rearJoint );
         this._space.addConstraint( rearSpring );
@@ -1068,11 +1073,11 @@ var GameLayer = cc.LayerGradient.extend({
 
         var body = new cp.Body(WHEEL_MASS, cp.momentForCircle(WHEEL_MASS, 0, radius, cp.vzero ) );
         body.setPos( pos );
-        sprite.setBody( body.handle );
+        sprite.setBody( body );
 
         var shape = new cp.CircleShape( body, radius, cp.vzero );
         shape.setFriction( 1 );
-        shape.setGroup( GROUP_BUGGY );
+        shape.group = GROUP_BUGGY;
         shape.setLayers( COLLISION_LAYERS_BUGGY );
         shape.setCollisionType( COLLISION_TYPE_CAR );
 
@@ -1094,7 +1099,7 @@ var GameLayer = cc.LayerGradient.extend({
 
         var body = new cp.Body( CHASSIS_MASS, cp.momentForBox(CHASSIS_MASS, cs.width, cs.height ) );
         body.setPos( pos );
-        sprite.setBody( body.handle );
+        sprite.setBody( body );
 
         this._space.addBody( body );
         this._batch.addChild( sprite, Z_CHASSIS );
@@ -1103,7 +1108,7 @@ var GameLayer = cc.LayerGradient.extend({
         // bottom of chassis
         var shape = new cp.BoxShape( body, cs.width, 15 );
         shape.setFriction(0.3);
-        shape.setGroup( GROUP_BUGGY );
+        shape.group = GROUP_BUGGY;
         shape.setLayers( COLLISION_LAYERS_BUGGY );
         shape.setCollisionType( COLLISION_TYPE_CAR );
 
@@ -1112,7 +1117,7 @@ var GameLayer = cc.LayerGradient.extend({
         // box for fruits (left)
         shape = new cp.BoxShape2( body, cp.bb(-50, 0, -46, 30) );
         shape.setFriction(0.3);
-        shape.setGroup( GROUP_BUGGY );
+        shape.group = GROUP_BUGGY;
         shape.setLayers( COLLISION_LAYERS_BUGGY );
         shape.setCollisionType( COLLISION_TYPE_CAR );
         this._space.addShape( shape );
@@ -1120,7 +1125,7 @@ var GameLayer = cc.LayerGradient.extend({
         // box for fruits (right)
         shape = new cp.BoxShape2( body, cp.bb(8, 0, 12, 30) );
         shape.setFriction(0.3);
-        shape.setGroup( GROUP_BUGGY );
+        shape.group = GROUP_BUGGY;
         shape.setLayers( COLLISION_LAYERS_BUGGY );
         shape.setCollisionType( COLLISION_TYPE_CAR );
         this._space.addShape( shape );
@@ -1135,8 +1140,8 @@ var GameLayer = cc.LayerGradient.extend({
             var radius = 0.95 * sprite.getContentSize().width / 2;
 
             var body = new cp.Body(WATERMELON_MASS, cp.momentForCircle(WATERMELON_MASS, 0, radius, cp.vzero) );
-            body.setPos( pos );
-            sprite.setBody( body.handle );
+            body.setPos( cp.v(pos.x,pos.y) );
+            sprite.setBody( body );
 
             var shape = new cp.CircleShape( body, radius, cp.vzero );
             shape.setFriction( 1 );
@@ -1155,11 +1160,11 @@ var GameLayer = cc.LayerGradient.extend({
 
         var body = new cp.StaticBody();
         body.setPos( pos );
-        sprite.setBody( body.handle );
+        sprite.setBody( body );
 
         var shape = new cp.CircleShape( body, radius, cp.vzero );
         shape.setFriction( 1 );
-        shape.setGroup( GROUP_COIN );
+        shape.group = GROUP_COIN;
         shape.setCollisionType( COLLISION_TYPE_COIN );
         shape.setSensor( true );
 
@@ -1183,7 +1188,7 @@ var GameLayer = cc.LayerGradient.extend({
         var sprite = cc.PhysicsSprite.createWithSpriteFrameName("farmers-market.png");
         var cs = sprite.getContentSize();
         var body = new cp.StaticBody();
-        sprite.setBody( body.handle );
+        sprite.setBody( body );
         body.setPos( pos );
 
 
@@ -1198,7 +1203,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createSegment: function( src, dst) {
-        var staticBody = this._space.getStaticBody();
+        var staticBody = this._space.staticBody;
         var segment = new cp.SegmentShape( staticBody, src, dst, 5 );
         segment.setElasticity(1);
         segment.setFriction(1);
@@ -1336,18 +1341,19 @@ var BootLayer = cc.Layer.extend({
         cc.associateWithNative(this, cc.Layer);
         this.init();
         // music
-        //audioEngine.playMusic(s_game_music);
+        audioEngine.playMusic(s_game_music);
 
         var cache = cc.SpriteFrameCache.getInstance();
         cache.addSpriteFrames(s_coinsPlist);
 
         __jsc__.dumpRoot();
         __jsc__.garbageCollect();
+        cc.BuilderReader.setResourcePath("Resources/CCB/");
     },
 
     onEnter:function () {
         var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi");
-         director.replaceScene( scene );
+        director.replaceScene( scene );
         // XXX: html5-only
         // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
         // cc.Reader.setCCBRootPath("Resources/CCB/");
@@ -1520,7 +1526,7 @@ var WaterMelonScene = cc.Scene.extend({
         sizeRatio = winSize.width / 480;
 
         //var menu = new BootLayer();
-        var menu = new GameLayer(0);
+        var menu = new BootLayer();
         //var menu = new OptionsLayer();
         this.addChild(menu);
         this.setPosition(cc.p(0, 0));
