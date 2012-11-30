@@ -31,22 +31,23 @@ require("jsb_constants.js");
 var MW = MW || {};
 
 var appFiles = [
-	'Resource.js',
-    'GameConfig.js',
-	'EnemyType.js',
-	'Level.js',
-	'Effect.js',
-	'Bullet.js',
-	'Enemy.js',
-	'Explosion.js',
-	'Ship.js',
-	'LevelManager.js',
-	'GameControlMenu.js',
-	'GameLayer.js',
-	'GameOver.js',
-	'AboutLayer.js',
-	'SettingsLayer.js',
-	'SysMenu.js'
+    'src/Resource.js',
+    'src/config/GameConfig.js',
+    'src/config/EnemyType.js',
+    'src/config/Level.js',
+    'src/Effect.js',
+    'src/Bullet.js',
+    'src/Enemy.js',
+    'src/Explosion.js',
+    'src/Ship.js',
+    'src/LevelManager.js',
+    'src/GameController.js',
+    'src/GameControlMenu.js',
+    'src/GameLayer.js',
+    'src/GameOver.js',
+    'src/AboutLayer.js',
+    'src/SettingsLayer.js',
+    'src/SysMenu.js'
 ];
 
 cc.dumpConfig();
