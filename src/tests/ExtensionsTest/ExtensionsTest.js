@@ -73,10 +73,6 @@ var extensionsTestItemNames = [
    {
        itemTitle:"EditBoxTest",
        testScene:function () {
-//           var pManager = ControlSceneManager.getInstance();
-//           var pScene = pManager.currentControlScene();
-//           cc.Director.getInstance().replaceScene(pScene);
-           //testEditBox();
            runEditBoxTest();
        }
    }
