@@ -1,17 +1,12 @@
-# cocos2d JavaScript tests and games
+# cocos2d JavaScript tests
 
-These tests and games are shared by the following projects:
+These tests are shared by the following projects:
 
   - [cocos2d-html5](http://www.cocos2d-html5.org)
   - [cocos2d-x](http://www.cocos2d-x.org)
   - [cocos2d-iphone](http://www.cocos2d-iphone.org)
 
 If you modify the a test, please test it with all the projects to ensure 100% API compatibility between all the projects.
-
-# Tests #
-
-
-![cocos2d JS tests](https://lh4.googleusercontent.com/-BKnI0dmMjn0/ULVSA8rPnYI/AAAAAAAAqWU/jy2cL6ZzuHA/s400/Screen%2520Shot%25202012-11-27%2520at%25203.48.56%2520PM.png)
 
 ## Running the tests ##
 
@@ -66,7 +61,6 @@ $ open samples/TestJavascript/proj.ios/TestJavascript.xcodeproj
 $ cd Samples/TestJavascript/proj.android
 $ ./build.native.sh
 ```
-
 - Import android projects into Eclipses and run, please refer to http://www.cocos2d-x.org/projects/cocos2d-x/wiki/How_to_build_and_run_HelloWorld_on_Android(gles20_branch)
 
 ## Automated tests ##
@@ -84,57 +78,4 @@ These tests can be run unmodified in the following platforms:
   - iOS ( with _cocos2d-x / cocos2d-iphone_ + _JS Bindings_)
   - Android ( with _cocos2d-x_ + _JS Bindings_ )
   - Mac ( with _cocos2d-iphone_ + _JS Bindings_ )
-
-# Games
-
-## Watermelon with Me ##
-
-![Watermelon With Me](https://lh6.googleusercontent.com/-P4-hvCiDGP8/ULVSBBtYluI/AAAAAAAAqWY/wZv4vsFQw1M/s400/Screen%2520Shot%25202012-11-27%2520at%25203.49.36%2520PM.png)
-
-It is a simple physics game. It uses:
-
-  * cocos2d
-  * Chipmunk
-  * CocosBuilder
-
-Licensed under MIT.
-  
-## CocosDragon ##
-
-![CocosDragon](https://lh3.googleusercontent.com/-bu3ANISoS6Y/ULVSBhFXkfI/AAAAAAAAqWc/GFcDwB6iO04/s400/Screen%2520Shot%25202012-11-27%2520at%25203.49.52%2520PM.png)
-
-It is a simple _platformer_ game. It uses:
-
-  * cocos2d
-  * CocosBuilder
-
-Licensed under MIT.
-
-## Moon Warriors ##
-
-![Moon Warriors](https://lh5.googleusercontent.com/-Lov8RC1s5xc/ULVSBwWg8II/AAAAAAAAqWg/cwY_JRbYX8U/s400/Screen%2520Shot%25202012-11-27%2520at%25203.50.37%2520PM.png)
-
-It is a simple shooter game. It uses:
-
- * cocos2d
- 
-Art and audio is copyrighted by Enigmata Genus Revenge, you may not use any copyrighted material without permission.
-
-This showcase is licensed under GPL
-
-### Authors ###
-
-   * Programmer: Shengxiang Chen, Dingping Lv
-   * Effects animation: Hao Wu
-   * Quality Assurance:  Shun Lin
-
-### Website ###
-
-   * HTML5China: [bbs.html5china.com][1]
-   * Cocos2d-html5: [www.cocos2d-x.org][2]
-
-   [1]: http://bbs.html5china.com/forum-cocos2d_html5-1.html "HTML5China"
-   [2]: http://www.cocos2d-x.org "Cocos2d-html5"
-   [3]: http://www.cocos2d-x.org/MoonWarriors/index.html "MoonWarriors"
-
 
