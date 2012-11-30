@@ -848,7 +848,7 @@ var GameLayer = cc.LayerGradient.extend({
             // shape.free();
 
             var body = shape.getBody();
-            var sprite = body.getUserData();
+            var sprite = body.userData;
             sprite.removeFromParent();
 
             // body.free();
@@ -1174,7 +1174,7 @@ var GameLayer = cc.LayerGradient.extend({
         sprite.runAction( repeat );
 
         // Needed for deletion
-        body.setUserData( sprite );
+        body.userData = sprite;
 
         return body;
     },

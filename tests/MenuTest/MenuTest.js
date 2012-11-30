@@ -87,7 +87,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
 
         // Font Item
         var item7 = cc.MenuItemFont.create("Quit", this.onQuit, this);
-        item7.setColor(cc.WHITE);
+        item7.setColor(cc.c3b(255,255,255));
         var color_action = cc.TintBy.create(0.5, 0, -255, -255);
         var color_back = color_action.reverse();
         var seq = cc.Sequence.create(color_action, color_back);
@@ -130,10 +130,10 @@ var MenuLayerMainMenu = cc.Layer.extend({
         return true;
     },
     onMenuCallback:function (sender) {
-        this._parent.switchTo(1);
+        this.getParent().switchTo(1);
     },
     onMenuCallbackConfig:function (sender) {
-        this._parent.switchTo(3);
+        this.getParent().switchTo(3);
     },
     onAllowTouches:function (dt) {
         director.getTouchDispatcher().setPriority(cc.MENU_HANDLER_PRIORITY + 1, this);
@@ -150,10 +150,10 @@ var MenuLayerMainMenu = cc.Layer.extend({
         this._disabledItem.setEnabled(!this._disabledItem.isEnabled());
     },
     onMenuCallback2:function (sender) {
-        this._parent.switchTo(2);
+        this.getParent().switchTo(2);
     },
     onMenuCallbackPriorityTest:function(sender){
-        this._parent.switchTo(4);
+        this.getParent().switchTo(4);
     },
     onQuit:function (sender) {
         cc.log("Quit called");
@@ -227,7 +227,7 @@ var MenuLayer2 = cc.Layer.extend({
     },
     // callbacks
     onMenuCallback:function (sender) {
-        this._parent.switchTo(0);
+        this.getParent().switchTo(0);
     },
     onMenuCallbackOpacity:function (sender) {
         var menu = sender.getParent();
@@ -303,7 +303,7 @@ var MenuLayer3 = cc.Layer.extend({
     },
     // callbacks
     onMenuCallback:function (sender) {
-        this._parent.switchTo(0);
+        this.getParent().switchTo(0);
     },
     onMenuCallback2:function (sender) {
         this._disabledItem.setEnabled(!this._disabledItem.isEnabled());
@@ -371,11 +371,11 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(34);
         var item4 = cc.MenuItemToggle.create(
             cc.MenuItemFont.create("Off"),
+            cc.MenuItemFont.create("33%"),
+            cc.MenuItemFont.create("66%"),
+            cc.MenuItemFont.create("100%"),
             this.onMenuCallback, this
             );
-        item4.getSubItems().push(cc.MenuItemFont.create("33%"));
-        item4.getSubItems().push(cc.MenuItemFont.create("66%"));
-        item4.getSubItems().push(cc.MenuItemFont.create("100%"));
 
         // you can change the one of the items by doing this
         item4.setSelectedIndex(2);
@@ -404,7 +404,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.log("Callback called");
     },
     onBackCallback:function (sender) {
-        this._parent.switchTo(0);
+        this.getParent().switchTo(0);
     }
 });
 
@@ -414,6 +414,9 @@ var MenuLayerPriorityTest = cc.Layer.extend({
     _priority:false,
 
     ctor:function(){
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
+
         this._menu1 = cc.Menu.create();
         this._menu2 = cc.Menu.create();
 
@@ -431,13 +434,13 @@ var MenuLayerPriorityTest = cc.Layer.extend({
         this._priority = true;
         cc.MenuItemFont.setFontSize(48);
         item1 = cc.MenuItemFont.create("Toggle priority", this.onTogglePriorityCallback, this);
-        item1.setColor(cc.c3(0,0,255));
+        item1.setColor(cc.c3b(0,0,255));
         this._menu2.addChild(item1);
         this.addChild(this._menu2);
     },
 
     onMenuCallback:function(sender){
-        this._parent.switchTo(0);
+        this.getParent().switchTo(0);
     },
 
     onDisableMenuCallback:function(sender){
