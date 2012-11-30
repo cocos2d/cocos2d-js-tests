@@ -699,10 +699,10 @@ var GameLayer = cc.LayerGradient.extend({
         // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
         // cc.Reader.setCCBRootPath("Resources/CCB/");
         // cc.Reader.load = cc.Reader.readNodeGraphFromFile;
-        // var menuNode = cc.Reader.load("MainMenu.ccbi", this);
+        // var menuNode = cc.Reader.load(s_MainMenu, this);
         // var scene = cc.Scene.create();
         // scene.addChild(menuNode);
-        var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi");
+        var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
         director.replaceScene(scene);
     },
 
@@ -1346,13 +1346,13 @@ var BootLayer = cc.Layer.extend({
     },
 
     onEnter:function () {
-        var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi");
+        var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
          director.replaceScene( scene );
         // XXX: html5-only
         // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
         // cc.Reader.setCCBRootPath("Resources/CCB/");
         // cc.Reader.load = cc.Reader.readNodeGraphFromFile;
-        // var menuNode = cc.Reader.load("MainMenu.ccbi", this);
+        // var menuNode = cc.Reader.load(s_MainMenu, this);
         // var scene = cc.Scene.create();
         // scene.addChild(menuNode);
         // director.replaceScene(scene);
@@ -1398,7 +1398,7 @@ MenuLayerController.prototype.onAbout = function () {
     /*var scene = cc.Scene.create();
      var layer = new AboutLayer();
      scene.addChild( layer );*/
-    var scene = cc.BuilderReader.loadAsScene("About.ccbi");
+    var scene = cc.BuilderReader.loadAsScene(s_About);
     director.replaceScene(cc.TransitionZoomFlipY.create(1, scene));
 };
 
@@ -1419,7 +1419,7 @@ AboutLayerController.prototype.onDidLoadFromCCB = function () {
 };
 
 AboutLayerController.prototype.onBack = function () {
-    var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi");
+    var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
     director.replaceScene(scene);
 };
 
@@ -1451,13 +1451,13 @@ var OptionsLayer = cc.LayerGradient.extend({
     },
 
     onBack:function (sender) {
-        var scene = cc.BuilderReader.loadAsScene("MainMenu.ccbi");
+        var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
         director.replaceScene(scene);
         // XXX: html5-only
         // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
         // cc.Reader.setCCBRootPath("Resources/CCB/");
         // cc.Reader.load = cc.Reader.readNodeGraphFromFile;
-        // var menuNode = cc.Reader.load("MainMenu.ccbi", this);
+        // var menuNode = cc.Reader.load(s_MainMenu, this);
         // var scene = cc.Scene.create();
         // scene.addChild(menuNode);
         // director.replaceScene(scene);
