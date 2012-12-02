@@ -612,7 +612,7 @@ var GameLayer = cc.LayerGradient.extend({
         // background2.setAnchorPoint(cc.p(0, 0));
 
         // "endless" background image - this is not compatible with current -html5
-        var background = cc.Sprite.create("Parallax.pvr.gz", cc.rect(0,0,4096,512) );
+        var background = cc.Sprite.create(s_parallax, cc.rect(0,0,4096,512) );
         scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
         background.setAnchorPoint( cc._p(0,0) );
         background.getTexture().setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE);
@@ -647,7 +647,7 @@ var GameLayer = cc.LayerGradient.extend({
         // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
         // cc.Reader.setCCBRootPath("Resources/CCB/");
         // cc.Reader.load = cc.Reader.readNodeGraphFromFile;
-        var hud = cc.BuilderReader.load("HUD.ccbi", this);
+        var hud = cc.BuilderReader.load(s_HUD, this);
         this.addChild(hud, Z_HUD);
         this._scoreLabel = hud.getChildByTag(SCORE_LABEL_TAG);
         this._timeLabel = hud.getChildByTag(TIME_LABEL_TAG);
