@@ -1059,6 +1059,9 @@ if (cc.config.platform !== "browser") {
         winSize = director.getWinSize();
         centerPos = cc.p(winSize.width / 2, winSize.height / 2);
         sizeRatio = winSize.width / 480;
+        
+        // Tell CocosBuilderReader to load
+        cc.BuilderReader.setResourcePath("Resources/CCB/");
 
         var scene = cc.Scene.create();
 

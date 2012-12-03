@@ -42,6 +42,9 @@ var s_game_music = "Resources/sound/game-music.mp3";
 var s_body = "Resources/body.png";
 var s_head = "Resources/head3.png";
 
+var s_MainMenu = "Resources/CCB/MainMenu.ccbi";
+var s_About = "Resources/CCB/About.ccbi";
+
 var g_ressources = [
     {type:'plist', src:s_coinsPlist},
     {type:'plist', src:s_coinsAnimation},
