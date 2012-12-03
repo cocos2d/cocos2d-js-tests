@@ -33,13 +33,13 @@ var TEST_COCOSBUILDER = 2;
 var TEST_HTTPCLIENT = 3;
 
 var extensionsTestItemNames = [
-/*    {
-        itemTitle:"NotificationCenterTest",
-        testScene:function () {
-            //runNotificationCenterTest();
-            cc.log("not implement");
-        }
-    },*/
+    /*    {
+     itemTitle:"NotificationCenterTest",
+     testScene:function () {
+     //runNotificationCenterTest();
+     cc.log("not implement");
+     }
+     },*/
     {
         itemTitle:"CCControlButtonTest",
         testScene:function () {
@@ -57,25 +57,25 @@ var extensionsTestItemNames = [
             }
         }
     },
-/*    {
-        itemTitle:"HttpClientTest",
-        testScene:function () {
-            //runHttpClientTest();
-            cc.log("not implement");
-        }
-    },*/
+    /*    {
+     itemTitle:"HttpClientTest",
+     testScene:function () {
+     //runHttpClientTest();
+     cc.log("not implement");
+     }
+     },*/
     {
         itemTitle:"TableViewTest",
         testScene:function () {
             runTableViewTest();
         }
-    }
-/*    {
+    },
+    {
         itemTitle:"EditBoxTest",
         testScene:function () {
-            //runEditBoxTest();
+            runEditBoxTest();
         }
-    }*/
+    }
 ];
 
 var ExtensionsMainLayer = cc.Layer.extend({
@@ -85,10 +85,10 @@ var ExtensionsMainLayer = cc.Layer.extend({
         var winSize = cc.Director.getInstance().getWinSize();
 
         var pMenu = cc.Menu.create();
-        pMenu.setPosition(cc.p(0,0));
+        pMenu.setPosition(cc.p(0, 0));
         cc.MenuItemFont.setFontName("Arial");
         cc.MenuItemFont.setFontSize(24);
-        for (var i = 0; i < extensionsTestItemNames.length; ++i){
+        for (var i = 0; i < extensionsTestItemNames.length; ++i) {
             var selItem = extensionsTestItemNames[i];
             var pItem = cc.MenuItemFont.create(selItem.itemTitle,
                 this.menuCallback, this);
