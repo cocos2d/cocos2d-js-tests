@@ -63,7 +63,10 @@ MainMenuScene.prototype.onDidLoadFromCCB = function () {
 
     // Start playing looped background music
     cc.AudioEngine.getInstance().setEffectsVolume(0.2);
-    cc.AudioEngine.getInstance().playMusic("Music.mp3");
+    if (gSettingMusicEnabled)
+    {
+    	cc.AudioEngine.getInstance().playMusic("Music.mp3");
+    }
 
     this.updateSettingsDisplay();
 };

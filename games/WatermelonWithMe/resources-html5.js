@@ -25,13 +25,13 @@ var s_Gas40IPADPNG = "Resources/CCB/Gas40-ipad.png";
 
 
 var s_Konqa32FNT = "Resources/CCB/konqa32.fnt";
-var s_Konqa32PNG = "Resources/CCB/konqa32.PNG";
+var s_Konqa32PNG = "Resources/CCB/konqa32.png";
 
 var s_Konqa32HDFNT = "Resources/CCB/konqa32-hd.fnt";
-var s_Konqa32HDPNG = "Resources/CCB/konqa32-hd.PNG";
+var s_Konqa32HDPNG = "Resources/CCB/konqa32-hd.png";
 
 var s_Konqa32IPADFNT = "Resources/CCB/konqa32-ipad.fnt";
-var s_Konqa32IPADPNG = "Resources/CCB/konqa32-ipad.PNG";
+var s_Konqa32IPADPNG = "Resources/CCB/konqa32-ipad.png";
 
 var s_GameOverWAV = "Resources/sound/GameOver.mp3";
 var PickupCointWAV = "Resources/sound/pickup_coin.mp3";
