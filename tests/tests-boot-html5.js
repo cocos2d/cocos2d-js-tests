@@ -92,6 +92,7 @@
             'ExtensionsTest/CocosBuilderTest/ParticleSystemTest/ParticleSystemTestLayer.js',
             'ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js',
             'ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.js',
+            'ExtensionsTest/EditBoxTest/EditBoxTest.js',
 
             'Box2dTest/Box2dTest.js',
             'ChipmunkTest/ChipmunkTest.js']

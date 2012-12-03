@@ -39,6 +39,7 @@
         //SingleEngineFile:'',
         appFiles:[//'src/AppDelegate.js',
             'resources-html5.js',
+            'levels.js',
             'watermelon_with_me.js']
 
 };
