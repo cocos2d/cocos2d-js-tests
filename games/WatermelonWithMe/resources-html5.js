@@ -2,7 +2,7 @@ var s_coinsPlist = 'Resources/CCB/coins.plist';
 var s_coinsAnimation = 'Resources/coins_animation.plist';
 var s_parallax = 'Resources/single_files/Parallax.png';
 var s_carSmoke = 'Resources/car_smoke.plist';
-var s_HUD = "Resources/CCB/HUD.ccbi";
+var s_HUD = "HUD.ccbi";
 
 var s_Abadi40HDFNT = "Resources/CCB/Abadi40-hd.fnt";
 var s_Abadi40HDPNG = "Resources/CCB/Abadi40-hd.png";
@@ -41,6 +41,9 @@ var s_game_music = "Resources/sound/game-music.mp3";
 
 var s_body = "Resources/body.png";
 var s_head = "Resources/head3.png";
+
+var s_MainMenu = "MainMenu.ccbi";
+var s_About = "About.ccbi";
 
 var g_ressources = [
     {type:'plist', src:s_coinsPlist},

@@ -1,10 +1,5 @@
-var dirImg = "";
-var dirMusic = "";
-if( cc.config.platform == 'browser' ) {
-    dirImg = "res/";
-    dirMusic = "res/Music/";
-    musicSuffix = "";
-}
+var dirImg = "res/";
+var dirMusic = "res/Music/";
 
 //image
 var s_bg01 = dirImg + "bg01.jpg";
