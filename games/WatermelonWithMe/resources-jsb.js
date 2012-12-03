@@ -25,7 +25,13 @@ var s_Gas40IPADPNG = "Gas40-ipad.png";
 
 
 var s_Konqa32FNT = "konqa32.fnt";
-var s_Konqa32PNG = "konqa32.png";
+var s_Konqa32PNG = "konqa32.PNG";
+
+var s_Konqa32HDFNT = "konqa32-hd.fnt";
+var s_Konqa32HDPNG = "konqa32-hd.PNG";
+
+var s_Konqa32IPADFNT = "konqa32-ipad.fnt";
+var s_Konqa32IPADPNG = "konqa32-ipad.PNG";
 
 var s_GameOverWAV = "GameOver.mp3";
 var PickupCointWAV = "pickup_coin.mp3";
@@ -35,3 +41,6 @@ var s_game_music = "game-music.mp3";
 
 var s_body = "body.png";
 var s_head = "head3.png";
+
+var s_MainMenu = "MainMenu.ccbi";
+var s_About = "About.ccbi";
