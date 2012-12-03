@@ -44,8 +44,6 @@ for( var i=0; i < tests_files.length; i++) {
 	require( name );
 }
 
-// cc.AudioEngine.getInstance().init("mp3,ogg");
-
 var scene = cc.Scene.create();
 var layer = new TestController();
 scene.addChild(layer);
