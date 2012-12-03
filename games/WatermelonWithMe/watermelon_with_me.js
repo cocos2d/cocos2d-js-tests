@@ -1343,6 +1343,7 @@ var BootLayer = cc.Layer.extend({
 
         __jsc__.dumpRoot();
         __jsc__.garbageCollect();
+        cc.BuilderReader.setResourcePath("Resources/CCB/");
     },
 
     onEnter:function () {
