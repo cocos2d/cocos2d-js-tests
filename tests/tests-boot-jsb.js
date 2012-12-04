@@ -3,10 +3,10 @@
 require("jsb_constants.js");
 
 // Resources definitions
-require("tests/tests_resources-jsb.js");
+require("tests_resources-jsb.js");
 
 // Load main file
-require("tests/tests-main.js");
+require("tests-main.js");
 
 // Load tests files
 
@@ -39,12 +39,10 @@ var tests_files = [
 		'UnitTest/UnitTest.js'
 	];
 for( var i=0; i < tests_files.length; i++) {
-	var name = "tests/" + tests_files[i];
+	var name = "" + tests_files[i];
 	cc.log(" Loading: " + name );
 	require( name );
 }
-
-// cc.AudioEngine.getInstance().init("mp3,ogg");
 
 var scene = cc.Scene.create();
 var layer = new TestController();
