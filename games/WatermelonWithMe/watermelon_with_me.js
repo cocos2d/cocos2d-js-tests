@@ -921,14 +921,6 @@ var BootLayer = cc.Layer.extend({
     onEnter:function () {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
         director.replaceScene( scene );
-        // XXX: html5-only
-        // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
-        // cc.Reader.setCCBRootPath("Resources/CCB/");
-        // cc.Reader.load = cc.Reader.readNodeGraphFromFile;
-        // var menuNode = cc.Reader.load("MainMenu.ccbi", this);
-        // var scene = cc.Scene.create();
-        // scene.addChild(menuNode);
-        // director.replaceScene(scene);
     }
 });
 //
@@ -1026,14 +1018,6 @@ var OptionsLayer = cc.LayerGradient.extend({
     onBack:function (sender) {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
         director.replaceScene(scene);
-        // XXX: html5-only
-        // cc.Reader = new cc.BuilderReader(cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary());
-        // cc.Reader.setCCBRootPath("Resources/CCB/");
-        // cc.Reader.load = cc.Reader.readNodeGraphFromFile;
-        // var menuNode = cc.Reader.load("MainMenu.ccbi", this);
-        // var scene = cc.Scene.create();
-        // scene.addChild(menuNode);
-        // director.replaceScene(scene);
     },
 
     onMusicToggle:function (sender) {
@@ -1061,7 +1045,7 @@ if (cc.config.platform !== "browser") {
         sizeRatio = winSize.width / 480;
         
         // Tell CocosBuilderReader to load
-        cc.BuilderReader.setResourcePath("Resources/CCB/");
+        cc.BuilderReader.setResourcePath("res/CCB/");
 
         var scene = cc.Scene.create();
 
@@ -1096,7 +1080,7 @@ var WaterMelonScene = cc.Scene.extend({
         sizeRatio = winSize.width / 480;
 
         // Tell CocosBuilderReader to load
-        cc.BuilderReader.setResourcePath("Resources/CCB/");
+        cc.BuilderReader.setResourcePath("res/CCB/");
 
         //var menu = new BootLayer();
         var menu = new BootLayer();

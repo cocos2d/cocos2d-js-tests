@@ -1,46 +1,46 @@
-var s_coinsPlist = 'Resources/CCB/coins.plist';
-var s_coinsAnimation = 'Resources/coins_animation.plist';
-var s_parallax = 'Resources/single_files/Parallax.png';
-var s_carSmoke = 'Resources/car_smoke.plist';
+var s_coinsPlist = 'res/CCB/coins.plist';
+var s_coinsAnimation = 'res/coins_animation.plist';
+var s_parallax = 'res/single_files/Parallax.png';
+var s_carSmoke = 'res/car_smoke.plist';
 var s_HUD = "HUD.ccbi";
 
-var s_Abadi40HDFNT = "Resources/CCB/Abadi40-hd.fnt";
-var s_Abadi40HDPNG = "Resources/CCB/Abadi40-hd.png";
+var s_Abadi40HDFNT = "res/CCB/Abadi40-hd.fnt";
+var s_Abadi40HDPNG = "res/CCB/Abadi40-hd.png";
 
-var s_Abadi40IPADFNT = "Resources/CCB/Abadi40-ipad.fnt";
-var s_Abadi40IPADPNG = "Resources/CCB/Abadi40-ipad.png";
+var s_Abadi40IPADFNT = "res/CCB/Abadi40-ipad.fnt";
+var s_Abadi40IPADPNG = "res/CCB/Abadi40-ipad.png";
 
-var s_Abadi40FNT = "Resources/CCB/Abadi40.fnt";
-var s_Abadi40PNG = "Resources/CCB/Abadi40.png";
-
-
-var s_Gas40FNT = "Resources/CCB/Gas40.fnt";
-var s_Gas40PNG = "Resources/CCB/Gas40.png";
-
-var s_Gas40HDFNT = "Resources/CCB/Gas40-hd.fnt";
-var s_Gas40HDPNG = "Resources/CCB/Gas40-hd.png";
-
-var s_Gas40IPADFNT = "Resources/CCB/Gas40-ipad.fnt";
-var s_Gas40IPADPNG = "Resources/CCB/Gas40-ipad.png";
+var s_Abadi40FNT = "res/CCB/Abadi40.fnt";
+var s_Abadi40PNG = "res/CCB/Abadi40.png";
 
 
-var s_Konqa32FNT = "Resources/CCB/konqa32.fnt";
-var s_Konqa32PNG = "Resources/CCB/konqa32.png";
+var s_Gas40FNT = "res/CCB/Gas40.fnt";
+var s_Gas40PNG = "res/CCB/Gas40.png";
 
-var s_Konqa32HDFNT = "Resources/CCB/konqa32-hd.fnt";
-var s_Konqa32HDPNG = "Resources/CCB/konqa32-hd.png";
+var s_Gas40HDFNT = "res/CCB/Gas40-hd.fnt";
+var s_Gas40HDPNG = "res/CCB/Gas40-hd.png";
 
-var s_Konqa32IPADFNT = "Resources/CCB/konqa32-ipad.fnt";
-var s_Konqa32IPADPNG = "Resources/CCB/konqa32-ipad.png";
-
-var s_GameOverWAV = "Resources/sound/GameOver.mp3";
-var PickupCointWAV = "Resources/sound/pickup_coin.mp3";
-var s_LevelComplete = "Resources/sound/LevelComplete.mp3";
-var s_game_music = "Resources/sound/game-music.mp3";
+var s_Gas40IPADFNT = "res/CCB/Gas40-ipad.fnt";
+var s_Gas40IPADPNG = "res/CCB/Gas40-ipad.png";
 
 
-var s_body = "Resources/body.png";
-var s_head = "Resources/head3.png";
+var s_Konqa32FNT = "res/CCB/konqa32.fnt";
+var s_Konqa32PNG = "res/CCB/konqa32.png";
+
+var s_Konqa32HDFNT = "res/CCB/konqa32-hd.fnt";
+var s_Konqa32HDPNG = "res/CCB/konqa32-hd.png";
+
+var s_Konqa32IPADFNT = "res/CCB/konqa32-ipad.fnt";
+var s_Konqa32IPADPNG = "res/CCB/konqa32-ipad.png";
+
+var s_GameOverWAV = "res/sound/GameOver.mp3";
+var PickupCointWAV = "res/sound/pickup_coin.mp3";
+var s_LevelComplete = "res/sound/LevelComplete.mp3";
+var s_game_music = "res/sound/game-music.mp3";
+
+
+var s_body = "res/body.png";
+var s_head = "res/head3.png";
 
 var s_MainMenu = "MainMenu.ccbi";
 var s_About = "About.ccbi";
@@ -72,13 +72,13 @@ var g_ressources = [
     {type:'effect', src:s_LevelComplete},
     {type:'bgm', src:s_game_music},
 
-    {type:'plist', src:"Resources/CCB/labels.plist"},
-    {type:'image', src:"Resources/CCB/labels.png"},
+    {type:'plist', src:"res/CCB/labels.plist"},
+    {type:'image', src:"res/CCB/labels.png"},
 
-    {type:'image', src:"Resources/CCB/watermelon.png"},
-    {type:'image', src:"Resources/CCB/Gas40.png"},
+    {type:'image', src:"res/CCB/watermelon.png"},
+    {type:'image', src:"res/CCB/Gas40.png"},
     {type:'image', src:s_parallax},
-    {type: 'ccbi', src:"Resources/CCB/MainMenu.ccbi"},
-    {type: 'ccbi', src:"Resources/CCB/HUD.ccbi"}
+    {type: 'ccbi', src:"res/CCB/MainMenu.ccbi"},
+    {type: 'ccbi', src:"res/CCB/HUD.ccbi"}
 
 ];
