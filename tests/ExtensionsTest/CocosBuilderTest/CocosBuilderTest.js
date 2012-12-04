@@ -36,7 +36,7 @@ var CocosBuilderTestScene = TestScene.extend({
          ccbReader.setCCBRootPath("res/");
 
          /* Read a ccbi file. */
-         var node = ccbReader.readNodeGraphFromFile("ccb/HelloCocosBuilder.ccbi", this);
+         var node = ccbReader.readNodeGraphFromFile("res/ccb/HelloCocosBuilder.ccbi", this);
 
          if(node != null) {
              this.addChild(node);

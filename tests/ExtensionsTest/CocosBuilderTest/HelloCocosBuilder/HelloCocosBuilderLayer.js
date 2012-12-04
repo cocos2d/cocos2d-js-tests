@@ -107,13 +107,13 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
     },
 
     onMenuTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/ccb/TestMenus.ccbi", "TestMenusLayer", new MenuTestLayerLoader());
+        this.openTest("res/ccb/ccb/TestMenus.ccbi", "TestMenusLayer", new MenuTestLayerLoader());
     },
     onSpriteTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/ccb/TestSprites.ccbi", "TestSpritesLayer", new SpriteTestLayerLoader());
+        this.openTest("res/ccb/ccb/TestSprites.ccbi", "TestSpritesLayer", new SpriteTestLayerLoader());
     },
     onButtonTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/ccb/TestButtons.ccbi", "TestButtonsLayer", new ButtonTestLayerLoader());
+        this.openTest("res/ccb/ccb/TestButtons.ccbi", "TestButtonsLayer", new ButtonTestLayerLoader());
     },
     onAnimationsTestClicked:function(sender,controlEvent){
         //load node graph (testAnimations is a sub class of CCLayer) and retriveve the ccb action manager
@@ -135,7 +135,7 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
         // the owner will cause lblTestTitle to be set by the CCBReader.
         // lblTestTitle is in the TestHeader.ccbi, which is referenced
         // from each of the test scenes.
-        var animationsTest = ccbReader.readNodeGraphFromFile("ccb/ccb/TestAnimations.ccbi", this, actionManager);
+        var animationsTest = ccbReader.readNodeGraphFromFile("res/ccb/ccb/TestAnimations.ccbi", this, actionManager);
         actionManager = ccbReader.getAnimationManager();
         animationsTest.setAnimationManager(actionManager);
 
@@ -154,10 +154,10 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
         //this.openTest("ccb/ccb/TestAnimations.ccbi", "TestAnimationsLayer", new AnimationsTestLayerLoader());
     },
     onParticleSystemTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/ccb/TestParticleSystems.ccbi", "TestParticleSystemsLayer", new ParticleSystemTestLayerLoader());
+        this.openTest("res/ccb/ccb/TestParticleSystems.ccbi", "TestParticleSystemsLayer", new ParticleSystemTestLayerLoader());
     },
     onScrollViewTestClicked:function(sender,controlEvent){
-        this.openTest("ccb/ccb/TestScrollViews.ccbi", "TestScrollViewsLayer", new ScrollViewTestLayerLoader());
+        this.openTest("res/ccb/ccb/TestScrollViews.ccbi", "TestScrollViewsLayer", new ScrollViewTestLayerLoader());
     }
 });
 
