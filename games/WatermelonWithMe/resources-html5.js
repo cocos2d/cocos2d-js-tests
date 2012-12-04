@@ -2,7 +2,6 @@ var s_coinsPlist = 'Resources/CCB/coins.plist';
 var s_coinsAnimation = 'Resources/coins_animation.plist';
 var s_parallax = 'Resources/single_files/Parallax.png';
 var s_carSmoke = 'Resources/car_smoke.plist';
-var s_HUD = "HUD.ccbi";
 
 var s_Abadi40HDFNT = "Resources/CCB/Abadi40-hd.fnt";
 var s_Abadi40HDPNG = "Resources/CCB/Abadi40-hd.png";
@@ -38,12 +37,12 @@ var PickupCointWAV = "Resources/sound/pickup_coin.mp3";
 var s_LevelComplete = "Resources/sound/LevelComplete.mp3";
 var s_game_music = "Resources/sound/game-music.mp3";
 
-
 var s_body = "Resources/body.png";
 var s_head = "Resources/head3.png";
 
-var s_MainMenu = "MainMenu.ccbi";
-var s_About = "About.ccbi";
+var s_MainMenu = "Resources/CCB/MainMenu.ccbi";
+var s_About = "Resources/CCB/About.ccbi";
+var s_HUD = "Resources/CCB/HUD.ccbi";
 
 var g_ressources = [
     {type:'plist', src:s_coinsPlist},
@@ -78,7 +77,7 @@ var g_ressources = [
     {type:'image', src:"Resources/CCB/watermelon.png"},
     {type:'image', src:"Resources/CCB/Gas40.png"},
     {type:'image', src:s_parallax},
-    {type: 'ccbi', src:"Resources/CCB/MainMenu.ccbi"},
-    {type: 'ccbi', src:"Resources/CCB/HUD.ccbi"}
+    {type: 'ccbi', src:s_MainMenu},
+    {type: 'ccbi', src:s_HUD}
 
 ];
