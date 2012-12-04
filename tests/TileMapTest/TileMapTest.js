@@ -39,9 +39,9 @@ var TileDemo = cc.Layer.extend({
         // 'browser' can use touches or mouse.
         // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
         var t = cc.config.platform;
-        if( t == 'browser' || t == 'mobile')  {
+        if (t == 'browser' || t == 'mobile') {
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        } else if (t == 'desktop') {
             this.setMouseEnabled(true);
         }
     },
@@ -584,15 +584,20 @@ var TMXOrthoObjectsTest = TileDemo.extend({
             dict = array[i];
             if (!dict)
                 break;
-            for( var k in dict) {
-                cc.log( k + ' = ' + dict[k] );
+            for (var k in dict) {
+                cc.log(k + ' = ' + dict[k]);
             }
         }
+    },
+    onEnter:function(){
+        this._super();
+        this.setAnchorPoint(cc.p(0, 0));
     },
     draw:function () {
         var map = this.getChildByTag(TAG_TILE_MAP);
         var group = map.getObjectGroup("Object Group 1");
         var objects = group.getObjects();
+
         for (var i = 0; i < objects.length; i++) {
             var dict = objects[i];
             if (!dict)
@@ -613,6 +618,7 @@ var TMXOrthoObjectsTest = TileDemo.extend({
 
             cc.renderContext.lineWidth = 1;
         }
+
     },
     title:function () {
         return "TMX Ortho object test";
@@ -630,6 +636,7 @@ var TMXOrthoObjectsTest = TileDemo.extend({
 var TMXIsoObjectsTest = TileDemo.extend({
     ctor:function () {
         this._super();
+
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/iso-test-objectgroup.tmx");
         this.addChild(map, -1, TAG_TILE_MAP);
 
@@ -642,19 +649,26 @@ var TMXIsoObjectsTest = TileDemo.extend({
             dict = array[i];
             if (!dict)
                 break;
-            for( var k in dict) {
-                cc.log( k + ' = ' + dict[k] );
+            for (var k in dict) {
+                cc.log(k + ' = ' + dict[k]);
             }
         }
     },
+
+    onEnter:function(){
+        this._super();
+        this.setAnchorPoint(cc.p(0, 0));
+    },
+
     title:function () {
         return "TMX Iso object test";
     },
-    draw:function () {
+    draw:function (ctx) {
         var map = this.getChildByTag(TAG_TILE_MAP);
         var group = map.getObjectGroup("Object Group 1");
         var objects = group.getObjects();
         var dict;
+
         for (var i = 0, len = objects.length; i < len; i++) {
             dict = objects[i];
             if (!dict)
@@ -1195,8 +1209,8 @@ var TMXGIDObjectsTest = TileDemo.extend({
             dict = array[i];
             if (!dict)
                 break;
-            for( var k in dict) {
-                cc.log( k + ' = ' + dict[k] );
+            for (var k in dict) {
+                cc.log(k + ' = ' + dict[k]);
             }
         }
     },

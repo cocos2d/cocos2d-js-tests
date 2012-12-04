@@ -2,7 +2,6 @@ var s_coinsPlist = 'res/CCB/coins.plist';
 var s_coinsAnimation = 'res/coins_animation.plist';
 var s_parallax = 'res/single_files/Parallax.png';
 var s_carSmoke = 'res/car_smoke.plist';
-var s_HUD = "HUD.ccbi";
 
 var s_Abadi40HDFNT = "res/CCB/Abadi40-hd.fnt";
 var s_Abadi40HDPNG = "res/CCB/Abadi40-hd.png";
@@ -13,7 +12,6 @@ var s_Abadi40IPADPNG = "res/CCB/Abadi40-ipad.png";
 var s_Abadi40FNT = "res/CCB/Abadi40.fnt";
 var s_Abadi40PNG = "res/CCB/Abadi40.png";
 
-
 var s_Gas40FNT = "res/CCB/Gas40.fnt";
 var s_Gas40PNG = "res/CCB/Gas40.png";
 
@@ -22,7 +20,6 @@ var s_Gas40HDPNG = "res/CCB/Gas40-hd.png";
 
 var s_Gas40IPADFNT = "res/CCB/Gas40-ipad.fnt";
 var s_Gas40IPADPNG = "res/CCB/Gas40-ipad.png";
-
 
 var s_Konqa32FNT = "res/CCB/konqa32.fnt";
 var s_Konqa32PNG = "res/CCB/konqa32.png";
@@ -38,12 +35,12 @@ var PickupCointWAV = "res/sound/pickup_coin.mp3";
 var s_LevelComplete = "res/sound/LevelComplete.mp3";
 var s_game_music = "res/sound/game-music.mp3";
 
-
 var s_body = "res/body.png";
 var s_head = "res/head3.png";
 
-var s_MainMenu = "MainMenu.ccbi";
-var s_About = "About.ccbi";
+var s_HUD = "res/CCB/HUD.ccbi";
+var s_MainMenu = "res/CCB/MainMenu.ccbi";
+var s_About = "res/CCB/About.ccbi";
 
 var g_ressources = [
     {type:'plist', src:s_coinsPlist},
@@ -78,7 +75,7 @@ var g_ressources = [
     {type:'image', src:"res/CCB/watermelon.png"},
     {type:'image', src:"res/CCB/Gas40.png"},
     {type:'image', src:s_parallax},
-    {type: 'ccbi', src:"res/CCB/MainMenu.ccbi"},
-    {type: 'ccbi', src:"res/CCB/HUD.ccbi"}
+    {type: 'ccbi', src:s_MainMenu},
+    {type: 'ccbi', src:s_HUD}
 
 ];
