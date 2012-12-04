@@ -139,7 +139,7 @@
 	<dict>
 		<key>spritesheets</key>
 		<array>
-			<string>Resources/CCB/coins.plist</string>
+			<string>res/CCB/coins.plist</string>
 		</array>
 		<key>format</key>
 		<integer>2</integer>
