@@ -173,6 +173,7 @@
                 <file name="GUI/CCScrollView/CCSorting.js"/>
                 <file name="GUI/CCScrollView/CCScrollView.js"/>
                 <file name="GUI/CCScrollView/CCTableView.js"/>
+                <file name="CCControlEditBox.js"/>
             </sources>
             <sources dir="${basedir}/../box2d">
                 <file name="box2d.js"/>
@@ -215,6 +216,7 @@
                 <file name="src/tests/ExtensionsTest/ControlExtensionTest/CCControlScene.js"/>
                 <file name="src/tests/ExtensionsTest/ControlExtensionTest/CCControlButtonTest/CCControlButtonTest.js"/>
                 <file name="src/tests/ExtensionsTest/TableViewTest/TableViewTestScene.js"/>
+                <file name="src/tests/ExtensionsTest/EditBoxTest/EditBoxTest.js"/>
                 <file name="src/tests/ExtensionsTest/CocosBuilderTest/CocosBuilderTest.js"/>
                 <file name="src/tests/ExtensionsTest/CocosBuilderTest/TestHeader/TestHeaderLayer.js"/>
                 <file name="src/tests/ExtensionsTest/CocosBuilderTest/HelloCocosBuilder/HelloCocosBuilderLayer.js"/>
