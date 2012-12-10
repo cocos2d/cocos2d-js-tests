@@ -75,7 +75,7 @@ var GameLayer = cc.Layer.extend({
 
             var t = cc.config.platform;
             if( t == 'browser' )  {
-                this.setMouseEnabled(true);
+                this.setTouchEnabled(true);
                 this.setKeyboardEnabled(true);
             } else if( t == 'desktop' ) {
                 this.setMouseEnabled(true);

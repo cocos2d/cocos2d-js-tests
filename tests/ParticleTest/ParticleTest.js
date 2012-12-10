@@ -133,8 +133,12 @@ var particleSceneArr = [
     },
     function () {
         return new DemoParticleFromFile("Phoenix");
+    },
+    function() {
+        return new ParticleBatchTest();
     }
 ];
+
 
 var nextParticleAction = function () {
     sceneIdx++;
@@ -1205,5 +1209,50 @@ var Issue870 = ParticleDemo.extend({
         this._index = (this._index + 1) % 4;
         var rect = cc.rect(this._index * 32, 0, 32, 32);
         this._emitter.setTextureWithRect(this._emitter.getTexture(), rect);
+    }
+});
+
+var ParticleBatchTest = ParticleDemo.extend({
+    _index:0,
+    onEnter:function () {
+        this._super();
+
+        // Don't run it on browsers
+        if( cc.config.platform === 'browser' ) {
+            var label = cc.LabelTTF.create("NOT SUPPORTED ON BROWSER", "Arial", 32);
+            this.addChild( label );
+            label.setPosition( winSize.width/2, winSize.height/2 );
+            return;
+        }
+
+        var emitter1 = cc.ParticleSystem.create( s_resprefix + 'Particles/LavaFlow.plist');
+        emitter1.setStartColor( cc.c4f(1,0,0,1) );
+        var emitter2 = cc.ParticleSystem.create( s_resprefix + 'Particles/LavaFlow.plist');
+        emitter2.setStartColor( cc.c4f(0,1,0,1) );
+        var emitter3 = cc.ParticleSystem.create( s_resprefix + 'Particles/LavaFlow.plist');
+        emitter3.setStartColor( cc.c4f(0,0,1,1) );
+
+        emitter1.setPosition( winSize.width/1.25, winSize.height/1.25);
+        emitter2.setPosition( winSize.width/2, winSize.height/2);
+        emitter3.setPosition( winSize.width/4, winSize.height/4);
+
+        var batch = cc.ParticleBatchNode.createWithTexture( emitter1.getTexture() );
+
+        batch.addChild(emitter1);
+        batch.addChild(emitter2);
+        batch.addChild(emitter3);
+
+        this.addChild(batch, 10);
+
+        // to be able to use "reset" button
+        this.removeChild(this._background, true);
+        this._background = null;
+        this._emitter = emitter1;
+    },
+    title:function () {
+        return "Particle Batch Test";
+    },
+    subtitle:function () {
+        return "You should 3 particles. They are batched";
     }
 });
