@@ -23,9 +23,78 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-var DrawPrimitivesTest = cc.Layer.extend({
-    ctor:function () {
+
+
+//------------------------------------------------------------------
+//
+// DrawTestDemo
+//
+//------------------------------------------------------------------
+var DrawTestDemo = cc.LayerGradient.extend({
+    _title:"",
+    _subtitle:"",
+
+    ctor:function() {
+        this._super();
+        cc.associateWithNative( this, cc.LayerGradient );
+        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
     },
+    onEnter:function () {
+        this._super();
+
+        var label = cc.LabelTTF.create(this._title, "Arial", 28);
+        this.addChild(label, 1);
+        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
+
+        if (this._subtitle !== "") {
+            var l = cc.LabelTTF.create(this._subtitle, "Thonburi", 16);
+            this.addChild(l, 1);
+            l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
+        }
+
+        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
+        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
+        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
+
+        var menu = cc.Menu.create(item1, item2, item3);
+
+        menu.setPosition(cc.p(0,0));
+        var cs = item2.getContentSize();
+        item1.setPosition( cc.p(winSize.width/2 - cs.width*2, cs.height/2) );
+        item2.setPosition( cc.p(winSize.width/2, cs.height/2) );
+        item3.setPosition( cc.p(winSize.width/2 + cs.width*2, cs.height/2) );
+
+        this.addChild(menu, 1);
+    },
+
+    onExit:function () {
+        this._super();
+    },
+
+    onRestartCallback:function (sender) {
+        var s = new DrawPrimitivesTestScene();
+        s.addChild(restartDrawTest());
+        director.replaceScene(s);
+    },
+    onNextCallback:function (sender) {
+        var s = new DrawPrimitivesTestScene();
+        s.addChild(nextDrawTest());
+        director.replaceScene(s);
+    },
+    onBackCallback:function (sender) {
+        var s = new DrawPrimitivesTestScene();
+        s.addChild(previousDrawTest());
+        director.replaceScene(s);
+    }
+});
+
+//------------------------------------------------------------------
+//
+// Draw Old API Test
+//
+//------------------------------------------------------------------
+var DrawOldAPITest = DrawTestDemo.extend({
+
     draw:function () {
         this._super();
 
@@ -121,11 +190,111 @@ var DrawPrimitivesTest = cc.Layer.extend({
     }
 });
 
-var DrawPrimitivesTestScene = TestScene.extend({
-    runThisTest:function () {
-        var layer = new DrawPrimitivesTest();
-        this.addChild(layer);
+//------------------------------------------------------------------
+//
+// Draw New API Test
+//
+//------------------------------------------------------------------
+var DrawNewAPITest = DrawTestDemo.extend({
+    _title : "cc.DrawNode",
+    _subtitle : "Testing cc.DrawNode API",
 
-        cc.Director.getInstance().replaceScene(this);
+    ctor:function() {
+        this._super();
+
+        var draw = cc.DrawNode.create();
+        this.addChild( draw, 10 );
+
+        //
+        // Circles
+        //
+        for( var i=0; i < 10; i++) {
+            draw.drawDot( cc.p(winSize.width/2, winSize.height/2), 10*(10-i), cc.c4f( Math.random(), Math.random(), Math.random(), 1) );
+        }
+
+        //
+        // Polygons
+        //
+        var points = [ cc.p(winSize.height/4,0), cc.p(winSize.width,winSize.height/5), cc.p(winSize.width/3*2,winSize.height) ];
+        draw.drawPoly(points, cc.c4f(1,0,0,0.5), 4, cc.c4f(0,0,1,1) );
+
+        // star poly (triggers bugs)
+        var o=80;
+        var w=20;
+        var h=50;
+        var star = [
+            cc.p(o+w,o-h), cc.p(o+w*2, o),                  // lower spike
+            cc.p(o + w*2 + h, o+w ), cc.p(o + w*2, o+w*2),  // right spike
+            cc.p(o +w, o+w*2+h), cc.p(o,o+w*2),             // top spike
+            cc.p(o -h, o+w), cc.p(o,o)                     // left spike
+        ];
+
+        draw.drawPoly(star, cc.c4f(1,0,0,0.5), 1, cc.c4f(0,0,1,1) );
+
+//         // star poly (doesn't trigger bug... order is important un tesselation is supported.
+//         {
+//             const float o=180;
+//             const float w=20;
+//             const float h=50;
+//             CGPoint star[] = {
+//                 {o,o}, {o+w,o-h}, {o+w*2, o},               // lower spike
+//                 {o + w*2 + h, o+w }, {o + w*2, o+w*2},      // right spike
+//                 {o +w, o+w*2+h}, {o,o+w*2},                 // top spike
+//                 {o -h, o+w},                                // left spike
+//             };
+
+//             [draw drawPolyWithVerts:star count:sizeof(star)/sizeof(star[0]) fillColor:ccc4f(1,0,0,0.5) borderWidth:1 borderColor:ccc4f(0,0,1,1)];
+//         }
+
+
+        //
+        // Segments
+        //
+        draw.drawSegment( cc.p(20,winSize.height), cc.p(20,winSize.height/2), 10, cc.c4f(0, 1, 0, 1) );
+        draw.drawSegment( cc.p(10,winSize.height/2), cc.p(winSize.width/2, winSize.height/2), 40, cc.c4f(1, 0, 1, 0.5) );
     }
 });
+
+
+//
+//
+var DrawPrimitivesTestScene = TestScene.extend({
+    runThisTest:function () {
+        sceneIdx = -1;
+        var layer = nextDrawTest();
+        this.addChild(layer);
+
+        director.replaceScene(this);
+    }
+});
+
+//
+// Flow control
+//
+
+var arrayOfDrawTest = [
+
+    DrawNewAPITest
+];
+
+if( cc.config.platform === 'browser' ) {
+    arrayOfDrawTest.push( DrawOldAPITest );
+}
+
+var nextDrawTest = function () {
+    sceneIdx++;
+    sceneIdx = sceneIdx % arrayOfDrawTest.length;
+
+    return new arrayOfDrawTest[sceneIdx]();
+};
+var previousDrawTest = function () {
+    sceneIdx--;
+    if (sceneIdx < 0)
+        sceneIdx += arrayOfDrawTest.length;
+
+    return new arrayOfDrawTest[sceneIdx]();
+};
+var restartDrawTest = function () {
+    return new arrayOfDrawTest[sceneIdx]();
+};
+
