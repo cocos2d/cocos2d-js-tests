@@ -156,14 +156,14 @@
             </sources>
             <sources dir="${basedir}/../../extensions">
                 <file name="CCBReader/CCBReaderUtil.js"/>
-                <file name="CCBReader/CCNodeLoaderLibrary.js"/>
-                <file name="CCBReader/CCNodeLoader.js"/>
-                <file name="CCBReader/CCBReader.js"/>
-                <file name="CCBReader/CCSpriteLoader.js"/>
-                <file name="CCBReader/CCControlLoader.js"/>
                 <file name="CCBReader/CCBValue.js"/>
                 <file name="CCBReader/CCBKeyframe.js"/>
                 <file name="CCBReader/CCBSequence.js"/>
+                <file name="CCBReader/CCNodeLoader.js"/>
+                <file name="CCBReader/CCBReader.js"/>
+                <file name="CCBReader/CCControlLoader.js"/>
+                <file name="CCBReader/CCSpriteLoader.js"/>
+                <file name="CCBReader/CCNodeLoaderLibrary.js"/>
                 <file name="CCBReader/CCBRelativePositioning.js"/>
                 <file name="CCBReader/CCBAnimationManager.js"/>
                 <file name="GUI/CCControlExtension/CCControlUtils.js"/>
@@ -220,6 +220,7 @@
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlScene.js"/>
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlButtonTest/CCControlButtonTest.js"/>
                 <file name="ExtensionsTest/TableViewTest/TableViewTestScene.js"/>
+                <file name="ExtensionsTest/EditBoxTest/EditBoxTest.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/CocosBuilderTest.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/TestHeader/TestHeaderLayer.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/HelloCocosBuilder/HelloCocosBuilderLayer.js"/>
