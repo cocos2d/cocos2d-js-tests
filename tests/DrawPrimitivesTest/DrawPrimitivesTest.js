@@ -228,24 +228,19 @@ var DrawNewAPITest = DrawTestDemo.extend({
             cc.p(o +w, o+w*2+h), cc.p(o,o+w*2),             // top spike
             cc.p(o -h, o+w), cc.p(o,o)                     // left spike
         ];
-
         draw.drawPoly(star, cc.c4f(1,0,0,0.5), 1, cc.c4f(0,0,1,1) );
 
-//         // star poly (doesn't trigger bug... order is important un tesselation is supported.
-//         {
-//             const float o=180;
-//             const float w=20;
-//             const float h=50;
-//             CGPoint star[] = {
-//                 {o,o}, {o+w,o-h}, {o+w*2, o},               // lower spike
-//                 {o + w*2 + h, o+w }, {o + w*2, o+w*2},      // right spike
-//                 {o +w, o+w*2+h}, {o,o+w*2},                 // top spike
-//                 {o -h, o+w},                                // left spike
-//             };
-
-//             [draw drawPolyWithVerts:star count:sizeof(star)/sizeof(star[0]) fillColor:ccc4f(1,0,0,0.5) borderWidth:1 borderColor:ccc4f(0,0,1,1)];
-//         }
-
+        // star poly (doesn't trigger bug... order is important un tesselation is supported.
+        o=180;
+        w=20;
+        h=50;
+        star = [
+            cc.p(o,o), cc.p(o+w,o-h), cc.p(o+w*2, o),       // lower spike
+            cc.p(o + w*2 + h, o+w ), cc.p(o + w*2, o+w*2),  // right spike
+            cc.p(o +w, o+w*2+h), cc.p(o,o+w*2),             // top spike
+            cc.p(o -h, o+w)                                 // left spike
+        ];
+        draw.drawPoly(star, cc.c4f(1,0,0,0.5), 1, cc.c4f(0,0,1,1) );
 
         //
         // Segments
