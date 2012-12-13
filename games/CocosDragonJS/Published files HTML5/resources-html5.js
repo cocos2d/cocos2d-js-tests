@@ -1,5 +1,5 @@
 var ccb_resources = [
-    {type:'effect', src:"Music.mp3"},
+    {type:'sound', src:"Music.mp3"},
     {type:'ccbi', src:"Dragon.ccbi"},
     {type:'ccbi', src:"Explosion.ccbi"},
     {type:'plist', src:"ccbResources/ccbDefaultImages-ipad.plist"},
@@ -16,8 +16,8 @@ var ccb_resources = [
     {type:'plist', src:"gameobjects.plist"},
     {type:'image', src:"ccbResources/ccbParticleSmoke.png"},
     {type:'image', src:"cloud.png"},
-    {type:'effect', src:"Explo.mp3"},
-    {type:'effect', src:"Coin.mp3"},
+    {type:'sound', src:"Explo.mp3"},
+    {type:'sound', src:"Coin.mp3"},
     {type:'image', src:"ccbResources/ccbDefaultImages.png"},
     {type:'ccbi', src:"Coin.ccbi"},
     {type:'image', src:"play-button-down.png"},
@@ -31,5 +31,5 @@ var ccb_resources = [
     {type:'image', src:"ccbResources/ccbParticleSnow.png"},
     {type:'image', src:"ccbResources/ccbParticleStars.png"},
     {type:'image', src:"settings-caption-touch.png"},
-    {type:'image', src:"settings-caption-tilt.png"},
+    {type:'image', src:"settings-caption-tilt.png"}
 ];
