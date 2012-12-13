@@ -368,10 +368,10 @@ var g_ressources = [
     {type:"tmx", src:"res/TileMaps/ortho-rotation-test.tmx"},
 
     //audio ressources
-    {type:"bgm", src:"res/background.mp3"},
-    {type:"effect", src:"res/effect2.mp3"},
-    {type:"bgm", src:"res/background.ogg"},
-    {type:"effect", src:"res/effect2.ogg"},
+    {type:"sound", src:"res/background.mp3"},
+    {type:"sound", src:"res/effect2.mp3"},
+    {type:"sound", src:"res/background.ogg"},
+    {type:"sound", src:"res/effect2.ogg"},
 
     //tga ressources
     //{type:"tga", src:s_levelMapTga},
