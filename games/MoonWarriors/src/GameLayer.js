@@ -47,14 +47,12 @@ var GameLayer = cc.Layer.extend({
             this._state = STATE_PLAYING;
                                 
             //565batch
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_tex565pack_plist);
             var tex565 = cc.TextureCache.getInstance().addImage(s_tex565pack);
             this._tex565Batch = cc.SpriteBatchNode.createWithTexture(tex565);
             this._tex565Batch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._tex565Batch);
             
             //8888batch
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_tex8888pack_plist);
             var tex8888 = cc.TextureCache.getInstance().addImage(s_tex8888pack);
             this._tex8888Batch = cc.SpriteBatchNode.createWithTexture(tex8888);
             this.addChild(this._tex8888Batch);
@@ -72,11 +70,10 @@ var GameLayer = cc.Layer.extend({
             this.lbScore.setPosition(winSize.width - 5 , winSize.height - 30);
 
             // ship life
-            var shipTexture = cc.TextureCache.getInstance().addImage(s_ship01);
-            var life = cc.Sprite.createWithTexture(shipTexture, cc.rect(0, 0, 60, 38));
+            var life = cc.Sprite.createWithSpriteFrameName(s_ship1);
             life.setScale(0.6);
             life.setPosition(30, 460);
-            this.addChild(life, 1, 5);
+            this._tex8888Batch.addChild(life, 1, 5);
 
             // ship Life count
             this._lbLife = cc.LabelTTF.create("0", "Arial", 20);

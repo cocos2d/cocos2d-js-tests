@@ -9,6 +9,10 @@ var SysMenu = cc.Layer.extend({
     init:function () {
         var bRet = false;
         if (this._super()) {
+                              
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_tex565pack_plist);
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_tex8888pack_plist);
+                              
             winSize = cc.Director.getInstance().getWinSize();
             var sp = cc.Sprite.create(s_loading);
             sp.setAnchorPoint(cc.p(0,0));
@@ -44,8 +48,7 @@ var SysMenu = cc.Layer.extend({
             menu.setPosition(winSize.width / 2, winSize.height / 2 - 80);
             this.schedule(this.update, 0.1);
 
-            var tmp = cc.TextureCache.getInstance().addImage(s_ship01);
-            this._ship = cc.Sprite.createWithTexture(tmp,cc.rect(0, 45, 60, 38));
+            this._ship = cc.Sprite.createWithSpriteFrameName(s_ship1);
             this.addChild(this._ship, 0, 4);
             var pos = cc.p(Math.random() * winSize.width, 0);
             this._ship.setPosition( pos );
