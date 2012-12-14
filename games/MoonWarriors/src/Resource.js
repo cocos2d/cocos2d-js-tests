@@ -2,7 +2,7 @@ var dirImg = "res/";
 var dirMusic = "res/Music/";
 
 //image
-var s_bg01 = dirImg + "bg01.jpg";
+var s_bg01 = "bg01.png";
 var s_loading = dirImg + "loading.png";
 var s_ship01 = dirImg + "ship01.png";
 var s_menu = dirImg + "menu.png";
@@ -15,12 +15,18 @@ var s_flare = dirImg + "flare.jpg";
 var s_bullet = dirImg + "bullet.png";
 var s_explosion = dirImg + "explosion.png";
 var s_explode = dirImg + "explode.png";
-var s_explode1 = "explode1.jpg";
-var s_explode2= "explode2.jpg";
-var s_explode3 = "explode3.jpg";
-var s_hit = dirImg + "hit.jpg";
+var s_explode1 = "explode1.png";
+var s_explode2= "explode2.png";
+var s_explode3 = "explode3.png";
+var s_hit = "hit.png";
 var s_arial14 = dirImg + "arial-14.png";
 var s_arial14_fnt = dirImg + "arial-14.fnt";
+var s_gameplay = dirImg + "gameplaypack.png";
+var s_tex565pack = dirImg + "tex565pack.png";
+var s_tex8888pack = dirImg + "tex8888pack.png";
+var s_ship1 = "ship01.png";
+var s_ship2 = "ship02.png";
+var s_ship3 = "ship03.png";
 
 //music
 var s_bgMusic = dirMusic + "bgMusic.mp3";
@@ -40,6 +46,9 @@ var s_Enemy_plist = dirImg + "Enemy.plist";
 var s_explosion_plist = dirImg + "explosion.plist";
 var s_bullet_plist = dirImg + "bullet.plist";
 var s_explode_plist = dirImg + "explode.plist";
+var s_game_paly_plist = dirImg + "gameplaypack.plist";
+var s_tex565pack_plist = dirImg + "tex565pack.plist";
+var s_tex8888pack_plist = dirImg + "tex8888pack.plist";
 
 var g_ressources = [
     //image

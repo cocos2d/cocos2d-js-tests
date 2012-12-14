@@ -28,18 +28,16 @@ var GameLayer = cc.Layer.extend({
     explosionAnimation:[],
     _beginPos:cc.p(0, 0),
     _state:STATE_PLAYING,
-    _bulletHits:null,
     _explosions:null,
-	_bullets:null,
-    _enemyBatch:null,
-    _sparkBatch:null,
+    _tex565Batch:null,
+    _tex8888Batch:null,
     ctor:function () {
         cc.associateWithNative( this, cc.Layer );
     },
     init:function () {
         var bRet = false;
         if (this._super()) {
-
+                                
             // reset global values
             MW.CONTAINER.ENEMIES = [];
             MW.CONTAINER.ENEMY_BULLETS = [];
@@ -47,8 +45,20 @@ var GameLayer = cc.Layer.extend({
             MW.SCORE = 0;
             MW.LIFE = 4;
             this._state = STATE_PLAYING;
-
-            Enemy.sharedEnemy();
+                                
+            //565batch
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_tex565pack_plist);
+            var tex565 = cc.TextureCache.getInstance().addImage(s_tex565pack);
+            this._tex565Batch = cc.SpriteBatchNode.createWithTexture(tex565);
+            this._tex565Batch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+            this.addChild(this._tex565Batch);
+            
+            //8888batch
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_tex8888pack_plist);
+            var tex8888 = cc.TextureCache.getInstance().addImage(s_tex8888pack);
+            this._tex8888Batch = cc.SpriteBatchNode.createWithTexture(tex8888);
+            this.addChild(this._tex8888Batch);
+                                
             winSize = cc.Director.getInstance().getWinSize();
             this._levelManager = new LevelManager(this);
             this.initBackground();
@@ -76,7 +86,7 @@ var GameLayer = cc.Layer.extend({
 
             // ship
             this._ship = new Ship();
-            this.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
+            this._tex8888Batch.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
                                 
             // explosion batch node
             cc.SpriteFrameCache.getInstance().addSpriteFrames(s_explosion_plist);
@@ -85,32 +95,6 @@ var GameLayer = cc.Layer.extend({
             this._explosions.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._explosions);
             Explosion.sharedExplosion();
-
-            // bullet hit batch node
-            var bulletHitsTexture = cc.TextureCache.getInstance().addImage(s_hit);
-            this._bulletHits = cc.SpriteBatchNode.createWithTexture(bulletHitsTexture);
-            this._bulletHits.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
-            this.addChild(this._bulletHits);
-                                
-			// bullet batch node
-			cc.SpriteFrameCache.getInstance().addSpriteFrames(s_bullet_plist);
-			var bulletTexture = cc.TextureCache.getInstance().addImage(s_bullet);
-			this._bullets = cc.SpriteBatchNode.createWithTexture(bulletTexture);
-			this._bullets.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
-			this.addChild(this._bullets);
-                                
-            // enemy batch node
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_Enemy_plist);
-            var enemyTexture = cc.TextureCache.getInstance().addImage(s_Enemy);
-            this._enemyBatch = cc.SpriteBatchNode.createWithTexture(enemyTexture,20);
-            this.addChild(this._enemyBatch);
-								
-            // spark batch
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_explode_plist);
-            var sparkTexture = cc.TextureCache.getInstance().addImage(s_explode);
-            this._sparkBatch = cc.SpriteBatchNode.createWithTexture(sparkTexture,20);
-            this._sparkBatch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
-            this.addChild(this._sparkBatch);
                                 
             // accept touch now!
 
@@ -236,40 +220,42 @@ var GameLayer = cc.Layer.extend({
             if (selChild) {
                 if( typeof selChild.update == 'function' ) {
                     selChild.update(dt);
-                    var tag = selChild.getTag();
-                    if ((tag == MW.UNIT_TAG.PLAYER)) {
-                        if (selChild && !selChild.active) {
-                            selChild.destroy();
+                }
+            }
+        }
+                                
+		var selBullet, bullets = this._tex565Batch.getChildren();
+		for(var i in bullets) {
+			selBullet = bullets[i];
+			if (selBullet) {
+				if( typeof selBullet.update == 'function' ) {
+					selBullet.update(dt);
+                    var tag = selBullet.getTag();
+                    if ( (tag == MW.UNIT_TAG.PLAYER_BULLET) || (tag == MW.UNIT_TAG.ENMEY_BULLET) ){
+                        if (selBullet && !selBullet.active) {
+                            selBullet.destroy();
+                        }
+                    }
+				}
+			}
+
+		} 
+                                
+        var selEnemy, enemy = this._tex8888Batch.getChildren();
+        for(var i in enemy) {
+            selEnemy = enemy[i];
+            if (selEnemy) {
+                if( typeof selEnemy.update == 'function' ) {
+                    selEnemy.update(dt);
+                    var tag = selEnemy.getTag();
+                    if ( (tag == MW.UNIT_TAG.ENEMY) || (tag == MW.UNIT_TAG.PLAYER) ){
+                        if (selEnemy && !selEnemy.active) {
+                            selEnemy.destroy();
                         }
                     }
                 }
             }
-        }
-		var selBullet, bullets = this._bullets.getChildren();
-		for(var i in bullets) {
-			selChild = bullets[i];
-			if (selChild) {
-				if( typeof selChild.update == 'function' ) {
-					selChild.update(dt);
-					if (selChild && !selChild.active) {
-						selChild.destroy();
-					}
-				}
-			}
-
-		}
-                                
-        var selEnemy,enemys = this._enemyBatch.getChildren();
-        for(var i in enemys){
-            selChild = enemys[i];
-            if (selChild){
-                if( typeof selChild.update == 'function'){
-                    selChild.update(dt);
-                    if (selChild && !selChild.active) {
-                        selChild.destroy();
-                    }
-                }
-            }
+        
         }
     },
     checkIsReborn:function () {
@@ -303,7 +289,7 @@ var GameLayer = cc.Layer.extend({
     },
     initBackground:function () {
         // bg
-        this._backSky = cc.Sprite.create(s_bg01);
+        this._backSky = cc.Sprite.createWithSpriteFrameName(s_bg01);
         this._backSky.setAnchorPoint(cc.p(0, 0));
         this._backSkyHeight = this._backSky.getContentSize().height;
         this.addChild(this._backSky, -10);
@@ -328,7 +314,7 @@ var GameLayer = cc.Layer.extend({
 
         if (this._backSkyHeight <= winSize.height) {
             if (!this._isBackSkyReload) {
-                this._backSkyRe = cc.Sprite.create(s_bg01);
+                this._backSkyRe = cc.Sprite.createWithSpriteFrameName(s_bg01);
                 this._backSkyRe.setAnchorPoint(cc.p(0, 0));
                 this.addChild(this._backSkyRe, -10);
                 this._backSkyRe.setPosition(0, winSize.height);
@@ -384,7 +370,7 @@ GameLayer.scene = function () {
 };
 
 GameLayer.prototype.addEnemy = function (enemy,z,tag){
-    this._enemyBatch.addChild(enemy,z,tag);
+    this._tex8888Batch.addChild(enemy,z,tag);
 };
 
 GameLayer.prototype.addExplosions = function (explosion) {
@@ -392,14 +378,14 @@ GameLayer.prototype.addExplosions = function (explosion) {
 };
 
 GameLayer.prototype.addBulletHits = function (hit, zOrder) {
-	this._bulletHits.addChild(hit, zOrder);
+	this._tex565Batch.addChild(hit, zOrder);
 };
 
 GameLayer.prototype.addSpark = function (spark)
 {
-    this._sparkBatch.addChild(spark);
+    this._tex565Batch.addChild(spark);
 }
 
 GameLayer.prototype.addBullet = function (bullet, zOrder ,mode) {
-	this._bullets.addChild(bullet, zOrder, mode);
+	this._tex565Batch.addChild(bullet, zOrder, mode);
 };

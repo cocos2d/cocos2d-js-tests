@@ -18,14 +18,14 @@ var Ship = cc.Sprite.extend({
         cc.associateWithNative( this, cc.Sprite );
 
         //init life
-        var shipTexture = cc.TextureCache.getInstance().addImage(s_ship01);
-        this.initWithTexture(shipTexture, cc.rect(0, 0, 60, 38));
+        //var shipTexture = cc.TextureCache.getInstance().addImage(s_ship01);
+        this.initWithSpriteFrameName(s_ship1);
         this.setTag(this.zOrder);
         this.setPosition(this.appearPosition);
 
         // set frame
-        var frame0 = cc.SpriteFrame.createWithTexture(shipTexture, cc.rect(0, 0, 60, 38));
-        var frame1 = cc.SpriteFrame.createWithTexture(shipTexture, cc.rect(60, 0, 60, 38));
+        var frame0 = cc.SpriteFrameCache.getInstance().getSpriteFrame(s_ship1);
+        var frame1 = cc.SpriteFrameCache.getInstance().getSpriteFrame(s_ship2);
 
         var animFrames = [];
         animFrames.push(frame0);
@@ -39,7 +39,7 @@ var Ship = cc.Sprite.extend({
 
         //revive effect
         this.canBeAttack = false;
-        var ghostSprite = cc.Sprite.createWithTexture(shipTexture, cc.rect(0, 45, 60, 38));
+        var ghostSprite = cc.Sprite.createWithSpriteFrameName(s_ship3);
         ghostSprite.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
         ghostSprite.setScale(8);
         ghostSprite.setPosition(this.getContentSize().width / 2, 12);
