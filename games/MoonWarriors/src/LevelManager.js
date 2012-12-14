@@ -92,7 +92,7 @@ var LevelManager = cc.Class.extend({
                 break;
         }
 
-        this._gameLayer.addChild(addEnemy, addEnemy.zOrder, MW.UNIT_TAG.ENEMY);
+        this._gameLayer.addEnemy(addEnemy, addEnemy.zOrder, MW.UNIT_TAG.ENEMY);
         MW.CONTAINER.ENEMIES.push(addEnemy);
         addEnemy.runAction(tmpAction);
     }

@@ -36,21 +36,17 @@ var spark = function (ccpoint, parent, scale, duration) {
     scale = scale || 0.3;
     duration = duration || 0.5;
 
-    var one = cc.Sprite.create(s_explode1);
-    var two = cc.Sprite.create(s_explode2);
-    var three = cc.Sprite.create(s_explode3);
-
-    one.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
-    two.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
-    three.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+    var one = cc.Sprite.createWithSpriteFrameName(s_explode1);
+    var two = cc.Sprite.createWithSpriteFrameName(s_explode2);
+    var three = cc.Sprite.createWithSpriteFrameName(s_explode3);
 
     one.setPosition(ccpoint);
     two.setPosition(ccpoint);
     three.setPosition(ccpoint);
 
     //parent.addChild(one);
-    parent.addChild(two);
-    parent.addChild(three);
+    parent.addSpark(two);
+    parent.addSpark(three);
     one.setScale(scale);
     two.setScale(scale);
     three.setScale(scale);

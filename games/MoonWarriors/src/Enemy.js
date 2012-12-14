@@ -43,8 +43,8 @@ var Enemy = cc.Sprite.extend({
         MW.SCORE += this.scoreValue;
         var a = new Explosion();
         a.setPosition(this.getPosition());
-        this.getParent().addChild(a);
-        spark(this.getPosition(),this.getParent(), 1.2, 0.7);
+        g_sharedGameLayer.addChild(a);
+        spark(this.getPosition(),g_sharedGameLayer, 1.2, 0.7);
         cc.ArrayRemoveObject(MW.CONTAINER.ENEMIES,this);
         this.removeFromParent();
         if(MW.SOUND){

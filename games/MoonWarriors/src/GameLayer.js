@@ -29,6 +29,8 @@ var GameLayer = cc.Layer.extend({
     _beginPos:cc.p(0, 0),
     _state:STATE_PLAYING,
 	_bullets:null,
+    _enemyBatch:null,
+    _sparkBatch:null,
     ctor:function () {
         cc.associateWithNative( this, cc.Layer );
     },
@@ -75,13 +77,26 @@ var GameLayer = cc.Layer.extend({
             this._ship = new Ship();
             this.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
 
-			//bullet batch node
+			// bullet batch node
 			cc.SpriteFrameCache.getInstance().addSpriteFrames(s_bullet_plist);
 			var bulletTexture = cc.TextureCache.getInstance().addImage(s_bullet);
 			this._bullets = cc.SpriteBatchNode.createWithTexture(bulletTexture);
 			this._bullets.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
-			this.addChild(this._bullets);					
+			this.addChild(this._bullets);
+                                
+            // enemy batch node
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_Enemy_plist);
+            var enemyTexture = cc.TextureCache.getInstance().addImage(s_Enemy);
+            this._enemyBatch = cc.SpriteBatchNode.createWithTexture(enemyTexture,20);
+            this.addChild(this._enemyBatch);
 								
+            // spark batch
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_explode_plist);
+            var sparkTexture = cc.TextureCache.getInstance().addImage(s_explode);
+            this._sparkBatch = cc.SpriteBatchNode.createWithTexture(sparkTexture,20);
+            this._sparkBatch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+            this.addChild(this._sparkBatch);
+                                
             // accept touch now!
 
             var t = cc.config.platform;
@@ -207,7 +222,7 @@ var GameLayer = cc.Layer.extend({
                 if( typeof selChild.update == 'function' ) {
                     selChild.update(dt);
                     var tag = selChild.getTag();
-                    if ((tag == MW.UNIT_TAG.PLAYER) || (tag == MW.UNIT_TAG.ENEMY)) {
+                    if ((tag == MW.UNIT_TAG.PLAYER)) {
                         if (selChild && !selChild.active) {
                             selChild.destroy();
                         }
@@ -228,6 +243,19 @@ var GameLayer = cc.Layer.extend({
 			}
 
 		}
+                                
+        var selEnemy,enemys = this._enemyBatch.getChildren();
+        for(var i in enemys){
+            selChild = enemys[i];
+            if (selChild){
+                if( typeof selChild.update == 'function'){
+                    selChild.update(dt);
+                    if (selChild && !selChild.active) {
+                        selChild.destroy();
+                    }
+                }
+            }
+        }
     },
     checkIsReborn:function () {
         if (MW.LIFE > 0 && !this._ship.active) {
@@ -340,6 +368,15 @@ GameLayer.scene = function () {
     return scene;
 };
 
+GameLayer.prototype.addEnemy = function (enemy,z,tag)
+{
+    this._enemyBatch.addChild(enemy,z,tag);
+}
+
+GameLayer.prototype.addSpark = function (spark)
+{
+    this._sparkBatch.addChild(spark);
+}
 
 GameLayer.prototype.addBullet = function (bullet, zOrder ,mode) {
 	this._bullets.addChild(bullet, zOrder, mode);
