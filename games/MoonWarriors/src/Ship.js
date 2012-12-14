@@ -94,12 +94,12 @@ var Ship = cc.Sprite.extend({
         var cs = this.getContentSize();
         var a = new Bullet(this.bulletSpeed, "W1.png", MW.ENEMY_MOVE_TYPE.NORMAL);
         MW.CONTAINER.PLAYER_BULLETS.push(a);
-        this.getParent().addChild(a, a.zOrder, MW.UNIT_TAG.PLAYER_BULLET);
-        a.setPosition(p.x + offset, p.y + 3 + cs.height * 0.3);
+		g_sharedGameLayer.addBullet(a, 3000, MW.UNIT_TAG.PLAYER_BULLET);
+		a.setPosition(p.x + offset, p.y + 3 + cs.height * 0.3);
 
         var b = new Bullet(this.bulletSpeed, "W1.png", MW.ENEMY_MOVE_TYPE.NORMAL);
         MW.CONTAINER.PLAYER_BULLETS.push(b);
-        this.getParent().addChild(b, b.zOrder, MW.UNIT_TAG.PLAYER_BULLET);
+		g_sharedGameLayer.addBullet(b, 3000, MW.UNIT_TAG.PLAYER_BULLET);
         b.setPosition(p.x - offset, p.y + 3 + cs.height * 0.3);
     },
     destroy:function () {

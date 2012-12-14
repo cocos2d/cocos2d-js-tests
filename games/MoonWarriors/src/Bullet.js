@@ -15,9 +15,9 @@ var Bullet = cc.Sprite.extend({
 
         this.yVelocity = -bulletSpeed;
         this.attackMode = attackMode;
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_bullet_plist);
         this.initWithSpriteFrameName(weaponType);
-        this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+        //this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+							  
         /*var tmpAction;
          switch (this.attackMode) {
          case MW.ENEMY_MOVE_TYPE.NORMAL:
@@ -44,7 +44,7 @@ var Bullet = cc.Sprite.extend({
         explode.setPosition(this.getPosition());
         explode.setRotation(Math.random()*360);
         explode.setScale(0.75);
-        this.getParent().addChild(explode,9999);
+        g_sharedGameLayer.addChild(explode,9999);
         cc.ArrayRemoveObject(MW.CONTAINER.ENEMY_BULLETS,this);
         cc.ArrayRemoveObject(MW.CONTAINER.PLAYER_BULLETS,this);
         this.removeFromParent();

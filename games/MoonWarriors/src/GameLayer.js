@@ -7,6 +7,9 @@
 STATE_PLAYING = 0;
 STATE_GAMEOVER = 1;
 
+var g_sharedGameLayer;
+
+	
 var GameLayer = cc.Layer.extend({
     _time:null,
     _ship:null,
@@ -25,6 +28,7 @@ var GameLayer = cc.Layer.extend({
     explosionAnimation:[],
     _beginPos:cc.p(0, 0),
     _state:STATE_PLAYING,
+	_bullets:null,
     ctor:function () {
         cc.associateWithNative( this, cc.Layer );
     },
@@ -71,6 +75,13 @@ var GameLayer = cc.Layer.extend({
             this._ship = new Ship();
             this.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
 
+			//bullet batch node
+			cc.SpriteFrameCache.getInstance().addSpriteFrames(s_bullet_plist);
+			var bulletTexture = cc.TextureCache.getInstance().addImage(s_bullet);
+			this._bullets = cc.SpriteBatchNode.createWithTexture(bulletTexture);
+			this._bullets.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+			this.addChild(this._bullets);					
+								
             // accept touch now!
 
             var t = cc.config.platform;
@@ -92,9 +103,12 @@ var GameLayer = cc.Layer.extend({
             }
 
             bRet = true;
+								
+			g_sharedGameLayer = this;
         }
         return bRet;
     },
+								
     scoreCounter:function () {
         if( this._state == STATE_PLAYING ) {
             this._time++;
@@ -193,8 +207,7 @@ var GameLayer = cc.Layer.extend({
                 if( typeof selChild.update == 'function' ) {
                     selChild.update(dt);
                     var tag = selChild.getTag();
-                    if ((tag == MW.UNIT_TAG.PLAYER) || (tag == MW.UNIT_TAG.PLAYER_BULLET) ||
-                        (tag == MW.UNIT_TAG.ENEMY) || (tag == MW.UNIT_TAG.ENMEY_BULLET)) {
+                    if ((tag == MW.UNIT_TAG.PLAYER) || (tag == MW.UNIT_TAG.ENEMY)) {
                         if (selChild && !selChild.active) {
                             selChild.destroy();
                         }
@@ -202,6 +215,19 @@ var GameLayer = cc.Layer.extend({
                 }
             }
         }
+		var selBullet, bullets = this._bullets.getChildren();
+		for(var i in bullets) {
+			selChild = bullets[i];
+			if (selChild) {
+				if( typeof selChild.update == 'function' ) {
+					selChild.update(dt);
+					if (selChild && !selChild.active) {
+						selChild.destroy();
+					}
+				}
+			}
+
+		}
     },
     checkIsReborn:function () {
         if (MW.LIFE > 0 && !this._ship.active) {
@@ -312,4 +338,9 @@ GameLayer.scene = function () {
     var layer = GameLayer.create();
     scene.addChild(layer, 1);
     return scene;
+};
+
+
+GameLayer.prototype.addBullet = function (bullet, zOrder ,mode) {
+	this._bullets.addChild(bullet, zOrder, mode);
 };
