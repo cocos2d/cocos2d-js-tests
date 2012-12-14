@@ -28,6 +28,7 @@ var GameLayer = cc.Layer.extend({
     explosionAnimation:[],
     _beginPos:cc.p(0, 0),
     _state:STATE_PLAYING,
+    _bulletHits:null,
 	_bullets:null,
     ctor:function () {
         cc.associateWithNative( this, cc.Layer );
@@ -74,7 +75,13 @@ var GameLayer = cc.Layer.extend({
             // ship
             this._ship = new Ship();
             this.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
-
+                                
+            //bullet hit batch node
+            var bulletHitsTexture = cc.TextureCache.getInstance().addImage(s_hit);
+            this._bulletHits = cc.SpriteBatchNode.createWithTexture(bulletHitsTexture);
+            this._bulletHits.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+            this.addChild(this._bulletHits);
+                                
 			//bullet batch node
 			cc.SpriteFrameCache.getInstance().addSpriteFrames(s_bullet_plist);
 			var bulletTexture = cc.TextureCache.getInstance().addImage(s_bullet);
@@ -340,6 +347,9 @@ GameLayer.scene = function () {
     return scene;
 };
 
+GameLayer.prototype.addBulletHits = function (hit, zOrder) {
+	this._bulletHits.addChild(hit, zOrder);
+};
 
 GameLayer.prototype.addBullet = function (bullet, zOrder ,mode) {
 	this._bullets.addChild(bullet, zOrder, mode);
