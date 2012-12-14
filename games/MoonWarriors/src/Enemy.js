@@ -43,7 +43,7 @@ var Enemy = cc.Sprite.extend({
         MW.SCORE += this.scoreValue;
         var a = new Explosion();
         a.setPosition(this.getPosition());
-        g_sharedGameLayer.addChild(a);
+        g_sharedGameLayer.addExplosions(a);
         spark(this.getPosition(),g_sharedGameLayer, 1.2, 0.7);
         cc.ArrayRemoveObject(MW.CONTAINER.ENEMIES,this);
         this.removeFromParent();

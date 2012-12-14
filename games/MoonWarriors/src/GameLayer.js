@@ -29,6 +29,7 @@ var GameLayer = cc.Layer.extend({
     _beginPos:cc.p(0, 0),
     _state:STATE_PLAYING,
     _bulletHits:null,
+    _explosions:null,
 	_bullets:null,
     _enemyBatch:null,
     _sparkBatch:null,
@@ -47,7 +48,6 @@ var GameLayer = cc.Layer.extend({
             MW.LIFE = 4;
             this._state = STATE_PLAYING;
 
-            Explosion.sharedExplosion();
             Enemy.sharedEnemy();
             winSize = cc.Director.getInstance().getWinSize();
             this._levelManager = new LevelManager(this);
@@ -78,7 +78,15 @@ var GameLayer = cc.Layer.extend({
             this._ship = new Ship();
             this.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
                                 
-            //bullet hit batch node
+            // explosion batch node
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_explosion_plist);
+            var explosionTexture = cc.TextureCache.getInstance().addImage(s_explosion);
+            this._explosions = cc.SpriteBatchNode.createWithTexture(explosionTexture);
+            this._explosions.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+            this.addChild(this._explosions);
+            Explosion.sharedExplosion();
+
+            // bullet hit batch node
             var bulletHitsTexture = cc.TextureCache.getInstance().addImage(s_hit);
             this._bulletHits = cc.SpriteBatchNode.createWithTexture(bulletHitsTexture);
             this._bulletHits.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
@@ -377,7 +385,11 @@ GameLayer.scene = function () {
 
 GameLayer.prototype.addEnemy = function (enemy,z,tag){
     this._enemyBatch.addChild(enemy,z,tag);
-}
+};
+
+GameLayer.prototype.addExplosions = function (explosion) {
+	this._explosions.addChild(explosion);
+};
 
 GameLayer.prototype.addBulletHits = function (hit, zOrder) {
 	this._bulletHits.addChild(hit, zOrder);

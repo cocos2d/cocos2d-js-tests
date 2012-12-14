@@ -17,7 +17,6 @@ var Explosion = cc.Sprite.extend({
             cc.Animate.create(animation),
             cc.CallFunc.create(this.destroy, this)
         ));
-        this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
     },
     destroy:function () {
         this.getParent().removeChild(this);
@@ -25,7 +24,6 @@ var Explosion = cc.Sprite.extend({
 });
 
 Explosion.sharedExplosion = function () {
-    cc.SpriteFrameCache.getInstance().addSpriteFrames(s_explosion_plist);
     var animFrames = [];
     var str = "";
     for (var i = 1; i < 35; i++) {

@@ -106,7 +106,7 @@ var Ship = cc.Sprite.extend({
         MW.LIFE--;
         var p = this.getPosition();
         var myParent = this.getParent();
-        myParent.addChild( new Explosion(p) );
+        g_sharedGameLayer.addExplosions( new Explosion(p) );
         myParent.removeChild(this,true);
         if (MW.SOUND) {
             cc.AudioEngine.getInstance().playEffect(s_shipDestroyEffect);
