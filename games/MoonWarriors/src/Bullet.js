@@ -40,11 +40,10 @@ var Bullet = cc.Sprite.extend({
     },
     destroy:function () {
         var explode = cc.Sprite.create(s_hit);
-        explode.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
         explode.setPosition(this.getPosition());
         explode.setRotation(Math.random()*360);
         explode.setScale(0.75);
-        g_sharedGameLayer.addChild(explode,9999);
+        g_sharedGameLayer.addBulletHits(explode,9999);
         cc.ArrayRemoveObject(MW.CONTAINER.ENEMY_BULLETS,this);
         cc.ArrayRemoveObject(MW.CONTAINER.PLAYER_BULLETS,this);
         this.removeFromParent();
