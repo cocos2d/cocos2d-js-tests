@@ -37,9 +37,13 @@ var Bullet = cc.Sprite.extend({
         if (this.HP <= 0) {
             this.active = false;
         }
+      if ((p.x < 0 || p.x > 320) && (p.y < 0 || p.y > 480))
+      {
+            this.active = false;
+      }
     },
     destroy:function () {
-        var explode = cc.Sprite.create(s_hit);
+        var explode = cc.Sprite.createWithSpriteFrameName(s_hit);
         explode.setPosition(this.getPosition());
         explode.setRotation(Math.random()*360);
         explode.setScale(0.75);
