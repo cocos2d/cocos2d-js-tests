@@ -123,9 +123,9 @@ var Ship = cc.Sprite.extend({
 											  }.bind(this));
 		this.runAction(cc.Sequence.create(cc.DelayTime.create(0.5), blinks, makeBeAttack));
 	
-							this.HP = 5;
-							this._hurtColorLife = 0;
-						            this.setColor(cc.c3b(255,255,255));
-							this.active = true;
+		this.HP = 5;
+		this._hurtColorLife = 0;
+		this.setColor(cc.c3b(255,255,255));
+		this.active = true;
 	}
 });

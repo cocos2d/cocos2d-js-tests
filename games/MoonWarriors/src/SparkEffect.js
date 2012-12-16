@@ -7,8 +7,10 @@ var SparkEffect = cc.Class.extend({
 	ctor:function () {
 		cc.associateWithNative( this, cc.Class );
 
-		this.spark1 = cc.Sprite.createWithSpriteFrameName(s_explode2);
-		this.spark2 = cc.Sprite.createWithSpriteFrameName(s_explode3);
+		this.spark1 = cc.Sprite.createWithSpriteFrameName("explode2.png");
+		this.spark1.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+		this.spark2 = cc.Sprite.createWithSpriteFrameName("explode3.png");
+		this.spark2.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 	 },
 	reset:function(pos) {
 		this.spark1.setPosition(pos);

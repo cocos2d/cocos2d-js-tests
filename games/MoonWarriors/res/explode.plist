@@ -4,7 +4,7 @@
 <dict>
 	<key>frames</key>
 	<dict>
-		<key>explode1.jpg</key>
+		<key>explode1.png</key>
 		<dict>
 			<key>frame</key>
 			<string>{{100,2},{96,96}}</string>
@@ -17,7 +17,7 @@
 			<key>sourceSize</key>
 			<string>{96,96}</string>
 		</dict>
-		<key>explode2.jpg</key>
+		<key>explode2.png</key>
 		<dict>
 			<key>frame</key>
 			<string>{{2,100},{96,96}}</string>
@@ -30,7 +30,7 @@
 			<key>sourceSize</key>
 			<string>{96,96}</string>
 		</dict>
-		<key>explode3.jpg</key>
+		<key>explode3.png</key>
 		<dict>
 			<key>frame</key>
 			<string>{{2,2},{96,96}}</string>

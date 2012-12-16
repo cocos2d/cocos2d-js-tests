@@ -15,9 +15,6 @@ var s_flare = dirImg + "flare.jpg";
 var s_bullet = dirImg + "bullet.png";
 var s_explosion = dirImg + "explosion.png";
 var s_explode = dirImg + "explode.png";
-var s_explode1 = "explode1.jpg";
-var s_explode2= "explode2.jpg";
-var s_explode3 = "explode3.jpg";
 var s_hit = dirImg + "hit.jpg";
 var s_arial14 = dirImg + "arial-14.png";
 var s_arial14_fnt = dirImg + "arial-14.fnt";
@@ -56,9 +53,6 @@ var g_ressources = [
     {type:"image", src:s_bullet},
     {type:"image", src:s_explode},
     {type:"image", src:s_explosion},
-    {type:"image", src:s_explode1},
-    {type:"image", src:s_explode2},
-    {type:"image", src:s_explode3},
     {type:"image", src:s_hit},
     {type:"image", src:s_arial14},
 

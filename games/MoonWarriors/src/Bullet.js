@@ -16,7 +16,7 @@ var Bullet = cc.Sprite.extend({
         this.yVelocity = -bulletSpeed;
         this.attackMode = attackMode;
         this.initWithSpriteFrameName(weaponType);
-        //this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+        this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 							  
         /*var tmpAction;
          switch (this.attackMode) {

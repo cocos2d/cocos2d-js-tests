@@ -55,7 +55,9 @@ var MW = MW || {};
             'src/GameOver.js',
             'src/AboutLayer.js',
             'src/SettingsLayer.js',
-            'src/SysMenu.js'
+            'src/SysMenu.js',
+            'src/HitEffect.js',
+            'src/SparkEffect.js'
         ]
     };
     window.addEventListener('DOMContentLoaded', function () {

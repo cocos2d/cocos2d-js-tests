@@ -46,6 +46,10 @@ var GameLayer = cc.Layer.extend({
             MW.CONTAINER.ENEMIES = [];
             MW.CONTAINER.ENEMY_BULLETS = [];
             MW.CONTAINER.PLAYER_BULLETS = [];
+			MW.CONTAINER.EXPLOSIONS = [];
+			MW.CONTAINER.SPARKS = [];
+			MW.CONTAINER.HITS = [];
+								
             MW.SCORE = 0;
             MW.LIFE = 4;
             this._state = STATE_PLAYING;

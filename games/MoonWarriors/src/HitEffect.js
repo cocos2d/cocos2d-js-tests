@@ -5,6 +5,7 @@ var HitEffect = cc.Sprite.extend({
 
 		var texture = cc.TextureCache.getInstance().addImage(s_hit);
 		this.initWithTexture(texture);
+		this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 	},
 	reset:function(pos,rotation,scale)
 	{
