@@ -6,6 +6,8 @@
 
 STATE_PLAYING = 0;
 STATE_GAMEOVER = 1;
+MAX_CONTAINT_WIDTH = 40;
+MAX_CONTAINT_HEIGHT = 40;
 
 var g_sharedGameLayer;
 
@@ -95,7 +97,7 @@ var GameLayer = cc.Layer.extend({
 			// bullet batch node
 			cc.SpriteFrameCache.getInstance().addSpriteFrames(s_bullet_plist);
 			var bulletTexture = cc.TextureCache.getInstance().addImage(s_bullet);
-			this._bullets = cc.SpriteBatchNode.createWithTexture(bulletTexture);
+			this._bullets = cc.SpriteBatchNode.createWithTexture(bulletTexture, 100);
 			this._bullets.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 			this.addChild(this._bullets);
                                 
@@ -195,88 +197,66 @@ var GameLayer = cc.Layer.extend({
         var i =0;
         for (i = 0; i < MW.CONTAINER.ENEMIES.length; i++) {
             selChild = MW.CONTAINER.ENEMIES[i];
+			if(!selChild.active)
+				continue;
+								
             for (var j = 0; j < MW.CONTAINER.PLAYER_BULLETS.length; j++) {
                 bulletChild = MW.CONTAINER.PLAYER_BULLETS[j];
-                if (this.collide(selChild, bulletChild)) {
+                if (bulletChild.active && this.collide(selChild, bulletChild)) {
                     bulletChild.hurt();
                     selChild.hurt();
                 }
-                if (!cc.rectIntersectsRect(this.screenRect, bulletChild.getBoundingBox() )) {
-                    bulletChild.destroy();
-                }
             }
-            if (this.collide(selChild, this._ship)) {
+            if ( this.collide(selChild, this._ship)) {
                 if (this._ship.active) {
                     selChild.hurt();
                     this._ship.hurt();
                 }
             }
-            if (!cc.rectIntersectsRect(this.screenRect, selChild.getBoundingBox() )) {
-                selChild.destroy();
-            }
-        }
+		}
 
         for (i = 0; i < MW.CONTAINER.ENEMY_BULLETS.length; i++) {
             selChild = MW.CONTAINER.ENEMY_BULLETS[i];
-            if (this.collide(selChild, this._ship)) {
+            if (selChild.active && this.collide(selChild, this._ship)) {
                 if (this._ship.active) {
                     selChild.hurt();
                     this._ship.hurt();
                 }
-            }
-            if (!cc.rectIntersectsRect(this.screenRect, selChild.getBoundingBox() )) {
-                selChild.destroy();
             }
         }
     },
     removeInactiveUnit:function (dt) {
-        var selChild, layerChildren = this.getChildren();
-        for (var i in layerChildren) {
-            selChild = layerChildren[i];
-            if (selChild) {
-                if( typeof selChild.update == 'function' ) {
-                    selChild.update(dt);
-                    var tag = selChild.getTag();
-                    if ((tag == MW.UNIT_TAG.PLAYER)) {
-                        if (selChild && !selChild.active) {
-                            selChild.destroy();
-                        }
-                    }
-                }
-            }
-        }
+		var selChild, layerChildren = this.getChildren();
+		for (var i in layerChildren) {
+				selChild = layerChildren[i];
+				if (selChild) {
+				selChild.update(dt);
+				var tag = selChild.getTag();
+				if (tag == MW.UNIT_TAG.PLAYER && !selChild.active) {
+					selChild.destroy();
+				}
+			}
+		}
 		var selBullet, bullets = this._bullets.getChildren();
 		for(var i in bullets) {
 			selChild = bullets[i];
-			if (selChild) {
-				if( typeof selChild.update == 'function' ) {
-					selChild.update(dt);
-					if (selChild && !selChild.active) {
-						selChild.destroy();
-					}
-				}
+			if (selChild && selChild.active) {
+				selChild.update(dt);
 			}
-
 		}
-                                
-        var selEnemy,enemys = this._enemyBatch.getChildren();
-        for(var i in enemys){
-            selChild = enemys[i];
-            if (selChild){
-                if( typeof selChild.update == 'function'){
-                    selChild.update(dt);
-                    if (selChild && !selChild.active) {
-                        selChild.destroy();
-                    }
-                }
-            }
-        }
+		
+		var selEnemy,enemys = this._enemyBatch.getChildren();
+		for(var i in enemys){
+			selChild = enemys[i];
+			if (selChild && selChild.active){
+				selChild.update(dt);
+			}
+		}
+
     },
     checkIsReborn:function () {
         if (MW.LIFE > 0 && !this._ship.active) {
-            // ship
-            this._ship = new Ship();
-            this.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
+			this._ship.born();
         }
         else if (MW.LIFE <= 0 && !this._ship.active) {
             this._state = STATE_GAMEOVER;
@@ -295,11 +275,14 @@ var GameLayer = cc.Layer.extend({
         this.lbScore.setString("Score: " + this._tmpScore);
     },
     collide:function (a, b) {
-        var aRect = a.collideRect();
-        var bRect = b.collideRect();
-        if (cc.rectIntersectsRect(aRect, bRect)) {
-            return true;
-        }
+		var pos1 = a.getPosition();	
+		var pos2 = b.getPosition();	
+		if(Math.abs(pos1.x - pos2.x) > MAX_CONTAINT_WIDTH || Math.abs(pos1.y - pos2.y) > MAX_CONTAINT_HEIGHT)
+			return false;
+				
+		var aRect = a.collideRect(pos1);
+		var bRect = b.collideRect(pos2);
+		return cc.rectIntersectsRect(aRect, bRect);
     },
     initBackground:function () {
         // bg
@@ -395,10 +378,9 @@ GameLayer.prototype.addBulletHits = function (hit, zOrder) {
 	this._bulletHits.addChild(hit, zOrder);
 };
 
-GameLayer.prototype.addSpark = function (spark)
-{
+GameLayer.prototype.addSpark = function (spark) {
     this._sparkBatch.addChild(spark);
-}
+};
 
 GameLayer.prototype.addBullet = function (bullet, zOrder ,mode) {
 	this._bullets.addChild(bullet, zOrder, mode);

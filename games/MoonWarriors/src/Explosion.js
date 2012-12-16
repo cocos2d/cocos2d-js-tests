@@ -1,6 +1,7 @@
 var Explosion = cc.Sprite.extend({
     tmpWidth:0,
     tmpHeight:0,
+	active:true,
     ctor:function () {
         // needed for JS-Bindings compatibility
         cc.associateWithNative( this, cc.Sprite );
@@ -19,7 +20,8 @@ var Explosion = cc.Sprite.extend({
         ));
     },
     destroy:function () {
-        this.getParent().removeChild(this);
+		this.setPosition(g_hideSpritePos);
+		this.active = false;
     }
 });
 
@@ -34,3 +36,24 @@ Explosion.sharedExplosion = function () {
     var animation = cc.Animation.create(animFrames, 0.04);
     cc.AnimationCache.getInstance().addAnimation(animation, "Explosion");
 };
+
+Explosion.getOrCreateExplosion = function() {
+	for (var j = 0; j < MW.CONTAINER.EXPLOSIONS.length; j++) {
+		selChild = MW.CONTAINER.EXPLOSIONS[j];
+		
+		if (selChild.active == false)
+		{
+			selChild.active = true;
+			var animation = cc.AnimationCache.getInstance().getAnimation("Explosion");
+			selChild.runAction(cc.Sequence.create(
+											  cc.Animate.create(animation),
+											  cc.CallFunc.create(selChild.destroy, selChild)));
+			return selChild;
+		}
+	}
+	
+	var explosion = new Explosion();
+	g_sharedGameLayer.addExplosions(explosion);
+	MW.CONTAINER.EXPLOSIONS.push(explosion);
+	return explosion;
+}
