@@ -18,7 +18,6 @@ var Ship = cc.Sprite.extend({
         cc.associateWithNative( this, cc.Sprite );
 
         //init life
-        //var shipTexture = cc.TextureCache.getInstance().addImage(s_ship01);
         this.initWithSpriteFrameName("ship01.png");
         this.setTag(this.zOrder);
         this.setPosition(this.appearPosition);
