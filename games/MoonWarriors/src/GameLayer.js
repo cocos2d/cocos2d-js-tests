@@ -53,13 +53,13 @@ var GameLayer = cc.Layer.extend({
             this._state = STATE_PLAYING;
                                 
             // OpaqueBatch
-            var texOpaque = cc.TextureCache.getInstance().addImage(s_texOpaquePack);
+            var texOpaque = cc.TextureCache.getInstance().addImage(s_textureOpaquePack);
             this._texOpaqueBatch = cc.SpriteBatchNode.createWithTexture(texOpaque);
             this._texOpaqueBatch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._texOpaqueBatch);
             
             // TransparentBatch
-            var texTransparent = cc.TextureCache.getInstance().addImage(s_texTransparentpack);
+            var texTransparent = cc.TextureCache.getInstance().addImage(s_textureTransparentPack);
             this._texTransparentBatch = cc.SpriteBatchNode.createWithTexture(texTransparent);
             this.addChild(this._texTransparentBatch);
                                 
@@ -178,7 +178,7 @@ var GameLayer = cc.Layer.extend({
     },
     checkIsCollide:function () {
         var selChild, bulletChild;
-        //check collide
+        // check collide
         var i =0;
         for (i = 0; i < MW.CONTAINER.ENEMIES.length; i++) {
             selChild = MW.CONTAINER.ENEMIES[i];
@@ -211,14 +211,6 @@ var GameLayer = cc.Layer.extend({
         }
     },
     removeInactiveUnit:function (dt) {
-//        var selChild, layerChildren = this.getChildren();
-//        for (var i in layerChildren) {
-//            selChild = layerChildren[i];
-//            if (selChild) {
-//                selChild.update(dt);
-//            }
-//        }
-                                
         var selChild,children = this._texOpaqueBatch.getChildren();
         for(var i in children){
         selChild = children[i];

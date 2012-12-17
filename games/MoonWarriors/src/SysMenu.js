@@ -10,8 +10,8 @@ var SysMenu = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
                               
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_texOpaquePack_plist);
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_texTransparentpack_plist);
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_textureOpaquePack_plist);
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_textureTransparentPack_plist);
                               
             winSize = cc.Director.getInstance().getWinSize();
             var sp = cc.Sprite.create(s_loading);

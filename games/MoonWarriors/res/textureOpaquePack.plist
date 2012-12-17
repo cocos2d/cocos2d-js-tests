@@ -88,11 +88,11 @@
 		<key>format</key>
 		<integer>2</integer>
 		<key>realTextureFileName</key>
-		<string>texOpaqueBatch.png</string>
+		<string>textureOpaquePack.png</string>
 		<key>size</key>
 		<string>{256,256}</string>
 		<key>textureFileName</key>
-		<string>texOpaqueBatch.png</string>
+		<string>textureOpaquePack.png</string>
 	</dict>
 </dict>
 </plist>

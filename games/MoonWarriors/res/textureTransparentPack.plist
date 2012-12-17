@@ -140,11 +140,11 @@
 		<key>format</key>
 		<integer>2</integer>
 		<key>realTextureFileName</key>
-		<string>texTransparentpack.png</string>
+		<string>textureTransparentPack.png</string>
 		<key>size</key>
 		<string>{512,1024}</string>
 		<key>textureFileName</key>
-		<string>texTransparentpack.png</string>
+		<string>textureTransparentPack.png</string>
 	</dict>
 </dict>
 </plist>
