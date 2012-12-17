@@ -68,14 +68,14 @@ var g_ressources = [
     {type:"plist", src:s_bullet_plist},
 
     //music
-    {type:"bgm", src:s_bgMusic},
-    {type:"bgm", src:s_mainMainMusic},
+    {type:"sound", src:s_bgMusic},
+    {type:"sound", src:s_mainMainMusic},
 
     //effect
-    {type:"effect", src:s_buttonEffect},
-    {type:"effect", src:s_explodeEffect},
-    {type:"effect", src:s_fireEffect},
-    {type:"effect", src:s_shipDestroyEffect},
+    {type:"sound", src:s_buttonEffect},
+    {type:"sound", src:s_explodeEffect},
+    {type:"sound", src:s_fireEffect},
+    {type:"sound", src:s_shipDestroyEffect},
 
     // FNT
     {type:"fnt", src:s_arial14_fnt}

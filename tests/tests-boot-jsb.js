@@ -17,6 +17,7 @@ var tests_files = [
 		'ClickAndMoveTest/ClickAndMoveTest.js',
 		'CocosDenshionTest/CocosDenshionTest.js',
 		'CocosNodeTest/CocosNodeTest.js',
+		'DrawPrimitivesTest/DrawPrimitivesTest.js',
 		'EaseActionsTest/EaseActionsTest.js',
 		'EffectsTest/EffectsTest.js',
 		'EventTest/EventTest.js',

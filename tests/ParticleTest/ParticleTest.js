@@ -1217,14 +1217,6 @@ var ParticleBatchTest = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        // Don't run it on browsers
-        if( cc.config.platform === 'browser' ) {
-            var label = cc.LabelTTF.create("NOT SUPPORTED ON BROWSER", "Arial", 32);
-            this.addChild( label );
-            label.setPosition( winSize.width/2, winSize.height/2 );
-            return;
-        }
-
         var emitter1 = cc.ParticleSystem.create( s_resprefix + 'Particles/LavaFlow.plist');
         emitter1.setStartColor( cc.c4f(1,0,0,1) );
         var emitter2 = cc.ParticleSystem.create( s_resprefix + 'Particles/LavaFlow.plist');
