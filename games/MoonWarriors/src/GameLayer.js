@@ -259,7 +259,7 @@ var GameLayer = cc.Layer.extend({
         if (MW.LIFE > 0 && !this._ship.active) {
             // ship
             this._ship = new Ship();
-            this.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
+            this._tex8888Batch.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
         }
         else if (MW.LIFE <= 0 && !this._ship.active) {
             this._state = STATE_GAMEOVER;
