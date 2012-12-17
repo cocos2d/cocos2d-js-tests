@@ -31,8 +31,8 @@ var GameLayer = cc.Layer.extend({
     _beginPos:cc.p(0, 0),
     _state:STATE_PLAYING,
     _explosions:null,
-    _tex565Batch:null,
-    _tex8888Batch:null,
+    _texOpaqueBatch:null,
+    _texTransparentBatch:null,
     ctor:function () {
         cc.associateWithNative( this, cc.Layer );
     },
@@ -52,16 +52,16 @@ var GameLayer = cc.Layer.extend({
             MW.LIFE = 4;
             this._state = STATE_PLAYING;
                                 
-            //565batch
-            var tex565 = cc.TextureCache.getInstance().addImage(s_tex565pack);
-            this._tex565Batch = cc.SpriteBatchNode.createWithTexture(tex565);
-            this._tex565Batch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
-            this.addChild(this._tex565Batch);
+            // OpaqueBatch
+            var texOpaque = cc.TextureCache.getInstance().addImage(s_texOpaquePack);
+            this._texOpaqueBatch = cc.SpriteBatchNode.createWithTexture(texOpaque);
+            this._texOpaqueBatch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+            this.addChild(this._texOpaqueBatch);
             
-            //8888batch
-            var tex8888 = cc.TextureCache.getInstance().addImage(s_tex8888pack);
-            this._tex8888Batch = cc.SpriteBatchNode.createWithTexture(tex8888);
-            this.addChild(this._tex8888Batch);
+            // TransparentBatch
+            var texTransparent = cc.TextureCache.getInstance().addImage(s_texTransparentpack);
+            this._texTransparentBatch = cc.SpriteBatchNode.createWithTexture(texTransparent);
+            this.addChild(this._texTransparentBatch);
                                 
             winSize = cc.Director.getInstance().getWinSize();
             this._levelManager = new LevelManager(this);
@@ -79,7 +79,7 @@ var GameLayer = cc.Layer.extend({
             var life = cc.Sprite.createWithSpriteFrameName("ship01.png");
             life.setScale(0.6);
             life.setPosition(30, 460);
-            this._tex8888Batch.addChild(life, 1, 5);
+            this._texTransparentBatch.addChild(life, 1, 5);
 
             // ship Life count
             this._lbLife = cc.LabelTTF.create("0", "Arial", 20);
@@ -89,7 +89,7 @@ var GameLayer = cc.Layer.extend({
 
             // ship
             this._ship = new Ship();
-            this._tex8888Batch.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
+            this._texTransparentBatch.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
                                 
             // explosion batch node
             cc.SpriteFrameCache.getInstance().addSpriteFrames(s_explosion_plist);
@@ -211,19 +211,15 @@ var GameLayer = cc.Layer.extend({
         }
     },
     removeInactiveUnit:function (dt) {
-        var selChild, layerChildren = this.getChildren();
-        for (var i in layerChildren) {
-            selChild = layerChildren[i];
-            if (selChild) {
-                selChild.update(dt);
-                var tag = selChild.getTag();
-                if (tag == MW.UNIT_TAG.PLAYER && !selChild.active) {
-                selChild.destroy();
-                }
-            }
-        }
+//        var selChild, layerChildren = this.getChildren();
+//        for (var i in layerChildren) {
+//            selChild = layerChildren[i];
+//            if (selChild) {
+//                selChild.update(dt);
+//            }
+//        }
                                 
-        var selChild,children = this._tex565Batch.getChildren();
+        var selChild,children = this._texOpaqueBatch.getChildren();
         for(var i in children){
         selChild = children[i];
             if (selChild && selChild.active){
@@ -231,7 +227,7 @@ var GameLayer = cc.Layer.extend({
             }
         }
 
-        var selChild,children = this._tex8888Batch.getChildren();
+        var selChild,children = this._texTransparentBatch.getChildren();
         for(var i in children){
             selChild = children[i];
             if (selChild && selChild.active){
@@ -354,7 +350,7 @@ GameLayer.scene = function () {
 };
 
 GameLayer.prototype.addEnemy = function (enemy,z,tag){
-    this._tex8888Batch.addChild(enemy,z,tag);
+    this._texTransparentBatch.addChild(enemy,z,tag);
 };
 
 GameLayer.prototype.addExplosions = function (explosion) {
@@ -362,13 +358,13 @@ GameLayer.prototype.addExplosions = function (explosion) {
 };
 
 GameLayer.prototype.addBulletHits = function (hit, zOrder) {
-	this._tex565Batch.addChild(hit, zOrder);
+	this._texOpaqueBatch.addChild(hit, zOrder);
 };
 
 GameLayer.prototype.addSpark = function (spark) {
-    this._tex565Batch.addChild(spark);
+    this._texOpaqueBatch.addChild(spark);
 };
 
 GameLayer.prototype.addBullet = function (bullet, zOrder ,mode) {
-	this._tex565Batch.addChild(bullet, zOrder, mode);
+	this._texOpaqueBatch.addChild(bullet, zOrder, mode);
 };

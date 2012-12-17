@@ -61,6 +61,7 @@ var Ship = cc.Sprite.extend({
 
         if (this.HP <= 0) {
             this.active = false;
+            this.destroy();
         }
         this._timeTick += dt;
         if (this._timeTick > 0.1) {

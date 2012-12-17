@@ -13,8 +13,8 @@ var s_explosion = dirImg + "explosion.png";
 var s_arial14 = dirImg + "arial-14.png";
 var s_arial14_fnt = dirImg + "arial-14.fnt";
 var s_gameplay = dirImg + "gameplaypack.png";
-var s_tex565pack = dirImg + "tex565pack.png";
-var s_tex8888pack = dirImg + "tex8888pack.png";
+var s_texOpaquePack = dirImg + "texOpaqueBatch.png";
+var s_texTransparentpack = dirImg + "texTransparentpack.png";
 
 //music
 var s_bgMusic = dirMusic + "bgMusic.mp3";
@@ -32,8 +32,8 @@ var s_level01 = dirImg + "level01.tmx";
 //plist
 var s_explosion_plist = dirImg + "explosion.plist";
 var s_game_paly_plist = dirImg + "gameplaypack.plist";
-var s_tex565pack_plist = dirImg + "tex565pack.plist";
-var s_tex8888pack_plist = dirImg + "tex8888pack.plist";
+var s_texOpaquePack_plist = dirImg + "texOpaqueBatch.plist";
+var s_texTransparentpack_plist = dirImg + "texTransparentpack.plist";
 
 var g_ressources = [
     //image
@@ -46,16 +46,16 @@ var g_ressources = [
     {type:"image", src:s_flare},
     {type:"image", src:s_explosion},
     {type:"image", src:s_arial14},
-    {type:"image", src:s_tex565pack},
-    {type:"image", src:s_tex8888pack},
+    {type:"image", src:s_texOpaquePack},
+    {type:"image", src:s_texTransparentpack},
 
     //tmx
     {type:"tmx", src:s_level01},
 
     //plist
     {type:"plist", src:s_explosion_plist},
-    {type:"plist", src:s_tex565pack_plist},
-    {type:"plist", src:s_tex8888pack_plist},
+    {type:"plist", src:s_texOpaquePack_plist},
+    {type:"plist", src:s_texTransparentpack_plist},
 
     //music
     {type:"sound", src:s_bgMusic},
