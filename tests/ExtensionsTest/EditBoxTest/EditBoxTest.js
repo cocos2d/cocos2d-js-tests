@@ -26,48 +26,48 @@
 
 var EditBoxTestLayer = cc.Layer.extend({
     init:function () {
-
-        var box1 = cc.ControlEditBox.create(new cc.size(170,50),new cc.Color3B(255,255,0));
+        var box1 = cc.EditBox.create(cc.size(170, 50));
         box1.setText("EditBoxs");
-        box1.setPosition(220,50);
-        box1.setBgClr(new cc.Color3B(255,0,0));
-        box1.setFontColor(new cc.Color3B(251,250,0));
-        box1.setBorderClr(new cc.Color3B(55,250,120));
+        box1.setPosition(220, 50);
+        //box1.setBgClr(new cc.Color3B(255,0,0));
+        box1.setFontColor(new cc.Color3B(251, 250, 0));
+        box1.setBorderClr(new cc.Color3B(55, 250, 120));
+        box1.setFontSize(20);
         this.addChild(box1);
 
-        var box2 = cc.ControlEditBox.create(new cc.size(130,40),new cc.Color3B(255,255,0));
+        var box2 = cc.EditBox.create(cc.size(130, 40), new cc.Color3B(255, 255, 0));
         box2.setText("EditBox Sample");
-        box2.setPosition(220,150);
+        box2.setPosition(220, 150);
         box2.setInputFlag(cc.EDITBOX_INPUT_FLAG_PASSWORD);
-        box2.setBgClr(new cc.Color3B(55,150,120));
-        box2.setFontColor(new cc.Color3B(255,250,0));
-        box2.setBorderClr(new cc.Color3B(55,250,120));
+        box2.setBgClr(new cc.Color3B(55, 150, 120));
+        box2.setFontColor(new cc.Color3B(255, 250, 0));
+        box2.setBorderClr(new cc.Color3B(55, 250, 120));
         this.addChild(box2);
 
-        var box3 = cc.ControlEditBox.create(new cc.size(65,40),new cc.Color3B(255,255,0));
+        var box3 = cc.EditBox.create(cc.size(65, 40), new cc.Color3B(255, 255, 0));
         box3.setText("Image");
-        box3.setPosition(220,250);
-        box3.setBgClr(new cc.Color3B(255,250,0));
-        box3.setFontColor(new cc.Color3B(15,250,245));
-        box3.setBorderClr(new cc.Color3B(55,150,120));
-        box3.setImgStyle("res/extensions/orange_edit.png");
+        box3.setPosition(220, 250);
+        box3.setBgClr(new cc.Color3B(255, 250, 0));
+        box3.setFontColor(new cc.Color3B(15, 250, 245));
+        box3.setBorderClr(new cc.Color3B(55, 150, 120));
+        box3.setImageStyle("res/extensions/orange_edit.png");
         this.addChild(box3);
 
         //var box4 = cc.ControlEditBox.create(240,35,14);
-        var box4 = cc.ControlEditBox.create(new cc.size(180,40),new cc.Color3B(255,255,0));
-        box4.setPlaceholderFontColor(new cc.Color3B(255,0,0));
+        var box4 = cc.EditBox.create(cc.size(180, 40), new cc.Color3B(255, 255, 0));
+        box4.setPlaceholderFontColor(new cc.Color3B(255, 0, 0));
         box4.setPlaceHolder("Tooltip:");
-        box4.setPosition(220,350);
-        box4.setBgClr(new cc.Color3B(255,210,50));
-        box4.setFontColor(new cc.Color3B(5,4,10));
-        box4.setBorderClr(new cc.Color3B(155,160,120));
+        box4.setPosition(220, 350);
+        box4.setBgClr(new cc.Color3B(255, 210, 50));
+        box4.setFontColor(new cc.Color3B(5, 4, 10));
+        box4.setBorderClr(new cc.Color3B(155, 160, 120));
         box4.setMaxLength(10);
         this.addChild(box4);
 
         var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
         itemBack.setPosition(cc.p(winSize.width - 50, 25));
         var menuBack = cc.Menu.create(itemBack);
-        menuBack.setPosition(cc.p(0,0));
+        menuBack.setPosition(cc.p(0, 0));
         this.addChild(menuBack);
 
         return true;
@@ -76,7 +76,6 @@ var EditBoxTestLayer = cc.Layer.extend({
     toExtensionsMainLayer:function (sender) {
         var scene = new ExtensionsTestScene();
         scene.runThisTest();
-
     },
 
     scrollViewDidScroll:function (view) {
