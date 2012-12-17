@@ -48,7 +48,7 @@ var SysMenu = cc.Layer.extend({
             menu.setPosition(winSize.width / 2, winSize.height / 2 - 80);
             this.schedule(this.update, 0.1);
 
-            this._ship = cc.Sprite.createWithSpriteFrameName(s_ship1);
+            this._ship = cc.Sprite.createWithSpriteFrameName("ship01.png");
             this.addChild(this._ship, 0, 4);
             var pos = cc.p(Math.random() * winSize.width, 0);
             this._ship.setPosition( pos );

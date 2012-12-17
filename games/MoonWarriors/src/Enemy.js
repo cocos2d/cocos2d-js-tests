@@ -1,5 +1,6 @@
 var Enemy = cc.Sprite.extend({
     eID:0,
+	enemyType:1,
     active:true,
     speed:200,
     bulletSpeed:-200,
@@ -19,6 +20,7 @@ var Enemy = cc.Sprite.extend({
         this.moveType = arg.moveType;
         this.scoreValue = arg.scoreValue;
         this.attackMode = arg.attackMode;
+		this.enemyType = arg.type;
 
         this.initWithSpriteFrameName(arg.textureName);
         this.schedule(this.shoot, this.delayTime);
@@ -26,9 +28,6 @@ var Enemy = cc.Sprite.extend({
     _timeTick:0,
     update:function (dt) {
                              var p = this.getPosition();
-        if (this.HP <= 0) {
-            this.active = false;
-        }
          if ((p.x < 0 || p.x > 320) && (p.y < 0 || p.y > 480))
          {
          this.active = false;
@@ -43,24 +42,30 @@ var Enemy = cc.Sprite.extend({
                 this.setColor( cc.c3b(255,255,255) );
             }
         }
+		
+		var p = this.getPosition();
+		if (p.x < 0 || p.x > g_sharedGameLayer.screenRect.width || p.y < 0 || p.y > g_sharedGameLayer.screenRect.height || this.HP <= 0)
+		{
+			this.active = false;
+			this.destroy();
+		}
+
     },
     destroy:function () {
         MW.SCORE += this.scoreValue;
-        var a = new Explosion();
+		var a =	Explosion.getOrCreateExplosion();
         a.setPosition(this.getPosition());
-        g_sharedGameLayer.addExplosions(a);
-        spark(this.getPosition(),g_sharedGameLayer, 1.2, 0.7);
-        cc.ArrayRemoveObject(MW.CONTAINER.ENEMIES,this);
-        this.removeFromParent();
+        SparkEffect.getOrCreateSparkEffect(this.getPosition());
         if(MW.SOUND){
             cc.AudioEngine.getInstance().playEffect(s_explodeEffect);
         }
+		this.setPosition(g_hideSpritePos);
+		this.stopAllActions();
+		this.unschedule(this.shoot);
     },
     shoot:function () {
         var p = this.getPosition();
-        var b = new Bullet(this.bulletSpeed, "W2.png", this.attackMode);
-        MW.CONTAINER.ENEMY_BULLETS.push(b);
-		g_sharedGameLayer.addBullet(b,3000,MW.UNIT_TAG.ENMEY_BULLET);
+		var b = Bullet.getOrCreateBullet(this.bulletSpeed, "W2.png", this.attackMode,3000,MW.UNIT_TAG.ENMEY_BULLET);
         b.setPosition(p.x, p.y - this.getContentSize().height * 0.2);
     },
     hurt:function () {
@@ -68,9 +73,33 @@ var Enemy = cc.Sprite.extend({
         this.HP--;
         this.setColor( cc.c3b(255,0,0) );
     },
-    collideRect:function(){
+    collideRect:function(p){
         var a = this.getContentSize();
-        var p = this.getPosition();
         return cc.rect(p.x - a.width/2, p.y - a.height/4,a.width,a.height/2);
     }
 });
+
+Enemy.getOrCreateEnemy = function(arg) {
+	for (var j = 0; j < MW.CONTAINER.ENEMIES.length; j++) {
+		selChild = MW.CONTAINER.ENEMIES[j];
+		
+		if (selChild.active == false && selChild.enemyType == arg.type)
+		{
+			selChild.HP = arg.HP;
+			selChild.active = true;
+			selChild.moveType = arg.moveType;
+			selChild.scoreValue = arg.scoreValue;
+			selChild.attackMode = arg.attackMode;
+			selChild._hurtColorLife = 0;
+			selChild.setColor( cc.c3b(255,255,255) );
+			
+			selChild.schedule(selChild.shoot, selChild.delayTime);
+			return selChild;
+		}
+	}
+
+	var addEnemy = new Enemy(arg);
+	g_sharedGameLayer.addEnemy(addEnemy, addEnemy.zOrder, MW.UNIT_TAG.ENEMY);
+	MW.CONTAINER.ENEMIES.push(addEnemy);
+	return addEnemy;
+};

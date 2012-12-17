@@ -6,6 +6,8 @@
 
 STATE_PLAYING = 0;
 STATE_GAMEOVER = 1;
+MAX_CONTAINT_WIDTH = 40;
+MAX_CONTAINT_HEIGHT = 40;
 
 var g_sharedGameLayer;
 
@@ -42,6 +44,10 @@ var GameLayer = cc.Layer.extend({
             MW.CONTAINER.ENEMIES = [];
             MW.CONTAINER.ENEMY_BULLETS = [];
             MW.CONTAINER.PLAYER_BULLETS = [];
+			MW.CONTAINER.EXPLOSIONS = [];
+			MW.CONTAINER.SPARKS = [];
+			MW.CONTAINER.HITS = [];
+								
             MW.SCORE = 0;
             MW.LIFE = 4;
             this._state = STATE_PLAYING;
@@ -70,7 +76,7 @@ var GameLayer = cc.Layer.extend({
             this.lbScore.setPosition(winSize.width - 5 , winSize.height - 30);
 
             // ship life
-            var life = cc.Sprite.createWithSpriteFrameName(s_ship1);
+            var life = cc.Sprite.createWithSpriteFrameName("ship01.png");
             life.setScale(0.6);
             life.setPosition(30, 460);
             this._tex8888Batch.addChild(life, 1, 5);
@@ -176,37 +182,31 @@ var GameLayer = cc.Layer.extend({
         var i =0;
         for (i = 0; i < MW.CONTAINER.ENEMIES.length; i++) {
             selChild = MW.CONTAINER.ENEMIES[i];
+			if(!selChild.active)
+				continue;
+								
             for (var j = 0; j < MW.CONTAINER.PLAYER_BULLETS.length; j++) {
                 bulletChild = MW.CONTAINER.PLAYER_BULLETS[j];
-                if (this.collide(selChild, bulletChild)) {
+                if (bulletChild.active && this.collide(selChild, bulletChild)) {
                     bulletChild.hurt();
                     selChild.hurt();
                 }
-                if (!cc.rectIntersectsRect(this.screenRect, bulletChild.getBoundingBox() )) {
-                    bulletChild.destroy();
-                }
             }
-            if (this.collide(selChild, this._ship)) {
+            if ( this.collide(selChild, this._ship)) {
                 if (this._ship.active) {
                     selChild.hurt();
                     this._ship.hurt();
                 }
             }
-            if (!cc.rectIntersectsRect(this.screenRect, selChild.getBoundingBox() )) {
-                selChild.destroy();
-            }
-        }
+		}
 
         for (i = 0; i < MW.CONTAINER.ENEMY_BULLETS.length; i++) {
             selChild = MW.CONTAINER.ENEMY_BULLETS[i];
-            if (this.collide(selChild, this._ship)) {
+            if (selChild.active && this.collide(selChild, this._ship)) {
                 if (this._ship.active) {
                     selChild.hurt();
                     this._ship.hurt();
                 }
-            }
-            if (!cc.rectIntersectsRect(this.screenRect, selChild.getBoundingBox() )) {
-                selChild.destroy();
             }
         }
     },
@@ -215,51 +215,35 @@ var GameLayer = cc.Layer.extend({
         for (var i in layerChildren) {
             selChild = layerChildren[i];
             if (selChild) {
-                if( typeof selChild.update == 'function' ) {
-                    selChild.update(dt);
+                selChild.update(dt);
+                var tag = selChild.getTag();
+                if (tag == MW.UNIT_TAG.PLAYER && !selChild.active) {
+                selChild.destroy();
                 }
             }
         }
                                 
-		var selBullet, bullets = this._tex565Batch.getChildren();
-		for(var i in bullets) {
-			selBullet = bullets[i];
-			if (selBullet) {
-				if( typeof selBullet.update == 'function' ) {
-					selBullet.update(dt);
-                    var tag = selBullet.getTag();
-                    if ( (tag == MW.UNIT_TAG.PLAYER_BULLET) || (tag == MW.UNIT_TAG.ENMEY_BULLET) ){
-                        if (selBullet && !selBullet.active) {
-                            selBullet.destroy();
-                        }
-                    }
-				}
-			}
+        var selChild,children = this._tex565Batch.getChildren();
+        for(var i in children){
+        selChild = children[i];
+            if (selChild && selChild.active){
+                selChild.update(dt);
+            }
+        }
 
-		} 
-                                
-        var selEnemy, enemy = this._tex8888Batch.getChildren();
-        for(var i in enemy) {
-            selEnemy = enemy[i];
-            if (selEnemy) {
-                if( typeof selEnemy.update == 'function' ) {
-                    selEnemy.update(dt);
-                    var tag = selEnemy.getTag();
-                    if ( (tag == MW.UNIT_TAG.ENEMY) || (tag == MW.UNIT_TAG.PLAYER) ){
-                        if (selEnemy && !selEnemy.active) {
-                            selEnemy.destroy();
-                        }
-                    }
-                }
+        var selChild,children = this._tex8888Batch.getChildren();
+        for(var i in children){
+            selChild = children[i];
+            if (selChild && selChild.active){
+                selChild.update(dt);
             }
-        
         }
-    },
+
+
+        },
     checkIsReborn:function () {
         if (MW.LIFE > 0 && !this._ship.active) {
-            // ship
-            this._ship = new Ship();
-            this._tex8888Batch.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
+			this._ship.born();
         }
         else if (MW.LIFE <= 0 && !this._ship.active) {
             this._state = STATE_GAMEOVER;
@@ -278,15 +262,18 @@ var GameLayer = cc.Layer.extend({
         this.lbScore.setString("Score: " + this._tmpScore);
     },
     collide:function (a, b) {
-        var aRect = a.collideRect();
-        var bRect = b.collideRect();
-        if (cc.rectIntersectsRect(aRect, bRect)) {
-            return true;
-        }
+		var pos1 = a.getPosition();	
+		var pos2 = b.getPosition();	
+		if(Math.abs(pos1.x - pos2.x) > MAX_CONTAINT_WIDTH || Math.abs(pos1.y - pos2.y) > MAX_CONTAINT_HEIGHT)
+			return false;
+				
+		var aRect = a.collideRect(pos1);
+		var bRect = b.collideRect(pos2);
+		return cc.rectIntersectsRect(aRect, bRect);
     },
     initBackground:function () {
         // bg
-        this._backSky = cc.Sprite.createWithSpriteFrameName(s_bg01);
+        this._backSky = cc.Sprite.createWithSpriteFrameName("bg01.png");
         this._backSky.setAnchorPoint(cc.p(0, 0));
         this._backSkyHeight = this._backSky.getContentSize().height;
         this.addChild(this._backSky, -10);
@@ -311,7 +298,7 @@ var GameLayer = cc.Layer.extend({
 
         if (this._backSkyHeight <= winSize.height) {
             if (!this._isBackSkyReload) {
-                this._backSkyRe = cc.Sprite.createWithSpriteFrameName(s_bg01);
+                this._backSkyRe = cc.Sprite.createWithSpriteFrameName("bg01.png");
                 this._backSkyRe.setAnchorPoint(cc.p(0, 0));
                 this.addChild(this._backSkyRe, -10);
                 this._backSkyRe.setPosition(0, winSize.height);
@@ -378,10 +365,9 @@ GameLayer.prototype.addBulletHits = function (hit, zOrder) {
 	this._tex565Batch.addChild(hit, zOrder);
 };
 
-GameLayer.prototype.addSpark = function (spark)
-{
+GameLayer.prototype.addSpark = function (spark) {
     this._tex565Batch.addChild(spark);
-}
+};
 
 GameLayer.prototype.addBullet = function (bullet, zOrder ,mode) {
 	this._tex565Batch.addChild(bullet, zOrder, mode);

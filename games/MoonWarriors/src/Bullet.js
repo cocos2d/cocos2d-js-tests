@@ -16,7 +16,7 @@ var Bullet = cc.Sprite.extend({
         this.yVelocity = -bulletSpeed;
         this.attackMode = attackMode;
         this.initWithSpriteFrameName(weaponType);
-        //this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+        this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 							  
         /*var tmpAction;
          switch (this.attackMode) {
@@ -34,32 +34,59 @@ var Bullet = cc.Sprite.extend({
         p.x -= this.xVelocity * dt;
         p.y -= this.yVelocity * dt;
         this.setPosition( p );
-        if (this.HP <= 0) {
-            this.active = false;
-        }
-      if ((p.x < 0 || p.x > 320) && (p.y < 0 || p.y > 480))
-      {
-            this.active = false;
-      }
+		if (p.x < 0 || p.x > g_sharedGameLayer.screenRect.width || p.y < 0 || p.y > g_sharedGameLayer.screenRect.height || this.HP <= 0)
+		{					  
+			this.active = false;
+			this.destroy();
+		}
     },
     destroy:function () {
-        var explode = cc.Sprite.createWithSpriteFrameName(s_hit);
-        explode.setPosition(this.getPosition());
-        explode.setRotation(Math.random()*360);
-        explode.setScale(0.75);
-        g_sharedGameLayer.addBulletHits(explode,9999);
-        cc.ArrayRemoveObject(MW.CONTAINER.ENEMY_BULLETS,this);
-        cc.ArrayRemoveObject(MW.CONTAINER.PLAYER_BULLETS,this);
-        this.removeFromParent();
-        var removeExplode = cc.CallFunc.create(explode.removeFromParent, explode);
-        explode.runAction(cc.ScaleBy.create(0.3, 2,2));
-        explode.runAction(cc.Sequence.create(cc.FadeOut.create(0.3), removeExplode));
+		var explode = HitEffect.getOrCreateHitEffect(this.getPosition(), Math.random()*360, 0.75);
+		this.setPosition(g_hideSpritePos);
     },
     hurt:function () {
         this.HP--;
     },
-    collideRect:function(){
-        var p = this.getPosition();
+    collideRect:function(p){
         return cc.rect(p.x - 3, p.y - 3, 6, 6);
     }
 });
+
+Bullet.getOrCreateBullet = function(bulletSpeed, weaponType, attackMode, zOrder ,mode) {
+	
+	if(mode == MW.UNIT_TAG.PLAYER_BULLET)
+	{
+		for (var j = 0; j < MW.CONTAINER.PLAYER_BULLETS.length; j++) {
+			selChild = MW.CONTAINER.PLAYER_BULLETS[j];
+			if (selChild.active == false)
+			{
+				selChild.HP = 1;
+				selChild.active = true;
+				return selChild;
+			}
+		}
+		
+		var b = new Bullet(bulletSpeed, weaponType, attackMode);
+		g_sharedGameLayer.addBullet(b, zOrder, mode);
+		MW.CONTAINER.PLAYER_BULLETS.push(b);
+		return b;
+	}
+	else
+	{
+		for (var j = 0; j < MW.CONTAINER.ENEMY_BULLETS.length; j++) {
+			selChild = MW.CONTAINER.ENEMY_BULLETS[j];
+			if (selChild.active == false)
+			{
+				selChild.HP = 1;
+				selChild.active = true;
+				return selChild;
+			}
+		}
+		
+		var b = new Bullet(bulletSpeed, weaponType, attackMode);
+		g_sharedGameLayer.addBullet(b, zOrder, mode);
+		MW.CONTAINER.ENEMY_BULLETS.push(b);
+		return b;
+	}
+};
+

@@ -47,7 +47,9 @@ var appFiles = [
     'src/GameOver.js',
     'src/AboutLayer.js',
     'src/SettingsLayer.js',
-    'src/SysMenu.js'
+    'src/SysMenu.js',
+	'src/SparkEffect.js',
+	'src/HitEffect.js'
 ];
 
 cc.dumpConfig();
