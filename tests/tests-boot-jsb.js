@@ -37,7 +37,8 @@ var tests_files = [
 		'SpriteTest/SpriteTest.js',
 		'TileMapTest/TileMapTest.js',
 		'TransitionsTest/TransitionsTest.js',
-		'UnitTest/UnitTest.js'
+		'UnitTest/UnitTest.js',
+		'SysTest/SysTest.js'
 	];
 for( var i=0; i < tests_files.length; i++) {
 	var name = "" + tests_files[i];

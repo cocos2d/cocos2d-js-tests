@@ -413,6 +413,13 @@ var testNames = [
         }
     },
     {
+        title:"Sys Tests",
+        platforms: PLATFORM_JSB,
+        testScene:function () {
+            return new SysTestScene();
+        }
+    },
+    {
         title:"cocos2d JS Presentation",
         platforms: PLATFORM_JSB,
         testScene:function () {
