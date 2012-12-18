@@ -29,7 +29,7 @@ var EditBoxTestLayer = cc.Layer.extend({
         var box1 = cc.EditBox.create(cc.size(170, 50));
         box1.setText("EditBoxs");
         box1.setPosition(220, 50);
-        //box1.setBgClr(new cc.Color3B(255,0,0));
+        box1.setBgClr(new cc.Color3B(255,0,0));
         box1.setFontColor(new cc.Color3B(251, 250, 0));
         box1.setBorderClr(new cc.Color3B(55, 250, 120));
         box1.setFontSize(20);
