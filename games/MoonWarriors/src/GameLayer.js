@@ -6,7 +6,12 @@
 
 STATE_PLAYING = 0;
 STATE_GAMEOVER = 1;
+MAX_CONTAINT_WIDTH = 40;
+MAX_CONTAINT_HEIGHT = 40;
 
+var g_sharedGameLayer;
+
+	
 var GameLayer = cc.Layer.extend({
     _time:null,
     _ship:null,
@@ -25,23 +30,39 @@ var GameLayer = cc.Layer.extend({
     explosionAnimation:[],
     _beginPos:cc.p(0, 0),
     _state:STATE_PLAYING,
+    _explosions:null,
+    _texOpaqueBatch:null,
+    _texTransparentBatch:null,
     ctor:function () {
         cc.associateWithNative( this, cc.Layer );
     },
     init:function () {
         var bRet = false;
         if (this._super()) {
-
+                                
             // reset global values
             MW.CONTAINER.ENEMIES = [];
             MW.CONTAINER.ENEMY_BULLETS = [];
             MW.CONTAINER.PLAYER_BULLETS = [];
+			MW.CONTAINER.EXPLOSIONS = [];
+			MW.CONTAINER.SPARKS = [];
+			MW.CONTAINER.HITS = [];
+								
             MW.SCORE = 0;
             MW.LIFE = 4;
             this._state = STATE_PLAYING;
-
-            Explosion.sharedExplosion();
-            Enemy.sharedEnemy();
+                                
+            // OpaqueBatch
+            var texOpaque = cc.TextureCache.getInstance().addImage(s_textureOpaquePack);
+            this._texOpaqueBatch = cc.SpriteBatchNode.createWithTexture(texOpaque);
+            this._texOpaqueBatch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+            this.addChild(this._texOpaqueBatch);
+            
+            // TransparentBatch
+            var texTransparent = cc.TextureCache.getInstance().addImage(s_textureTransparentPack);
+            this._texTransparentBatch = cc.SpriteBatchNode.createWithTexture(texTransparent);
+            this.addChild(this._texTransparentBatch);
+                                
             winSize = cc.Director.getInstance().getWinSize();
             this._levelManager = new LevelManager(this);
             this.initBackground();
@@ -55,11 +76,10 @@ var GameLayer = cc.Layer.extend({
             this.lbScore.setPosition(winSize.width - 5 , winSize.height - 30);
 
             // ship life
-            var shipTexture = cc.TextureCache.getInstance().addImage(s_ship01);
-            var life = cc.Sprite.createWithTexture(shipTexture, cc.rect(0, 0, 60, 38));
+            var life = cc.Sprite.createWithSpriteFrameName("ship01.png");
             life.setScale(0.6);
             life.setPosition(30, 460);
-            this.addChild(life, 1, 5);
+            this._texTransparentBatch.addChild(life, 1, 5);
 
             // ship Life count
             this._lbLife = cc.LabelTTF.create("0", "Arial", 20);
@@ -69,8 +89,16 @@ var GameLayer = cc.Layer.extend({
 
             // ship
             this._ship = new Ship();
-            this.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
-
+            this._texTransparentBatch.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
+                                
+            // explosion batch node
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_explosion_plist);
+            var explosionTexture = cc.TextureCache.getInstance().addImage(s_explosion);
+            this._explosions = cc.SpriteBatchNode.createWithTexture(explosionTexture);
+            this._explosions.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+            this.addChild(this._explosions);
+            Explosion.sharedExplosion();
+                                
             // accept touch now!
 
             var t = cc.config.platform;
@@ -92,9 +120,12 @@ var GameLayer = cc.Layer.extend({
             }
 
             bRet = true;
+								
+			g_sharedGameLayer = this;
         }
         return bRet;
     },
+								
     scoreCounter:function () {
         if( this._state == STATE_PLAYING ) {
             this._time++;
@@ -147,67 +178,60 @@ var GameLayer = cc.Layer.extend({
     },
     checkIsCollide:function () {
         var selChild, bulletChild;
-        //check collide
+        // check collide
         var i =0;
         for (i = 0; i < MW.CONTAINER.ENEMIES.length; i++) {
             selChild = MW.CONTAINER.ENEMIES[i];
+			if(!selChild.active)
+				continue;
+								
             for (var j = 0; j < MW.CONTAINER.PLAYER_BULLETS.length; j++) {
                 bulletChild = MW.CONTAINER.PLAYER_BULLETS[j];
-                if (this.collide(selChild, bulletChild)) {
+                if (bulletChild.active && this.collide(selChild, bulletChild)) {
                     bulletChild.hurt();
                     selChild.hurt();
                 }
-                if (!cc.rectIntersectsRect(this.screenRect, bulletChild.getBoundingBox() )) {
-                    bulletChild.destroy();
-                }
             }
-            if (this.collide(selChild, this._ship)) {
+            if ( this.collide(selChild, this._ship)) {
                 if (this._ship.active) {
                     selChild.hurt();
                     this._ship.hurt();
                 }
             }
-            if (!cc.rectIntersectsRect(this.screenRect, selChild.getBoundingBox() )) {
-                selChild.destroy();
-            }
-        }
+		}
 
         for (i = 0; i < MW.CONTAINER.ENEMY_BULLETS.length; i++) {
             selChild = MW.CONTAINER.ENEMY_BULLETS[i];
-            if (this.collide(selChild, this._ship)) {
+            if (selChild.active && this.collide(selChild, this._ship)) {
                 if (this._ship.active) {
                     selChild.hurt();
                     this._ship.hurt();
                 }
-            }
-            if (!cc.rectIntersectsRect(this.screenRect, selChild.getBoundingBox() )) {
-                selChild.destroy();
             }
         }
     },
     removeInactiveUnit:function (dt) {
-        var selChild, layerChildren = this.getChildren();
-        for (var i in layerChildren) {
-            selChild = layerChildren[i];
-            if (selChild) {
-                if( typeof selChild.update == 'function' ) {
-                    selChild.update(dt);
-                    var tag = selChild.getTag();
-                    if ((tag == MW.UNIT_TAG.PLAYER) || (tag == MW.UNIT_TAG.PLAYER_BULLET) ||
-                        (tag == MW.UNIT_TAG.ENEMY) || (tag == MW.UNIT_TAG.ENMEY_BULLET)) {
-                        if (selChild && !selChild.active) {
-                            selChild.destroy();
-                        }
-                    }
-                }
+        var selChild,children = this._texOpaqueBatch.getChildren();
+        for(var i in children){
+        selChild = children[i];
+            if (selChild && selChild.active){
+                selChild.update(dt);
             }
         }
-    },
+
+        var selChild,children = this._texTransparentBatch.getChildren();
+        for(var i in children){
+            selChild = children[i];
+            if (selChild && selChild.active){
+                selChild.update(dt);
+            }
+        }
+
+
+        },
     checkIsReborn:function () {
         if (MW.LIFE > 0 && !this._ship.active) {
-            // ship
-            this._ship = new Ship();
-            this.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
+			this._ship.born();
         }
         else if (MW.LIFE <= 0 && !this._ship.active) {
             this._state = STATE_GAMEOVER;
@@ -226,15 +250,18 @@ var GameLayer = cc.Layer.extend({
         this.lbScore.setString("Score: " + this._tmpScore);
     },
     collide:function (a, b) {
-        var aRect = a.collideRect();
-        var bRect = b.collideRect();
-        if (cc.rectIntersectsRect(aRect, bRect)) {
-            return true;
-        }
+		var pos1 = a.getPosition();	
+		var pos2 = b.getPosition();	
+		if(Math.abs(pos1.x - pos2.x) > MAX_CONTAINT_WIDTH || Math.abs(pos1.y - pos2.y) > MAX_CONTAINT_HEIGHT)
+			return false;
+				
+		var aRect = a.collideRect(pos1);
+		var bRect = b.collideRect(pos2);
+		return cc.rectIntersectsRect(aRect, bRect);
     },
     initBackground:function () {
         // bg
-        this._backSky = cc.Sprite.create(s_bg01);
+        this._backSky = cc.Sprite.createWithSpriteFrameName("bg01.png");
         this._backSky.setAnchorPoint(cc.p(0, 0));
         this._backSkyHeight = this._backSky.getContentSize().height;
         this.addChild(this._backSky, -10);
@@ -259,7 +286,7 @@ var GameLayer = cc.Layer.extend({
 
         if (this._backSkyHeight <= winSize.height) {
             if (!this._isBackSkyReload) {
-                this._backSkyRe = cc.Sprite.create(s_bg01);
+                this._backSkyRe = cc.Sprite.createWithSpriteFrameName("bg01.png");
                 this._backSkyRe.setAnchorPoint(cc.p(0, 0));
                 this.addChild(this._backSkyRe, -10);
                 this._backSkyRe.setPosition(0, winSize.height);
@@ -312,4 +339,24 @@ GameLayer.scene = function () {
     var layer = GameLayer.create();
     scene.addChild(layer, 1);
     return scene;
+};
+
+GameLayer.prototype.addEnemy = function (enemy,z,tag){
+    this._texTransparentBatch.addChild(enemy,z,tag);
+};
+
+GameLayer.prototype.addExplosions = function (explosion) {
+	this._explosions.addChild(explosion);
+};
+
+GameLayer.prototype.addBulletHits = function (hit, zOrder) {
+	this._texOpaqueBatch.addChild(hit, zOrder);
+};
+
+GameLayer.prototype.addSpark = function (spark) {
+    this._texOpaqueBatch.addChild(spark);
+};
+
+GameLayer.prototype.addBullet = function (bullet, zOrder ,mode) {
+	this._texOpaqueBatch.addChild(bullet, zOrder, mode);
 };
