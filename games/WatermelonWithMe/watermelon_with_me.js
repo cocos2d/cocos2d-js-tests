@@ -125,6 +125,7 @@ SCORE_LABEL_TAG = 10;
 TIME_LABEL_TAG = 11;
 TITLE_TAG = 50;
 
+
 //
 // Game Layer
 //
@@ -268,7 +269,7 @@ var GameLayer = cc.LayerGradient.extend({
         var scene = cc.Scene.create();
         var layer = new GameLayer(this._level);
         scene.addChild(layer);
-        director.replaceScene(cc.TransitionFade.create(1, scene));
+        director.replaceScene(cc.TransitionFade.create(0.5, scene));
         this._state = STATE_PAUSE;
     },
 
@@ -283,13 +284,13 @@ var GameLayer = cc.LayerGradient.extend({
         var scene = cc.Scene.create();
         var layer = new GameLayer(this._level + 1);
         scene.addChild(layer);
-        director.replaceScene(cc.TransitionFade.create(1, scene));
+        director.replaceScene(cc.TransitionFade.create(0.5, scene));
         this._state = STATE_PAUSE;
     },
 
     onMainMenu:function (sender) {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-        director.replaceScene(scene);
+        director.replaceScene(cc.TransitionFade.create(0.5, scene));
     },
 
     onToggleDebug:function (sender) {
@@ -949,44 +950,28 @@ MenuLayerController.prototype.onPlay = function () {
     var scene = cc.Scene.create();
     var layer = new GameLayer(0);
     scene.addChild(layer);
-    director.replaceScene(cc.TransitionFade.create(1, scene));
+    director.replaceScene(cc.TransitionFade.create(0.5, scene));
 };
 
 MenuLayerController.prototype.onOptions = function () {
     var scene = cc.Scene.create();
     var layer = new OptionsLayer();
     scene.addChild(layer);
-    director.replaceScene(cc.TransitionFlipY.create(1, scene));
+    director.replaceScene(cc.TransitionFlipY.create(0.5, scene));
+};
+
+MenuLayerController.prototype.onScores = function () {
+    var scene = cc.Scene.create();
+    var layer = new ScoresLayer();
+    scene.addChild(layer);
+    director.replaceScene( cc.TransitionFade.create(0.5, layer));
 };
 
 MenuLayerController.prototype.onAbout = function () {
-    /*var scene = cc.Scene.create();
-     var layer = new AboutLayer();
-     scene.addChild( layer );*/
     var scene = cc.BuilderReader.loadAsScene(s_About);
-    director.replaceScene(cc.TransitionZoomFlipY.create(1, scene));
+    director.replaceScene(cc.TransitionZoomFlipY.create(0.5, scene));
 };
 
-//
-// About
-//
-var AboutLayerController = function () {
-};
-
-AboutLayerController.prototype.onDidLoadFromCCB = function () {
-    var back = cc.MenuItemFont.create("Back", this.onBack, this);
-    back.setColor(cc.BLACK);
-    var menu = cc.Menu.create(back);
-    this.rootNode.addChild(menu);
-    menu.zOrder = 100;
-    menu.alignItemsVertically();
-    menu.setPosition(winSize.width - 50, 50);
-};
-
-AboutLayerController.prototype.onBack = function () {
-    var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-    director.replaceScene(scene);
-};
 
 //
 // Options
@@ -1017,7 +1002,7 @@ var OptionsLayer = cc.LayerGradient.extend({
 
     onBack:function (sender) {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-        director.replaceScene(scene);
+        director.replaceScene( cc.TransitionFade.create(0.5, scene));
     },
 
     onMusicToggle:function (sender) {
@@ -1029,6 +1014,88 @@ var OptionsLayer = cc.LayerGradient.extend({
         }
     }
 });
+
+//
+// Scores Layer
+//
+var ScoresLayer = cc.LayerGradient.extend({
+
+    ctor:function () {
+        this._super();
+        cc.associateWithNative(this, cc.LayerGradient);
+        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
+
+        var label = cc.LabelBMFont.create("HI SCORES", s_Gas40FNT);
+        this.addChild( label );
+        label.setPosition( winSize.width/2, winSize.height - label.getContentSize().height/2);
+
+
+        var back = cc.MenuItemFont.create("Back", this.onBack, this);
+        var menu = cc.Menu.create(back);
+        this.addChild(menu);
+        menu.alignItemsVertically();
+        menu.setPosition( winSize.width-50, winSize.height-50);
+    },
+
+    onEnterTransitionDidFinish:function() {
+        this._super();
+        var scores = [100,90,80,70,60];
+        var labels = [];
+
+        for (var i = 0; i < scores.length; i++) {
+            label = cc.LabelBMFont.create( scores[i], s_Gas40FNT);
+            var h = label.getContentSize().height;
+            label.setPosition( winSize.width/2, winSize.height/2 +h*2 - i*h);
+            this.addChild( label );
+            labels.push( label );
+        }
+
+        for (i = 0; i < labels.length; i++) {
+            child = labels[i];
+
+            var dstPoint = child.getPosition();
+            var offset = (winSize.width / 2 + 50);
+            if (i % 2 === 0)
+                offset = -offset;
+
+            child.setPosition(dstPoint.x + offset, dstPoint.y);
+            child.runAction(
+                cc.Sequence.create( cc.DelayTime.create(i*0.1),
+                                    cc.EaseElasticOut.create(cc.MoveBy.create(2, cc.p(-offset, 0)), 0.35)
+                                    )
+                );
+        }
+    },
+
+    onBack:function (sender) {
+        var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
+        director.replaceScene( cc.TransitionFade.create(0.5, scene));
+    },
+
+});
+
+//
+// About
+//
+var AboutLayerController = function () {
+};
+
+AboutLayerController.prototype.onDidLoadFromCCB = function () {
+    var back = cc.MenuItemFont.create("Back", this.onBack, this);
+    back.setColor(cc.BLACK);
+    var menu = cc.Menu.create(back);
+    this.rootNode.addChild(menu);
+    menu.zOrder = 100;
+    menu.alignItemsVertically();
+    menu.setPosition(winSize.width - 50, 50);
+};
+
+AboutLayerController.prototype.onBack = function () {
+    var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
+    director.replaceScene(cc.TransitionFade.create(0.5, scene));
+};
+
+
 
 //------------------------------------------------------------------
 //
@@ -1043,7 +1110,7 @@ if (cc.config.platform !== "browser") {
         winSize = director.getWinSize();
         centerPos = cc.p(winSize.width / 2, winSize.height / 2);
         sizeRatio = winSize.width / 480;
-        
+
         // Tell CocosBuilderReader to load
         cc.BuilderReader.setResourcePath("res/CCB/");
 

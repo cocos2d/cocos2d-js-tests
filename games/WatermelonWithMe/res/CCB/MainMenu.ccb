@@ -5,7 +5,7 @@
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>currentSequenceId</key>
 	<integer>0</integer>
 	<key>fileType</key>
@@ -110,7 +110,7 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>isMouseEnabled</string>
+						<string>mouseEnabled</string>
 						<key>platform</key>
 						<string>Mac</string>
 						<key>type</key>
@@ -574,6 +574,119 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
+									<real>0.09765625</real>
+									<real>0.2604166567325592</real>
+									<integer>4</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>anchorPoint</string>
+								<key>type</key>
+								<string>Point</string>
+								<key>value</key>
+								<array>
+									<real>0.5</real>
+									<real>0.5</real>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>scale</string>
+								<key>type</key>
+								<string>ScaleLock</string>
+								<key>value</key>
+								<array>
+									<real>1</real>
+									<real>1</real>
+									<false/>
+									<integer>0</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>ignoreAnchorPointForPosition</string>
+								<key>type</key>
+								<string>Check</string>
+								<key>value</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>block</string>
+								<key>type</key>
+								<string>Block</string>
+								<key>value</key>
+								<array>
+									<string>onPlay</string>
+									<integer>1</integer>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>isEnabled</string>
+								<key>type</key>
+								<string>Check</string>
+								<key>value</key>
+								<true/>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>normalSpriteFrame</string>
+								<key>type</key>
+								<string>SpriteFrame</string>
+								<key>value</key>
+								<array>
+									<string>labels.plist</string>
+									<string>button_play_normal.png</string>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>selectedSpriteFrame</string>
+								<key>type</key>
+								<string>SpriteFrame</string>
+								<key>value</key>
+								<array>
+									<string>labels.plist</string>
+									<string>button_play_selected.png</string>
+								</array>
+							</dict>
+							<dict>
+								<key>name</key>
+								<string>disabledSpriteFrame</string>
+								<key>type</key>
+								<string>SpriteFrame</string>
+								<key>value</key>
+								<array>
+									<string></string>
+									<string></string>
+								</array>
+							</dict>
+						</array>
+					</dict>
+					<dict>
+						<key>baseClass</key>
+						<string>CCMenuItemImage</string>
+						<key>children</key>
+						<array/>
+						<key>customClass</key>
+						<string></string>
+						<key>displayName</key>
+						<string>CCMenuItemImage</string>
+						<key>memberVarAssignmentName</key>
+						<string></string>
+						<key>memberVarAssignmentType</key>
+						<integer>0</integer>
+						<key>properties</key>
+						<array>
+							<dict>
+								<key>name</key>
+								<string>position</string>
+								<key>type</key>
+								<string>Position</string>
+								<key>value</key>
+								<array>
 									<real>0.0</real>
 									<real>-7.5520834922790527</real>
 									<integer>4</integer>
@@ -731,7 +844,7 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string>onAbout</string>
+									<string>onScores</string>
 									<integer>1</integer>
 								</array>
 							</dict>
@@ -751,7 +864,7 @@
 								<key>value</key>
 								<array>
 									<string>labels.plist</string>
-									<string>button_about_normal.png</string>
+									<string>button_scores_normal.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -762,7 +875,7 @@
 								<key>value</key>
 								<array>
 									<string>labels.plist</string>
-									<string>button_about_selected.png</string>
+									<string>button_scores_selected.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -777,6 +890,8 @@
 								</array>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 					<dict>
 						<key>baseClass</key>
@@ -800,8 +915,8 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
-									<real>0.09765625</real>
-									<real>0.2604166567325592</real>
+									<real>0.0</real>
+									<real>-23.125</real>
 									<integer>4</integer>
 								</array>
 							</dict>
@@ -844,7 +959,7 @@
 								<string>Block</string>
 								<key>value</key>
 								<array>
-									<string>onPlay</string>
+									<string>onAbout</string>
 									<integer>1</integer>
 								</array>
 							</dict>
@@ -864,7 +979,7 @@
 								<key>value</key>
 								<array>
 									<string>labels.plist</string>
-									<string>button_play_normal.png</string>
+									<string>button_about_normal.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -875,7 +990,7 @@
 								<key>value</key>
 								<array>
 									<string>labels.plist</string>
-									<string>button_play_selected.png</string>
+									<string>button_about_selected.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -980,7 +1095,7 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>isMouseEnabled</string>
+						<string>mouseEnabled</string>
 						<key>platform</key>
 						<string>Mac</string>
 						<key>type</key>
@@ -1079,7 +1194,7 @@
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>isMouseEnabled</string>
+				<string>mouseEnabled</string>
 				<key>platform</key>
 				<string>Mac</string>
 				<key>type</key>
