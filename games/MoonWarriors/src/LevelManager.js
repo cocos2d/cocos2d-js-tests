@@ -52,8 +52,8 @@ var LevelManager = cc.Class.extend({
     },
 
     addEnemyToGameLayer:function(enemyType){
-        var addEnemy = new Enemy(EnemyType[enemyType]);
-
+        
+		var addEnemy = Enemy.getOrCreateEnemy(EnemyType[enemyType]);
         var enemypos = cc.p( 80 + (winSize.width - 160) * Math.random(), winSize.height);
         var enemycs =  addEnemy.getContentSize();
         addEnemy.setPosition( enemypos );
@@ -92,8 +92,6 @@ var LevelManager = cc.Class.extend({
                 break;
         }
 
-        this._gameLayer.addChild(addEnemy, addEnemy.zOrder, MW.UNIT_TAG.ENEMY);
-        MW.CONTAINER.ENEMIES.push(addEnemy);
         addEnemy.runAction(tmpAction);
     }
 });

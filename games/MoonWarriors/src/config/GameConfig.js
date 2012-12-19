@@ -90,5 +90,10 @@ MW.LIFEUP_SORCE = [50000, 100000, 150000, 200000, 250000, 300000];
 MW.CONTAINER = {
     ENEMIES:[],
     ENEMY_BULLETS:[],
-    PLAYER_BULLETS:[]
+    PLAYER_BULLETS:[],
+	EXPLOSIONS:[],
+	SPARKS:[],
+	HITS:[]
 };
+
+var g_hideSpritePos = cc.p( -10, -10);

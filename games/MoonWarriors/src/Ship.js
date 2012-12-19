@@ -18,14 +18,13 @@ var Ship = cc.Sprite.extend({
         cc.associateWithNative( this, cc.Sprite );
 
         //init life
-        var shipTexture = cc.TextureCache.getInstance().addImage(s_ship01);
-        this.initWithTexture(shipTexture, cc.rect(0, 0, 60, 38));
+        this.initWithSpriteFrameName("ship01.png");
         this.setTag(this.zOrder);
         this.setPosition(this.appearPosition);
 
         // set frame
-        var frame0 = cc.SpriteFrame.createWithTexture(shipTexture, cc.rect(0, 0, 60, 38));
-        var frame1 = cc.SpriteFrame.createWithTexture(shipTexture, cc.rect(60, 0, 60, 38));
+        var frame0 = cc.SpriteFrameCache.getInstance().getSpriteFrame("ship01.png");
+        var frame1 = cc.SpriteFrameCache.getInstance().getSpriteFrame("ship02.png");
 
         var animFrames = [];
         animFrames.push(frame0);
@@ -37,21 +36,7 @@ var Ship = cc.Sprite.extend({
         this.runAction(cc.RepeatForever.create(animate));
         this.schedule(this.shoot, 1 / 6);
 
-        //revive effect
-        this.canBeAttack = false;
-        var ghostSprite = cc.Sprite.createWithTexture(shipTexture, cc.rect(0, 45, 60, 38));
-        ghostSprite.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
-        ghostSprite.setScale(8);
-        ghostSprite.setPosition(this.getContentSize().width / 2, 12);
-        this.addChild(ghostSprite, 3000, 99999);
-        ghostSprite.runAction(cc.ScaleTo.create(0.5, 1, 1));
-        var blinks = cc.Blink.create(3, 9);
-        var makeBeAttack = cc.CallFunc.create(function (t) {
-            t.canBeAttack = true;
-            t.setVisible(true);
-            t.removeChild(ghostSprite,true);
-        }.bind(this));
-        this.runAction(cc.Sequence.create(cc.DelayTime.create(0.5), blinks, makeBeAttack));
+		this.born();
     },
     update:function (dt) {
 
@@ -75,6 +60,7 @@ var Ship = cc.Sprite.extend({
 
         if (this.HP <= 0) {
             this.active = false;
+            this.destroy();
         }
         this._timeTick += dt;
         if (this._timeTick > 0.1) {
@@ -92,22 +78,18 @@ var Ship = cc.Sprite.extend({
         var offset = 13;
         var p = this.getPosition();
         var cs = this.getContentSize();
-        var a = new Bullet(this.bulletSpeed, "W1.png", MW.ENEMY_MOVE_TYPE.NORMAL);
-        MW.CONTAINER.PLAYER_BULLETS.push(a);
-        this.getParent().addChild(a, a.zOrder, MW.UNIT_TAG.PLAYER_BULLET);
-        a.setPosition(p.x + offset, p.y + 3 + cs.height * 0.3);
+		var a = Bullet.getOrCreateBullet(this.bulletSpeed, "W1.png", MW.ENEMY_MOVE_TYPE.NORMAL,3000,MW.UNIT_TAG.PLAYER_BULLET);
+		a.setPosition(p.x + offset, p.y + 3 + cs.height * 0.3);
 
-        var b = new Bullet(this.bulletSpeed, "W1.png", MW.ENEMY_MOVE_TYPE.NORMAL);
-        MW.CONTAINER.PLAYER_BULLETS.push(b);
-        this.getParent().addChild(b, b.zOrder, MW.UNIT_TAG.PLAYER_BULLET);
+ 		var b = Bullet.getOrCreateBullet(this.bulletSpeed, "W1.png", MW.ENEMY_MOVE_TYPE.NORMAL,3000,MW.UNIT_TAG.PLAYER_BULLET);
         b.setPosition(p.x - offset, p.y + 3 + cs.height * 0.3);
     },
     destroy:function () {
         MW.LIFE--;
-        var p = this.getPosition();
-        var myParent = this.getParent();
-        myParent.addChild( new Explosion(p) );
-        myParent.removeChild(this,true);
+
+		var explosion =	Explosion.getOrCreateExplosion();
+		explosion.setPosition(this.getPosition());
+							
         if (MW.SOUND) {
             cc.AudioEngine.getInstance().playEffect(s_shipDestroyEffect);
         }
@@ -119,10 +101,30 @@ var Ship = cc.Sprite.extend({
             this.setColor(cc.c3b(255,0,0));
         }
     },
-    collideRect:function(){
-        var p = this.getPosition();
+    collideRect:function(p){
         var a = this.getContentSize();
-        var r = new cc.rect(p.x - a.width/2, p.y - a.height/2, a.width, a.height/2);
-        return r;
-    }
+        return cc.rect(p.x - a.width/2, p.y - a.height/2, a.width, a.height/2);
+    },
+	born:function() {
+		//revive effect
+		this.canBeAttack = false;
+		var ghostSprite = cc.Sprite.createWithSpriteFrameName("ship03.png");
+		ghostSprite.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+		ghostSprite.setScale(8);
+		ghostSprite.setPosition(this.getContentSize().width / 2, 12);
+		this.addChild(ghostSprite, 3000, 99999);
+		ghostSprite.runAction(cc.ScaleTo.create(0.5, 1, 1));
+		var blinks = cc.Blink.create(3, 9);
+		var makeBeAttack = cc.CallFunc.create(function (t) {
+											  t.canBeAttack = true;
+											  t.setVisible(true);
+											  t.removeChild(ghostSprite,true);
+											  }.bind(this));
+		this.runAction(cc.Sequence.create(cc.DelayTime.create(0.5), blinks, makeBeAttack));
+	
+		this.HP = 5;
+		this._hurtColorLife = 0;
+		this.setColor(cc.c3b(255,255,255));
+		this.active = true;
+	}
 });
