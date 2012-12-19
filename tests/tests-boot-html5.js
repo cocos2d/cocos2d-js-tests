@@ -76,6 +76,7 @@
             'TextInputTest/TextInputTest.js',
             'EventTest/EventTest.js',
             'UnitTest/UnitTest.js',
+            'SysTest/SysTest.js',
 
             'ExtensionsTest/ExtensionsTest.js',
             'ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js',
