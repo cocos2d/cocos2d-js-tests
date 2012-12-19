@@ -79,6 +79,22 @@ STATE_GAME_OVER = 3;
 STATE_LEVEL_COMPLETE = 4;
 
 //
+// Game State
+//
+var GameState = function() {
+    this.level = 0;
+    this.score = 0;
+    this.time = 0;
+    this.state = STATE_PAUSE;
+};
+GameState.prototype.reset = function() {
+    this.level = 0;
+    this.score = 0;
+    this.time = 0;
+    this.state = STATE_PAUSE;
+};
+
+//
 // Physics constants
 //
 
@@ -139,12 +155,9 @@ var GameLayer = cc.LayerGradient.extend({
     _batch:null,
     _shapesToRemove:[],
     _rogueBodies:[],
-    _score:0,
     _scoreLabel:null,
-    _time:0,
     _timeLabel:null,
-    _level:0,
-    _state:STATE_PAUSE,
+    _game_state:null,
     _deferredState:null,
     _debugNode:null,
     _scrollNode:null,
@@ -152,9 +165,9 @@ var GameLayer = cc.LayerGradient.extend({
     _carSprite:null,
     _carSmoke:null,
 
-    ctor:function (level) {
+    ctor:function (game_state) {
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_coinsPlist);
-        this._super();//if you extend CC object, and write your own constructor, you should always call paren'ts constructor
+        this._super(); // if you extend CC object, and write your own constructor, you should always call parent's constructor
         cc.associateWithNative(this, cc.LayerGradient);
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
         this.setPosition(0, 0);
@@ -226,12 +239,10 @@ var GameLayer = cc.LayerGradient.extend({
         this._shapesToRemove = [];
         this._rogueBodies = [];
 
-        this.initHUD();
+        this._game_state = game_state;
 
-        this._score = 0;
-        this._time = 0;
-        this._state = STATE_PAUSE;
-        this._level = level;
+        // should be after setting _game_state
+        this.initHUD();
 
         __jsc__.dumpRoot();
         __jsc__.garbageCollect();
@@ -249,11 +260,14 @@ var GameLayer = cc.LayerGradient.extend({
         // bug in cocosbuilder
         this._scoreLabel.setAnchorPoint(cc._p(1, 0.5));
         this._timeLabel.setAnchorPoint(cc._p(0, 0.5));
+
+        // update with score
+        this._scoreLabel.setString( this._game_state.score );
     },
 
     addScore:function (value) {
-        this._score += value;
-        this._scoreLabel.setString(this._score);
+        this._game_state.score += value;
+        this._scoreLabel.setString(this._game_state.score);
         this._scoreLabel.stopAllActions();
 
         var scaleUpTo = cc.ScaleTo.create(0.05, 1.2);
@@ -267,25 +281,28 @@ var GameLayer = cc.LayerGradient.extend({
     //
     onRestart:function (sender) {
         var scene = cc.Scene.create();
-        var layer = new GameLayer(this._level);
+        // reset scores / time
+        var layer = new GameLayer( new GameState());
         scene.addChild(layer);
         director.replaceScene(cc.TransitionFade.create(0.5, scene));
-        this._state = STATE_PAUSE;
+        this._game_state.state = STATE_PAUSE;
     },
 
     onPause:function (sender) {
-        if (this._state == STATE_PAUSE)
-            this._state = STATE_PLAYING;
+        if (this._game_state.state == STATE_PAUSE)
+            this._game_state.state = STATE_PLAYING;
         else
-            this._state = STATE_PAUSE;
+            this._game_state.state = STATE_PAUSE;
     },
 
     onNextLevel:function (sender) {
         var scene = cc.Scene.create();
-        var layer = new GameLayer(this._level + 1);
+        this._game_state.level++;
+        this._game_state.time = 0;
+        var layer = new GameLayer(this._game_state);
         scene.addChild(layer);
         director.replaceScene(cc.TransitionFade.create(0.5, scene));
-        this._state = STATE_PAUSE;
+        this._game_state.state = STATE_PAUSE;
     },
 
     onMainMenu:function (sender) {
@@ -299,33 +316,33 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     onMouseDown:function (event) {
-        if (this._state == STATE_PLAYING)
+        if (this._game_state.state == STATE_PLAYING)
             this.setThrottle(1);
         return true;
     },
     onMouseUp:function (event) {
-        if (this._state == STATE_PLAYING)
+        if (this._game_state.state == STATE_PLAYING)
             this.setThrottle(0);
         return true;
     },
     onTouchesBegan:function (touches, event) {
-        if (this._state == STATE_PLAYING)
+        if (this._game_state.state == STATE_PLAYING)
             this.setThrottle(1);
     },
     onTouchesEnded:function (touches, event) {
-        if (this._state == STATE_PLAYING)
+        if (this._game_state.state == STATE_PLAYING)
             this.setThrottle(0);
     },
 
     onEnterTransitionDidFinish:function () {
         this._super();
         this.initPhysics();
-        this.setupLevel(this._level);
+        this.setupLevel(this._game_state.level);
 
-        this._state = STATE_PLAYING;
+        this._game_state.state = STATE_PLAYING;
 
         // Level Label
-        var label = cc.LabelBMFont.create("LEVEL " + (this._level + 1), s_Gas40HDFNT);
+        var label = cc.LabelBMFont.create("LEVEL " + (this._game_state.level + 1), s_Gas40HDFNT);
         label.setPosition(centerPos);
         this.addChild(label, Z_LABEL);
         var d = cc.DelayTime.create(1);
@@ -395,14 +412,14 @@ var GameLayer = cc.LayerGradient.extend({
         if( this._deferredState )
             this.setGameState( this._deferredState );
 
-        if( this._state == STATE_PLAYING ) {
+        if( this._game_state.state == STATE_PLAYING ) {
             // update time
-            this._time += dt;
-            this._timeLabel.setString( '' + this._time.toFixed(1) );
+            this._game_state.time += dt;
+            this._timeLabel.setString( '' + this._game_state.time.toFixed(1) );
         }
 
         // Don't update physics on game over
-        if( this._state != STATE_PAUSE )
+        if( this._game_state.state != STATE_PAUSE )
             this._space.step(dt);
 
         // sync smoke with car
@@ -791,7 +808,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     setGameState:function (state) {
-        if (state != this._state) {
+        if (state != this._game_state.state) {
 
             if (state == STATE_GAME_OVER)
                 this.displayGameOver();
@@ -799,7 +816,7 @@ var GameLayer = cc.LayerGradient.extend({
             else if (state == STATE_LEVEL_COMPLETE)
                 this.displayLevelComplete();
 
-            this._state = state;
+            this._game_state.state = state;
         }
         this._deferredState = null;
     },
@@ -809,7 +826,7 @@ var GameLayer = cc.LayerGradient.extend({
         var menu = null;
         var item1 = null;
 
-        if (this._level + 1 < levels.length) {
+        if (this._game_state.level + 1 < levels.length) {
             cc.MenuItemFont.setFontSize(16 * sizeRatio);
             item1 = cc.MenuItemFont.create("Next Level", this.onNextLevel, this);
             menu = cc.Menu.create(item1);
@@ -827,6 +844,8 @@ var GameLayer = cc.LayerGradient.extend({
             menu.setPosition(winSize.width / 2, winSize.height / 3);
 
             legend = "GAME COMPLETE";
+
+            ScoreMgr.getInstance().addScore( this._game_state.score );
         }
 
         var label = cc.LabelBMFont.create(legend, s_Abadi40HDFNT);
@@ -863,7 +882,6 @@ var GameLayer = cc.LayerGradient.extend({
         this.enableEvents(false);
         this.enableCollisionEvents(false);
 
-
         cc.MenuItemFont.setFontSize(16 * sizeRatio);
         var item1 = cc.MenuItemFont.create("Play Again", this.onRestart, this);
         var item2 = cc.MenuItemFont.create("Main Menu", this.onMainMenu, this);
@@ -871,6 +889,8 @@ var GameLayer = cc.LayerGradient.extend({
         menu.alignItemsVertically();
         this.addChild(menu, Z_DEBUG_MENU);
         menu.setPosition(winSize.width / 2, winSize.height / 3);
+
+        ScoreMgr.getInstance().addScore( this._game_state.score );
     },
 
 
@@ -948,7 +968,7 @@ MenuLayerController.prototype.onDidLoadFromCCB = function () {
 // callbacks for the menu, defined in the editor
 MenuLayerController.prototype.onPlay = function () {
     var scene = cc.Scene.create();
-    var layer = new GameLayer(0);
+    var layer = new GameLayer( new GameState() );
     scene.addChild(layer);
     director.replaceScene(cc.TransitionFade.create(0.5, scene));
 };
@@ -964,7 +984,7 @@ MenuLayerController.prototype.onScores = function () {
     var scene = cc.Scene.create();
     var layer = new ScoresLayer();
     scene.addChild(layer);
-    director.replaceScene( cc.TransitionFade.create(0.5, layer));
+    director.replaceScene( cc.TransitionFade.create(0.5, scene));
 };
 
 MenuLayerController.prototype.onAbout = function () {
@@ -1029,7 +1049,6 @@ var ScoresLayer = cc.LayerGradient.extend({
         this.addChild( label );
         label.setPosition( winSize.width/2, winSize.height - label.getContentSize().height/2);
 
-
         var back = cc.MenuItemFont.create("Back", this.onBack, this);
         var menu = cc.Menu.create(back);
         this.addChild(menu);
@@ -1039,7 +1058,7 @@ var ScoresLayer = cc.LayerGradient.extend({
 
     onEnterTransitionDidFinish:function() {
         this._super();
-        var scores = [100,90,80,70,60];
+        var scores = ScoreMgr.getInstance().getScores();
         var labels = [];
 
         for (var i = 0; i < scores.length; i++) {
@@ -1095,6 +1114,50 @@ AboutLayerController.prototype.onBack = function () {
     director.replaceScene(cc.TransitionFade.create(0.5, scene));
 };
 
+
+//
+// Score Manager
+//
+
+function ScoreMgr(){
+    if ( arguments.callee.instance )
+        return arguments.callee.instance;
+    arguments.callee.instance = this;
+
+    this.scores = sys.localStorage.getItem('scores');
+    if( this.scores === null || this.scores === undefined || this.scores === "" ) {
+        this.scores = [20,15,10,5,1];
+        sys.localStorage.setItem('scores', this.scores);
+        cc.log(this.scores);
+    } else {
+        this.scores = eval( '([' + this.scores + '])' );
+    }
+}
+
+ScoreMgr.getInstance = function() {
+    var singletonClass = new ScoreMgr();
+    return singletonClass;
+};
+
+ScoreMgr.prototype.getScores = function()
+{
+    return this.scores;
+};
+
+ScoreMgr.prototype.addScore = function(score)
+{
+    this.scores.push( score );
+
+    // numerical, descending sort
+    this.scores.sort( function(a,b){
+        return b - a;
+    });
+
+    // remove the 6th element
+    this.scores.splice(5,1);
+
+    sys.localStorage.setItem('scores', this.scores);
+};
 
 
 //------------------------------------------------------------------
