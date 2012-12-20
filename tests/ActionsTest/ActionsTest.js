@@ -1346,6 +1346,207 @@ var ActionTargetedCopy = ActionsDemo.extend({
 
 //------------------------------------------------------------------
 //
+// ActionStackableMove
+//
+//------------------------------------------------------------------
+var ActionStackableMove = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+        this.centerSprites(1);
+
+        this._grossini.setPosition( 40, winSize.height/2);
+
+        // shake
+        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move_back = move.reverse();
+        var move_seq = cc.Sequence.create( move, move_back );
+        var move_rep = cc.RepeatForever.create( move_seq );
+        this._grossini.runAction( move_rep );
+
+        // move
+        var action = cc.MoveBy.create(2, cc._p(winSize.width-80,0));
+        var back = action.reverse();
+        var seq = cc.Sequence.create( action, back);
+        var repeat = cc.RepeatForever.create( seq );
+        this._grossini.runAction( repeat );
+
+
+    },
+    title:function () {
+        return "Stackable actions: MoveBy + MoveBy";
+    },
+    subtitle:function () {
+        return "Grossini shall shake while he is moving";
+    }
+});
+
+//------------------------------------------------------------------
+//
+// ActionStackableJump
+//
+//------------------------------------------------------------------
+var ActionStackableJump = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+        this.centerSprites(1);
+
+        this._grossini.setPosition( 40, winSize.height/2);
+
+        // shake
+        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move_back = move.reverse();
+        var move_seq = cc.Sequence.create( move, move_back );
+        var move_rep = cc.RepeatForever.create( move_seq );
+        this._grossini.runAction( move_rep );
+
+        // jump
+        var action = cc.JumpBy.create(2, cc._p(winSize.width-80,0), 90, 5);
+        var back = action.reverse();
+        var seq = cc.Sequence.create( action, back);
+        var repeat = cc.RepeatForever.create( seq );
+        this._grossini.runAction( repeat );
+
+
+    },
+    title:function () {
+        return "Stackable actions: MoveBy + JumpBy";
+    },
+    subtitle:function () {
+        return "Grossini shall shake while he is jumping";
+    }
+});
+
+//------------------------------------------------------------------
+//
+// ActionStackableBezier
+//
+//------------------------------------------------------------------
+var ActionStackableBezier = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+        this.centerSprites(1);
+
+        this._grossini.setPosition( 40, winSize.height/2);
+
+        // shake
+        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move_back = move.reverse();
+        var move_seq = cc.Sequence.create( move, move_back );
+        var move_rep = cc.RepeatForever.create( move_seq );
+        this._grossini.runAction( move_rep );
+
+        // Bezier
+        var controlPoints = [ cc.p(0, winSize.height / 2),
+                                cc.p(winSize.width-80, -winSize.height / 2),
+                                cc.p(winSize.width-80, 100) ];
+
+        var bezierForward = cc.BezierBy.create(3, controlPoints);
+        var repeat = cc.RepeatForever.create(
+            cc.Sequence.create(bezierForward, bezierForward.reverse()));
+        this._grossini.runAction( repeat );
+
+
+    },
+    title:function () {
+        return "Stackable actions: MoveBy + BezierBy";
+    },
+    subtitle:function () {
+        return "Grossini shall shake while he moves along a bezier path";
+    }
+});
+
+//------------------------------------------------------------------
+//
+// ActionStackableCatmullRom
+//
+//------------------------------------------------------------------
+var ActionStackableCatmullRom = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+        this.centerSprites(1);
+
+        this._grossini.setPosition( 40, 40);
+
+        // shake
+        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move_back = move.reverse();
+        var move_seq = cc.Sequence.create( move, move_back );
+        var move_rep = cc.RepeatForever.create( move_seq );
+        this._grossini.runAction( move_rep );
+
+        // CatmullRom
+        var array = [
+                cc.p(0, 0),
+                cc.p(80, 80),
+                cc.p(winSize.width - 80, 80),
+                cc.p(winSize.width - 80, winSize.height - 80),
+                cc.p(80, winSize.height - 80),
+                cc.p(80, 80),
+                cc.p(winSize.width / 2, winSize.height / 2)
+                ];
+
+        var action1 = cc.CatmullRomBy.create(6, array);
+        var reverse1 = action1.reverse();
+        var seq1 = cc.Sequence.create(action1, reverse1);
+        var repeat = cc.RepeatForever.create( seq1 );
+        this._grossini.runAction( repeat );
+
+    },
+    title:function () {
+        return "Stackable actions: MoveBy + CatmullRomBy";
+    },
+    subtitle:function () {
+        return "Grossini shall shake while he moves along a CatmullRom path";
+    }
+});
+
+//------------------------------------------------------------------
+//
+// ActionStackableCardinalSpline
+//
+//------------------------------------------------------------------
+var ActionStackableCardinalSpline = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+        this.centerSprites(1);
+
+        this._grossini.setPosition( 40, 40);
+
+        // shake
+        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move_back = move.reverse();
+        var move_seq = cc.Sequence.create( move, move_back );
+        var move_rep = cc.RepeatForever.create( move_seq );
+        this._grossini.runAction( move_rep );
+
+        // CardinalSpline
+        var array = [
+                cc.p(0, 0),
+                cc.p(80, 80),
+                cc.p(winSize.width - 80, 80),
+                cc.p(winSize.width - 80, winSize.height - 80),
+                cc.p(80, winSize.height - 80),
+                cc.p(80, 80),
+                cc.p(winSize.width / 2, winSize.height / 2)
+                ];
+
+        var action1 = cc.CardinalSplineBy.create(6, array, 0.9);
+        var reverse1 = action1.reverse();
+        var seq1 = cc.Sequence.create(action1, reverse1);
+        var repeat = cc.RepeatForever.create( seq1 );
+        this._grossini.runAction( repeat );
+
+    },
+    title:function () {
+        return "Stackable actions: MoveBy + CardinalSplineBy";
+    },
+    subtitle:function () {
+        return "Grossini shall shake while he moves along a CardinalSpline path";
+    }
+});
+
+//------------------------------------------------------------------
+//
 // PauseResumeActions
 //
 //------------------------------------------------------------------
@@ -1614,6 +1815,7 @@ var Issue1438 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
+
     ActionManual,
     ActionMove,
     ActionScale,
@@ -1646,6 +1848,13 @@ var arrayOfActionsTest = [
     ActionFollow,
     ActionTargeted,
     ActionTargetedCopy,
+
+    ActionStackableMove,
+    ActionStackableJump,
+    ActionStackableBezier,
+    ActionStackableCatmullRom,
+    ActionStackableCardinalSpline,
+
     PauseResumeActions,
     Issue1305,
     Issue1305_2,
