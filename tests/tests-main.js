@@ -375,6 +375,13 @@ var testNames = [
         }
     },
     {
+        title:"Scale9Sprite Test",
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new S9SpriteTestScene();
+        }
+    },
+    {
         title:"TextInput Test",
         platforms: PLATFORM_HTML5,
         testScene:function () {
