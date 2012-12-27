@@ -29,7 +29,6 @@ var TEXT_INPUT_FONT_SIZE = 36;
 
 var sceneIdx = -1;
 
-
 var textInputGetRect = function (node) {
     var pos = node.getPosition();
     var cs = node.getContentSize();
@@ -52,24 +51,25 @@ var TextInputTest = cc.Layer.extend({
     },
 
     restartCallback:function (sender) {
-        var s = new TextInputTestScene();
-        s.addChild(restartTextInputTest());
-        cc.Director.getInstance().replaceScene(s);
+        var scene = new TextInputTestScene();
+        scene.addChild(restartTextInputTest());
+        cc.Director.getInstance().replaceScene(scene);
     },
     nextCallback:function (sender) {
-        var s = new TextInputTestScene();
-        s.addChild(nextTextInputTest());
-        cc.Director.getInstance().replaceScene(s);
+        var scene = new TextInputTestScene();
+        scene.addChild(nextTextInputTest());
+        cc.Director.getInstance().replaceScene(scene);
     },
     backCallback:function (sender) {
-        var s = new TextInputTestScene();
-        s.addChild(previousTextInputTest());
-        cc.Director.getInstance().replaceScene(s);
+        var scene = new TextInputTestScene();
+        scene.addChild(previousTextInputTest());
+        cc.Director.getInstance().replaceScene(scene);
     },
 
     title:function () {
         return "text input test";
     },
+
     addKeyboardNotificationLayer:function (layer) {
         this.notificationLayer = layer;
         this.addChild(layer);
@@ -78,17 +78,17 @@ var TextInputTest = cc.Layer.extend({
     onEnter:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var winSize = cc.Director.getInstance().getWinSize();
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 24);
         this.addChild(label);
-        label.setPosition(cc.p(s.width / 2, s.height - 50));
+        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
 
         var subTitle = this.subtitle();
         if (subTitle && subTitle !== "") {
             var l = cc.LabelTTF.create(subTitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(cc.p(s.width / 2, s.height - 80));
+            l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
@@ -97,9 +97,9 @@ var TextInputTest = cc.Layer.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
         menu.setPosition(cc.p(0,0));
-        item1.setPosition(cc.p(s.width / 2 - 100, 30));
-        item2.setPosition(cc.p(s.width / 2, 30));
-        item3.setPosition(cc.p(s.width / 2 + 100, 30));
+        item1.setPosition(cc.p(winSize.width / 2 - 100, 30));
+        item2.setPosition(cc.p(winSize.width / 2, 30));
+        item3.setPosition(cc.p(winSize.width / 2 + 100, 30));
 
         this.addChild(menu, 1);
     }
@@ -109,7 +109,7 @@ var TextInputTest = cc.Layer.extend({
 // KeyboardNotificationLayer for test IME keyboard notification.
 //////////////////////////////////////////////////////////////////////////
 var KeyboardNotificationLayer = TextInputTest.extend({
-    _pTrackNode:null,
+    _trackNode:null,
     _beginPos:null,
 
     ctor:function () {
@@ -128,6 +128,7 @@ var KeyboardNotificationLayer = TextInputTest.extend({
     subtitle:function () {
         return "";
     },
+
     onClickTrackNode:function (clicked) {
     },
 
@@ -135,18 +136,16 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         cc.log("TextInputTest:keyboardWillShowAt(origin:" + info.end.origin.x + "," + info.end.origin.y
             + ", size:" + info.end.size.width + "," + info.end.size.height + ")");
 
-        if (!this._pTrackNode) {
+        if (!this._trackNode)
             return;
-        }
 
-        var rectTracked = textInputGetRect(this._pTrackNode);
+        var rectTracked = textInputGetRect(this._trackNode);
         cc.log("TextInputTest:trackingNodeAt(origin:" + info.end.origin.x + "," + info.end.origin.y
             + ", size:" + info.end.size.width + "," + info.end.size.height + ")");
 
         // if the keyboard area doesn't intersect with the tracking node area, nothing need to do.
-        if (!cc.Rect.CCRectIntersectsRect(rectTracked, info.end)) {
+        if (!cc.Rect.CCRectIntersectsRect(rectTracked, info.end))
             return;
-        }
 
         // assume keyboard at the bottom of screen, calculate the vertical adjustment.
         var adjustVert = cc.Rect.CCRectGetMaxY(info.end) - cc.Rect.CCRectGetMinY(rectTracked);
@@ -162,27 +161,29 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         }
     },
 
-    onTouchesBegan:function (touches, event) {
-        if (!this._pTrackNode)
+    onTouchesEnded:function (touches, event) {
+        if (!this._trackNode)
             return;
 
         // grab first touch
-        var touch = touches[0];
+        if(touches.length == 0)
+            return;
 
+        var touch = touches[0];
         var point = touch.getLocation();
 
         // decide the trackNode is clicked.
         cc.log("KeyboardNotificationLayer:clickedAt(" + point.x + "," + point.y + ")");
 
-        var rect = textInputGetRect(this._pTrackNode);
+        var rect = textInputGetRect(this._trackNode);
         cc.log("KeyboardNotificationLayer:TrackNode at(origin:" + rect.origin.x + "," + rect.origin.y
             + ", size:" + rect.size.width + "," + rect.size.height + ")");
 
         this.onClickTrackNode(cc.Rect.CCRectContainsPoint(rect, point));
         cc.log("----------------------------------");
     },
-    onMouseDown:function (event) {
-        if (!this._pTrackNode)
+    onMouseUp:function (event) {
+        if (!this._trackNode)
             return;
 
         var point = event.getLocation();
@@ -190,14 +191,13 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         // decide the trackNode is clicked.
         cc.log("KeyboardNotificationLayer:clickedAt(" + point.x + "," + point.y + ")");
 
-        var rect = textInputGetRect(this._pTrackNode);
+        var rect = textInputGetRect(this._trackNode);
         cc.log("KeyboardNotificationLayer:TrackNode at(origin:" + rect.origin.x + "," + rect.origin.y
             + ", size:" + rect.size.width + "," + rect.size.height + ")");
 
         this.onClickTrackNode(cc.Rect.CCRectContainsPoint(rect, point));
         cc.log("----------------------------------");
     }
-
 });
 
 //////////////////////////////////////////////////////////////////////////
@@ -208,13 +208,12 @@ var TextFieldTTFDefaultTest = KeyboardNotificationLayer.extend({
         return "TextFieldTTF with default behavior test";
     },
     onClickTrackNode:function (clicked) {
-        var textField = this._pTrackNode;
+        var textField = this._trackNode;
         if (clicked) {
             // TextFieldTTFTest be clicked
             cc.log("TextFieldTTFDefaultTest:CCTextFieldTTF attachWithIME");
             textField.attachWithIME();
-        }
-        else {
+        } else {
             // TextFieldTTFTest not be clicked
             cc.log("TextFieldTTFDefaultTest:CCTextFieldTTF detachWithIME");
             textField.detachWithIME();
@@ -225,15 +224,15 @@ var TextFieldTTFDefaultTest = KeyboardNotificationLayer.extend({
         this._super();
 
         // add CCTextFieldTTF
-        var s = cc.Director.getInstance().getWinSize();
+        var winSize = cc.Director.getInstance().getWinSize();
 
         var textField = cc.TextFieldTTF.create("<click here for input>",
             TEXT_INPUT_FONT_NAME,
             TEXT_INPUT_FONT_SIZE);
         this.addChild(textField);
-        textField.setPosition(cc.p(s.width / 2, s.height / 2));
+        textField.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
 
-        this._pTrackNode = textField;
+        this._trackNode = textField;
     }
 });
 
@@ -241,10 +240,10 @@ var TextFieldTTFDefaultTest = KeyboardNotificationLayer.extend({
 // TextFieldTTFActionTest
 //////////////////////////////////////////////////////////////////////////
 var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
-    _pTextField:null,
-    _pTextFieldAction:null,
-    _bAction:false,
-    _nCharLimit:0, // the textfield max char limit
+    _textField:null,
+    _textFieldAction:null,
+    _action:false,
+    _charLimit:0, // the textfield max char limit
 
     ctor:function () {
         this._super();
@@ -259,7 +258,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
         return "CCTextFieldTTF with action and char limit test";
     },
     onClickTrackNode:function (clicked) {
-        var textField = this._pTrackNode;
+        var textField = this._trackNode;
         if (clicked) {
             // TextFieldTTFTest be clicked
             cc.log("TextFieldTTFActionTest:CCTextFieldTTF attachWithIME");
@@ -275,24 +274,24 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
     onEnter:function () {
         this._super();
 
-        this._nCharLimit = 20;
-        this._pTextFieldAction = cc.RepeatForever.create(
+        this._charLimit = 20;
+        this._textFieldAction = cc.RepeatForever.create(
             cc.Sequence.create(
                 cc.FadeOut.create(0.25),
                 cc.FadeIn.create(0.25)));
-        this._bAction = false;
+        this._action = false;
 
         // add CCTextFieldTTF
-        var s = cc.Director.getInstance().getWinSize();
+        var winSize = cc.Director.getInstance().getWinSize();
 
-        this._pTextField = cc.TextFieldTTF.create("<click here for input>",
+        this._textField = cc.TextFieldTTF.create("<click here for input>",
             TEXT_INPUT_FONT_NAME,
             TEXT_INPUT_FONT_SIZE);
-        this.addChild(this._pTextField);
-        this._pTextField.setDelegate(this);
+        this.addChild(this._textField);
+        this._textField.setDelegate(this);
 
-        this._pTextField.setPosition(cc.p(s.width / 2, s.height / 2));
-        this._pTrackNode = this._pTextField;
+        this._textField.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        this._trackNode = this._textField;
     },
     onExit:function () {
         this._super();
@@ -300,17 +299,17 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
 
     //CCTextFieldDelegate
     onTextFieldAttachWithIME:function (sender) {
-        if (!this._bAction) {
-            this._pTextField.runAction(this._pTextFieldAction);
-            this._bAction = true;
+        if (!this._action) {
+            this._textField.runAction(this._textFieldAction);
+            this._action = true;
         }
         return false;
     },
     onTextFieldDetachWithIME:function (sender) {
-        if (this._bAction) {
-            this._pTextField.stopAction(this._pTextFieldAction);
-            this._pTextField.setOpacity(255);
-            this._bAction = false;
+        if (this._action) {
+            this._textField.stopAction(this._textFieldAction);
+            this._textField.setOpacity(255);
+            this._action = false;
         }
         return false;
     },
@@ -321,7 +320,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
         }
 
         // if the textfield's char count more than m_nCharLimit, doesn't insert text anymore.
-        if (sender.getCharCount() >= this._nCharLimit) {
+        if (sender.getCharCount() >= this._charLimit) {
             return true;
         }
 
@@ -392,8 +391,6 @@ var TextInputTestScene = TestScene.extend({
     runThisTest:function () {
         sceneIdx = -1;
         var layer = nextTextInputTest();
-        // var menu = new TextInputTest();
-        // menu.addKeyboardNotificationLayer( layer );
 
         this.addChild(layer);
         cc.Director.getInstance().replaceScene(this);
