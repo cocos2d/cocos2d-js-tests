@@ -113,8 +113,7 @@
             alert('You must specify either the single engine file OR the engine directory in "cocos2d.js"');
         }
         /*********Delete this section if you have packed all files into one*******/
-
-            //s.src = 'Packed_Release_File.js'; //IMPORTANT: Un-comment this line if you have packed all files into one
+            //s.src = 'cocos2d-html5-testcases-advanced.js'; //IMPORTANT: Un-comment this line if you have packed all files into one
 
         d.body.appendChild(s);
         document.ccConfig = c;
