@@ -77,6 +77,7 @@
             'EventTest/EventTest.js',
             'UnitTest/UnitTest.js',
             'SysTest/SysTest.js',
+            'FileUtils/FileUtilsTest.js',
 
             'ExtensionsTest/ExtensionsTest.js',
             'ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js',
