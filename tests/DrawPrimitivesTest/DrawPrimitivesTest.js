@@ -94,10 +94,13 @@ var DrawTestDemo = cc.LayerGradient.extend({
 //
 //------------------------------------------------------------------
 var DrawOldAPITest = DrawTestDemo.extend({
+    init:function(){
+        this._super();
+        this.setAnchorPoint(cc.p(0,0));
+    },
 
     draw:function () {
         this._super();
-
         var s = cc.Director.getInstance().getWinSize();
 
         cc.renderContext.fillStyle = "rgba(255,255,255,1)";

@@ -64,7 +64,7 @@
     </target>
 
     <target name="compile_test_advanced">
-        <jscomp compilationLevel="simple" warning="quiet"
+        <jscomp compilationLevel="advanced" warning="quiet"
                 debug="false" output="cocos2d-html5-testcases-advanced.js">
             <externs dir="${basedir}/../../cocos2d">
                 <file name="cocos2d_externs.js"/>
@@ -80,6 +80,7 @@
                 <file name="platform/CCMacro.js"/>
                 <file name="platform/CCFileUtils.js"/>
                 <file name="platform/CCTypes.js"/>
+                <file name="platform/zlib.min.js"/>
                 <file name="cocoa/CCGeometry.js"/>
                 <file name="platform/CCConfig.js"/>
                 <file name="cocoa/CCNS.js"/>
