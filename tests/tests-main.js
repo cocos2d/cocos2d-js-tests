@@ -263,6 +263,13 @@ var testNames = [
     //"EffectAdvancedTest",
     //"ExtensionsTest",
     {
+        title:"FileUtils Test",
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+             return new FileUtilsTestScene();
+        }
+    },
+    {
         title:"Font Test",
         platforms: PLATFORM_ALL,
         testScene:function () {

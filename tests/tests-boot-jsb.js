@@ -21,6 +21,7 @@ var tests_files = [
 		'EaseActionsTest/EaseActionsTest.js',
 		'EffectsTest/EffectsTest.js',
 		'EventTest/EventTest.js',
+		'FileUtils/FileUtilsTest.js',
 		'FontTest/FontTest.js',
 		'IntervalTest/IntervalTest.js',
 		'LabelTest/LabelTest.js',
