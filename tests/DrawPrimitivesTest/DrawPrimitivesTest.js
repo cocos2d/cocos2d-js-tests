@@ -275,7 +275,7 @@ var arrayOfDrawTest = [
     DrawNewAPITest
 ];
 
-if( cc.config.platform === 'browser' ) {
+if( sys.platform === 'browser' ) {
     arrayOfDrawTest.push( DrawOldAPITest );
 }
 

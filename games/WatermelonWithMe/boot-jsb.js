@@ -4,7 +4,7 @@
  */
 
 // JS Bindings constants
-require("jsb_constants.js");
+require("jsb.js");
 
 // resource file
 require('resources-jsb.js');

@@ -1,6 +1,6 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
- 
+
  http://www.cocos2d-x.org
 
 
@@ -26,7 +26,7 @@
 // boot code needed for cocos2d + JS bindings.
 // Not needed by cocos2d-html5
 
-require("jsb_constants.js");
+require("jsb.js");
 
 var MW = MW || {};
 

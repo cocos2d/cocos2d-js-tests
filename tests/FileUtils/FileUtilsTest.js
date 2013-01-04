@@ -100,7 +100,7 @@ var FilenameLookupTest = FileUtilsBase.extend({
     ctor:function () {
         this._super();
 
-        var t = cc.config.platform;
+        var t = sys.platform;
         if( t == 'mobile')  {
             cc.FileUtils.getInstance().loadFilenameLookupDict('FileUtils/lookup-mobile.plist');
         } else if( t == 'desktop' ) {

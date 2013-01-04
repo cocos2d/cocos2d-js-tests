@@ -100,15 +100,11 @@ var TouchOneByOneTest = EventTest.extend({
         this.ids = {};
         this.unused_sprites = [];
 
-        var t = cc.config.platform;
-        if( t == 'browser' )  {
+        if( 'touches' in sys.capabilities ) {
             this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        } else {
             cc.log("TOUCH-ONE-BY-ONE test is not supported on desktop");
-        } else if( t == 'mobile' ) {
-            this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
-            this.setTouchEnabled(true);
         }
 
         for( var i=0; i < 5;i++) {
@@ -182,17 +178,12 @@ var TouchAllAtOnce = EventTest.extend({
         this.ids = {};
         this.unused_sprites = [];
 
-        var t = cc.config.platform;
-        if( t == 'browser' )  {
+        if( 'touches' in sys.capabilities ) {
             // this is the default behavior. No need to set it explicitly.
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
-            this.setTouchEnabled(true);
-        } else if( t == 'mobile' ) {
-            // this is the default behavior. No need to set it explicitly.
-            this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
-            this.setTouchEnabled(true);
+        } else {
+            cc.log("TOUCHES not supported");
         }
 
         for( var i=0; i < 5;i++) {
@@ -271,14 +262,7 @@ var AccelerometerTest = EventTest.extend({
     init:function () {
         this._super();
 
-        var t = cc.config.platform;
-        if( t == 'browser' )  {
-            // not supported on browser
-            cc.log("Not supported");
-        } else if( t == 'desktop' ) {
-            // not supported on desktop
-            cc.log("Not supported");
-        } else if( t == 'mobile' ) {
+        if( 'accelerometer' in sys.capabilities ) {
             // call is called 30 times per second
             this.setAccelerometerInterval(1/30);
             this.setAccelerometerEnabled(true);
@@ -290,7 +274,8 @@ var AccelerometerTest = EventTest.extend({
             // for low-pass filter
             this.prevX = 0;
             this.prevY = 0;
-
+        } else {
+            cc.log("ACCELEROMETER not supported");
         }
     },
     subtitle:function () {
@@ -329,14 +314,10 @@ var MouseTest = EventTest.extend({
         sprite.setScale(1);
         sprite.setColor( cc.c3b(Math.random()*200+55, Math.random()*200+55, Math.random()*200+55) );
 
-        var t = cc.config.platform;
-        if( t == 'browser' )  {
+        if( 'mouse' in sys.capabilities ) {
             this.setMouseEnabled(true);
-        } else if( t == 'desktop' ) {
-            this.setMouseEnabled(true);
-        } else if( t == 'mobile' ) {
-            // not supported on device
-            cc.log("Not supported");
+        } else {
+            cc.log("MOUSE Not supported");
         }
     },
     subtitle:function () {
@@ -368,14 +349,10 @@ var KeyboardTest = EventTest.extend({
     init:function () {
         this._super();
 
-        var t = cc.config.platform;
-        if( t == 'browser' )  {
+        if( 'keyboard' in sys.capabilities ) {
             this.setKeyboardEnabled(true);
-        } else if( t == 'desktop' ) {
-            this.setKeyboardEnabled(true);
-        } else if( t == 'mobile' ) {
-            // not supported on device
-            cc.log("Not supported");
+        } else {
+            cc.log("KEYBOARD Not supported");
         }
     },
     subtitle:function () {

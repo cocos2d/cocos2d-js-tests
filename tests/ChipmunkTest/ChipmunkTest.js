@@ -206,14 +206,10 @@ ChipmunkSprite.prototype.onEnter = function () {
 		this.addSprite( cp.v(winSize.width/2, winSize.height/2) );
 	}
 
-    // 'browser' can use touches or mouse.
-    // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-    var t = cc.config.platform;
-    if( t == 'browser' || t == 'mobile')  {
+    if( 'touches' in sys.capabilities )
         this.setTouchEnabled(true);
-    } else if( t == 'desktop' ) {
+    else if( 'mouse' in sys.capabilities )
         this.setMouseEnabled(true);
-    }
 };
 
 ChipmunkSprite.prototype.update = function( delta ) {
@@ -1475,7 +1471,7 @@ var arrayOfChipmunkTest =  [
 		ChipmunkSpriteAnchorPoint
 		];
 
-if( cc.config.platform !== 'browser' ) {
+if( sys.platform !== 'browser' ) {
 	arrayOfChipmunkTest.push( ChipmunkCollisionTestB );
 	arrayOfChipmunkTest.push( ChipmunkReleaseTest );
 }

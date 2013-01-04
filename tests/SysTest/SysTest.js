@@ -118,7 +118,24 @@ var LocalStorageTest = SysTestBase.extend({
 
 });
 
+//------------------------------------------------------------------
+//
+// CapabilitiesTest
+//
+//------------------------------------------------------------------
+var CapabilitiesTest = SysTestBase.extend({
+    _title:"Capabilities Test ",
+    _subtitle:"See the console",
 
+    ctor:function () {
+        this._super();
+
+        var c = sys.capabilities;
+        for( var i in c )
+            cc.log( i + " = " + c[i] );
+    }
+
+});
 
 var SysTestScene = TestScene.extend({
     runThisTest:function () {
@@ -136,7 +153,8 @@ var SysTestScene = TestScene.extend({
 
 var arrayOfSysTest = [
 
-    LocalStorageTest
+    LocalStorageTest,
+    CapabilitiesTest
 ];
 
 var nextSysTest = function () {

@@ -44,14 +44,10 @@ var MenuLayerMainMenu = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(30);
         cc.MenuItemFont.setFontName("Courier New");
 
-        // 'browser' can use touches or mouse.
-        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        var t = cc.config.platform;
-        if( t == 'browser' || t == 'mobile')  {
+        if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        else if ('mouse' in sys.capabilities )
             this.setMouseEnabled(true);
-        }
 
         // Font Item
         var spriteNormal = cc.Sprite.create(s_menuItem, cc.rect(0, 23 * 2, 115, 23));

@@ -175,14 +175,10 @@ var ParticleDemo = cc.LayerGradient.extend({
 
         this._emitter = null;
 
-        // 'browser' can use touches or mouse.
-        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        var t = cc.config.platform;
-        if( t == 'browser' || t == 'mobile')  {
+        if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        else if ('mouse' in sys.capabilities )
             this.setMouseEnabled(true);
-        }
 
         var s = director.getWinSize();
         var label = cc.LabelTTF.create(this.title(), "Arial", 28);
@@ -258,7 +254,7 @@ var ParticleDemo = cc.LayerGradient.extend({
         this._shapeModeButton.setPosition(10, 100);
         this._shapeModeButton.setAnchorPoint(cc.p(0, 0));
 
-        if( cc.config.platform != "browser" ) {
+        if( sys.platform != "browser" ) {
             // Shape type is not compatible with JSB
             this._shapeModeButton.setEnabled(false);
         }

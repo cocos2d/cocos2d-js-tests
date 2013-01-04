@@ -40,14 +40,10 @@ var MainLayer = cc.Layer.extend({
         cc.associateWithNative(this, cc.Layer);
         this.init();
 
-        // 'browser' can use touches or mouse.
-        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        var t = cc.config.platform;
-        if( t == 'browser' || t == 'mobile')  {
+        if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        else if ('mouse' in sys.capabilities )
             this.setMouseEnabled(true);
-        }
 
         var sprite = cc.Sprite.create(s_pathGrossini);
 

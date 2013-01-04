@@ -161,14 +161,10 @@ SceneTestLayer3 = cc.LayerColor.extend({
         cc.associateWithNative(this, cc.LayerColor);
         this.init( cc.c4b(0,128,255,255) );
 
-        // 'browser' can use touches or mouse.
-        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        var t = cc.config.platform;
-        if( t == 'browser' || t == 'mobile')  {
+        if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        else if ('mouse' in sys.capabilities )
             this.setMouseEnabled(true);
-        }
 
         var label = cc.LabelTTF.create("Touch to popScene", "Arial", 28);
         this.addChild(label);

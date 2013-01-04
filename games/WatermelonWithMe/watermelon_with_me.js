@@ -44,7 +44,7 @@
 function clamp(val, min, max) {
     return Math.max(min, Math.min(max, val))
 }
-if (cc.config.platform === "browser") {
+if (sys.platform === "browser") {
     __jsc__ = {dumpRoot:function () {
     }, garbageCollect:function () {
     }};
@@ -200,11 +200,17 @@ var GameLayer = cc.LayerGradient.extend({
         this._batch = cc.SpriteBatchNode.createWithTexture(coin.getTexture(), 100);
         scroll.addChild(this._batch, Z_SPRITES, cc._p(1, 1), cc.p(0,0));
 
-        if(cc.config.platform == "browser")
-        {
+        if( 'opengl' in sys.capabilities) {
+            // Since JSB runs on top of OpenGL (cocos2d-iphone or cocos2d-x), you can use
+            // OpenGL commands, and your code will run faster (but it is not compatible with cocos2d-html5... yet)
+            var background = cc.Sprite.create(s_parallax, cc.rect(0,0,4096,512) );
+            scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
+            background.setAnchorPoint( cc._p(0,0) );
+            background.getTexture().setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE);
+
+        } else {
             // This code runs on both HTML5 and JSB
             // It places two big sprites in the screen, one after the other.
-            // (...see below...)
             var background1 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
             var background2 = cc.Sprite.create(s_parallax, cc.rect(0, 0, 1024, 512));
             var backLayer = cc.Layer.create();
@@ -214,15 +220,6 @@ var GameLayer = cc.LayerGradient.extend({
             scroll.addChild(backLayer, Z_MOUNTAINS, cc._p(0.2, 0.2), cc._p(0, -150));
             background1.setAnchorPoint(cc._p(0,0));
             background2.setAnchorPoint(cc._p(0,0));
-        }
-        else{
-            // (...see above...)
-            // But since JSB runs on top of OpenGL (cocos2d-iphone or cocos2d-x), you can use
-            // OpenGL commands, and your code will run faster (but it is not compatible with cocos2d-html5... yet)
-            var background = cc.Sprite.create(s_parallax, cc.rect(0,0,4096,512) );
-            scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
-            background.setAnchorPoint( cc._p(0,0) );
-            background.getTexture().setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE);
         }
 
         // Terrain
@@ -898,12 +895,10 @@ var GameLayer = cc.LayerGradient.extend({
     // Helpers
     //
     enableEvents:function (enabled) {
-        var t = cc.config.platform;
-        if (t == 'browser' || t == 'mobile') {
+        if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
-        } else if (t == 'desktop') {
+        else if( 'mouse' in sys.capabilities )
             this.setMouseEnabled(true);
-        }
     },
 
     enableCollisionEvents:function (enabled) {
@@ -1165,7 +1160,7 @@ ScoreMgr.prototype.addScore = function(score)
 // Main entry point - JSB
 //
 //------------------------------------------------------------------
-if (cc.config.platform !== "browser") {
+if (sys.platform !== "browser") {
     function run() {
 
         audioEngine = cc.AudioEngine.getInstance();

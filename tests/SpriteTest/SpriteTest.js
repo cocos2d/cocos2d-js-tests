@@ -124,14 +124,10 @@ var Sprite1 = SpriteTestDemo.extend({
 
         this.addNewSpriteWithCoords(cc.p(winSize.width / 2, winSize.height / 2));
 
-        // 'browser' can use touches or mouse.
-        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        var t = cc.config.platform;
-        if( t == 'browser' || t == 'mobile')  {
+        if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        else if ('mouse' in sys.capabilities )
             this.setMouseEnabled(true);
-        }
     },
 
     addNewSpriteWithCoords:function (p) {
@@ -193,14 +189,10 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
 
     ctor:function () {
         this._super();
-        // 'browser' can use touches or mouse.
-        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        var t = cc.config.platform;
-        if( t == 'browser' || t == 'mobile')  {
+        if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        else if ('mouse' in sys.capabilities )
             this.setMouseEnabled(true);
-        }
 
         var batchNode = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 50);
         this.addChild(batchNode, 0, TAG_SPRITE_BATCH_NODE);
@@ -1112,7 +1104,7 @@ var SpriteAliased = SpriteTestDemo.extend({
         // This change will affect every sprite that uses the same texture
         // So sprite1 and sprite2 will be affected by this change
         //
-        if( cc.config.platform == 'browser' )  {
+        if( sys.platform == 'browser' )  {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild( label );
             label.setPosition( cc.p( winSize.width/2, winSize.height/2) );
@@ -1123,7 +1115,7 @@ var SpriteAliased = SpriteTestDemo.extend({
 
     },
     onExit:function () {
-        if( cc.config.platform == 'browser' )  {
+        if( sys.platform == 'browser' )  {
         } else {
             var sprite = this.getChildByTag(TAG_SPRITE1);
             sprite.getTexture().setAntiAliasTexParameters();
@@ -1174,7 +1166,7 @@ var SpriteBatchNodeAliased = SpriteTestDemo.extend({
         // This change will affect every sprite that uses the same texture
         // So sprite1 and sprite2 will be affected by this change
         //
-        if( cc.config.platform == 'browser' )  {
+        if( sys.platform == 'browser' )  {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild( label );
             label.setPosition( cc.p( winSize.width/2, winSize.height/2) );
@@ -1185,7 +1177,7 @@ var SpriteBatchNodeAliased = SpriteTestDemo.extend({
 
     },
     onExit:function () {
-        if( cc.config.platform == 'browser' )  {
+        if( sys.platform == 'browser' )  {
         } else {
             var sprite = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
             sprite.getTexture().setAntiAliasTexParameters();
@@ -1208,14 +1200,10 @@ var SpriteNewTexture = SpriteTestDemo.extend({
     ctor:function () {
         this._super();
 
-        // 'browser' can use touches or mouse.
-        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        var t = cc.config.platform;
-        if( t == 'browser' || t == 'mobile')  {
+        if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        else if ('mouse' in sys.capabilities )
             this.setMouseEnabled(true);
-        }
 
         var node = cc.Node.create();
         this.addChild(node, 0, TAG_SPRITE_BATCH_NODE);
@@ -1310,14 +1298,10 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
 
     ctor:function() {
         this._super();
-        // 'browser' can use touches or mouse.
-        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        var t = cc.config.platform;
-        if( t == 'browser' || t == 'mobile')  {
+        if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        else if ('mouse' in sys.capabilities )
             this.setMouseEnabled(true);
-        }
 
         var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 50);
         this.addChild(batch, 0, TAG_SPRITE_BATCH_NODE);

@@ -36,14 +36,10 @@ var TileDemo = cc.Layer.extend({
         cc.associateWithNative(this, cc.Layer);
         this.init();
 
-        // 'browser' can use touches or mouse.
-        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        var t = cc.config.platform;
-        if (t == 'browser' || t == 'mobile') {
+        if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
-        } else if (t == 'desktop') {
+        else if ('mouse' in sys.capabilities )
             this.setMouseEnabled(true);
-        }
     },
     title:function () {
         return "No title";
@@ -988,7 +984,7 @@ var TMXTilePropertyTest = TileDemo.extend({
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/ortho-tile-property.tmx");
         this.addChild(map, 0, TAG_TILE_MAP);
 
-        if (cc.config.platform == 'browser') {
+        if (sys.platform == 'browser') {
             for (var i = 1; i <= 20; i++) {
                 cc.log("GID:" + i + ", Properties:" + JSON.stringify(map.propertiesForGID(i)));
             }

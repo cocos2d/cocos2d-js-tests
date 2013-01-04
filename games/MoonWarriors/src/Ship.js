@@ -41,7 +41,7 @@ var Ship = cc.Sprite.extend({
     update:function (dt) {
 
         // Keys are only enabled on the browser
-        if( cc.config.platform == 'browser' ) {
+        if( sys.platform == 'browser' ) {
             var pos = this.getPosition();
             if ((MW.KEYS[cc.KEY.w] || MW.KEYS[cc.KEY.up]) && pos.y <= winSize.height) {
                 pos.y += dt * this.speed;
@@ -89,7 +89,7 @@ var Ship = cc.Sprite.extend({
 
 		var explosion =	Explosion.getOrCreateExplosion();
 		explosion.setPosition(this.getPosition());
-							
+
         if (MW.SOUND) {
             cc.AudioEngine.getInstance().playEffect(s_shipDestroyEffect);
         }
@@ -121,7 +121,7 @@ var Ship = cc.Sprite.extend({
 											  t.removeChild(ghostSprite,true);
 											  }.bind(this));
 		this.runAction(cc.Sequence.create(cc.DelayTime.create(0.5), blinks, makeBeAttack));
-	
+
 		this.HP = 5;
 		this._hurtColorLife = 0;
 		this.setColor(cc.c3b(255,255,255));

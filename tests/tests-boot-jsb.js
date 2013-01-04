@@ -1,6 +1,6 @@
 
 // JS Bindings constants
-require("jsb_constants.js");
+require("jsb.js");
 
 // Resources definitions
 require("tests_resources-jsb.js");

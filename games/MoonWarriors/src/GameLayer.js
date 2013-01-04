@@ -11,7 +11,7 @@ MAX_CONTAINT_HEIGHT = 40;
 
 var g_sharedGameLayer;
 
-	
+
 var GameLayer = cc.Layer.extend({
     _time:null,
     _ship:null,
@@ -39,7 +39,7 @@ var GameLayer = cc.Layer.extend({
     init:function () {
         var bRet = false;
         if (this._super()) {
-                                
+
             // reset global values
             MW.CONTAINER.ENEMIES = [];
             MW.CONTAINER.ENEMY_BULLETS = [];
@@ -47,22 +47,22 @@ var GameLayer = cc.Layer.extend({
 			MW.CONTAINER.EXPLOSIONS = [];
 			MW.CONTAINER.SPARKS = [];
 			MW.CONTAINER.HITS = [];
-								
+
             MW.SCORE = 0;
             MW.LIFE = 4;
             this._state = STATE_PLAYING;
-                                
+
             // OpaqueBatch
             var texOpaque = cc.TextureCache.getInstance().addImage(s_textureOpaquePack);
             this._texOpaqueBatch = cc.SpriteBatchNode.createWithTexture(texOpaque);
             this._texOpaqueBatch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._texOpaqueBatch);
-            
+
             // TransparentBatch
             var texTransparent = cc.TextureCache.getInstance().addImage(s_textureTransparentPack);
             this._texTransparentBatch = cc.SpriteBatchNode.createWithTexture(texTransparent);
             this.addChild(this._texTransparentBatch);
-                                
+
             winSize = cc.Director.getInstance().getWinSize();
             this._levelManager = new LevelManager(this);
             this.initBackground();
@@ -90,7 +90,7 @@ var GameLayer = cc.Layer.extend({
             // ship
             this._ship = new Ship();
             this._texTransparentBatch.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
-                                
+
             // explosion batch node
             cc.SpriteFrameCache.getInstance().addSpriteFrames(s_explosion_plist);
             var explosionTexture = cc.TextureCache.getInstance().addImage(s_explosion);
@@ -98,18 +98,17 @@ var GameLayer = cc.Layer.extend({
             this._explosions.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._explosions);
             Explosion.sharedExplosion();
-                                
+
             // accept touch now!
 
-            var t = cc.config.platform;
-            if( t == 'browser' )  {
-                this.setTouchEnabled(true);
+            if( 'keyboard' in sys.capabilities )
                 this.setKeyboardEnabled(true);
-            } else if( t == 'desktop' ) {
+
+            if( 'mouse' in sys.capabilities )
                 this.setMouseEnabled(true);
-            } else if( t == 'mobile' ) {
+
+            if( 'touches' in sys.capabilities )
                 this.setTouchEnabled(true);
-            }
 
             // schedule
             this.scheduleUpdate();
@@ -120,12 +119,12 @@ var GameLayer = cc.Layer.extend({
             }
 
             bRet = true;
-								
+
 			g_sharedGameLayer = this;
         }
         return bRet;
     },
-								
+
     scoreCounter:function () {
         if( this._state == STATE_PLAYING ) {
             this._time++;
@@ -173,7 +172,7 @@ var GameLayer = cc.Layer.extend({
             this.updateUI();
         }
 
-        if( cc.config.platform == 'browser' )
+        if( sys.platform == 'browser' )
             cc.$("#cou").innerHTML = "Ship:" + 1 + ", Enemy: " + MW.CONTAINER.ENEMIES.length + ", Bullet:" + MW.CONTAINER.ENEMY_BULLETS.length + "," + MW.CONTAINER.PLAYER_BULLETS.length + " all:" + this.getChildren().length;
     },
     checkIsCollide:function () {
@@ -184,7 +183,7 @@ var GameLayer = cc.Layer.extend({
             selChild = MW.CONTAINER.ENEMIES[i];
 			if(!selChild.active)
 				continue;
-								
+
             for (var j = 0; j < MW.CONTAINER.PLAYER_BULLETS.length; j++) {
                 bulletChild = MW.CONTAINER.PLAYER_BULLETS[j];
                 if (bulletChild.active && this.collide(selChild, bulletChild)) {
@@ -250,11 +249,11 @@ var GameLayer = cc.Layer.extend({
         this.lbScore.setString("Score: " + this._tmpScore);
     },
     collide:function (a, b) {
-		var pos1 = a.getPosition();	
-		var pos2 = b.getPosition();	
+		var pos1 = a.getPosition();
+		var pos2 = b.getPosition();
 		if(Math.abs(pos1.x - pos2.x) > MAX_CONTAINT_WIDTH || Math.abs(pos1.y - pos2.y) > MAX_CONTAINT_HEIGHT)
 			return false;
-				
+
 		var aRect = a.collideRect(pos1);
 		var bRect = b.collideRect(pos2);
 		return cc.rectIntersectsRect(aRect, bRect);
