@@ -1818,6 +1818,14 @@ var Issue1438 = ActionsDemo.extend({
 //------------------------------------------------------------------
 var Issue1446 = ActionsDemo.extend({
 
+    title:function () {
+        return "Sequence + Speed in 'reverse mode'";
+    },
+
+    subtitle:function () {
+        return "Issue #1446. 'Hello World' should be visible for only 0.1 seconds";
+    },
+
     onEnter:function() {
         this._super();
         this.centerSprites(0);
