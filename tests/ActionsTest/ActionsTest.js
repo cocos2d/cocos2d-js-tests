@@ -1810,6 +1810,44 @@ var Issue1438 = ActionsDemo.extend({
         return "Issue 1438. Set FPS to 30 to test this bug.";
     }
 });
+
+//------------------------------------------------------------------
+//
+// Issue1438
+//
+//------------------------------------------------------------------
+var Issue1446 = ActionsDemo.extend({
+
+    onEnter:function() {
+        this._super();
+        this.centerSprites(0);
+
+        var label = this.label = cc.LabelTTF.create("Hello World", "Marker Felt", 64);
+
+        label.setPosition( winSize.width/2, winSize.height/2);
+        label.setOpacity( 0 );
+
+        this.addChild(label);
+
+        this.backwardsFade = cc.Speed.create( cc.Sequence.create(
+                                cc.DelayTime.create(2),
+                                cc.FadeTo.create(1, 255),
+                                cc.DelayTime.create(2) ), 1);
+        label.runAction( this.backwardsFade );
+
+        // Comment out to see that 1.0 in the update function is called which is expected
+        // Leave it uncommented to see that 0.0 is never called when going in reverse
+        this.scheduleOnce( this.stepForwardGoBackward, 0.1);
+    },
+
+    stepForwardGoBackward:function() {
+        var action = this.backwardsFade.getInnerAction();
+        action.step(2.5);
+        // Try with -10.0f and you can see the opacity not fully faded out. Try with lower values to see it 'almost' fade out
+        this.backwardsFade.setSpeed( -10 );
+    }
+});
+
 //-
 //
 // Flow control
@@ -1862,7 +1900,8 @@ var arrayOfActionsTest = [
     Issue1288_2,
     Issue1327,
     ActionAnimate,
-    Issue1438
+    Issue1438,
+    Issue1446
 ];
 
 var nextActionsTest = function () {
