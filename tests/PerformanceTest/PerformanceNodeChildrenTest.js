@@ -71,6 +71,13 @@ var NodeChildrenMainScene = cc.Scene.extend({
     _lastRenderedCount:null,
     _quantityOfNodes:null,
     _currentQuantityOfNodes:null,
+
+    ctor:function() {
+        this._super();
+        cc.associateWithNative( this, cc.Scene );
+        this.init();
+    },
+
     initWithQuantityOfNodes:function (nodes) {
         //srand(time());
         var s = cc.Director.getInstance().getWinSize();
@@ -100,7 +107,7 @@ var NodeChildrenMainScene = cc.Scene.extend({
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
         increase.setColor(cc.c3b(0, 200, 20));
 
-        var menu = cc.Menu.create(decrease, increase, null);
+        var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
         menu.setPosition(cc.p(s.width / 2, s.height / 2 + 15));
         this.addChild(menu, 1);
@@ -166,6 +173,7 @@ var IterateSpriteSheet = NodeChildrenMainScene.extend({
     _batchNode:null,
     _profilingTimer:null,
     ctor:function () {
+        this._super();
         if (cc.ENABLE_PROFILERS) {
             this._profilingTimer = new cc.ProfilingTimer();
         }
@@ -287,6 +295,7 @@ var IterateSpriteSheetCArray = IterateSpriteSheet.extend({
 var AddRemoveSpriteSheet = NodeChildrenMainScene.extend({
     _batchNode:null,
     ctor:function () {
+        this._super();
         if (cc.ENABLE_PROFILERS) {
             this._profilingTimer = new cc.ProfilingTimer();
         }

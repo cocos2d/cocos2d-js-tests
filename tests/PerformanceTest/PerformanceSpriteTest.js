@@ -267,6 +267,12 @@ var SpriteMainScene = cc.Scene.extend({
     _quantityNodes:null,
     _subTest:null,
     _subtestNumber:1,
+    ctor:function() {
+        this._super();
+        cc.associateWithNative( this, cc.Scene );
+        this.init();
+    },
+
     title:function () {
         return "No title";
     },
@@ -292,7 +298,7 @@ var SpriteMainScene = cc.Scene.extend({
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
         increase.setColor(cc.c3b(0, 200, 20));
 
-        var menu = cc.Menu.create(decrease, increase, null);
+        var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
 
         menu.setPosition(cc.p(s.width / 2, s.height - 65));
@@ -309,7 +315,7 @@ var SpriteMainScene = cc.Scene.extend({
 
         // Sub Tests
         cc.MenuItemFont.setFontSize(32);
-        var subMenu = cc.Menu.create(null);
+        var subMenu = cc.Menu.create();
         for (var i = 1; i <= 9; ++i) {
             var text = i.toString();
             var itemFont = cc.MenuItemFont.create(text, this.testNCallback, this);
@@ -395,12 +401,12 @@ function performanceActions(sprite) {
     var period = 0.5 + (Math.random() * 1000) / 500.0;
     var rot = cc.RotateBy.create(period, 360.0 * Math.random());
     var rot_back = rot.reverse();
-    var permanentRotation = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back, null));
+    var permanentRotation = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back));
     sprite.runAction(permanentRotation);
 
     var growDuration = 0.5 + (Math.random() * 1000) / 500.0;
     var grow = cc.ScaleBy.create(growDuration, 0.5, 0.5);
-    var permanentScaleLoop = cc.RepeatForever.create(cc.Sequence._actionOneTwo(grow, grow.reverse()));
+    var permanentScaleLoop = cc.RepeatForever.create(cc.Sequence.create(grow, grow.reverse()));
     sprite.runAction(permanentScaleLoop);
 }
 
@@ -414,12 +420,12 @@ function performanceActions20(sprite) {
     var period = 0.5 + (Math.random() * 1000) / 500.0;
     var rot = cc.RotateBy.create(period, 360.0 * Math.random());
     var rot_back = rot.reverse();
-    var permanentRotation = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back, null));
+    var permanentRotation = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back));
     sprite.runAction(permanentRotation);
 
     var growDuration = 0.5 + (Math.random() * 1000) / 500.0;
     var grow = cc.ScaleBy.create(growDuration, 0.5, 0.5);
-    var permanentScaleLoop = cc.RepeatForever.create(cc.Sequence._actionOneTwo(grow, grow.reverse()));
+    var permanentScaleLoop = cc.RepeatForever.create(cc.Sequence.create(grow, grow.reverse()));
     sprite.runAction(permanentScaleLoop);
 }
 

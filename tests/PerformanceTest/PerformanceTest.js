@@ -38,13 +38,19 @@ var PerformanceTests = [
 // PerformanceMainLayer
 //
 ////////////////////////////////////////////////////////
-var PerformanceMainLayer = cc.Layer.extend({
+var PerformanceMainLayer = cc.LayerGradient.extend({
+    ctor:function() {
+        this._super();
+        cc.associateWithNative( this, cc.LayerGradient );
+        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+    },
+
     onEnter:function () {
         this._super();
 
         var s = cc.Director.getInstance().getWinSize();
 
-        var menu = cc.Menu.create(null);
+        var menu = cc.Menu.create();
         menu.setPosition(cc.p(0,0));
         cc.MenuItemFont.setFontName("Arial");
         cc.MenuItemFont.setFontSize(24);
@@ -92,6 +98,9 @@ var PerformBasicLayer = cc.Layer.extend({
     _maxCases:1,
     _curCase:0,
     ctor:function () {
+        this._super();
+        cc.associateWithNative( this, cc.Layer );
+        this.init();
         this._curCase = nCurCase;
     },
     onEnter:function () {
@@ -103,7 +112,7 @@ var PerformBasicLayer = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(24);
         var mainItem = cc.MenuItemFont.create("Back", this.toMainLayer, this);
         mainItem.setPosition(cc.p(s.width - 50, 25));
-        var menu = cc.Menu.create(mainItem, null);
+        var menu = cc.Menu.create(mainItem);
         menu.setPosition(cc.p(0,0));
 
         if (this._controlMenuVisible) {

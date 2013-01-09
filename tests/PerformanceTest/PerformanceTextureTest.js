@@ -106,46 +106,46 @@ var TextureTest = TextureMenuLayer.extend({
         return "See console for results";
     },
     performTestsPNG:function (filename) {
-        var now = cc.timeval();
+        var now = Date.now();
         var texture;
         var cache = cc.TextureCache.getInstance();
 
         cc.log("RGBA 8888");
         cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
-        var now = cc.Time.gettimeofdayCocos2d();
+        var now = Date.now();
         texture = cache.addImage(filename);
         if (texture)
-            cc.log("  ms:" + calculateDeltaTime(now));
+            cc.log("  seconds:" + calculateDeltaTime(now));
         else
             cc.log(" ERROR");
         cache.removeTexture(texture);
 
         cc.log("RGBA 4444");
         cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
-        var now = cc.Time.gettimeofdayCocos2d();
+        var now = Date.now();
         texture = cache.addImage(filename);
         if (texture)
-            cc.log("  ms:" + calculateDeltaTime(now));
+            cc.log("  seconds:" + calculateDeltaTime(now));
         else
             cc.log(" ERROR");
         cache.removeTexture(texture);
 
         cc.log("RGBA 5551");
         cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGB5A1);
-        var now = cc.Time.gettimeofdayCocos2d();
+        var now = Date.now();
         texture = cache.addImage(filename);
         if (texture)
-            cc.log("  ms:" + calculateDeltaTime(now));
+            cc.log("  seconds:" + calculateDeltaTime(now));
         else
             cc.log(" ERROR");
         cache.removeTexture(texture);
 
         cc.log("RGB 565");
         cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGB565);
-        var now = cc.Time.gettimeofdayCocos2d();
+        var now = Date.now();
         texture = cache.addImage(filename);
         if (texture)
-            cc.log("  ms:" + calculateDeltaTime(now));
+            cc.log("  seconds:" + calculateDeltaTime(now));
         else
             cc.log(" ERROR");
         cache.removeTexture(texture);
@@ -165,7 +165,7 @@ function runTextureTest() {
 }
 
 function calculateDeltaTime(lastUpdate) {
-    var now = cc.Time.gettimeofdayCocos2d();
-    var dt = (now.tv_sec - lastUpdate.tv_sec) + (now.tv_usec - lastUpdate.tv_usec) / 1000000.0;
+    var now = Date.now();
+    var dt = (now-lastUpdate) / 1000;
     return dt;
 }
