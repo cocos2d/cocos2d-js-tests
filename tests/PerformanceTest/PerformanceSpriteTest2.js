@@ -153,7 +153,7 @@ var PerformanceSpriteTest1 = PerformanceTestBase.extend({
 
         this.testFunctions = [this.testA, this.testB];
         this.endFunctions = [this.endA, this.endB];
-        this.testSpriteTotals = [1000,2000,5000,10000];
+        this.testSpriteTotals = [100,500,1000,2000,5000,10000];
         this.functionsIdx = 0;
         this.spritesTotalsIdx = -1;
 

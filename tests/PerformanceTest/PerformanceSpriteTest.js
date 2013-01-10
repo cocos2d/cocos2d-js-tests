@@ -63,7 +63,7 @@ var SubTest = cc.Class.extend({
     createSpriteWithTag:function (tag) {
 // create
         if( "opengl" in sys.capabilities )
-            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
 
         var sprite = null;
         switch (this._subtestNumber) {
@@ -132,7 +132,7 @@ var SubTest = cc.Class.extend({
         }
 
         if( "opengl" in sys.capabilities )
-            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_DEFAULT);
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_DEFAULT);
 
         return sprite;
     },
@@ -571,6 +571,8 @@ var SpritePerformTest7 = SpriteMainScene.extend({
 });
 
 function runSpriteTest() {
+    Math.seedrandom('perftest');
+
     var scene = new SpritePerformTest1;
     scene.initWithSubTest(1, 50);
     cc.Director.getInstance().replaceScene(scene);
