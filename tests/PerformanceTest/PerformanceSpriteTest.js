@@ -62,7 +62,8 @@ var SubTest = cc.Class.extend({
     },
     createSpriteWithTag:function (tag) {
 // create
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+        if( "opengl" in sys.capabilities )
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
 
         var sprite = null;
         switch (this._subtestNumber) {
@@ -130,7 +131,8 @@ var SubTest = cc.Class.extend({
                 break;
         }
 
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_DEFAULT);
+        if( "opengl" in sys.capabilities )
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_DEFAULT);
 
         return sprite;
     },
@@ -170,36 +172,42 @@ var SubTest = cc.Class.extend({
                 break;
             ///
             case 2:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
             case 3:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
 
             ///
             case 5:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
             case 6:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
 
             ///
             case 8:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
             case 9:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
@@ -208,7 +216,8 @@ var SubTest = cc.Class.extend({
                 break;
         }
 
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_DEFAULT);
+        if( "opengl" in sys.capabilities )
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_DEFAULT);
     }
 });
 
@@ -224,6 +233,8 @@ var SpriteMenuLayer = PerformBasicLayer.extend({
         var preScene = this.getParent();
         var subTest = preScene.getSubTestNum();
         var nodes = preScene.getNodesNum();
+
+        Math.seedrandom('perftest');
 
         switch (this._curCase) {
             case 0:
