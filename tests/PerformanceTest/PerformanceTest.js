@@ -31,8 +31,8 @@ var PerformanceTests = [
     "PerformanceParticleTest",
     "PerformanceSpriteTest",
     "PerformanceTextureTest",
-    "PerformanceTouchesTest"
-    // "Automated Sprite Performance Test"
+    "PerformanceTouchesTest",
+    "Automated Sprite Performance Test"
 ];
 ////////////////////////////////////////////////////////
 //
