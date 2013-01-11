@@ -109,7 +109,7 @@ var TextureTest = TextureMenuLayer.extend({
         var now = Date.now();
         var texture;
         var cache = cc.TextureCache.getInstance();
-
+        var defaultFormat = cc.Texture2D.defaultAlphaPixelFormat();
         cc.log("RGBA 8888");
         if ("opengl" in sys.capabilities)
             cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
@@ -157,6 +157,7 @@ var TextureTest = TextureMenuLayer.extend({
         else
             cc.log(" ERROR");
         cache.removeTexture(texture);
+        cc.Texture2D.setDefaultAlphaPixelFormat(defaultFormat);
     }
 });
 
