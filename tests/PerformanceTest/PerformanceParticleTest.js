@@ -76,6 +76,11 @@ var ParticleMainScene = cc.Scene.extend({
     _lastRenderedCount:null,
     _quantityParticles:null,
     _subtestNumber:null,
+    ctor:function () {
+        this._super();
+        cc.associateWithNative(this, cc.Scene);
+        this.init();
+    },
     initWithSubTest:function (asubtest, particles) {
         //srandom(0);
 
@@ -91,7 +96,7 @@ var ParticleMainScene = cc.Scene.extend({
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
         increase.setColor(cc.c3b(0, 200, 20));
 
-        var menu = cc.Menu.create(decrease, increase, null);
+        var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
         menu.setPosition(cc.p(s.width / 2, s.height / 2 + 15));
         this.addChild(menu, 1);
@@ -102,8 +107,8 @@ var ParticleMainScene = cc.Scene.extend({
         this.addChild(infoLabel, 1, TAG_INFO_LAYER);
 
         // particles on stage
-        //var labelAtlas = cc.LabelAtlas.create("0000", "res/Images/fps_images.png", 16, 24, '.');
-        var labelAtlas = cc.LabelTTF.create("0000", "Marker Felt", 30);
+        var labelAtlas = cc.LabelAtlas.create("0000", "res/Images/fps_images.png", 16, 24, '.');
+        // var labelAtlas = cc.LabelTTF.create("0000", "Marker Felt", 30);
         this.addChild(labelAtlas, 0, TAG_LABEL_ATLAS);
         labelAtlas.setPosition(cc.p(s.width - 66, 50));
 
@@ -113,7 +118,7 @@ var ParticleMainScene = cc.Scene.extend({
 
         // Sub Tests
         cc.MenuItemFont.setFontSize(40);
-        var subMenu = cc.Menu.create(null);
+        var subMenu = cc.Menu.create();
         for (var i = 1; i <= 3; ++i) {
             var str = i.toString();
             var itemFont = cc.MenuItemFont.create(str, this.testNCallback, this);
@@ -170,22 +175,22 @@ var ParticleMainScene = cc.Scene.extend({
         var texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
         cc.TextureCache.getInstance().removeTexture(texture);
 
-        particleSystem = new cc.ParticleSystemQuad();
+        particleSystem = cc.ParticleSystem.createWithTotalParticles(this._quantityParticles);
 
         switch (this._subtestNumber) {
             case 1:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
-                particleSystem.initWithTotalParticles(this._quantityParticles);
+                if ("opengl" in sys.capabilities)
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
                 particleSystem.setTexture(cc.TextureCache.getInstance().addImage("res/Images/fire.png"));
                 break;
             case 2:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
-                particleSystem.initWithTotalParticles(this._quantityParticles);
+                if ("opengl" in sys.capabilities)
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
                 particleSystem.setTexture(cc.TextureCache.getInstance().addImage("res/Images/fire.png"));
                 break;
             case 3:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_A8);
-                particleSystem.initWithTotalParticles(this._quantityParticles);
+                if ("opengl" in sys.capabilities)
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_A8);
                 particleSystem.setTexture(cc.TextureCache.getInstance().addImage("res/Images/fire.png"));
                 break;
             default:
@@ -198,7 +203,8 @@ var ParticleMainScene = cc.Scene.extend({
         this.doTest();
 
         // restore the default pixel format
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+        if ("opengl" in sys.capabilities)
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
     },
     onDecrease:function (sender) {
         this._quantityParticles -= PARTICLE_NODES_INCREASE;
@@ -284,16 +290,16 @@ var ParticlePerformTest1 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = new cc.Color4F(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = new cc.Color4F(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = new cc.Color4F(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = new cc.Color4F(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -351,16 +357,16 @@ var ParticlePerformTest2 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = new cc.Color4F(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = new cc.Color4F(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = new cc.Color4F(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = new cc.Color4F(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -418,16 +424,16 @@ var ParticlePerformTest3 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = new cc.Color4F(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = new cc.Color4F(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = new cc.Color4F(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = new cc.Color4F(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -485,16 +491,16 @@ var ParticlePerformTest4 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = new cc.Color4F(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = new cc.Color4F(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = new cc.Color4F(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = new cc.Color4F(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels

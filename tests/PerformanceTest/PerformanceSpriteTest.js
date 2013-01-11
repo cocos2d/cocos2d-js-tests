@@ -62,7 +62,8 @@ var SubTest = cc.Class.extend({
     },
     createSpriteWithTag:function (tag) {
 // create
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+        if( "opengl" in sys.capabilities )
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
 
         var sprite = null;
         switch (this._subtestNumber) {
@@ -130,7 +131,8 @@ var SubTest = cc.Class.extend({
                 break;
         }
 
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_DEFAULT);
+        if( "opengl" in sys.capabilities )
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_DEFAULT);
 
         return sprite;
     },
@@ -170,36 +172,42 @@ var SubTest = cc.Class.extend({
                 break;
             ///
             case 2:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
             case 3:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
 
             ///
             case 5:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
             case 6:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
 
             ///
             case 8:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
             case 9:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
+                if( "opengl" in sys.capabilities )
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 100);
                 p.addChild(this._batchNode, 0);
                 break;
@@ -208,7 +216,8 @@ var SubTest = cc.Class.extend({
                 break;
         }
 
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_DEFAULT);
+        if( "opengl" in sys.capabilities )
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_DEFAULT);
     }
 });
 
@@ -224,6 +233,8 @@ var SpriteMenuLayer = PerformBasicLayer.extend({
         var preScene = this.getParent();
         var subTest = preScene.getSubTestNum();
         var nodes = preScene.getNodesNum();
+
+        Math.seedrandom('perftest');
 
         switch (this._curCase) {
             case 0:
@@ -267,6 +278,12 @@ var SpriteMainScene = cc.Scene.extend({
     _quantityNodes:null,
     _subTest:null,
     _subtestNumber:1,
+    ctor:function() {
+        this._super();
+        cc.associateWithNative( this, cc.Scene );
+        this.init();
+    },
+
     title:function () {
         return "No title";
     },
@@ -292,7 +309,7 @@ var SpriteMainScene = cc.Scene.extend({
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
         increase.setColor(cc.c3b(0, 200, 20));
 
-        var menu = cc.Menu.create(decrease, increase, null);
+        var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
 
         menu.setPosition(cc.p(s.width / 2, s.height - 65));
@@ -309,7 +326,7 @@ var SpriteMainScene = cc.Scene.extend({
 
         // Sub Tests
         cc.MenuItemFont.setFontSize(32);
-        var subMenu = cc.Menu.create(null);
+        var subMenu = cc.Menu.create();
         for (var i = 1; i <= 9; ++i) {
             var text = i.toString();
             var itemFont = cc.MenuItemFont.create(text, this.testNCallback, this);
@@ -395,12 +412,12 @@ function performanceActions(sprite) {
     var period = 0.5 + (Math.random() * 1000) / 500.0;
     var rot = cc.RotateBy.create(period, 360.0 * Math.random());
     var rot_back = rot.reverse();
-    var permanentRotation = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back, null));
+    var permanentRotation = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back));
     sprite.runAction(permanentRotation);
 
     var growDuration = 0.5 + (Math.random() * 1000) / 500.0;
     var grow = cc.ScaleBy.create(growDuration, 0.5, 0.5);
-    var permanentScaleLoop = cc.RepeatForever.create(cc.Sequence._actionOneTwo(grow, grow.reverse()));
+    var permanentScaleLoop = cc.RepeatForever.create(cc.Sequence.create(grow, grow.reverse()));
     sprite.runAction(permanentScaleLoop);
 }
 
@@ -414,12 +431,12 @@ function performanceActions20(sprite) {
     var period = 0.5 + (Math.random() * 1000) / 500.0;
     var rot = cc.RotateBy.create(period, 360.0 * Math.random());
     var rot_back = rot.reverse();
-    var permanentRotation = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back, null));
+    var permanentRotation = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back));
     sprite.runAction(permanentRotation);
 
     var growDuration = 0.5 + (Math.random() * 1000) / 500.0;
     var grow = cc.ScaleBy.create(growDuration, 0.5, 0.5);
-    var permanentScaleLoop = cc.RepeatForever.create(cc.Sequence._actionOneTwo(grow, grow.reverse()));
+    var permanentScaleLoop = cc.RepeatForever.create(cc.Sequence.create(grow, grow.reverse()));
     sprite.runAction(permanentScaleLoop);
 }
 
@@ -554,6 +571,8 @@ var SpritePerformTest7 = SpriteMainScene.extend({
 });
 
 function runSpriteTest() {
+    Math.seedrandom('perftest');
+
     var scene = new SpritePerformTest1;
     scene.initWithSubTest(1, 50);
     cc.Director.getInstance().replaceScene(scene);

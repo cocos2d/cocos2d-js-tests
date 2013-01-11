@@ -71,6 +71,13 @@ var NodeChildrenMainScene = cc.Scene.extend({
     _lastRenderedCount:null,
     _quantityOfNodes:null,
     _currentQuantityOfNodes:null,
+
+    ctor:function() {
+        this._super();
+        cc.associateWithNative( this, cc.Scene );
+        this.init();
+    },
+
     initWithQuantityOfNodes:function (nodes) {
         //srand(time());
         var s = cc.Director.getInstance().getWinSize();
@@ -100,7 +107,7 @@ var NodeChildrenMainScene = cc.Scene.extend({
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
         increase.setColor(cc.c3b(0, 200, 20));
 
-        var menu = cc.Menu.create(decrease, increase, null);
+        var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
         menu.setPosition(cc.p(s.width / 2, s.height / 2 + 15));
         this.addChild(menu, 1);
@@ -166,6 +173,7 @@ var IterateSpriteSheet = NodeChildrenMainScene.extend({
     _batchNode:null,
     _profilingTimer:null,
     ctor:function () {
+        this._super();
         if (cc.ENABLE_PROFILERS) {
             this._profilingTimer = new cc.ProfilingTimer();
         }
@@ -287,6 +295,7 @@ var IterateSpriteSheetCArray = IterateSpriteSheet.extend({
 var AddRemoveSpriteSheet = NodeChildrenMainScene.extend({
     _batchNode:null,
     ctor:function () {
+        this._super();
         if (cc.ENABLE_PROFILERS) {
             this._profilingTimer = new cc.ProfilingTimer();
         }
@@ -353,7 +362,7 @@ var AddSpriteSheet = AddRemoveSpriteSheet.extend({
                 for (var i = 0; i < totalToAdd; i++) {
                     var sprite = cc.Sprite.createWithTexture(this._batchNode.getTexture(), cc.rect(0, 0, 32, 32));
                     sprites.push(sprite);
-                    zs[i] = cc.RANDOM_MINUS1_1() * 50;
+                    zs[i] = (Math.random()*2-1) * 50;
                 }
 
                 // add them with random Z (very important!)
@@ -412,7 +421,7 @@ var RemoveSpriteSheet = AddRemoveSpriteSheet.extend({
 
             // add them with random Z (very important!)
             for (var i = 0; i < totalToAdd; i++) {
-                this._batchNode.addChild(sprites[i], cc.RANDOM_MINUS1_1() * 50, TAG_BASE + i);
+                this._batchNode.addChild(sprites[i], (Math.random()*2-1) * 50, TAG_BASE + i);
             }
 
             // remove them
@@ -464,7 +473,7 @@ var ReorderSpriteSheet = AddRemoveSpriteSheet.extend({
 
             // add them with random Z (very important!)
             for (var i = 0; i < totalToAdd; i++) {
-                this._batchNode.addChild(sprites[i], cc.RANDOM_MINUS1_1() * 50, TAG_BASE + i);
+                this._batchNode.addChild(sprites[i], (Math.random()*2-1) * 50, TAG_BASE + i);
             }
 
             //		[this._batchNode sortAllChildren];
@@ -477,7 +486,7 @@ var ReorderSpriteSheet = AddRemoveSpriteSheet.extend({
             for (var i = 0; i < totalToAdd; i++) {
                 var node = this._batchNode.getChildren()[i];
                 ;
-                this._batchNode.reorderChild(node, cc.RANDOM_MINUS1_1() * 50);
+                this._batchNode.reorderChild(node, (Math.random()*2-1) * 50);
             }
             if (cc.ENABLE_PROFILERS) {
                 cc.ProfilingEndTimingBlock(this._profilingTimer);
