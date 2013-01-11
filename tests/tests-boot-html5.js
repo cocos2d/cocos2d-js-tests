@@ -60,6 +60,7 @@
             'CocosDenshionTest/CocosDenshionTest.js',
             'CocosNodeTest/CocosNodeTest.js',
             'RotateWorldTest/RotateWorldTest.js',
+            'RenderTextureTest/RenderTextureTest.js',
             'IntervalTest/IntervalTest.js',
             'ActionManagerTest/ActionManagerTest.js',
             'EaseActionsTest/EaseActionsTest.js',

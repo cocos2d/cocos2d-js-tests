@@ -337,6 +337,11 @@ var MouseTest = EventTest.extend({
         var pos = event.getLocation();
         this.sprite.setPosition( pos );
         cc.log("onMouseUp at: " + pos.x + " " + pos.y );
+    },
+    onRightMouseDown:function(event){
+        var pos = event.getLocation();
+        this.sprite.setPosition( pos );
+        cc.log("onRightMouseDown at: " + pos.x + " " + pos.y );
     }
 });
 

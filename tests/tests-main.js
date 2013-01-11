@@ -75,6 +75,8 @@ var TestController = cc.LayerGradient.extend({
     _itemMenu:null,
     _beginPos:0,
     isMouseDown:false,
+    _did: "LayerGradient",
+
     ctor:function() {
         this._super();
         cc.associateWithNative( this, cc.LayerGradient );
@@ -103,7 +105,7 @@ var TestController = cc.LayerGradient.extend({
             // enable disable
             if ( sys.platform == 'browser') {
                 menuItem.setEnabled( testNames[i].platforms & PLATFORM_HTML5 );
-            } else { /* jsb */
+            } else {
                 menuItem.setEnabled( testNames[i].platforms & PLATFORM_JSB );
             }
         }
@@ -341,7 +343,7 @@ var testNames = [
     },
     {
         title:"RenderTexture Test",
-        platforms: PLATFORM_JSB,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new RenderTextureTestScene();
         }
