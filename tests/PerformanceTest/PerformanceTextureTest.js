@@ -111,7 +111,9 @@ var TextureTest = TextureMenuLayer.extend({
         var cache = cc.TextureCache.getInstance();
 
         cc.log("RGBA 8888");
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+        if ("opengl" in sys.capabilities)
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+
         var now = Date.now();
         texture = cache.addImage(filename);
         if (texture)
@@ -121,7 +123,9 @@ var TextureTest = TextureMenuLayer.extend({
         cache.removeTexture(texture);
 
         cc.log("RGBA 4444");
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
+        if ("opengl" in sys.capabilities)
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
+
         var now = Date.now();
         texture = cache.addImage(filename);
         if (texture)
@@ -131,7 +135,9 @@ var TextureTest = TextureMenuLayer.extend({
         cache.removeTexture(texture);
 
         cc.log("RGBA 5551");
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGB5A1);
+        if ("opengl" in sys.capabilities)
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGB5A1);
+
         var now = Date.now();
         texture = cache.addImage(filename);
         if (texture)
@@ -141,7 +147,9 @@ var TextureTest = TextureMenuLayer.extend({
         cache.removeTexture(texture);
 
         cc.log("RGB 565");
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGB565);
+        if ("opengl" in sys.capabilities)
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGB565);
+
         var now = Date.now();
         texture = cache.addImage(filename);
         if (texture)
@@ -166,6 +174,6 @@ function runTextureTest() {
 
 function calculateDeltaTime(lastUpdate) {
     var now = Date.now();
-    var dt = (now-lastUpdate) / 1000;
+    var dt = (now - lastUpdate) / 1000;
     return dt;
 }
