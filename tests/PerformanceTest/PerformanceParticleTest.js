@@ -76,9 +76,9 @@ var ParticleMainScene = cc.Scene.extend({
     _lastRenderedCount:null,
     _quantityParticles:null,
     _subtestNumber:null,
-    ctor:function() {
+    ctor:function () {
         this._super();
-        cc.associateWithNative( this, cc.Scene );
+        cc.associateWithNative(this, cc.Scene);
         this.init();
     },
     initWithSubTest:function (asubtest, particles) {
@@ -179,15 +179,18 @@ var ParticleMainScene = cc.Scene.extend({
 
         switch (this._subtestNumber) {
             case 1:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+                if ("opengl" in sys.capabilities)
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
                 particleSystem.setTexture(cc.TextureCache.getInstance().addImage("res/Images/fire.png"));
                 break;
             case 2:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
+                if ("opengl" in sys.capabilities)
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
                 particleSystem.setTexture(cc.TextureCache.getInstance().addImage("res/Images/fire.png"));
                 break;
             case 3:
-                cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_A8);
+                if ("opengl" in sys.capabilities)
+                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_A8);
                 particleSystem.setTexture(cc.TextureCache.getInstance().addImage("res/Images/fire.png"));
                 break;
             default:
@@ -200,7 +203,8 @@ var ParticleMainScene = cc.Scene.extend({
         this.doTest();
 
         // restore the default pixel format
-        cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+        if ("opengl" in sys.capabilities)
+            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
     },
     onDecrease:function (sender) {
         this._quantityParticles -= PARTICLE_NODES_INCREASE;
