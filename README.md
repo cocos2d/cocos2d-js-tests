@@ -51,7 +51,7 @@ $ git submodule update --init
 #### run on iOS ####
 
 ```shell
-$ open samples/TestJavascript/proj.ios/TestJavascript.xcodeproj
+$ open samples/Javascript/TestJavascript/proj.ios/TestJavascript.xcodeproj
 ```
 - Select the "TestJavascript" scheme in Xcode
 - Run it

@@ -27,7 +27,6 @@
 (function () {
     var d = document;
     var c = {
-        menuType:'canvas', //whether to use canvas mode menu or dom menu
         COCOS2D_DEBUG:2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
         box2d:true,
         chipmunk:true,
@@ -66,9 +65,11 @@
             'ParallaxTest/ParallaxTest.js',
             'PerformanceTest/PerformanceTest.js',
             'PerformanceTest/PerformanceSpriteTest.js',
+            'PerformanceTest/PerformanceSpriteTest2.js',
             'PerformanceTest/PerformanceParticleTest.js',
             'PerformanceTest/PerformanceNodeChildrenTest.js',
             'PerformanceTest/PerformanceTextureTest.js',
+            'PerformanceTest/seedrandom.js',
             'FontTest/FontTest.js',
             'PerformanceTest/PerformanceTouchesTest.js',
             'LabelTest/LabelTest.js',
