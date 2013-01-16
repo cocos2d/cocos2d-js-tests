@@ -26,12 +26,12 @@
 var TAG_LABEL_ATLAS = 1;
 
 var sceneIdx = -1;
-var MAX_LAYER = 33;
+var MAX_LAYER = 34;
 
 var ParticleTestScene = TestScene.extend({
     runThisTest:function () {
         sceneIdx = -1;
-        MAX_LAYER = 33;
+        MAX_LAYER = 34;
 
         this.addChild(nextParticleAction());
         director.replaceScene(this);
@@ -136,6 +136,9 @@ var particleSceneArr = [
     },
     function() {
         return new ParticleBatchTest();
+    },
+    function() {
+        return new ParticleResizeTest();
     }
 ];
 
@@ -1242,5 +1245,37 @@ var ParticleBatchTest = ParticleDemo.extend({
     },
     subtitle:function () {
         return "You should 3 particles. They are batched";
+    }
+});
+
+var ParticleResizeTest = ParticleDemo.extend({
+    _index:0,
+    onEnter:function () {
+        this._super();
+
+        var emitter1 = cc.ParticleSystem.create( s_resprefix + 'Particles/LavaFlow.plist');
+        emitter1.setPosition( winSize.width/2, winSize.height/2);
+        this.addChild(emitter1);
+
+        this.schedule( this.onResizeParticle50, 2 );
+
+        // to be able to use "reset" button
+        this.removeChild(this._background, true);
+        this._background = null;
+        this._emitter = emitter1;
+    },
+    onResizeParticle50:function(dt) {
+        this._emitter.setTotalParticles(50);
+        this.scheduleOnce( this.onResizeParticle400, 1);
+    },
+    onResizeParticle400:function(dt) {
+        this._emitter.setTotalParticles(400);
+    },
+
+    title:function () {
+        return "Particle Resize Test";
+    },
+    subtitle:function () {
+        return "In 2 seconds, the emitter should have only 15 particles. Shall not crash.";
     }
 });
