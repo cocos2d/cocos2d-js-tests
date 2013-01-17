@@ -3766,7 +3766,6 @@ var TextureColorCacheIssue2 = SpriteTestDemo.extend({
     }
 });
 
-
 var SpriteTestScene = TestScene.extend({
     runThisTest:function () {
         sceneIdx = -1;
