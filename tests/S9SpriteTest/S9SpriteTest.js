@@ -101,12 +101,12 @@ var S9BatchNodeBasic = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var gridheight = winSize.height / 6;
-        var gridwidth = winSize.width / 6;
+        var x = winSize.width / 6;
+        var y = 0 + (winSize.height / 6);
 
         cc.log("S9BatchNodeBasic ...");
 
-        batchNode = cc.SpriteBatchNode.create("res/Images/blocks9.png");
+        var batchNode = cc.SpriteBatchNode.create("res/Images/blocks9.png");
         cc.log("batchNode created with : " + "res/Images/blocks9.png");
 
         var blocks = cc.Scale9Sprite.create();
@@ -115,7 +115,7 @@ var S9BatchNodeBasic = S9SpriteTestDemo.extend({
         blocks.updateWithBatchNode(batchNode, cc.rect(0, 0, 96, 96), false, cc.rect(0, 0, 96, 96));
         cc.log("... updateWithBatchNode");
 
-        blocks.setPosition(cc.p(gridwidth, winSize.height - (2 * gridheight)));
+        blocks.setPosition(cc.p(x, y));
         cc.log("... setPisition");
 
         this.addChild(blocks);
@@ -134,8 +134,8 @@ var S9BatchNodeScaleNoInsets = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var gridheight = winSize.height / 6;
-        var gridwidth = winSize.width / 6;
+        var x = winSize.width / 6;
+        var y = 0 + (winSize.height / 6);
 
         cc.log("S9BatchNodeScaleNoInsets ...");
 
@@ -148,7 +148,7 @@ var S9BatchNodeScaleNoInsets = S9SpriteTestDemo.extend({
         blocks_scaled.updateWithBatchNode(batchNode_scaled, cc.rect(0, 0, 96, 96), false, cc.rect(0, 0, 96, 96));
         cc.log("... updateWithBatchNode");
 
-        blocks_scaled.setPosition(cc.p(gridwidth * 2, winSize.height - (2 * gridheight)));
+        blocks_scaled.setPosition(cc.p(x, y));
         cc.log("... setPisition");
 
         blocks_scaled.setContentSize(cc.size(96 * 4, 96*2));
@@ -170,24 +170,24 @@ var S9BatchNodeScaleWithCapInsets = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var gridheight = winSize.height / 6;
-        var gridwidth = winSize.width / 6;
+        var x = winSize.width / 6;
+        var y = 0 + (winSize.height / 6);
 
         cc.log("S9BatchNodeScaleWithCapInsets ...");
 
-        // scaled with insets
         var batchNode_scaled_with_insets = cc.SpriteBatchNode.create("res/Images/blocks9.png");
         cc.log("batchNode_scaled_with_insets created with : " + "res/Images/blocks9.png");
 
         var blocks_scaled_with_insets = cc.Scale9Sprite.create();
         cc.log("... created");
+
         blocks_scaled_with_insets.updateWithBatchNode(batchNode_scaled_with_insets, cc.rect(0, 0, 96, 96), false, cc.rect(32, 32, 32, 32));
         cc.log("... updateWithBatchNode");
 
         blocks_scaled_with_insets.setContentSize(cc.size(96 * 4.5, 96 * 2.5));
         cc.log("... setContentSize");
 
-        blocks_scaled_with_insets.setPosition(cc.p(gridwidth * 3, 0 + (1 * gridheight)));
+        blocks_scaled_with_insets.setPosition(cc.p(x, y));
         cc.log("... setPisition");
 
         this.addChild(blocks_scaled_with_insets);
@@ -234,4 +234,3 @@ var previousS9SpriteTest = function () {
 var restartS9SpriteTest = function () {
     return new arrayOfS9SpriteTest[sceneIdx]();
 };
-
