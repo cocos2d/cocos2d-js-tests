@@ -52,7 +52,7 @@
 	<key>publishDirectoryHTML5</key>
 	<string>Published-HTML5</string>
 	<key>publishEnabledAndroid</key>
-	<true/>
+	<false/>
 	<key>publishEnabledHTML5</key>
 	<true/>
 	<key>publishEnablediPhone</key>

@@ -46,7 +46,7 @@ MainScene.prototype.onPressPlay = function()
 	this.menuSelection = kMenuSelectionPlay;
 	this.rootNode.animationManager.runAnimationsForSequenceNamed("Outro");
 
-	gAudioEngine.playEffect("sounds/click.caf");
+	gAudioEngine.playEffect("sounds/click.wav");
 
 	// Fade out gems
 	for (var i = 0; i < this.fallingGems.length; i++)
@@ -59,7 +59,7 @@ MainScene.prototype.onPressPlay = function()
 
 MainScene.prototype.onPressAbout = function()
 {
-	gAudioEngine.playEffect("sounds/click.caf");
+	gAudioEngine.playEffect("sounds/click.wav");
 
 	var aboutNode = cc.BuilderReader.load("AboutScene");
 	this.rootNode.addChild(aboutNode, 10);
