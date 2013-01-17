@@ -75,7 +75,6 @@ var TestController = cc.LayerGradient.extend({
     _itemMenu:null,
     _beginPos:0,
     isMouseDown:false,
-    _did: "LayerGradient",
 
     ctor:function() {
         this._super();

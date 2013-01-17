@@ -34,20 +34,22 @@ var DrawTestDemo = cc.LayerGradient.extend({
     _title:"",
     _subtitle:"",
 
-    ctor:function() {
+    ctor:function () {
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+        cc.associateWithNative(this, cc.LayerGradient);
+        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
     },
     onEnter:function () {
         this._super();
 
-        var label = cc.LabelTTF.create(this._title, "Arial", 28);
-        this.addChild(label, 1);
-        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
+        if(this._title && this._title !== ""){
+            var label = cc.LabelTTF.create(this._title, "Arial", 28);
+            this.addChild(label, 1);
+            label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
+        }
 
-        if (this._subtitle !== "") {
-            var l = cc.LabelTTF.create(this._subtitle, "Thonburi", 16);
+        if (this._title && this._subtitle !== "") {
+            var l = cc.LabelTTF.create(this._subtitle, "Arial", 16);
             this.addChild(l, 1);
             l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
         }
@@ -58,11 +60,11 @@ var DrawTestDemo = cc.LayerGradient.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.p(0,0));
+        menu.setPosition(cc.p(0, 0));
         var cs = item2.getContentSize();
-        item1.setPosition( cc.p(winSize.width/2 - cs.width*2, cs.height/2) );
-        item2.setPosition( cc.p(winSize.width/2, cs.height/2) );
-        item3.setPosition( cc.p(winSize.width/2 + cs.width*2, cs.height/2) );
+        item1.setPosition(cc.p(winSize.width / 2 - cs.width * 2, cs.height / 2));
+        item2.setPosition(cc.p(winSize.width / 2, cs.height / 2));
+        item3.setPosition(cc.p(winSize.width / 2 + cs.width * 2, cs.height / 2));
 
         this.addChild(menu, 1);
     },
@@ -94,17 +96,16 @@ var DrawTestDemo = cc.LayerGradient.extend({
 //
 //------------------------------------------------------------------
 var DrawOldAPITest = DrawTestDemo.extend({
-    init:function(){
+    init:function () {
         this._super();
-        this.setAnchorPoint(cc.p(0,0));
+        this.setAnchorPoint(cc.p(0, 0));
     },
 
     draw:function () {
-        this._super();
         var s = cc.Director.getInstance().getWinSize();
 
-        cc.renderContext.fillStyle = "rgba(255,255,255,1)";
-        cc.renderContext.strokeStyle = "rgba(255,255,255,1)";
+        cc.drawingUtil.setDrawColor4B(255, 255, 255, 255);
+
         // draw a simple line
         // The default state is:
         // Line Width: 1
@@ -112,14 +113,12 @@ var DrawOldAPITest = DrawTestDemo.extend({
         // Anti-Aliased
         cc.drawingUtil.drawLine(cc.p(0, 0), cc.p(s.width, s.height));
 
+
         // line: color, width, aliased
         // glLineWidth > 1 and GL_LINE_SMOOTH are not compatible
         // GL_SMOOTH_LINE_WIDTH_RANGE = (1,1) on iPhone
-        cc.renderContext.strokeStyle = "rgba(255,0,0,1)";
-        cc.renderContext.lineWidth = "5";
-
-        /*glColor4ub(255,0,0,255);*/
-        //glColor4f(1.0, 0.0, 0.0, 1.0);
+        cc.drawingUtil.setDrawColor4B(255, 0, 0, 255);
+        cc.drawingUtil.setLineWidth(5.0);
         cc.drawingUtil.drawLine(cc.p(0, s.height), cc.p(s.width, 0));
 
         // TIP:
@@ -129,49 +128,40 @@ var DrawOldAPITest = DrawTestDemo.extend({
         // Remember: OpenGL is a state-machine.
 
         // draw big point in the center
-        /*glColor4ub(0,0,255,128);*/
-        //glColor4f(0.0, 0.0, 1.0, 0.5);
-        cc.renderContext.fillStyle = "rgba(0,0,255,0.5)";
+        cc.drawingUtil.setPointSize(64);
+        cc.drawingUtil.setDrawColor4B(0, 0, 255, 128);
         cc.drawingUtil.drawPoint(cc.p(s.width / 2, s.height / 2), 40);
 
         // draw 4 small points
         var points = [cc.p(60, 60), cc.p(70, 70), cc.p(60, 70), cc.p(70, 60)];
-        /*glColor4ub(0,255,255,255);*/
-        cc.renderContext.fillStyle = "rgba(0,255,255,1)";
-        //glColor4f(0.0, 1.0, 1.0, 1.0);
+        cc.drawingUtil.setPointSize(4);
+        cc.drawingUtil.setDrawColor4B(0, 255, 255, 255);
         cc.drawingUtil.drawPoints(points, 4, 4);
 
         // draw a green circle with 10 segments
-        //glLineWidth(16);
-        cc.renderContext.lineWidth = "16";
-        /*glColor4ub(0, 255, 0, 255);*/
-        //glColor4f(0.0, 1.0, 0.0, 1.0);
-        cc.renderContext.strokeStyle = "rgba(0,255,0,1)";
+        cc.drawingUtil.setLineWidth(16);
+        cc.drawingUtil.setDrawColor4B(0, 255, 0, 255);
         cc.drawingUtil.drawCircle(cc.p(s.width / 2, s.height / 2), 100, 0, 10, false);
 
         // draw a green circle with 50 segments with line to center
-        //glLineWidth(2);
-        cc.renderContext.lineWidth = "2";
-        /*glColor4ub(0, 255, 255, 255);*/
-        //glColor4f(0.0, 1.0, 1.0, 1.0);
-        cc.renderContext.strokeStyle = "rgba(0,255,255,1)";
+        cc.drawingUtil.setLineWidth(2);
+        cc.drawingUtil.setDrawColor4B(0, 255, 255, 255);
         cc.drawingUtil.drawCircle(cc.p(s.width / 2, s.height / 2), 50, cc.DEGREES_TO_RADIANS(90), 50, true);
 
         // open yellow poly
-        /*glColor4ub(255, 255, 0, 255);*/
-        //glColor4f(1.0, 1.0, 0.0, 1.0);
-        cc.renderContext.strokeStyle = "rgba(255,255,0,1)";
-        //glLineWidth(10);
-        cc.renderContext.lineWidth = "10";
+        cc.drawingUtil.setDrawColor4B(255, 255, 0, 255);
+        cc.drawingUtil.setLineWidth(10);
         var vertices = [cc.p(0, 0), cc.p(50, 50), cc.p(100, 50), cc.p(100, 100), cc.p(50, 100) ];
         cc.drawingUtil.drawPoly(vertices, 5, false);
 
+        //fill poly
+        cc.drawingUtil.setLineWidth(1);
+        var filledVertices = [cc.p(0, 120), cc.p(50, 120), cc.p(50, 170), cc.p(25, 200), cc.p(0, 170) ];
+        cc.drawingUtil.drawSolidPoly(filledVertices, 5, cc.c4f(0.5, 0.5, 1, 1));
+
         // closed purble poly
-        /*glColor4ub(255, 0, 255, 255);*/
-        //glColor4f(1.0, 0.0, 1.0, 1.0);
-        cc.renderContext.strokeStyle = "rgba(255,0,255,1)";
-        //glLineWidth(2);
-        cc.renderContext.lineWidth = "2";
+        cc.drawingUtil.setDrawColor4B(255, 0, 255, 255);
+        cc.drawingUtil.setLineWidth(2);
         var vertices2 = [cc.p(30, 130), cc.p(30, 230), cc.p(50, 200)];
         cc.drawingUtil.drawPoly(vertices2, 3, true);
 
@@ -182,14 +172,14 @@ var DrawOldAPITest = DrawTestDemo.extend({
         cc.drawingUtil.drawCubicBezier(cc.p(s.width / 2, s.height / 2), cc.p(s.width / 2 + 30, s.height / 2 + 50),
             cc.p(s.width / 2 + 60, s.height / 2 - 50), cc.p(s.width, s.height / 2), 100);
 
+        //draw a solid polygon
+        var vertices3 = [cc.p(60, 160), cc.p(70, 190), cc.p(100, 190), cc.p(90, 160)];
+        cc.drawingUtil.drawSolidPoly(vertices3, 4, cc.c4f(1, 1, 0, 1));
+
         // restore original values
-        cc.renderContext.lineWidth = "1";
-        //glLineWidth(1);
-        /*glColor4ub(255,255,255,255);*/
-        //glColor4f(1.0, 1.0, 1.0, 1.0);
-        //glPointSize(1);
-        cc.renderContext.fillStyle = "rgba(255,255,255,1)";
-        cc.renderContext.strokeStyle = "rgba(255,255,255,1)";
+        cc.drawingUtil.setLineWidth(1);
+        cc.drawingUtil.setDrawColor4B(255, 255, 255, 255);
+        cc.drawingUtil.setPointSize(1);
     }
 });
 
@@ -199,57 +189,57 @@ var DrawOldAPITest = DrawTestDemo.extend({
 //
 //------------------------------------------------------------------
 var DrawNewAPITest = DrawTestDemo.extend({
-    _title : "cc.DrawNode",
-    _subtitle : "Testing cc.DrawNode API",
+    _title:"cc.DrawNode",
+    _subtitle:"Testing cc.DrawNode API",
 
-    ctor:function() {
+    ctor:function () {
         this._super();
 
         var draw = cc.DrawNode.create();
-        this.addChild( draw, 10 );
+        this.addChild(draw, 10);
 
         //
         // Circles
         //
-        for( var i=0; i < 10; i++) {
-            draw.drawDot( cc.p(winSize.width/2, winSize.height/2), 10*(10-i), cc.c4f( Math.random(), Math.random(), Math.random(), 1) );
-        }
+        for (var i = 0; i < 10; i++)
+            draw.drawDot(cc.p(winSize.width / 2, winSize.height / 2), 10 * (10 - i), cc.c4f(Math.random(), Math.random(), Math.random(), 1));
 
+        //draw.drawDot(cc.p(winSize.width / 2, winSize.height / 2), 10 * 10, cc.c4f(1, 0, 0, 1));
         //
         // Polygons
         //
-        var points = [ cc.p(winSize.height/4,0), cc.p(winSize.width,winSize.height/5), cc.p(winSize.width/3*2,winSize.height) ];
-        draw.drawPoly(points, cc.c4f(1,0,0,0.5), 4, cc.c4f(0,0,1,1) );
+        var points = [ cc.p(winSize.height / 4, 0), cc.p(winSize.width, winSize.height / 5), cc.p(winSize.width / 3 * 2, winSize.height) ];
+        draw.drawPoly(points, cc.c4f(1, 0, 0, 0.5), 4, cc.c4f(0, 0, 1, 1));
 
         // star poly (triggers bugs)
-        var o=80;
-        var w=20;
-        var h=50;
+        var o = 80;
+        var w = 20;
+        var h = 50;
         var star = [
-            cc.p(o+w,o-h), cc.p(o+w*2, o),                  // lower spike
-            cc.p(o + w*2 + h, o+w ), cc.p(o + w*2, o+w*2),  // right spike
-            cc.p(o +w, o+w*2+h), cc.p(o,o+w*2),             // top spike
-            cc.p(o -h, o+w), cc.p(o,o)                     // left spike
+            cc.p(o + w, o - h), cc.p(o + w * 2, o), // lower spike
+            cc.p(o + w * 2 + h, o + w), cc.p(o + w * 2, o + w * 2), // right spike
+            cc.p(o + w, o + w * 2 + h), cc.p(o, o + w * 2), // top spike
+            cc.p(o - h, o + w), cc.p(o, o)                     // left spike
         ];
-        draw.drawPoly(star, cc.c4f(1,0,0,0.5), 1, cc.c4f(0,0,1,1) );
+        draw.drawPoly(star, cc.c4f(1, 0, 0, 0.5), 1, cc.c4f(0, 0, 1, 1));
 
         // star poly (doesn't trigger bug... order is important un tesselation is supported.
-        o=180;
-        w=20;
-        h=50;
+        o = 180;
+        w = 20;
+        h = 50;
         star = [
-            cc.p(o,o), cc.p(o+w,o-h), cc.p(o+w*2, o),       // lower spike
-            cc.p(o + w*2 + h, o+w ), cc.p(o + w*2, o+w*2),  // right spike
-            cc.p(o +w, o+w*2+h), cc.p(o,o+w*2),             // top spike
-            cc.p(o -h, o+w)                                 // left spike
+            cc.p(o, o), cc.p(o + w, o - h), cc.p(o + w * 2, o), // lower spike
+            cc.p(o + w * 2 + h, o + w), cc.p(o + w * 2, o + w * 2), // right spike
+            cc.p(o + w, o + w * 2 + h), cc.p(o, o + w * 2), // top spike
+            cc.p(o - h, o + w)                                 // left spike
         ];
-        draw.drawPoly(star, cc.c4f(1,0,0,0.5), 1, cc.c4f(0,0,1,1) );
+        draw.drawPoly(star, cc.c4f(1, 0, 0, 0.5), 1, cc.c4f(0, 0, 1, 1));
 
         //
         // Segments
         //
-        draw.drawSegment( cc.p(20,winSize.height), cc.p(20,winSize.height/2), 10, cc.c4f(0, 1, 0, 1) );
-        draw.drawSegment( cc.p(10,winSize.height/2), cc.p(winSize.width/2, winSize.height/2), 40, cc.c4f(1, 0, 1, 0.5) );
+        draw.drawSegment(cc.p(20, winSize.height), cc.p(20, winSize.height / 2), 10, cc.c4f(0, 1, 0, 1));
+        draw.drawSegment(cc.p(10, winSize.height / 2), cc.p(winSize.width / 2, winSize.height / 2), 40, cc.c4f(1, 0, 1, 0.5));
     }
 });
 
@@ -275,8 +265,8 @@ var arrayOfDrawTest = [
     DrawNewAPITest
 ];
 
-if( sys.platform === 'browser' ) {
-    arrayOfDrawTest.push( DrawOldAPITest );
+if (sys.platform === 'browser') {
+    arrayOfDrawTest.push(DrawOldAPITest);
 }
 
 var nextDrawTest = function () {

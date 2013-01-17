@@ -183,7 +183,6 @@ var Sprite1 = SpriteTestDemo.extend({
 //
 //------------------------------------------------------------------
 var SpriteBatchNode1 = SpriteTestDemo.extend({
-
     _title:"Batched Sprite ",
     _subtitle:"Tap screen to add more sprites",
 

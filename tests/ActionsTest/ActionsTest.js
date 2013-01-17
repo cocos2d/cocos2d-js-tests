@@ -45,10 +45,10 @@ var ActionsDemo = cc.LayerGradient.extend({
     _kathia:null,
     _code:null,
 
-    ctor:function() {
+    ctor:function () {
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+        cc.associateWithNative(this, cc.LayerGradient);
+        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
     },
 
     centerSprites:function (numberOfSprites) {
@@ -129,25 +129,27 @@ var ActionsDemo = cc.LayerGradient.extend({
 
         // add title and subtitle
         var title = this.title();
-        var label = cc.LabelTTF.create(title, "Arial", 18);
-        this.addChild(label, 1);
-        label.setPosition(s.width / 2, s.height - 30);
+        if (title && title != "") {
+            var label = cc.LabelTTF.create(title, "Arial", 18);
+            this.addChild(label, 1);
+            label.setPosition(s.width / 2, s.height - 30);
+        }
 
         var strSubtitle = this.subtitle();
-        if (strSubtitle) {
-            var l = cc.LabelTTF.create(strSubtitle, "Thonburi", 22);
+        if (strSubtitle && strSubtitle != "") {
+            var l = cc.LabelTTF.create(strSubtitle, "Arial", 22);
             this.addChild(l, 1);
             l.setPosition(s.width / 2, s.height - 60);
         }
-        if( this._code !== null ) {
-            label = cc.LabelTTF.create(this._code, 'Thonburi', 16);
-            label.setPosition( winSize.width/2, winSize.height-120 );
-            this.addChild( label,10 );
+        if (this._code !== null && this._code != "") {
+            label = cc.LabelTTF.create(this._code, 'Arial', 16);
+            label.setPosition(winSize.width / 2, winSize.height - 120);
+            this.addChild(label, 10);
 
-            var labelbg = cc.LabelTTF.create(this._code, 'Thonburi', 16);
-            labelbg.setColor( cc.c3b(10,10,255) );
-            labelbg.setPosition( winSize.width/2 +1, winSize.height-120 -1 );
-            this.addChild( labelbg,9);
+            var labelbg = cc.LabelTTF.create(this._code, 'Arial', 16);
+            labelbg.setColor(cc.c3b(10, 10, 255));
+            labelbg.setPosition(winSize.width / 2 + 1, winSize.height - 120 - 1);
+            this.addChild(labelbg, 9);
         }
 
         // add menu
@@ -157,12 +159,12 @@ var ActionsDemo = cc.LayerGradient.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(0,0);
+        menu.setPosition(0, 0);
 
         var cs = item2.getContentSize();
-        item1.setPosition( winSize.width/2 - cs.width*2, cs.height/2 );
-        item2.setPosition( winSize.width/2, cs.height/2 );
-        item3.setPosition( winSize.width/2 + cs.width*2, cs.height/2 );
+        item1.setPosition(winSize.width / 2 - cs.width * 2, cs.height / 2);
+        item2.setPosition(winSize.width / 2, cs.height / 2);
+        item3.setPosition(winSize.width / 2 + cs.width * 2, cs.height / 2);
 
         this.addChild(menu, 1);
     }
@@ -175,8 +177,8 @@ var ActionsDemo = cc.LayerGradient.extend({
 //------------------------------------------------------------------
 var ActionManual = ActionsDemo.extend({
     _code:"sprite.setPosition( 10,20 );\n" +
-            "sprite.setRotation( 90 );\n" +
-            "sprite.setScale( 2 );",
+        "sprite.setRotation( 90 );\n" +
+        "sprite.setScale( 2 );",
 
     onEnter:function () {
         this._super();
@@ -194,7 +196,7 @@ var ActionManual = ActionsDemo.extend({
         this._grossini.setColor(cc.c3b(255, 0, 0));
 
         this._kathia.setPosition(s.width - 100, s.height / 2);
-        this._kathia.setColor(cc.c3b(0,0,255));
+        this._kathia.setColor(cc.c3b(0, 0, 255));
     },
     subtitle:function () {
         return "Manual Transformation";
@@ -210,7 +212,7 @@ var ActionManual = ActionsDemo.extend({
 var ActionMove = ActionsDemo.extend({
 
     _code:"a = cc.MoveBy.create( time, cc.p(x,y) );\n" +
-           "a = cc.MoveTo.create( time, cc.p(x,y) );",
+        "a = cc.MoveTo.create( time, cc.p(x,y) );",
 
     onEnter:function () {
         this._super();
@@ -240,7 +242,7 @@ var ActionMove = ActionsDemo.extend({
 var ActionScale = ActionsDemo.extend({
 
     _code:"a = cc.ScaleBy.create( time, scale );\n" +
-               "a = cc.ScaleTo.create( time, scaleX, scaleY );",
+        "a = cc.ScaleTo.create( time, scaleX, scaleY );",
 
     onEnter:function () {
         this._super();
@@ -269,7 +271,7 @@ var ActionScale = ActionsDemo.extend({
 var ActionSkew = ActionsDemo.extend({
 
     _code:"a = cc.SkewBy.create( time, skew );\n" +
-           "a = cc.SkewTo.create( time, skewX, skewY );",
+        "a = cc.SkewTo.create( time, skewX, skewY );",
 
     onEnter:function () {
         this._super();
@@ -344,7 +346,7 @@ var ActionSkewRotateScale = ActionsDemo.extend({
 var ActionRotate = ActionsDemo.extend({
 
     _code:"a = cc.RotateBy.create( time, degrees );\n" +
-            "a = cc.RotateTo.create( time, degrees );",
+        "a = cc.RotateTo.create( time, degrees );",
 
     onEnter:function () {
         this._super();
@@ -373,8 +375,8 @@ var ActionRotate = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionJump = ActionsDemo.extend({
-    _code: "a = cc.JumpBy.create( time, point, height, #_of_jumps );\n" +
-           "a = cc.JumpTo.create( time, point, height, #_of_jumps );",
+    _code:"a = cc.JumpBy.create( time, point, height, #_of_jumps );\n" +
+        "a = cc.JumpTo.create( time, point, height, #_of_jumps );",
 
     onEnter:function () {
         this._super();
@@ -415,8 +417,8 @@ var ActionBezier = ActionsDemo.extend({
 
         // 3 and only 3 control points should be used for Bezier actions.
         var controlPoints = [ cc.p(0, s.height / 2),
-                                cc.p(300, -s.height / 2),
-                                cc.p(300, 100) ];
+            cc.p(300, -s.height / 2),
+            cc.p(300, 100) ];
 
         var bezierForward = cc.BezierBy.create(3, controlPoints);
         var rep = cc.RepeatForever.create(cc.Sequence.create(bezierForward, bezierForward.reverse()));
@@ -426,8 +428,8 @@ var ActionBezier = ActionsDemo.extend({
 
         // 3 and only 3 control points should be used for Bezier actions.
         var controlPoints2 = [ cc.p(100, s.height / 2),
-                                cc.p(200, -s.height / 2),
-                                cc.p(240, 160) ];
+            cc.p(200, -s.height / 2),
+            cc.p(240, 160) ];
         var bezierTo1 = cc.BezierTo.create(2, controlPoints2);
 
         // // sprite 3
@@ -457,11 +459,11 @@ var Issue1008 = ActionsDemo.extend({
 
         // sprite 1
 
-        this._grossini.setPosition(428,279);
+        this._grossini.setPosition(428, 279);
 
         // 3 and only 3 control points should be used for Bezier actions.
-        var controlPoints1 = [ cc.p(428,279), cc.p(100,100), cc.p(100,100)];
-        var controlPoints2 = [ cc.p(100,100), cc.p(428,279), cc.p(428,279)];
+        var controlPoints1 = [ cc.p(428, 279), cc.p(100, 100), cc.p(100, 100)];
+        var controlPoints2 = [ cc.p(100, 100), cc.p(428, 279), cc.p(428, 279)];
 
         var bz1 = cc.BezierTo.create(3, controlPoints1);
         var bz2 = cc.BezierTo.create(3, controlPoints2);
@@ -472,10 +474,10 @@ var Issue1008 = ActionsDemo.extend({
         this._grossini.runAction(rep);
 
     },
-    onTrace:function (sender){
+    onTrace:function (sender) {
         var pos = sender.getPosition();
         cc.log("Position x: " + pos.x + ' y:' + pos.y);
-        if( pos.x != 428 || pos.y != 279)
+        if (pos.x != 428 || pos.y != 279)
             cc.log("Error: Issue 1008 is still open");
     },
     title:function () {
@@ -491,7 +493,7 @@ var Issue1008 = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionBlink = ActionsDemo.extend({
-    _code: "a = cc.Blink.create( time, #_of_blinks );",
+    _code:"a = cc.Blink.create( time, #_of_blinks );",
 
     onEnter:function () {
         this._super();
@@ -515,7 +517,7 @@ var ActionBlink = ActionsDemo.extend({
 //------------------------------------------------------------------
 var ActionFade = ActionsDemo.extend({
     _code:"a = cc.FadeIn.create( time );\n" +
-            "a = cc.FadeOut.create( time );",
+        "a = cc.FadeOut.create( time );",
 
     onEnter:function () {
         this._super();
@@ -544,7 +546,7 @@ var ActionFade = ActionsDemo.extend({
 var ActionTint = ActionsDemo.extend({
 
     _code:"a = cc.TintBy.create( time, red, green, blue );\n" +
-            "a = cc.TintTo.create( time, red, green, blue );",
+        "a = cc.TintTo.create( time, red, green, blue );",
 
     onEnter:function () {
         this._super();
@@ -634,7 +636,7 @@ var ActionSequence = ActionsDemo.extend({
         var action = cc.Sequence.create(
             cc.MoveBy.create(2, cc.p(240, 0)),
             cc.RotateBy.create(2, 540)
-            );
+        );
 
         this._grossini.runAction(action);
 
@@ -695,7 +697,7 @@ var ActionSequence2 = ActionsDemo.extend({
 //------------------------------------------------------------------
 var ActionCallFunc1 = ActionsDemo.extend({
     _code:"a = cc.CallFunc.create( this.callback );\n" +
-            "a = cc.CallFunc.create( this.callback, this, optional_arg );",
+        "a = cc.CallFunc.create( this.callback, this, optional_arg );",
 
     onEnter:function () {
         this._super();
@@ -785,7 +787,7 @@ var ActionCallFunc3 = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        var action = cc.CallFunc.create(function(nodeExecutingAction, value) {
+        var action = cc.CallFunc.create(function (nodeExecutingAction, value) {
             cc.log("Object: " + nodeExecutingAction + " value is: " + value);
         }, this, "Hello world");
 
@@ -1087,7 +1089,7 @@ var ActionFollow = ActionsDemo.extend({
         this.centerSprites(1);
         var s = director.getWinSize();
 
-        this._grossini.setPosition(-(s.width/2), s.height / 2);
+        this._grossini.setPosition(-(s.width / 2), s.height / 2);
         var move = cc.MoveBy.create(2, cc.p(s.width * 3, 0));
         var move_back = move.reverse();
         var seq = cc.Sequence.create(move, move_back);
@@ -1111,7 +1113,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
     _array:null,
 
     _code:" a = cc.CadinalSplineBy.create( time, array_of_points, tension );\n" +
-            " a = cc.CadinalSplineTo.create( time, array_of_points, tension );",
+        " a = cc.CadinalSplineTo.create( time, array_of_points, tension );",
 
     ctor:function () {
         this._super();
@@ -1129,7 +1131,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
             cc.p(winSize.width / 2 - 30, winSize.height - 80),
             cc.p(0, winSize.height - 80),
             cc.p(0, 0)
-            ];
+        ];
 
         //
         // sprite 1 (By)
@@ -1164,20 +1166,32 @@ var ActionCardinalSpline = ActionsDemo.extend({
         this._super();
 
         var context = ctx || cc.renderContext;
+        var winSize = director.getWinSize();
 
-        var apPoint = this.getAnchorPointInPoints();
-        // move to 50,50 since the "by" path will start at 50,50
-        context.save();
-        context.translate(50 - apPoint.x ,  apPoint.y -50);
-        cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
-        context.restore();
+        if(cc.renderContextType === cc.CANVAS){
+            var apPoint = this.getAnchorPointInPoints();
+            // move to 50,50 since the "by" path will start at 50,50
+            context.save();
+            context.translate(50 - apPoint.x, apPoint.y - 50);
+            cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
+            context.restore();
 
-        var s = director.getWinSize();
+            context.save();
+            context.translate(winSize.width / 2 - apPoint.x, apPoint.y - 50);
+            cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
+            context.restore();
+        } else {
+            // move to 50,50 since the "by" path will start at 50,50
+            cc.kmGLPushMatrix();
+            cc.kmGLTranslatef(50, 50, 0);
+            cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
+            cc.kmGLPopMatrix();
 
-        context.save();
-        context.translate(s.width / 2 - apPoint.x ,  apPoint.y - 50);
-        cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
-        context.restore();
+            cc.kmGLPushMatrix();
+            cc.kmGLTranslatef(winSize.width/2, 50, 0);
+            cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
+            cc.kmGLPopMatrix();
+        }
     },
     subtitle:function () {
         return "Cardinal Spline paths. Testing different tensions for one array";
@@ -1197,7 +1211,7 @@ var ActionCatmullRom = ActionsDemo.extend({
     _array2:null,
 
     _code:"a = cc.CatmullRomBy.create( time, array_of_points );\n" +
-            " a = cc.CatmullRomTo.create( time, array_of_points );",
+        " a = cc.CatmullRomTo.create( time, array_of_points );",
 
     ctor:function () {
         this._super();
@@ -1219,14 +1233,14 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._tamara.setPosition(50, 50);
 
         var array = [
-                cc.p(0, 0),
-                cc.p(80, 80),
-                cc.p(winSize.width - 80, 80),
-                cc.p(winSize.width - 80, winSize.height - 80),
-                cc.p(80, winSize.height - 80),
-                cc.p(80, 80),
-                cc.p(winSize.width / 2, winSize.height / 2)
-                ];
+            cc.p(0, 0),
+            cc.p(80, 80),
+            cc.p(winSize.width - 80, 80),
+            cc.p(winSize.width - 80, winSize.height - 80),
+            cc.p(80, winSize.height - 80),
+            cc.p(80, 80),
+            cc.p(winSize.width / 2, winSize.height / 2)
+        ];
 
         var action1 = cc.CatmullRomBy.create(3, array);
         var reverse1 = action1.reverse();
@@ -1263,17 +1277,27 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._super();
         var context = ctx || cc.renderContext;
 
-        var apPoint = this.getAnchorPointInPoints();
-        // move to 50,50 since the "by" path will start at 50,50
-        context.save();
-        context.translate(50 - apPoint.x, apPoint.y - 50);
-        cc.drawingUtil.drawCatmullRom(this._array1, 50);
-        context.restore();
+        if(cc.renderContextType === cc.CANVAS){
+            var apPoint = this.getAnchorPointInPoints();
+            // move to 50,50 since the "by" path will start at 50,50
+            context.save();
+            context.translate(50 - apPoint.x, apPoint.y - 50);
+            cc.drawingUtil.drawCatmullRom(this._array1, 50);
+            context.restore();
 
-        context.save();
-        context.translate(- apPoint.x, apPoint.y);
-        cc.drawingUtil.drawCatmullRom(this._array2, 50);
-        context.restore();
+            context.save();
+            context.translate(-apPoint.x, apPoint.y);
+            cc.drawingUtil.drawCatmullRom(this._array2, 50);
+            context.restore();
+        } else {
+            // move to 50,50 since the "by" path will start at 50,50
+            cc.kmGLPushMatrix();
+            cc.kmGLTranslatef(50, 50, 0);
+            cc.drawingUtil.drawCatmullRom(this._array1, 50);
+            cc.kmGLPopMatrix();
+
+            cc.drawingUtil.drawCatmullRom(this._array2,50);
+        }
     },
     subtitle:function () {
         return "Catmull Rom spline paths. Testing reverse too";
@@ -1295,7 +1319,7 @@ var ActionTargeted = ActionsDemo.extend({
         this._super();
         this.centerSprites(2);
 
-        var jump1 = cc.JumpBy.create(2, cc.p(0,0), 100, 3);
+        var jump1 = cc.JumpBy.create(2, cc.p(0, 0), 100, 3);
         var jump2 = jump1.copy();
         var rot1 = cc.RotateBy.create(1, 360);
         var rot2 = rot1.copy();
@@ -1326,7 +1350,7 @@ var ActionTargetedCopy = ActionsDemo.extend({
         this._super();
         this.centerSprites(2);
 
-        var jump1 = cc.JumpBy.create(2, cc.p(0,0), 100, 3);
+        var jump1 = cc.JumpBy.create(2, cc.p(0, 0), 100, 3);
         var jump2 = jump1.copy();
 
         var t1 = cc.TargetedAction.create(this._kathia, jump2);
@@ -1354,21 +1378,21 @@ var ActionStackableMove = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        this._grossini.setPosition( 40, winSize.height/2);
+        this._grossini.setPosition(40, winSize.height / 2);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
         var move_back = move.reverse();
-        var move_seq = cc.Sequence.create( move, move_back );
-        var move_rep = cc.RepeatForever.create( move_seq );
-        this._grossini.runAction( move_rep );
+        var move_seq = cc.Sequence.create(move, move_back);
+        var move_rep = cc.RepeatForever.create(move_seq);
+        this._grossini.runAction(move_rep);
 
         // move
-        var action = cc.MoveBy.create(2, cc._p(winSize.width-80,0));
+        var action = cc.MoveBy.create(2, cc._p(winSize.width - 80, 0));
         var back = action.reverse();
-        var seq = cc.Sequence.create( action, back);
-        var repeat = cc.RepeatForever.create( seq );
-        this._grossini.runAction( repeat );
+        var seq = cc.Sequence.create(action, back);
+        var repeat = cc.RepeatForever.create(seq);
+        this._grossini.runAction(repeat);
 
 
     },
@@ -1390,21 +1414,21 @@ var ActionStackableJump = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        this._grossini.setPosition( 40, winSize.height/2);
+        this._grossini.setPosition(40, winSize.height / 2);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
         var move_back = move.reverse();
-        var move_seq = cc.Sequence.create( move, move_back );
-        var move_rep = cc.RepeatForever.create( move_seq );
-        this._grossini.runAction( move_rep );
+        var move_seq = cc.Sequence.create(move, move_back);
+        var move_rep = cc.RepeatForever.create(move_seq);
+        this._grossini.runAction(move_rep);
 
         // jump
-        var action = cc.JumpBy.create(2, cc._p(winSize.width-80,0), 90, 5);
+        var action = cc.JumpBy.create(2, cc._p(winSize.width - 80, 0), 90, 5);
         var back = action.reverse();
-        var seq = cc.Sequence.create( action, back);
-        var repeat = cc.RepeatForever.create( seq );
-        this._grossini.runAction( repeat );
+        var seq = cc.Sequence.create(action, back);
+        var repeat = cc.RepeatForever.create(seq);
+        this._grossini.runAction(repeat);
 
 
     },
@@ -1426,24 +1450,24 @@ var ActionStackableBezier = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        this._grossini.setPosition( 40, winSize.height/2);
+        this._grossini.setPosition(40, winSize.height / 2);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
         var move_back = move.reverse();
-        var move_seq = cc.Sequence.create( move, move_back );
-        var move_rep = cc.RepeatForever.create( move_seq );
-        this._grossini.runAction( move_rep );
+        var move_seq = cc.Sequence.create(move, move_back);
+        var move_rep = cc.RepeatForever.create(move_seq);
+        this._grossini.runAction(move_rep);
 
         // Bezier
         var controlPoints = [ cc.p(0, winSize.height / 2),
-                                cc.p(winSize.width-80, -winSize.height / 2),
-                                cc.p(winSize.width-80, 100) ];
+            cc.p(winSize.width - 80, -winSize.height / 2),
+            cc.p(winSize.width - 80, 100) ];
 
         var bezierForward = cc.BezierBy.create(3, controlPoints);
         var repeat = cc.RepeatForever.create(
             cc.Sequence.create(bezierForward, bezierForward.reverse()));
-        this._grossini.runAction( repeat );
+        this._grossini.runAction(repeat);
 
 
     },
@@ -1465,31 +1489,31 @@ var ActionStackableCatmullRom = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        this._grossini.setPosition( 40, 40);
+        this._grossini.setPosition(40, 40);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
         var move_back = move.reverse();
-        var move_seq = cc.Sequence.create( move, move_back );
-        var move_rep = cc.RepeatForever.create( move_seq );
-        this._grossini.runAction( move_rep );
+        var move_seq = cc.Sequence.create(move, move_back);
+        var move_rep = cc.RepeatForever.create(move_seq);
+        this._grossini.runAction(move_rep);
 
         // CatmullRom
         var array = [
-                cc.p(0, 0),
-                cc.p(80, 80),
-                cc.p(winSize.width - 80, 80),
-                cc.p(winSize.width - 80, winSize.height - 80),
-                cc.p(80, winSize.height - 80),
-                cc.p(80, 80),
-                cc.p(winSize.width / 2, winSize.height / 2)
-                ];
+            cc.p(0, 0),
+            cc.p(80, 80),
+            cc.p(winSize.width - 80, 80),
+            cc.p(winSize.width - 80, winSize.height - 80),
+            cc.p(80, winSize.height - 80),
+            cc.p(80, 80),
+            cc.p(winSize.width / 2, winSize.height / 2)
+        ];
 
         var action1 = cc.CatmullRomBy.create(6, array);
         var reverse1 = action1.reverse();
         var seq1 = cc.Sequence.create(action1, reverse1);
-        var repeat = cc.RepeatForever.create( seq1 );
-        this._grossini.runAction( repeat );
+        var repeat = cc.RepeatForever.create(seq1);
+        this._grossini.runAction(repeat);
 
     },
     title:function () {
@@ -1510,31 +1534,31 @@ var ActionStackableCardinalSpline = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        this._grossini.setPosition( 40, 40);
+        this._grossini.setPosition(40, 40);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
         var move_back = move.reverse();
-        var move_seq = cc.Sequence.create( move, move_back );
-        var move_rep = cc.RepeatForever.create( move_seq );
-        this._grossini.runAction( move_rep );
+        var move_seq = cc.Sequence.create(move, move_back);
+        var move_rep = cc.RepeatForever.create(move_seq);
+        this._grossini.runAction(move_rep);
 
         // CardinalSpline
         var array = [
-                cc.p(0, 0),
-                cc.p(80, 80),
-                cc.p(winSize.width - 80, 80),
-                cc.p(winSize.width - 80, winSize.height - 80),
-                cc.p(80, winSize.height - 80),
-                cc.p(80, 80),
-                cc.p(winSize.width / 2, winSize.height / 2)
-                ];
+            cc.p(0, 0),
+            cc.p(80, 80),
+            cc.p(winSize.width - 80, 80),
+            cc.p(winSize.width - 80, winSize.height - 80),
+            cc.p(80, winSize.height - 80),
+            cc.p(80, 80),
+            cc.p(winSize.width / 2, winSize.height / 2)
+        ];
 
         var action1 = cc.CardinalSplineBy.create(6, array, 0.9);
         var reverse1 = action1.reverse();
         var seq1 = cc.Sequence.create(action1, reverse1);
-        var repeat = cc.RepeatForever.create( seq1 );
-        this._grossini.runAction( repeat );
+        var repeat = cc.RepeatForever.create(seq1);
+        this._grossini.runAction(repeat);
 
     },
     title:function () {
@@ -1777,14 +1801,14 @@ var Issue1438 = ActionsDemo.extend({
         var animation = cc.Animation.create();
 
         // Add 60 frames
-        for( var j=0; j<4; j++) {
+        for (var j = 0; j < 4; j++) {
             for (var i = 1; i < 15; i++) {
                 var frameName = "res/Images/grossini_dance_" + ((i < 10) ? ("0" + i) : i) + ".png";
                 animation.addSpriteFrameWithFile(frameName);
             }
         }
         // And display 60 frames per second
-        animation.setDelayPerUnit(1/60);
+        animation.setDelayPerUnit(1 / 60);
         animation.setRestoreOriginalFrame(true);
 
         var action = cc.Animate.create(animation);
@@ -1796,7 +1820,7 @@ var Issue1438 = ActionsDemo.extend({
         var animCache = cc.AnimationCache.getInstance();
         animCache.addAnimations(s_animations2Plist);
         var animation2 = animCache.getAnimation("dance_1");
-        animation2.setDelayPerUnit(1/60);
+        animation2.setDelayPerUnit(1 / 60);
 
         var action2 = cc.Animate.create(animation2);
         this._tamara.runAction(cc.Sequence.create(action2, action2.reverse()));
@@ -1826,33 +1850,33 @@ var Issue1446 = ActionsDemo.extend({
         return "Issue #1446. 'Hello World' should be visible for only 0.1 seconds";
     },
 
-    onEnter:function() {
+    onEnter:function () {
         this._super();
         this.centerSprites(0);
 
         var label = this.label = cc.LabelTTF.create("Hello World", "Marker Felt", 64);
 
-        label.setPosition( winSize.width/2, winSize.height/2);
-        label.setOpacity( 0 );
+        label.setPosition(winSize.width / 2, winSize.height / 2);
+        label.setOpacity(0);
 
         this.addChild(label);
 
-        this.backwardsFade = cc.Speed.create( cc.Sequence.create(
-                                cc.DelayTime.create(2),
-                                cc.FadeTo.create(1, 255),
-                                cc.DelayTime.create(2) ), 1);
-        label.runAction( this.backwardsFade );
+        this.backwardsFade = cc.Speed.create(cc.Sequence.create(
+            cc.DelayTime.create(2),
+            cc.FadeTo.create(1, 255),
+            cc.DelayTime.create(2)), 1);
+        label.runAction(this.backwardsFade);
 
         // Comment out to see that 1.0 in the update function is called which is expected
         // Leave it uncommented to see that 0.0 is never called when going in reverse
-        this.scheduleOnce( this.stepForwardGoBackward, 0.1);
+        this.scheduleOnce(this.stepForwardGoBackward, 0.1);
     },
 
-    stepForwardGoBackward:function() {
+    stepForwardGoBackward:function () {
         var action = this.backwardsFade.getInnerAction();
         action.step(2.5);
         // Try with -10.0f and you can see the opacity not fully faded out. Try with lower values to see it 'almost' fade out
-        this.backwardsFade.setSpeed( -10 );
+        this.backwardsFade.setSpeed(-10);
     }
 });
 
