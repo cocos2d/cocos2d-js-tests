@@ -1811,7 +1811,7 @@ var SpriteBatchNodeOffsetAnchorScale = SpriteTestDemo.extend({
 //
 var SpriteOffsetAnchorSkew = SpriteTestDemo.extend({
 
-    _title:"Sprite offset + anchor + scale",
+    _title:"Sprite offset + anchor + skew",
 
     ctor:function () {
         this._super();
@@ -2266,7 +2266,7 @@ var SpriteAnimationSplit = SpriteTestDemo.extend({
 //------------------------------------------------------------------
 var SpriteHybrid = SpriteTestDemo.extend({
     _usingSpriteBatchNode:false,
-    _title:"Hibryd.Sprite* sprite Test",
+    _title:"Hybrid.Sprite* sprite Test",
 
     ctor:function () {
         this._super();
