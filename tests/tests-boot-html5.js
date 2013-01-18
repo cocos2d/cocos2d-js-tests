@@ -55,8 +55,6 @@
             'LayerTest/LayerTest.js',
             'SceneTest/SceneTest.js',
             'TextureCacheTest/TextureCacheTest.js',
-            'SpriteTest/SpriteTest.js',
-            'S9SpriteTest/S9SpriteTest.js',
             'CocosDenshionTest/CocosDenshionTest.js',
             'CocosNodeTest/CocosNodeTest.js',
             'RotateWorldTest/RotateWorldTest.js',
@@ -97,6 +95,7 @@
             'ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js',
             'ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.js',
             'ExtensionsTest/EditBoxTest/EditBoxTest.js',
+            'ExtensionsTest/S9SpriteTest/S9SpriteTest.js',
 
             'Box2dTest/Box2dTest.js',
             'ChipmunkTest/ChipmunkTest.js']
