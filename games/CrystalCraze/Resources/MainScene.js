@@ -37,7 +37,7 @@ MainScene.prototype.onDidLoadFromCCB = function()
 
 	// Setup sound
 	gAudioEngine = cc.AudioEngine.getInstance();
-	gAudioEngine.playMusic("sounds/loop.m4a");
+	gAudioEngine.playMusic("sounds/loop.wav");
 };
 
 // Create callback for button

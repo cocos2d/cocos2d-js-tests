@@ -736,7 +736,7 @@ GameScene.prototype.onDidLoadFromCCB = function()
     {
     	cc.log("On mobile");
     	gParticleLayer = cc.ParticleBatchNode.create("particles/taken-gem.png", 250);
-    	gGameLayer = cc.SpriteBatchNode.create("crystals.pvr.gz");
+    	gGameLayer = cc.SpriteBatchNode.create("crystals.pvr.ccz");
     }
     else
     {
