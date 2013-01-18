@@ -61,6 +61,9 @@ MainScene.prototype.onPressAbout = function()
 {
 	gAudioEngine.playEffect("sounds/click.wav");
 
+	// disable menu, since another one will be on top
+	this.menu.setEnabled(false);
+
 	var aboutNode = cc.BuilderReader.load("AboutScene");
 	this.rootNode.addChild(aboutNode, 10);
 };
@@ -70,8 +73,8 @@ MainScene.prototype.onAnimationComplete = function()
 	if (this.menuSelection == kMenuSelectionPlay)
 	{
 		var scene = cc.BuilderReader.loadAsScene("GameScene.ccbi");
-    	cc.Director.getInstance().replaceScene(scene);
-    	gAudioEngine.stopMusic();
+		cc.Director.getInstance().replaceScene(scene);
+		gAudioEngine.stopMusic();
     }
 };
 
