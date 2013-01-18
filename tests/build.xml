@@ -26,6 +26,7 @@
                 <file name="SceneTest/SceneTest.js"/>
                 <file name="TextureCacheTest/TextureCacheTest.js"/>
                 <file name="SpriteTest/SpriteTest.js"/>
+                <file name="S9SpriteTest/S9SpriteTest.js"/>
                 <file name="CocosDenshionTest/CocosDenshionTest.js"/>
                 <file name="CocosNodeTest/CocosNodeTest.js"/>
                 <file name="RotateWorldTest/RotateWorldTest.js"/>
@@ -208,7 +209,7 @@
                 <file name="LayerTest/LayerTest.js"/>
                 <file name="SceneTest/SceneTest.js"/>
                 <file name="TextureCacheTest/TextureCacheTest.js"/>
-                <file name="SpriteTest/SpriteTest.js"/>
+                <file name="S9SpriteTest/S9SpriteTest.js"/>
                 <file name="CocosDenshionTest/CocosDenshionTest.js"/>
                 <file name="CocosNodeTest/CocosNodeTest.js"/>
                 <file name="RotateWorldTest/RotateWorldTest.js"/>

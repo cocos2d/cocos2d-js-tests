@@ -56,6 +56,7 @@
             'SceneTest/SceneTest.js',
             'TextureCacheTest/TextureCacheTest.js',
             'SpriteTest/SpriteTest.js',
+            'S9SpriteTest/S9SpriteTest.js',
             'CocosDenshionTest/CocosDenshionTest.js',
             'CocosNodeTest/CocosNodeTest.js',
             'RotateWorldTest/RotateWorldTest.js',
