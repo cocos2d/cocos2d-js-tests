@@ -64,17 +64,17 @@ var AtlasDemo = cc.LayerGradient.extend({
     onEnter:function () {
         this._super();
 
-        var s = director.getWinSize();
+        var winSize = director.getWinSize();
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 28);
         this.addChild(label, 1);
-        label.setPosition(cc.p(s.width / 2, s.height - 50));
+        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
 
         var strSubtitle = this.subtitle();
         if (strSubtitle) {
             var l = cc.LabelTTF.create(strSubtitle.toString(), "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(cc.p(s.width / 2, s.height - 80));
+            l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
@@ -121,7 +121,7 @@ var Atlas1 = AtlasDemo.extend({
         this._super();
         this.textureAtlas = cc.TextureAtlas.create(s_atlasTest, 3);
 
-        var s = director.getWinSize();
+        var winSize = director.getWinSize();
 
         //
         // Notice: u,v tex coordinates are inverted
@@ -129,9 +129,9 @@ var Atlas1 = AtlasDemo.extend({
         var quads = [
             new cc.V3F_C4B_T2F_Quad(
                 new cc.V3F_C4B_T2F(new cc.Vertex3F(0, 0, 0), cc.c4b(0, 0, 255, 255), new cc.Tex2F(0.0, 1.0)), // bottom left
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width, 0, 0), cc.c4b(0, 0, 255, 0), new cc.Tex2F(1.0, 1.0)), // bottom right
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(0, s.height, 0), cc.c4b(0, 0, 255, 0), new cc.Tex2F(0.0, 0.0)), // top left
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width, s.height, 0), cc.c4b(0, 0, 255, 255), new cc.Tex2F(1.0, 0.0))    // top right
+                new cc.V3F_C4B_T2F(new cc.Vertex3F(winSize.width, 0, 0), cc.c4b(0, 0, 255, 0), new cc.Tex2F(1.0, 1.0)), // bottom right
+                new cc.V3F_C4B_T2F(new cc.Vertex3F(0, winSize.height, 0), cc.c4b(0, 0, 255, 0), new cc.Tex2F(0.0, 0.0)), // top left
+                new cc.V3F_C4B_T2F(new cc.Vertex3F(winSize.width, winSize.height, 0), cc.c4b(0, 0, 255, 255), new cc.Tex2F(1.0, 0.0))    // top right
             ),
 
             new cc.V3F_C4B_T2F_Quad(
@@ -142,12 +142,11 @@ var Atlas1 = AtlasDemo.extend({
             ),
 
             new cc.V3F_C4B_T2F_Quad(
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width / 2, 40, 0), cc.c4b(255, 0, 0, 255), new cc.Tex2F(0.0, 1.0)), // bottom left
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width, 40, 0), cc.c4b(0, 255, 0, 255), new cc.Tex2F(1.0, 1.0)), // bottom right
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width / 2 - 50, 200, 0), cc.c4b(0, 0, 255, 255), new cc.Tex2F(0.0, 0.0)), // top left
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width, 100, 0), cc.c4b(255, 255, 0, 255), new cc.Tex2F(1.0, 0.0))        // top right
+                new cc.V3F_C4B_T2F(new cc.Vertex3F(winSize.width / 2, 40, 0), cc.c4b(255, 0, 0, 255), new cc.Tex2F(0.0, 1.0)), // bottom left
+                new cc.V3F_C4B_T2F(new cc.Vertex3F(winSize.width, 40, 0), cc.c4b(0, 255, 0, 255), new cc.Tex2F(1.0, 1.0)), // bottom right
+                new cc.V3F_C4B_T2F(new cc.Vertex3F(winSize.width / 2 - 50, 200, 0), cc.c4b(0, 0, 255, 255), new cc.Tex2F(0.0, 0.0)), // top left
+                new cc.V3F_C4B_T2F(new cc.Vertex3F(winSize.width, 100, 0), cc.c4b(255, 255, 0, 255), new cc.Tex2F(1.0, 0.0))        // top right
             )
-
         ];
 
 
@@ -163,6 +162,10 @@ var Atlas1 = AtlasDemo.extend({
     },
     draw:function () {
         this._super();
+
+        var selShader = cc.ShaderCache.getInstance().programForKey(cc.SHADER_POSITION_TEXTURECOLOR);
+        selShader.use();
+        selShader.setUniformForModelViewProjectionMatrix();
         this.textureAtlas.drawQuads();
     }
 });
@@ -1148,11 +1151,11 @@ var BMFontOneAtlas = AtlasDemo.extend({
         this._super();
         var s = director.getWinSize();
 
-        var label1 = cc.LabelBMFont.create("This is Helvetica", s_resprefix + "fonts/helvetica-32.fnt", cc.LabelAutomaticWidth, cc.TEXT_ALIGNMENT_LEFT, cc.p(0,0));
+        var label1 = cc.LabelBMFont.create("This is Helvetica", s_resprefix + "fonts/helvetica-32.fnt", cc.LABEL_AUTOMATIC_WIDTH, cc.TEXT_ALIGNMENT_LEFT, cc.p(0,0));
         this.addChild(label1);
         label1.setPosition(cc.p(s.width / 2, s.height * 2 / 3));
 
-        var label2 = cc.LabelBMFont.create("And this is Geneva", s_resprefix + "fonts/geneva-32.fnt", cc.LabelAutomaticWidth, cc.TEXT_ALIGNMENT_LEFT, cc.p(0, 128));
+        var label2 = cc.LabelBMFont.create("And this is Geneva", s_resprefix + "fonts/geneva-32.fnt", cc.LABEL_AUTOMATIC_WIDTH, cc.TEXT_ALIGNMENT_LEFT, cc.p(0, 128));
         this.addChild(label2);
         label2.setPosition(cc.p(s.width / 2, s.height / 3));
     },
@@ -1290,6 +1293,10 @@ var arrayOfLabelTest = [
     TTFFontInit,
     LabelTTFAlignment
 ];
+
+if(cc.Browser.supportWebGL){
+    arrayOfLabelTest.push(Atlas1);
+}
 
 var nextLabelTest = function () {
     sceneIdx++;
