@@ -54,6 +54,7 @@
             'ProgressActionsTest/ProgressActionsTest.js',
             'LayerTest/LayerTest.js',
             'SceneTest/SceneTest.js',
+            'SpriteTest/SpriteTest.js',
             'TextureCacheTest/TextureCacheTest.js',
             'CocosDenshionTest/CocosDenshionTest.js',
             'CocosNodeTest/CocosNodeTest.js',
