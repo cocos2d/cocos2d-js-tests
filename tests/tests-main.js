@@ -153,7 +153,7 @@ var TestController = cc.LayerGradient.extend({
     onScrollWheel:function(event){
         var delta = event.getWheelDelta();
         this.moveMenu({y:-delta});
-        console.log(1);
+        //console.log(1);
         return true;
     },
     moveMenu:function(delta) {
