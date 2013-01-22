@@ -2991,7 +2991,7 @@ var SpriteChildrenChildren = SpriteTestDemo.extend({
         // child left top
         var l3a2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a2.setScale(0.45);
-        l3a1.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
+        l3a2.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
         l2a.addChild(l3a2);
 
         // child right bottom
@@ -3005,7 +3005,7 @@ var SpriteChildrenChildren = SpriteTestDemo.extend({
         var l3b2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b2.setScale(0.45);
         l3b2.setFlipY(true);
-        l3b1.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
+        l3b2.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
         l2b.addChild(l3b2);
     }
 });
@@ -3070,7 +3070,7 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         // child left top
         var l3a2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a2.setScale(0.45);
-        l3a1.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
+        l3a2.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
         l2a.addChild(l3a2);
 
         // child right bottom
@@ -3084,7 +3084,7 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         var l3b2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b2.setScale(0.45);
         l3b2.setFlipY(true);
-        l3b1.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
+        l3b2.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
         l2b.addChild(l3b2);
     }
 });
