@@ -42,6 +42,8 @@ var S9SpriteTestDemo = cc.LayerGradient.extend({
         this._super();
         cc.associateWithNative( this, cc.LayerGradient );
         this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_s9s_blocks9_plist);
+        cc.log('sprite frames added to sprite frame cache...');
     },
     onEnter:function () {
         this._super();
@@ -116,12 +118,67 @@ var S9BatchNodeBasic = S9SpriteTestDemo.extend({
         cc.log("... updateWithBatchNode");
 
         blocks.setPosition(cc.p(x, y));
-        cc.log("... setPisition");
+        cc.log("... setPosition");
 
         this.addChild(blocks);
         cc.log("this..addChild");
 
         cc.log("... S9BatchNodeBasic done.");
+    }
+});
+
+// S9BatchNodeBasicSpriteSheet
+
+var S9BatchNodeBasicSpriteSheet = S9SpriteTestDemo.extend({
+
+    _title:"Test Scale9Sprite sprite sheet creation and rendering",
+
+    ctor:function() {
+        this._super();
+
+        var x = winSize.width / 6;
+        var y = 0 + (winSize.height / 6);
+
+        cc.log("S9BatchNodeBasicSpriteSheet ...");
+
+        var blocks = cc.Scale9Sprite.createWithSpriteFrameName('blocks9.png');
+        cc.log("... created");
+
+        blocks.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        this.addChild(blocks);
+        cc.log("this..addChild");
+
+        cc.log("... S9BatchNodeBasicSpriteSheet done.");
+    }
+});
+
+// S9BatchNodeBasicSpriteSheetRotated
+
+var S9BatchNodeBasicSpriteSheetRotated = S9SpriteTestDemo.extend({
+
+    _title:"Test Scale9Sprite rotated sprite sheet creation and rendering",
+
+    ctor:function() {
+        this._super();
+
+        var x = winSize.width / 6;
+        var y = 0 + (winSize.height / 6);
+
+        cc.log("S9BatchNodeBasicSpriteSheetRotated ...");
+
+        var blocks = cc.Scale9Sprite.createWithSpriteFrameName('blocks9r.png');
+        cc.log("... created");
+
+        blocks.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        this.addChild(blocks);
+        cc.log("this..addChild");
+
+
+        cc.log("... S9BatchNodeBasicSpriteSheetRotated done.");
     }
 });
 
@@ -149,7 +206,7 @@ var S9BatchNodeScaleNoInsets = S9SpriteTestDemo.extend({
         cc.log("... updateWithBatchNode");
 
         blocks_scaled.setPosition(cc.p(x, y));
-        cc.log("... setPisition");
+        cc.log("... setPosition");
 
         blocks_scaled.setContentSize(cc.size(96 * 4, 96*2));
         cc.log("... setContentSize");
@@ -160,6 +217,67 @@ var S9BatchNodeScaleNoInsets = S9SpriteTestDemo.extend({
         cc.log("... S9BtchNodeScaleNoInsets done.");
     }
 });
+
+// S9BatchNodeScaleNoInsetsSpriteSheet
+
+var S9BatchNodeScaleNoInsetsSpriteSheet = S9SpriteTestDemo.extend({
+
+    _title:"Scale9Sprite scaled with no insets sprite sheet",
+
+    ctor:function() {
+        this._super();
+
+        var x = winSize.width / 6;
+        var y = 0 + (winSize.height / 6);
+
+        cc.log("S9BatchNodeScaleNoInsetsSpriteSheet ...");
+
+        var blocks_scaled = cc.Scale9Sprite.createWithSpriteFrameName('blocks9.png');
+        cc.log("... created");
+
+        blocks_scaled.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        blocks_scaled.setContentSize(cc.size(96 * 4, 96*2));
+        cc.log("... setContentSize");
+
+        this.addChild(blocks_scaled);
+        cc.log("this..addChild");
+
+        cc.log("... S9BatchNodeScaleNoInsetsSpriteSheet done.");
+    }
+});
+
+// S9BatchNodeScaleNoInsetsSpriteSheetRotated
+
+var S9BatchNodeScaleNoInsetsSpriteSheetRotated = S9SpriteTestDemo.extend({
+
+    _title:"Scale9Sprite scaled with no insets rotated sprite sheet",
+
+    ctor:function() {
+        this._super();
+
+        var x = winSize.width / 6;
+        var y = 0 + (winSize.height / 6);
+
+        cc.log("S9BatchNodeScaleNoInsetsSpriteSheetRotated ...");
+
+        var blocks_scaled = cc.Scale9Sprite.createWithSpriteFrameName('blocks9r.png');
+        cc.log("... created");
+
+        blocks_scaled.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        blocks_scaled.setContentSize(cc.size(96 * 4, 96*2));
+        cc.log("... setContentSize");
+
+        this.addChild(blocks_scaled);
+        cc.log("this..addChild");
+
+        cc.log("... S9BatchNodeScaleNoInsetsSpriteSheetRotated done.");
+    }
+});
+
 
 // S9BatchNodeScaleWithCapInsets
 
@@ -188,12 +306,72 @@ var S9BatchNodeScaleWithCapInsets = S9SpriteTestDemo.extend({
         cc.log("... setContentSize");
 
         blocks_scaled_with_insets.setPosition(cc.p(x, y));
-        cc.log("... setPisition");
+        cc.log("... setPosition");
 
         this.addChild(blocks_scaled_with_insets);
         cc.log("this..addChild");
 
         cc.log("... S9BatchNodeScaleWithCapInsets done.");
+    }
+});
+
+// S9BatchNodeScaleWithCapInsetsSpriteSheet
+
+var S9BatchNodeScaleWithCapInsetsSpriteSheet = S9SpriteTestDemo.extend({
+
+    _title:"Scale9Sprite scaled with insets sprite sheet",
+
+    ctor:function() {
+        this._super();
+
+        var x = winSize.width / 6;
+        var y = 0 + (winSize.height / 6);
+
+        cc.log("S9BatchNodeScaleWithCapInsetsSpriteSheet ...");
+
+        var blocks_scaled_with_insets = cc.Scale9Sprite.createWithSpriteFrameName('blocks9.png', cc.rect(32, 32, 32, 32));
+        cc.log("... created");
+
+        blocks_scaled_with_insets.setContentSize(cc.size(96 * 4.5, 96 * 2.5));
+        cc.log("... setContentSize");
+
+        blocks_scaled_with_insets.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        this.addChild(blocks_scaled_with_insets);
+        cc.log("this..addChild");
+
+        cc.log("... S9BatchNodeScaleWithCapInsetsSpriteSheet done.");
+    }
+});
+
+// S9BatchNodeScaleWithCapInsetsSpriteSheetRotated
+
+var S9BatchNodeScaleWithCapInsetsSpriteSheetRotated = S9SpriteTestDemo.extend({
+
+    _title:"Scale9Sprite scaled with insets rotated sprite sheet",
+
+    ctor:function() {
+        this._super();
+
+        var x = winSize.width / 6;
+        var y = 0 + (winSize.height / 6);
+
+        cc.log("S9BatchNodeScaleWithCapInsetsSpriteSheetRotated ...");
+
+        var blocks_scaled_with_insets = cc.Scale9Sprite.createWithSpriteFrameName('blocks9r.png', cc.rect(32, 32, 32, 32));
+        cc.log("... created");
+
+        blocks_scaled_with_insets.setContentSize(cc.size(96 * 4.5, 96 * 2.5));
+        cc.log("... setContentSize");
+
+        blocks_scaled_with_insets.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        this.addChild(blocks_scaled_with_insets);
+        cc.log("this..addChild");
+
+        cc.log("... S9BatchNodeScaleWithCapInsetsSpriteSheetRotated done.");
     }
 });
 
@@ -214,8 +392,14 @@ var S9SpriteTestScene = TestScene.extend({
 
 var arrayOfS9SpriteTest = [
     S9BatchNodeBasic,
+    S9BatchNodeBasicSpriteSheet,
+    S9BatchNodeBasicSpriteSheetRotated,
     S9BatchNodeScaleNoInsets,
-    S9BatchNodeScaleWithCapInsets
+    S9BatchNodeScaleNoInsetsSpriteSheet,
+    S9BatchNodeScaleNoInsetsSpriteSheetRotated,
+    S9BatchNodeScaleWithCapInsets,
+    S9BatchNodeScaleWithCapInsetsSpriteSheet,
+    S9BatchNodeScaleWithCapInsetsSpriteSheetRotated
 ];
 
 var nextS9SpriteTest = function () {
