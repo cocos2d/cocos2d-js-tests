@@ -103,8 +103,8 @@ var S9BatchNodeBasic = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9BatchNodeBasic ...");
 
@@ -114,7 +114,7 @@ var S9BatchNodeBasic = S9SpriteTestDemo.extend({
         var blocks = cc.Scale9Sprite.create();
         cc.log("... created");
 
-        blocks.updateWithBatchNode(batchNode, cc.rect(0, 0, 96, 96), false, cc.rect(0, 0, 96, 96));
+        blocks.updateWithBatchNode(batchNode, cc.rect(0, 0, 96, 96), false);
         cc.log("... updateWithBatchNode");
 
         blocks.setPosition(cc.p(x, y));
@@ -136,8 +136,8 @@ var S9BatchNodeBasicSpriteSheet = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9BatchNodeBasicSpriteSheet ...");
 
@@ -163,8 +163,8 @@ var S9BatchNodeBasicSpriteSheetRotated = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9BatchNodeBasicSpriteSheetRotated ...");
 
@@ -191,8 +191,8 @@ var S9BatchNodeScaleNoInsets = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9BatchNodeScaleNoInsets ...");
 
@@ -202,7 +202,7 @@ var S9BatchNodeScaleNoInsets = S9SpriteTestDemo.extend({
 
         var blocks_scaled = cc.Scale9Sprite.create();
         cc.log("... created");
-        blocks_scaled.updateWithBatchNode(batchNode_scaled, cc.rect(0, 0, 96, 96), false, cc.rect(0, 0, 96, 96));
+        blocks_scaled.updateWithBatchNode(batchNode_scaled, cc.rect(0, 0, 96, 96), false);
         cc.log("... updateWithBatchNode");
 
         blocks_scaled.setPosition(cc.p(x, y));
@@ -227,8 +227,8 @@ var S9BatchNodeScaleNoInsetsSpriteSheet = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9BatchNodeScaleNoInsetsSpriteSheet ...");
 
@@ -257,8 +257,8 @@ var S9BatchNodeScaleNoInsetsSpriteSheetRotated = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9BatchNodeScaleNoInsetsSpriteSheetRotated ...");
 
@@ -288,8 +288,8 @@ var S9BatchNodeScaleWithCapInsets = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9BatchNodeScaleWithCapInsets ...");
 
@@ -324,8 +324,8 @@ var S9BatchNodeScaleWithCapInsetsSpriteSheet = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9BatchNodeScaleWithCapInsetsSpriteSheet ...");
 
@@ -354,8 +354,8 @@ var S9BatchNodeScaleWithCapInsetsSpriteSheetRotated = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9BatchNodeScaleWithCapInsetsSpriteSheetRotated ...");
 
