@@ -20,6 +20,8 @@ AboutScene.prototype.onAnimationComplete = function()
 {
 	if (this.pressedDone)
 	{
-		this.rootNode.getParent().removeChild(this.rootNode, true);
+		var parent = this.rootNode.getParent();
+		parent.controller.menu.setEnabled(true);
+		parent.removeChild(this.rootNode, true);
 	}
 };

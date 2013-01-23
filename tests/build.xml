@@ -26,7 +26,6 @@
                 <file name="SceneTest/SceneTest.js"/>
                 <file name="TextureCacheTest/TextureCacheTest.js"/>
                 <file name="SpriteTest/SpriteTest.js"/>
-                <file name="S9SpriteTest/S9SpriteTest.js"/>
                 <file name="CocosDenshionTest/CocosDenshionTest.js"/>
                 <file name="CocosNodeTest/CocosNodeTest.js"/>
                 <file name="RotateWorldTest/RotateWorldTest.js"/>
@@ -55,6 +54,8 @@
                 <file name="ExtensionsTest/CocosBuilderTest/ParticleSystemTest/ParticleSystemTestLayer.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.js"/>
+                <file name="ExtensionsTest/S9SpriteTest/S9SpriteTest.js"/>
+
                 <file name="PerformanceTest/PerformanceTouchesTest.js"/>
                 <file name="LabelTest/LabelTest.js"/>
                 <file name="CurrentLanguageTest/CurrentLanguageTest.js"/>

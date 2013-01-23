@@ -1811,7 +1811,7 @@ var SpriteBatchNodeOffsetAnchorScale = SpriteTestDemo.extend({
 //
 var SpriteOffsetAnchorSkew = SpriteTestDemo.extend({
 
-    _title:"Sprite offset + anchor + scale",
+    _title:"Sprite offset + anchor + skew",
 
     ctor:function () {
         this._super();
@@ -2266,7 +2266,7 @@ var SpriteAnimationSplit = SpriteTestDemo.extend({
 //------------------------------------------------------------------
 var SpriteHybrid = SpriteTestDemo.extend({
     _usingSpriteBatchNode:false,
-    _title:"Hibryd.Sprite* sprite Test",
+    _title:"Hybrid.Sprite* sprite Test",
 
     ctor:function () {
         this._super();
@@ -2975,7 +2975,7 @@ var SpriteChildrenChildren = SpriteTestDemo.extend({
         // child left top
         var l3a2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a2.setScale(0.45);
-        l3a1.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
+        l3a2.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
         l2a.addChild(l3a2);
 
         // child right bottom
@@ -2989,7 +2989,7 @@ var SpriteChildrenChildren = SpriteTestDemo.extend({
         var l3b2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b2.setScale(0.45);
         l3b2.setFlipY(true);
-        l3b1.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
+        l3b2.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
         l2b.addChild(l3b2);
     }
 });
@@ -3054,7 +3054,7 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         // child left top
         var l3a2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a2.setScale(0.45);
-        l3a1.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
+        l3a2.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
         l2a.addChild(l3a2);
 
         // child right bottom
@@ -3068,7 +3068,7 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         var l3b2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b2.setScale(0.45);
         l3b2.setFlipY(true);
-        l3b1.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
+        l3b2.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
         l2b.addChild(l3b2);
     }
 });

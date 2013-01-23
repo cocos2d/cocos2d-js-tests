@@ -734,15 +734,15 @@ GameScene.prototype.onDidLoadFromCCB = function()
 
     if ("opengl" in sys.capabilities)
     {
-    	cc.log("On mobile");
-    	gParticleLayer = cc.ParticleBatchNode.create("particles/taken-gem.png", 250);
-    	gGameLayer = cc.SpriteBatchNode.create("crystals.pvr.gz");
+		cc.log("OpenGL rendering");
+		gParticleLayer = cc.ParticleBatchNode.create("particles/taken-gem.png", 250);
+		gGameLayer = cc.SpriteBatchNode.create("crystals.pvr.ccz");
     }
     else
     {
-    	cc.log("On web");
-    	gParticleLayer = cc.Node.create();
-    	gGameLayer = cc.Node.create();
+		cc.log("Canvas rendering");
+		gParticleLayer = cc.Node.create();
+		gGameLayer = cc.Node.create();
     }
 
     gGameLayer.setContentSize(this.gameLayer.getContentSize());
