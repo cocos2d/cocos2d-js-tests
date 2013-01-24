@@ -388,10 +388,13 @@ var g_ressources = [
     {type:"fnt", src:s_arial16_fnt},
     {type:"fnt", src:s_futura48_fnt},
     {type:"fnt", src:s_helvetica32_fnt},
+    {type:"image", src:"res/fonts/helvetica-geneva-32.png"},
     {type:"fnt", src:s_geneva32_fnt},
     {type:"fnt", src:s_arial_unicode_26_fnt},
     {type:"fnt", src:s_markerFelt_fnt},
+    {type:"image", src:"res/fonts/markerFelt.png"},
     {type:"fnt", src:s_markerFelt_hd_fnt},
+    {type:"image", src:"res/fonts/markerFelt-hd.png"},
 
     {type:"plist", src:"res/fonts/strings.xml"},
     {type:"plist", src:"res/Particles/BoilingFoam.plist"},

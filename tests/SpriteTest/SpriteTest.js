@@ -183,6 +183,7 @@ var Sprite1 = SpriteTestDemo.extend({
 //
 //------------------------------------------------------------------
 var SpriteBatchNode1 = SpriteTestDemo.extend({
+
     _title:"Batched Sprite ",
     _subtitle:"Tap screen to add more sprites",
 
@@ -1810,7 +1811,7 @@ var SpriteBatchNodeOffsetAnchorScale = SpriteTestDemo.extend({
 //
 var SpriteOffsetAnchorSkew = SpriteTestDemo.extend({
 
-    _title:"Sprite offset + anchor + scale",
+    _title:"Sprite offset + anchor + skew",
 
     ctor:function () {
         this._super();
@@ -2265,7 +2266,7 @@ var SpriteAnimationSplit = SpriteTestDemo.extend({
 //------------------------------------------------------------------
 var SpriteHybrid = SpriteTestDemo.extend({
     _usingSpriteBatchNode:false,
-    _title:"Hibryd.Sprite* sprite Test",
+    _title:"Hybrid.Sprite* sprite Test",
 
     ctor:function () {
         this._super();
@@ -3765,7 +3766,6 @@ var TextureColorCacheIssue2 = SpriteTestDemo.extend({
     }
 });
 
-
 var SpriteTestScene = TestScene.extend({
     runThisTest:function () {
         sceneIdx = -1;
@@ -3781,7 +3781,6 @@ var SpriteTestScene = TestScene.extend({
 //
 
 var arrayOfSpriteTest = [
-
     Sprite1,
     SpriteBatchNode1,
     SpriteFrameTest,
