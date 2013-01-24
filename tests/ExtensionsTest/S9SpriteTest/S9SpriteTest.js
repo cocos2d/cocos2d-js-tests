@@ -331,8 +331,8 @@ var S9FrameNameSpriteSheetInsets = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9FrameNameSpriteSheetInsets ...");
 
@@ -418,8 +418,8 @@ var S9FrameNameSpriteSheetRotatedInsetsScaled = S9SpriteTestDemo.extend({
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9FrameNameSpriteSheetRotatedInsetsScaled ...");
 
