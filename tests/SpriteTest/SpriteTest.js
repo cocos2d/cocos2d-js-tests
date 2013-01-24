@@ -3766,7 +3766,7 @@ var TextureColorCacheIssue2 = SpriteTestDemo.extend({
     }
 });
 
-var TextureColorRotated = SpriteTestDemo.extend({
+var TextureRotatedSpriteFrame = SpriteTestDemo.extend({
 
     _title:"Sub Sprite (rotated source)",
     _subtitle:"createWithSpriteFrameName(); sub sprite",
@@ -3861,7 +3861,7 @@ var arrayOfSpriteTest = [
     AnimationCacheFile,
     TextureColorCacheIssue,
     TextureColorCacheIssue2,
-    TextureColorRotated
+    TextureRotatedSpriteFrame
 ];
 
 var nextSpriteTest = function () {
