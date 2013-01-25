@@ -997,9 +997,10 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
 
         var arrowsWidth = (ArrowsMax - ArrowsMin) * size.width;
         this.arrowsBarShouldRetain.setScaleX(arrowsWidth / this.arrowsBarShouldRetain.getContentSize().width);
-        this.arrowsBarShouldRetain.setPosition(cc.p(((ArrowsMax + ArrowsMin) / 2) * size.width, this.labelShouldRetain.getPosition().y));
+        this.arrowsBarShouldRetain.setAnchorPoint(cc.p(0, 0.5));
+        this.arrowsBarShouldRetain.setPosition(cc.p(ArrowsMin * size.width, this.labelShouldRetain.getPosition().y));
 
-        this.snapArrowsToEdge();
+        this.arrowsShouldRetain.setPosition(this.arrowsBarShouldRetain.getPosition());
 
         stringMenu.setPosition(cc.p(size.width / 2, size.height - menuItemPaddingCenter));
         alignmentMenu.setPosition(cc.p(size.width / 2, menuItemPaddingCenter + 15));
@@ -1069,7 +1070,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
         }
     },
     onTouchesEnded:function () {
-        this.snapArrowsToEdge();
+        //this.snapArrowsToEdge();
         this.arrowsBarShouldRetain.setVisible(false);
     },
     onTouchesMoved:function (touches) {
@@ -1099,17 +1100,18 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
 
         this.arrowsShouldRetain.setPosition(cc.p(Math.max(Math.min(location.x, ArrowsMax * winSize.width), ArrowsMin * winSize.width),
             this.arrowsShouldRetain.getPosition().y));
+
         var labelWidth = Math.abs(this.arrowsShouldRetain.getPosition().x - this.labelShouldRetain.getPosition().x) * 2;
         this.labelShouldRetain.setWidth(labelWidth);
     },
     onMouseUp:function(touch){
-        this.snapArrowsToEdge();
+        //this.snapArrowsToEdge();
         this.arrowsBarShouldRetain.setVisible(false);
     },
 
     snapArrowsToEdge:function () {
-        this.arrowsShouldRetain.setPosition(cc.p(this.labelShouldRetain.getPosition().x + this.labelShouldRetain.getContentSize().width / 2,
-            this.labelShouldRetain.getPosition().y));
+        var winSize = director.getWinSize();
+        this.arrowsShouldRetain.setPosition(cc.p(ArrowsMin * winSize.width, this.arrowsBarShouldRetain.getPosition().y));
     }
 });
 
