@@ -950,22 +950,18 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
     ctor:function () {
         this._super();
 
-        // 'browser' can use touches or mouse.
-        // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        var t = cc.config.platform;
-        if( t == 'browser' || t == 'mobile')  {
+        if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
-        } else if( t == 'desktop' ) {
+        else if ('mouse' in sys.capabilities )
             this.setMouseEnabled(true);
-        }
 
         // ask director the the window size
         var size = director.getWinSize();
 
         // create and initialize a Label
-        this.labelShouldRetain = cc.LabelBMFont.create(LongSentencesExample, "res/fonts/markerFelt.fnt", size.width / 2, cc.TEXT_ALIGNMENT_CENTER, cc.p(0,0));
-        this.arrowsBarShouldRetain = cc.Sprite.create("res/Images/arrowsBar.png");
-        this.arrowsShouldRetain = cc.Sprite.create("res/Images/arrows.png");
+        this.labelShouldRetain = cc.LabelBMFont.create(LongSentencesExample, s_resprefix + "fonts/markerFelt.fnt", size.width / 2, cc.TEXT_ALIGNMENT_CENTER, cc.p(0,0));
+        this.arrowsBarShouldRetain = cc.Sprite.create(s_resprefix + "Images/arrowsBar.png");
+        this.arrowsShouldRetain = cc.Sprite.create(s_resprefix + "Images/arrows.png");
 
         cc.MenuItemFont.setFontSize(20);
         var longSentences = cc.MenuItemFont.create("Long Flowing Sentences", this.onStringChanged, this);
@@ -1001,9 +997,10 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
 
         var arrowsWidth = (ArrowsMax - ArrowsMin) * size.width;
         this.arrowsBarShouldRetain.setScaleX(arrowsWidth / this.arrowsBarShouldRetain.getContentSize().width);
-        this.arrowsBarShouldRetain.setPosition(cc.p(((ArrowsMax + ArrowsMin) / 2) * size.width, this.labelShouldRetain.getPosition().y));
+        this.arrowsBarShouldRetain.setAnchorPoint(cc.p(0, 0.5));
+        this.arrowsBarShouldRetain.setPosition(cc.p(ArrowsMin * size.width, this.labelShouldRetain.getPosition().y));
 
-        this.snapArrowsToEdge();
+        this.arrowsShouldRetain.setPosition(this.arrowsBarShouldRetain.getPosition());
 
         stringMenu.setPosition(cc.p(size.width / 2, size.height - menuItemPaddingCenter));
         alignmentMenu.setPosition(cc.p(size.width / 2, menuItemPaddingCenter + 15));
@@ -1073,7 +1070,7 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
         }
     },
     onTouchesEnded:function () {
-        this.snapArrowsToEdge();
+        //this.snapArrowsToEdge();
         this.arrowsBarShouldRetain.setVisible(false);
     },
     onTouchesMoved:function (touches) {
@@ -1103,17 +1100,18 @@ var BitmapFontMultiLineAlignment = AtlasDemo.extend({
 
         this.arrowsShouldRetain.setPosition(cc.p(Math.max(Math.min(location.x, ArrowsMax * winSize.width), ArrowsMin * winSize.width),
             this.arrowsShouldRetain.getPosition().y));
+
         var labelWidth = Math.abs(this.arrowsShouldRetain.getPosition().x - this.labelShouldRetain.getPosition().x) * 2;
         this.labelShouldRetain.setWidth(labelWidth);
     },
     onMouseUp:function(touch){
-        this.snapArrowsToEdge();
+        //this.snapArrowsToEdge();
         this.arrowsBarShouldRetain.setVisible(false);
     },
 
     snapArrowsToEdge:function () {
-        this.arrowsShouldRetain.setPosition(cc.p(this.labelShouldRetain.getPosition().x + this.labelShouldRetain.getContentSize().width / 2,
-            this.labelShouldRetain.getPosition().y));
+        var winSize = director.getWinSize();
+        this.arrowsShouldRetain.setPosition(cc.p(ArrowsMin * winSize.width, this.arrowsBarShouldRetain.getPosition().y));
     }
 });
 
@@ -1268,7 +1266,6 @@ var LabelTTFAlignment = AtlasDemo.extend({
 // Flow control
 //
 var arrayOfLabelTest = [
-    BitmapFontMultiLineAlignment,
     LabelAtlasTest,
     LabelAtlasColorTest,
     Atlas3,
