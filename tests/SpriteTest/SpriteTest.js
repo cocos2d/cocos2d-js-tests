@@ -3766,6 +3766,28 @@ var TextureColorCacheIssue2 = SpriteTestDemo.extend({
     }
 });
 
+var TextureRotatedSpriteFrame = SpriteTestDemo.extend({
+
+    _title:"Sub Sprite (rotated source)",
+    _subtitle:"createWithSpriteFrameName(); sub sprite",
+
+    ctor:function() {
+        this._super();
+
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_s9s_blocks9_plist);
+
+        var block = cc.Sprite.createWithSpriteFrameName('blocks9r.png');
+
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
+
+        block.setTextureRect(cc.rect(32, 32, 32, 32), true);
+
+        block.setPosition(cc.p(x, y));
+        this.addChild(block);
+    }
+});
+
 var SpriteTestScene = TestScene.extend({
     runThisTest:function () {
         sceneIdx = -1;
@@ -3838,7 +3860,8 @@ var arrayOfSpriteTest = [
     SpriteBatchBug1217,
     AnimationCacheFile,
     TextureColorCacheIssue,
-    TextureColorCacheIssue2
+    TextureColorCacheIssue2,
+    TextureRotatedSpriteFrame
 ];
 
 var nextSpriteTest = function () {
