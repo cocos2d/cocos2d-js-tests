@@ -18,8 +18,6 @@
 		<string>sounds/gem-3.caf</string>
 		<key>sounds/gem-4.wav</key>
 		<string>sounds/gem-4.caf</string>
-		<key>sounds/loop.wav</key>
-		<string>sounds/loop.caf</string>
 		<key>sounds/miss.wav</key>
 		<string>sounds/miss.caf</string>
 		<key>sounds/powerup.wav</key>
