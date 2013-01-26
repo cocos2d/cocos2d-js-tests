@@ -52,7 +52,7 @@
 	<key>publishDirectoryHTML5</key>
 	<string>Published-HTML5</string>
 	<key>publishEnabledAndroid</key>
-	<false/>
+	<true/>
 	<key>publishEnabledHTML5</key>
 	<true/>
 	<key>publishEnablediPhone</key>
@@ -74,13 +74,13 @@
 	<key>publishResolution_large</key>
 	<true/>
 	<key>publishResolution_medium</key>
-	<true/>
+	<false/>
 	<key>publishResolution_small</key>
 	<true/>
 	<key>publishResolution_xlarge</key>
 	<true/>
 	<key>publishResolution_xsmall</key>
-	<true/>
+	<false/>
 	<key>publishToZipFile</key>
 	<false/>
 	<key>resourceAutoScaleFactor</key>
