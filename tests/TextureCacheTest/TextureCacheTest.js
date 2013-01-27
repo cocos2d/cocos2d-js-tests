@@ -30,6 +30,8 @@ var TextureCacheTest = cc.Layer.extend({
     _numberOfSprites:20,
     _numberOfLoadedSprites:0,
     ctor:function () {
+        this._super();
+
         var size = cc.Director.getInstance().getWinSize();
 
         this._labelLoading = cc.LabelTTF.create("loading...", "Arial", 15);
