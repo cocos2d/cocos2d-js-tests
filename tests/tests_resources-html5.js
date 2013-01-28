@@ -341,6 +341,7 @@ var g_ressources = [
     {type:"plist", src:s_larabie_16_hd_plist},
     {type:"plist", src:s_tuffy_bold_italic_charmap},
     {type:"plist", src:s_tuffy_bold_italic_charmap_hd},
+    {type:"plist", src:"FileUtils/lookup-html5.plist"},
 
     //tmx ressources
     {type:"tmx", src:"res/TileMaps/orthogonal-test1.tmx"},
