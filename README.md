@@ -96,6 +96,8 @@ It is a simple puzzle game. It uses:
   * CocosBuilder
   * cocos2d
 
+__Play it online: [Web version](http://www.cocos2d-iphone.org/t/js-tests/games/CrystalCraze/Published-HTML5/)__
+
 Licensed under MIT.
   
 ## Watermelon with Me ##
@@ -108,7 +110,10 @@ It is a simple physics game. It uses:
   * Chipmunk
   * CocosBuilder
 
+__Play it online: [Web version](http://www.cocos2d-iphone.org/t/js-tests/games/WatermelonWithMe/)__
+
 Licensed under MIT.
+
   
 ## CocosDragon ##
 
@@ -119,6 +124,8 @@ It is a simple _platformer_ game. It uses:
   * cocos2d
   * CocosBuilder
 
+__Play it online: [Web version](http://www.cocos2d-iphone.org/t/js-tests/games/CocosDragonJS/Published%20files%20HTML5/)__
+
 Licensed under MIT.
 
 ## Moon Warriors ##
@@ -128,6 +135,8 @@ Licensed under MIT.
 It is a simple shooter game. It uses:
 
  * cocos2d
+
+__Play it online: [Web version](http://www.cocos2d-iphone.org/t/js-tests/games/MoonWarriors/)__
  
 Art and audio is copyrighted by Enigmata Genus Revenge, you may not use any copyrighted material without permission.
 
