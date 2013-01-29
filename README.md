@@ -87,6 +87,17 @@ These tests can be run unmodified in the following platforms:
 
 # Games
 
+## Crystal Craze ##
+
+![Crystal Craze](https://lh4.googleusercontent.com/-TAnlgBRRZ7Y/UQcU0eAzpbI/AAAAAAAAryY/xbIneibhMH4/s400/Screen%2520Shot%25202013-01-28%2520at%25204.15.12%2520PM.png)
+
+It is a simple puzzle game. It uses:
+
+  * CocosBuilder
+  * cocos2d
+
+Licensed under MIT.
+  
 ## Watermelon with Me ##
 
 ![Watermelon With Me](https://lh6.googleusercontent.com/-P4-hvCiDGP8/ULVSBBtYluI/AAAAAAAAqWY/wZv4vsFQw1M/s400/Screen%2520Shot%25202012-11-27%2520at%25203.49.36%2520PM.png)
