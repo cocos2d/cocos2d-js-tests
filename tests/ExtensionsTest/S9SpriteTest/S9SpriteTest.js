@@ -115,7 +115,7 @@ var S9BatchNodeBasic = S9SpriteTestDemo.extend({
         var blocks = cc.Scale9Sprite.create();
         cc.log("... created");
 
-        blocks.updateWithBatchNode(batchNode, cc.rect(0, 0, 96, 96), false);
+        blocks.updateWithBatchNode(batchNode, cc.rect(0, 0, 96, 96), false, cc.rect(0, 0, 96, 96));
         cc.log("... updateWithBatchNode");
 
         blocks.setPosition(cc.p(x, y));
@@ -205,7 +205,7 @@ var S9BatchNodeScaledNoInsets = S9SpriteTestDemo.extend({
 
         var blocks_scaled = cc.Scale9Sprite.create();
         cc.log("... created");
-        blocks_scaled.updateWithBatchNode(batchNode_scaled, cc.rect(0, 0, 96, 96), false);
+        blocks_scaled.updateWithBatchNode(batchNode_scaled, cc.rect(0, 0, 96, 96), false, cc.rect(0, 0, 96, 96));
         cc.log("... updateWithBatchNode");
 
         blocks_scaled.setPosition(cc.p(x, y));
