@@ -3781,7 +3781,7 @@ var TextureRotatedSpriteFrame = SpriteTestDemo.extend({
         var x = winSize.width / 2;
         var y = 0 + (winSize.height / 2);
 
-        block.setTextureRect(cc.rect(32, 32, 32, 32), true);
+        block.setTextureRect(cc.rect(32, 32, 32, 32), true, cc.rect(32, 32, 32, 32));
 
         block.setPosition(cc.p(x, y));
         this.addChild(block);
