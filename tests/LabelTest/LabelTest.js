@@ -286,7 +286,7 @@ var Atlas3 = AtlasDemo.extend({
         var label2 = cc.LabelBMFont.create("Test", s_resprefix + "fonts/bitmapFontTest2.fnt");
         // testing anchors
         label2.setAnchorPoint(cc.p(0.5, 0.5));
-        label2.setColor(cc.c3b(255,0,0));
+        label2.setColor( cc.RED );
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
         label2.runAction(repeat.copy());
 
@@ -1262,10 +1262,52 @@ var LabelTTFAlignment = AtlasDemo.extend({
     }
 });
 
+var BMFontColorParentChild = AtlasDemo.extend({
+    ctor:function () {
+        this._super();
+
+        this.label = cc.LabelBMFont.create("YRGB", s_resprefix + "fonts/konqa32.fnt");
+        this.addChild(this.label);
+        this.label.setPosition(winSize.width / 2, winSize.height / 2);
+        this.label.setColor( cc.YELLOW );
+
+        // R
+        var letter = this.label.getChildByTag(1);
+        letter.setColor( cc.RED );
+
+        // G
+        letter = this.label.getChildByTag(2);
+        letter.setColor( cc.GREEN );
+
+        // B
+        letter = this.label.getChildByTag(3);
+        letter.setColor( cc.BLUE );
+
+        this.scheduleUpdate();
+
+        this.accum = 0;
+
+    },
+
+    update:function(dt){
+        this.accum += dt;
+
+        this.label.setString("YRGB " + parseInt(this.accum,10).toString() );
+    },
+
+    title:function () {
+        return "cc.LabelBMFont color parent / child";
+    },
+    subtitle:function () {
+        return "Yellow Red Green Blue and numbers in Yellow";
+    }
+});
+
 //
 // Flow control
 //
 var arrayOfLabelTest = [
+
     LabelAtlasTest,
     LabelAtlasColorTest,
     Atlas3,
@@ -1290,7 +1332,8 @@ var arrayOfLabelTest = [
     BMFontUnicode,
     BMFontInit,
     TTFFontInit,
-    LabelTTFAlignment
+    LabelTTFAlignment,
+    BMFontColorParentChild
 ];
 
 var nextLabelTest = function () {
