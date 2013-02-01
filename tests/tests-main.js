@@ -44,7 +44,7 @@ var TestScene = cc.Scene.extend({
     // callbacks
     onEnter:function () {
         this._super();
-        var label = cc.LabelTTF.create("MainMenu", "Arial", 20);
+        var label = cc.LabelTTF.create("Main Menu", "Arial", 20);
         var menuItem = cc.MenuItemLabel.create(label, this.onMainMenuCallback, this);
 
         var menu = cc.Menu.create(menuItem);

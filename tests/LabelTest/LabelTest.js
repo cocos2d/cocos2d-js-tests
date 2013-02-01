@@ -39,21 +39,25 @@ var TAG_LABEL_SPRITE16 = 665;
 var TAG_LABEL_SPRITE17 = 666;
 var TAG_LABEL_SPRITE18 = 667;
 
-var sceneIdx = -1;
+var labelTestIdx = -1;
 
 var LabelTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        labelTestIdx = -1;
         this.addChild(nextLabelTest());
         director.replaceScene(this);
     }
 });
 
 var AtlasDemo = cc.LayerGradient.extend({
+
     ctor:function() {
         this._super();
         cc.associateWithNative( this, cc.LayerGradient );
         this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+
+        if( false )
+            this.scheduleOnce( this.endTest, this.testDuration );
     },
     title:function () {
         return "No title";
@@ -107,72 +111,79 @@ var AtlasDemo = cc.LayerGradient.extend({
         var s = new LabelTestScene();
         s.addChild(previousLabelTest());
         director.replaceScene(s);
-    }
-});
+    },
 
-//------------------------------------------------------------------
-//
-// Atlas1
-//
-//------------------------------------------------------------------
-var Atlas1 = AtlasDemo.extend({
-    textureAtlas:null,
-    ctor:function () {
-        this._super();
-        this.textureAtlas = cc.TextureAtlas.create(s_atlasTest, 3);
+    //------------------------------------------
+    //
+    // Automation Test code
+    //
+    //------------------------------------------
 
-        var s = director.getWinSize();
+    // How many seconds should this test run
+    testDuration:0.25,
 
-        //
-        // Notice: u,v tex coordinates are inverted
-        //
-        var quads = [
-            new cc.V3F_C4B_T2F_Quad(
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(0, 0, 0), cc.c4b(0, 0, 255, 255), new cc.Tex2F(0.0, 1.0)), // bottom left
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width, 0, 0), cc.c4b(0, 0, 255, 0), new cc.Tex2F(1.0, 1.0)), // bottom right
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(0, s.height, 0), cc.c4b(0, 0, 255, 0), new cc.Tex2F(0.0, 0.0)), // top left
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width, s.height, 0), cc.c4b(0, 0, 255, 255), new cc.Tex2F(1.0, 0.0))    // top right
-            ),
+    // Automated test
+    getExpectedResult:function() {
+        // Override me
+        throw "Not Implemented";
+    },
 
-            new cc.V3F_C4B_T2F_Quad(
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(40, 40, 0), cc.c4b(255, 255, 255, 255), new cc.Tex2F(0.0, 0.2)), // bottom left
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(120, 80, 0), cc.c4b(255, 0, 0, 255), new cc.Tex2F(0.5, 0.2)), // bottom right
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(40, 160, 0), cc.c4b(255, 255, 255, 255), new cc.Tex2F(0.0, 0.0)), // top left
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(160, 160, 0), cc.c4b(0, 255, 0, 255), new cc.Tex2F(0.5, 0.0))            // top right
-            ),
+    // Automated test
+    getCurrentResult:function() {
+        // Override me
+        throw "Not Implemented";
+    },
 
-            new cc.V3F_C4B_T2F_Quad(
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width / 2, 40, 0), cc.c4b(255, 0, 0, 255), new cc.Tex2F(0.0, 1.0)), // bottom left
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width, 40, 0), cc.c4b(0, 255, 0, 255), new cc.Tex2F(1.0, 1.0)), // bottom right
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width / 2 - 50, 200, 0), cc.c4b(0, 0, 255, 255), new cc.Tex2F(0.0, 0.0)), // top left
-                new cc.V3F_C4B_T2F(new cc.Vertex3F(s.width, 100, 0), cc.c4b(255, 255, 0, 255), new cc.Tex2F(1.0, 0.0))        // top right
-            )
+    tearDown:function(dt) {
 
-        ];
+        // Override to have a different behavior
+        var current = this.getCurrentResult();
+        var expected = this.getExpectedResult();
 
+        if( current != expected )
+            this.errorDescription = "Expected value: '" + expected + "'. Current value'" + current +  "'.";
 
-        for (var i = 0; i < 3; i++) {
-            this.textureAtlas.updateQuad(quads[i], i);
+        return ( current == expected );
+    },
+
+    endTest:function(dt) {
+
+        this.errorDescription = "";
+        title = this.title();
+
+        try {
+            if( this.tearDown(dt) ) {
+                // Test OK
+                cc.log( "Test '" + title + "':' OK");
+            } else {
+                // Test failed
+                cc.log( "Test '" + title + "': Error: " + this.errorDescription );
+            }
+        } catch(err) {
+            cc.log( "Test '" + title + "':'" + err);
         }
+
+        this.runNextTest();
     },
-    title:function () {
-        return "cc.TextureAtlas";
-    },
-    subtitle:function () {
-        return "Manual creation of cc.TextureAtlas";
-    },
-    draw:function () {
-        this._super();
-        this.textureAtlas.drawQuads();
+
+    runNextTest:function() {
+        cc.log( labelTestIdx );
+        if( labelTestIdx === arrayOfLabelTest.length-1 ) {
+            var scene = cc.Scene.create();
+            var layer = new TestController();
+            scene.addChild(layer);
+            director.replaceScene(scene);
+        } else
+            this.nextCallback(this);
     }
 });
 
 //------------------------------------------------------------------
 //
-// LabelAtlasTest
+// LabelAtlasOpacityTest
 //
 //------------------------------------------------------------------
-var LabelAtlasTest = AtlasDemo.extend({
+var LabelAtlasOpacityTest = AtlasDemo.extend({
     time:null,
     ctor:function () {
         this._super();
@@ -202,19 +213,39 @@ var LabelAtlasTest = AtlasDemo.extend({
         label2.setString(string2);
     },
     title:function () {
-        return "LabelAtlas";
+        return "LabelAtlas Opacity";
     },
     subtitle:function () {
         return "Updating label should be fast";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // yellow, red, green, blue, yellow
+        var ret = [200,32];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        var tags = [TAG_LABEL_SPRITE1, TAG_LABEL_SPRITE12];
+
+        for( var i in tags ) {
+            var t = tags[i];
+            ret.push( this.getChildByTag(t).getOpacity() );
+        }
+        return JSON.stringify(ret);
     }
 });
 
 //------------------------------------------------------------------
 //
-// LabelAtlasColorTest
+// LabelAtlasOpacityColorTest
 //
 //------------------------------------------------------------------
-var LabelAtlasColorTest = AtlasDemo.extend({
+var LabelAtlasOpacityColorTest = AtlasDemo.extend({
     time:null,
     ctor:function () {
         this._super();
@@ -230,7 +261,8 @@ var LabelAtlasColorTest = AtlasDemo.extend({
 
         var fade = cc.FadeOut.create(1.0);
         var fade_in = fade.reverse();
-        var seq = cc.Sequence.create(fade, fade_in);
+        var delay = cc.DelayTime.create(0.25);
+        var seq = cc.Sequence.create(fade, delay, fade_in, delay.copy());
         var repeat = cc.RepeatForever.create(seq);
         label2.runAction(repeat);
 
@@ -249,19 +281,71 @@ var LabelAtlasColorTest = AtlasDemo.extend({
         label2.setString(string2);
     },
     title:function () {
-        return "cc.LabelAtlas";
+        return "LabelAtlas Opacity Color";
     },
     subtitle:function () {
         return "Opacity + Color should work at the same time";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:1,
+    getExpectedResult:function() {
+        // yellow, red, green, blue, yellow
+        var ret = [200,{"r":255,"g":255,"b":255},0,{"r":255,"g":0,"b":0}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        var tags = [TAG_LABEL_SPRITE1, TAG_LABEL_SPRITE12];
+
+        for( var i in tags ) {
+            var t = tags[i];
+            ret.push( this.getChildByTag(t).getOpacity() );
+            ret.push( this.getChildByTag(t).getColor() );
+        }
+        return JSON.stringify(ret);
     }
 });
 
 //------------------------------------------------------------------
 //
-// Atlas3
+// LabelAtlasHD
 //
 //------------------------------------------------------------------
-var Atlas3 = AtlasDemo.extend({
+var LabelAtlasHD = AtlasDemo.extend({
+    ctor:function () {
+        this._super();
+        var s = director.getWinSize();
+
+        // cc.LabelBMFont
+        var label1 = cc.LabelAtlas.create("TESTING RETINA DISPLAY", s_resprefix + "fonts/larabie-16.plist");
+        label1.setAnchorPoint(cc.p(0.5, 0.5));
+
+        this.addChild(label1);
+        label1.setPosition(cc.p(s.width / 2, s.height / 2));
+    },
+    title:function () {
+        return "LabelAtlas with Retina Display";
+    },
+    subtitle:function () {
+        return "loading larabie-16 / larabie-16-hd";
+    }
+
+    //
+    // Automation
+    //
+});
+
+
+//------------------------------------------------------------------
+//
+// BMFontOpacityColorAlignmentTest
+//
+//------------------------------------------------------------------
+var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
     time:0,
     ctor:function () {
         this._super();
@@ -323,14 +407,19 @@ var Atlas3 = AtlasDemo.extend({
     subtitle:function () {
         return "Testing alignment. Testing opacity + tint";
     }
+
+    //
+    // Automation
+    //
+
 });
 
 //------------------------------------------------------------------
 //
-// Atlas4
+// BMFontSubSpriteTest
 //
 //------------------------------------------------------------------
-var Atlas4 = AtlasDemo.extend({
+var BMFontSubSpriteTest = AtlasDemo.extend({
     time:null,
     ctor:function () {
         this._super();
@@ -404,10 +493,10 @@ var Atlas4 = AtlasDemo.extend({
 
 //------------------------------------------------------------------
 //
-// Atlas5
+// BMFontPaddingTest
 //
 //------------------------------------------------------------------
-var Atlas5 = AtlasDemo.extend({
+var BMFontPaddingTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
         var label = cc.LabelBMFont.create("abcdefg", s_resprefix + "fonts/bitmapFontTest4.fnt");
@@ -428,10 +517,10 @@ var Atlas5 = AtlasDemo.extend({
 
 //------------------------------------------------------------------
 //
-// Atlas6
+// BMFontOffsetTest
 //
 //------------------------------------------------------------------
-var Atlas6 = AtlasDemo.extend({
+var BMFontOffsetTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
         var s = director.getWinSize();
@@ -462,10 +551,10 @@ var Atlas6 = AtlasDemo.extend({
 
 //------------------------------------------------------------------
 //
-// AtlasBitmapColor
+// BMFontTintTest
 //
 //------------------------------------------------------------------
-var AtlasBitmapColor = AtlasDemo.extend({
+var BMFontTintTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
         var s = director.getWinSize();
@@ -500,10 +589,10 @@ var AtlasBitmapColor = AtlasDemo.extend({
 
 //------------------------------------------------------------------
 //
-// AtlasFastBitmap
+// BMFontSpeedTest
 //
 //------------------------------------------------------------------
-var AtlasFastBitmap = AtlasDemo.extend({
+var BMFontSpeedTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
         // Upper Label
@@ -529,10 +618,10 @@ var AtlasFastBitmap = AtlasDemo.extend({
 
 //------------------------------------------------------------------
 //
-// BitmapFontMultiLine
+// BMFontMultiLineTest
 //
 //------------------------------------------------------------------
-var BitmapFontMultiLine = AtlasDemo.extend({
+var BMFontMultiLineTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
         var s;
@@ -577,10 +666,10 @@ var BitmapFontMultiLine = AtlasDemo.extend({
 
 //------------------------------------------------------------------
 //
-// BitmapFontMultiLine2
+// BMFontMultiLine2Test
 //
 //------------------------------------------------------------------
-var BitmapFontMultiLine2 = AtlasDemo.extend({
+var BMFontMultiLine2Test = AtlasDemo.extend({
     ctor:function () {
         this._super();
         var s;
@@ -687,10 +776,10 @@ var LabelsEmpty = AtlasDemo.extend({
 
 //------------------------------------------------------------------
 //
-// LabelBMFontHD
+// BMFontHDTest
 //
 //------------------------------------------------------------------
-var LabelBMFontHD = AtlasDemo.extend({
+var BMFontHDTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
         var s = director.getWinSize();
@@ -710,35 +799,10 @@ var LabelBMFontHD = AtlasDemo.extend({
 
 //------------------------------------------------------------------
 //
-// LabelAtlasHD
+// BMFontGlyphDesignerTest
 //
 //------------------------------------------------------------------
-var LabelAtlasHD = AtlasDemo.extend({
-    ctor:function () {
-        this._super();
-        var s = director.getWinSize();
-
-        // cc.LabelBMFont
-        var label1 = cc.LabelAtlas.create("TESTING RETINA DISPLAY", s_resprefix + "fonts/larabie-16.plist");
-        label1.setAnchorPoint(cc.p(0.5, 0.5));
-
-        this.addChild(label1);
-        label1.setPosition(cc.p(s.width / 2, s.height / 2));
-    },
-    title:function () {
-        return "LabelAtlas with Retina Display";
-    },
-    subtitle:function () {
-        return "loading larabie-16 / larabie-16-hd";
-    }
-});
-
-//------------------------------------------------------------------
-//
-// LabelGlyphDesigner
-//
-//------------------------------------------------------------------
-var LabelGlyphDesigner = AtlasDemo.extend({
+var BMFontGlyphDesignerTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
         var s = director.getWinSize();
@@ -910,7 +974,7 @@ var LabelTTFChinese = AtlasDemo.extend({
     }
 });
 
-var LabelBMFontChinese = AtlasDemo.extend({
+var BMFontChineseTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
         var size = director.getWinSize();
@@ -941,7 +1005,7 @@ var Mixed = 2;
 var alignmentItemPadding = 50;
 var menuItemPaddingCenter = 50;
 
-var BitmapFontMultiLineAlignment = AtlasDemo.extend({
+var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
     labelShouldRetain:null,
     arrowsBarShouldRetain:null,
     arrowsShouldRetain:null,
@@ -1215,8 +1279,8 @@ var BMFontInit = AtlasDemo.extend({
     }
 });
 
-// TTFFontInit
-var TTFFontInit = AtlasDemo.extend({
+// LabelTTFFontInitTest
+var LabelTTFFontInitTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
         var font = cc.LabelTTF.create();
@@ -1259,7 +1323,27 @@ var LabelTTFAlignment = AtlasDemo.extend({
     },
     subtitle:function () {
         return "Tests alignment values";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // yellow, red, green, blue, yellow
+        var ret = [{"r":255,"g":255,"b":0},{"r":255,"g":0,"b":0},{"r":0,"g":255,"b":0},{"r":0,"g":0,"b":255},{"r":255,"g":255,"b":0}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        for( var i=0; i<5; i++) {
+            var ch = this.label.getChildByTag(i).getDisplayedColor();
+            ret.push(ch);
+        }
+
+        return JSON.stringify(ret);
     }
+
 });
 
 var BMFontColorParentChild = AtlasDemo.extend({
@@ -1300,6 +1384,25 @@ var BMFontColorParentChild = AtlasDemo.extend({
     },
     subtitle:function () {
         return "Yellow Red Green Blue and numbers in Yellow";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // yellow, red, green, blue, yellow
+        var ret = [{"r":255,"g":255,"b":0},{"r":255,"g":0,"b":0},{"r":0,"g":255,"b":0},{"r":0,"g":0,"b":255},{"r":255,"g":255,"b":0}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        for( var i=0; i<5; i++) {
+            var ch = this.label.getChildByTag(i).getDisplayedColor();
+            ret.push(ch);
+        }
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -1308,47 +1411,50 @@ var BMFontColorParentChild = AtlasDemo.extend({
 //
 var arrayOfLabelTest = [
 
-    LabelAtlasTest,
-    LabelAtlasColorTest,
-    Atlas3,
-    Atlas4,
-    Atlas5,
-    Atlas6,
-    AtlasBitmapColor,
-    AtlasFastBitmap,
-    BitmapFontMultiLine,
-    BitmapFontMultiLine2,
-    LabelsEmpty,
-    LabelBMFontHD,
+    LabelAtlasOpacityTest,
+    LabelAtlasOpacityColorTest,
     LabelAtlasHD,
-    LabelGlyphDesigner,
-    LabelTTFTest,
-    LabelTTFMultiline,
-    LabelTTFChinese,
-    LabelBMFontChinese,
-    BitmapFontMultiLineAlignment,
-    LabelTTFA8Test,
+
+    BMFontOpacityColorAlignmentTest,
+    BMFontSubSpriteTest,
+    BMFontPaddingTest,
+    BMFontOffsetTest,
+    BMFontTintTest,
+    BMFontSpeedTest,
+    BMFontMultiLineTest,
+    BMFontMultiLine2Test,
+    BMFontMultiLineAlignmentTest,
     BMFontOneAtlas,
     BMFontUnicode,
     BMFontInit,
-    TTFFontInit,
+    BMFontColorParentChild,
+    BMFontHDTest,
+    BMFontGlyphDesignerTest,
+    BMFontChineseTest,
+
+    LabelTTFTest,
+    LabelTTFMultiline,
+    LabelTTFChinese,
+    LabelTTFA8Test,
+    LabelTTFFontInitTest,
     LabelTTFAlignment,
-    BMFontColorParentChild
+
+    LabelsEmpty
 ];
 
 var nextLabelTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfLabelTest.length;
+    labelTestIdx++;
+    labelTestIdx = labelTestIdx % arrayOfLabelTest.length;
 
-    return new arrayOfLabelTest[sceneIdx]();
+    return new arrayOfLabelTest[labelTestIdx]();
 };
 var previousLabelTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfLabelTest.length;
+    labelTestIdx--;
+    if (labelTestIdx < 0)
+        labelTestIdx += arrayOfLabelTest.length;
 
-    return new arrayOfLabelTest[sceneIdx]();
+    return new arrayOfLabelTest[labelTestIdx]();
 };
 var restartLabelTest = function () {
-    return new arrayOfLabelTest[sceneIdx]();
+    return new arrayOfLabelTest[labelTestIdx]();
 };
