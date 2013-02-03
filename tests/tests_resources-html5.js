@@ -10,6 +10,7 @@ var s_pathR1 = "res/Images/r1.png";
 var s_pathR2 = "res/Images/r2.png";
 var s_pathF1 = "res/Images/f1.png";
 var s_pathF2 = "res/Images/f2.png";
+var s_pathFog = "res/Images/Fog.png";
 var s_pathBlock = "res/Images/blocks.png";
 var s_back = "res/Images/background.png";
 var s_back1 = "res/Images/background1.png";
@@ -132,6 +133,8 @@ var s_geneva32_fnt = "res/fonts/geneva-32.fnt";
 var s_arial_unicode_26_fnt = "res/fonts/arial-unicode-26.fnt";
 var s_markerFelt_fnt = "res/fonts/markerFelt.fnt";
 var s_markerFelt_hd_fnt = "res/fonts/markerFelt-hd.fnt";
+var s_west_england_64_fnt = "res/fonts/west_england-64.fnt";
+var s_west_england_64_png = "res/fonts/west_england-64.png";
 
 var s_larabie_16_plist = "res/fonts/larabie-16.plist";
 var s_larabie_16_hd_plist = "res/fonts/larabie-16-hd.plist";
@@ -237,6 +240,7 @@ var g_ressources = [
     {type:"image", src:s_pathR2},
     {type:"image", src:s_pathF1},
     {type:"image", src:s_pathF2},
+    {type:"image", src:s_pathFog},
     {type:"image", src:s_pathBlock},
     {type:"image", src:s_back},
     {type:"image", src:s_back1},
@@ -395,6 +399,8 @@ var g_ressources = [
     {type:"image", src:"res/fonts/markerFelt.png"},
     {type:"fnt", src:s_markerFelt_hd_fnt},
     {type:"image", src:"res/fonts/markerFelt-hd.png"},
+    {type:"fnt", src:s_west_england_64_fnt},
+    {type:"image", src:s_west_england_64_png},
 
     {type:"plist", src:"res/fonts/strings.xml"},
     {type:"plist", src:"res/Particles/BoilingFoam.plist"},

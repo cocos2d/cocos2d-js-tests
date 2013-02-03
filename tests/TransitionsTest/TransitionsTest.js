@@ -62,18 +62,43 @@ var TransitionsTests = [
         return new FadeWhiteTransition(t, s);
     }},
 
-    /*function(t,s){ return new FlipXLeftOver(t,s);},
-     function(t,s){ return new FlipXRightOver(t,s);},
-     function(t,s){ return new FlipYUpOver(t,s);},
-     function(t,s){ return new FlipYDownOver(t,s);},
-     function(t,s){ return new FlipAngularLeftOver(t,s);},
-     function(t,s){ return new FlipAngularRightOver(t,s);},
-     function(t,s){ return new ZoomFlipXLeftOver(t,s);},
-     function(t,s){ return new ZoomFlipXRightOver(t,s);},
-     function(t,s){ return new ZoomFlipYUpOver(t,s);},
-     function(t,s){ return new ZoomFlipYDownOver(t,s);},
-     function(t,s){ return new ZoomFlipAngularLeftOver(t,s);},
-     function(t,s){ return new ZoomFlipAngularRightOver(t,s);},*/
+    {title:"FlipXLeftOver", transitionFunc:function (t, s) {
+        return new FlipXLeftOver(t, s);
+    }},
+    {title:"FlipXRightOver", transitionFunc:function (t, s) {
+        return new FlipXRightOver(t, s);
+    }},
+    {title:"FlipYUpOver", transitionFunc:function (t, s) {
+        return new FlipYUpOver(t, s);
+    }},
+    {title:"FlipYDownOver", transitionFunc:function (t, s) {
+        return new FlipYDownOver(t, s);
+    }},
+    {title:"FlipAngularLeftOver", transitionFunc:function (t, s) {
+        return new FlipAngularLeftOver(t, s);
+    }},
+    {title:"FlipAngularRightOver", transitionFunc:function (t, s) {
+        return new FlipAngularRightOver(t, s);
+    }},
+    {title:"ZoomFlipXLeftOver", transitionFunc:function (t, s) {
+        return new ZoomFlipXLeftOver(t, s);
+    }},
+
+    {title:"ZoomFlipXRightOver", transitionFunc:function (t, s) {
+        return new ZoomFlipXRightOver(t, s);
+    }},
+    {title:"ZoomFlipYUpOver", transitionFunc:function (t, s) {
+        return new ZoomFlipYUpOver(t, s);
+    }},
+    {title:"ZoomFlipYDownOver", transitionFunc:function (t, s) {
+        return new ZoomFlipYDownOver(t, s);
+    }},
+    {title:"ZoomFlipAngularLeftOver", transitionFunc:function (t, s) {
+        return new ZoomFlipAngularLeftOver(t, s);
+    }},
+    {title:"ZoomFlipAngularRightOver", transitionFunc:function (t, s) {
+        return new ZoomFlipAngularRightOver(t, s);
+    }},
 
     {title:"ShrinkGrowTransition", transitionFunc:function (t, s) {
         return new ShrinkGrowTransition(t, s);
@@ -104,21 +129,45 @@ var TransitionsTests = [
     }},
     {title:"SlideInBTransition", transitionFunc:function (t, s) {
         return new SlideInBTransition(t, s);
+    }},
+
+    {title:"CCTransitionCrossFade", transitionFunc:function (t, s) {
+        return new CCTransitionCrossFade(t, s);
+    }},
+    {title:"CCTransitionRadialCCW", transitionFunc:function (t, s) {
+        return new CCTransitionRadialCCW(t, s);
+    }},
+    {title:"CCTransitionRadialCW", transitionFunc:function (t, s) {
+        return new CCTransitionRadialCW(t, s);
+    }},
+
+    {title:"PageTransitionForward", transitionFunc:function (t, s) {
+        return new PageTransitionForward(t, s);
+    }},
+    {title:"PageTransitionBackward", transitionFunc:function (t, s) {
+        return new PageTransitionBackward(t, s);
+    }},
+    {title:"FadeTRTransition", transitionFunc:function (t, s) {
+        return new FadeTRTransition(t, s);
+    }},
+    {title:"FadeBLTransition", transitionFunc:function (t, s) {
+        return new FadeBLTransition(t, s);
+    }},
+    {title:"FadeUpTransition", transitionFunc:function (t, s) {
+        return new FadeUpTransition(t, s);
+    }},
+    {title:"FadeDownTransition", transitionFunc:function (t, s) {
+        return new FadeDownTransition(t, s);
+    }},
+    {title:"TurnOffTilesTransition", transitionFunc:function (t, s) {
+        return new TurnOffTilesTransition(t, s);
+    }},
+    {title:"SplitRowsTransition", transitionFunc:function (t, s) {
+        return new SplitRowsTransition(t, s);
+    }},
+    {title:"SplitColsTransition", transitionFunc:function (t, s) {
+        return new SplitColsTransition(t, s);
     }}
-
-    /*function(t,s){ return new CCTransitionCrossFade(t,s);},
-     function(t,s){ return new CCTransitionRadialCCW(t,s);},
-     function(t,s){ return new CCTransitionRadialCW(t,s);},*/
-
-    /*function(t,s){ return new PageTransitionForward(t,s);},
-     function(t,s){ return new PageTransitionBackward(t,s);},
-     function(t,s){ return new FadeTRTransition(t,s);},
-     function(t,s){ return new FadeBLTransition(t,s);},
-     function(t,s){ return new FadeUpTransition(t,s);},
-     function(t,s){ return new FadeDownTransition(t,s);},
-     function(t,s){ return new TurnOffTilesTransition(t,s);},
-     function(t,s){ return new SplitRowsTransition(t,s);},
-     function(t,s){ return new SplitColsTransition(t,s);}*/
 ];
 
 var transitionsIdx = 0;
@@ -135,10 +184,10 @@ var TransitionsTestScene = TestScene.extend({
 });
 
 var TestLayer1 = cc.LayerGradient.extend({
-    ctor:function() {
+    ctor:function () {
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(160,99,117,255));
+        cc.associateWithNative(this, cc.LayerGradient);
+        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(160, 99, 117, 255));
 
         var x, y;
         var size = director.getWinSize();
@@ -167,7 +216,7 @@ var TestLayer1 = cc.LayerGradient.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(0,0);
+        menu.setPosition(0, 0);
         item1.setPosition(size.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2);
         item2.setPosition(size.width / 2, item2.getContentSize().height / 2);
         item3.setPosition(size.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2);
@@ -236,10 +285,10 @@ var TestLayer1 = cc.LayerGradient.extend({
 });
 
 var TestLayer2 = cc.LayerGradient.extend({
-    ctor:function() {
+    ctor:function () {
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(99,160,117,255));
+        cc.associateWithNative(this, cc.LayerGradient);
+        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(99, 160, 117, 255));
 
         var x, y;
         var size = director.getWinSize();
@@ -268,7 +317,7 @@ var TestLayer2 = cc.LayerGradient.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(0,0);
+        menu.setPosition(0, 0);
         item1.setPosition(size.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2);
         item2.setPosition(size.width / 2, item2.getContentSize().height / 2);
         item3.setPosition(size.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2);
@@ -350,7 +399,7 @@ var FadeTransition = function (t, s) {
 };
 
 var FadeWhiteTransition = function (t, s) {
-    return cc.TransitionFade.create(t, s, cc.c3b(255,255,255));
+    return cc.TransitionFade.create(t, s, cc.c3b(255, 255, 255));
 };
 
 var FlipXLeftOver = function (t, s) {
@@ -446,11 +495,11 @@ var CCTransitionCrossFade = function (t, s) {
 };
 
 var CCTransitionRadialCCW = function (t, s) {
-    return cc.TransitionRadialCCW.create(t, s);
+    return cc.TransitionProgressRadialCCW.create(t, s);
 };
 
 var CCTransitionRadialCW = function (t, s) {
-    return cc.TransitionRadialCW.create(t, s);
+    return cc.TransitionProgressRadialCW.create(t, s);
 };
 
 var PageTransitionForward = function (t, s) {

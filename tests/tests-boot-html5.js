@@ -81,6 +81,10 @@
             'UnitTest/UnitTest.js',
             'SysTest/SysTest.js',
             'FileUtils/FileUtilsTest.js',
+            'EffectsTest/EffectsTest.js',
+            'ShaderTest/ShaderString.js',
+            'ShaderTest/ShaderTest.js',
+            'EffectsAdvancedTest/EffectsAdvancedTest.js',
 
             'ExtensionsTest/ExtensionsTest.js',
             'ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js',

@@ -3723,7 +3723,7 @@ var TextureColorCacheIssue = SpriteTestDemo.extend({
         spriteFrameCache.addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
 
         var grossini = cc.Sprite.createWithSpriteFrameName('grossini_dance_01.png');
-        grossini.setPosition(winSize.width/3*1,winSize.height/2);
+        grossini.setPosition(winSize.width/3,winSize.height/2);
 
         var sister = cc.Sprite.createWithSpriteFrameName('grossinis_sister1.png');
         sister.setPosition(winSize.width/3*2,winSize.height/2);
@@ -3749,7 +3749,7 @@ var TextureColorCacheIssue2 = SpriteTestDemo.extend({
         spriteFrameCache.addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
 
         var grossini = cc.Sprite.createWithSpriteFrameName('grossini_dance_01.png');
-        grossini.setPosition(winSize.width/3*1,winSize.height/2);
+        grossini.setPosition(winSize.width/3,winSize.height/2);
 
         var sister = cc.Sprite.createWithSpriteFrameName('grossinis_sister1.png');
         sister.setPosition(winSize.width/3*2,winSize.height/2);

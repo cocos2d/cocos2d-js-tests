@@ -154,14 +154,12 @@ var TestController = cc.LayerGradient.extend({
     onScrollWheel:function(event){
         var delta = event.getWheelDelta();
         this.moveMenu({y:-delta});
-        console.log(1);
         return true;
     },
     moveMenu:function(delta) {
         var current = this._itemMenu.getPosition();
 
         var newY = current.y + delta.y;
-
         if (newY < 0 )
             newY = 0;
 
@@ -254,12 +252,18 @@ var testNames = [
     },
     {
         title:"Effects Test",
-        platforms: PLATFORM_JSB,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new EffectsTestScene();
         }
     },
-    //"EffectAdvancedTest",
+    {
+        title:"Effects Advanced Test",
+        platforms: PLATFORM_HTML5,
+        testScene:function () {
+            return new EffectAdvanceScene();
+        }
+    },
     //"ExtensionsTest",
     {
         title:"FileUtils Test",
@@ -366,6 +370,13 @@ var testNames = [
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new SchedulerTestScene();
+        }
+    },
+    {
+        title:"Shader Test",
+        platforms: PLATFORM_HTML5,
+        testScene:function () {
+            return new ShaderTestScene();
         }
     },
     {

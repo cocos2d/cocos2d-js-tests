@@ -132,6 +132,8 @@ var s_geneva32_fnt = "res/fonts/geneva-32.fnt";
 var s_arial_unicode_26_fnt = "res/fonts/arial-unicode-26.fnt";
 var s_markerFelt_fnt = "res/fonts/markerFelt.fnt";
 var s_markerFelt_hd_fnt = "res/fonts/markerFelt-hd.fnt";
+var s_west_england_64_fnt = "res/fonts/west_england-64.fnt";
+var s_west_england_64_png = "res/fonts/west_england-64.png";
 
 var s_larabie_16_plist = "res/fonts/larabie-16.plist";
 var s_larabie_16_hd_plist = "res/fonts/larabie-16-hd.plist";

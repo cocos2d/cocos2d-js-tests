@@ -65,7 +65,6 @@ function restartParallaxAction() {
     return layer;
 }
 ParallaxDemo = cc.LayerGradient.extend({
-
     _atlas:null,
 
     ctor:function() {
@@ -199,7 +198,6 @@ Parallax2 = ParallaxDemo.extend({
 
 
     ctor:function () {
-
         this._super();
 
         if( 'touches' in sys.capabilities )
