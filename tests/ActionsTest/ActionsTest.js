@@ -444,6 +444,44 @@ var ActionBezier = ActionsDemo.extend({
         return "BezierBy / BezierTo";
     }
 });
+
+//------------------------------------------------------------------
+//
+// ActionBezierToCopy
+//
+//------------------------------------------------------------------
+var ActionBezierToCopy = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+
+        //
+        // startPosition can be any coordinate, but since the movement
+        // is relative to the Bezier curve, make it (0,0)
+        //
+
+        this.centerSprites(2);
+
+        // sprite 1
+        this._tamara.setPosition(80, 160);
+
+        // 3 and only 3 control points should be used for Bezier actions.
+        var controlPoints2 = [ cc.p(100, winSize.height / 2),
+                                cc.p(200, -winSize.height / 2),
+                                cc.p(240, 160) ];
+        var bezierTo1 = cc.BezierTo.create(2, controlPoints2);
+
+        // sprite 2
+        this._kathia.setPosition(80, 160);
+        var bezierTo2 = bezierTo1.copy();
+
+        this._tamara.runAction(bezierTo1);
+        this._kathia.runAction(bezierTo2);
+
+    },
+    subtitle:function () {
+        return "BezierTo copy test. Both sprites should perform the same path";
+    }
+});
 //------------------------------------------------------------------
 //
 // Issue1008
@@ -1870,6 +1908,7 @@ var arrayOfActionsTest = [
     ActionSkewRotateScale,
     ActionJump,
     ActionBezier,
+    ActionBezierToCopy,
     Issue1008,
     ActionCardinalSpline,
     ActionCatmullRom,
