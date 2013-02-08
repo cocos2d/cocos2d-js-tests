@@ -37,6 +37,10 @@
         engineDir:'../../cocos2d/',
         //SingleEngineFile:'',
         appFiles:[//'src/AppDelegate.js',
+
+            // base class
+            'BaseTestLayer/BaseTestLayer.js',
+
             'tests-main.js',
             'tests_resources-html5.js',
 
