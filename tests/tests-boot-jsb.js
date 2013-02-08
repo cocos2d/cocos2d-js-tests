@@ -11,6 +11,10 @@ require("tests-main.js");
 // Load tests files
 
 var tests_files = [
+
+		// base class
+		'BaseTestLayer/BaseTestLayer.js',
+
 		'ActionManagerTest/ActionManagerTest.js',
 		'ActionsTest/ActionsTest.js',
 		'ChipmunkTest/ChipmunkTest.js',

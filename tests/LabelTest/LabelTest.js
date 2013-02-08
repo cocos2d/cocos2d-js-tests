@@ -49,133 +49,40 @@ var LabelTestScene = TestScene.extend({
     }
 });
 
-var AtlasDemo = cc.LayerGradient.extend({
+var AtlasDemo = BaseTestLayer.extend({
 
-    ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
-
-        if( false )
-            this.scheduleOnce( this.endTest, this.testDuration );
-    },
     title:function () {
         return "No title";
     },
     subtitle:function () {
         return "";
     },
-    onEnter:function () {
-        this._super();
-
-        var s = director.getWinSize();
-
-        var label = cc.LabelTTF.create(this.title(), "Arial", 28);
-        this.addChild(label, 1);
-        label.setPosition(cc.p(s.width / 2, s.height - 50));
-
-        var strSubtitle = this.subtitle();
-        if (strSubtitle) {
-            var l = cc.LabelTTF.create(strSubtitle.toString(), "Thonburi", 16);
-            this.addChild(l, 1);
-            l.setPosition(cc.p(s.width / 2, s.height - 80));
-        }
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(cc.p(0,0));
-        var cs = item2.getContentSize();
-        item1.setPosition( cc.p(winSize.width/2 - cs.width*2, cs.height/2) );
-        item2.setPosition( cc.p(winSize.width/2, cs.height/2) );
-        item3.setPosition( cc.p(winSize.width/2 + cs.width*2, cs.height/2) );
-
-        this.addChild(menu, 1);
-    },
-    restartCallback:function (sender) {
+    onRestartCallback:function (sender) {
         var s = new LabelTestScene();
         s.addChild(restartLabelTest());
         director.replaceScene(s);
 
     },
-    nextCallback:function (sender) {
+    onNextCallback:function (sender) {
         var s = new LabelTestScene();
         s.addChild(nextLabelTest());
         director.replaceScene(s);
 
     },
-    backCallback:function (sender) {
+    onBackCallback:function (sender) {
         var s = new LabelTestScene();
         s.addChild(previousLabelTest());
         director.replaceScene(s);
     },
 
-    //------------------------------------------
-    //
-    // Automation Test code
-    //
-    //------------------------------------------
-
-    // How many seconds should this test run
-    testDuration:0.25,
-
-    // Automated test
-    getExpectedResult:function() {
-        // Override me
-        throw "Not Implemented";
+    numberOfPendingTests:function() {
+        return ( (arrayOfLabelTest.length-1) - labelTestIdx );
     },
 
-    // Automated test
-    getCurrentResult:function() {
-        // Override me
-        throw "Not Implemented";
-    },
-
-    tearDown:function(dt) {
-
-        // Override to have a different behavior
-        var current = this.getCurrentResult();
-        var expected = this.getExpectedResult();
-
-        if( current != expected )
-            this.errorDescription = "Expected value: '" + expected + "'. Current value'" + current +  "'.";
-
-        return ( current == expected );
-    },
-
-    endTest:function(dt) {
-
-        this.errorDescription = "";
-        title = this.title();
-
-        try {
-            if( this.tearDown(dt) ) {
-                // Test OK
-                cc.log( "Test '" + title + "':' OK");
-            } else {
-                // Test failed
-                cc.log( "Test '" + title + "': Error: " + this.errorDescription );
-            }
-        } catch(err) {
-            cc.log( "Test '" + title + "':'" + err);
-        }
-
-        this.runNextTest();
-    },
-
-    runNextTest:function() {
-        cc.log( labelTestIdx );
-        if( labelTestIdx === arrayOfLabelTest.length-1 ) {
-            var scene = cc.Scene.create();
-            var layer = new TestController();
-            scene.addChild(layer);
-            director.replaceScene(scene);
-        } else
-            this.nextCallback(this);
+    getTestNumber:function() {
+        return labelTestIdx;
     }
+
 });
 
 //------------------------------------------------------------------
