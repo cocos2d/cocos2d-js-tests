@@ -448,7 +448,10 @@ var ActionBezierToCopy = ActionsDemo.extend({
 
     },
     title:function () {
-        return "cc.BezierTo copy test. Both sprites should perform the same path";
+        return "cc.BezierTo copy test";
+    },
+    subtitle:function() {
+        return "Both sprites should move across the same path";
     }
 });
 //------------------------------------------------------------------
