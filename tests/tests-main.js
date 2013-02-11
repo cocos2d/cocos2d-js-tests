@@ -312,6 +312,13 @@ var testNames = [
     },
     //"MotionStreakTest",
     {
+        title:"OpenGL Test",
+        platforms: PLATFORM_JSB,
+        testScene:function () {
+            return new OpenGLTestScene();
+        }
+    },
+    {
         title:"Parallax Test",
         platforms: PLATFORM_ALL,
         testScene:function () {
