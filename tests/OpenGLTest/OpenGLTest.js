@@ -90,23 +90,32 @@ var ReadPixelsTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        var sprite = cc.Sprite.create("grossini.png");
-        this.addChild( sprite );
-        sprite.setPosition( winSize.width/2, winSize.height/2);
+        if( 'opengl' in sys.capabilities ) {
 
-        var texture = sprite.getTexture();
-        gl.bindTexture( gl.TEXTURE_2D, texture );
+            var x = winSize.width;
+            var y = winSize.height;
 
-        var w = texture.getPixelsWide();
-        var h = texture.getPixelsHigh();
+            var blue = cc.LayerColor.create(cc.c4b(0, 0, 255, 255));
+            var red = cc.LayerColor.create(cc.c4b(255, 0, 0, 255));
+            var green = cc.LayerColor.create(cc.c4b(0, 255, 0, 255));
+            var white = cc.LayerColor.create(cc.c4b(255, 255, 255, 255));
 
-        var s = 4 * w * h;
-        var pixelValues = new Uint8Array(s);
-        gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, pixelValues);
+            blue.setScale(0.5);
+            blue.setPosition(-x / 4, -y / 4);
 
-        cc.log( s );
-        for( var i=0; i < w*h*4; i++) {
-            cc.log( i + ': ' + pixelValues[i] );
+            red.setScale(0.5);
+            red.setPosition(x / 4, -y / 4);
+
+            green.setScale(0.5);
+            green.setPosition(-x / 4, y / 4);
+
+            white.setScale(0.5);
+            white.setPosition(x / 4, y / 4);
+
+            this.addChild(blue,10);
+            this.addChild(white,11);
+            this.addChild(green,12);
+            this.addChild(red,13);
         }
     },
 
@@ -115,7 +124,42 @@ var ReadPixelsTest = OpenGLTestLayer.extend({
     },
     subtitle:function () {
         return "Tests ReadPixels. See console";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // red, green, blue, white
+        var ret = [{"0":255,"1":0,"2":0,"3":255},{"0":0,"1":255,"2":0,"3":255},{"0":0,"1":0,"2":255,"3":255},{"0":255,"1":255,"2":255,"3":255}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var x = winSize.width;
+        var y = winSize.height;
+
+        var rPixels = new Uint8Array(4);
+        var gPixels = new Uint8Array(4);
+        var bPixels = new Uint8Array(4);
+        var wPixels = new Uint8Array(4);
+
+        // blue
+        gl.readPixels(0,   0,   1, 1, gl.RGBA, gl.UNSIGNED_BYTE, bPixels);
+
+        // red
+        gl.readPixels(x-1, 0,   1, 1, gl.RGBA, gl.UNSIGNED_BYTE, rPixels);
+
+        // green
+        gl.readPixels(0,   y-1, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, gPixels);
+
+        // white
+        gl.readPixels(x-1, y-1, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, wPixels);
+
+        var ret = [ rPixels, gPixels, bPixels, wPixels];
+        return JSON.stringify(ret);
     }
+
 });
 
 

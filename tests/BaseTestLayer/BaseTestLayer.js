@@ -52,13 +52,13 @@ var BaseTestLayer = cc.LayerGradient.extend({
         this._super();
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 28);
-        this.addChild(label, 1);
+        this.addChild(label, 100);
         label.setPosition(winSize.width / 2, winSize.height - 50);
 
         var strSubtitle = this.subtitle();
         if (strSubtitle) {
             var l = cc.LabelTTF.create(strSubtitle.toString(), "Thonburi", 16);
-            this.addChild(l, 1);
+            this.addChild(l, 101);
             l.setPosition(winSize.width / 2, winSize.height - 80);
         }
 
