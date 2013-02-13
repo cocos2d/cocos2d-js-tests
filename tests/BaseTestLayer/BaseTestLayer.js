@@ -74,7 +74,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
         item2.setPosition( winSize.width/2, cs.height/2 );
         item3.setPosition( winSize.width/2 + cs.width*2, cs.height/2 );
 
-        this.addChild(menu, 1);
+        this.addChild(menu, 102);
     },
     onRestartCallback:function (sender) {
         // override me

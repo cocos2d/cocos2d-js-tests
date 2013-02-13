@@ -85,7 +85,7 @@ var OpenGLTestLayer = BaseTestLayer.extend({
 // ReadPixelsTest
 //
 //------------------------------------------------------------------
-var ReadPixelsTest = OpenGLTestLayer.extend({
+var GLReadPixelsTest = OpenGLTestLayer.extend({
 
     ctor:function() {
         this._super();
@@ -163,14 +163,162 @@ var ReadPixelsTest = OpenGLTestLayer.extend({
 });
 
 
+//------------------------------------------------------------------
+//
+// GLClearTest
+//
+//------------------------------------------------------------------
+var GLClearTest = OpenGLTestLayer.extend({
 
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+            var blue = cc.LayerColor.create(cc.c4b(0, 0, 255, 255));
+            this.addChild( blue, 1 );
+
+            var node = new cc.GLNode();
+            node.init();
+            node.draw = function() {
+                gl.clear( gl.COLOR_BUFFER_BIT );
+            };
+
+            this.addChild( node, 10 );
+            node.setPosition( winSize.width/2, winSize.height/2 );
+        }
+    },
+
+    title:function () {
+        return "gl.clear(gl.COLOR_BUFFER_BIT)";
+    },
+    subtitle:function () {
+        return "Testing gl.clear() with cc.GLNode";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // black pixel, not a blue pixel
+        var ret = {"0":0,"1":0,"2":0,"3":255};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = new Uint8Array(4);
+        gl.readPixels(winSize.width/2,  winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        return JSON.stringify(ret);
+    }
+});
+
+//------------------------------------------------------------------
+//
+// GLCustomDrawTest
+//
+//------------------------------------------------------------------
+var GLCustomDrawTest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+            // simple shader example taken from:
+            // http://learningwebgl.com/blog/?p=134
+            var vsh = "\n" +
+"attribute vec3 aVertexPosition;\n" +
+"attribute vec4 aVertexColor;\n" +
+"uniform mat4 uMVMatrix;\n" +
+"uniform mat4 uPMatrix;\n" +
+"varying vec4 vColor;\n" +
+"void main(void) {\n" +
+" gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);\n" +
+" vColor = aVertexColor;\n" +
+"}\n";
+
+            var fsh = "\n" +
+"#ifdef GL_ES\n" +
+"precision mediump float;\n" +
+"#endif\n" +
+"varying vec4 vColor;\n" +
+"void main(void) {\n"+
+" gl_FragColor = vColor;\n" +
+"}\n";
+
+            var fshader = this.compileShader(fsh, 'fragment');
+            var vshader = this.compileShader(vsh, 'vertex');
+
+            this.shaderProgram = gl.createProgram();
+
+            gl.attachShader(this.shaderProgram, vshader);
+            gl.attachShader(this.shaderProgram, fshader);
+            gl.linkProgram(this.shaderProgram);
+
+            if (!gl.getProgramParameter(this.shaderProgram, gl.LINK_STATUS)) {
+                throw("Could not initialise shaders");
+            }
+
+
+            gl.useProgram(this.shaderProgram);
+
+            var vertexPositionAttribute = gl.getAttribLocation(this.shaderProgram, "aVertexPosition");
+            gl.enableVertexAttribArray(vertexPositionAttribute);
+
+            var vertexColorAttribute = gl.getAttribLocation(this.shaderProgram, "aVertexColor");
+            gl.enableVertexAttribArray(vertexColorAttribute);
+
+            var pMatrixUniform = gl.getUniformLocation(this.shaderProgram, "uPMatrix");
+            var mvMatrixUniform = gl.getUniformLocation(this.shaderProgram, "uMVMatrix");
+        }
+    },
+
+    compileShader:function(source, type) {
+        var shader;
+        if( type == 'fragment' )
+            shader = gl.createShader(gl.FRAGMENT_SHADER);
+        else
+            shader = gl.createShader(gl.VERTEX_SHADER);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if( !gl.getShaderParameter(shader, gl.COMPILE_STATUS) ) {
+            cc.log( gl.getShaderInfoLog(shader) );
+            throw("Could not compile " + type + " shaders");
+        }
+        return shader;
+    },
+
+    title:function () {
+        return "gl.drawElements(gl.COLOR_BUFFER_BIT)";
+    },
+    subtitle:function () {
+        return "Testing gl.clear() with cc.GLNode";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // black pixel, not a blue pixel
+        var ret = {"0":0,"1":0,"2":0,"3":255};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = new Uint8Array(4);
+        gl.readPixels(winSize.width/2,  winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        return JSON.stringify(ret);
+    }
+});
 //-
 //
 // Flow control
 //
 var arrayOfOpenGLTest = [
 
-    ReadPixelsTest
+    GLReadPixelsTest,
+    GLClearTest,
+    GLCustomDrawTest
 ];
 
 var nextOpenGLTest = function () {
