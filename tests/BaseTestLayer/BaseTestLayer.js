@@ -23,6 +23,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+var autoTestEnabled = autoTestEnabled || false;
+
 var BaseTestLayer = cc.LayerGradient.extend({
 
     ctor:function(colorA, colorB ) {
@@ -39,7 +41,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
             b = colorB;
         this.init( a, b );
 
-        if( false ) {
+        if( autoTestEnabled ) {
             this.totalNumberOfTests = this.numberOfPendingTests();
             this.scheduleOnce( this.endTest, this.testDuration );
         }

@@ -146,8 +146,6 @@ var ActionManual = ActionsDemo.extend({
     onEnter:function () {
         this._super();
 
-        var s = director.getWinSize();
-
         this._tamara.setScaleX(2.5);
         //window.tam = this._tamara;
         this._tamara.setScaleY(-1.0);
@@ -155,10 +153,10 @@ var ActionManual = ActionsDemo.extend({
         this._tamara.setOpacity(128);
 
         this._grossini.setRotation(120);
-        this._grossini.setPosition(s.width / 2, s.height / 2);
+        this._grossini.setPosition(winSize.width / 2, winSize.height / 2);
         this._grossini.setColor(cc.c3b(255, 0, 0));
 
-        this._kathia.setPosition(s.width - 100, s.height / 2);
+        this._kathia.setPosition(winSize.width - 100, winSize.height / 2);
         this._kathia.setColor(cc.c3b(0,0,255));
     },
 
@@ -167,6 +165,31 @@ var ActionManual = ActionsDemo.extend({
     },
     subtitle:function () {
         return "Manual Transformation";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:0.1,
+    getExpectedResult:function() {
+        var ret = [2.5,{"x":100,"y":70},128,120,{"x":winSize.width/2,"y":winSize.height/2},{"r":255,"g":0,"b":0},{"x":winSize.width - 100,"y":winSize.height / 2},{"r":0,"g":0,"b":255}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getScaleX() );
+        ret.push( this._tamara.getPosition() );
+        ret.push( this._tamara.getOpacity() );
+
+        ret.push( this._grossini.getRotation() );
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._grossini.getColor() );
+
+        ret.push( this._kathia.getPosition() );
+        ret.push( this._kathia.getColor() );
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -189,7 +212,7 @@ var ActionMove = ActionsDemo.extend({
 
         var actionTo = cc.MoveTo.create(2, cc.p(s.width - 40, s.height - 40));
 
-        var actionBy = cc.MoveBy.create(2, cc.p(80, 80));
+        var actionBy = cc.MoveBy.create(1, cc.p(80, 80));
         var actionByBack = actionBy.reverse();
 
         this._tamara.runAction(actionTo);
@@ -198,7 +221,26 @@ var ActionMove = ActionsDemo.extend({
     },
     title:function () {
         return "cc.MoveTo / cc.MoveBy";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [{"x":winSize.width-40,"y":winSize.height-40},{"x":winSize.width/2,"y":winSize.height/2},{"x":40,"y":40}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getPosition() );
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._kathia.getPosition() );
+
+        return JSON.stringify(ret);
     }
+
 });
 
 //------------------------------------------------------------------
@@ -221,13 +263,80 @@ var ActionScale = ActionsDemo.extend({
         var actionBy2 = cc.ScaleBy.create(2, 0.25, 4.5);
 
         this._tamara.runAction(actionTo);
-        this._kathia.runAction(cc.Sequence.create(actionBy2, actionBy2.reverse()));
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionBy.reverse()));
+        this._kathia.runAction(cc.Sequence.create(actionBy2, cc.DelayTime.create(0.25), actionBy2.reverse()));
+        this._grossini.runAction(cc.Sequence.create(actionBy, cc.DelayTime.create(0.25), actionBy.reverse()));
 
     },
     title:function () {
         return "cc.ScaleTo / cc.ScaleBy";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [0.5,2,0.25,4.5];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getScale() );
+        ret.push( this._grossini.getScale() );
+        ret.push( this._kathia.getScaleX() );
+        ret.push( this._kathia.getScaleY() );
+
+        return JSON.stringify(ret);
     }
+});
+
+//------------------------------------------------------------------
+//
+//  ActionRotate
+//
+//------------------------------------------------------------------
+var ActionRotate = ActionsDemo.extend({
+
+    _code:"a = cc.RotateBy.create( time, degrees );\n" +
+            "a = cc.RotateTo.create( time, degrees );",
+
+    onEnter:function () {
+        this._super();
+        this.centerSprites(3);
+        var actionTo = cc.RotateTo.create(2, 45);
+        var actionTo2 = cc.RotateTo.create(2, -45);
+        var actionTo0 = cc.RotateTo.create(2, 0);
+        this._tamara.runAction(cc.Sequence.create(actionTo, cc.DelayTime.create(0.25), actionTo0));
+
+        var actionBy = cc.RotateBy.create(2, 360);
+        var actionByBack = actionBy.reverse();
+        this._grossini.runAction(cc.Sequence.create(actionBy, cc.DelayTime.create(0.25), actionByBack));
+
+        this._kathia.runAction(cc.Sequence.create(actionTo2, cc.DelayTime.create(0.25), actionTo0.copy()));
+
+    },
+    title:function () {
+        return "cc.RotateTo / cc.RotateBy";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [45,360,-45];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getRotation() );
+        ret.push( this._grossini.getRotation() );
+        ret.push( this._kathia.getRotation() );
+
+        return JSON.stringify(ret);
+    }
+
 });
 
 //------------------------------------------------------------------
@@ -248,24 +357,45 @@ var ActionSkew = ActionsDemo.extend({
         var actionBy = cc.SkewBy.create(2, 0, -90);
         var actionBy2 = cc.SkewBy.create(2, 45.0, 45.0);
 
-        this._tamara.runAction(cc.Sequence.create(actionTo, actionToBack));
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionBy.reverse()));
+        var delay = cc.DelayTime.create(0.25);
 
-        this._kathia.runAction(cc.Sequence.create(actionBy2, actionBy2.reverse()));
+        this._tamara.runAction(cc.Sequence.create(actionTo, delay, actionToBack));
+        this._grossini.runAction(cc.Sequence.create(actionBy, delay.copy(), actionBy.reverse()));
+
+        this._kathia.runAction(cc.Sequence.create(actionBy2, delay.copy(), actionBy2.reverse()));
     },
     title:function () {
         return "cc.SkewTo / cc.SkewBy";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = ["37.20","-37.20",0,0,45,45];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getSkewX().toFixed(2) );
+        ret.push( this._tamara.getSkewY().toFixed(2) );
+
+        ret.push( this._grossini.getSkewX() );
+        ret.push( this._grossini.getSkewX() );
+
+        ret.push( this._kathia.getSkewX() );
+        ret.push( this._kathia.getSkewY() );
+
+        return JSON.stringify(ret);
     }
 });
 
 var ActionSkewRotateScale = ActionsDemo.extend({
     onEnter:function () {
         this._super();
-        this._tamara.removeFromParent();
-        this._grossini.removeFromParent();
-        this._kathia.removeFromParent();
 
-        var winSize = director.getWinSize();
+        this.centerSprites(0);
 
         var boxSize = cc.size(100.0, 100.0);
         var box = cc.LayerColor.create(cc.c4b(255, 255, 0, 255));
@@ -296,45 +426,38 @@ var ActionSkewRotateScale = ActionsDemo.extend({
         var rotateToBack = cc.RotateTo.create(2, 0);
         var actionToBack = cc.SkewTo.create(2, 0, 0);
 
-        box.runAction(cc.Sequence.create(actionTo, actionToBack));
-        box.runAction(cc.Sequence.create(rotateTo, rotateToBack));
-        box.runAction(cc.Sequence.create(actionScaleTo, actionScaleToBack));
+        var delay = cc.DelayTime.create(0.25);
+
+        box.runAction(cc.Sequence.create(actionTo, delay, actionToBack));
+        box.runAction(cc.Sequence.create(rotateTo, delay.copy(), rotateToBack));
+        box.runAction(cc.Sequence.create(actionScaleTo, delay.copy(), actionScaleToBack));
+
+        this.box = box;
     },
     title:function () {
         return "Skew + Rotate + Scale";
-    }
-});
-
-//------------------------------------------------------------------
-//
-//	ActionRotate
-//
-//------------------------------------------------------------------
-var ActionRotate = ActionsDemo.extend({
-
-    _code:"a = cc.RotateBy.create( time, degrees );\n" +
-            "a = cc.RotateTo.create( time, degrees );",
-
-    onEnter:function () {
-        this._super();
-        this.centerSprites(3);
-        var actionTo = cc.RotateTo.create(2, 45);
-        var actionTo2 = cc.RotateTo.create(2, -45);
-        var actionTo0 = cc.RotateTo.create(2, 0);
-        this._tamara.runAction(cc.Sequence.create(actionTo, actionTo0));
-
-        var actionBy = cc.RotateBy.create(2, 360);
-        var actionByBack = actionBy.reverse();
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionByBack));
-
-        this._kathia.runAction(cc.Sequence.create(actionTo2, actionTo0.copy()));
-
     },
-    title:function () {
-        return "cc.RotateTo / cc.RotateBy";
-    }
-});
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [0,2,61,"-0.44","0.47"];
+        return JSON.stringify(ret);
+    },
 
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.box.getSkewX() );
+        ret.push( this.box.getSkewY() );
+        ret.push( this.box.getRotation() );
+        ret.push( this.box.getScaleX().toFixed(2) );
+        ret.push( this.box.getScaleY().toFixed(2) );
+
+        return JSON.stringify(ret);
+    }
+
+});
 
 //------------------------------------------------------------------
 //
