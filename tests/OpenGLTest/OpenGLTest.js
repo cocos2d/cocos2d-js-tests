@@ -249,28 +249,130 @@ var GLCustomDrawTest = OpenGLTestLayer.extend({
             var fshader = this.compileShader(fsh, 'fragment');
             var vshader = this.compileShader(vsh, 'vertex');
 
-            this.shaderProgram = gl.createProgram();
+            var shaderProgram = this.shaderProgram = gl.createProgram();
 
-            gl.attachShader(this.shaderProgram, vshader);
-            gl.attachShader(this.shaderProgram, fshader);
-            gl.linkProgram(this.shaderProgram);
+            gl.attachShader(shaderProgram, vshader);
+            gl.attachShader(shaderProgram, fshader);
+            gl.linkProgram(shaderProgram);
 
-            if (!gl.getProgramParameter(this.shaderProgram, gl.LINK_STATUS)) {
+            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
                 throw("Could not initialise shaders");
             }
 
 
-            gl.useProgram(this.shaderProgram);
+            gl.useProgram(shaderProgram);
 
-            var vertexPositionAttribute = gl.getAttribLocation(this.shaderProgram, "aVertexPosition");
-            gl.enableVertexAttribArray(vertexPositionAttribute);
+            shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+            gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
 
-            var vertexColorAttribute = gl.getAttribLocation(this.shaderProgram, "aVertexColor");
-            gl.enableVertexAttribArray(vertexColorAttribute);
+            shaderProgram.vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
+            gl.enableVertexAttribArray(shaderProgram.vertexColorAttribute);
 
-            var pMatrixUniform = gl.getUniformLocation(this.shaderProgram, "uPMatrix");
-            var mvMatrixUniform = gl.getUniformLocation(this.shaderProgram, "uMVMatrix");
+            shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
+            shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
+
+            this.initBuffers();
+
+            var glnode = cc.GLNode.create();
+            this.addChild(glnode,10);
+            this.glnode = glnode;
+
+            glnode.draw = function() {
+
+                var pMatrix = [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1];
+                this.pMatrix = pMatrix = new Float32Array(pMatrix);
+
+                var mvMatrix = [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1];
+                this.mvMatrix = mvMatrix = new Float32Array(mvMatrix);
+
+                gl.useProgram(this.shaderProgram);
+                gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.pMatrix);
+                gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
+
+                gl.enableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
+                gl.enableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
+
+
+                // Draw fullscreen Square
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexPositionBuffer);
+                gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexColorBuffer);
+                gl.vertexAttribPointer(this.shaderProgram.vertexColorAttribute, this.squareVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+                this.setMatrixUniforms();
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.squareVertexPositionBuffer.numItems);
+
+
+                // Draw fullscreen Triangle
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.triangleVertexPositionBuffer);
+                gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.triangleVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.triangleVertexColorBuffer);
+                gl.vertexAttribPointer(this.shaderProgram.vertexColorAttribute, this.triangleVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+                gl.drawArrays(gl.TRIANGLES, 0, this.triangleVertexPositionBuffer.numItems);
+
+
+                gl.bindBuffer(gl.ARRAY_BUFFER,0);
+
+            }.bind(this);
+
         }
+    },
+
+    setMatrixUniforms:function() {
+        gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.pMatrix);
+        gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
+    },
+
+    initBuffers:function() {
+        var triangleVertexPositionBuffer = this.triangleVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer);
+        var vertices = [
+             0.0,  1.0,  0.0,
+            -1.0, -1.0,  0.0,
+             1.0, -1.0,  0.0
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        triangleVertexPositionBuffer.itemSize = 3;
+        triangleVertexPositionBuffer.numItems = 3;
+
+        var triangleVertexColorBuffer = this.triangleVertexColorBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer);
+        var colors = [
+            1.0, 0.0, 0.0, 1.0,
+            1.0, 0.0, 0.0, 1.0,
+            1.0, 0.0, 0.0, 1.0
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+        triangleVertexColorBuffer.itemSize = 4;
+        triangleVertexColorBuffer.numItems = 3;
+
+
+        var squareVertexPositionBuffer = this.squareVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
+        vertices = [
+             1.0,  1.0,  0.0,
+            -1.0,  1.0,  0.0,
+             1.0, -1.0,  0.0,
+            -1.0, -1.0,  0.0
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        squareVertexPositionBuffer.itemSize = 3;
+        squareVertexPositionBuffer.numItems = 4;
+
+        var squareVertexColorBuffer = this.squareVertexColorBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer);
+        colors = [];
+        for (var i=0; i < 4; i++) {
+            colors = colors.concat([0.0, 0.0, 1.0, 1.0]);
+        }
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+        squareVertexColorBuffer.itemSize = 4;
+        squareVertexColorBuffer.numItems = 4;
+
+        gl.bindBuffer(gl.ARRAY_BUFFER,0);
     },
 
     compileShader:function(source, type) {
@@ -283,31 +385,36 @@ var GLCustomDrawTest = OpenGLTestLayer.extend({
         gl.compileShader(shader);
         if( !gl.getShaderParameter(shader, gl.COMPILE_STATUS) ) {
             cc.log( gl.getShaderInfoLog(shader) );
-            throw("Could not compile " + type + " shaders");
+            throw("Could not compile " + type + " shader");
         }
         return shader;
     },
 
     title:function () {
-        return "gl.drawElements(gl.COLOR_BUFFER_BIT)";
+        return "gl.drawElements()";
     },
     subtitle:function () {
-        return "Testing gl.clear() with cc.GLNode";
+        return "blue background with a red triangle in the middle";
     },
 
     //
     // Automation
     //
     getExpectedResult:function() {
-        // black pixel, not a blue pixel
-        var ret = {"0":0,"1":0,"2":0,"3":255};
+        // blue, red, blue
+        var ret = [{"0":0,"1":0,"2":255,"3":255},{"0":0,"1":0,"2":255,"3":255},{"0":255,"1":0,"2":0,"3":255}];
         return JSON.stringify(ret);
     },
 
     getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2,  winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
-        return JSON.stringify(ret);
+        var ret1 = new Uint8Array(4);
+        gl.readPixels(10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret1);
+        var ret2 = new Uint8Array(4);
+        gl.readPixels(winSize.width-10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret2);
+        var ret3 = new Uint8Array(4);
+        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret3);
+
+        return JSON.stringify([ret1,ret2,ret3]);
     }
 });
 //-
