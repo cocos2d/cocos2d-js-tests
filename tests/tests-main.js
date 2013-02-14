@@ -90,14 +90,14 @@ var TestController = cc.LayerGradient.extend({
         var closeItem = cc.MenuItemImage.create(s_pathClose, s_pathClose, this.onCloseCallback, this);
         closeItem.setPosition(winSize.width - 30, winSize.height - 30);
 
-        var subItem1 = cc.MenuItemFont.create("Enable AutoTest: Off");
+        var subItem1 = cc.MenuItemFont.create("Automated Test: Off");
         subItem1.setFontSize(18);
-        var subItem2 = cc.MenuItemFont.create("Enable AutoTest: On");
+        var subItem2 = cc.MenuItemFont.create("Automated Test: On");
         subItem2.setFontSize(18);
 
         var toggleAutoTestItem = cc.MenuItemToggle.create(subItem1, subItem2);
         toggleAutoTestItem.setCallback(this.onToggleAutoTest, this);
-        toggleAutoTestItem.setPosition(winSize.width-80, 20);
+        toggleAutoTestItem.setPosition(winSize.width-90, 20);
 
         var menu = cc.Menu.create(closeItem, toggleAutoTestItem);//pmenu is just a holder for the close button
         menu.setPosition(0,0);
