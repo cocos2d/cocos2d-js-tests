@@ -641,20 +641,17 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
     // Automation
     //
     getExpectedResult:function() {
-        // blue, red, blue
-        var ret = [{"0":0,"1":0,"2":255,"3":255},{"0":0,"1":0,"2":255,"3":255},{"0":255,"1":0,"2":0,"3":255}];
+        // redish pixel
+        var ret = {"0":255,"1":0,"2":0,"3":255};
         return JSON.stringify(ret);
     },
 
     getCurrentResult:function() {
-        var ret1 = new Uint8Array(4);
-        gl.readPixels(10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret1);
-        var ret2 = new Uint8Array(4);
-        gl.readPixels(winSize.width-10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret2);
-        var ret3 = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret3);
-
-        return JSON.stringify([ret1,ret2,ret3]);
+        var ret = new Uint8Array(4);
+        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        ret[0] = ret[0] > 240 ? 255 : 0;
+        ret[3] = ret[3] > 240 ? 255 : 0;
+        return JSON.stringify(ret);
     }
 });
 //-
