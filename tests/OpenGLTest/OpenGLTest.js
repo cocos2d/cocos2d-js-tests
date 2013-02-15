@@ -654,6 +654,57 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
         return JSON.stringify(ret);
     }
 });
+
+//------------------------------------------------------------------
+//
+// GLGetActiveTest
+//
+//------------------------------------------------------------------
+var GLGetActiveTest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+            var sprite = this.sprite = cc.Sprite.create("grossini.png");
+            sprite.setPosition( winSize.width/2, winSize.height/2);
+            this.addChild( sprite );
+
+            // after auto test
+            this.scheduleOnce( this.onTest, 0.5 );
+        }
+    },
+
+    onTest:function(dt) {
+        cc.log( this.getCurrentResult() );
+    },
+
+    title:function () {
+        return "gl.getActive***";
+    },
+    subtitle:function () {
+        return "Tests gl.getActiveUniform / getActiveAttrib. See console";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // redish pixel
+        var ret = [{"size":1,"type":35666,"name":"a_position"},{"size":1,"type":35678,"name":"CC_Texture"},[2,3]];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        var p = this.sprite.getShaderProgram().getProgram();
+        ret.push( gl.getActiveAttrib( p, 0 ) );
+        ret.push( gl.getActiveUniform( p, 0 ) );
+        ret.push( gl.getAttachedShaders( p ) );
+        return JSON.stringify(ret);
+    }
+});
+
 //-
 //
 // Flow control
@@ -664,7 +715,8 @@ var arrayOfOpenGLTest = [
     GLClearTest,
     GLNodeWebGLAPITest,
     GLNodeCCAPITest,
-    ShaderHeartTest
+    ShaderHeartTest,
+    GLGetActiveTest
 ];
 
 var nextOpenGLTest = function () {
