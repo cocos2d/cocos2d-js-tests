@@ -1,8 +1,7 @@
 /****************************************************************************
- Copyright (c) 2010-2012 cocos2d-x.org
- Copyright (c) 2008-2010 Ricardo Quesada
- Copyright (c) 2011      Zynga Inc.
 
+ http://www.cocos2d-html5.org
+ http://www.cocos2d-iphone.org
  http://www.cocos2d-x.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -214,10 +213,10 @@ var GLClearTest = OpenGLTestLayer.extend({
 
 //------------------------------------------------------------------
 //
-// GLCustomDrawTest
+// GLNodeWebGLAPITest
 //
 //------------------------------------------------------------------
-var GLCustomDrawTest = OpenGLTestLayer.extend({
+var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
 
     ctor:function() {
         this._super();
@@ -364,10 +363,12 @@ var GLCustomDrawTest = OpenGLTestLayer.extend({
 
         var squareVertexColorBuffer = this.squareVertexColorBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer);
-        colors = [];
-        for (var i=0; i < 4; i++) {
-            colors = colors.concat([0.0, 0.0, 1.0, 1.0]);
-        }
+        colors = [
+            0.0, 0.0, 1.0, 1.0,
+            0.0, 0.0, 1.0, 1.0,
+            0.0, 0.0, 1.0, 1.0,
+            0.0, 0.0, 1.0, 1.0
+        ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
         squareVertexColorBuffer.itemSize = 4;
         squareVertexColorBuffer.numItems = 4;
@@ -391,7 +392,132 @@ var GLCustomDrawTest = OpenGLTestLayer.extend({
     },
 
     title:function () {
-        return "gl.drawElements()";
+        return "GLNode + WebGL API";
+    },
+    subtitle:function () {
+        return "blue background with a red triangle in the middle";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // blue, red, blue
+        var ret = [{"0":0,"1":0,"2":255,"3":255},{"0":0,"1":0,"2":255,"3":255},{"0":255,"1":0,"2":0,"3":255}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret1 = new Uint8Array(4);
+        gl.readPixels(10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret1);
+        var ret2 = new Uint8Array(4);
+        gl.readPixels(winSize.width-10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret2);
+        var ret3 = new Uint8Array(4);
+        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret3);
+
+        return JSON.stringify([ret1,ret2,ret3]);
+    }
+});
+
+//------------------------------------------------------------------
+//
+// GLNodeCCAPITest
+//
+//------------------------------------------------------------------
+var GLNodeCCAPITest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+
+            var glnode = cc.GLNode.create();
+            this.addChild(glnode,10);
+            this.glnode = glnode;
+
+            this.shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionColor");
+            this.initBuffers();
+
+            glnode.draw = function() {
+
+                this.shader.use();
+                this.shader.setUniformsForBuiltins();
+                cc.glEnableVertexAttribs( cc.VERTEX_ATTRIB_FLAG_COLOR | cc.VERTEX_ATTRIB_FLAG_POSITION);
+
+                // Draw fullscreen Square
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexPositionBuffer);
+                gl.vertexAttribPointer(cc.VERTEX_ATTRIB_POSITION, 2, gl.FLOAT, false, 0, 0);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexColorBuffer);
+                gl.vertexAttribPointer(cc.VERTEX_ATTRIB_COLOR, 4, gl.FLOAT, false, 0, 0);
+
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+                // Draw fullscreen Triangle
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.triangleVertexPositionBuffer);
+                gl.vertexAttribPointer(cc.VERTEX_ATTRIB_POSITION, 2, gl.FLOAT, false, 0, 0);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.triangleVertexColorBuffer);
+                gl.vertexAttribPointer(cc.VERTEX_ATTRIB_COLOR, 4, gl.FLOAT, false, 0, 0);
+
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 3);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER,0);
+
+            }.bind(this);
+
+        }
+    },
+
+    initBuffers:function() {
+        //
+        // Triangle
+        //
+        var triangleVertexPositionBuffer = this.triangleVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer);
+        var vertices = [
+             winSize.width/2,   winSize.height,
+             0,                 0,
+             winSize.width,     0
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+        var triangleVertexColorBuffer = this.triangleVertexColorBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer);
+        var colors = [
+            1.0, 0.0, 0.0, 1.0,
+            1.0, 0.0, 0.0, 1.0,
+            1.0, 0.0, 0.0, 1.0
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+
+        //
+        // Square
+        //
+        var squareVertexPositionBuffer = this.squareVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
+        vertices = [
+            winSize.width,  winSize.height,
+            0,              winSize.height,
+            winSize.width,  0,
+            0,              0
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+        var squareVertexColorBuffer = this.squareVertexColorBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer);
+        colors = [
+            0.0, 0.0, 1.0, 1.0,
+            0.0, 0.0, 1.0, 1.0,
+            0.0, 0.0, 1.0, 1.0,
+            0.0, 0.0, 1.0, 1.0
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ARRAY_BUFFER,0);
+    },
+    title:function () {
+        return "GLNode + cocos2d API";
     },
     subtitle:function () {
         return "blue background with a red triangle in the middle";
@@ -425,7 +551,8 @@ var arrayOfOpenGLTest = [
 
     GLReadPixelsTest,
     GLClearTest,
-    GLCustomDrawTest
+    GLNodeWebGLAPITest,
+    GLNodeCCAPITest
 ];
 
 var nextOpenGLTest = function () {
