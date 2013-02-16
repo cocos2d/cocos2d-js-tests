@@ -760,16 +760,15 @@ var TexImage2DTest = OpenGLTestLayer.extend({
 
         var pixels = new Uint8Array(4096);
         for( var i=0; i<pixels.length; ) {
-            pixels[i++] = i/3;    // Red
-            pixels[i++] = i/2;    // Green
-            pixels[i++] = i/16;    // Blue
+            pixels[i++] = i/4;    // Red
+            pixels[i++] = i/16;    // Green
+            pixels[i++] = i/8;    // Blue
             pixels[i++] = 255;    // Alpha
         }
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 32, 32, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
 
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
-        gl.generateMipmap(gl.TEXTURE_2D);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.bindTexture(gl.TEXTURE_2D, null);
 
         //
@@ -808,13 +807,13 @@ var TexImage2DTest = OpenGLTestLayer.extend({
     //
     getExpectedResult:function() {
         // blue, red, blue
-        var ret = {"0":175,"1":104,"2":128,"3":255,"4":175,"5":104,"6":129,"7":255};
+        var ret = {"0":239,"1":123,"2":247,"3":255,"4":239,"5":123,"6":247,"7":255,"8":240,"9":124,"10":248,"11":255,"12":240,"13":124,"14":248,"15":255,"16":239,"17":123,"18":247,"19":255,"20":239,"21":123,"22":247,"23":255,"24":240,"25":124,"26":248,"27":255,"28":240,"29":124,"30":248,"31":255,"32":15,"33":131,"34":7,"35":255,"36":15,"37":131,"38":7,"39":255,"40":16,"41":132,"42":8,"43":255,"44":16,"45":132,"46":8,"47":255,"48":15,"49":131,"50":7,"51":255,"52":15,"53":131,"54":7,"55":255,"56":16,"57":132,"58":8,"59":255,"60":16,"61":132,"62":8,"63":255};
         return JSON.stringify(ret);
     },
 
     getCurrentResult:function() {
-        var ret = new Uint8Array(8);
-        gl.readPixels(winSize.width/2-1, winSize.height/2,  2, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = new Uint8Array(4*16);
+        gl.readPixels(winSize.width/2-2, winSize.height/2-2,  4, 4, gl.RGBA, gl.UNSIGNED_BYTE, ret);
         return JSON.stringify(ret);
     }
 });
