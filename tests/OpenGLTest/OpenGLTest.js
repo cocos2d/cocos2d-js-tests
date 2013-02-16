@@ -817,6 +817,48 @@ var TexImage2DTest = OpenGLTestLayer.extend({
         return JSON.stringify(ret);
     }
 });
+//------------------------------------------------------------------
+//
+// GetSupportedExtensionsTest
+//
+//------------------------------------------------------------------
+var GetSupportedExtensionsTest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+            var array = gl.getSupportedExtensions();
+            cc.log( JSON.stringify( array ) );
+            if( array.length > 0 )
+                cc.log( gl.getExtension( array[0] ) );
+        }
+    },
+
+    title:function () {
+        return "GetSupportedExtensionsTest";
+    },
+    subtitle:function () {
+        return "See console for the supported GL extensions";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        var ret = ["[object Array]",null];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        // Extensions varies from machine to machine. Just check for typeof Array
+        var ext = gl.getSupportedExtensions();
+        var type = Object.prototype.toString.call( ext );
+        var n = gl.getExtension('do_no_exist');
+        return JSON.stringify([type,n]);
+    }
+});
 //-
 //
 // Flow control
@@ -829,7 +871,8 @@ var arrayOfOpenGLTest = [
     GLNodeCCAPITest,
     ShaderHeartTest,
     GLGetActiveTest,
-    TexImage2DTest
+    TexImage2DTest,
+    GetSupportedExtensionsTest
 ];
 
 var nextOpenGLTest = function () {
