@@ -151,6 +151,10 @@ var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
 
+var s_hole_effect_png = "res/Images/hole_effect.png";
+var s_hole_stencil_png = "res/Images/hole_stencil.png";
+
+
 var g_ressources = [
     //ccbi resource
     {type:"ccbi", src:"res/ccb/HelloCocosBuilder.ccbi"},
@@ -192,6 +196,8 @@ var g_ressources = [
     {type:"image", src:"res/ccb/particle-snow.png"},
     {type:"image", src:"res/ccb/particle-stars.png"},
     {type:"image", src:"res/ccb/scale-9-demo.png"},
+    {type:"image", src:s_hole_effect_png},
+    {type:"image", src:s_hole_stencil_png},
 
     {type:"fnt", src:"res/ccb/markerfelt24shadow.fnt"},
 

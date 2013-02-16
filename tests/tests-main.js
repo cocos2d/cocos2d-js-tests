@@ -208,6 +208,13 @@ var testNames = [
         }
     },
     {
+        title:"ClippingNode Test",
+        platforms: PLATFORM_HTML5,
+        testScene:function () {
+            return new ClippingNodeTestScene();
+        }
+    },
+    {
         title:"CocosDenshion Test",
         platforms: PLATFORM_ALL,
         testScene:function () {
@@ -306,6 +313,13 @@ var testNames = [
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new MenuTestScene();
+        }
+    },
+    {
+        title:"MotionStreak Test",
+        platforms: PLATFORM_HTML5,
+        testScene:function () {
+            return new MotionStreakTestScene();
         }
     },
     {

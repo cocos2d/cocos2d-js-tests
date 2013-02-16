@@ -81,6 +81,8 @@ var s_grossiniDance11 = "res/Images/grossini_dance_11.png";
 var s_grossiniDance12 = "res/Images/grossini_dance_12.png";
 var s_grossiniDance13 = "res/Images/grossini_dance_13.png";
 var s_grossiniDance14 = "res/Images/grossini_dance_14.png";
+var s_hole_effect_png = "res/Images/hole_effect.png";
+var s_hole_stencil_png = "res/Images/hole_stencil.png";
 
 var s_arrows = "res/Images/arrows.png";
 var s_arrowsBar = "res/Images/arrowsBar.png";

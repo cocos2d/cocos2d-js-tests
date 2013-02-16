@@ -1841,7 +1841,6 @@ var Issue1438 = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var Issue1446 = ActionsDemo.extend({
-
     title:function () {
         return "Sequence + Speed in 'reverse mode'";
     },
@@ -1853,7 +1852,6 @@ var Issue1446 = ActionsDemo.extend({
     onEnter:function () {
         this._super();
         this.centerSprites(0);
-
         var label = this.label = cc.LabelTTF.create("Hello World", "Marker Felt", 64);
 
         label.setPosition(winSize.width / 2, winSize.height / 2);
@@ -1885,7 +1883,6 @@ var Issue1446 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
-
     ActionManual,
     ActionMove,
     ActionScale,

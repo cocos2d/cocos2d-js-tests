@@ -85,6 +85,8 @@
             'ShaderTest/ShaderString.js',
             'ShaderTest/ShaderTest.js',
             'EffectsAdvancedTest/EffectsAdvancedTest.js',
+            'MotionStreakTest/MotionStreakTest.js',
+            'ClippingNodeTest/ClippingNodeTest.js',
 
             'ExtensionsTest/ExtensionsTest.js',
             'ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js',
