@@ -313,7 +313,7 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
                 gl.drawArrays(gl.TRIANGLES, 0, this.triangleVertexPositionBuffer.numItems);
 
 
-                gl.bindBuffer(gl.ARRAY_BUFFER,0);
+                gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
             }.bind(this);
 
@@ -373,7 +373,7 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
         squareVertexColorBuffer.itemSize = 4;
         squareVertexColorBuffer.numItems = 4;
 
-        gl.bindBuffer(gl.ARRAY_BUFFER,0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
     },
 
     compileShader:function(source, type) {
@@ -463,7 +463,7 @@ var GLNodeCCAPITest = OpenGLTestLayer.extend({
 
                 gl.drawArrays(gl.TRIANGLE_STRIP, 0, 3);
 
-                gl.bindBuffer(gl.ARRAY_BUFFER,0);
+                gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
             }.bind(this);
 
@@ -514,7 +514,7 @@ var GLNodeCCAPITest = OpenGLTestLayer.extend({
             0.0, 0.0, 1.0, 1.0
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
-        gl.bindBuffer(gl.ARRAY_BUFFER,0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
     },
     title:function () {
         return "GLNode + cocos2d API";
@@ -603,7 +603,7 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
                 gl.vertexAttribPointer(cc.VERTEX_ATTRIB_POSITION, 2, gl.FLOAT, false, 0, 0);
                 gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
-                gl.bindBuffer(gl.ARRAY_BUFFER,0);
+                gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
             }.bind(this);
 
@@ -627,7 +627,7 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
             0,              0
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-        gl.bindBuffer(gl.ARRAY_BUFFER,0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
     },
 
     title:function () {
@@ -705,6 +705,119 @@ var GLGetActiveTest = OpenGLTestLayer.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// TexImage2DTest
+//
+//------------------------------------------------------------------
+var TexImage2DTest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+
+            var glnode = cc.GLNode.create();
+            this.addChild(glnode,10);
+            this.glnode = glnode;
+            glnode.setPosition(winSize.width/2, winSize.height/2);
+            glnode.setContentSize(cc.size(128,128));
+            glnode.setAnchorPoint(cc.p(0.5,0.5));
+
+            this.shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTexture");
+            this.initGL();
+
+            glnode.draw = function() {
+
+                this.shader.use();
+                this.shader.setUniformsForBuiltins();
+
+                gl.bindTexture(gl.TEXTURE_2D, this.my_texture);
+                cc.glEnableVertexAttribs( cc.VERTEX_ATTRIB_FLAG_TEX_COORDS | cc.VERTEX_ATTRIB_FLAG_POSITION);
+
+                // Draw fullscreen Square
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexPositionBuffer);
+                gl.vertexAttribPointer(cc.VERTEX_ATTRIB_POSITION, 2, gl.FLOAT, false, 0, 0);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexTextureBuffer);
+                gl.vertexAttribPointer(cc.VERTEX_ATTRIB_TEX_COORDS, 2, gl.FLOAT, false, 0, 0);
+
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+                gl.bindTexture(gl.TEXTURE_2D, null);
+                gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+            }.bind(this);
+
+        }
+    },
+
+    initGL:function() {
+
+        var texture = this.my_texture = gl.createTexture();
+        gl.bindTexture( gl.TEXTURE_2D, texture );
+
+        var pixels = new Uint8Array(4096);
+        for( var i=0; i<pixels.length; ) {
+            pixels[i++] = i/3;    // Red
+            pixels[i++] = i/2;    // Green
+            pixels[i++] = i/16;    // Blue
+            pixels[i++] = 255;    // Alpha
+        }
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 32, 32, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+        gl.generateMipmap(gl.TEXTURE_2D);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+
+        //
+        // Square
+        //
+        var squareVertexPositionBuffer = this.squareVertexPositionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
+        var vertices = [
+            128,  128,
+            0,    128,
+            128,  0,
+            0,    0
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+        var squareVertexTextureBuffer = this.squareVertexTextureBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexTextureBuffer);
+        var texcoords = [
+            1, 1,
+            0, 1,
+            1, 0,
+            0, 0
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texcoords), gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+    },
+    title:function () {
+        return "TexImage2DTest";
+    },
+    subtitle:function () {
+        return "Testing Texture creation";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // blue, red, blue
+        var ret = {"0":175,"1":104,"2":128,"3":255,"4":175,"5":104,"6":129,"7":255};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = new Uint8Array(8);
+        gl.readPixels(winSize.width/2-1, winSize.height/2,  2, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        return JSON.stringify(ret);
+    }
+});
 //-
 //
 // Flow control
@@ -716,7 +829,8 @@ var arrayOfOpenGLTest = [
     GLNodeWebGLAPITest,
     GLNodeCCAPITest,
     ShaderHeartTest,
-    GLGetActiveTest
+    GLGetActiveTest,
+    TexImage2DTest
 ];
 
 var nextOpenGLTest = function () {
