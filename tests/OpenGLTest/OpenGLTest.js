@@ -546,25 +546,23 @@ var GLNodeCCAPITest = OpenGLTestLayer.extend({
 
 //------------------------------------------------------------------
 //
-// ShaderHeartTest
+// ShaderNode
 //
 //------------------------------------------------------------------
-var ShaderHeartTest = OpenGLTestLayer.extend({
+var ShaderNode = cc.GLNode.extend({
 
-    ctor:function() {
+    ctor:function(vertexShader, framentShader) {
         this._super();
+        cc.associateWithNative( this, cc.GLNode );
+        this.init();
 
         if( 'opengl' in sys.capabilities ) {
 
 
-            var glnode = cc.GLNode.create();
-            this.addChild(glnode,10);
-            this.glnode = glnode;
-            this.glnode.setContentSize(cc.size(256,256));
-            this.glnode.setAnchorPoint(cc.p(0.5, 0.5));
-            glnode.setPosition( winSize.width/2, winSize.height/2);
+            this.setContentSize(cc.size(256,256));
+            this.setAnchorPoint(cc.p(0.5, 0.5));
 
-            this.shader = cc.GLProgram.create("res/Shaders/example_Heart.vsh", "res/Shaders/example_Heart.fsh");
+            this.shader = cc.GLProgram.create(vertexShader, framentShader);
             this.shader.retain();
             this.shader.addAttribute("aVertex", cc.VERTEX_ATTRIB_POSITION);
             this.shader.link();
@@ -579,35 +577,32 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
 
             this.scheduleUpdate();
             this._time = 0;
-
-            glnode.draw = function() {
-
-                this.shader.use();
-                this.shader.setUniformsForBuiltins();
-
-
-                //
-                // Uniforms
-                //
-                this.shader.setUniformLocationF32( this.uniformCenter, winSize.width/2, winSize.height/2);
-                this.shader.setUniformLocationF32( this.uniformResolution, 256, 256);
-
-                // time changes all the time, so it is Ok to call OpenGL directly, and not the "cached" version
-                gl.uniform1f( this.uniformTime, this._time );
-
-
-                cc.glEnableVertexAttribs( cc.VERTEX_ATTRIB_FLAG_POSITION );
-
-                // Draw fullscreen Square
-                gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexPositionBuffer);
-                gl.vertexAttribPointer(cc.VERTEX_ATTRIB_POSITION, 2, gl.FLOAT, false, 0, 0);
-                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-                gl.bindBuffer(gl.ARRAY_BUFFER, null);
-
-            }.bind(this);
-
         }
+    },
+    draw:function() {
+
+        this.shader.use();
+        this.shader.setUniformsForBuiltins();
+
+        //
+        // Uniforms
+        //
+        this.shader.setUniformLocationF32( this.uniformCenter, winSize.width/2, winSize.height/2);
+        this.shader.setUniformLocationF32( this.uniformResolution, 256, 256);
+
+        // time changes all the time, so it is Ok to call OpenGL directly, and not the "cached" version
+        gl.uniform1f( this.uniformTime, this._time );
+
+
+        cc.glEnableVertexAttribs( cc.VERTEX_ATTRIB_FLAG_POSITION );
+
+        // Draw fullscreen Square
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexPositionBuffer);
+        gl.vertexAttribPointer(cc.VERTEX_ATTRIB_POSITION, 2, gl.FLOAT, false, 0, 0);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
     },
 
     update:function(dt) {
@@ -628,6 +623,24 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
+    }
+});
+//------------------------------------------------------------------
+//
+// ShaderHeartTest
+//
+//------------------------------------------------------------------
+var ShaderHeartTest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+            var shaderNode = new ShaderNode("res/Shaders/example_Heart.vsh", "res/Shaders/example_Heart.fsh");
+            this.addChild(shaderNode,10);
+            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+        }
     },
 
     title:function () {
@@ -645,7 +658,6 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
         var ret = {"0":255,"1":0,"2":0,"3":255};
         return JSON.stringify(ret);
     },
-
     getCurrentResult:function() {
         var ret = new Uint8Array(4);
         gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
@@ -655,6 +667,122 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// ShaderPlasmaTest
+//
+//------------------------------------------------------------------
+var ShaderPlasmaTest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+            var shaderNode = new ShaderNode("res/Shaders/example_Plasma.vsh", "res/Shaders/example_Plasma.fsh");
+            this.addChild(shaderNode,10);
+            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+        }
+    },
+    title:function () {
+        return "Shader Plasma Test";
+    },
+    subtitle:function () {
+        return "You should see a plasma in the center";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // redish pixel
+        return JSON.stringify(true);
+    },
+    getCurrentResult:function() {
+        var ret = new Uint8Array(4);
+        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var sum = ret[0] + ret[1] + ret[2];
+        return JSON.stringify(sum>300);
+    }
+});
+
+//------------------------------------------------------------------
+//
+// ShaderFlowerTest
+//
+//------------------------------------------------------------------
+var ShaderFlowerTest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+            var shaderNode = new ShaderNode("res/Shaders/example_Flower.vsh", "res/Shaders/example_Flower.fsh");
+            this.addChild(shaderNode,10);
+            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+        }
+    },
+    title:function () {
+        return "Shader Flower Test";
+    },
+    subtitle:function () {
+        return "You should see a moving Flower in the center";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // redish pixel
+        return JSON.stringify(true);
+    },
+    getCurrentResult:function() {
+        var ret = new Uint8Array(4);
+        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var sum = ret[0] + ret[1] + ret[2];
+        return JSON.stringify(sum<30);
+    }
+});
+
+//------------------------------------------------------------------
+//
+// ShaderJuliaTest
+//
+//------------------------------------------------------------------
+var ShaderJuliaTest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+            var shaderNode = new ShaderNode("res/Shaders/example_Julia.vsh", "res/Shaders/example_Julia.fsh");
+            this.addChild(shaderNode,10);
+            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+        }
+    },
+    title:function () {
+        return "Shader Julia Test";
+    },
+    subtitle:function () {
+        return "You should see Julia effect";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // redish pixel
+        return JSON.stringify(true);
+    },
+    getCurrentResult:function() {
+        var ret = new Uint8Array(4);
+        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var sum = ret[0] + ret[1] + ret[2];
+        return JSON.stringify(sum>300);
+    }
+});
 //------------------------------------------------------------------
 //
 // GLGetActiveTest
@@ -829,10 +957,12 @@ var GetSupportedExtensionsTest = OpenGLTestLayer.extend({
 
         if( 'opengl' in sys.capabilities ) {
 
-            var array = gl.getSupportedExtensions();
-            cc.log( JSON.stringify( array ) );
-            if( array.length > 0 )
-                cc.log( gl.getExtension( array[0] ) );
+            if( ! autoTestEnabled ) {
+                var array = gl.getSupportedExtensions();
+                cc.log( JSON.stringify( array ) );
+                if( array.length > 0 )
+                    cc.log( gl.getExtension( array[0] ) );
+            }
         }
     },
 
@@ -865,14 +995,17 @@ var GetSupportedExtensionsTest = OpenGLTestLayer.extend({
 //
 var arrayOfOpenGLTest = [
 
+    ShaderHeartTest,
+    ShaderPlasmaTest,
+    ShaderFlowerTest,
+    ShaderJuliaTest,
+    GLGetActiveTest,
+    TexImage2DTest,
+    GetSupportedExtensionsTest,
     GLReadPixelsTest,
     GLClearTest,
     GLNodeWebGLAPITest,
-    GLNodeCCAPITest,
-    ShaderHeartTest,
-    GLGetActiveTest,
-    TexImage2DTest,
-    GetSupportedExtensionsTest
+    GLNodeCCAPITest
 ];
 
 var nextOpenGLTest = function () {
