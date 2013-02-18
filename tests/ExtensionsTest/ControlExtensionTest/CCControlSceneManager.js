@@ -25,13 +25,13 @@
  ****************************************************************************/
 
 var controTestItemNames = [
-/*    {
+    {
         itemTitle:"CCControlSliderTest",
         testScene:function () {
-            //
+            return CCControlSliderTest.create(this.itemTitle);
         }
     },
-    {
+    /*{
         itemTitle:"ControlColourPickerTest",
         testScene:function () {
             //
@@ -74,7 +74,7 @@ var ControlSceneManager = cc.Class.extend({
         return this._currentControlSceneId;
     },
     setCurrentControlSceneId:function (currentControlSceneId) {
-        this._currentControlSceneId = currentControlSceneId
+        this._currentControlSceneId = currentControlSceneId;
     },
 
     nextControlScene:function () {

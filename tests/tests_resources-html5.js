@@ -149,6 +149,9 @@ var s_extensions_buttonBackground = "res/extensions/buttonBackground.png";
 var s_extensions_button = "res/extensions/button.png";
 var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
+var s_extensions_sliderTrack = "res/extensions/sliderTrack.png";
+var s_extensions_sliderProgress = "res/extensions/sliderProgress.png";
+var s_extensions_sliderThumb = "res/extensions/sliderThumb.png";
 var s_image_icon = "res/Images/Icon.png";
 
 var g_ressources = [
@@ -224,6 +227,9 @@ var g_ressources = [
     {src:s_extensions_button},
     {src:s_extensions_buttonHighlighted},
     {src:s_extensions_ribbon},
+    {src:s_extensions_sliderTrack},
+    {src:s_extensions_sliderProgress},
+    {src:s_extensions_sliderThumb},
     {src:s_image_icon},
 
     {src:s_particles},
