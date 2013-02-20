@@ -96,6 +96,7 @@ var s_fixedOrthoTest2Png = "res/TileMaps/fixed-ortho-test2.png";
 var s_hexaTilesPng = "res/TileMaps/hexa-tiles.png";
 var s_isoTestPng = "res/TileMaps/iso-test.png";
 var s_isoTest2Png = "res/TileMaps/iso-test2.png";
+var s_orthoTest2Png = "res/TileMaps/ortho-test2.png";
 var s_isoPng = "res/TileMaps/iso.png";
 var s_orthoTest1BwPng = "res/TileMaps/ortho-test1_bw.png";
 var s_orthoTest1Png = "res/TileMaps/ortho-test1.png";
@@ -151,3 +152,6 @@ var s_extensions_button = "res/extensions/button.png";
 var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
+
+var s_circle_plist = "res/Images/bugs/circle.plist";
+var s_circle_png = "res/Images/bugs/circle.png";

@@ -246,6 +246,16 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
         var location = event.getLocation();
         this.addNewSpriteWithCoords(location);
         return true;
+    },
+    onRightMouseDown:function(event){
+        var batchNode = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
+
+        var children = batchNode.getChildren();
+        if(!children || children.length === 0)
+            return;
+
+        var firstChild = children[0] ;
+        batchNode.removeChild(firstChild, true);
     }
 });
 

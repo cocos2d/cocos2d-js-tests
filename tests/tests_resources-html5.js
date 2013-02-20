@@ -95,6 +95,7 @@ var s_fixedOrthoTest2Png = "res/TileMaps/fixed-ortho-test2.png";
 var s_hexaTilesPng = "res/TileMaps/hexa-tiles.png";
 var s_isoTestPng = "res/TileMaps/iso-test.png";
 var s_isoTest2Png = "res/TileMaps/iso-test2.png";
+var s_orthoTest2Png = "res/TileMaps/ortho-test2.png";
 var s_isoPng = "res/TileMaps/iso.png";
 var s_orthoTest1BwPng = "res/TileMaps/ortho-test1_bw.png";
 var s_orthoTest1Png = "res/TileMaps/ortho-test1.png";
@@ -154,6 +155,8 @@ var s_image_icon = "res/Images/Icon.png";
 var s_hole_effect_png = "res/Images/hole_effect.png";
 var s_hole_stencil_png = "res/Images/hole_stencil.png";
 
+var s_circle_plist = "res/Images/bugs/circle.plist";
+var s_circle_png = "res/Images/bugs/circle.png";
 
 var g_ressources = [
     //ccbi resource
@@ -200,6 +203,9 @@ var g_ressources = [
     {type:"image", src:s_hole_stencil_png},
 
     {type:"fnt", src:"res/ccb/markerfelt24shadow.fnt"},
+
+    {type:"plist",src:s_circle_plist} ,
+    {type:"image", src:s_circle_png},
 
     {type:"plist",src:"res/ccb/grossini-generic.plist"} ,
     {type:"plist",src:"res/ccb/animated-grossini.plist"} ,
@@ -333,6 +339,7 @@ var g_ressources = [
     {type:"image", src:s_arrowsBar},
     {type:"image", src:s_arrows_hd},
     {type:"image", src:s_arrowsBar_hd},
+    {type:"image", src:s_orthoTest2Png},
 
     {type:"plist", src:s_boilingFoamPlist},
     {type:"plist", src:s_animations2Plist},
