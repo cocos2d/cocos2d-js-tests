@@ -795,7 +795,7 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
 
         if( 'opengl' in sys.capabilities ) {
 
-            var program = cc.GLProgram.create("res/Shaders/example_HorizontalColor.vsh", "res/Shaders/example_HorizontalColor.fsh");
+            var program = cc.GLProgram.create("res/Shaders/example_ColorBars.vsh", "res/Shaders/example_ColorBars.fsh");
             program.addAttribute(cc.ATTRIBUTE_NAME_POSITION, cc.VERTEX_ATTRIB_POSITION);
             program.addAttribute(cc.ATTRIBUTE_NAME_TEX_COORD, cc.VERTEX_ATTRIB_TEX_COORDS);
             program.link();
@@ -806,28 +806,38 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
 
             label.setPosition(winSize.width/2, winSize.height/2);
             this.addChild(label);
+
+            this.scheduleUpdate();
+
+            this.label = label;
+            this.accum = 0;
+        }
+    },
+    update:function(dt) {
+        this.accum += dt;
+        var children = this.label.getChildren();
+
+        for( var i in children ) {
+            var sprite = children[i];
+            var oldPosition = sprite.getPosition();
+            sprite.setPosition( oldPosition.x, Math.sin( this.accum * 2 + i/2.0) * 20  );
+
+            // add fabs() to prevent negative scaling
+            var scaleY = ( Math.sin( this.accum * 2 + i/2.0 + 0.707) );
+
+            sprite.setScaleY( scaleY );
         }
     },
     title:function () {
         return "Shader Retro Effect";
     },
     subtitle:function () {
-        return "Should see moving colors";
-    },
+        return "Should see moving colors, and a sin effect on the letters";
+    }
 
     //
     // Automation
     //
-    getExpectedResult:function() {
-        // redish pixel
-        return JSON.stringify(true);
-    },
-    getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
-        var sum = ret[0] + ret[1] + ret[2];
-        return JSON.stringify(sum>300);
-    }
 });
 //------------------------------------------------------------------
 //
@@ -1041,7 +1051,6 @@ var GetSupportedExtensionsTest = OpenGLTestLayer.extend({
 //
 var arrayOfOpenGLTest = [
 
-    ShaderRetroEffect,
     ShaderHeartTest,
     ShaderPlasmaTest,
     ShaderFlowerTest,
