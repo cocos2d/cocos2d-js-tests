@@ -23,7 +23,6 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-
 var OpenGLTestIdx = -1;
 
 // the class inherit from TestScene

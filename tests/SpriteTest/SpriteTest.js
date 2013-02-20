@@ -744,7 +744,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
         // Configure shader to mimic glAlphaTest
         //
         //var alphaTestShader = cc.ShaderCache.getInstance().programForKey(kCCShader_PositionTextureColorAlphaTest);
-        //var alphaValueLocation = glGetUniformLocation(alphaTestShader.getProgram(), kCCUniformAlphaTestValue);
+        //var alphaValueLocation = glGetUniformLocation(alphaTestShader.getProgram(), kCCUniformAlphaTestValue_s);
 
         // set alpha test value
         // NOTE: alpha test shader is hard-coded to use the equivalent of a glAlphaFunc(GL_GREATER) comparison
@@ -818,7 +818,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
         // Configure shader to mimic glAlphaTest
         //
         //var alphaTestShader = cc.ShaderCache.getInstance().programForKey(kCCShader_PositionTextureColorAlphaTest);
-        //var alphaValueLocation = glGetUniformLocation(alphaTestShader.getProgram(), kCCUniformAlphaTestValue);
+        //var alphaValueLocation = glGetUniformLocation(alphaTestShader.getProgram(), kCCUniformAlphaTestValue_s);
 
         // set alpha test value
         // NOTE: alpha test shader is hard-coded to use the equivalent of a glAlphaFunc(GL_GREATER) comparison
