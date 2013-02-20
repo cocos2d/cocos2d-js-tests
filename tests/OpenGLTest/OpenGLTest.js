@@ -782,6 +782,53 @@ var ShaderJuliaTest = OpenGLTestLayer.extend({
         return JSON.stringify(sum>300);
     }
 });
+
+//------------------------------------------------------------------
+//
+// ShaderRetro
+//
+//------------------------------------------------------------------
+var ShaderRetroEffect = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+            var program = cc.GLProgram.create("res/Shaders/example_HorizontalColor.vsh", "res/Shaders/example_HorizontalColor.fsh");
+            program.addAttribute(cc.ATTRIBUTE_NAME_POSITION, cc.VERTEX_ATTRIB_POSITION);
+            program.addAttribute(cc.ATTRIBUTE_NAME_TEX_COORD, cc.VERTEX_ATTRIB_TEX_COORDS);
+            program.link();
+            program.updateUniforms();
+
+            var label = cc.LabelBMFont.create("RETRO EFFECT","res/fonts/west_england-64.fnt");
+            label.setShaderProgram( program );
+
+            label.setPosition(winSize.width/2, winSize.height/2);
+            this.addChild(label);
+        }
+    },
+    title:function () {
+        return "Shader Retro Effect";
+    },
+    subtitle:function () {
+        return "Should see moving colors";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        // redish pixel
+        return JSON.stringify(true);
+    },
+    getCurrentResult:function() {
+        var ret = new Uint8Array(4);
+        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var sum = ret[0] + ret[1] + ret[2];
+        return JSON.stringify(sum>300);
+    }
+});
 //------------------------------------------------------------------
 //
 // GLGetActiveTest
@@ -994,10 +1041,12 @@ var GetSupportedExtensionsTest = OpenGLTestLayer.extend({
 //
 var arrayOfOpenGLTest = [
 
+    ShaderRetroEffect,
     ShaderHeartTest,
     ShaderPlasmaTest,
     ShaderFlowerTest,
     ShaderJuliaTest,
+    ShaderRetroEffect,
     GLGetActiveTest,
     TexImage2DTest,
     GetSupportedExtensionsTest,
