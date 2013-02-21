@@ -3,6 +3,7 @@ var dirMusic = "res/Music/";
 
 //image
 var s_loading = dirImg + "loading.png";
+var s_b01 = dirImg + "b01.png";
 var s_menu = dirImg + "menu.png";
 var s_logo = dirImg + "logo.png";
 var s_cocos2dhtml5 = dirImg + "cocos2d-html5.png";
@@ -38,6 +39,7 @@ var s_textureTransparentPack_plist = dirImg + "textureTransparentPack.plist";
 var g_ressources = [
     //image
     {type:"image", src:s_loading},
+    {type:"image", src:s_b01},
     {type:"image", src:s_menu},
     {type:"image", src:s_logo},
     {type:"image", src:s_cocos2dhtml5},

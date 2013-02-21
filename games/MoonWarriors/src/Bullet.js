@@ -12,6 +12,7 @@ var Bullet = cc.Sprite.extend({
     ctor:function (bulletSpeed, weaponType, attackMode) {
         // needed for JS-Bindings compatibility
         cc.associateWithNative( this, cc.Sprite );
+        this._super();
 
         this.yVelocity = -bulletSpeed;
         this.attackMode = attackMode;
