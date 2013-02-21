@@ -3,7 +3,6 @@ var dirMusic = "res/Music/";
 
 //image
 var s_loading = dirImg + "loading.png";
-var s_b01 = dirImg + "b01.png";
 var s_menu = dirImg + "menu.png";
 var s_logo = dirImg + "logo.png";
 var s_cocos2dhtml5 = dirImg + "cocos2d-html5.png";
@@ -38,38 +37,37 @@ var s_textureTransparentPack_plist = dirImg + "textureTransparentPack.plist";
 
 var g_ressources = [
     //image
-    {type:"image", src:s_loading},
-    {type:"image", src:s_b01},
-    {type:"image", src:s_menu},
-    {type:"image", src:s_logo},
-    {type:"image", src:s_cocos2dhtml5},
-    {type:"image", src:s_gameOver},
-    {type:"image", src:s_menuTitle},
-    {type:"image", src:s_flare},
-    {type:"image", src:s_explosion},
-    {type:"image", src:s_arial14},
-    {type:"image", src:s_textureOpaquePack},
-    {type:"image", src:s_textureTransparentPack},
+    {src:s_loading},
+    {src:s_menu},
+    {src:s_logo},
+    {src:s_cocos2dhtml5},
+    {src:s_gameOver},
+    {src:s_menuTitle},
+    {src:s_flare},
+    {src:s_explosion},
+    {src:s_arial14},
+    {src:s_textureOpaquePack},
+    {src:s_textureTransparentPack},
 
     //tmx
-    {type:"tmx", src:s_level01},
+    {src:s_level01},
 
     //plist
-    {type:"plist", src:s_explosion_plist},
-    {type:"plist", src:s_textureOpaquePack_plist},
-    {type:"plist", src:s_textureTransparentPack_plist},
+    {src:s_explosion_plist},
+    {src:s_textureOpaquePack_plist},
+    {src:s_textureTransparentPack_plist},
 
     //music
-    {type:"sound", src:s_bgMusic},
-    {type:"sound", src:s_mainMainMusic},
+    {src:s_bgMusic},
+    {src:s_mainMainMusic},
 
     //effect
-    {type:"sound", src:s_buttonEffect},
-    {type:"sound", src:s_explodeEffect},
-    {type:"sound", src:s_fireEffect},
-    {type:"sound", src:s_shipDestroyEffect},
+    {src:s_buttonEffect},
+    {src:s_explodeEffect},
+    {src:s_fireEffect},
+    {src:s_shipDestroyEffect},
 
     // FNT
-    {type:"fnt", src:s_arial14_fnt}
+    {src:s_arial14_fnt}
 
 ];

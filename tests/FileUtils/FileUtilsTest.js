@@ -102,11 +102,11 @@ var FilenameLookupTest = FileUtilsBase.extend({
 
         var t = sys.platform;
         if( t == 'mobile')  {
-            cc.FileUtils.getInstance().loadFilenameLookupDict('FileUtils/lookup-mobile.plist');
+            cc.FileUtils.getInstance().loadFilenameLookup('FileUtils/lookup-mobile.plist');
         } else if( t == 'desktop' ) {
-            cc.FileUtils.getInstance().loadFilenameLookupDict('FileUtils/lookup-desktop.plist');
+            cc.FileUtils.getInstance().loadFilenameLookup('FileUtils/lookup-desktop.plist');
         } else {
-            cc.FileUtils.getInstance().loadFilenameLookupDict('FileUtils/lookup-html5.plist');
+            cc.FileUtils.getInstance().loadFilenameLookup('FileUtils/lookup-html5.plist');
         }
 
         var sprite = cc.Sprite.create("grossini.bmp");

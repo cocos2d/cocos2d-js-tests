@@ -137,7 +137,7 @@ var particleSceneArr = [
     function () {
         return new ParticleBatchTest();
     },
-    function () {
+    function() {
         return new ParticleResizeTest();
     }
 ];
@@ -1255,22 +1255,22 @@ var ParticleResizeTest = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        var emitter1 = cc.ParticleSystem.create(s_resprefix + 'Particles/LavaFlow.plist');
-        emitter1.setPosition(winSize.width / 2, winSize.height / 2);
+        var emitter1 = cc.ParticleSystem.create( s_resprefix + 'Particles/LavaFlow.plist');
+        emitter1.setPosition( winSize.width/2, winSize.height/2);
         this.addChild(emitter1);
 
-        this.schedule(this.onResizeParticle50, 2);
+        this.schedule( this.onResizeParticle50, 2 );
 
         // to be able to use "reset" button
         this.removeChild(this._background, true);
         this._background = null;
         this._emitter = emitter1;
     },
-    onResizeParticle50:function (dt) {
+    onResizeParticle50:function(dt) {
         this._emitter.setTotalParticles(50);
-        this.scheduleOnce(this.onResizeParticle400, 1);
+        this.scheduleOnce( this.onResizeParticle400, 1);
     },
-    onResizeParticle400:function (dt) {
+    onResizeParticle400:function(dt) {
         this._emitter.setTotalParticles(400);
     },
 

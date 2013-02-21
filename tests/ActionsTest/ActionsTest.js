@@ -25,30 +25,40 @@
  ****************************************************************************/
 
 
-var sceneIdx = -1;
+var actionsTestIdx = -1;
 
 // the class inherit from TestScene
 // every Scene each test used must inherit from TestScene,
 // make sure the test have the menu item for back to main menu
 var ActionsTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        actionsTestIdx = -1;
         this.addChild(nextActionsTest());
         director.replaceScene(this);
     }
 });
 
 
-var ActionsDemo = cc.LayerGradient.extend({
+var ActionsDemo = BaseTestLayer.extend({
     _grossini:null,
     _tamara:null,
     _kathia:null,
     _code:null,
 
     ctor:function () {
-        this._super();
-        cc.associateWithNative(this, cc.LayerGradient);
-        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
+        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
+
+        this._grossini = cc.Sprite.create(s_pathGrossini);
+        this._tamara = cc.Sprite.create(s_pathSister1);
+        this._kathia = cc.Sprite.create(s_pathSister2);
+        this.addChild(this._grossini, 1);
+        this.addChild(this._tamara, 2);
+        this.addChild(this._kathia, 3);
+        var s = director.getWinSize();
+        this._grossini.setPosition(s.width / 2, s.height / 3);
+        this._tamara.setPosition(s.width / 2, 2 * s.height / 3);
+        this._kathia.setPosition(s.width / 2, s.height / 2);
+
     },
 
     centerSprites:function (numberOfSprites) {
@@ -114,59 +124,12 @@ var ActionsDemo = cc.LayerGradient.extend({
         s.addChild(nextActionsTest());
         director.replaceScene(s);
     },
-    onEnter:function () {
-        this._super();
-        this._grossini = cc.Sprite.create(s_pathGrossini);
-        this._tamara = cc.Sprite.create(s_pathSister1);
-        this._kathia = cc.Sprite.create(s_pathSister2);
-        this.addChild(this._grossini, 1);
-        this.addChild(this._tamara, 2);
-        this.addChild(this._kathia, 3);
-        var s = director.getWinSize();
-        this._grossini.setPosition(s.width / 2, s.height / 3);
-        this._tamara.setPosition(s.width / 2, 2 * s.height / 3);
-        this._kathia.setPosition(s.width / 2, s.height / 2);
+    numberOfPendingTests:function() {
+        return ( (arrayOfActionsTest.length-1) - actionsTestIdx );
+    },
 
-        // add title and subtitle
-        var title = this.title();
-        if (title && title != "") {
-            var label = cc.LabelTTF.create(title, "Arial", 18);
-            this.addChild(label, 1);
-            label.setPosition(s.width / 2, s.height - 30);
-        }
-
-        var strSubtitle = this.subtitle();
-        if (strSubtitle && strSubtitle != "") {
-            var l = cc.LabelTTF.create(strSubtitle, "Arial", 22);
-            this.addChild(l, 1);
-            l.setPosition(s.width / 2, s.height - 60);
-        }
-        if (this._code !== null && this._code != "") {
-            label = cc.LabelTTF.create(this._code, 'Arial', 16);
-            label.setPosition(winSize.width / 2, winSize.height - 120);
-            this.addChild(label, 10);
-
-            var labelbg = cc.LabelTTF.create(this._code, 'Arial', 16);
-            labelbg.setColor(cc.c3b(10, 10, 255));
-            labelbg.setPosition(winSize.width / 2 + 1, winSize.height - 120 - 1);
-            this.addChild(labelbg, 9);
-        }
-
-        // add menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(0, 0);
-
-        var cs = item2.getContentSize();
-        item1.setPosition(winSize.width / 2 - cs.width * 2, cs.height / 2);
-        item2.setPosition(winSize.width / 2, cs.height / 2);
-        item3.setPosition(winSize.width / 2 + cs.width * 2, cs.height / 2);
-
-        this.addChild(menu, 1);
+    getTestNumber:function() {
+        return actionsTestIdx;
     }
 });
 
@@ -183,8 +146,6 @@ var ActionManual = ActionsDemo.extend({
     onEnter:function () {
         this._super();
 
-        var s = director.getWinSize();
-
         this._tamara.setScaleX(2.5);
         //window.tam = this._tamara;
         this._tamara.setScaleY(-1.0);
@@ -192,14 +153,43 @@ var ActionManual = ActionsDemo.extend({
         this._tamara.setOpacity(128);
 
         this._grossini.setRotation(120);
-        this._grossini.setPosition(s.width / 2, s.height / 2);
+        this._grossini.setPosition(winSize.width / 2, winSize.height / 2);
         this._grossini.setColor(cc.c3b(255, 0, 0));
 
-        this._kathia.setPosition(s.width - 100, s.height / 2);
+        this._kathia.setPosition(winSize.width - 100, winSize.height / 2);
         this._kathia.setColor(cc.c3b(0, 0, 255));
+    },
+
+    title:function () {
+        return "Sprite properties";
     },
     subtitle:function () {
         return "Manual Transformation";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:0.1,
+    getExpectedResult:function() {
+        var ret = [2.5,{"x":100,"y":70},128,120,{"x":winSize.width/2,"y":winSize.height/2},{"r":255,"g":0,"b":0},{"x":winSize.width - 100,"y":winSize.height / 2},{"r":0,"g":0,"b":255}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getScaleX() );
+        ret.push( this._tamara.getPosition() );
+        ret.push( this._tamara.getOpacity() );
+
+        ret.push( this._grossini.getRotation() );
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._grossini.getColor() );
+
+        ret.push( this._kathia.getPosition() );
+        ret.push( this._kathia.getColor() );
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -222,16 +212,35 @@ var ActionMove = ActionsDemo.extend({
 
         var actionTo = cc.MoveTo.create(2, cc.p(s.width - 40, s.height - 40));
 
-        var actionBy = cc.MoveBy.create(2, cc.p(80, 80));
+        var actionBy = cc.MoveBy.create(1, cc.p(80, 80));
         var actionByBack = actionBy.reverse();
 
         this._tamara.runAction(actionTo);
         this._grossini.runAction(cc.Sequence.create(actionBy, actionByBack));
         this._kathia.runAction(cc.MoveTo.create(1, cc.p(40, 40)));
     },
-    subtitle:function () {
-        return "MoveTo / MoveBy";
+    title:function () {
+        return "cc.MoveTo / cc.MoveBy";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [{"x":winSize.width-40,"y":winSize.height-40},{"x":winSize.width/2,"y":winSize.height/2},{"x":40,"y":40}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getPosition() );
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._kathia.getPosition() );
+
+        return JSON.stringify(ret);
     }
+
 });
 
 //------------------------------------------------------------------
@@ -254,13 +263,80 @@ var ActionScale = ActionsDemo.extend({
         var actionBy2 = cc.ScaleBy.create(2, 0.25, 4.5);
 
         this._tamara.runAction(actionTo);
-        this._kathia.runAction(cc.Sequence.create(actionBy2, actionBy2.reverse()));
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionBy.reverse()));
+        this._kathia.runAction(cc.Sequence.create(actionBy2, cc.DelayTime.create(0.25), actionBy2.reverse()));
+        this._grossini.runAction(cc.Sequence.create(actionBy, cc.DelayTime.create(0.25), actionBy.reverse()));
 
     },
-    subtitle:function () {
-        return "ScaleTo / ScaleBy";
+    title:function () {
+        return "cc.ScaleTo / cc.ScaleBy";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [0.5,2,0.25,4.5];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getScale() );
+        ret.push( this._grossini.getScale() );
+        ret.push( this._kathia.getScaleX() );
+        ret.push( this._kathia.getScaleY() );
+
+        return JSON.stringify(ret);
     }
+});
+
+//------------------------------------------------------------------
+//
+//  ActionRotate
+//
+//------------------------------------------------------------------
+var ActionRotate = ActionsDemo.extend({
+
+    _code:"a = cc.RotateBy.create( time, degrees );\n" +
+            "a = cc.RotateTo.create( time, degrees );",
+
+    onEnter:function () {
+        this._super();
+        this.centerSprites(3);
+        var actionTo = cc.RotateTo.create(2, 45);
+        var actionTo2 = cc.RotateTo.create(2, -45);
+        var actionTo0 = cc.RotateTo.create(2, 0);
+        this._tamara.runAction(cc.Sequence.create(actionTo, cc.DelayTime.create(0.25), actionTo0));
+
+        var actionBy = cc.RotateBy.create(2, 360);
+        var actionByBack = actionBy.reverse();
+        this._grossini.runAction(cc.Sequence.create(actionBy, cc.DelayTime.create(0.25), actionByBack));
+
+        this._kathia.runAction(cc.Sequence.create(actionTo2, cc.DelayTime.create(0.25), actionTo0.copy()));
+
+    },
+    title:function () {
+        return "cc.RotateTo / cc.RotateBy";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [45,360,-45];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getRotation() );
+        ret.push( this._grossini.getRotation() );
+        ret.push( this._kathia.getRotation() );
+
+        return JSON.stringify(ret);
+    }
+
 });
 
 //------------------------------------------------------------------
@@ -281,24 +357,45 @@ var ActionSkew = ActionsDemo.extend({
         var actionBy = cc.SkewBy.create(2, 0, -90);
         var actionBy2 = cc.SkewBy.create(2, 45.0, 45.0);
 
-        this._tamara.runAction(cc.Sequence.create(actionTo, actionToBack));
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionBy.reverse()));
+        var delay = cc.DelayTime.create(0.25);
 
-        this._kathia.runAction(cc.Sequence.create(actionBy2, actionBy2.reverse()));
+        this._tamara.runAction(cc.Sequence.create(actionTo, delay, actionToBack));
+        this._grossini.runAction(cc.Sequence.create(actionBy, delay.copy(), actionBy.reverse()));
+
+        this._kathia.runAction(cc.Sequence.create(actionBy2, delay.copy(), actionBy2.reverse()));
     },
-    subtitle:function () {
-        return "SkewTo / SkewBy";
+    title:function () {
+        return "cc.SkewTo / cc.SkewBy";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = ["37.20","-37.20",0,0,45,45];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getSkewX().toFixed(2) );
+        ret.push( this._tamara.getSkewY().toFixed(2) );
+
+        ret.push( this._grossini.getSkewX() );
+        ret.push( this._grossini.getSkewX() );
+
+        ret.push( this._kathia.getSkewX() );
+        ret.push( this._kathia.getSkewY() );
+
+        return JSON.stringify(ret);
     }
 });
 
 var ActionSkewRotateScale = ActionsDemo.extend({
     onEnter:function () {
         this._super();
-        this._tamara.removeFromParent();
-        this._grossini.removeFromParent();
-        this._kathia.removeFromParent();
 
-        var winSize = director.getWinSize();
+        this.centerSprites(0);
 
         var boxSize = cc.size(100.0, 100.0);
         var box = cc.LayerColor.create(cc.c4b(255, 255, 0, 255));
@@ -329,45 +426,38 @@ var ActionSkewRotateScale = ActionsDemo.extend({
         var rotateToBack = cc.RotateTo.create(2, 0);
         var actionToBack = cc.SkewTo.create(2, 0, 0);
 
-        box.runAction(cc.Sequence.create(actionTo, actionToBack));
-        box.runAction(cc.Sequence.create(rotateTo, rotateToBack));
-        box.runAction(cc.Sequence.create(actionScaleTo, actionScaleToBack));
+        var delay = cc.DelayTime.create(0.25);
+
+        box.runAction(cc.Sequence.create(actionTo, delay, actionToBack));
+        box.runAction(cc.Sequence.create(rotateTo, delay.copy(), rotateToBack));
+        box.runAction(cc.Sequence.create(actionScaleTo, delay.copy(), actionScaleToBack));
+
+        this.box = box;
     },
-    subtitle:function () {
+    title:function () {
         return "Skew + Rotate + Scale";
-    }
-});
-
-//------------------------------------------------------------------
-//
-//	ActionRotate
-//
-//------------------------------------------------------------------
-var ActionRotate = ActionsDemo.extend({
-
-    _code:"a = cc.RotateBy.create( time, degrees );\n" +
-        "a = cc.RotateTo.create( time, degrees );",
-
-    onEnter:function () {
-        this._super();
-        this.centerSprites(3);
-        var actionTo = cc.RotateTo.create(2, 45);
-        var actionTo2 = cc.RotateTo.create(2, -45);
-        var actionTo0 = cc.RotateTo.create(2, 0);
-        this._tamara.runAction(cc.Sequence.create(actionTo, actionTo0));
-
-        var actionBy = cc.RotateBy.create(2, 360);
-        var actionByBack = actionBy.reverse();
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionByBack));
-
-        this._kathia.runAction(cc.Sequence.create(actionTo2, actionTo0.copy()));
-
     },
-    subtitle:function () {
-        return "RotateTo / RotateBy";
-    }
-});
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [0,2,61,"-0.44","0.47"];
+        return JSON.stringify(ret);
+    },
 
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.box.getSkewX() );
+        ret.push( this.box.getSkewY() );
+        ret.push( this.box.getRotation() );
+        ret.push( this.box.getScaleX().toFixed(2) );
+        ret.push( this.box.getScaleY().toFixed(2) );
+
+        return JSON.stringify(ret);
+    }
+
+});
 
 //------------------------------------------------------------------
 //
@@ -392,8 +482,8 @@ var ActionJump = ActionsDemo.extend({
         this._kathia.runAction(cc.RepeatForever.create(actionUp));
 
     },
-    subtitle:function () {
-        return "JumpTo / JumpBy";
+    title:function () {
+        return "cc.JumpTo / cc.JumpBy";
     }
 });
 //------------------------------------------------------------------
@@ -442,8 +532,49 @@ var ActionBezier = ActionsDemo.extend({
         this._kathia.runAction(bezierTo2);
 
     },
-    subtitle:function () {
-        return "BezierBy / BezierTo";
+    title:function () {
+        return "cc.BezierBy / cc.BezierTo";
+    }
+});
+
+//------------------------------------------------------------------
+//
+// ActionBezierToCopy
+//
+//------------------------------------------------------------------
+var ActionBezierToCopy = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+
+        //
+        // startPosition can be any coordinate, but since the movement
+        // is relative to the Bezier curve, make it (0,0)
+        //
+
+        this.centerSprites(2);
+
+        // sprite 1
+        this._tamara.setPosition(80, 160);
+
+        // 3 and only 3 control points should be used for Bezier actions.
+        var controlPoints2 = [ cc.p(100, winSize.height / 2),
+                                cc.p(200, -winSize.height / 2),
+                                cc.p(240, 160) ];
+        var bezierTo1 = cc.BezierTo.create(2, controlPoints2);
+
+        // sprite 2
+        this._kathia.setPosition(80, 160);
+        var bezierTo2 = bezierTo1.copy();
+
+        this._tamara.runAction(bezierTo1);
+        this._kathia.runAction(bezierTo2);
+
+    },
+    title:function () {
+        return "cc.BezierTo copy test";
+    },
+    subtitle:function() {
+        return "Both sprites should move across the same path";
     }
 });
 //------------------------------------------------------------------
@@ -484,7 +615,7 @@ var Issue1008 = ActionsDemo.extend({
         return "Issue 1008";
     },
     subtitle:function () {
-        return "BezierTo + Repeat. See console";
+        return "cc.BezierTo + Repeat. See console";
     }
 });
 //------------------------------------------------------------------
@@ -506,8 +637,8 @@ var ActionBlink = ActionsDemo.extend({
         this._kathia.runAction(action2);
 
     },
-    subtitle:function () {
-        return "Blink";
+    title:function () {
+        return "cc.Blink";
     }
 });
 //------------------------------------------------------------------
@@ -534,8 +665,8 @@ var ActionFade = ActionsDemo.extend({
 
 
     },
-    subtitle:function () {
-        return "FadeIn / FadeOut";
+    title:function () {
+        return "cc.FadeIn / cc.FadeOut";
     }
 });
 //------------------------------------------------------------------
@@ -560,8 +691,8 @@ var ActionTint = ActionsDemo.extend({
         this._kathia.runAction(cc.Sequence.create(action2, action2Back));
 
     },
-    subtitle:function () {
-        return "TintTo / TintBy";
+    title:function () {
+        return "cc.TintTo / cc.TintBy";
     }
 });
 
@@ -641,8 +772,8 @@ var ActionSequence = ActionsDemo.extend({
         this._grossini.runAction(action);
 
     },
-    subtitle:function () {
-        return "Sequence: Move + Rotate";
+    title:function () {
+        return "cc.Sequence: Move + Rotate";
     }
 });
 //------------------------------------------------------------------
@@ -686,7 +817,7 @@ var ActionSequence2 = ActionsDemo.extend({
 
         this.addChild(label);
     },
-    subtitle:function () {
+    title:function () {
         return "Sequence of InstantActions";
     }
 });
@@ -745,7 +876,7 @@ var ActionCallFunc1 = ActionsDemo.extend({
         label.setPosition(s.width / 4 * 3, s.height / 2);
         this.addChild(label);
     },
-    subtitle:function () {
+    title:function () {
         return "Callbacks: CallFunc and friends";
     }
 });
@@ -770,10 +901,10 @@ var ActionCallFunc2 = ActionsDemo.extend({
     },
 
     title:function () {
-        return "CallFunc + auto remove";
+        return "cc.CallFunc + auto remove";
     },
     subtitle:function () {
-        return "CallFunc + removeFromParentAndCleanup. Grossini dissapears in 2s";
+        return "cc.CallFunc + removeFromParentAndCleanup. Grossini dissapears in 2s";
     }
 });
 
@@ -799,10 +930,10 @@ var ActionCallFunc3 = ActionsDemo.extend({
     },
 
     title:function () {
-        return "CallFunc + parameters";
+        return "cc.CallFunc + parameters";
     },
     subtitle:function () {
-        return "CallFunc + parameters. Take a look at the console";
+        return "cc.CallFunc + parameters. Take a look at the console";
     }
 });
 
@@ -826,8 +957,8 @@ var ActionSpawn = ActionsDemo.extend({
         this._grossini.runAction(action);
 
     },
-    subtitle:function () {
-        return "Spawn: Jump + Rotate";
+    title:function () {
+        return "cc.Spawn: Jump + Rotate";
     }
 });
 //------------------------------------------------------------------
@@ -853,8 +984,8 @@ var ActionRepeatForever = ActionsDemo.extend({
         var repeat = cc.RepeatForever.create(cc.RotateBy.create(1.0, 360));
         sender.runAction(repeat);
     },
-    subtitle:function () {
-        return "CallFuncN + RepeatForever";
+    title:function () {
+        return "cc.CallFunc + cc.RepeatForever";
     }
 });
 //------------------------------------------------------------------
@@ -879,7 +1010,7 @@ var ActionRotateToRepeat = ActionsDemo.extend({
         this._kathia.runAction(rep2);
 
     },
-    subtitle:function () {
+    title:function () {
         return "Repeat/RepeatForever + RotateTo";
     }
 });
@@ -1891,6 +2022,7 @@ var arrayOfActionsTest = [
     ActionSkewRotateScale,
     ActionJump,
     ActionBezier,
+    ActionBezierToCopy,
     Issue1008,
     ActionCardinalSpline,
     ActionCatmullRom,
@@ -1934,18 +2066,18 @@ var arrayOfActionsTest = [
 ];
 
 var nextActionsTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfActionsTest.length;
+    actionsTestIdx++;
+    actionsTestIdx = actionsTestIdx % arrayOfActionsTest.length;
 
-    return new arrayOfActionsTest[sceneIdx]();
+    return new arrayOfActionsTest[actionsTestIdx]();
 };
 var previousActionsTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfActionsTest.length;
+    actionsTestIdx--;
+    if (actionsTestIdx < 0)
+        actionsTestIdx += arrayOfActionsTest.length;
 
-    return new arrayOfActionsTest[sceneIdx]();
+    return new arrayOfActionsTest[actionsTestIdx]();
 };
 var restartActionsTest = function () {
-    return new arrayOfActionsTest[sceneIdx]();
+    return new arrayOfActionsTest[actionsTestIdx]();
 };

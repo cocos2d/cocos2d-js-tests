@@ -54,6 +54,8 @@
                 <file name="ExtensionsTest/CocosBuilderTest/ParticleSystemTest/ParticleSystemTestLayer.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.js"/>
+                <file name="ExtensionsTest/S9SpriteTest/S9SpriteTest.js"/>
+
                 <file name="PerformanceTest/PerformanceTouchesTest.js"/>
                 <file name="LabelTest/LabelTest.js"/>
                 <file name="CurrentLanguageTest/CurrentLanguageTest.js"/>
@@ -72,7 +74,6 @@
             <sources dir="${basedir}/../../cocos2d">
                 <file name="platform/CCClass.js"/>
                 <file name="platform/CCCommon.js"/>
-                <file name="platform/platform.js"/>
                 <file name="platform/miniFramework.js"/>
                 <file name="platform/ZipUtils.js"/>
                 <file name="platform/base64.js"/>
@@ -82,11 +83,13 @@
                 <file name="platform/CCTypes.js"/>
                 <file name="platform/zlib.min.js"/>
                 <file name="cocoa/CCGeometry.js"/>
+                <file name="platform/Sys.js"/>
                 <file name="platform/CCConfig.js"/>
                 <file name="cocoa/CCNS.js"/>
                 <file name="cocoa/CCSet.js"/>
                 <file name="cocoa/CCAffineTransform.js"/>
                 <file name="support/CCPointExtension.js"/>
+                <file name="support/CCUserDefault.js"/>
                 <file name="base_nodes/CCNode.js"/>
                 <file name="base_nodes/CCdomNode.js"/>
                 <file name="base_nodes/CCAtlasNode.js"/>
@@ -172,6 +175,11 @@
                 <file name="GUI/CCControlExtension/CCControlButton.js"/>
                 <file name="GUI/CCControlExtension/CCInvocation.js"/>
                 <file name="GUI/CCControlExtension/CCScale9Sprite.js"/>
+                <file name="GUI/CCControlExtension/CCControlSlider.js"/>
+                <file name="GUI/CCControlExtension/CCControlSwitch.js"/>
+                <file name="GUI/CCControlExtension/CCControlColourPicker.js"/>
+                <file name="GUI/CCControlExtension/CCControlHuePicker.js"/>
+                <file name="GUI/CCControlExtension/CCControlSaturationBrightnessPicker.js"/>
                 <file name="GUI/CCControlExtension/CCMenuPassive.js"/>
                 <file name="GUI/CCScrollView/CCSorting.js"/>
                 <file name="GUI/CCScrollView/CCScrollView.js"/>
@@ -202,7 +210,7 @@
                 <file name="LayerTest/LayerTest.js"/>
                 <file name="SceneTest/SceneTest.js"/>
                 <file name="TextureCacheTest/TextureCacheTest.js"/>
-                <file name="SpriteTest/SpriteTest.js"/>
+                <file name="S9SpriteTest/S9SpriteTest.js"/>
                 <file name="CocosDenshionTest/CocosDenshionTest.js"/>
                 <file name="CocosNodeTest/CocosNodeTest.js"/>
                 <file name="RotateWorldTest/RotateWorldTest.js"/>

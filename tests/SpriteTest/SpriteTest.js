@@ -824,7 +824,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
         // Configure shader to mimic glAlphaTest
         //
         //var alphaTestShader = cc.ShaderCache.getInstance().programForKey(kCCShader_PositionTextureColorAlphaTest);
-        //var alphaValueLocation = glGetUniformLocation(alphaTestShader.getProgram(), kCCUniformAlphaTestValue);
+        //var alphaValueLocation = glGetUniformLocation(alphaTestShader.getProgram(), kCCUniformAlphaTestValue_s);
 
         // set alpha test value
         // NOTE: alpha test shader is hard-coded to use the equivalent of a glAlphaFunc(GL_GREATER) comparison
@@ -2962,7 +2962,7 @@ var SpriteChildrenChildren = SpriteTestDemo.extend({
         // child left top
         var l3a2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a2.setScale(0.45);
-        l3a1.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
+        l3a2.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
         l2a.addChild(l3a2);
 
         // child right bottom
@@ -2976,7 +2976,7 @@ var SpriteChildrenChildren = SpriteTestDemo.extend({
         var l3b2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b2.setScale(0.45);
         l3b2.setFlipY(true);
-        l3b1.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
+        l3b2.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
         l2b.addChild(l3b2);
     }
 });
@@ -3041,7 +3041,7 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         // child left top
         var l3a2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a2.setScale(0.45);
-        l3a1.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
+        l3a2.setPosition(cc.p(0 + l2aSize.width / 2, +100 + l2aSize.height / 2));
         l2a.addChild(l3a2);
 
         // child right bottom
@@ -3055,7 +3055,7 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         var l3b2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b2.setScale(0.45);
         l3b2.setFlipY(true);
-        l3b1.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
+        l3b2.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
         l2b.addChild(l3b2);
     }
 });
@@ -3758,6 +3758,28 @@ var TextureColorCacheIssue2 = SpriteTestDemo.extend({
     }
 });
 
+var TextureRotatedSpriteFrame = SpriteTestDemo.extend({
+
+    _title:"Sub Sprite (rotated source)",
+    _subtitle:"createWithSpriteFrameName(); sub sprite",
+
+    ctor:function() {
+        this._super();
+
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_s9s_blocks9_plist);
+
+        var block = cc.Sprite.createWithSpriteFrameName('blocks9r.png');
+
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
+
+        block.setTextureRect(cc.rect(32, 32, 32, 32), true, cc.rect(32, 32, 32, 32));
+
+        block.setPosition(cc.p(x, y));
+        this.addChild(block);
+    }
+});
+
 var SpriteTestScene = TestScene.extend({
     runThisTest:function () {
         sceneIdx = -1;
@@ -3828,7 +3850,8 @@ var arrayOfSpriteTest = [
     SpriteBatchBug1217,
     AnimationCacheFile,
     TextureColorCacheIssue,
-    TextureColorCacheIssue2
+    TextureColorCacheIssue2,
+    TextureRotatedSpriteFrame
 ];
 
 var nextSpriteTest = function () {

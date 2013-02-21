@@ -11,6 +11,10 @@ require("tests-main.js");
 // Load tests files
 
 var tests_files = [
+
+		// base class
+		'BaseTestLayer/BaseTestLayer.js',
+
 		'ActionManagerTest/ActionManagerTest.js',
 		'ActionsTest/ActionsTest.js',
 		'ChipmunkTest/ChipmunkTest.js',
@@ -27,6 +31,7 @@ var tests_files = [
 		'LabelTest/LabelTest.js',
 		'LayerTest/LayerTest.js',
 		'MenuTest/MenuTest.js',
+		'OpenGLTest/OpenGLTest.js',
 		'ParallaxTest/ParallaxTest.js',
 		'ParticleTest/ParticleTest.js',
 		'PerformanceTest/PerformanceTest.js',
@@ -44,6 +49,7 @@ var tests_files = [
 		'SceneTest/SceneTest.js',
 		'SchedulerTest/SchedulerTest.js',
 		'SpriteTest/SpriteTest.js',
+		'ExtensionsTest/S9SpriteTest/S9SpriteTest.js',
 		'TileMapTest/TileMapTest.js',
 		'TransitionsTest/TransitionsTest.js',
 		'UnitTest/UnitTest.js',

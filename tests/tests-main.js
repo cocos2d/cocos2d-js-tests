@@ -33,6 +33,7 @@ var PLATFORM_JSB = 1 << 0;
 var PLATFORM_HTML5 = 1 << 1;
 var PLATFORM_ALL = PLATFORM_JSB | PLATFORM_HTML5;
 
+var autoTestEnabled = autoTestEnabled || false;
 
 var TestScene = cc.Scene.extend({
     ctor:function (bPortrait) {
@@ -44,7 +45,7 @@ var TestScene = cc.Scene.extend({
     // callbacks
     onEnter:function () {
         this._super();
-        var label = cc.LabelTTF.create("MainMenu", "Arial", 20);
+        var label = cc.LabelTTF.create("Main Menu", "Arial", 20);
         var menuItem = cc.MenuItemLabel.create(label, this.onMainMenuCallback, this);
 
         var menu = cc.Menu.create(menuItem);
@@ -88,9 +89,19 @@ var TestController = cc.LayerGradient.extend({
 
         // add close menu
         var closeItem = cc.MenuItemImage.create(s_pathClose, s_pathClose, this.onCloseCallback, this);
-        var menu = cc.Menu.create(closeItem);//pmenu is just a holder for the close button
-        menu.setPosition(0,0);
         closeItem.setPosition(winSize.width - 30, winSize.height - 30);
+
+        var subItem1 = cc.MenuItemFont.create("Automated Test: Off");
+        subItem1.setFontSize(18);
+        var subItem2 = cc.MenuItemFont.create("Automated Test: On");
+        subItem2.setFontSize(18);
+
+        var toggleAutoTestItem = cc.MenuItemToggle.create(subItem1, subItem2);
+        toggleAutoTestItem.setCallback(this.onToggleAutoTest, this);
+        toggleAutoTestItem.setPosition(winSize.width-90, 20);
+
+        var menu = cc.Menu.create(closeItem, toggleAutoTestItem);//pmenu is just a holder for the close button
+        menu.setPosition(0,0);
 
         // add menu items for tests
         this._itemMenu = cc.Menu.create();//item menu is where all the label goes, and the one gets scrolled
@@ -138,6 +149,9 @@ var TestController = cc.LayerGradient.extend({
     },
     onCloseCallback:function () {
         history.go(-1);
+    },
+    onToggleAutoTest:function() {
+        autoTestEnabled = !autoTestEnabled;
     },
 
     onTouchesMoved:function (touches, event) {
@@ -331,6 +345,13 @@ var testNames = [
     },
     //"MotionStreakTest",
     {
+        title:"OpenGL Test",
+        platforms: PLATFORM_JSB,
+        testScene:function () {
+            return new OpenGLTestScene();
+        }
+    },
+    {
         title:"Parallax Test",
         platforms: PLATFORM_ALL,
         testScene:function () {
@@ -398,6 +419,13 @@ var testNames = [
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new SpriteTestScene();
+        }
+    },
+    {
+        title:"Scale9Sprite Test",
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new S9SpriteTestScene();
         }
     },
     {
