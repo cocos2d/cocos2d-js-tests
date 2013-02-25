@@ -1192,8 +1192,8 @@ var LabelTTFFontInitTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
         var font = cc.LabelTTF.create();
-        font.setFontName("Courier New");
-        //font.setFontName("Arial");
+        //font.setFontName("Courier New");
+        font.setFontName("Arial");
         font.setFontSize(48);
         font.setString("It is working!");
         this.addChild(font);

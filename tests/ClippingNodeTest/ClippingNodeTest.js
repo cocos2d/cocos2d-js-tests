@@ -689,8 +689,6 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
 });
 
 var arrayOfClippingNodeTest = [
-    NestedTest,
-    SpriteInvertedTest,
     ScrollViewDemo,
     HoleDemo,
     ShapeTest,

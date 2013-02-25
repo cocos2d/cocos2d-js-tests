@@ -131,10 +131,13 @@ var s_bitmapFontChinese_fnt = "res/fonts/bitmapFontChinese.fnt";
 var s_arial16_fnt = "res/fonts/arial16.fnt";
 var s_futura48_fnt = "res/fonts/futura-48.fnt";
 var s_helvetica32_fnt = "res/fonts/helvetica-32.fnt";
+var s_helvetica32_png = "res/fonts/helvetica-geneva-32.png";
 var s_geneva32_fnt = "res/fonts/geneva-32.fnt";
 var s_arial_unicode_26_fnt = "res/fonts/arial-unicode-26.fnt";
 var s_markerFelt_fnt = "res/fonts/markerFelt.fnt";
+var s_markerFelt_png = "res/fonts/markerFelt.png";
 var s_markerFelt_hd_fnt = "res/fonts/markerFelt-hd.fnt";
+var s_markerFelt_hd_png = "res/fonts/markerFelt-hd.png";
 
 var s_larabie_16_plist = "res/fonts/larabie-16.plist";
 var s_larabie_16_hd_plist = "res/fonts/larabie-16-hd.plist";
@@ -150,8 +153,14 @@ var s_extensions_button = "res/extensions/button.png";
 var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
+var s_texture512 = "res/Images/texture512x512.png";
+var s_hole_effect_png = "res/Images/hole_effect.png";
+var s_hole_stencil_png = "res/Images/hole_stencil.png";
 
 var g_ressources = [
+    {src:s_texture512},
+    {src:s_hole_effect_png},
+    {src:s_hole_stencil_png},
     //ccbi resource
     {src:"res/ccb/HelloCocosBuilder.ccbi"},
     {src:"res/ccb/ccb/TestAnimations.ccbi"},
@@ -392,10 +401,13 @@ var g_ressources = [
     {src:s_arial16_fnt},
     {src:s_futura48_fnt},
     {src:s_helvetica32_fnt},
+    {src:s_helvetica32_png},
     {src:s_geneva32_fnt},
     {src:s_arial_unicode_26_fnt},
     {src:s_markerFelt_fnt},
+    {src:s_markerFelt_png},
     {src:s_markerFelt_hd_fnt},
+    {src:s_markerFelt_hd_png},
 
     {src:"res/fonts/strings.xml"},
     {src:"res/Particles/BoilingFoam.plist"},

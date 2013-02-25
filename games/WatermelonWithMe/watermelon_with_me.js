@@ -197,7 +197,7 @@ var GameLayer = cc.LayerGradient.extend({
 
         // coin only needed to obtain the texture for the Batch Node
         var coin = cc.Sprite.createWithSpriteFrameName("coin01.png");
-        this._batch = cc.SpriteBatchNode.createWithTexture(coin.getTexture(), 100);
+        this._batch = cc.Node.create(); //cc.SpriteBatchNode.createWithTexture(coin.getTexture(), 100);
         scroll.addChild(this._batch, Z_SPRITES, cc._p(1, 1), cc.p(0,0));
 
         if( 'opengl' in sys.capabilities) {
@@ -1084,7 +1084,7 @@ var ScoresLayer = cc.LayerGradient.extend({
     onBack:function (sender) {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
         director.replaceScene( cc.TransitionFade.create(0.5, scene));
-    },
+    }
 
 });
 
