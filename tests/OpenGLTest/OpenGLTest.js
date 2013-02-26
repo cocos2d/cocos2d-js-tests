@@ -204,8 +204,7 @@ var GLClearTest = OpenGLTestLayer.extend({
     },
 
     getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2,  winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2,  winSize.height/2,  1, 1);
         return JSON.stringify(ret);
     }
 });
@@ -407,12 +406,9 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
     },
 
     getCurrentResult:function() {
-        var ret1 = new Uint8Array(4);
-        gl.readPixels(10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret1);
-        var ret2 = new Uint8Array(4);
-        gl.readPixels(winSize.width-10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret2);
-        var ret3 = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret3);
+        var ret1 = this.readPixels(10, winSize.height-1,  1, 1);
+        var ret2 = this.readPixels(winSize.width-10, winSize.height-1,  1, 1);
+        var ret3 = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
 
         return JSON.stringify([ret1,ret2,ret3]);
     }
@@ -532,12 +528,9 @@ var GLNodeCCAPITest = OpenGLTestLayer.extend({
     },
 
     getCurrentResult:function() {
-        var ret1 = new Uint8Array(4);
-        gl.readPixels(10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret1);
-        var ret2 = new Uint8Array(4);
-        gl.readPixels(winSize.width-10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret2);
-        var ret3 = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret3);
+        var ret1 = this.readPixels(10, winSize.height-1,  1, 1);
+        var ret2 = this.readPixels(winSize.width-10, winSize.height-1,  1, 1);
+        var ret3 = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
 
         return JSON.stringify([ret1,ret2,ret3]);
     }
@@ -658,8 +651,7 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
         return JSON.stringify(ret);
     },
     getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
         ret[0] = ret[0] > 240 ? 255 : 0;
         ret[3] = ret[3] > 240 ? 255 : 0;
         return JSON.stringify(ret);
@@ -698,8 +690,7 @@ var ShaderPlasmaTest = OpenGLTestLayer.extend({
         return JSON.stringify(true);
     },
     getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
         var sum = ret[0] + ret[1] + ret[2];
         return JSON.stringify(sum>300);
     }
@@ -737,8 +728,7 @@ var ShaderFlowerTest = OpenGLTestLayer.extend({
         return JSON.stringify(true);
     },
     getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
         var sum = ret[0] + ret[1] + ret[2];
         return JSON.stringify(sum<30);
     }
@@ -776,8 +766,7 @@ var ShaderJuliaTest = OpenGLTestLayer.extend({
         return JSON.stringify(true);
     },
     getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
         var sum = ret[0] + ret[1] + ret[2];
         return JSON.stringify(sum>300);
     }
@@ -996,8 +985,7 @@ var TexImage2DTest = OpenGLTestLayer.extend({
     },
 
     getCurrentResult:function() {
-        var ret = new Uint8Array(4*16);
-        gl.readPixels(winSize.width/2-2, winSize.height/2-2,  4, 4, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2-2, winSize.height/2-2,  4, 4);
         return JSON.stringify(ret);
     }
 });

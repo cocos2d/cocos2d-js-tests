@@ -109,6 +109,9 @@ ChipmunkBaseLayer.prototype.onEnter = function() {
     item2.setPosition( cc.p(winSize.width / 2, 30));
     item3.setPosition( cc.p(winSize.width / 2 + 100, 30));
 	this.addChild(menu, 1);
+
+    sys.dumpRoot();
+    sys.garbageCollect();
 };
 
 ChipmunkBaseLayer.prototype.onCleanup = function() {
@@ -661,8 +664,8 @@ var ChipmunkReleaseTest = function() {
         // cc.base(this, 'onEnter');
 
         cc.log("OnEnter");
-        __jsc__.dumpRoot();
-        __jsc__.garbageCollect();
+        sys.dumpRoot();
+        sys.garbageCollect();
 
         this.space.addCollisionHandler( 10,11,
 			this.collisionBegin.bind(this),
@@ -682,8 +685,8 @@ var ChipmunkReleaseTest = function() {
 
 		this.space = null;
 
-        __jsc__.dumpRoot();
-        __jsc__.garbageCollect();
+        sys.dumpRoot();
+        sys.garbageCollect();
 
         // cc.base(this, 'onExit');
         ChipmunkBaseLayer.prototype.onExit.call(this);

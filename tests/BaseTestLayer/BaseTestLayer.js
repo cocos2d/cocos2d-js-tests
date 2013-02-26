@@ -28,6 +28,9 @@ var autoTestEnabled = autoTestEnabled || false;
 var BaseTestLayer = cc.LayerGradient.extend({
 
     ctor:function(colorA, colorB ) {
+
+        sys.garbageCollect();
+
         this._super();
         cc.associateWithNative( this, cc.LayerGradient );
 
@@ -157,5 +160,17 @@ var BaseTestLayer = cc.LayerGradient.extend({
             director.replaceScene(scene);
         } else
             this.onNextCallback(this);
+    },
+
+    readPixels:function(x,y,w,h) {
+        if( 'opengl' in sys.capabilities) {
+            var size = 4 * w * h;
+            var array = new Uint8Array(size);
+            gl.readPixels(x, y, w, h, gl.RGBA, gl.UNSIGNED_BYTE, array);
+            return array;
+        } else {
+            // implement a canvas-html5 readpixels
+            throw "readPixels Not implemented on canvas yet";
+        }
     }
 });
