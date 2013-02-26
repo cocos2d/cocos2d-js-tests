@@ -542,6 +542,7 @@ var ChipmunkCollisionMemoryLeakTest = function() {
     };
 
 	this.onExit = function() {
+		ChipmunkBaseLayer.prototype.onExit.call(this);
 
         for( var i=1 ; i < 100 ; i++ )
             this.space.removeCollisionHandler( i, i+1 );
