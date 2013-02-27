@@ -44,6 +44,9 @@ var BaseTestLayer = cc.LayerGradient.extend({
             b = colorB;
         this.init( a, b );
 
+        // Update winsize in case it was resized
+        winSize = director.getWinSize();
+
         if( autoTestEnabled ) {
             this.totalNumberOfTests = this.numberOfPendingTests();
             this.scheduleOnce( this.endTest, this.testDuration );

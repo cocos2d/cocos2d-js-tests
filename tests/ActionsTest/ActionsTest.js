@@ -59,8 +59,6 @@ var ActionsDemo = BaseTestLayer.extend({
         this._tamara.setPosition(s.width / 2, 2 * s.height / 3);
         this._kathia.setPosition(s.width / 2, s.height / 2);
 
-        // Update winsize in case it was resized
-        winSize = director.getWinSize();
     },
 
     centerSprites:function (numberOfSprites) {
