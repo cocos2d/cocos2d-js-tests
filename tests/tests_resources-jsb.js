@@ -158,3 +158,5 @@ var s_image_icon = "res/Images/Icon.png";
 
 var s_circle_plist = "res/Images/bugs/circle.plist";
 var s_circle_png = "res/Images/bugs/circle.png";
+
+var s_pathFog = "res/Images/Fog.png";

@@ -1303,12 +1303,12 @@ var ActionCardinalSpline = ActionsDemo.extend({
             var apPoint = this.getAnchorPointInPoints();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
-            context.translate(50 - apPoint.x, apPoint.y - 50);
+            context.translate(50 , -50);
             cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
             context.restore();
 
             context.save();
-            context.translate(winSize.width / 2 - apPoint.x, apPoint.y - 50);
+            context.translate(winSize.width / 2 , -50);
             cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
             context.restore();
         } else {
@@ -1409,17 +1409,13 @@ var ActionCatmullRom = ActionsDemo.extend({
         var context = ctx || cc.renderContext;
 
         if(cc.renderContextType === cc.CANVAS){
-            var apPoint = this.getAnchorPointInPoints();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
-            context.translate(50 - apPoint.x, apPoint.y - 50);
+            context.translate(50, - 50);
             cc.drawingUtil.drawCatmullRom(this._array1, 50);
             context.restore();
 
-            context.save();
-            context.translate(-apPoint.x, apPoint.y);
             cc.drawingUtil.drawCatmullRom(this._array2, 50);
-            context.restore();
         } else {
             // move to 50,50 since the "by" path will start at 50,50
             cc.kmGLPushMatrix();
@@ -1983,7 +1979,7 @@ var Issue1446 = ActionsDemo.extend({
     onEnter:function () {
         this._super();
         this.centerSprites(0);
-        var label = this.label = cc.LabelTTF.create("Hello World", "Marker Felt", 64);
+        var label = this.label = cc.LabelTTF.create("Hello World", "Arial", 64);
 
         label.setPosition(winSize.width / 2, winSize.height / 2);
         label.setOpacity(0);

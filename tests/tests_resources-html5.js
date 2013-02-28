@@ -156,11 +156,18 @@ var s_image_icon = "res/Images/Icon.png";
 var s_texture512 = "res/Images/texture512x512.png";
 var s_hole_effect_png = "res/Images/hole_effect.png";
 var s_hole_stencil_png = "res/Images/hole_stencil.png";
+var s_pathFog = "res/Images/Fog.png";
+var s_circle_plist  = "res/Images/bugs/circle.plist";
+var s_circle_png  = "res/Images/bugs/circle.png";
 
 var g_ressources = [
     {src:s_texture512},
+    {src:s_pathFog},
     {src:s_hole_effect_png},
     {src:s_hole_stencil_png},
+    {src:s_circle_plist},
+    {src:s_circle_png},
+    {src:"res/Images/fps_images.png"},
     //ccbi resource
     {src:"res/ccb/HelloCocosBuilder.ccbi"},
     {src:"res/ccb/ccb/TestAnimations.ccbi"},
