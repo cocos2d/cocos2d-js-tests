@@ -38,7 +38,6 @@ var ActionsTestScene = TestScene.extend({
     }
 });
 
-
 var ActionsDemo = BaseTestLayer.extend({
     _grossini:null,
     _tamara:null,
