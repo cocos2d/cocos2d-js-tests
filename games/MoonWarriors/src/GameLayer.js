@@ -40,6 +40,8 @@ var GameLayer = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
 
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_textureOpaquePack_plist);
+
             // reset global values
             MW.CONTAINER.ENEMIES = [];
             MW.CONTAINER.ENEMY_BULLETS = [];
