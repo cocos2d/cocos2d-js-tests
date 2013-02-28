@@ -19,7 +19,6 @@ var s_stars1 = "res/Images/stars.png";
 var s_stars2 = "res/Images/stars2.png";
 var s_fire = "res/Images/fire.png";
 var s_snow = "res/Images/snow.png";
-var s_shake = "res/Images/shake.png";
 var s_streak = "res/Images/streak.png";
 var s_playNormal = "res/Images/btn-play-normal.png";
 var s_playSelect = "res/Images/btn-play-selected.png";
@@ -252,7 +251,6 @@ var g_ressources = [
     {src:s_stars2},
     {src:s_fire},
     {src:s_snow},
-    {src:s_shake},
     {src:s_playNormal},
     {src:s_playSelect},
     {src:s_aboutNormal},

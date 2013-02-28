@@ -64,7 +64,6 @@ var AnimationMenuLayer = PerformBasicLayer.extend({
             l.setPosition(cc.p(s.width / 2, s.height - 80));
         }
 
-        this.performTests();
     },
     title:function () {
         return "no title";
@@ -83,17 +82,35 @@ var AnimationMenuLayer = PerformBasicLayer.extend({
 //
 ////////////////////////////////////////////////////////
 var AnimationTest = AnimationMenuLayer.extend({
+    numNodes:null,
+    lastRenderedCount:null,
+    moveLayer:null,
+
     init:function () {
         this._super();
 
         var size = cc.Director.getInstance().getWinSize();
-        var bg = cc.Sprite.create("res/Images/shake.png");
-        bg.setPosition(cc.p(size.width /2, size.height /2));
-        this.addChild(bg);
 
+        cc.MenuItemFont.setFontSize(65);
+        var that = this;
+        var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
+        decrease.setColor(cc.c3b(0, 200, 20));
+        var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
+        increase.setColor(cc.c3b(0, 200, 20));
+
+        var menu = cc.Menu.create(decrease, increase);
+        menu.alignItemsHorizontally();
+        menu.setPosition(cc.p(size.width / 2, size.height / 2 + 100));
+        this.addChild(menu, 1);
+
+        var infoLabel = cc.LabelTTF.create("0 nodes", "Marker Felt", 24);
+        infoLabel.setColor(cc.c3b(0, 200, 20));
+        infoLabel.setPosition(cc.p(size.width / 2, size.height - 90));
+        this.addChild(infoLabel, 1, TAG_INFO_LAYER);
+
+        this.numNodes = 0;
         this.createMovieClip();
-        index = 0;
-        this.scheduleUpdate();
+        //this.scheduleUpdate();
     },
     performTests:function () {
         this.init();
@@ -105,27 +122,43 @@ var AnimationTest = AnimationMenuLayer.extend({
         return "";
     },
     createMovieClip:function () {
-        var moveLayer = cc.Sprite.create();
-        this.addChild(moveLayer);
-
+        this.moveLayer = cc.Node.create();
+        this.addChild(this.moveLayer);
         var size = cc.Director.getInstance().getWinSize();
         for(var i=0; i<10; i++) {
             var character = new CharacterView();
             character.init();
             character.setPosition(cc.p(size.width /2 - i*15 - 200, size.height /2 - i*15));
-            moveLayer.addChild(character);
+            this.numNodes++;
+            cc.log("create"+this.numNodes);
+            this.moveLayer.addChild(character, 0, this.numNodes);
         }
-
         var action = cc.MoveBy.create(0.01, cc.p(2,0));
-        moveLayer.runAction(cc.RepeatForever.create(action));
+        this.moveLayer.runAction(cc.RepeatForever.create(action));
+        this.updateNodes();
     },
-    update:function () {
-        if(index >50){
-            this.createMovieClip();
-            index = 0;
+    onIncrease:function () {
+        this.createMovieClip();
+    },
+    onDecrease:function () {
+        if(this.numNodes > 0) {
+            for(var i=0;i<10;i++) {
+                cc.log("remove"+this.numNodes);
+                this.moveLayer.removeChildByTag(this.numNodes, true);
+                this.numNodes--;
+            }
         }
-        index++;
-    }
+        this.updateNodes();
+    },
+    updateNodes:function () {
+        if (this.numNodes != this.lastRenderedCount) {
+            var infoLabel = this.getChildByTag(TAG_INFO_LAYER);
+            var str = this.numNodes + " nodes";
+            infoLabel.setString(str);
+
+            this.lastRenderedCount = this.numNodes;
+        }
+    },
 });
 
 var CharacterView = cc.Sprite.extend({
@@ -187,7 +220,6 @@ var CharacterView = cc.Sprite.extend({
 
 AnimationTest.scene = function () {
     var scene = cc.Scene.create();
-    //cc.SpriteFrameCache.getInstance().addSpriteFrames("res/animations/crystals.plist");
     var layer = new AnimationTest(false, 1, s_nAnimationCurCase);
     scene.addChild(layer);
     return scene;
