@@ -133,7 +133,7 @@ var AnimationTest = AnimationMenuLayer.extend({
             cc.log("create"+this.numNodes);
             this.moveLayer.addChild(character, 0, this.numNodes);
         }
-        var action = cc.MoveBy.create(0.01, cc.p(2,0));
+        var action = cc.MoveBy.create(1, cc.p(20,0));
         this.moveLayer.runAction(cc.RepeatForever.create(action));
         this.updateNodes();
     },
@@ -161,13 +161,17 @@ var AnimationTest = AnimationMenuLayer.extend({
     },
 });
 
-var CharacterView = cc.Sprite.extend({
+var CharacterView = cc.Node.extend({
     leftData:null,
     leftItem:null,
     rightData:null,
     rightItem:null,
     leftX:null,
-    
+
+    ctor:function() {
+        this._super();
+        cc.associateWithNative(this, cc.Node);
+    },
     init: function() {
         this._super();
         cc.SpriteFrameCache.getInstance().addSpriteFrames("res/animations/crystals.plist");
@@ -186,7 +190,7 @@ var CharacterView = cc.Sprite.extend({
                 rightItem = right;
             }
         }
-        
+
         for(i=0; i<10; i++){
             var head = cc.Sprite.createWithSpriteFrameName("crystals/1.png");
             head.setPosition(cc.p(i*5,50));
@@ -196,7 +200,7 @@ var CharacterView = cc.Sprite.extend({
             var rotateToA = cc.RotateBy.create(0.01, 5);
             head.runAction(cc.RepeatForever.create(rotateToA));
         }
-        
+
         leftData = new Array(10);
         for(i=0; i<10; i++){
             var left = cc.Sprite.createWithSpriteFrameName("crystals/2.png");
@@ -210,9 +214,9 @@ var CharacterView = cc.Sprite.extend({
                 leftItem = left;
             }
         }
-        
+
     },
-    
+
     setDistance: function(){
         leftX = leftItem.getPositionX();
     },
