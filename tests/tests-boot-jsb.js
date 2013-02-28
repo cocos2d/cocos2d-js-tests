@@ -41,6 +41,7 @@ var tests_files = [
 		'PerformanceTest/PerformanceSpriteTest2.js',
 		'PerformanceTest/PerformanceTextureTest.js',
 		'PerformanceTest/PerformanceTouchesTest.js',
+		'PerformanceTest/PerformanceAnimationTest.js',
 		'PerformanceTest/seedrandom.js',
 		'Presentation/Presentation.js',
 		'ProgressActionsTest/ProgressActionsTest.js',
