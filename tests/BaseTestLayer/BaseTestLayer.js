@@ -42,6 +42,13 @@ var BaseTestLayer = cc.LayerGradient.extend({
             a = colorA;
         if( arguments.lenght == 2 )
             b = colorB;
+
+        // for automation, no gradient. helps for grabbing the screen if needed
+        if( autoTestEnabled ) {
+            a = cc.c4b(0,0,0,255);
+            b = cc.c4b(0,0,0,255);
+        }
+
         this.init( a, b );
 
         // Update winsize in case it was resized

@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 
-var sceneIdx = -1;
+var sceneRenderTextureIdx = -1;
 
 var RenderTextureBaseLayer = BaseTestLayer.extend({
 
@@ -59,6 +59,14 @@ var RenderTextureBaseLayer = BaseTestLayer.extend({
         var s = new RenderTextureTestScene();
         s.addChild(previousRenderTextureTest());
         director.replaceScene(s);
+    },
+
+    numberOfPendingTests:function() {
+        return ( (arrayOfRenderTextureTest.length-1) - sceneRenderTextureIdx );
+    },
+
+    getTestNumber:function() {
+        return sceneRenderTextureIdx;
     }
 });
 
@@ -212,12 +220,28 @@ var Issue1464 = RenderTextureBaseLayer.extend({
 
     subtitle:function () {
         return "Sprites should fade in / out correctly";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:2.1,
+
+    getExpectedResult:function() {
+        // blue, red, blue
+        var ret = {"0":0,"1":0,"2":0,"3":255,"4":0,"5":0,"6":0,"7":255,"8":0,"9":0,"10":0,"11":255,"12":0,"13":0,"14":0,"15":255,"16":0,"17":0,"18":0,"19":255,"20":0,"21":0,"22":0,"23":255,"24":0,"25":0,"26":0,"27":255,"28":0,"29":0,"30":0,"31":255,"32":0,"33":0,"34":0,"35":255,"36":0,"37":0,"38":0,"39":255,"40":0,"41":0,"42":0,"43":255,"44":0,"45":0,"46":0,"47":255,"48":0,"49":0,"50":0,"51":255,"52":0,"53":0,"54":0,"55":255,"56":0,"57":0,"58":0,"59":255,"60":0,"61":0,"62":0,"63":255};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = this.readPixels(winSize.width/2-2, winSize.height/2-2,  4, 4);
+        return JSON.stringify(ret);
     }
 });
 
 var RenderTextureTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        sceneRenderTextureIdx = -1;
         var layer = nextRenderTextureTest();
         this.addChild(layer);
 
@@ -235,18 +259,18 @@ var arrayOfRenderTextureTest = [
 ];
 
 var nextRenderTextureTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfRenderTextureTest.length;
+    sceneRenderTextureIdx++;
+    sceneRenderTextureIdx = sceneRenderTextureIdx % arrayOfRenderTextureTest.length;
 
-    return new arrayOfRenderTextureTest[sceneIdx]();
+    return new arrayOfRenderTextureTest[sceneRenderTextureIdx]();
 };
 var previousRenderTextureTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfRenderTextureTest.length;
+    sceneRenderTextureIdx--;
+    if (sceneRenderTextureIdx < 0)
+        sceneRenderTextureIdx += arrayOfRenderTextureTest.length;
 
-    return new arrayOfRenderTextureTest[sceneIdx]();
+    return new arrayOfRenderTextureTest[sceneRenderTextureIdx]();
 };
 var restartRenderTextureTest = function () {
-    return new arrayOfRenderTextureTest[sceneIdx]();
+    return new arrayOfRenderTextureTest[sceneRenderTextureIdx]();
 };
