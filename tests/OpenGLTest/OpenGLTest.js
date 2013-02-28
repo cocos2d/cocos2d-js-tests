@@ -565,6 +565,12 @@ var ShaderNode = cc.GLNode.extend({
             this.uniformResolution = gl.getUniformLocation( program, "resolution");
             this.uniformTime = gl.getUniformLocation( program, "time");
 
+            // test uniform numbers
+            var u1 = gl.getUniform( program, this.uniformCenter );
+            var u2 = gl.getUniform( program, this.uniformResolution );
+            var u3 = gl.getUniform( program, this.uniformTime );
+            cc.log( [u1, u2, u3] );
+
             this.initBuffers();
 
             this.scheduleUpdate();
