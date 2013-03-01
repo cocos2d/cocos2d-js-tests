@@ -563,13 +563,6 @@ var ShaderNode = cc.GLNode.extend({
             var program = this.shader.getProgram();
             this.uniformCenter = gl.getUniformLocation( program, "center");
             this.uniformResolution = gl.getUniformLocation( program, "resolution");
-            this.uniformTime = gl.getUniformLocation( program, "time");
-
-            // test uniform numbers
-            var u1 = gl.getUniform( program, this.uniformCenter );
-            var u2 = gl.getUniform( program, this.uniformResolution );
-            var u3 = gl.getUniform( program, this.uniformTime );
-            cc.log( [u1, u2, u3] );
 
             this.initBuffers();
 
@@ -588,10 +581,6 @@ var ShaderNode = cc.GLNode.extend({
         this.shader.setUniformLocationF32( this.uniformCenter, winSize.width/2, winSize.height/2);
         this.shader.setUniformLocationF32( this.uniformResolution, 256, 256);
 
-        // time changes all the time, so it is Ok to call OpenGL directly, and not the "cached" version
-        gl.uniform1f( this.uniformTime, this._time );
-
-
         cc.glEnableVertexAttribs( cc.VERTEX_ATTRIB_FLAG_POSITION );
 
         // Draw fullscreen Square
@@ -600,7 +589,6 @@ var ShaderNode = cc.GLNode.extend({
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
-
     },
 
     update:function(dt) {
@@ -845,7 +833,7 @@ var GLGetActiveTest = OpenGLTestLayer.extend({
         this._super();
 
         if( 'opengl' in sys.capabilities ) {
-            var sprite = this.sprite = cc.Sprite.create("grossini.png");
+            var sprite = this.sprite = cc.Sprite.create("res/Images/grossini.png");
             sprite.setPosition( winSize.width/2, winSize.height/2);
             this.addChild( sprite );
 
@@ -1094,6 +1082,57 @@ var GLTexParamterTest = OpenGLTestLayer.extend({
         return JSON.stringify(ret);
     }
 });
+
+//------------------------------------------------------------------
+//
+// GLGetUniformTest
+//
+//------------------------------------------------------------------
+var GLGetUniformTest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+            if( ! autoTestEnabled ) {
+                cc.log( JSON.stringify( this.runTest() ));
+            }
+
+        }
+    },
+
+    title:function () {
+        return "GLTexParamterTest";
+    },
+    subtitle:function () {
+        return "tests texParameter()";
+    },
+    runTest:function() {
+
+        var shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTextureColor");
+        var program = shader.getProgram();
+        shader.use();
+        shader.setUniformsForBuiltins();
+
+        var mvuni = gl.getUniformLocation( program, "CC_MVPMatrix");
+        return gl.getUniform( program, mvuni );
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        var ret = [9728,9728,33071,33071];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = this.runTest();
+        return JSON.stringify(ret);
+    }
+});
+
 //-
 //
 // Flow control
@@ -1112,7 +1151,8 @@ var arrayOfOpenGLTest = [
     GLClearTest,
     GLNodeWebGLAPITest,
     GLNodeCCAPITest,
-    GLTexParamterTest
+    GLTexParamterTest,
+    GLGetUniformTest
 ];
 
 var nextOpenGLTest = function () {

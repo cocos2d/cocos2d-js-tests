@@ -45,7 +45,7 @@ var ChipmunkBaseLayer = function() {
 	// Failure to do so, it will crash.
 	//
 	var parent = cc.LayerGradient.call(this);
-	//var parent = cc.base(this);
+	// var parent = cc.base(this);
 	cc.associateWithNative( this, parent );
 	this.init( cc.c4b(0,0,0,255), cc.c4b(98*0.5,99*0.5,117*0.5,255) );
 
