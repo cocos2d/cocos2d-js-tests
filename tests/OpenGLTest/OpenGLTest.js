@@ -1103,7 +1103,7 @@ var GLGetUniformTest = OpenGLTestLayer.extend({
     },
 
     title:function () {
-        return "GLTexParamterTest";
+        return "GLGetUniformTest";
     },
     subtitle:function () {
         return "tests texParameter()";
@@ -1113,17 +1113,22 @@ var GLGetUniformTest = OpenGLTestLayer.extend({
         var shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTextureColor");
         var program = shader.getProgram();
         shader.use();
-        shader.setUniformsForBuiltins();
 
-        var mvuni = gl.getUniformLocation( program, "CC_MVPMatrix");
-        return gl.getUniform( program, mvuni );
+        var loc = gl.getUniformLocation( program, "CC_MVPMatrix");
+
+        var pMatrix = [1,2,3,4, 4,3,2,1, 1,2,4,8, 1.1,1.2,1.3,1.4];
+        this.pMatrix = pMatrix = new Float32Array(pMatrix);
+
+        gl.uniformMatrix4fv(loc, false, this.pMatrix);
+
+        return gl.getUniform( program, loc );
     },
 
     //
     // Automation
     //
     getExpectedResult:function() {
-        var ret = [9728,9728,33071,33071];
+        var ret = {"0":1,"1":2,"2":3,"3":4,"4":4,"5":3,"6":2,"7":1,"8":1,"9":2,"10":4,"11":8,"12":1.100000023841858,"13":1.2000000476837158,"14":1.2999999523162842,"15":1.399999976158142};
         return JSON.stringify(ret);
     },
 
