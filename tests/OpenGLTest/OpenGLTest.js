@@ -69,6 +69,7 @@ var OpenGLTestLayer = BaseTestLayer.extend({
         director.replaceScene(s);
     },
 
+    // automation
     numberOfPendingTests:function() {
         return ( (arrayOfOpenGLTest.length-1) - OpenGLTestIdx );
     },

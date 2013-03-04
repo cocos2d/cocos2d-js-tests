@@ -60,19 +60,40 @@ var BaseTestLayer = cc.LayerGradient.extend({
         }
     },
 
+    getTitle:function() {
+        var t = "";
+
+        // some tests use "this.title()" and others use "this._title";
+        if( 'title' in this )
+            t = this.title();
+        else if('_title' in this )
+            t = this._title;
+        return t;
+    },
+    getSubtitle:function() {
+        var st = "";
+        // some tests use "this.subtitle()" and others use "this._subtitle";
+        if( 'subtitle' in this )
+            st = this.subtitle();
+        else if( '_subtitle' in this )
+            st = this._subtitle;
+
+        return st;
+    },
     //
     // Menu
     //
     onEnter:function () {
         this._super();
 
-        var label = cc.LabelTTF.create(this.title(), "Arial", 28);
+        var t = this.getTitle();
+        var label = cc.LabelTTF.create(t, "Arial", 28);
         this.addChild(label, 100);
         label.setPosition(winSize.width / 2, winSize.height - 50);
 
-        var strSubtitle = this.subtitle();
-        if (strSubtitle) {
-            var l = cc.LabelTTF.create(strSubtitle.toString(), "Thonburi", 16);
+        var st = this.getSubtitle();
+        if (st) {
+            var l = cc.LabelTTF.create(st.toString(), "Thonburi", 16);
             this.addChild(l, 101);
             l.setPosition(winSize.width / 2, winSize.height - 80);
         }
@@ -136,7 +157,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
     endTest:function(dt) {
 
         this.errorDescription = "";
-        title = this.title();
+        var title = this.getTitle();
 
         try {
             if( this.tearDown(dt) ) {
@@ -169,7 +190,12 @@ var BaseTestLayer = cc.LayerGradient.extend({
             scene.addChild(layer);
             director.replaceScene(scene);
         } else
-            this.onNextCallback(this);
+            try {
+                this.onNextCallback(this);
+            } catch (err) {
+                cc.log( this.getTestNumber() + ": Test '" + this.getTitle() + "':'" + err);
+                this.runNextTest();
+            }
     },
 
     readPixels:function(x,y,w,h) {
