@@ -80,6 +80,10 @@ var BaseTestLayer = cc.LayerGradient.extend({
 
         return st;
     },
+    log:function(str) {
+        if( !autoTestEnabled )
+            cc.log(str);
+    },
     //
     // Menu
     //
