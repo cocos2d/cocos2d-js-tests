@@ -89,6 +89,7 @@
             'ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js',
             'ExtensionsTest/ControlExtensionTest/CCControlScene.js',
             'ExtensionsTest/ControlExtensionTest/CCControlButtonTest/CCControlButtonTest.js',
+            'ExtensionsTest/ControlExtensionTest/CCControlSliderTest/CCControlSliderTest.js',
             'ExtensionsTest/TableViewTest/TableViewTestScene.js',
             'ExtensionsTest/CocosBuilderTest/CocosBuilderTest.js',
             'ExtensionsTest/CocosBuilderTest/TestHeader/TestHeaderLayer.js',

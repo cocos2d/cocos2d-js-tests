@@ -41,7 +41,7 @@ var extensionsTestItemNames = [
      }
      },*/
     {
-        itemTitle:"CCControlButtonTest",
+        itemTitle:"CCControlExtensionTest",
         testScene:function () {
             var pManager = ControlSceneManager.getInstance();
             var pScene = pManager.currentControlScene();
