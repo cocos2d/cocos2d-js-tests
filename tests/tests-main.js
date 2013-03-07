@@ -141,10 +141,15 @@ var TestController = cc.LayerGradient.extend({
         var idx = sender.getZOrder() - 10000;
         // get the userdata, it's the index of the menu item clicked
         // create the test scene and run it
-        var scene = testNames[idx].testScene();
-        if (scene) {
-            scene.runThisTest();
-        }
+
+        var testCase = testNames[idx];
+        var res = testCase.resource || [];
+        cc.Loader.preload(res, function () {
+            var scene = testCase.testScene();
+            if (scene) {
+                scene.runThisTest();
+            }
+        }, this);
     },
     onCloseCallback:function () {
         history.go(-1);
@@ -202,6 +207,7 @@ var testNames = [
     },
     {
         title:"Box2D Test",
+        resource:g_box2d,
         platforms: PLATFORM_HTML5,
         testScene:function () {
             return new Box2DTestScene();
@@ -224,6 +230,7 @@ var testNames = [
     },
     {
         title:"CocosDenshion Test",
+        resource:g_cocosdeshion,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new CocosDenshionTestScene();
@@ -260,6 +267,7 @@ var testNames = [
     },
     {
         title:"Extensions Test",
+        resource:g_extensions,
         platforms: PLATFORM_HTML5,
         testScene:function () {
             return new ExtensionsTestScene();
@@ -276,6 +284,7 @@ var testNames = [
     //"ExtensionsTest",
     {
         title:"FileUtils Test",
+        resource:g_fileUtils,
         platforms: PLATFORM_ALL,
         testScene:function () {
              return new FileUtilsTestScene();
@@ -283,6 +292,7 @@ var testNames = [
     },
     {
         title:"Font Test",
+        resource:g_fonts,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new FontTestScene();
@@ -298,6 +308,7 @@ var testNames = [
     },
     {
         title:"Label Test",
+        resource:g_label,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new LabelTestScene();
@@ -312,6 +323,7 @@ var testNames = [
     },
     {
         title:"Menu Test",
+        resource:g_menu,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new MenuTestScene();
@@ -334,6 +346,7 @@ var testNames = [
     },
     {
         title:"Parallax Test",
+        resource:g_parallax,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new ParallaxTestScene();
@@ -342,6 +355,7 @@ var testNames = [
     {
         title:"Particle Test",
         platforms: PLATFORM_ALL,
+        resource:g_particle,
         testScene:function () {
             return new ParticleTestScene();
         }
@@ -390,6 +404,7 @@ var testNames = [
     },
     {
         title:"Sprite Test",
+        resource:g_sprites,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new SpriteTestScene();
@@ -397,6 +412,7 @@ var testNames = [
     },
     {
         title:"Scale9Sprite Test",
+        resource:g_s9s_blocks,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new S9SpriteTestScene();
@@ -419,6 +435,7 @@ var testNames = [
     },
     {
         title:"TileMap Test",
+        resource:g_tilemaps,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new TileMapTestScene();
@@ -426,6 +443,7 @@ var testNames = [
     },
     {
         title:"Touches Test",
+        resource:g_touches,
         platforms: PLATFORM_HTML5,
         testScene:function () {
             return new TouchesTestScene();
@@ -433,6 +451,7 @@ var testNames = [
     },
     {
         title:"Transitions Test",
+        resource:g_transitions,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new TransitionsTestScene();
