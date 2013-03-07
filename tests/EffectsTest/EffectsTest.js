@@ -24,27 +24,13 @@
  ****************************************************************************/
 
 
-var sceneIdx = -1;
+var effectsTestSceneIdx = -1;
 
 //
 // Base Layer
 //
 
-var EffecstsBaseLayer = cc.Layer.extend({
-
-    ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
-    },
-
-    title:function () {
-        return "Effects Test";
-    },
-
-    subtitle:function () {
-        return "";
-    },
+var EffecstsBaseLayer = BaseTestLayer.extend({
 
     code:function () {
         return "";
@@ -69,46 +55,6 @@ var EffecstsBaseLayer = cc.Layer.extend({
     onEnter:function () {
        this._super();
 
-        // add title and subtitle
-        var label = cc.LabelTTF.create(this.title(), "Arial", 28);
-        this.addChild(label, 10);
-        label.setPosition( cc.p(winSize.width / 2, winSize.height - 40));
-
-        var strSubtitle = this.subtitle();
-        if (strSubtitle !== "") {
-            var l = cc.LabelTTF.create(strSubtitle, "Thonburi", 16);
-            this.addChild(l, 10);
-            l.setPosition( cc.p(winSize.width / 2, winSize.height - 70));
-        }
-
-        var strCode = this.code();
-        if( strCode !=="" ) {
-            label = cc.LabelTTF.create(strCode, 'CourierNewPSMT', 16);
-            label.setPosition( cc.p( winSize.width/2, winSize.height-120) );
-            this.addChild( label,10 );
-
-            var labelbg = cc.LabelTTF.create(strCode, 'CourierNewPSMT', 16);
-            labelbg.setColor( cc.c3b(10,10,255) );
-            labelbg.setPosition( cc.p( winSize.width/2 +1, winSize.height-120 -1) );
-            this.addChild( labelbg,9);
-        }
-
-        // Menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition( cc.p(0,0) );
-        item1.setPosition( cc.p(winSize.width / 2 - 100, 30));
-        item2.setPosition( cc.p(winSize.width / 2, 30));
-        item3.setPosition( cc.p(winSize.width / 2 + 100, 30));
-
-        this.addChild(menu, 10);
-
-
-        // Specific to Effects
 
         var node = cc.Node.create();
         node.runAction( this.getEffect(3) );
@@ -131,7 +77,7 @@ var EffecstsBaseLayer = cc.Layer.extend({
         sister2.setPosition( cc._p( winSize.width*2/3, winSize.height/2 ) );
         node.addChild( sister2, 1 );
 
-		var sc = cc.ScaleBy.create(2, 5);
+        var sc = cc.ScaleBy.create(2, 5);
         var sc_back = sc.reverse();
         var seq = cc.Sequence.create( sc, sc_back );
         var repeat = cc.RepeatForever.create( seq );
@@ -143,7 +89,17 @@ var EffecstsBaseLayer = cc.Layer.extend({
     getEffect:function(duration) {
         // override me
         return cc.MoveBy.create(2, cc._p(10,10) );
+    },
+
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfEffectsTest.length-1) - effectsTestSceneIdx );
+    },
+
+    getTestNumber:function() {
+        return effectsTestSceneIdx;
     }
+
 });
 
 //------------------------------------------------------------------
@@ -152,7 +108,7 @@ var EffecstsBaseLayer = cc.Layer.extend({
 //
 //------------------------------------------------------------------
 var Shaky3DTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "Shaky 3D";
     },
     code:function () {
@@ -164,7 +120,7 @@ var Shaky3DTest = EffecstsBaseLayer.extend({
 });
 
 var Waves3DTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "Waves 3D";
     },
     code:function () {
@@ -176,7 +132,7 @@ var Waves3DTest = EffecstsBaseLayer.extend({
 });
 
 var FlipXTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "FlipX3D";
     },
     code:function () {
@@ -191,7 +147,7 @@ var FlipXTest = EffecstsBaseLayer.extend({
 });
 
 var FlipYTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "FlipY3D";
     },
     code:function () {
@@ -206,7 +162,7 @@ var FlipYTest = EffecstsBaseLayer.extend({
 });
 
 var Lens3DTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "Lens3D";
     },
     code:function () {
@@ -218,7 +174,7 @@ var Lens3DTest = EffecstsBaseLayer.extend({
 });
 
 var Ripple3DTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "Ripple3D";
     },
     code:function () {
@@ -230,7 +186,7 @@ var Ripple3DTest = EffecstsBaseLayer.extend({
 });
 
 var LiquidTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "Liquid";
     },
     code:function () {
@@ -242,7 +198,7 @@ var LiquidTest = EffecstsBaseLayer.extend({
 });
 
 var WavesTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "Waves";
     },
     code:function () {
@@ -254,7 +210,7 @@ var WavesTest = EffecstsBaseLayer.extend({
 });
 
 var TwirlTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "Twirl";
     },
     code:function () {
@@ -266,7 +222,7 @@ var TwirlTest = EffecstsBaseLayer.extend({
 });
 
 var ShakyTiles3DTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "ShakyTiles3D";
     },
     code:function () {
@@ -278,7 +234,7 @@ var ShakyTiles3DTest = EffecstsBaseLayer.extend({
 });
 
 var ShatteredTiles3DTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "ShatteredTiles3D";
     },
     code:function () {
@@ -290,7 +246,7 @@ var ShatteredTiles3DTest = EffecstsBaseLayer.extend({
 });
 
 var ShuffleTilesTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "ShuffleTiles";
     },
     code:function () {
@@ -306,7 +262,7 @@ var ShuffleTilesTest = EffecstsBaseLayer.extend({
 });
 
 var FadeOutTRTilesTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "FadeOutTRTilesTest";
     },
     code:function () {
@@ -322,7 +278,7 @@ var FadeOutTRTilesTest = EffecstsBaseLayer.extend({
 });
 
 var FadeOutBLTilesTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "FadeOutBLTilesTest";
     },
     code:function () {
@@ -338,7 +294,7 @@ var FadeOutBLTilesTest = EffecstsBaseLayer.extend({
 });
 
 var FadeOutUpTilesTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "FadeOutUpTilesTest";
     },
     code:function () {
@@ -354,7 +310,7 @@ var FadeOutUpTilesTest = EffecstsBaseLayer.extend({
 });
 
 var FadeOutDownTilesTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "FadeOutDownTilesTest";
     },
     code:function () {
@@ -370,7 +326,7 @@ var FadeOutDownTilesTest = EffecstsBaseLayer.extend({
 });
 
 var TurnOffTilesTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "TurnOffTiles";
     },
     code:function () {
@@ -386,7 +342,7 @@ var TurnOffTilesTest = EffecstsBaseLayer.extend({
 });
 
 var WavesTiles3DTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "WavesTiles3D";
     },
     code:function () {
@@ -400,7 +356,7 @@ var WavesTiles3DTest = EffecstsBaseLayer.extend({
 
 
 var JumpTiles3DTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "JumpTiles3D";
     },
     code:function () {
@@ -413,7 +369,7 @@ var JumpTiles3DTest = EffecstsBaseLayer.extend({
 });
 
 var SplitRowsTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "SplitRows";
     },
     code:function () {
@@ -429,7 +385,7 @@ var SplitRowsTest = EffecstsBaseLayer.extend({
 });
 
 var SplitColsTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "SplitCols";
     },
     code:function () {
@@ -445,7 +401,7 @@ var SplitColsTest = EffecstsBaseLayer.extend({
 });
 
 var PageTurn3DTest = EffecstsBaseLayer.extend({
-    subtitle:function () {
+    title:function () {
         return "PageTurn3D";
     },
     code:function () {
@@ -462,7 +418,7 @@ var PageTurn3DTest = EffecstsBaseLayer.extend({
 //
 var EffectsTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        effectsTestSceneIdx = -1;
         var layer = nextEffectsTest();
         this.addChild(layer);
 
@@ -499,18 +455,18 @@ var arrayOfEffectsTest = [
 ];
 
 var nextEffectsTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfEffectsTest.length;
+    effectsTestSceneIdx++;
+    effectsTestSceneIdx = effectsTestSceneIdx % arrayOfEffectsTest.length;
 
-    return new arrayOfEffectsTest[sceneIdx]();
+    return new arrayOfEffectsTest[effectsTestSceneIdx]();
 };
 var previousEffectsTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfEffectsTest.length;
+    effectsTestSceneIdx--;
+    if (effectsTestSceneIdx < 0)
+        effectsTestSceneIdx += arrayOfEffectsTest.length;
 
-    return new arrayOfEffectsTest[sceneIdx]();
+    return new arrayOfEffectsTest[effectsTestSceneIdx]();
 };
 var restartEffectsTest = function () {
-    return new arrayOfEffectsTest[sceneIdx]();
+    return new arrayOfEffectsTest[effectsTestSceneIdx]();
 };
