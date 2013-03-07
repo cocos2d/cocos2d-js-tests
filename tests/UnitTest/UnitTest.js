@@ -186,6 +186,61 @@ var RectUnitTest = UnitTestBase.extend({
 
 });
 
+//------------------------------------------------------------------
+//
+// DictionaryToFromTest
+//
+//------------------------------------------------------------------
+var DictionaryToFromTest = UnitTestBase.extend({
+    _title:"Dictionary To/From Test",
+    _subtitle:"Sends and receives a dictionary to JSB",
+
+    ctor:function() {
+        this._super();
+
+        this.runTest();
+    },
+
+    runTest:function() {
+        var frameCache = cc.SpriteFrameCache.getInstance();
+        frameCache.addSpriteFrames(s_grossiniPlist);
+
+        // Purge previously loaded animation
+        var animCache = cc.AnimationCache.getInstance();
+        animCache.addAnimations(s_animations2Plist);
+
+        var normal = animCache.getAnimation("dance_1");
+        var frame = normal.getFrames()[0];
+        var dict = frame.getUserInfo();
+        this.log( JSON.stringify(dict) );
+        frame.setUserInfo( {"string":"hello!",
+                            "array":[1,2,3,"hello world"],
+                            "bool0":0,  // false  XXX
+                            "bool1":1,  // true   XXX
+                            "dict":{"key1":"value1", "key2":2},
+                            "number":42
+                        });
+
+        dict = frame.getUserInfo();
+        this.log(JSON.stringify(dict));
+        return dict;
+    },
+
+    //
+    // Automation
+    //
+    testDuration:0.1,
+
+    getExpectedResult:function() {
+        var ret = {"array":[1,2,3,"hello world"],"string":"hello!","bool0":1,"number":42,"dict":{"key1":"value1","key2":2},"bool1":0};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = this.runTest();
+        return JSON.stringify(ret);
+    }
+});
 
 var UnitTestScene = TestScene.extend({
     runThisTest:function () {
@@ -203,7 +258,8 @@ var UnitTestScene = TestScene.extend({
 
 var arrayOfUnitTest = [
 
-    RectUnitTest
+    RectUnitTest,
+    DictionaryToFromTest
 
 ];
 
