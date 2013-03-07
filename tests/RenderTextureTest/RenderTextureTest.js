@@ -61,6 +61,7 @@ var RenderTextureBaseLayer = BaseTestLayer.extend({
         director.replaceScene(s);
     },
 
+    // automation
     numberOfPendingTests:function() {
         return ( (arrayOfRenderTextureTest.length-1) - sceneRenderTextureIdx );
     },
