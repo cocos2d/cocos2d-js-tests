@@ -24,50 +24,18 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+var sysTestSceneIdx = -1;
 //------------------------------------------------------------------
 //
 // SysTestBase
 //
 //------------------------------------------------------------------
-var SysTestBase = cc.LayerGradient.extend({
+var SysTestBase = BaseTestLayer.extend({
     _title:"",
     _subtitle:"",
 
     ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
-    },
-    onEnter:function () {
-        this._super();
-
-        var label = cc.LabelTTF.create(this._title, "Arial", 28);
-        this.addChild(label, 1);
-        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
-
-        if (this._subtitle !== "") {
-            var l = cc.LabelTTF.create(this._subtitle, "Thonburi", 16);
-            this.addChild(l, 1);
-            l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
-        }
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(cc.p(0,0));
-        var cs = item2.getContentSize();
-        item1.setPosition( cc.p(winSize.width/2 - cs.width*2, cs.height/2) );
-        item2.setPosition( cc.p(winSize.width/2, cs.height/2) );
-        item3.setPosition( cc.p(winSize.width/2 + cs.width*2, cs.height/2) );
-
-        this.addChild(menu, 1);
-    },
-
-    onExit:function () {
-        this._super();
+        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
     },
 
     onRestartCallback:function (sender) {
@@ -84,7 +52,16 @@ var SysTestBase = cc.LayerGradient.extend({
         var s = new SysTestScene();
         s.addChild(previousSysTest());
         director.replaceScene(s);
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfSysTest.length-1) - sysTestSceneIdx );
+    },
+
+    getTestNumber:function() {
+        return sysTestSceneIdx;
     }
+
 });
 
 //------------------------------------------------------------------
@@ -139,7 +116,7 @@ var CapabilitiesTest = SysTestBase.extend({
 
 var SysTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        sysTestSceneIdx = -1;
         var layer = nextSysTest();
         this.addChild(layer);
 
@@ -158,19 +135,19 @@ var arrayOfSysTest = [
 ];
 
 var nextSysTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfSysTest.length;
+    sysTestSceneIdx++;
+    sysTestSceneIdx = sysTestSceneIdx % arrayOfSysTest.length;
 
-    return new arrayOfSysTest[sceneIdx]();
+    return new arrayOfSysTest[sysTestSceneIdx]();
 };
 var previousSysTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfSysTest.length;
+    sysTestSceneIdx--;
+    if (sysTestSceneIdx < 0)
+        sysTestSceneIdx += arrayOfSysTest.length;
 
-    return new arrayOfSysTest[sceneIdx]();
+    return new arrayOfSysTest[sysTestSceneIdx]();
 };
 var restartSysTest = function () {
-    return new arrayOfSysTest[sceneIdx]();
+    return new arrayOfSysTest[sysTestSceneIdx]();
 };
 

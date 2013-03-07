@@ -84,22 +84,9 @@ FontTestScene = TestScene.extend({
     }
 });
 
-FontTest = cc.LayerGradient.extend({
+FontTest = BaseTestLayer.extend({
     ctor:function () {
-        this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-        menu.setPosition(0,0);
-        item1.setPosition(winSize.width / 2 - 100, 30);
-        item2.setPosition(winSize.width / 2, 30);
-        item3.setPosition(winSize.width / 2 + 100, 30);
-        this.addChild(menu, 1);
+        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
 
         this.showFont(restartFontTestAction());
 
@@ -138,9 +125,21 @@ FontTest = cc.LayerGradient.extend({
     onNextCallback:function (sender) {
         this.showFont(nextFontTestAction());
     },
-    title:function () {
+    subtitle:function () {
         return "Font test";
+    },
+    title:function () {
+        return "" + fontList[fontIdx];
+    },
+
+    // automation
+    numberOfPendingTests:function() {
+        return ( (fontList.length-1) - fontIdx );
+    },
+    getTestNumber:function() {
+        return fontIdx;
     }
+
 });
 
 FontTest.create = function () {

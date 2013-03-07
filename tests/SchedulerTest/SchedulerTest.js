@@ -24,47 +24,13 @@
  THE SOFTWARE.
  ****************************************************************************/
 var TAG_ANIMATION_DANCE = 1;
-var MAX_TESTS = 8;
-var sceneIdx = -1;
+var schedulerTestSceneIdx = -1;
 
 /*
     Base Layer
 */
-var SchedulerTestLayer = cc.Layer.extend({
+var SchedulerTestLayer = BaseTestLayer.extend({
 
-    ctor:function() {
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
-    },
-
-    onEnter:function () {
-        this._super();
-
-        var s = director.getWinSize();
-
-        var label = cc.LabelTTF.create(this.title(), "Arial", 30);
-        this.addChild(label);
-        label.setPosition(cc.p(s.width / 2, s.height - 50));
-
-        var subTitle = this.subtitle();
-        if (subTitle != "") {
-            var subLabel = cc.LabelTTF.create(subTitle, "Thonburi", 13);
-            this.addChild(subLabel, 1);
-            subLabel.setPosition(s.width / 2, s.height - 80);
-        }
-
-        var item1 = cc.MenuItemImage.create("res/Images/b1.png", "res/Images/b2.png", this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create("res/Images/r1.png", "res/Images/r2.png", this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create("res/Images/f1.png", "res/Images/f2.png", this.onNextCallback.bind(this) ); // another way to pass 'this'
-
-        var menu = cc.Menu.create(item1, item2, item3);
-        menu.setPosition(0,0);
-        item1.setPosition(s.width / 2 - 100, 30);
-        item2.setPosition(s.width / 2, 30);
-        item3.setPosition(s.width / 2 + 100, 30);
-
-        this.addChild(menu, 1);
-    },
     title:function () {
         return "No title";
     },
@@ -92,7 +58,16 @@ var SchedulerTestLayer = cc.Layer.extend({
 
         scene.addChild(layer);
         director.replaceScene(scene);
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfSchedulerTest.length-1) - schedulerTestSceneIdx );
+    },
+
+    getTestNumber:function() {
+        return schedulerTestSceneIdx;
     }
+
 });
 
 /*
@@ -482,7 +457,7 @@ var ScheduleUsingSchedulerTest = SchedulerTestLayer.extend({
 */
 var SchedulerTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        schedulerTestSceneIdx = -1;
         var layer = nextSchedulerTest();
         this.addChild(layer);
 
@@ -508,18 +483,18 @@ var arrayOfSchedulerTest = [
 ];
 
 var nextSchedulerTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfSchedulerTest.length;
+    schedulerTestSceneIdx++;
+    schedulerTestSceneIdx = schedulerTestSceneIdx % arrayOfSchedulerTest.length;
 
-    return new arrayOfSchedulerTest[sceneIdx]();
+    return new arrayOfSchedulerTest[schedulerTestSceneIdx]();
 };
 var previousSchedulerTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfSchedulerTest.length;
+    schedulerTestSceneIdx--;
+    if (schedulerTestSceneIdx < 0)
+        schedulerTestSceneIdx += arrayOfSchedulerTest.length;
 
-    return new arrayOfSchedulerTest[sceneIdx]();
+    return new arrayOfSchedulerTest[schedulerTestSceneIdx]();
 };
 var restartSchedulerTest = function () {
-    return new arrayOfSchedulerTest[sceneIdx]();
+    return new arrayOfSchedulerTest[schedulerTestSceneIdx]();
 };

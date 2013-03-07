@@ -24,100 +24,49 @@
  THE SOFTWARE.
  ****************************************************************************/
 var TAG_NODE = 9960;
-var TAG_GROSSINI = 9961;
 
-var sceneIdx = -1;
+var parallaxTestSceneIdx = -1;
 
-var MAX_LAYER = 2;
+ParallaxDemo = BaseTestLayer.extend({
 
-
-function createParallaxTestLayer(index) {
-    switch (index) {
-        case 0:
-            return new Parallax1();
-        case 1:
-            return new Parallax2();
-    }
-
-    return null;
-}
-
-function nextParallaxAction() {
-    sceneIdx++;
-    sceneIdx = sceneIdx % MAX_LAYER;
-
-    var layer = createParallaxTestLayer(sceneIdx);
-    return layer;
-}
-
-function backParallaxAction() {
-    sceneIdx--;
-    var total = MAX_LAYER;
-    if (sceneIdx < 0)
-        sceneIdx += total;
-
-    var layer = createParallaxTestLayer(sceneIdx);
-    return layer;
-}
-
-function restartParallaxAction() {
-    var layer = createParallaxTestLayer(sceneIdx);
-    return layer;
-}
-ParallaxDemo = cc.LayerGradient.extend({
     _atlas:null,
 
     ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(160,32,32,255));
+        this._super(cc.c4b(0,0,0,255), cc.c4b(160,32,32,255));
     },
 
     title:function () {
         return "No title";
     },
 
-    onEnter:function () {
-        this._super();
-
-        var label = cc.LabelTTF.create(this.title(), "Arial", 28);
-        this.addChild(label, 1);
-        label.setPosition(winSize.width / 2, winSize.height - 50);
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(0,0);
-        item1.setPosition(winSize.width / 2 - 100, 30);
-        item2.setPosition(winSize.width / 2, 30);
-        item3.setPosition(winSize.width / 2 + 100, 30);
-
-        this.addChild(menu, 1);
-
-    },
-
     onBackCallback:function (sender) {
         var s = new ParallaxTestScene();
-        s.addChild(backParallaxAction());
+        s.addChild(previousParallaxTest());
         director.replaceScene(s);
     },
 
     onRestartCallback:function (sender) {
         var s = new ParallaxTestScene();
-        s.addChild(restartParallaxAction());
+        s.addChild(restartParallaxTest());
 
         director.replaceScene(s);
     },
 
     onNextCallback:function (sender) {
         var s = new ParallaxTestScene();
-        s.addChild(nextParallaxAction());
+        s.addChild(nextParallaxTest());
         director.replaceScene(s);
 
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfParallaxTest.length-1) - parallaxTestSceneIdx );
+    },
+
+    getTestNumber:function() {
+        return parallaxTestSceneIdx;
     }
+
 });
 
 Parallax1 = ParallaxDemo.extend({
@@ -125,7 +74,6 @@ Parallax1 = ParallaxDemo.extend({
     _root:null,
     _target:null,
     _streak:null,
-
 
     ctor:function () {
         this._super();
@@ -270,11 +218,31 @@ Parallax2 = ParallaxDemo.extend({
 ParallaxTestScene = TestScene.extend({
 
     runThisTest:function () {
-        sceneIdx = -1;
-        MAX_LAYER = 2;
-        var layer = nextParallaxAction();
-
-        this.addChild(layer);
+        parallaxTestSceneIdx = -1;
+        this.addChild(nextParallaxTest());
         director.replaceScene(this);
     }
 });
+
+
+var arrayOfParallaxTest = [
+    Parallax1,
+    Parallax2
+];
+
+var nextParallaxTest = function () {
+    parallaxTestSceneIdx++;
+    parallaxTestSceneIdx = parallaxTestSceneIdx % arrayOfParallaxTest.length;
+
+    return new arrayOfParallaxTest[parallaxTestSceneIdx]();
+};
+var previousParallaxTest = function () {
+    parallaxTestSceneIdx--;
+    if (parallaxTestSceneIdx < 0)
+        parallaxTestSceneIdx += arrayOfParallaxTest.length;
+
+    return new arrayOfParallaxTest[parallaxTestSceneIdx]();
+};
+var restartParallaxTest = function () {
+    return new arrayOfParallaxTest[parallaxTestSceneIdx]();
+};

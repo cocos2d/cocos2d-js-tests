@@ -23,106 +23,44 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-var sceneIdx_Progress = -1;
-var MAX_LAYER_Progress = 7;
+var ProgressTestSceneIdx = -1;
 
-var nextProgressAction = function () {
-    sceneIdx_Progress++;
-    sceneIdx_Progress = sceneIdx_Progress % MAX_LAYER_Progress;
-
-    return createLayer(sceneIdx_Progress);
-};
-var backProgressAction = function () {
-    sceneIdx_Progress--;
-    if (sceneIdx_Progress < 0)
-        sceneIdx_Progress += MAX_LAYER_Progress;
-
-    return createLayer(sceneIdx_Progress);
-};
-var restartProgressAction = function () {
-    return createLayer(sceneIdx_Progress);
-};
-
-var createLayer = function (index) {
-    switch (index) {
-        case 0:
-            return new SpriteProgressToRadial();
-        case 1:
-            return new SpriteProgressToHorizontal();
-        case 2:
-            return new SpriteProgressToVertical();
-        case 3:
-            return new SpriteProgressToRadialMidpointChanged();
-        case 4:
-            return new SpriteProgressBarVarious();
-        case 5:
-            return new SpriteProgressBarTintAndFade();
-        case 6:
-            return new SpriteProgressWithSpriteFrame();
-    }
-    return null;
-};
-
-var SpriteDemo = cc.LayerColor.extend({
-    ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.LayerColor );
-        this.init(cc.c4b(0, 125, 0, 255));
-    },
+var SpriteDemo = BaseTestLayer.extend({
 
     title:function () {
         return "ProgressActionsTest";
     },
 
-    subtitle:function () {
+    title:function () {
         return "";
-    },
-
-    onEnter:function () {
-        this._super();
-
-        var label = cc.LabelTTF.create(this.title(), "Arial", 18);
-        this.addChild(label, 1);
-        label.setPosition(winSize.width / 2, winSize.height - 50);
-
-        var strSubtitle = this.subtitle();
-        if (strSubtitle != "") {
-            var l = cc.LabelTTF.create(strSubtitle, "Thonburi", 22);
-            this.addChild(l, 1);
-            l.setPosition(winSize.width / 2, winSize.height - 80);
-        }
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback.bind(this)); // another way to pass 'this'
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(0,0);
-        item1.setPosition(winSize.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2);
-        item2.setPosition(winSize.width / 2, item2.getContentSize().height / 2);
-        item3.setPosition(winSize.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2);
-
-        this.addChild(menu, 1);
     },
 
     onBackCallback:function (sender) {
         var scene = new ProgressActionsTestScene();
-        scene.addChild(backProgressAction());
+        scene.addChild(previousProgressTest());
         director.replaceScene(scene);
     },
 
     onRestartCallback:function (sender) {
         var scene = new ProgressActionsTestScene();
-        scene.addChild(restartProgressAction());
+        scene.addChild(restartProgressTest());
         director.replaceScene(scene);
     },
 
     onNextCallback:function (sender) {
         var scene = new ProgressActionsTestScene();
-        scene.addChild(nextProgressAction());
+        scene.addChild(nextProgressTest());
         director.replaceScene(scene);
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfProgressTest.length-1) - ProgressTestSceneIdx );
+    },
+
+    getTestNumber:function() {
+        return ProgressTestSceneIdx;
     }
+
 });
 
 var SpriteProgressToRadial = SpriteDemo.extend({
@@ -146,7 +84,7 @@ var SpriteProgressToRadial = SpriteDemo.extend({
         right.runAction(cc.RepeatForever.create(to2));
     },
 
-    subtitle:function () {
+    title:function () {
         return "ProgressTo Radial";
     }
 });
@@ -178,7 +116,7 @@ var SpriteProgressToHorizontal = SpriteDemo.extend({
         right.setPosition(winSize.width - 200, winSize.height / 2);
         right.runAction(cc.RepeatForever.create(to2));
     },
-    subtitle:function () {
+    title:function () {
         return "ProgressTo Horizontal";
     }
 });
@@ -210,7 +148,7 @@ var SpriteProgressToVertical = SpriteDemo.extend({
         right.setPosition(winSize.width - 200, winSize.height / 2);
         right.runAction(cc.RepeatForever.create(to2));
     },
-    subtitle:function () {
+    title:function () {
         return "ProgressTo Vertical";
     }
 });
@@ -246,7 +184,7 @@ var SpriteProgressToRadialMidpointChanged = SpriteDemo.extend({
         right.runAction(cc.RepeatForever.create(action.copy()));
     },
 
-    subtitle:function () {
+    title:function () {
         return "Radial w/ Different Midpoints";
     }
 });
@@ -289,7 +227,7 @@ var SpriteProgressBarVarious = SpriteDemo.extend({
         right.runAction(cc.RepeatForever.create(to.copy()));
     },
 
-    subtitle:function () {
+    title:function () {
         return "ProgressTo Bar Mid";
     }
 });
@@ -347,7 +285,7 @@ var SpriteProgressBarTintAndFade = SpriteDemo.extend({
         right.addChild(cc.LabelTTF.create("Tint and Fade", "Marker Felt", 20.0));
     },
 
-    subtitle:function () {
+    title:function () {
         return "ProgressTo Bar Mid";
     }
 });
@@ -391,16 +329,44 @@ var SpriteProgressWithSpriteFrame = SpriteDemo.extend({
         right.runAction(cc.RepeatForever.create(to.copy()));
     },
 
-    subtitle:function () {
+    title:function () {
         return "Progress With Sprite Frame";
     }
 });
 
 var ProgressActionsTestScene = TestScene.extend({
+
     runThisTest:function () {
-        sceneIdx_Progress = -1;
-        MAX_LAYER_Progress = 7;
-        this.addChild(nextProgressAction());
+        ProgressTestSceneIdx = -1;
+        this.addChild(nextProgressTest());
         director.replaceScene(this);
     }
 });
+
+
+var arrayOfProgressTest = [
+    SpriteProgressToRadial,
+    SpriteProgressToHorizontal,
+    SpriteProgressToVertical,
+    SpriteProgressToRadialMidpointChanged,
+    SpriteProgressBarVarious,
+    SpriteProgressBarTintAndFade,
+    SpriteProgressWithSpriteFrame
+];
+
+var nextProgressTest = function () {
+    ProgressTestSceneIdx++;
+    ProgressTestSceneIdx = ProgressTestSceneIdx % arrayOfProgressTest.length;
+
+    return new arrayOfProgressTest[ProgressTestSceneIdx]();
+};
+var previousProgressTest = function () {
+    ProgressTestSceneIdx--;
+    if (ProgressTestSceneIdx < 0)
+        ProgressTestSceneIdx += arrayOfProgressTest.length;
+
+    return new arrayOfProgressTest[ProgressTestSceneIdx]();
+};
+var restartProgressTest = function () {
+    return new arrayOfProgressTest[ProgressTestSceneIdx]();
+};
