@@ -82,30 +82,8 @@ ChipmunkBaseLayer.prototype.onToggleDebug = function(sender) {
 // XXX: Should be defined after "cc.inherits"
 //
 ChipmunkBaseLayer.prototype.onEnter = function() {
-	cc.LayerGradient.prototype.onEnter.call(this);
+	BaseTestLayer.prototype.onEnter.call(this);
     //cc.base(this, 'onEnter');
-	var label = cc.LabelTTF.create(this._title, "Arial", 28);
-	this.addChild(label, 1);
-	label.setPosition( cc.p(winSize.width / 2, winSize.height - 50));
-
-	if (this._subtitle !== "") {
-		var l = cc.LabelTTF.create(this._subtitle, "Thonburi", 16);
-		this.addChild(l, 1);
-		l.setPosition( cc.p(winSize.width / 2, winSize.height - 80));
-	}
-
-    // Menu: testing 3 different ways to pass 'this':
-    var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);   // 'this' as 2nd argument
-    var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);  // 'this' as 2nd argument
-    var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback.bind(this) );	// 'this' bound to the callback func
-
-    var menu = cc.Menu.create(item1, item2, item3 );
-
-    menu.setPosition( cc.p(0,0) );
-    item1.setPosition( cc.p(winSize.width / 2 - 100, 30));
-    item2.setPosition( cc.p(winSize.width / 2, 30));
-    item3.setPosition( cc.p(winSize.width / 2 + 100, 30));
-	this.addChild(menu, 1);
 
     sys.dumpRoot();
     sys.garbageCollect();
