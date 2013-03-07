@@ -404,6 +404,7 @@ var testNames = [
     },
     {
         title:"Sprite Test",
+        resource:g_sprites,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new SpriteTestScene();

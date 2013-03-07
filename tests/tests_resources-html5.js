@@ -209,7 +209,10 @@ var g_sprites = [
     {src:s_tcc_issue_1_plist},
     {src:s_tcc_issue_2_plist},
     {src:s_tcc_issue_1},
-    {src:s_tcc_issue_2}
+    {src:s_tcc_issue_2},
+
+    {src:s_s9s_blocks9_plist},
+    {src:s_s9s_blocks9}
 ];
 
 var g_menu = [

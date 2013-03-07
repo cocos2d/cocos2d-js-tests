@@ -70,20 +70,3 @@ var mainScene = SysMenu.scene();
 // run
 director.runWithScene(mainScene);
 
-cc.Loader = cc.Class.extend({
-    initWith:function (resources, selector, target) {
-        if (selector) {
-            this._selector = selector;
-            this._target = target;
-        }
-        this._selector.call(this._target);
-    }
-});
-
-cc.Loader.preload = function (resources, selector, target) {
-    if (!this._instance) {
-        this._instance = new cc.Loader();
-    }
-    this._instance.initWith(resources, selector, target);
-    return this._instance;
-};
