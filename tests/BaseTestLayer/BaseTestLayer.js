@@ -150,16 +150,21 @@ var BaseTestLayer = cc.LayerGradient.extend({
         throw "Not Implemented";
     },
 
+    compareResults:function(current, expected) {
+        return (current == expected);
+    },
+
     tearDown:function(dt) {
 
         // Override to have a different behavior
         var current = this.getCurrentResult();
         var expected = this.getExpectedResult();
 
-        if( current != expected )
+        var ret = this.compareResults(current, expected);
+        if( ! ret )
             this.errorDescription = "Expected value: '" + expected + "'. Current value'" + current +  "'.";
 
-        return ( current == expected );
+        return ret;
     },
 
     endTest:function(dt) {
