@@ -75,6 +75,7 @@ var AtlasDemo = BaseTestLayer.extend({
         director.replaceScene(s);
     },
 
+    // automation
     numberOfPendingTests:function() {
         return ( (arrayOfLabelTest.length-1) - labelTestIdx );
     },
