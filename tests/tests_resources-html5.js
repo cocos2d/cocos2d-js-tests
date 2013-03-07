@@ -49,7 +49,6 @@ var s_grossini_blue = "res/animations/grossini_blue.png";
 var s_grossini_aliases = "res/animations/grossini-aliases.png";
 var s_dragon_animation = "res/animations/dragon_animation.png";
 var s_ghosts = "res/animations/ghosts.png";
-var s_crystals = "res/animations/crystals.png";
 var s_grossini_family = "res/animations/grossini_family.png";
 
 var s_tcc_issue_1 = "res/animations/tcc_issue_1.png";
@@ -69,7 +68,6 @@ var s_ghostsPlist = "res/animations/ghosts.plist";
 var s_grossini_familyPlist = "res/animations/grossini_family.plist";
 var s_animations2Plist = "res/animations/animations-2.plist";
 var s_animationsPlist = "res/animations/animations.plist";
-var s_crystalPlist = "res/animations/crystals.plist";
 
 var s_helloWorld = "res/Images/HelloWorld.png";
 var s_grossiniDance01 = "res/Images/grossini_dance_01.png";
@@ -105,9 +103,9 @@ var s_orthoTest1Png = "res/TileMaps/ortho-test1.png";
 var s_tilesHdPng = "res/TileMaps/tiles-hd.png";
 var s_tmwDesertSpacingHdPng = "res/TileMaps/tmw_desert_spacing-hd.png";
 var s_tmwDesertSpacingPng = "res/TileMaps/tmw_desert_spacing.png";
+
 var s_fnTuffyBoldItalicCharmapPng = "res/fonts/tuffy_bold_italic-charmap.png";
 var s_fpsImages = "res/fonts/fps_images.png";
-
 var s_bitmapFontTest = "res/fonts/bitmapFontTest.png";
 var s_bitmapFontTest2 = "res/fonts/bitmapFontTest2.png";
 var s_bitmapFontTest3 = "res/fonts/bitmapFontTest3.png";
@@ -154,6 +152,220 @@ var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
 
 var g_ressources = [
+    //global
+    {src:s_pathB1},
+    {src:s_pathB2},
+    {src:s_pathR1},
+    {src:s_pathR2},
+    {src:s_pathF1},
+    {src:s_pathF2},
+    {src:s_pathBlock},
+    {src:s_back3},
+    {src:s_fire},
+    {src:s_pathClose},
+    {src:s_pathGrossini},
+    {src:s_pathSister1},
+    {src:s_pathSister2},
+    {src:s_grossiniDance01},
+    {src:s_grossiniDance02},
+    {src:s_grossiniDance03},
+    {src:s_grossiniDance04},
+    {src:s_grossiniDance05},
+    {src:s_grossiniDance06},
+    {src:s_grossiniDance07},
+    {src:s_grossiniDance08},
+    {src:s_grossiniDance09},
+    {src:s_grossiniDance10},
+    {src:s_grossiniDance11},
+    {src:s_grossiniDance12},
+    {src:s_grossiniDance13},
+    {src:s_grossiniDance14},
+
+    {src:s_grossini},
+    {src:s_grossiniPlist},
+
+    {src:s_animations2Plist},
+    {src:s_helloWorld}
+];
+
+var g_sprites = [
+    {src:s_piece},
+    {src:s_grossini_gray},
+    {src:s_grossini_blue},
+    {src:s_grossini_dance_atlas},
+    {src:s_grossini_aliases},
+    {src:s_dragon_animation},
+    {src:s_ghosts},
+    {src:s_grossini_family},
+
+    {src:s_grossini_dance_atlas_mono},
+    {src:s_animationsPlist},
+    {src:s_grossini_grayPlist},
+    {src:s_grossini_bluePlist},
+    {src:s_grossini_aliasesPlist},
+    {src:s_ghostsPlist},
+    {src:s_grossini_familyPlist},
+
+    {src:s_tcc_issue_1_plist},
+    {src:s_tcc_issue_2_plist},
+    {src:s_tcc_issue_1},
+    {src:s_tcc_issue_2}
+];
+
+var g_menu = [
+    {src:s_bitmapFontTest3_fnt},
+    {src:s_bitmapFontTest3},
+    {src:s_playNormal},
+    {src:s_playSelect},
+    {src:s_aboutNormal},
+    {src:s_aboutSelect},
+    {src:s_highNormal},
+    {src:s_highSelect},
+    {src:s_menuItem},
+    {src:s_sendScore},
+    {src:s_pressSendScore},
+    {src:s_fpsImages}
+];
+
+var g_touches = [
+    {src:s_ball},
+    {src:s_paddle}
+];
+
+var g_fileUtils = [
+    {src:"FileUtils/lookup-html5.plist"}
+];
+
+var g_s9s_blocks = [
+    {src:s_s9s_blocks9_plist},
+    {src:s_s9s_blocks9}
+];
+
+var g_label = [
+    //{src:s_atlasTest},
+    {src:s_bitmapFontTest},
+    {src:s_bitmapFontTest2},
+    {src:s_bitmapFontTest3},
+    {src:s_bitmapFontTest4},
+    {src:s_bitmapFontTest5},
+    {src:s_konqa32},
+    {src:s_konqa32_hd},
+    {src:s_bitmapFontChinese},
+    {src:s_arial16},
+    {src:s_larabie_16},
+    {src:s_larabie_16_hd},
+    {src:s_futura48},
+    {src:s_arial_unicode_26},
+    {src:s_fnTuffyBoldItalicCharmapPng},
+
+    {src:s_arrows},
+    {src:s_arrowsBar},
+    {src:s_arrows_hd},
+    {src:s_arrowsBar_hd},
+    {src:s_larabie_16_plist},
+    {src:s_larabie_16_hd_plist},
+    {src:s_tuffy_bold_italic_charmap},
+    {src:s_tuffy_bold_italic_charmap_hd},
+    {src:s_bitmapFontTest_fnt},
+    {src:s_bitmapFontTest2_fnt},
+    {src:s_bitmapFontTest3_fnt},
+    {src:s_bitmapFontTest4_fnt},
+    {src:s_bitmapFontTest5_fnt},
+    {src:s_konqa32_fnt},
+    {src:s_konqa32_hd_fnt},
+    {src:s_bitmapFontChinese_fnt},
+    {src:s_arial16_fnt},
+    {src:s_futura48_fnt},
+    {src:s_helvetica32_fnt},
+    {src:s_geneva32_fnt},
+    {src:s_arial_unicode_26_fnt},
+    {src:s_markerFelt_fnt},
+    {src:s_markerFelt_hd_fnt},
+    {src:"res/fonts/strings.xml"}
+];
+
+var g_transitions = [
+    {src:s_back1},
+    {src:s_back2}
+];
+
+var g_box2d = [
+    {src:s_pathBlock}
+];
+
+var g_cocosdeshion = [
+    {src:"res/Sound/background.mp3"},
+    {src:"res/Sound/effect2.mp3"},
+    {src:"res/Sound/background.ogg"},
+    {src:"res/Sound/effect2.ogg"}
+];
+
+var g_parallax = [
+    {src:"res/TileMaps/orthogonal-test2.tmx"},
+    {src:s_fixedOrthoTest2Png},
+    {src:s_power},
+    {src:s_back}
+];
+
+var g_particle = [
+    {src:s_fpsImages},
+    {src:s_starsGrayscale},
+    {src:s_stars2Grayscale},
+    {src:s_textureModeMenuItem},
+    {src:s_shapeModeMenuItem},
+    {src:s_MovementMenuItem},
+    {src:s_stars1},
+    {src:s_stars2},
+    {src:s_snow},
+    {src:s_particles},
+    {src:s_particles_hd},
+    {src:"res/Particles/BoilingFoam.plist"},
+    {src:"res/Particles/BurstPipe.plist"},
+    {src:"res/Particles/Comet.plist"},
+    {src:"res/Particles/debian.plist"},
+    {src:"res/Particles/ExplodingRing.plist"},
+    {src:"res/Particles/Flower.plist"},
+    {src:"res/Particles/Galaxy.plist"},
+    {src:"res/Particles/LavaFlow.plist"},
+    {src:"res/Particles/Phoenix.plist"},
+    {src:"res/Particles/SmallSun.plist"},
+    {src:"res/Particles/SpinningPeas.plist"},
+    {src:"res/Particles/Spiral.plist"},
+    {src:"res/Particles/SpookyPeas.plist"},
+    {src:"res/Particles/TestPremultipliedAlpha.plist"},
+    {src:"res/Particles/Upsidedown.plist"}
+];
+
+var g_fonts = [
+    //@face-font for WebFonts
+    {fontName:"Thonburi",
+        src:[
+            {src:"res/fonts/Thonburi.eot", type:"embedded-opentype"},
+            {src:"res/fonts/Thonburi.ttf",type:"truetype"}]},
+    //{src:"res/fonts/Schwarzwald_Regular.woff", type:"woff"},
+    //{src:"res/fonts/Schwarzwald Regular.svg",type:"svg"}]},
+    {fontName:"Schwarzwald Regular",
+        src:[
+            {src:"res/fonts/Schwarzwald_Regular.eot", type:"embedded-opentype"},
+            {src:"res/fonts/Schwarzwald Regular.ttf",type:"truetype"}]},
+    {fontName:"ThonburiBold",
+        src:[
+            {src:"res/fonts/ThonburiBold.eot", type:"embedded-opentype"},
+            {src:"res/fonts/ThonburiBold.ttf",type:"truetype"}]},
+    {fontName:"Courier New",
+        src:[
+            {src:"res/fonts/Courier New.eot", type:"embedded-opentype"},
+            {src:"res/fonts/Courier New.ttf",type:"truetype"}]}
+];
+
+var g_extensions = [
+    {src:s_image_icon},
+    {src:s_extensions_background},
+    {src:s_extensions_buttonBackground},
+    {src:s_extensions_button},
+    {src:s_extensions_buttonHighlighted},
+    {src:s_extensions_ribbon},
+
     //ccbi resource
     {src:"res/ccb/HelloCocosBuilder.ccbi"},
     {src:"res/ccb/ccb/TestAnimations.ccbi"},
@@ -197,84 +409,12 @@ var g_ressources = [
 
     {src:"res/ccb/markerfelt24shadow.fnt"},
 
-    {src:"res/ccb/grossini-generic.plist"} ,
-    {src:"res/ccb/animated-grossini.plist"} ,
+    {src:"res/ccb/grossini-generic.plist"},
+    {src:"res/ccb/animated-grossini.plist"}
+];
 
-    //@face-font for WebFonts
-    {fontName:"Thonburi",
-        src:[
-            {src:"res/fonts/Thonburi.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Thonburi.ttf",type:"truetype"}]},
-            //{src:"res/fonts/Schwarzwald_Regular.woff", type:"woff"},
-            //{src:"res/fonts/Schwarzwald Regular.svg",type:"svg"}]},
-    {fontName:"Schwarzwald Regular",
-        src:[
-            {src:"res/fonts/Schwarzwald_Regular.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Schwarzwald Regular.ttf",type:"truetype"}]},
-    {fontName:"ThonburiBold",
-        src:[
-            {src:"res/fonts/ThonburiBold.eot", type:"embedded-opentype"},
-            {src:"res/fonts/ThonburiBold.ttf",type:"truetype"}]},
-    {fontName:"Courier New",
-        src:[
-            {src:"res/fonts/Courier New.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Courier New.ttf",type:"truetype"}]},
-
-    //image ressources
-    {src:s_extensions_background},
-    {src:s_extensions_buttonBackground},
-    {src:s_extensions_button},
-    {src:s_extensions_buttonHighlighted},
-    {src:s_extensions_ribbon},
-    {src:s_image_icon},
-
-    {src:s_particles},
-    {src:s_particles_hd},
-
-    {src:s_pathGrossini},
-    {src:s_fnTuffyBoldItalicCharmapPng},
-    {src:s_fpsImages},
-    {src:s_pathSister1},
-    {src:s_pathSister2},
-    {src:s_pathB1},
-    {src:s_pathB2},
-    {src:s_pathR1},
-    {src:s_pathR2},
-    {src:s_pathF1},
-    {src:s_pathF2},
-    {src:s_pathBlock},
-    {src:s_back},
-    {src:s_back1},
-    {src:s_back2},
-    {src:s_back3},
-    {src:s_stars1},
-    {src:s_stars2},
-    {src:s_fire},
-    {src:s_snow},
-    {src:s_playNormal},
-    {src:s_playSelect},
-    {src:s_aboutNormal},
-    {src:s_aboutSelect},
-    {src:s_highNormal},
-    {src:s_highSelect},
-    {src:s_ball},
-    {src:s_paddle},
-    {src:s_pathClose},
-    {src:s_menuItem},
-    {src:s_shapeModeMenuItem},
-    {src:s_textureModeMenuItem},
-    {src:s_MovementMenuItem},
-    {src:s_sendScore},
-    {src:s_pressSendScore},
-    {src:s_power},
-    {src:s_atlasTest},
-    {src:s_tilesPng},
-    {src:s_streak},
-    {src:s_starsGrayscale},
-    {src:s_stars2Grayscale},
-    {src:s_piece},
-    {src:s_grossini_dance_atlas_mono},
-
+var g_tilemaps = [
+    //image
     {src:s_fixedOrthoTest2Png},
     {src:s_hexaTilesPng},
     {src:s_isoTestPng},
@@ -285,69 +425,9 @@ var g_ressources = [
     {src:s_tilesHdPng},
     {src:s_tmwDesertSpacingHdPng},
     {src:s_tmwDesertSpacingPng},
-    {src:s_grossini},
-    {src:s_grossini_gray},
-    {src:s_grossini_blue},
-    {src:s_grossini_dance_atlas},
-    {src:s_grossini_aliases},
-    {src:s_dragon_animation},
-    {src:s_ghosts},
-    {src:s_crystals},
-    {src:s_grossini_family},
+    {src:s_tilesPng},
 
-    {src:s_helloWorld},
-    {src:s_grossiniDance01},
-    {src:s_grossiniDance02},
-    {src:s_grossiniDance03},
-    {src:s_grossiniDance04},
-    {src:s_grossiniDance05},
-    {src:s_grossiniDance06},
-    {src:s_grossiniDance07},
-    {src:s_grossiniDance08},
-    {src:s_grossiniDance09},
-    {src:s_grossiniDance10},
-    {src:s_grossiniDance11},
-    {src:s_grossiniDance12},
-    {src:s_grossiniDance13},
-    {src:s_grossiniDance14},
-
-    {src:s_bitmapFontTest},
-    {src:s_bitmapFontTest2},
-    {src:s_bitmapFontTest3},
-    {src:s_bitmapFontTest4},
-    {src:s_bitmapFontTest5},
-    {src:s_konqa32},
-    {src:s_konqa32_hd},
-    {src:s_bitmapFontChinese},
-    {src:s_arial16},
-    {src:s_larabie_16},
-    {src:s_larabie_16_hd},
-    {src:s_futura48},
-    {src:s_arial_unicode_26},
-
-    {src:s_arrows},
-    {src:s_arrowsBar},
-    {src:s_arrows_hd},
-    {src:s_arrowsBar_hd},
-
-    {src:s_boilingFoamPlist},
-    {src:s_animations2Plist},
-    {src:s_animationsPlist},
-    {src:s_crystalPlist},
-    {src:s_grossiniPlist},
-    {src:s_grossini_grayPlist},
-    {src:s_grossini_bluePlist},
-    {src:s_grossini_aliasesPlist},
-    {src:s_ghostsPlist},
-    {src:s_grossini_familyPlist},
-
-    {src:s_larabie_16_plist},
-    {src:s_larabie_16_hd_plist},
-    {src:s_tuffy_bold_italic_charmap},
-    {src:s_tuffy_bold_italic_charmap_hd},
-    {src:"FileUtils/lookup-html5.plist"},
-
-    //tmx ressources
+    //tmx
     {src:"res/TileMaps/orthogonal-test1.tmx"},
     {src:"res/TileMaps/orthogonal-test1.tsx"},
     {src:"res/TileMaps/orthogonal-test2.tmx"},
@@ -373,57 +453,5 @@ var g_ressources = [
     {src:"res/TileMaps/iso-test-bug787.tmx"},
     {src:"res/TileMaps/test-object-layer.tmx"},
     {src:"res/TileMaps/ortho-tile-property.tmx"},
-    {src:"res/TileMaps/ortho-rotation-test.tmx"},
-
-    //audio ressources
-    {src:"res/background.mp3"},
-    {src:"res/effect2.mp3"},
-    {src:"res/background.ogg"},
-    {src:"res/effect2.ogg"},
-
-    //tga ressources
-    //{src:s_levelMapTga},
-
-    //fnt ressources
-    {src:s_bitmapFontTest_fnt},
-    {src:s_bitmapFontTest2_fnt},
-    {src:s_bitmapFontTest3_fnt},
-    {src:s_bitmapFontTest4_fnt},
-    {src:s_bitmapFontTest5_fnt},
-    {src:s_konqa32_fnt},
-    {src:s_konqa32_hd_fnt},
-    {src:s_bitmapFontChinese_fnt},
-    {src:s_arial16_fnt},
-    {src:s_futura48_fnt},
-    {src:s_helvetica32_fnt},
-    {src:s_geneva32_fnt},
-    {src:s_arial_unicode_26_fnt},
-    {src:s_markerFelt_fnt},
-    {src:s_markerFelt_hd_fnt},
-
-    {src:"res/fonts/strings.xml"},
-    {src:"res/Particles/BoilingFoam.plist"},
-    {src:"res/Particles/BurstPipe.plist"},
-    {src:"res/Particles/Comet.plist"},
-    {src:"res/Particles/debian.plist"},
-    {src:"res/Particles/ExplodingRing.plist"},
-    {src:"res/Particles/Flower.plist"},
-    {src:"res/Particles/Galaxy.plist"},
-    {src:"res/Particles/LavaFlow.plist"},
-    {src:"res/Particles/Phoenix.plist"},
-    {src:"res/Particles/SmallSun.plist"},
-    {src:"res/Particles/SpinningPeas.plist"},
-    {src:"res/Particles/Spiral.plist"},
-    {src:"res/Particles/SpookyPeas.plist"},
-    {src:"res/Particles/TestPremultipliedAlpha.plist"},
-    {src:"res/Particles/Upsidedown.plist"},
-
-    {src:s_tcc_issue_1_plist},
-    {src:s_tcc_issue_2_plist},
-    {src:s_tcc_issue_1},
-    {src:s_tcc_issue_2},
-
-    {src:s_s9s_blocks9_plist},
-    {src:s_s9s_blocks9}
-
+    {src:"res/TileMaps/ortho-rotation-test.tmx"}
 ];
