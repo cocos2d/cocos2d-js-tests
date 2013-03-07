@@ -28,24 +28,24 @@ var TAG_NODE = 5560;
 var TAG_GROSSINI = 5561;
 var TAG_SEQUENCE = 5562;
 
-var sceneIdx = -1;
+var actionMgrTestSceneIdx = -1;
 var MAX_LAYER = 5;
 
 var nextActionManagerAction = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % MAX_LAYER;
+    actionMgrTestSceneIdx++;
+    actionMgrTestSceneIdx = actionMgrTestSceneIdx % MAX_LAYER;
 
-    return createActionManagerLayer(sceneIdx);
+    return createActionManagerLayer(actionMgrTestSceneIdx);
 };
 var backActionManagerAction = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += MAX_LAYER;
+    actionMgrTestSceneIdx--;
+    if (actionMgrTestSceneIdx < 0)
+        actionMgrTestSceneIdx += MAX_LAYER;
 
-    return createActionManagerLayer(sceneIdx);
+    return createActionManagerLayer(actionMgrTestSceneIdx);
 };
 var restartActionManagerAction = function () {
-    return createActionManagerLayer(sceneIdx);
+    return createActionManagerLayer(actionMgrTestSceneIdx);
 };
 
 var createActionManagerLayer = function (index) {
@@ -297,7 +297,7 @@ var ResumeTest = ActionManagerTest.extend({
 
 var ActionManagerTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        actionMgrTestSceneIdx = -1;
         MAX_LAYER = 5;
         var layer = nextActionManagerAction();
         this.addChild(layer);

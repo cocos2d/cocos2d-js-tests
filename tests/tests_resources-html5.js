@@ -49,6 +49,7 @@ var s_grossini_blue = "res/animations/grossini_blue.png";
 var s_grossini_aliases = "res/animations/grossini-aliases.png";
 var s_dragon_animation = "res/animations/dragon_animation.png";
 var s_ghosts = "res/animations/ghosts.png";
+var s_crystals = "res/animations/crystals.png";
 var s_grossini_family = "res/animations/grossini_family.png";
 
 var s_tcc_issue_1 = "res/animations/tcc_issue_1.png";
@@ -68,6 +69,7 @@ var s_ghostsPlist = "res/animations/ghosts.plist";
 var s_grossini_familyPlist = "res/animations/grossini_family.plist";
 var s_animations2Plist = "res/animations/animations-2.plist";
 var s_animationsPlist = "res/animations/animations.plist";
+var s_crystalPlist = "res/animations/crystals.plist";
 
 var s_helloWorld = "res/Images/HelloWorld.png";
 var s_grossiniDance01 = "res/Images/grossini_dance_01.png";
@@ -306,6 +308,7 @@ var g_ressources = [
     {src:s_grossini_aliases},
     {src:s_dragon_animation},
     {src:s_ghosts},
+    {src:s_crystals},
     {src:s_grossini_family},
 
     {src:s_helloWorld},
@@ -346,6 +349,7 @@ var g_ressources = [
     {src:s_boilingFoamPlist},
     {src:s_animations2Plist},
     {src:s_animationsPlist},
+    {src:s_crystalPlist},
     {src:s_grossiniPlist},
     {src:s_grossini_grayPlist},
     {src:s_grossini_bluePlist},

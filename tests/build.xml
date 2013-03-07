@@ -38,6 +38,7 @@
                 <file name="PerformanceTest/PerformanceParticleTest.js"/>
                 <file name="PerformanceTest/PerformanceNodeChildrenTest.js"/>
                 <file name="PerformanceTest/PerformanceTextureTest.js"/>
+                <file name="PerformanceTest/PerformanceAnimationTest.js"/>
                 <file name="FontTest/FontTest.js"/>
                 <file name="ExtensionsTest/ExtensionsTest.js"/>
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js"/>

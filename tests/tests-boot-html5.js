@@ -74,6 +74,7 @@
             'PerformanceTest/PerformanceParticleTest.js',
             'PerformanceTest/PerformanceNodeChildrenTest.js',
             'PerformanceTest/PerformanceTextureTest.js',
+            'PerformanceTest/PerformanceAnimationTest.js',
             'PerformanceTest/seedrandom.js',
             'FontTest/FontTest.js',
             'PerformanceTest/PerformanceTouchesTest.js',

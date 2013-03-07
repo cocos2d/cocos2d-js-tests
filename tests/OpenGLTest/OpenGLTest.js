@@ -69,6 +69,7 @@ var OpenGLTestLayer = BaseTestLayer.extend({
         director.replaceScene(s);
     },
 
+    // automation
     numberOfPendingTests:function() {
         return ( (arrayOfOpenGLTest.length-1) - OpenGLTestIdx );
     },
@@ -204,8 +205,7 @@ var GLClearTest = OpenGLTestLayer.extend({
     },
 
     getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2,  winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2,  winSize.height/2,  1, 1);
         return JSON.stringify(ret);
     }
 });
@@ -407,12 +407,9 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
     },
 
     getCurrentResult:function() {
-        var ret1 = new Uint8Array(4);
-        gl.readPixels(10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret1);
-        var ret2 = new Uint8Array(4);
-        gl.readPixels(winSize.width-10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret2);
-        var ret3 = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret3);
+        var ret1 = this.readPixels(10, winSize.height-1,  1, 1);
+        var ret2 = this.readPixels(winSize.width-10, winSize.height-1,  1, 1);
+        var ret3 = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
 
         return JSON.stringify([ret1,ret2,ret3]);
     }
@@ -532,12 +529,9 @@ var GLNodeCCAPITest = OpenGLTestLayer.extend({
     },
 
     getCurrentResult:function() {
-        var ret1 = new Uint8Array(4);
-        gl.readPixels(10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret1);
-        var ret2 = new Uint8Array(4);
-        gl.readPixels(winSize.width-10, winSize.height-1,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret2);
-        var ret3 = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret3);
+        var ret1 = this.readPixels(10, winSize.height-1,  1, 1);
+        var ret2 = this.readPixels(winSize.width-10, winSize.height-1,  1, 1);
+        var ret3 = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
 
         return JSON.stringify([ret1,ret2,ret3]);
     }
@@ -570,7 +564,6 @@ var ShaderNode = cc.GLNode.extend({
             var program = this.shader.getProgram();
             this.uniformCenter = gl.getUniformLocation( program, "center");
             this.uniformResolution = gl.getUniformLocation( program, "resolution");
-            this.uniformTime = gl.getUniformLocation( program, "time");
 
             this.initBuffers();
 
@@ -589,10 +582,6 @@ var ShaderNode = cc.GLNode.extend({
         this.shader.setUniformLocationF32( this.uniformCenter, winSize.width/2, winSize.height/2);
         this.shader.setUniformLocationF32( this.uniformResolution, 256, 256);
 
-        // time changes all the time, so it is Ok to call OpenGL directly, and not the "cached" version
-        gl.uniform1f( this.uniformTime, this._time );
-
-
         cc.glEnableVertexAttribs( cc.VERTEX_ATTRIB_FLAG_POSITION );
 
         // Draw fullscreen Square
@@ -601,7 +590,6 @@ var ShaderNode = cc.GLNode.extend({
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
-
     },
 
     update:function(dt) {
@@ -658,8 +646,7 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
         return JSON.stringify(ret);
     },
     getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
         ret[0] = ret[0] > 240 ? 255 : 0;
         ret[3] = ret[3] > 240 ? 255 : 0;
         return JSON.stringify(ret);
@@ -698,8 +685,7 @@ var ShaderPlasmaTest = OpenGLTestLayer.extend({
         return JSON.stringify(true);
     },
     getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
         var sum = ret[0] + ret[1] + ret[2];
         return JSON.stringify(sum>300);
     }
@@ -737,8 +723,7 @@ var ShaderFlowerTest = OpenGLTestLayer.extend({
         return JSON.stringify(true);
     },
     getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
         var sum = ret[0] + ret[1] + ret[2];
         return JSON.stringify(sum<30);
     }
@@ -776,8 +761,7 @@ var ShaderJuliaTest = OpenGLTestLayer.extend({
         return JSON.stringify(true);
     },
     getCurrentResult:function() {
-        var ret = new Uint8Array(4);
-        gl.readPixels(winSize.width/2, winSize.height/2,  1, 1, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2, winSize.height/2,  1, 1);
         var sum = ret[0] + ret[1] + ret[2];
         return JSON.stringify(sum>300);
     }
@@ -850,7 +834,7 @@ var GLGetActiveTest = OpenGLTestLayer.extend({
         this._super();
 
         if( 'opengl' in sys.capabilities ) {
-            var sprite = this.sprite = cc.Sprite.create("grossini.png");
+            var sprite = this.sprite = cc.Sprite.create("res/Images/grossini.png");
             sprite.setPosition( winSize.width/2, winSize.height/2);
             this.addChild( sprite );
 
@@ -996,8 +980,7 @@ var TexImage2DTest = OpenGLTestLayer.extend({
     },
 
     getCurrentResult:function() {
-        var ret = new Uint8Array(4*16);
-        gl.readPixels(winSize.width/2-2, winSize.height/2-2,  4, 4, gl.RGBA, gl.UNSIGNED_BYTE, ret);
+        var ret = this.readPixels(winSize.width/2-2, winSize.height/2-2,  4, 4);
         return JSON.stringify(ret);
     }
 });
@@ -1045,6 +1028,117 @@ var GetSupportedExtensionsTest = OpenGLTestLayer.extend({
         return JSON.stringify([type,n]);
     }
 });
+
+//------------------------------------------------------------------
+//
+// GLTexParamterTest
+//
+//------------------------------------------------------------------
+var GLTexParamterTest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+            if( ! autoTestEnabled ) {
+                cc.log( this.getTexValues() );
+            }
+
+        }
+    },
+
+    title:function () {
+        return "GLTexParamterTest";
+    },
+    subtitle:function () {
+        return "tests texParameter()";
+    },
+    getTexValues:function() {
+        gl.bindTexture(gl.TEXTURE_2D, null);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE );
+        gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE );
+
+        var mag = gl.getTexParameter(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER);
+        var min = gl.getTexParameter(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER);
+        var w_s = gl.getTexParameter(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S);
+        var w_t = gl.getTexParameter(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S);
+
+        var a = [mag, min, w_s, w_t];
+        return a;
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        var ret = [9728,9728,33071,33071];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = this.getTexValues();
+        return JSON.stringify(ret);
+    }
+});
+
+//------------------------------------------------------------------
+//
+// GLGetUniformTest
+//
+//------------------------------------------------------------------
+var GLGetUniformTest = OpenGLTestLayer.extend({
+
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+
+            if( ! autoTestEnabled ) {
+                cc.log( JSON.stringify( this.runTest() ));
+            }
+
+        }
+    },
+
+    title:function () {
+        return "GLGetUniformTest";
+    },
+    subtitle:function () {
+        return "tests texParameter()";
+    },
+    runTest:function() {
+
+        var shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTextureColor");
+        var program = shader.getProgram();
+        shader.use();
+
+        var loc = gl.getUniformLocation( program, "CC_MVPMatrix");
+
+        var pMatrix = [1,2,3,4, 4,3,2,1, 1,2,4,8, 1.1,1.2,1.3,1.4];
+        this.pMatrix = pMatrix = new Float32Array(pMatrix);
+
+        gl.uniformMatrix4fv(loc, false, this.pMatrix);
+
+        return gl.getUniform( program, loc );
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        var ret = {"0":1,"1":2,"2":3,"3":4,"4":4,"5":3,"6":2,"7":1,"8":1,"9":2,"10":4,"11":8,"12":1.100000023841858,"13":1.2000000476837158,"14":1.2999999523162842,"15":1.399999976158142};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = this.runTest();
+        return JSON.stringify(ret);
+    }
+});
+
 //-
 //
 // Flow control
@@ -1062,7 +1156,9 @@ var arrayOfOpenGLTest = [
     GLReadPixelsTest,
     GLClearTest,
     GLNodeWebGLAPITest,
-    GLNodeCCAPITest
+    GLNodeCCAPITest,
+    GLTexParamterTest,
+    GLGetUniformTest
 ];
 
 var nextOpenGLTest = function () {

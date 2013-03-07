@@ -23,11 +23,18 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+var BASE_TEST_MENU_TAG = 10;
+var BASE_TEST_TITLE_TAG = 11;
+var BASE_TEST_SUBTITLE_TAG = 12;
+
 var autoTestEnabled = autoTestEnabled || false;
 
 var BaseTestLayer = cc.LayerGradient.extend({
 
     ctor:function(colorA, colorB ) {
+
+        sys.garbageCollect();
+
         this._super();
         cc.associateWithNative( this, cc.LayerGradient );
 
@@ -35,11 +42,21 @@ var BaseTestLayer = cc.LayerGradient.extend({
         var a = cc.c4b(98,99,117,255);
         var b = cc.c4b(0,0,0,255);
 
-        if( arguments.lenght >= 1 )
+        if( arguments.length >= 1 )
             a = colorA;
-        if( arguments.lenght == 2 )
+        if( arguments.length == 2 )
             b = colorB;
+
+        // for automation, no gradient. helps for grabbing the screen if needed
+        if( autoTestEnabled ) {
+            a = cc.c4b(0,0,0,255);
+            b = cc.c4b(0,0,0,255);
+        }
+
         this.init( a, b );
+
+        // Update winsize in case it was resized
+        winSize = director.getWinSize();
 
         if( autoTestEnabled ) {
             this.totalNumberOfTests = this.numberOfPendingTests();
@@ -47,20 +64,45 @@ var BaseTestLayer = cc.LayerGradient.extend({
         }
     },
 
+    getTitle:function() {
+        var t = "";
+
+        // some tests use "this.title()" and others use "this._title";
+        if( 'title' in this )
+            t = this.title();
+        else if('_title' in this )
+            t = this._title;
+        return t;
+    },
+    getSubtitle:function() {
+        var st = "";
+        // some tests use "this.subtitle()" and others use "this._subtitle";
+        if( 'subtitle' in this )
+            st = this.subtitle();
+        else if( '_subtitle' in this )
+            st = this._subtitle;
+
+        return st;
+    },
+    log:function(str) {
+        if( !autoTestEnabled )
+            cc.log(str);
+    },
     //
     // Menu
     //
     onEnter:function () {
         this._super();
 
-        var label = cc.LabelTTF.create(this.title(), "Arial", 28);
-        this.addChild(label, 100);
+        var t = this.getTitle();
+        var label = cc.LabelTTF.create(t, "Arial", 28);
+        this.addChild(label, 100, BASE_TEST_TITLE_TAG);
         label.setPosition(winSize.width / 2, winSize.height - 50);
 
-        var strSubtitle = this.subtitle();
-        if (strSubtitle) {
-            var l = cc.LabelTTF.create(strSubtitle.toString(), "Thonburi", 16);
-            this.addChild(l, 101);
+        var st = this.getSubtitle();
+        if (st) {
+            var l = cc.LabelTTF.create(st.toString(), "Thonburi", 16);
+            this.addChild(l, 101, BASE_TEST_SUBTITLE_TAG);
             l.setPosition(winSize.width / 2, winSize.height - 80);
         }
 
@@ -76,7 +118,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
         item2.setPosition( winSize.width/2, cs.height/2 );
         item3.setPosition( winSize.width/2 + cs.width*2, cs.height/2 );
 
-        this.addChild(menu, 102);
+        this.addChild(menu, 102, BASE_TEST_MENU_TAG);
     },
     onRestartCallback:function (sender) {
         // override me
@@ -123,7 +165,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
     endTest:function(dt) {
 
         this.errorDescription = "";
-        title = this.title();
+        var title = this.getTitle();
 
         try {
             if( this.tearDown(dt) ) {
@@ -156,6 +198,45 @@ var BaseTestLayer = cc.LayerGradient.extend({
             scene.addChild(layer);
             director.replaceScene(scene);
         } else
-            this.onNextCallback(this);
+            try {
+                this.onNextCallback(this);
+            } catch (err) {
+                cc.log( this.getTestNumber() + ": Test '" + this.getTitle() + "':'" + err);
+                this.runNextTest();
+            }
+    },
+
+    readPixels:function(x,y,w,h) {
+        if( 'opengl' in sys.capabilities) {
+            var size = 4 * w * h;
+            var array = new Uint8Array(size);
+            gl.readPixels(x, y, w, h, gl.RGBA, gl.UNSIGNED_BYTE, array);
+            return array;
+        } else {
+            // implement a canvas-html5 readpixels
+            throw "readPixels Not implemented on canvas yet";
+        }
+    },
+
+    //
+    // Useful for comparing results
+    // From: http://stackoverflow.com/a/1359808
+    //
+    sortObject:function(o) {
+        var sorted = {},
+        key, a = [];
+
+        for (key in o) {
+            if (o.hasOwnProperty(key)) {
+                a.push(key);
+            }
+        }
+
+        a.sort();
+
+        for (key = 0; key < a.length; key++) {
+            sorted[a[key]] = o[a[key]];
+        }
+        return sorted;
     }
 });

@@ -41,7 +41,7 @@ var PresentationBaseLayer = function() {
 	// Only subclasses of a native classes MUST call __associateObjectWithNative
 	// Failure to do so, it will crash.
 	//
-	var parent = cc.base(this);
+	var parent = cc.LayerGradient.call(this);
 	cc.associateWithNative( this, parent );
 	this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
 
@@ -169,7 +169,7 @@ PresentationBaseLayer.prototype.onBackCallback = function (sender) {
 //------------------------------------------------------------------
 var IntroPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'cocos2d JS';
 	this.subtitle = 'Game Development Kit';
@@ -184,7 +184,7 @@ cc.inherits( IntroPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var GoalPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'Goals';
 	this.subtitle = '';
@@ -207,7 +207,7 @@ cc.inherits( GoalPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var SolutionsPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'Options';
 	this.subtitle = '';
@@ -222,7 +222,7 @@ cc.inherits( SolutionsPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var HTML5EnginesPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'Options';
 	this.subtitle = 'HTML5 engines';
@@ -245,7 +245,7 @@ cc.inherits( HTML5EnginesPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var FeaturesHTML5Page = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'HTML5 Features';
 	this.subtitle = '';
@@ -268,7 +268,7 @@ cc.inherits( FeaturesHTML5Page, PresentationBaseLayer );
 //------------------------------------------------------------------
 var ComparisonPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'HTML5 Mobile performance';
 	this.subtitle = 'Bad performance, even with accel frameworks';
@@ -286,7 +286,7 @@ cc.inherits( ComparisonPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var WhatWeWantPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'Performance';
 	this.subtitle = 'But what we want is...';
@@ -308,7 +308,7 @@ cc.inherits( WhatWeWantPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var ChipmunkPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	// batch node
 	this.batch = cc.SpriteBatchNode.create( s_pathGrossini, 50 );
@@ -334,7 +334,7 @@ cc.inherits( ChipmunkPage, PresentationBaseLayer );
 //
 
 ChipmunkPage.prototype.onTogglePhysicsDebug = function() {
-	this.debugNode.setVisible( ! this.debugNode.getVisible() );
+	this.debugNode.setVisible( ! this.debugNode.isVisible() );
 };
 
 // Menu
@@ -392,7 +392,7 @@ ChipmunkPage.prototype.createPhysicsSprite = function( pos ) {
 
 ChipmunkPage.prototype.onEnter = function () {
 
-	cc.base(this, 'onEnter');
+	PresentationBaseLayer.prototype.onEnter.call(this);
 
 	for(var i=0; i<20; i++) {
 		var x = 40 + Math.random() * (winSize.width-80);
@@ -439,7 +439,7 @@ ChipmunkPage.prototype.onTouchesEnded = function( touches, event ) {
 //------------------------------------------------------------------
 var ParticlesPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'Performance';
 	this.subtitle = 'Particles';
@@ -509,7 +509,7 @@ cc.inherits( ParticlesPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var HowToImprovePage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'Improving the performance';
 	this.subtitle = 'Redefining "fast" for mobile';
@@ -525,7 +525,7 @@ cc.inherits( HowToImprovePage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var HTML5AcceleratorPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'HTML5 Mobile Accelerators';
 	this.subtitle = '';
@@ -543,7 +543,7 @@ cc.inherits( HTML5AcceleratorPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var GDKAcceleratorPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'cocos2d Acceleration';
 	this.subtitle = '';
@@ -560,7 +560,7 @@ cc.inherits( GDKAcceleratorPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var GDKComponentsPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'Components';
 	this.subtitle = '';
@@ -582,7 +582,7 @@ cc.inherits( GDKComponentsPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var CocosStatusPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'Game Engine';
 	this.subtitle = '';
@@ -599,7 +599,7 @@ cc.inherits( CocosStatusPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var ChipmunkStatusPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'Physics Engine';
 	this.subtitle = '';
@@ -616,7 +616,7 @@ cc.inherits( ChipmunkStatusPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var CCBStatusPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'World Editor';
 	this.subtitle = '';
@@ -633,7 +633,7 @@ cc.inherits( CCBStatusPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var WhoIsUsingItPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = "Who is using it";
 	this.subtitle = '';
@@ -655,7 +655,7 @@ cc.inherits( WhoIsUsingItPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var DemoPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'Demo';
 	this.subtitle = '';
@@ -670,7 +670,7 @@ cc.inherits( DemoPage, PresentationBaseLayer );
 //------------------------------------------------------------------
 var ThanksPage = function() {
 
-	cc.base(this);
+	PresentationBaseLayer.call(this);
 
 	this.title = 'Thanks';
 	this.subtitle = '';
@@ -685,7 +685,7 @@ cc.inherits( ThanksPage, PresentationBaseLayer );
 //
 
 var PresentationScene = function() {
-	var parent = cc.base(this);
+	var parent = TestScene.call(this);
 };
 cc.inherits(PresentationScene, TestScene );
 
