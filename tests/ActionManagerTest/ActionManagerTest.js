@@ -28,98 +28,50 @@ var TAG_NODE = 5560;
 var TAG_GROSSINI = 5561;
 var TAG_SEQUENCE = 5562;
 
-var actionMgrTestSceneIdx = -1;
-var MAX_LAYER = 5;
+var ActionMgrTestIdx = -1;
 
-var nextActionManagerAction = function () {
-    actionMgrTestSceneIdx++;
-    actionMgrTestSceneIdx = actionMgrTestSceneIdx % MAX_LAYER;
-
-    return createActionManagerLayer(actionMgrTestSceneIdx);
-};
-var backActionManagerAction = function () {
-    actionMgrTestSceneIdx--;
-    if (actionMgrTestSceneIdx < 0)
-        actionMgrTestSceneIdx += MAX_LAYER;
-
-    return createActionManagerLayer(actionMgrTestSceneIdx);
-};
-var restartActionManagerAction = function () {
-    return createActionManagerLayer(actionMgrTestSceneIdx);
-};
-
-var createActionManagerLayer = function (index) {
-    switch (index) {
-        case 0:
-            return new CrashTest();
-        case 1:
-            return new LogicTest();
-        case 2:
-            return new PauseTest();
-        case 3:
-            return new RemoveTest();
-        case 4:
-            return new ResumeTest();
-    }
-
-    return null;
-};
 
 //------------------------------------------------------------------
 //
 // ActionManagerTest
 //
 //------------------------------------------------------------------
-var ActionManagerTest = cc.Layer.extend({
+var ActionManagerTest = BaseTestLayer.extend({
     _atlas:null,
     _title:"",
 
-    ctor:function () {
-        this._super();
-        cc.associateWithNative(this, cc.Layer);
-        this.init();
-    },
     title:function () {
         return "No title";
     },
-    onEnter:function () {
-        this._super();
 
-        var s = director.getWinSize();
-
-        var label = cc.LabelTTF.create(this.title(), "Arial", 32);
-        this.addChild(label, 1);
-        label.setPosition(s.width / 2, s.height - 50);
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(0,0);
-        item1.setPosition(s.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2);
-        item2.setPosition(s.width / 2, item2.getContentSize().height / 2);
-        item3.setPosition(s.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2);
-
-        this.addChild(menu, 1);
+    subtitle:function () {
+        return "";
     },
 
     onBackCallback:function (sender) {
         var s = new ActionManagerTestScene();
-        s.addChild(backActionManagerAction());
+        s.addChild(previousActionMgrTest());
         director.replaceScene(s);
     },
     onRestartCallback:function (sender) {
         var s = new ActionManagerTestScene();
-        s.addChild(restartActionManagerAction());
+        s.addChild(restartActionMgrTest());
         director.replaceScene(s);
     },
     onNextCallback:function (sender) {
         var s = new ActionManagerTestScene();
-        s.addChild(nextActionManagerAction());
+        s.addChild(nextActionMgrTest());
         director.replaceScene(s);
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfActionMgrTest.length-1) - ActionMgrTestIdx );
+    },
+
+    getTestNumber:function() {
+        return ActionMgrTestIdx;
     }
+
 });
 
 //------------------------------------------------------------------
@@ -297,12 +249,38 @@ var ResumeTest = ActionManagerTest.extend({
 
 var ActionManagerTestScene = TestScene.extend({
     runThisTest:function () {
-        actionMgrTestSceneIdx = -1;
-        MAX_LAYER = 5;
-        var layer = nextActionManagerAction();
-        this.addChild(layer);
+        ActionMgrTestIdx = -1;
+        this.addChild(nextActionMgrTest());
         director.replaceScene(this);
     }
 });
 
 
+//-
+//
+// Flow control
+//
+var arrayOfActionMgrTest = [
+    CrashTest,
+    LogicTest,
+    PauseTest,
+    RemoveTest,
+    ResumeTest
+];
+
+var nextActionMgrTest = function () {
+    ActionMgrTestIdx++;
+    ActionMgrTestIdx = ActionMgrTestIdx % arrayOfActionMgrTest.length;
+
+    return new arrayOfActionMgrTest[ActionMgrTestIdx]();
+};
+var previousActionMgrTest = function () {
+    ActionMgrTestIdx--;
+    if (ActionMgrTestIdx < 0)
+        ActionMgrTestIdx += arrayOfActionMgrTest.length;
+
+    return new arrayOfActionMgrTest[ActionMgrTestIdx]();
+};
+var restartActionMgrTest = function () {
+    return new arrayOfActionMgrTest[ActionMgrTestIdx]();
+};
