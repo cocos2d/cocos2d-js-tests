@@ -213,12 +213,13 @@ var DictionaryToFromTest = UnitTestBase.extend({
         var frame = normal.getFrames()[0];
         var dict = frame.getUserInfo();
         this.log( JSON.stringify(dict) );
-        frame.setUserInfo( {"string":"hello!",
+        frame.setUserInfo( {
                             "array":[1,2,3,"hello world"],
                             "bool0":0,  // false  XXX
                             "bool1":1,  // true   XXX
                             "dict":{"key1":"value1", "key2":2},
-                            "number":42
+                            "number":42,
+                            "string":"hello!"
                         });
 
         dict = frame.getUserInfo();
@@ -232,12 +233,13 @@ var DictionaryToFromTest = UnitTestBase.extend({
     testDuration:0.1,
 
     getExpectedResult:function() {
-        var ret = {"array":[1,2,3,"hello world"],"string":"hello!","bool0":1,"number":42,"dict":{"key1":"value1","key2":2},"bool1":0};
+        var ret = this.sortObject( {"array":[1,2,3,"hello world"],"bool0":0,"bool1":1,"dict":{"key1":"value1","key2":2},"number":42,"string":"hello!"} );
+
         return JSON.stringify(ret);
     },
 
     getCurrentResult:function() {
-        var ret = this.runTest();
+        var ret = this.sortObject( this.runTest() );
         return JSON.stringify(ret);
     }
 });
