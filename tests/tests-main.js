@@ -33,7 +33,9 @@ var PLATFORM_JSB = 1 << 0;
 var PLATFORM_HTML5 = 1 << 1;
 var PLATFORM_ALL = PLATFORM_JSB | PLATFORM_HTML5;
 
+// automation vars
 var autoTestEnabled = autoTestEnabled || false;
+var autoTestCurrentTestName = autoTestCurrentTestName || "N/A";
 
 var TestScene = cc.Scene.extend({
     ctor:function (bPortrait) {
@@ -144,6 +146,8 @@ var TestController = cc.LayerGradient.extend({
         var idx = sender.getZOrder() - 10000;
         // get the userdata, it's the index of the menu item clicked
         // create the test scene and run it
+
+        autoTestCurrentTestName = testNames[idx].title;
 
         var testCase = testNames[idx];
         var res = testCase.resource || [];
