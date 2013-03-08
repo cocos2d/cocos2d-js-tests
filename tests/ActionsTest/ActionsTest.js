@@ -340,6 +340,54 @@ var ActionRotate = ActionsDemo.extend({
 
 //------------------------------------------------------------------
 //
+//  ActionRotateXY
+//
+//------------------------------------------------------------------
+var ActionRotateXY = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+        this.centerSprites(3);
+        var actionTo = cc.RotateTo.create(2, 37.2, -37.2);
+        var actionToBack = cc.RotateTo.create(2, 0, 0);
+        var actionBy = cc.RotateBy.create(2, 0, -90);
+        var actionBy2 = cc.RotateBy.create(2, 45.0, 45.0);
+
+        var delay = cc.DelayTime.create(0.25);
+
+        this._tamara.runAction(cc.Sequence.create(actionTo, delay, actionToBack));
+        this._grossini.runAction(cc.Sequence.create(actionBy, delay.copy(), actionBy.reverse()));
+
+        this._kathia.runAction(cc.Sequence.create(actionBy2, delay.copy(), actionBy2.reverse()));
+    },
+    title:function () {
+        return "cc.RotateBy(x,y) / cc.RotateTo(x,y)";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = ["37.20","-37.20",0,-90,45,45];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getRotationX().toFixed(2) );
+        ret.push( this._tamara.getRotationY().toFixed(2) );
+
+        ret.push( this._grossini.getRotationX() );
+        ret.push( this._grossini.getRotationY() );
+
+        ret.push( this._kathia.getRotationX() );
+        ret.push( this._kathia.getRotationY() );
+
+        return JSON.stringify(ret);
+    }
+
+});
+//------------------------------------------------------------------
+//
 //	ActionSkew
 //
 //------------------------------------------------------------------
@@ -1998,6 +2046,7 @@ var arrayOfActionsTest = [
     ActionMove,
     ActionScale,
     ActionRotate,
+    ActionRotateXY,
     ActionSkew,
     ActionSkewRotateScale,
     ActionJump,
