@@ -611,7 +611,7 @@ var ActionBezier = ActionsDemo.extend({
         this._tamara.runAction(bezierTo1);
         this._kathia.runAction(bezierTo2);
 
-        if(1 || autoTestEnabled) {
+        if(autoTestEnabled) {
             // only for automation
             this.scheduleOnce(this.checkControl1, 0.66667);
             this.scheduleOnce(this.checkControl2, 1.33333);
@@ -1381,6 +1381,8 @@ var ActionCardinalSpline = ActionsDemo.extend({
 
         this.centerSprites(2);
 
+        var delay = cc.DelayTime.create(0.25);
+
         var array = [
             cc.p(0, 0),
             cc.p(winSize.width / 2 - 30, 0),
@@ -1394,9 +1396,9 @@ var ActionCardinalSpline = ActionsDemo.extend({
         //
         // Spline with no tension (tension==0)
         //
-        var action1 = cc.CardinalSplineBy.create(3, array, 0);
+        var action1 = cc.CardinalSplineBy.create(2, array, 0);
         var reverse1 = action1.reverse();
-        var seq = cc.Sequence.create(action1, reverse1);
+        var seq = cc.Sequence.create(action1, delay, reverse1, delay.copy() );
 
         this._tamara.setPosition(50, 50);
         this._tamara.runAction(seq);
@@ -1406,14 +1408,21 @@ var ActionCardinalSpline = ActionsDemo.extend({
         //
         // Spline with high tension (tension==1)
         //
-        var action2 = cc.CardinalSplineBy.create(3, array, 1);
+        var action2 = cc.CardinalSplineBy.create(2, array, 1);
         var reverse2 = action2.reverse();
-        var seq2 = cc.Sequence.create(action2, reverse2);
+        var seq2 = cc.Sequence.create(action2, delay.copy(), reverse2, delay.copy() );
 
         this._kathia.setPosition(winSize.width / 2, 50);
         this._kathia.runAction(seq2);
 
         this._array = array;
+
+        if(autoTestEnabled) {
+            // only for automation
+            this.scheduleOnce(this.checkControl1, 0.5);
+            this.scheduleOnce(this.checkControl2, 1.0);
+            this.scheduleOnce(this.checkControl3, 1.5);
+        }
     },
 
     draw:function (ctx) {
@@ -1442,6 +1451,55 @@ var ActionCardinalSpline = ActionsDemo.extend({
     },
     title:function () {
         return "CardinalSplineBy / CardinalSplineAt";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    checkControl1:function(dt) {
+        this.control1 = this._tamara.getPosition();
+    },
+    verifyControl1:function(dt) {
+        var x = Math.abs( 50 + winSize.width/2 - 30 - this.control1.x);
+        var y = Math.abs( 50 - this.control1.y);
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+    checkControl2:function(dt) {
+        this.control2 = this._tamara.getPosition();
+    },
+    verifyControl2:function(dt) {
+        var x = Math.abs( 50 + winSize.width/2 - 30 - this.control2.x );
+        var y = Math.abs( 50 + winSize.height - 80 - this.control2.y );
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+    checkControl3:function(dt) {
+        this.control3 = this._tamara.getPosition();
+    },
+    verifyControl3:function(dt) {
+        var x = Math.abs( 50 - this.control3.x );
+        var y = Math.abs( 50 + winSize.height - 80 - this.control3.y );
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+
+    getExpectedResult:function() {
+        var ret = [ true,
+                    true,
+                    true,
+                    {"x":50,"y":50}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.verifyControl1() );
+        ret.push( this.verifyControl2() );
+        ret.push( this.verifyControl3() );
+        ret.push( this._tamara.getPosition() );
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -1514,6 +1572,13 @@ var ActionCatmullRom = ActionsDemo.extend({
 
         this._array1 = array;
         this._array2 = array2;
+
+        if(autoTestEnabled) {
+            // only for automation
+            this.scheduleOnce(this.checkControl1, 0.5);
+            this.scheduleOnce(this.checkControl2, 1.0);
+            this.scheduleOnce(this.checkControl3, 1.5);
+        }
     },
     draw:function (ctx) {
         // Draw is only supported in cocos2d-html5.
@@ -1538,6 +1603,61 @@ var ActionCatmullRom = ActionsDemo.extend({
     },
     title:function () {
         return "CatmullRomBy / CatmullRomTo";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    checkControl1:function(dt) {
+        this.control1 = this._tamara.getPosition();
+        cc.log( JSON.stringify( this.control1) );
+    },
+    verifyControl1:function(dt) {
+        var x = Math.abs( 50 + winSize.width/2 - 30 - this.control1.x);
+        var y = Math.abs( 50 - this.control1.y);
+        //  -/+ 5 pixels of error
+        cc.log( x + " - " + y);
+        return ( x < 5 && y < 5);
+    },
+    checkControl2:function(dt) {
+        this.control2 = this._tamara.getPosition();
+        cc.log( JSON.stringify( this.control2) );
+    },
+    verifyControl2:function(dt) {
+        var x = Math.abs( 50 + winSize.width/2 - 30 - this.control2.x );
+        var y = Math.abs( 50 + winSize.height - 80 - this.control2.y );
+        //  -/+ 5 pixels of error
+        cc.log( x + " - " + y);
+        return ( x < 5 && y < 5);
+    },
+    checkControl3:function(dt) {
+        this.control3 = this._tamara.getPosition();
+        cc.log( JSON.stringify( this.control3) );
+    },
+    verifyControl3:function(dt) {
+        var x = Math.abs( 50 - this.control3.x );
+        var y = Math.abs( 50 + winSize.height - 80 - this.control3.y );
+        //  -/+ 5 pixels of error
+        cc.log( x + " - " + y);
+        return ( x < 5 && y < 5);
+    },
+
+    getExpectedResult:function() {
+        var ret = [ true,
+                    true,
+                    true,
+                    {"x":50,"y":50}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.verifyControl1() );
+        ret.push( this.verifyControl2() );
+        ret.push( this.verifyControl3() );
+        ret.push( this._tamara.getPosition() );
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -2119,6 +2239,9 @@ var Issue1446 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
+
+    ActionCardinalSpline,
+    ActionCatmullRom,
 
     ActionManual,
     ActionMove,
