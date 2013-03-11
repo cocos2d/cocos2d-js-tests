@@ -1526,6 +1526,8 @@ var ActionCatmullRom = ActionsDemo.extend({
 
         this.centerSprites(2);
 
+        var delay = cc.DelayTime.create(0.25);
+
         //
         // sprite 1 (By)
         //
@@ -1546,7 +1548,7 @@ var ActionCatmullRom = ActionsDemo.extend({
 
         var action1 = cc.CatmullRomBy.create(3, array);
         var reverse1 = action1.reverse();
-        var seq1 = cc.Sequence.create(action1, reverse1);
+        var seq1 = cc.Sequence.create(action1, delay, reverse1);
 
         this._tamara.runAction(seq1);
 
@@ -1566,7 +1568,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         var action2 = cc.CatmullRomTo.create(3, array2);
         var reverse2 = action2.reverse();
 
-        var seq2 = cc.Sequence.create(action2, reverse2);
+        var seq2 = cc.Sequence.create(action2, delay.copy(), reverse2);
 
         this._kathia.runAction(seq2);
 
@@ -1575,9 +1577,9 @@ var ActionCatmullRom = ActionsDemo.extend({
 
         if(autoTestEnabled) {
             // only for automation
-            this.scheduleOnce(this.checkControl1, 0.5);
-            this.scheduleOnce(this.checkControl2, 1.0);
-            this.scheduleOnce(this.checkControl3, 1.5);
+            this.scheduleOnce(this.checkControl1, 3 / 4 * 0);
+            this.scheduleOnce(this.checkControl2, 3 / 4 * 1);
+            this.scheduleOnce(this.checkControl3, 3 / 4 * 2);
         }
     },
     draw:function (ctx) {
@@ -1607,38 +1609,32 @@ var ActionCatmullRom = ActionsDemo.extend({
     //
     // Automation
     //
-    testDuration:2.1,
+    testDuration:3.1,
     checkControl1:function(dt) {
-        this.control1 = this._tamara.getPosition();
-        cc.log( JSON.stringify( this.control1) );
+        this.control1 = this._kathia.getPosition();
     },
     verifyControl1:function(dt) {
-        var x = Math.abs( 50 + winSize.width/2 - 30 - this.control1.x);
-        var y = Math.abs( 50 - this.control1.y);
+        var x = Math.abs( winSize.width/2 - this.control1.x);
+        var y = Math.abs( 30 - this.control1.y);
         //  -/+ 5 pixels of error
-        cc.log( x + " - " + y);
         return ( x < 5 && y < 5);
     },
     checkControl2:function(dt) {
-        this.control2 = this._tamara.getPosition();
-        cc.log( JSON.stringify( this.control2) );
+        this.control2 = this._kathia.getPosition();
     },
     verifyControl2:function(dt) {
-        var x = Math.abs( 50 + winSize.width/2 - 30 - this.control2.x );
-        var y = Math.abs( 50 + winSize.height - 80 - this.control2.y );
+        var x = Math.abs( winSize.width - 80 - this.control2.x );
+        var y = Math.abs( 30 - this.control2.y );
         //  -/+ 5 pixels of error
-        cc.log( x + " - " + y);
         return ( x < 5 && y < 5);
     },
     checkControl3:function(dt) {
-        this.control3 = this._tamara.getPosition();
-        cc.log( JSON.stringify( this.control3) );
+        this.control3 = this._kathia.getPosition();
     },
     verifyControl3:function(dt) {
-        var x = Math.abs( 50 - this.control3.x );
-        var y = Math.abs( 50 + winSize.height - 80 - this.control3.y );
+        var x = Math.abs( winSize.width - 80 - this.control3.x );
+        var y = Math.abs( winSize.height - 80 - this.control3.y );
         //  -/+ 5 pixels of error
-        cc.log( x + " - " + y);
         return ( x < 5 && y < 5);
     },
 
@@ -1646,7 +1642,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         var ret = [ true,
                     true,
                     true,
-                    {"x":50,"y":50}];
+                    {"x":winSize.width/2,"y":30}];
         return JSON.stringify(ret);
     },
 
@@ -1655,7 +1651,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         ret.push( this.verifyControl1() );
         ret.push( this.verifyControl2() );
         ret.push( this.verifyControl3() );
-        ret.push( this._tamara.getPosition() );
+        ret.push( this._kathia.getPosition() );
 
         return JSON.stringify(ret);
     }
@@ -2239,9 +2235,6 @@ var Issue1446 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
-
-    ActionCardinalSpline,
-    ActionCatmullRom,
 
     ActionManual,
     ActionMove,
