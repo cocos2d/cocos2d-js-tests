@@ -775,9 +775,29 @@ var ActionBlink = ActionsDemo.extend({
         this._tamara.runAction(action1);
         this._kathia.runAction(action2);
 
+        if(autoTestEnabled)
+            this.scheduleOnce(this.checkControl1,0.1);
     },
     title:function () {
         return "cc.Blink";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    checkControl1:function(dt){
+        this.control1 = this._kathia.isVisible();
+    },
+    getExpectedResult:function() {
+        var ret = [false,true,true];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.control1 );
+        ret.push( this._tamara.isVisible());
+        ret.push( this._kathia.isVisible());
+        return JSON.stringify(ret);
     }
 });
 //------------------------------------------------------------------
@@ -2249,6 +2269,9 @@ var Issue1446 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
+
+    ActionFade,
+    ActionTint,
 
     ActionManual,
     ActionMove,
