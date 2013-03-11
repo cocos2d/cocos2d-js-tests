@@ -524,14 +524,42 @@ var ActionJump = ActionsDemo.extend({
         var actionUp = cc.JumpBy.create(2, cc.p(0, 0), 80, 4);
         var actionByBack = actionBy.reverse();
 
+        var delay = cc.DelayTime.create(0.25);
+
         this._tamara.runAction(actionTo);
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionByBack));
-        this._kathia.runAction(cc.RepeatForever.create(actionUp));
+        this._grossini.runAction(cc.Sequence.create(actionBy, delay, actionByBack));
+        this._kathia.runAction(cc.RepeatForever.create(
+            cc.Sequence.create(actionUp, delay.copy() )
+                ) );
 
     },
     title:function () {
         return "cc.JumpTo / cc.JumpBy";
+    },
+    subtitle:function () {
+        return "Actions will stop for 0.25s after 2 seconds";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [{"x":300,"y":300},
+                    {"x":winSize.width/2+300,"y":winSize.height/2},
+                    {"x":3*winSize.width/4,"y":winSize.height/2}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getPosition() );
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._kathia.getPosition() );
+
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
@@ -2041,6 +2069,9 @@ var Issue1446 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
+
+    ActionJump,
+
 
     ActionManual,
     ActionMove,
