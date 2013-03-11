@@ -659,7 +659,6 @@ var ActionBezier = ActionsDemo.extend({
 
         return JSON.stringify(ret);
     }
-
 });
 
 //------------------------------------------------------------------
@@ -721,11 +720,12 @@ var Issue1008 = ActionsDemo.extend({
         var controlPoints1 = [ cc.p(428,279), cc.p(100,100), cc.p(100,100)];
         var controlPoints2 = [ cc.p(100,100), cc.p(428,279), cc.p(428,279)];
 
-        var bz1 = cc.BezierTo.create(3, controlPoints1);
-        var bz2 = cc.BezierTo.create(3, controlPoints2);
+        var bz1 = cc.BezierTo.create(1.5, controlPoints1);
+        var bz2 = cc.BezierTo.create(1.5, controlPoints2);
         var trace = cc.CallFunc.create(this.onTrace, this);
+        var delay = cc.DelayTime.create(0.25);
 
-        var rep = cc.RepeatForever.create(cc.Sequence.create(bz1, bz2, trace));
+        var rep = cc.RepeatForever.create(cc.Sequence.create(bz1, bz2, trace,delay));
 
         this._grossini.runAction(rep);
 
@@ -734,13 +734,27 @@ var Issue1008 = ActionsDemo.extend({
         var pos = sender.getPosition();
         cc.log("Position x: " + pos.x + ' y:' + pos.y);
         if( pos.x != 428 || pos.y != 279)
-            cc.log("Error: Issue 1008 is still open");
+            this.log("Error: Issue 1008 is still open");
+
+        this.tracePos = pos;
     },
     title:function () {
         return "Issue 1008";
     },
     subtitle:function () {
         return "cc.BezierTo + Repeat. See console";
+    },
+    //
+    // Automation
+    //
+    testDuration:3.1,
+    getExpectedResult:function() {
+        var ret = {"x":428,"y":279};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        return JSON.stringify(this.tracePos);
     }
 });
 //------------------------------------------------------------------
