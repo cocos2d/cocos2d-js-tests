@@ -79,6 +79,11 @@ var extensionsTestItemNames = [
 ];
 
 var ExtensionsMainLayer = cc.Layer.extend({
+    ctor:function() {
+        this._super();
+        cc.associateWithNative( this, cc.Layer );
+    },
+
     onEnter:function () {
         this._super();
 
