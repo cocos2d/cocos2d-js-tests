@@ -580,13 +580,18 @@ var ActionBezier = ActionsDemo.extend({
 
         // sprite 1
 
+        var delay = cc.DelayTime.create(0.25);
+
         // 3 and only 3 control points should be used for Bezier actions.
-        var controlPoints = [ cc.p(0, s.height / 2),
-                                cc.p(300, -s.height / 2),
+        var controlPoints = [ cc.p(0, 374),
+                                cc.p(300, -374),
                                 cc.p(300, 100) ];
 
-        var bezierForward = cc.BezierBy.create(3, controlPoints);
-        var rep = cc.RepeatForever.create(cc.Sequence.create(bezierForward, bezierForward.reverse()));
+        var bezierForward = cc.BezierBy.create(2, controlPoints);
+        var rep = cc.RepeatForever.create(
+            cc.Sequence.create(
+                bezierForward, delay, bezierForward.reverse(), delay.copy()
+            ));
 
         // sprite 2
         this._tamara.setPosition(80, 160);
@@ -606,10 +611,55 @@ var ActionBezier = ActionsDemo.extend({
         this._tamara.runAction(bezierTo1);
         this._kathia.runAction(bezierTo2);
 
+        if(1 || autoTestEnabled) {
+            // only for automation
+            this.scheduleOnce(this.checkControl1, 0.66667);
+            this.scheduleOnce(this.checkControl2, 1.33333);
+        }
+
     },
     title:function () {
         return "cc.BezierBy / cc.BezierTo";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    checkControl1:function(dt) {
+        this.control1 = this._grossini.getPosition();
+    },
+    verifyControl1:function(dt) {
+        var x = Math.abs( this.control1.x - 77 - winSize.width/2 );
+        var y = Math.abs( this.control1.y - 87 - winSize.height/2 );
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+    checkControl2:function(dt) {
+        this.control2 = this._grossini.getPosition();
+    },
+    verifyControl2:function(dt) {
+        var x = Math.abs( this.control2.x - 222 - winSize.width/2 );
+        var y = Math.abs( this.control2.y + 53 - winSize.height/2 );
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+
+    getExpectedResult:function() {
+        var ret = [ true,
+                    true,
+                    {"x":winSize.width/2+300,"y":winSize.height/2+100}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.verifyControl1() );
+        ret.push( this.verifyControl2() );
+        ret.push( this._grossini.getPosition() );
+
+        return JSON.stringify(ret);
     }
+
 });
 
 //------------------------------------------------------------------
@@ -2069,9 +2119,6 @@ var Issue1446 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
-
-    ActionJump,
-
 
     ActionManual,
     ActionMove,
