@@ -308,6 +308,7 @@ var ResumeTest = ActionManagerTest.extend({
         l.setPosition(s.width / 2, 245);
 
         var grossini = cc.Sprite.create(s_pathGrossini);
+        this._grossini = grossini;
         this.addChild(grossini, 0, TAG_GROSSINI);
         grossini.setPosition(s.width / 2, s.height / 2);
 
@@ -318,14 +319,6 @@ var ResumeTest = ActionManagerTest.extend({
 
         this.schedule(this.resumeGrossini, 3.0);
 
-        //
-        // only for automation
-        //
-        if ( autoTestEnabled ) {
-            this.scheduleOnce(this.checkControl1, 1.0);
-            this.scheduleOnce(this.checkControl2, 5.5);
-            this._grossini = grossini;
-        }
     },
     resumeGrossini:function (time) {
         this.unschedule(this.resumeGrossini);
@@ -338,6 +331,10 @@ var ResumeTest = ActionManagerTest.extend({
     // Automation
     //
     testDuration:6.0,
+    setupAutomation:function() {
+        this.scheduleOnce(this.checkControl1, 1.0);
+        this.scheduleOnce(this.checkControl2, 5.5);
+    },
     checkControl1:function(dt) {
         this.control1ScaleX    = this._grossini.getScaleX();
         this.control1ScaleY    = this._grossini.getScaleY();
