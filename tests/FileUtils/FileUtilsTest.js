@@ -92,9 +92,7 @@ var FilenameLookupTest = FileUtilsBase.extend({
         //
         // only for automation
         //
-
         if ( autoTestEnabled ) {
-
             if ( t == 'mobile' )  {
                 this.expectedFilename = "grossini_pvr_rgba4444.pvr";
             } else if( t == 'desktop' ) {
@@ -102,30 +100,20 @@ var FilenameLookupTest = FileUtilsBase.extend({
             } else {
                 this.expectedFilename = "grossini.png";
             }
-            
         }
-
     },
-
 
     //
     // only for automation
     //
-
-    //
-    //
     getExpectedResult:function() {
         return this.expectedFilename;
     },
-                
-    //
-    //
     getCurrentResult:function() {
         var filenamePlusPath    = cc.FileUtils.getInstance().fullPathForFilename("grossini.bmp");
         var filename            = filenamePlusPath.replace(/^.*(\\|\/|\:)/, '');
         return filename;
     }
-
 });
 
 var FileUtilsTestScene = TestScene.extend({
