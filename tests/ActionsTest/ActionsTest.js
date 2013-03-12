@@ -1334,12 +1334,25 @@ var ActionDelayTime = ActionsDemo.extend({
         this.alignSpritesLeft(1);
 
         var move = cc.MoveBy.create(1, cc.p(150, 0));
-        var action = cc.Sequence.create(move, cc.DelayTime.create(2), move);
+        var action = cc.Sequence.create(move, cc.DelayTime.create(2), move.copy());
 
         this._grossini.runAction(action);
     },
-    subtitle:function () {
+    title:function () {
         return "DelayTime: m + delay + m";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.9,
+    getExpectedResult:function() {
+        var ret = [{"x":210,"y":winSize.height/2}];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._grossini.getPosition() );
+        return JSON.stringify(ret);
     }
 });
 //------------------------------------------------------------------
@@ -2367,6 +2380,15 @@ var Issue1446 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
+
+    ActionDelayTime,
+    ActionRepeat,
+    ActionRepeatForever,
+    ActionRotateToRepeat,
+    ActionRotateJerk,
+    ActionCallFunc1,
+    ActionCallFunc2,
+    ActionCallFunc3,
 
     ActionManual,
     ActionMove,
