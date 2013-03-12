@@ -28,7 +28,8 @@ var TAG_NODE = 5560;
 var TAG_GROSSINI = 5561;
 var TAG_SEQUENCE = 5562;
 
-var ActionMgrTestIdx = -1;
+var ActionMgrTestIdx  = -1;
+var NOT_CRASHED_CONST = "NOT_CRASHED";
 
 
 //------------------------------------------------------------------
@@ -71,7 +72,6 @@ var ActionManagerTest = BaseTestLayer.extend({
     getTestNumber:function() {
         return ActionMgrTestIdx;
     }
-
 });
 
 //------------------------------------------------------------------
@@ -103,10 +103,29 @@ var CrashTest = ActionManagerTest.extend({
             cc.CallFunc.create(this.onRemoveThis, this))
         );
     },
+
     onRemoveThis:function () {
         this.getParent().removeChild(this);
         this.onNextCallback(this);
+    },
+
+    //
+    // Automation
+    //
+
+    //
+    //
+    getExpectedResult:function() {
+        return NOT_CRASHED_CONST;
+    },
+                
+    //
+    //
+    getCurrentResult:function() {
+        return NOT_CRASHED_CONST;
     }
+
+
 });
 
 //------------------------------------------------------------------
@@ -129,11 +148,45 @@ var LogicTest = ActionManagerTest.extend({
             cc.MoveBy.create(1, cc.p(150, 0)),
             cc.CallFunc.create(this.onBugMe, this))
         );
+
+
+        //
+        // only for automation
+        //
+        if ( autoTestEnabled ) {
+            this._grossini = grossini;
+        }
+
     },
+
     onBugMe:function (node) {
         node.stopAllActions(); //After this stop next action not working, if remove this stop everything is working
         node.runAction(cc.ScaleTo.create(2, 2));
+    },
+
+    //
+    // Automation
+    //
+
+    testDuration: 4.0,
+
+    //
+    //
+    getExpectedResult:function() {
+        var ret = [ {"scaleX":2, "scaleY":2} ];
+        return JSON.stringify(ret);
+    },
+                
+    //
+    //
+    getCurrentResult:function() {
+        var scaleX = this._grossini.getScaleX();
+        var scaleY = this._grossini.getScaleY();
+        var ret = [ {"scaleX":scaleX, "scaleY":scaleY} ];
+        return JSON.stringify(ret);
     }
+
+
 });
 
 //------------------------------------------------------------------
@@ -153,7 +206,7 @@ var PauseTest = ActionManagerTest.extend({
         this._super();
 
         var s = director.getWinSize();
-        var l = cc.LabelTTF.create("After 5 seconds grossini should move", "Thonburi", 16);
+        var l = cc.LabelTTF.create("After 3 seconds grossini should move", "Thonburi", 16);
         this.addChild(l);
         l.setPosition(s.width / 2, 245);
 
@@ -164,17 +217,62 @@ var PauseTest = ActionManagerTest.extend({
         this.addChild(grossini, 0, TAG_GROSSINI);
         grossini.setPosition(200, 200);
 
+
         var action = cc.MoveBy.create(1, cc.p(150, 0));
 
         director.getActionManager().addAction(action, grossini, true);
 
         this.schedule(this.onUnpause, 3);
+
+        //
+        // only for automation
+        //
+        if ( autoTestEnabled ) {
+            this.scheduleOnce(this.checkControl1, 2.0);
+            this.scheduleOnce(this.checkControl2, 4.5); 
+            this._grossini = grossini;
+        }
+
     },
+
     onUnpause:function (dt) {
         this.unschedule(this.onUnpause);
         var node = this.getChildByTag(TAG_GROSSINI);
         director.getActionManager().resumeTarget(node);
+    },
+    
+    //
+    // Automation
+    //
+
+    testDuration:5.5,
+
+    //
+    //
+    checkControl1:function(dt) {
+        this.control1 = this._grossini.getPosition();
+    },
+
+    //
+    //
+    checkControl2:function(dt) {
+        this.control2 = this._grossini.getPosition();
+    },
+
+    //
+    //
+    getExpectedResult:function() {
+        var ret = [ {"x":200, "y":200}, {"x":350, "y":200} ];
+        return JSON.stringify(ret);
+    },
+                
+    //
+    //
+    getCurrentResult:function() {
+        var ret = [ {"x":this.control1.x, "y":this.control1.y}, {"x":this.control2.x, "y":this.control2.y} ];
+        return JSON.stringify(ret);
     }
+                                         
 });
 
 //------------------------------------------------------------------
@@ -205,10 +303,31 @@ var RemoveTest = ActionManagerTest.extend({
         this.addChild(child, 1, TAG_GROSSINI);
         child.runAction(sequence);
     },
+
     stopAction:function () {
         var sprite = this.getChildByTag(TAG_GROSSINI);
         sprite.stopActionByTag(TAG_SEQUENCE);
+    },
+
+
+    //
+    // Automation
+    //
+
+    testDuration:3.5,
+
+    //
+    //
+    getExpectedResult:function() {
+        return NOT_CRASHED_CONST;
+    },
+                
+    //
+    //
+    getCurrentResult:function() {
+        return NOT_CRASHED_CONST;
     }
+
 });
 
 //------------------------------------------------------------------
@@ -238,13 +357,61 @@ var ResumeTest = ActionManagerTest.extend({
         grossini.runAction(cc.RotateBy.create(2, 360));
 
         this.schedule(this.resumeGrossini, 3.0);
+
+        //
+        // only for automation
+        //
+        if ( autoTestEnabled ) {
+            this.scheduleOnce(this.checkControl1, 1.0);
+            this.scheduleOnce(this.checkControl2, 5.5); 
+            this._grossini = grossini;
+        }
+
     },
+
     resumeGrossini:function (time) {
         this.unschedule(this.resumeGrossini);
 
         var grossini = this.getChildByTag(TAG_GROSSINI);
         director.getActionManager().resumeTarget(grossini);
+    },
+
+    //
+    // Automation
+    //
+
+    testDuration:6.0,
+
+    //
+    //
+    checkControl1:function(dt) {
+        this.control1ScaleX    = this._grossini.getScaleX();
+        this.control1ScaleY    = this._grossini.getScaleY();
+        this.control1Rotation  = this._grossini.getRotation();
+    },
+
+    //
+    //
+    checkControl2:function(dt) {
+        this.control2ScaleX    = this._grossini.getScaleX();
+        this.control2ScaleY    = this._grossini.getScaleY();
+        this.control2Rotation  = this._grossini.getRotation();
+    },
+
+    //
+    //
+    getExpectedResult:function() {
+        var ret = [ {"Rot":0 }, {"sX":1, "sY":1}, {"Rot":360 }, {"sX":2, "sY":2} ];
+        return JSON.stringify(ret);
+    },
+                
+    //
+    //
+    getCurrentResult:function() {
+        var ret = [ {"Rot": this.control1Rotation }, {"sX": this.control1ScaleX, "sY": this.control1ScaleY}, {"Rot": this.control2Rotation }, {"sX": this.control2ScaleX, "sY": this.control2ScaleY} ];
+        return JSON.stringify(ret);
     }
+
 });
 
 var ActionManagerTestScene = TestScene.extend({
