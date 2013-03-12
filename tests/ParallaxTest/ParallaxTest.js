@@ -144,8 +144,6 @@ Parallax1 = ParallaxDemo.extend({
         ret.pos_child2 = cc.p(240, 0);
         ret.pos_child3 = cc.p(400, 150);
 
-        cc.log(JSON.stringify(ret));
-
         return JSON.stringify(ret);
     },
 
@@ -155,8 +153,6 @@ Parallax1 = ParallaxDemo.extend({
         ret.pos_child1 = cc.p(Math.round(_background.getPosition().x), Math.round(_background.getPosition().y));;
         ret.pos_child2 = cc.p(Math.round(_tilemap.getPosition().x), Math.round(_tilemap.getPosition().y));
         ret.pos_child3 = cc.p(Math.round(_cocosimage.getPosition().x), Math.round(_cocosimage.getPosition().y));
-
-        cc.log(JSON.stringify(ret));
 
         return JSON.stringify(ret);
     }
