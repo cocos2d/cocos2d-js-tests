@@ -812,6 +812,7 @@ var ActionFade = ActionsDemo.extend({
     onEnter:function () {
         this._super();
         this.centerSprites(2);
+        var delay = cc.DelayTime.create(0.25);
         this._tamara.setOpacity(0);
         var action1 = cc.FadeIn.create(1.0);
         var action1Back = action1.reverse();
@@ -819,14 +820,29 @@ var ActionFade = ActionsDemo.extend({
         var action2 = cc.FadeOut.create(1.0);
         var action2Back = action2.reverse();
 
-        this._tamara.runAction(cc.Sequence.create(action1, action1Back));
-        this._kathia.runAction(cc.Sequence.create(action2, action2Back));
+        this._tamara.runAction(cc.Sequence.create(action1, delay, action1Back));
+        this._kathia.runAction(cc.Sequence.create(action2, delay.copy(), action2Back));
 
 
     },
     title:function () {
         return "cc.FadeIn / cc.FadeOut";
+    },
+    //
+    // Automation
+    //
+    testDuration:1.1,
+    getExpectedResult:function() {
+        var ret = [255,0];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getOpacity() );
+        ret.push( this._kathia.getOpacity());
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
