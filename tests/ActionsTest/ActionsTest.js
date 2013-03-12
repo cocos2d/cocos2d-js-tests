@@ -27,6 +27,10 @@
 
 var actionsTestIdx = -1;
 
+var SPRITE_GROSSINI_TAG = 1;
+var SPRITE_TAMARA_TAG = 2;
+var SPRITE_KATHIA_TAG = 3;
+
 // the class inherit from TestScene
 // every Scene each test used must inherit from TestScene,
 // make sure the test have the menu item for back to main menu
@@ -50,9 +54,9 @@ var ActionsDemo = BaseTestLayer.extend({
         this._grossini = cc.Sprite.create(s_pathGrossini);
         this._tamara = cc.Sprite.create(s_pathSister1);
         this._kathia = cc.Sprite.create(s_pathSister2);
-        this.addChild(this._grossini, 1);
-        this.addChild(this._tamara, 2);
-        this.addChild(this._kathia, 3);
+        this.addChild(this._grossini, SPRITE_GROSSINI_TAG);
+        this.addChild(this._tamara, SPRITE_TAMARA_TAG);
+        this.addChild(this._kathia, SPRITE_KATHIA_TAG);
         var s = director.getWinSize();
         this._grossini.setPosition(s.width / 2, s.height / 3);
         this._tamara.setPosition(s.width / 2, 2 * s.height / 3);
@@ -1085,6 +1089,7 @@ var ActionCallFunc1 = ActionsDemo.extend({
         var label = cc.LabelTTF.create("callback 1 called", "Marker Felt", 16);
         label.setPosition(s.width / 4 * 1, s.height / 2);
         this.addChild(label);
+        this.control1 = true;
     },
     onCallback2:function (nodeExecutingAction, value) {
         var s = director.getWinSize();
@@ -1092,15 +1097,35 @@ var ActionCallFunc1 = ActionsDemo.extend({
         label.setPosition(s.width / 4 * 2, s.height / 2);
 
         this.addChild(label);
+        this.control2 = true;
     },
     onCallback3:function (nodeExecutingAction, value) {
         var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 3 called:" + value, "Marker Felt", 16);
         label.setPosition(s.width / 4 * 3, s.height / 2);
         this.addChild(label);
+        this.control3 = true;
     },
     title:function () {
         return "Callbacks: CallFunc and friends";
+    },
+    //
+    // Automation
+    //
+    testDuration:5.05,
+    setupAutomation:function() {
+        this.control1 = this.control2 = this.control3 = false;
+    },
+    getExpectedResult:function() {
+        var ret = [true,true,true];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.control1 );
+        ret.push( this.control2 );
+        ret.push( this.control3 );
+        return JSON.stringify(ret);
     }
 });
 //------------------------------------------------------------------
@@ -1128,6 +1153,21 @@ var ActionCallFunc2 = ActionsDemo.extend({
     },
     subtitle:function () {
         return "cc.CallFunc + removeFromParentAndCleanup. Grossini dissapears in 2s";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    setupAutomation:function() {
+    },
+    getExpectedResult:function() {
+        var ret = [null];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.getChildByTag(SPRITE_GROSSINI_TAG) );
+        return JSON.stringify(ret);
     }
 });
 
@@ -1142,14 +1182,11 @@ var ActionCallFunc3 = ActionsDemo.extend({
         this.centerSprites(1);
 
         var action = cc.CallFunc.create(function(nodeExecutingAction, value) {
-            cc.log("Object: " + nodeExecutingAction + " value is: " + value);
+            this.control1 = "Value is: " + value;
+            this.log("Object:" + nodeExecutingAction + ". " + this.control1);
         }, this, "Hello world");
 
         this.runAction(action);
-    },
-
-    removeFromParentAndCleanup:function (nodeExecutingAction, data) {
-        nodeExecutingAction.removeFromParent(data);
     },
 
     title:function () {
@@ -1157,7 +1194,23 @@ var ActionCallFunc3 = ActionsDemo.extend({
     },
     subtitle:function () {
         return "cc.CallFunc + parameters. Take a look at the console";
+    },
+    //
+    // Automation
+    //
+    testDuration:0.1,
+    setupAutomation:function() {
+    },
+    getExpectedResult:function() {
+        var ret = ["Value is: Hello world"];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.control1 );
+        return JSON.stringify(ret);
     }
+
 });
 
 //------------------------------------------------------------------
@@ -1305,7 +1358,7 @@ var ActionRotateJerk = ActionsDemo.extend({
         this._tamara.runAction(rep1);
         this._kathia.runAction(rep2);
     },
-    subtitle:function () {
+    title:function () {
         return "RepeatForever / Repeat + Rotate";
     }
 });
@@ -2429,11 +2482,6 @@ var Issue1446 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
-
-    ActionRotateJerk,
-    ActionCallFunc1,
-    ActionCallFunc2,
-    ActionCallFunc3,
 
     ActionManual,
     ActionMove,
