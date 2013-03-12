@@ -67,7 +67,14 @@ var BaseTestLayer = cc.LayerGradient.extend({
         if( autoTestEnabled ) {
             this.totalNumberOfTests = this.numberOfPendingTests();
             this.scheduleOnce( this.endTest, this.testDuration );
+
+            this.setupAutomation();
         }
+    },
+
+    setupAutomation:function() {
+        // override me
+        // Will be called only if automation is activated
     },
 
     getTitle:function() {

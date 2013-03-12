@@ -610,13 +610,6 @@ var ActionBezier = ActionsDemo.extend({
         this._grossini.runAction(rep);
         this._tamara.runAction(bezierTo1);
         this._kathia.runAction(bezierTo2);
-
-        if(autoTestEnabled) {
-            // only for automation
-            this.scheduleOnce(this.checkControl1, 0.66667);
-            this.scheduleOnce(this.checkControl2, 1.33333);
-        }
-
     },
     title:function () {
         return "cc.BezierBy / cc.BezierTo";
@@ -625,6 +618,10 @@ var ActionBezier = ActionsDemo.extend({
     // Automation
     //
     testDuration:2.1,
+    setupAutomation:function() {
+        this.scheduleOnce(this.checkControl1, 0.66667);
+        this.scheduleOnce(this.checkControl2, 1.33333);
+    },
     checkControl1:function(dt) {
         this.control1 = this._grossini.getPosition();
     },
@@ -774,9 +771,6 @@ var ActionBlink = ActionsDemo.extend({
 
         this._tamara.runAction(action1);
         this._kathia.runAction(action2);
-
-        if(autoTestEnabled)
-            this.scheduleOnce(this.checkControl1,0.1);
     },
     title:function () {
         return "cc.Blink";
@@ -785,6 +779,9 @@ var ActionBlink = ActionsDemo.extend({
     // Automation
     //
     testDuration:2.1,
+    setupAutomation:function() {
+        this.scheduleOnce(this.checkControl1,0.1);
+    },
     checkControl1:function(dt){
         this.control1 = this._kathia.isVisible();
     },
@@ -1292,13 +1289,36 @@ var ActionReverse = ActionsDemo.extend({
         this.alignSpritesLeft(1);
 
         var jump = cc.JumpBy.create(2, cc.p(300, 0), 50, 4);
-        var action = cc.Sequence.create(jump, jump.reverse());
+        var delay = cc.DelayTime.create(0.25);
+        var action = cc.Sequence.create(jump, delay, jump.reverse());
 
         this._grossini.runAction(action);
     },
-    subtitle:function () {
-        return "Reverse an action";
+    title:function () {
+        return "Reverse Jump action";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:4.4,
+    setupAutomation:function() {
+        this.scheduleOnce(this.checkControl1,2.1);
+    },
+    checkControl1:function(dt) {
+        this.control1 = this._grossini.getPosition();
+    },
+    getExpectedResult:function() {
+        var ret = [{"x":360,"y":winSize.height/2},{"x":60,"y":winSize.height/2}];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.control1 );
+        ret.push( this._grossini.getPosition() );
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
@@ -1532,13 +1552,6 @@ var ActionCardinalSpline = ActionsDemo.extend({
         this._kathia.runAction(seq2);
 
         this._array = array;
-
-        if(autoTestEnabled) {
-            // only for automation
-            this.scheduleOnce(this.checkControl1, 0.5);
-            this.scheduleOnce(this.checkControl2, 1.0);
-            this.scheduleOnce(this.checkControl3, 1.5);
-        }
     },
 
     draw:function (ctx) {
@@ -1572,6 +1585,11 @@ var ActionCardinalSpline = ActionsDemo.extend({
     // Automation
     //
     testDuration:2.1,
+    setupAutomation:function() {
+        this.scheduleOnce(this.checkControl1, 0.5);
+        this.scheduleOnce(this.checkControl2, 1.0);
+        this.scheduleOnce(this.checkControl3, 1.5);
+    },
     checkControl1:function(dt) {
         this.control1 = this._tamara.getPosition();
     },
@@ -1690,13 +1708,6 @@ var ActionCatmullRom = ActionsDemo.extend({
 
         this._array1 = array;
         this._array2 = array2;
-
-        if(autoTestEnabled) {
-            // only for automation
-            this.scheduleOnce(this.checkControl1, 3 / 4 * 0);
-            this.scheduleOnce(this.checkControl2, 3 / 4 * 1);
-            this.scheduleOnce(this.checkControl3, 3 / 4 * 2);
-        }
     },
     draw:function (ctx) {
         // Draw is only supported in cocos2d-html5.
@@ -1726,6 +1737,11 @@ var ActionCatmullRom = ActionsDemo.extend({
     // Automation
     //
     testDuration:3.1,
+    setupAutomation:function() {
+        this.scheduleOnce(this.checkControl1, 3 / 4 * 0);
+        this.scheduleOnce(this.checkControl2, 3 / 4 * 1);
+        this.scheduleOnce(this.checkControl3, 3 / 4 * 2);
+    },
     checkControl1:function(dt) {
         this.control1 = this._kathia.getPosition();
     },
