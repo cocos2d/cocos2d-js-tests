@@ -955,8 +955,8 @@ var ActionSequence = ActionsDemo.extend({
         this.alignSpritesLeft(1);
 
         var action = cc.Sequence.create(
-            cc.MoveBy.create(2, cc.p(240, 0)),
-            cc.RotateBy.create(2, 540)
+            cc.MoveBy.create(1.5, cc.p(240, 0)),
+            cc.RotateBy.create(1.5, 540)
             );
 
         this._grossini.runAction(action);
@@ -964,6 +964,20 @@ var ActionSequence = ActionsDemo.extend({
     },
     title:function () {
         return "cc.Sequence: Move + Rotate";
+    },
+    //
+    // Automation
+    //
+    testDuration:3.1,
+    getExpectedResult:function() {
+        var ret = [{"x":60+240,"y":winSize.height/2},540];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._grossini.getRotation() );
+        return JSON.stringify(ret);
     }
 });
 //------------------------------------------------------------------
@@ -985,6 +999,8 @@ var ActionSequence2 = ActionsDemo.extend({
             cc.CallFunc.create(this.onCallback3, this));
         this._grossini.runAction(action);
 
+        this.called1 = this.called2 = this.called3 = false;
+
     },
     onCallback1:function () {
         var s = director.getWinSize();
@@ -992,6 +1008,7 @@ var ActionSequence2 = ActionsDemo.extend({
         label.setPosition(s.width / 4 * 1, s.height / 2);
 
         this.addChild(label);
+        this.called1 = true;
     },
     onCallback2:function () {
         var s = director.getWinSize();
@@ -999,6 +1016,7 @@ var ActionSequence2 = ActionsDemo.extend({
         label.setPosition(s.width / 4 * 2, s.height / 2);
 
         this.addChild(label);
+        this.called2 = true;
     },
     onCallback3:function () {
         var s = director.getWinSize();
@@ -1006,9 +1024,27 @@ var ActionSequence2 = ActionsDemo.extend({
         label.setPosition(s.width / 4 * 3, s.height / 2);
 
         this.addChild(label);
+        this.called3 = true;
     },
     title:function () {
         return "Sequence of InstantActions";
+    },
+    //
+    // Automation
+    //
+    testDuration:1.1,
+    getExpectedResult:function() {
+        var ret = [true,true,true,true,{"x":300,"y":200}];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.called1 );
+        ret.push( this.called2 );
+        ret.push( this.called3 );
+        ret.push( this._grossini.isVisible() );
+        ret.push( this._grossini.getPosition() );
+        return JSON.stringify(ret);
     }
 });
 //------------------------------------------------------------------
@@ -1149,7 +1185,22 @@ var ActionSpawn = ActionsDemo.extend({
     },
     title:function () {
         return "cc.Spawn: Jump + Rotate";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [{"x":300+60,"y":winSize.height/2},720];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._grossini.getRotation() );
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
