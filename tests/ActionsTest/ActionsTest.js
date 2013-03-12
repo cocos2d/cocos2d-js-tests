@@ -1197,7 +1197,6 @@ var ActionSpawn = ActionsDemo.extend({
         ret.push( this._grossini.getRotation() );
         return JSON.stringify(ret);
     }
-
 });
 //------------------------------------------------------------------
 //
@@ -1219,12 +1218,29 @@ var ActionRepeatForever = ActionsDemo.extend({
 
     },
     repeatForever:function (sender) {
-        var repeat = cc.RepeatForever.create(cc.RotateBy.create(1.0, 360));
+        var repeat = cc.RepeatForever.create(cc.RotateBy.create(1, 360));
         sender.runAction(repeat);
     },
     title:function () {
         return "cc.CallFunc + cc.RepeatForever";
+    },
+    //
+    // Automation
+    //
+    testDuration:3.5,
+    getExpectedResult:function() {
+        var ret = [true];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        var r = this._grossini.getRotation();
+        var expected = 900;
+        var error = 15;
+        ret.push( r < expected+error && r > expected-error );
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
@@ -1238,11 +1254,11 @@ var ActionRotateToRepeat = ActionsDemo.extend({
         this._super();
         this.centerSprites(2);
 
-        var act1 = cc.RotateTo.create(1, 90);
-        var act2 = cc.RotateTo.create(1, 0);
+        var act1 = cc.RotateTo.create(0.5, 90);
+        var act2 = cc.RotateTo.create(0.5, 0);
         var seq = cc.Sequence.create(act1, act2);
         var rep1 = cc.RepeatForever.create(seq);
-        var rep2 = cc.Repeat.create((seq.copy()), 10);
+        var rep2 = cc.Repeat.create((seq.copy()), 4);
 
         this._tamara.runAction(rep1);
         this._kathia.runAction(rep2);
@@ -1250,7 +1266,25 @@ var ActionRotateToRepeat = ActionsDemo.extend({
     },
     title:function () {
         return "Repeat/RepeatForever + RotateTo";
+    },
+    //
+    // Automation
+    //
+    testDuration:4.5,
+    getExpectedResult:function() {
+        var ret = [0,true];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._kathia.getRotation() );
+        var r = this._tamara.getRotation();
+        var expected = 90;
+        var error = 15;
+        ret.push( r < expected+error && r > expected-error );
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
@@ -1431,15 +1465,30 @@ var ActionRepeat = ActionsDemo.extend({
             cc.Sequence.create(cc.Place.create(cc.p(60, 60)), a1),
             3);
         var action2 = cc.RepeatForever.create(
-            (cc.Sequence.create((a1.copy()), a1.reverse()))
+            cc.Sequence.create( a1.copy(), a1.reverse(), cc.DelayTime.create(0.25) )
         );
 
         this._kathia.runAction(action1);
         this._tamara.runAction(action2);
     },
-    subtitle:function () {
+    title:function () {
         return "Repeat / RepeatForever actions";
+    },
+    //
+    // Automation
+    //
+    testDuration:4.30,
+    getExpectedResult:function() {
+        var ret = [{"x":210,"y":60},{"x":60,"y":2*winSize.height/3}];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._kathia.getPosition() );
+        ret.push( this._tamara.getPosition() );
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
@@ -2381,10 +2430,6 @@ var Issue1446 = ActionsDemo.extend({
 //
 var arrayOfActionsTest = [
 
-    ActionDelayTime,
-    ActionRepeat,
-    ActionRepeatForever,
-    ActionRotateToRepeat,
     ActionRotateJerk,
     ActionCallFunc1,
     ActionCallFunc2,
