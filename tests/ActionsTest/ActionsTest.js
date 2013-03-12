@@ -863,12 +863,27 @@ var ActionTint = ActionsDemo.extend({
         var action2Back = action2.reverse();
 
         this._tamara.runAction(action1);
-        this._kathia.runAction(cc.Sequence.create(action2, action2Back));
+        this._kathia.runAction(cc.Sequence.create(action2, cc.DelayTime.create(0.25), action2Back));
 
     },
     title:function () {
         return "cc.TintTo / cc.TintBy";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [{"r":255,"g":0,"b":255},{"r":128,"g":0,"b":128}];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getColor() );
+        ret.push( this._kathia.getColor());
+        return JSON.stringify(ret);
     }
+
 });
 
 //------------------------------------------------------------------
@@ -2285,9 +2300,6 @@ var Issue1446 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
-
-    ActionFade,
-    ActionTint,
 
     ActionManual,
     ActionMove,
