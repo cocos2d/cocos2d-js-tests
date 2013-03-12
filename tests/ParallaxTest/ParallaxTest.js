@@ -120,13 +120,16 @@ Parallax1 = ParallaxDemo.extend({
         _parent.addChild(_cocosimage, 2, cc.p(3.0, 2.5), cc.p(0, 0));
 
 
-        // now create some actions that will move the 'void' node
-        // and the children of the 'void' node will move at different
+        // now create some actions that will move the '_parent' node
+        // and the children of the '_parent' node will move at different
         // speed, thus, simulation the 3D environment
-        var goUp = cc.MoveBy.create(1, cc.p(0, 100));
-        var goRight = cc.MoveBy.create(1, cc.p(200, 0));
-        var seq = cc.Sequence.create(goUp, goRight);
-        _parent.runAction(seq);
+        var goUp = cc.MoveBy.create(2, cc.p(0, 100));
+        var goRight = cc.MoveBy.create(2, cc.p(200, 0));
+        var delay = cc.DelayTime.create(2.0);
+        var goDown = goUp.reverse();
+        var goLeft = goRight.reverse();
+        var seq = cc.Sequence.create(goUp, goRight, delay, goDown, goLeft);
+        _parent.runAction((cc.RepeatForever.create(seq) ));
 
         this.addChild(_parent);
     },
@@ -136,7 +139,7 @@ Parallax1 = ParallaxDemo.extend({
     },
 
     // default values for automation
-    testDuration:3,
+    testDuration:5,
     getExpectedResult:function() {
         var ret = {};
         ret.pos_parent = cc.p(200,100);
