@@ -723,7 +723,6 @@ var NodeTestScene = TestScene.extend({
 // Flow control
 //
 var arrayOfNodeTest = [
-    CameraCenterTest,
     CCNodeTest2,
     CCNodeTest4,
     CCNodeTest5,
@@ -732,13 +731,18 @@ var arrayOfNodeTest = [
     StressTest2,
     NodeToWorld,
     SchedulerTest1,
-    CameraOrbitTest,
-    CameraZoomTest,
     BoundingBoxTest,
-    ConvertToNode,
-    NodeOpaqueTest,
-    NodeNonOpaqueTest
+    ConvertToNode
 ];
+
+if( 'opengl' in sys.capabilities ){
+    arrayOfNodeTest.push(CameraCenterTest);
+    arrayOfNodeTest.push(CameraOrbitTest);
+    arrayOfNodeTest.push(CameraZoomTest);
+    arrayOfNodeTest.push(NodeOpaqueTest);
+    arrayOfNodeTest.push(NodeNonOpaqueTest);
+}
+
 
 var nextNodeTest = function () {
     sceneIdx++;
