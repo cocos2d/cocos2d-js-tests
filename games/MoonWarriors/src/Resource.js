@@ -13,7 +13,6 @@ var s_flare = dirImg + "flare.jpg";
 var s_explosion = dirImg + "explosion.png";
 var s_arial14 = dirImg + "arial-14.png";
 var s_arial14_fnt = dirImg + "arial-14.fnt";
-var s_gameplay = dirImg + "gameplaypack.png";
 var s_textureOpaquePack = dirImg + "textureOpaquePack.png";
 var s_textureTransparentPack = dirImg + "textureTransparentPack.png";
 
@@ -32,24 +31,28 @@ var s_level01 = dirImg + "level01.tmx";
 
 //plist
 var s_explosion_plist = dirImg + "explosion.plist";
-var s_game_paly_plist = dirImg + "gameplaypack.plist";
 var s_textureOpaquePack_plist = dirImg + "textureOpaquePack.plist";
 var s_textureTransparentPack_plist = dirImg + "textureTransparentPack.plist";
 
-var g_ressources = [
-    //image
+var g_mainmenu = [
     {src:s_loading},
     {src:s_menu},
     {src:s_logo},
-    {src:s_b01},
+	{src:s_b01},
+    {src:s_mainMainMusic},
+    {src:s_menuTitle},
+    {src:s_textureTransparentPack_plist},
+    {src:s_textureTransparentPack}
+];
+
+var g_maingame = [
+    //image
     {src:s_cocos2dhtml5},
     {src:s_gameOver},
-    {src:s_menuTitle},
     {src:s_flare},
-    {src:s_explosion},
     {src:s_arial14},
+    {src:s_explosion},
     {src:s_textureOpaquePack},
-    {src:s_textureTransparentPack},
 
     //tmx
     {src:s_level01},
@@ -57,11 +60,9 @@ var g_ressources = [
     //plist
     {src:s_explosion_plist},
     {src:s_textureOpaquePack_plist},
-    {src:s_textureTransparentPack_plist},
 
     //music
     {src:s_bgMusic},
-    {src:s_mainMainMusic},
 
     //effect
     {src:s_buttonEffect},
@@ -71,5 +72,4 @@ var g_ressources = [
 
     // FNT
     {src:s_arial14_fnt}
-
 ];

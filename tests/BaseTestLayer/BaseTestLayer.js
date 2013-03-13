@@ -23,11 +23,17 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+var BASE_TEST_MENUITEM_PREV_TAG = 1;
+var BASE_TEST_MENUITEM_RESET_TAG = 2;
+var BASE_TEST_MENUITEM_NEXT_TAG = 3;
+
 var BASE_TEST_MENU_TAG = 10;
 var BASE_TEST_TITLE_TAG = 11;
 var BASE_TEST_SUBTITLE_TAG = 12;
 
+
 var autoTestEnabled = autoTestEnabled || false;
+var autoTestCurrentTestName = autoTestCurrentTestName || "N/A";
 
 var BaseTestLayer = cc.LayerGradient.extend({
 
@@ -61,7 +67,14 @@ var BaseTestLayer = cc.LayerGradient.extend({
         if( autoTestEnabled ) {
             this.totalNumberOfTests = this.numberOfPendingTests();
             this.scheduleOnce( this.endTest, this.testDuration );
+
+            this.setupAutomation();
         }
+    },
+
+    setupAutomation:function() {
+        // override me
+        // Will be called only if automation is activated
     },
 
     getTitle:function() {
@@ -110,6 +123,10 @@ var BaseTestLayer = cc.LayerGradient.extend({
         var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
         var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
 
+        item1.setTag(BASE_TEST_MENUITEM_PREV_TAG);
+        item2.setTag(BASE_TEST_MENUITEM_RESET_TAG);
+        item3.setTag(BASE_TEST_MENUITEM_NEXT_TAG);
+
         var menu = cc.Menu.create(item1, item2, item3);
 
         menu.setPosition(0,0);
@@ -150,16 +167,21 @@ var BaseTestLayer = cc.LayerGradient.extend({
         throw "Not Implemented";
     },
 
+    compareResults:function(current, expected) {
+        return (current == expected);
+    },
+
     tearDown:function(dt) {
 
         // Override to have a different behavior
         var current = this.getCurrentResult();
         var expected = this.getExpectedResult();
 
-        if( current != expected )
+        var ret = this.compareResults(current, expected);
+        if( ! ret )
             this.errorDescription = "Expected value: '" + expected + "'. Current value'" + current +  "'.";
 
-        return ( current == expected );
+        return ret;
     },
 
     endTest:function(dt) {
@@ -170,13 +192,13 @@ var BaseTestLayer = cc.LayerGradient.extend({
         try {
             if( this.tearDown(dt) ) {
                 // Test OK
-                cc.log( this.getTestNumber() + ": Test '" + title + "':' OK");
+                cc.log( autoTestCurrentTestName + " - " + this.getTestNumber() + ": Test '" + title + "':' OK");
             } else {
                 // Test failed
-                cc.log( this.getTestNumber() + ": Test '" + title + "': Error: " + this.errorDescription );
+                cc.log( autoTestCurrentTestName + " - " +this.getTestNumber() + ": Test '" + title + "': Error: " + this.errorDescription );
             }
         } catch(err) {
-            cc.log( this.getTestNumber() + ": Test '" + title + "':'" + err);
+            cc.log( autoTestCurrentTestName + " - " +this.getTestNumber() + ": Test '" + title + "':'" + err);
         }
 
         this.runNextTest();
@@ -201,7 +223,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
             try {
                 this.onNextCallback(this);
             } catch (err) {
-                cc.log( this.getTestNumber() + ": Test '" + this.getTitle() + "':'" + err);
+                cc.log( autoTestCurrentTestName + " - " +this.getTestNumber() + ": Test '" + this.getTitle() + "':'" + err);
                 this.runNextTest();
             }
     },

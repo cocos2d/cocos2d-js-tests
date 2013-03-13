@@ -32,7 +32,7 @@ $ git clone git://github.com/cocos2d/cocos2d-iphone.git
 $ cd cocos2d-iphone
 $ git checkout develop-v2
 $ git submodule update --init
-$ open cocos2d-ios.xcodeproj
+$ open cocos2d-tests-ios.xcodeproj
 ```
 - Select the "JS Test" scheme in Xcode
 - Run it

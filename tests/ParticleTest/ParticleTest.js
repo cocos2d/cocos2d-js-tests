@@ -25,13 +25,11 @@
  ****************************************************************************/
 var TAG_LABEL_ATLAS = 1;
 
-var sceneIdx = -1;
-var MAX_LAYER = 34;
+var particleSceneIdx = -1;
 
 var ParticleTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
-        MAX_LAYER = 34;
+        particleSceneIdx = -1;
 
         this.addChild(nextParticleAction());
         director.replaceScene(this);
@@ -144,24 +142,24 @@ var particleSceneArr = [
 
 
 var nextParticleAction = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % particleSceneArr.length;
-    return particleSceneArr[sceneIdx]();
+    particleSceneIdx++;
+    particleSceneIdx = particleSceneIdx % particleSceneArr.length;
+    return particleSceneArr[particleSceneIdx]();
 };
 
 var backParticleAction = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += particleSceneArr.length;
+    particleSceneIdx--;
+    if (particleSceneIdx < 0)
+        particleSceneIdx += particleSceneArr.length;
 
-    return particleSceneArr[sceneIdx]();
+    return particleSceneArr[particleSceneIdx]();
 };
 
 var restartParticleAction = function () {
-    return particleSceneArr[sceneIdx]();
+    return particleSceneArr[particleSceneIdx]();
 };
 
-var ParticleDemo = cc.LayerGradient.extend({
+var ParticleDemo = BaseTestLayer.extend({
     _emitter:null,
     _background:null,
     _shapeModeButton:null,
@@ -172,9 +170,7 @@ var ParticleDemo = cc.LayerGradient.extend({
     },
 
     ctor:function () {
-        this._super();
-        cc.associateWithNative(this, cc.LayerGradient);
-        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
+        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
         this._isPressed = false;
 
         this._emitter = null;
@@ -185,20 +181,6 @@ var ParticleDemo = cc.LayerGradient.extend({
             this.setMouseEnabled(true);
 
         var s = director.getWinSize();
-        var label = cc.LabelTTF.create(this.title(), "Arial", 28);
-        this.addChild(label, 100, 1000);
-        label.setPosition(s.width / 2, s.height - 50);
-
-        var tapScreen = cc.LabelTTF.create(this.subtitle(), "Arial", 16);
-        tapScreen.setPosition(s.width / 2, s.height - 80);
-        this.addChild(tapScreen, 100);
-
-        var selfPoint = this;
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, function () {
-            selfPoint._emitter.resetSystem();
-        });
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
         var freeBtnNormal = cc.Sprite.create(s_MovementMenuItem, cc.rect(0, 23 * 2, 123, 23));
         var freeBtnSelected = cc.Sprite.create(s_MovementMenuItem, cc.rect(0, 23, 123, 23));
@@ -212,6 +194,7 @@ var ParticleDemo = cc.LayerGradient.extend({
         var groupBtnSelected = cc.Sprite.create(s_MovementMenuItem, cc.rect(261, 23, 136, 23));
         var groupBtnDisabled = cc.Sprite.create(s_MovementMenuItem, cc.rect(261, 0, 136, 23));
 
+        var selfPoint = this;
         this._freeMovementButton = cc.MenuItemSprite.create(freeBtnNormal, freeBtnSelected, freeBtnDisabled,
             function () {
                 selfPoint._emitter.setPositionType(cc.PARTICLE_TYPE_RELATIVE);
@@ -278,13 +261,10 @@ var ParticleDemo = cc.LayerGradient.extend({
         this._textureModeButton.setPosition(10, 100);
         this._textureModeButton.setAnchorPoint(cc.p(0, 0));
 
-        var menu = cc.Menu.create(item1, item2, item3, this._shapeModeButton, this._textureModeButton,
+        var menu = cc.Menu.create( this._shapeModeButton, this._textureModeButton,
             this._freeMovementButton, this._relativeMovementButton, this._groupMovementButton);
 
         menu.setPosition(0, 0);
-        item1.setPosition(s.width / 2 - 100, 30);
-        item2.setPosition(s.width / 2, 30);
-        item3.setPosition(s.width / 2 + 100, 30);
 
         this.addChild(menu, 100);
         //TODO
@@ -309,7 +289,7 @@ var ParticleDemo = cc.LayerGradient.extend({
     onEnter:function () {
         this._super();
 
-        var pLabel = this.getChildByTag(1000);
+        var pLabel = this.getChildByTag(BASE_TEST_TITLE_TAG);
         pLabel.setString(this.title());
     },
     title:function () {
@@ -320,15 +300,15 @@ var ParticleDemo = cc.LayerGradient.extend({
         return "(Tap the Screen)";
     },
 
-    restartCallback:function (sender) {
+    onRestartCallback:function (sender) {
         this._emitter.resetSystem();
     },
-    nextCallback:function (sender) {
+    onNextCallback:function (sender) {
         var s = new ParticleTestScene();
         s.addChild(nextParticleAction());
         director.replaceScene(s);
     },
-    backCallback:function (sender) {
+    onBackCallback:function (sender) {
         var s = new ParticleTestScene();
         s.addChild(backParticleAction());
         director.replaceScene(s);
@@ -388,6 +368,14 @@ var ParticleDemo = cc.LayerGradient.extend({
         var sourcePos = this._emitter.getSourcePosition();
         if (sourcePos.x === 0 && sourcePos.y === 0)
             this._emitter.setPosition(200, 70);
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (particleSceneArr.length-1) - particleSceneIdx );
+    },
+
+    getTestNumber:function() {
+        return particleSceneIdx;
     }
 });
 

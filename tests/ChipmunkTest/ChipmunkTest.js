@@ -738,8 +738,8 @@ var PyramidStack = function() {
 
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this._title = 'Chipmunk Demo';
-	this._subtitle = 'Pyramid Stack';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Pyramid Stack';
 
 	var space = this.space;
 	//space.iterations = 30;
@@ -786,8 +786,8 @@ var PyramidTopple = function() {
 
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this._title = 'Chipmunk Demo';
-	this._subtitle = 'Pyramid Topple';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Pyramid Topple';
 
 	var WIDTH = 4;
 	var HEIGHT = 30;
@@ -855,8 +855,8 @@ PyramidTopple.prototype.update = function(dt)
 var Joints = function() {
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this._title = 'Chipmunk Demo';
-	this._subtitle = 'Joints';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Joints';
 
 	var space = this.space;
 	var boxOffset;
@@ -1096,8 +1096,8 @@ cc.inherits( Joints, ChipmunkDemo );
 var Balls = function() {
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this._title = 'Chipmunk Demo';
-	this._subtitle = 'Balls';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Balls';
 
 	var space = this.space;
 	space.iterations = 60;
@@ -1162,8 +1162,8 @@ var FLUID_DRAG = 2.0;
 var Buoyancy = function() {
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this._title = 'Chipmunk Demo';
-	this._subtitle = 'Buoyancy';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Buoyancy';
 
 	var space = this.space;
 	space.iterations = 30;
@@ -1341,8 +1341,8 @@ Buoyancy.prototype.waterPreSolve = function(arb, space, ptr) {
 var Planet = function() {
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this._title = 'Chipmunk Demo';
-	this._subtitle = 'Planet';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Planet';
 
 	var space = this.space;
 

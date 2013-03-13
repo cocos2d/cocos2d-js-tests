@@ -25,7 +25,7 @@
  ****************************************************************************/
 TRANSITION_DURATION = 1.2;
 
-var TransitionsTests = [
+var arrayOfTransitionsTest = [
     {title:"JumpZoomTransition", transitionFunc:function (t, s) {
         return new JumpZoomTransition(t, s);
     }},
@@ -183,80 +183,70 @@ var TransitionsTestScene = TestScene.extend({
     }
 });
 
-var TestLayer1 = cc.LayerGradient.extend({
+var TransitionBase = BaseTestLayer.extend({
+
+    testDuration:TRANSITION_DURATION + 0.1,
+    title:function() {
+        return arrayOfTransitionsTest[transitionsIdx].title;
+    },
     ctor:function () {
-        this._super();
-        cc.associateWithNative(this, cc.LayerGradient);
-        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(160, 99, 117, 255));
+        this._super(this.colorA, this.colorB);
 
         var x, y;
         var size = director.getWinSize();
         x = size.width;
         y = size.height;
 
-        var bg1 = cc.Sprite.create(s_back1);
+        var bg1 = cc.Sprite.create(this.backgroundImage);
         bg1.setPosition(size.width / 2, size.height / 2);
         bg1.setScale(1.7);
         this.addChild(bg1);
 
-        var title = cc.LabelTTF.create(TransitionsTests[transitionsIdx].title, "Thonburi", 32);
+        var title = cc.LabelTTF.create(this.title(), "Thonburi", 32);
         this.addChild(title);
         title.setColor(cc.c3b(255, 32, 32));
         title.setPosition(x / 2, y - 100);
 
-        var label = cc.LabelTTF.create("SCENE 1", "Marker Felt", 38);
+        var label = cc.LabelTTF.create(this.sceneName, "Marker Felt", 38);
         label.setColor(cc.c3b(16, 16, 255));
         label.setPosition(x / 2, y / 2);
         this.addChild(label);
 
-        // menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(0, 0);
-        item1.setPosition(size.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2);
-        item2.setPosition(size.width / 2, item2.getContentSize().height / 2);
-        item3.setPosition(size.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2);
-        this.addChild(menu, 1);
         this.schedule(this.step, 1.0);
-
     },
     onRestartCallback:function (sender) {
         var s = new TransitionsTestScene();
 
-        var layer = new TestLayer2();
+        var layer = this.createNextScene();
         s.addChild(layer);
-        var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
+        var scene = arrayOfTransitionsTest[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
 
         if (scene)
             director.replaceScene(scene);
     },
     onNextCallback:function (sender) {
         transitionsIdx++;
-        transitionsIdx = transitionsIdx % TransitionsTests.length;
+        transitionsIdx = transitionsIdx % arrayOfTransitionsTest.length;
 
         var s = new TransitionsTestScene();
 
-        var layer = new TestLayer2();
+        var layer = this.createNextScene();
         s.addChild(layer);
 
-        var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
+        var scene = arrayOfTransitionsTest[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
         if (scene)
             director.replaceScene(scene);
     },
     onBackCallback:function (sender) {
         transitionsIdx--;
         if (transitionsIdx < 0)
-            transitionsIdx += TransitionsTests.length;
+            transitionsIdx += arrayOfTransitionsTest.length;
 
         var s = new TransitionsTestScene();
-        var layer = new TestLayer2();
+        var layer = this.createNextScene();
         s.addChild(layer);
 
-        var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
+        var scene = arrayOfTransitionsTest[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
         if (scene)
             director.replaceScene(scene);
     },
@@ -266,128 +256,49 @@ var TestLayer1 = cc.LayerGradient.extend({
 
     onEnter:function () {
         this._super();
-        cc.log("Scene 1 onEnter");
+        this.log("" + this.sceneName + " onEnter");
     },
     onEnterTransitionDidFinish:function () {
         this._super();
-        cc.log("Scene 1 onEnterTransitionDidFinish");
+        this.log("" + this.sceneName + " onEnterTransitionDidFinish");
     },
 
     onExitTransitionDidStart:function () {
         this._super();
-        cc.log("Scene 1 onExitTransitionDidStart");
+        this.log("" + this.sceneName + " onExitTransitionDidStart");
     },
 
     onExit:function () {
         this._super();
-        cc.log("Scene 1 onExit");
+        this.log("" + this.sceneName + " onExit");
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfTransitionsTest.length-1) - transitionsIdx );
+    },
+
+    getTestNumber:function() {
+        return transitionsIdx;
+    }
+
+});
+var TestLayer1 = TransitionBase.extend({
+    backgroundImage:s_back1,
+    colorA:cc.c4b(0,0,0,255),
+    colorB:cc.c4b(160,99,117,255),
+    sceneName:"Scene 1",
+    createNextScene:function() {
+        return new TestLayer2();
     }
 });
 
-var TestLayer2 = cc.LayerGradient.extend({
-    ctor:function () {
-        this._super();
-        cc.associateWithNative(this, cc.LayerGradient);
-        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(99, 160, 117, 255));
-
-        var x, y;
-        var size = director.getWinSize();
-        x = size.width;
-        y = size.height;
-
-        var bg1 = cc.Sprite.create(s_back2);
-        bg1.setPosition(size.width / 2, size.height / 2);
-        bg1.setScale(1.7);
-        this.addChild(bg1);
-
-        var title = cc.LabelTTF.create(TransitionsTests[transitionsIdx].title, "Thonburi", 32);
-        this.addChild(title);
-        title.setColor(cc.c3b(255, 32, 32));
-        title.setPosition(x / 2, y - 100);
-
-        var label = cc.LabelTTF.create("SCENE 2", "Marker Felt", 38);
-        label.setColor(cc.c3b(16, 16, 255));
-        label.setPosition(x / 2, y / 2);
-        this.addChild(label);
-
-        // menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(0, 0);
-        item1.setPosition(size.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2);
-        item2.setPosition(size.width / 2, item2.getContentSize().height / 2);
-        item3.setPosition(size.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2);
-
-        this.addChild(menu, 1);
-
-        this.schedule(this.step, 1.0);
-    },
-    onRestartCallback:function (sender) {
-        var s = new TransitionsTestScene();
-
-        var layer = new TestLayer1();
-        s.addChild(layer);
-
-        var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
-        if (scene) {
-            director.replaceScene(scene);
-        }
-    },
-    onNextCallback:function (sender) {
-        transitionsIdx++;
-        transitionsIdx = transitionsIdx % TransitionsTests.length;
-
-        var s = new TransitionsTestScene();
-
-        var layer = new TestLayer1();
-        s.addChild(layer);
-
-        var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
-        if (scene) {
-            director.replaceScene(scene);
-        }
-    },
-    onBackCallback:function (sender) {
-        transitionsIdx--;
-        if (transitionsIdx < 0)
-            transitionsIdx += TransitionsTests.length;
-
-        var s = new TransitionsTestScene();
-
-        var layer = new TestLayer1();
-        s.addChild(layer);
-
-        var scene = TransitionsTests[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
-        if (scene) {
-            director.replaceScene(scene);
-        }
-    },
-
-    step:function (dt) {
-
-    },
-
-    onEnter:function () {
-        this._super();
-        cc.log("Scene 2 onEnter");
-    },
-    onEnterTransitionDidFinish:function () {
-        this._super();
-        cc.log("Scene 2 onEnterTransitionDidFinish");
-    },
-
-    onExitTransitionDidStart:function () {
-        this._super();
-        cc.log("Scene 2 onExitTransitionDidStart");
-    },
-
-    onExit:function () {
-        this._super();
-        cc.log("Scene 2 onExit");
+var TestLayer2 = TransitionBase.extend({
+    backgroundImage:s_back2,
+    colorA:cc.c4b(0,0,0,255),
+    colorB:cc.c4b(99,160,117,255),
+    sceneName:"Scene 2",
+    createNextScene:function() {
+        return new TestLayer1();
     }
 });
 

@@ -87,6 +87,32 @@ var FilenameLookupTest = FileUtilsBase.extend({
         var sprite = cc.Sprite.create("grossini.bmp");
         this.addChild( sprite );
         sprite.setPosition( winSize.width/2, winSize.height/2);
+
+
+        //
+        // only for automation
+        //
+        if ( autoTestEnabled ) {
+            if ( t == 'mobile' )  {
+                this.expectedFilename = "grossini_pvr_rgba4444.pvr";
+            } else if( t == 'desktop' ) {
+                this.expectedFilename = "grossini_pvr_rgba8888.pvr";
+            } else {
+                this.expectedFilename = "grossini.png";
+            }
+        }
+    },
+
+    //
+    // only for automation
+    //
+    getExpectedResult:function() {
+        return this.expectedFilename;
+    },
+    getCurrentResult:function() {
+        var filenamePlusPath    = cc.FileUtils.getInstance().fullPathForFilename("grossini.bmp");
+        var filename            = filenamePlusPath.replace(/^.*(\\|\/|\:)/, '');
+        return filename;
     }
 });
 

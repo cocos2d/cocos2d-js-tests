@@ -41,8 +41,8 @@
             // base class
             'BaseTestLayer/BaseTestLayer.js',
 
-            'tests-main.js',
             'tests_resources-html5.js',
+            'tests-main.js',
 
             'TouchesTest/Ball.js',
             'TouchesTest/Paddle.js',
