@@ -333,7 +333,7 @@ var TurnOffTilesTest = EffecstsBaseLayer.extend({
         return "a = cc.TurnOffTiles.create(duration, gridSize, seed)";
     },
     getEffect:function(duration) {
-        var action = cc.TurnOffTiles.create( duration, cc.size(16,12), 20);
+        var action = cc.TurnOffTiles.create( duration, cc.SizeMake(48,32), 25);
         var delay = cc.DelayTime.create(0.5);
         var back = action.reverse();
         var seq = cc.Sequence.create( action, delay, back);

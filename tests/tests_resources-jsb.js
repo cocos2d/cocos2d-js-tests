@@ -50,6 +50,8 @@ var s_grossini_aliases = "res/animations/grossini-aliases.png";
 var s_dragon_animation = "res/animations/dragon_animation.png";
 var s_ghosts = "res/animations/ghosts.png";
 var s_grossini_family = "res/animations/grossini_family.png";
+var s_texture512 = "res/Images/texture512x512.png";
+var s_hole_effect_png = "res/Images/hole_effect.png";
 
 var s_tcc_issue_1 = "res/animations/tcc_issue_1.png";
 var s_tcc_issue_2 = "res/animations/tcc_issue_2.png";

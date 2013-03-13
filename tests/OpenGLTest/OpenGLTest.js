@@ -782,6 +782,7 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
             program.updateUniforms();
 
             var label = cc.LabelBMFont.create("RETRO EFFECT","res/fonts/west_england-64.fnt");
+            //TODO need fix
             //label.setShaderProgram( program );
 
             label.setPosition(winSize.width/2, winSize.height/2);

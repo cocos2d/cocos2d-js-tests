@@ -143,6 +143,12 @@ var s_tuffy_bold_italic_charmap_hd = "res/fonts/tuffy_bold_italic-charmap-hd.pli
 
 var s_particles = "res/Images/particles.png";
 var s_particles_hd = "res/Images/particles-hd.png";
+var s_texture512 = "res/Images/texture512x512.png";
+var s_hole_effect_png = "res/Images/hole_effect.png";
+var s_hole_stencil_png = "res/Images/hole_stencil.png";
+var s_pathFog = "res/Images/Fog.png";
+var s_circle_plist  = "res/Images/bugs/circle.plist";
+var s_circle_png  = "res/Images/bugs/circle.png";
 
 var s_extensions_background = "res/extensions/background.png";
 var s_extensions_buttonBackground = "res/extensions/buttonBackground.png";
@@ -175,6 +181,12 @@ var g_ressources = [
     {src:"res/fonts/west_england-64.fnt"},
     {src:"res/fonts/west_england-64.png"},
 
+    {src:s_pathFog},
+    {src:s_circle_plist},
+    {src:s_circle_png},
+    {src:s_texture512},
+    {src:s_hole_effect_png},
+    {src:s_hole_stencil_png},
     {src:s_pathB1},
     {src:s_pathB2},
     {src:s_pathR1},
@@ -452,6 +464,7 @@ var g_tilemaps = [
     {src:s_tmwDesertSpacingHdPng},
     {src:s_tmwDesertSpacingPng},
     {src:s_tilesPng},
+    {src:"res/TileMaps/ortho-test2.png"},
 
     //tmx
     {src:"res/TileMaps/orthogonal-test1.tmx"},
