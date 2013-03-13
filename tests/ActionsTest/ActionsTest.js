@@ -1978,8 +1978,9 @@ var ActionStackableMove = ActionsDemo.extend({
         this._grossini.setPosition( 40, winSize.height/2);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move = cc.MoveBy.create(0.2, cc._p(0,50));
         var move_back = move.reverse();
+        var delay = cc.DelayTime.create(0.25);
         var move_seq = cc.Sequence.create( move, move_back );
         var move_rep = cc.RepeatForever.create( move_seq );
         this._grossini.runAction( move_rep );
@@ -1997,7 +1998,28 @@ var ActionStackableMove = ActionsDemo.extend({
         return "Stackable actions: MoveBy + MoveBy";
     },
     subtitle:function () {
-        return "Grossini shall shake while he is moving";
+        return "Grossini shall move up and down while moving horizontally";
+    },
+    //
+    // Automation
+    //
+    testDuration:0.2,
+    getExpectedResult:function() {
+        var ret = [true, true];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        var p = this._grossini.getPosition();
+        var error = 10;
+        var expected_x = 40 + 0.2 * (winSize.width-80) / 2;
+        var expected_y =winSize.height/2 + 50;
+        var ret_x = p.x < expected_x+error && p.x > expected_x-error;
+        var ret_y = p.y < expected_y+error && p.y > expected_y-error;
+        ret.push( ret_x );
+        ret.push( ret_y );
+        return JSON.stringify(ret);
     }
 });
 
