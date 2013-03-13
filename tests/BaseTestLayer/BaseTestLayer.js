@@ -214,7 +214,8 @@ var BaseTestLayer = cc.LayerGradient.extend({
             return array;
         } else {
             // implement a canvas-html5 readpixels
-            throw "readPixels Not implemented on canvas yet";
+            //throw "readPixels Not implemented on canvas yet";
+            return ctx.getImageData(x, y, w, h).data;
         }
     },
 

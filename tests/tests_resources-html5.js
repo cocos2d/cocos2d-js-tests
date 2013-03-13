@@ -163,6 +163,29 @@ var s_circle_plist  = "res/Images/bugs/circle.plist";
 var s_circle_png  = "res/Images/bugs/circle.png";
 
 var g_ressources = [
+    //preload shader source
+    {src:"res/Shaders/example_Blur.fsh"},
+    {src:"res/Shaders/example_ColorBars.fsh"},
+    {src:"res/Shaders/example_ColorBars.vsh"},
+    {src:"res/Shaders/example_Flower.fsh"},
+    {src:"res/Shaders/example_Flower.vsh"},
+    {src:"res/Shaders/example_Heart.fsh"},
+    {src:"res/Shaders/example_Heart.vsh"},
+    {src:"res/Shaders/example_Julia.fsh"},
+    {src:"res/Shaders/example_Julia.vsh"},
+    {src:"res/Shaders/example_Mandelbrot.fsh"},
+    {src:"res/Shaders/example_Mandelbrot.vsh"},
+    {src:"res/Shaders/example_Monjori.fsh"},
+    {src:"res/Shaders/example_Monjori.vsh"},
+    {src:"res/Shaders/example_Plasma.fsh"},
+    {src:"res/Shaders/example_Plasma.vsh"},
+    {src:"res/Shaders/example_Twist.fsh"},
+    {src:"res/Shaders/example_Twist.vsh"},
+
+    {src:"res/fonts/west_england-64.fnt"},
+    {src:"res/fonts/west_england-64.png"},
+
+    {src:"res/Images/blocks9.png"},
     {src:s_texture512},
     {src:s_pathFog},
     {src:s_hole_effect_png},

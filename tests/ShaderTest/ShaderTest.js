@@ -103,7 +103,7 @@ var ShaderMonjori = ShaderTestDemo.extend({
 
     init:function () {
         if (this._super()) {
-            var sn = ShaderNode.create(EXAMPLE_MONJORI_VERT, EXAMPLE_MONJORI_FRAG);
+            var sn = ShaderTestNode.create(EXAMPLE_MONJORI_VERT, EXAMPLE_MONJORI_FRAG);
 
             var winSize = cc.Director.getInstance().getWinSize();
             sn.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
@@ -126,7 +126,7 @@ var ShaderMandelbrot = ShaderTestDemo.extend({
 
     init:function () {
         if (this._super()) {
-            var sn = ShaderNode.create(EXAMPLE_MANDELBROT_VERT, EXAMPLE_MANDELBROT_FRAG);
+            var sn = ShaderTestNode.create(EXAMPLE_MANDELBROT_VERT, EXAMPLE_MANDELBROT_FRAG);
 
             var winSize = cc.Director.getInstance().getWinSize();
             sn.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
@@ -150,7 +150,7 @@ var ShaderJulia = ShaderTestDemo.extend({
 
     init:function () {
         if (this._super()) {
-            var sn = ShaderNode.create(EXAMPLE_JULIA_VERT, EXAMPLE_JULIA_FRAG);
+            var sn = ShaderTestNode.create(EXAMPLE_JULIA_VERT, EXAMPLE_JULIA_FRAG);
 
             var winSize = cc.Director.getInstance().getWinSize();
             sn.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
@@ -173,7 +173,7 @@ var ShaderHeart = ShaderTestDemo.extend({
 
     init:function () {
         if (this._super()) {
-            var sn = ShaderNode.create(EXAMPLE_HEART_VERT, EXAMPLE_HEART_FRAG);
+            var sn = ShaderTestNode.create(EXAMPLE_HEART_VERT, EXAMPLE_HEART_FRAG);
 
             var winSize = cc.Director.getInstance().getWinSize();
             sn.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
@@ -197,7 +197,7 @@ var ShaderFlower = ShaderTestDemo.extend({
 
     init:function () {
         if (this._super()) {
-            var sn = ShaderNode.create(EXAMPLE_FLOWER_VERT, EXAMPLE_FLOWER_FRAG);
+            var sn = ShaderTestNode.create(EXAMPLE_FLOWER_VERT, EXAMPLE_FLOWER_FRAG);
 
             var winSize = cc.Director.getInstance().getWinSize();
             sn.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
@@ -221,7 +221,7 @@ var ShaderPlasma = ShaderTestDemo.extend({
 
     init:function () {
         if (this._super()) {
-            var sn = ShaderNode.create(EXAMPLE_PLASMA_VERT, EXAMPLE_PLASMA_FRAG);
+            var sn = ShaderTestNode.create(EXAMPLE_PLASMA_VERT, EXAMPLE_PLASMA_FRAG);
 
             var winSize = cc.Director.getInstance().getWinSize();
             sn.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
@@ -287,7 +287,7 @@ var ShaderRetroEffect = ShaderTestDemo.extend({
             program.updateUniforms();
 
             var winSize = cc.Director.getInstance().getWinSize();
-            this._label = cc.LabelBMFont.create("RETRO EFFECT", s_west_england_64_fnt);
+            this._label = cc.LabelBMFont.create("RETRO EFFECT", "res/fonts/west_england-64.fnt");
             this._label.setShaderProgram(program);
 
             this._label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
@@ -314,7 +314,7 @@ var ShaderFail = ShaderTestDemo.extend({
     }
 });
 
-var ShaderNode = cc.Node.extend({
+var ShaderTestNode = cc.Node.extend({
     _center:null,
     _resolution:null,
     _time:0,
@@ -389,7 +389,7 @@ var ShaderNode = cc.Node.extend({
         // time changes all the time, so it is Ok to call OpenGL directly, and not the "cached" version
         gl.uniform1f(this._uniformTime, this._time);
 
-        cc.glEnableVertexAttribs(cc.VERTEX_ATTRIBFLAG_POSITION);
+        cc.glEnableVertexAttribs(cc.VERTEX_ATTRIB_FLAG_POSITION);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this._vertextBuffer);
         gl.vertexAttribPointer(cc.VERTEX_ATTRIB_POSITION, 2, gl.FLOAT, false, 0, 0);
@@ -401,8 +401,8 @@ var ShaderNode = cc.Node.extend({
 
 });
 
-ShaderNode.create = function (vert, frag) {
-    var node = new ShaderNode();
+ShaderTestNode.create = function (vert, frag) {
+    var node = new ShaderTestNode();
     node.initWithVertex(vert, frag);
     return node;
 };
@@ -417,6 +417,7 @@ var ShaderTestScene = TestScene.extend({
 });
 
 var arrayOfShaderTest = [
+    ShaderRetroEffect,
     ShaderMonjori,
     ShaderMandelbrot,
     ShaderJulia,
@@ -424,7 +425,6 @@ var arrayOfShaderTest = [
     ShaderFlower,
     ShaderPlasma
     //ShaderBlur,
-    //ShaderRetroEffect
     //ShaderFail
 ];
 

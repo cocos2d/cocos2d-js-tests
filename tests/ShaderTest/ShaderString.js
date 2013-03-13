@@ -139,6 +139,7 @@ var EXAMPLE_HEART_VERT =
         + "    gl_Position = CC_MVPMatrix * a_position;        \n"
         + "}                                                  \n";
 
+//TODO need fix
 var EXAMPLE_HORIZONTALCOLOR_FRAG =
     "#ifdef GL_ES                                               \n"
         + "precision lowp float;                                \n"
@@ -148,7 +149,7 @@ var EXAMPLE_HORIZONTALCOLOR_FRAG =
         + "uniform sampler2D CC_Texture0;                       \n"
         + "                                                     \n"
         + "vec4 colors[10];                                     \n"
-        + "                                                     \n"
+        + "vec4 selColor;                                                     \n"
         + "void main(void)                                      \n"
         + "{                                                    \n"
         + "    colors[0] = vec4(1,0,0,1);                       \n"
@@ -163,8 +164,16 @@ var EXAMPLE_HORIZONTALCOLOR_FRAG =
         + "    colors[9] = vec4(0.5,0.5,1,1);                   \n"
         + "                                                     \n"
         + "    // inline to prevent 'float' loss and keep using lowp               \n"
-        + "    int y = int( mod(gl_FragCoord.y / 3.0, 10.0 ) );                    \n"
-        + "    gl_FragColor = colors[y] * texture2D(CC_Texture0, v_texCoord);      \n"
+        + "    int y = int( mod(gl_FragCoord.y , 10.0 ) );                    \n"
+        + "    selColor = vec4(mod(gl_FragCoord.y , 10.0 )/10.0,mod(gl_FragCoord.y , 10.0 )/10.0,1,1);                            \n"
+        + "    for(int i=0; i< 10;i++){                          \n"
+        + "         if(i < y){                                 \n"
+        + "             selColor = colors[i];                   \n"
+        + "             break;                                  \n"
+        + "         }                                           \n"
+        + "    selColor = colors[i];}                                                \n"
+        + "    //gl_FragColor = colors[y] * texture2D(CC_Texture0, v_texCoord);      \n"
+        + "    gl_FragColor = selColor * texture2D(CC_Texture0, v_texCoord);      \n"
         + "}                                                     \n";
 
 //------------------------------example_julia shader string-----------------------------------------

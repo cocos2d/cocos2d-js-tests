@@ -91,6 +91,7 @@
             'EffectsAdvancedTest/EffectsAdvancedTest.js',
             'MotionStreakTest/MotionStreakTest.js',
             'ClippingNodeTest/ClippingNodeTest.js',
+            'OpenGLTest/OpenGLTest.js',
 
             'ExtensionsTest/ExtensionsTest.js',
             'ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js',

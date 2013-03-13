@@ -21,9 +21,17 @@ void main(void)
 	colors[7] = vec4(1,0.5,0,1);
 	colors[8] = vec4(1,0.5,0.5,1);
 	colors[9] = vec4(0.5,0.5,1,1);
+	vec4 selColor = vec4(1,0,0,1);
 
 	// inline to prevent "float" loss and keep using lowp
 //	int y = int( mod(( (gl_FragCoord.y+gl_FragCoord.x)*mod(CC_Time[0],5.0)) / 10.0, 10.0 ) );
-	int y = int( mod( CC_Time[3] + (gl_FragCoord.y + gl_FragCoord.x) / 10.0, 10.0 ) );
-	gl_FragColor = colors[y] * texture2D(CC_Texture0, v_texCoord);
+	//int y = int( mod( CC_Time[3] + (gl_FragCoord.y + gl_FragCoord.x) / 10.0, 10.0 ) );
+	//for(int i=0; i<10;i++){
+	//	if(i == y ){
+	//		selColor = colors[i];
+	//		break;
+	//	}
+	//}	
+	//gl_FragColor = selColor * texture2D(CC_Texture0, v_texCoord);
+	gl_FragColor = texture2D(CC_Texture0, v_texCoord);
 }

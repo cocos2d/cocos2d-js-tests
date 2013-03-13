@@ -36,6 +36,16 @@ var OpenGLTestScene = TestScene.extend({
     }
 });
 
+cc.GLNode = cc.Node.extend({
+    draw:function(ctx){
+        this._super(ctx);
+    }
+});
+cc.GLNode.create = function(){
+    var node = new cc.GLNode();
+    node.init();
+    return node;
+};
 
 var OpenGLTestLayer = BaseTestLayer.extend({
     _grossini:null,
@@ -90,7 +100,6 @@ var GLReadPixelsTest = OpenGLTestLayer.extend({
         this._super();
 
         if( 'opengl' in sys.capabilities ) {
-
             var x = winSize.width;
             var y = winSize.height;
 
@@ -257,7 +266,6 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
                 throw("Could not initialise shaders");
             }
 
-
             gl.useProgram(shaderProgram);
 
             shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
@@ -276,7 +284,6 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
             this.glnode = glnode;
 
             glnode.draw = function() {
-
                 var pMatrix = [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1];
                 this.pMatrix = pMatrix = new Float32Array(pMatrix);
 
@@ -290,7 +297,6 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
                 gl.enableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
                 gl.enableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
 
-
                 // Draw fullscreen Square
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexPositionBuffer);
                 gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
@@ -301,7 +307,6 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
                 this.setMatrixUniforms();
                 gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.squareVertexPositionBuffer.numItems);
 
-
                 // Draw fullscreen Triangle
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.triangleVertexPositionBuffer);
                 gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.triangleVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
@@ -310,7 +315,6 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
                 gl.vertexAttribPointer(this.shaderProgram.vertexColorAttribute, this.triangleVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
                 gl.drawArrays(gl.TRIANGLES, 0, this.triangleVertexPositionBuffer.numItems);
-
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
@@ -543,15 +547,12 @@ var GLNodeCCAPITest = OpenGLTestLayer.extend({
 //
 //------------------------------------------------------------------
 var ShaderNode = cc.GLNode.extend({
-
     ctor:function(vertexShader, framentShader) {
         this._super();
         cc.associateWithNative( this, cc.GLNode );
         this.init();
 
         if( 'opengl' in sys.capabilities ) {
-
-
             this.setContentSize(cc.size(256,256));
             this.setAnchorPoint(cc.p(0.5, 0.5));
 
@@ -572,7 +573,6 @@ var ShaderNode = cc.GLNode.extend({
         }
     },
     draw:function() {
-
         this.shader.use();
         this.shader.setUniformsForBuiltins();
 
@@ -581,7 +581,8 @@ var ShaderNode = cc.GLNode.extend({
         //
         this.shader.setUniformLocationF32( this.uniformCenter, winSize.width/2, winSize.height/2);
         this.shader.setUniformLocationF32( this.uniformResolution, 256, 256);
-
+        //this.shader.setUniformLocationWith2f( this.uniformCenter, winSize.width/2, winSize.height/2);
+        //this.shader.setUniformLocationWith2f( this.uniformResolution, 256, 256);
         cc.glEnableVertexAttribs( cc.VERTEX_ATTRIB_FLAG_POSITION );
 
         // Draw fullscreen Square
@@ -618,12 +619,10 @@ var ShaderNode = cc.GLNode.extend({
 //
 //------------------------------------------------------------------
 var ShaderHeartTest = OpenGLTestLayer.extend({
-
     ctor:function() {
         this._super();
 
         if( 'opengl' in sys.capabilities ) {
-
             var shaderNode = new ShaderNode("res/Shaders/example_Heart.vsh", "res/Shaders/example_Heart.fsh");
             this.addChild(shaderNode,10);
             shaderNode.setPosition( winSize.width/2, winSize.height/2);
@@ -664,7 +663,6 @@ var ShaderPlasmaTest = OpenGLTestLayer.extend({
         this._super();
 
         if( 'opengl' in sys.capabilities ) {
-
             var shaderNode = new ShaderNode("res/Shaders/example_Plasma.vsh", "res/Shaders/example_Plasma.fsh");
             this.addChild(shaderNode,10);
             shaderNode.setPosition( winSize.width/2, winSize.height/2);
@@ -773,12 +771,10 @@ var ShaderJuliaTest = OpenGLTestLayer.extend({
 //
 //------------------------------------------------------------------
 var ShaderRetroEffect = OpenGLTestLayer.extend({
-
     ctor:function() {
         this._super();
 
         if( 'opengl' in sys.capabilities ) {
-
             var program = cc.GLProgram.create("res/Shaders/example_ColorBars.vsh", "res/Shaders/example_ColorBars.fsh");
             program.addAttribute(cc.ATTRIBUTE_NAME_POSITION, cc.VERTEX_ATTRIB_POSITION);
             program.addAttribute(cc.ATTRIBUTE_NAME_TEX_COORD, cc.VERTEX_ATTRIB_TEX_COORDS);
@@ -786,7 +782,7 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
             program.updateUniforms();
 
             var label = cc.LabelBMFont.create("RETRO EFFECT","res/fonts/west_england-64.fnt");
-            label.setShaderProgram( program );
+            //label.setShaderProgram( program );
 
             label.setPosition(winSize.width/2, winSize.height/2);
             this.addChild(label);
@@ -884,8 +880,6 @@ var TexImage2DTest = OpenGLTestLayer.extend({
         this._super();
 
         if( 'opengl' in sys.capabilities ) {
-
-
             var glnode = cc.GLNode.create();
             this.addChild(glnode,10);
             this.glnode = glnode;
@@ -897,7 +891,6 @@ var TexImage2DTest = OpenGLTestLayer.extend({
             this.initGL();
 
             glnode.draw = function() {
-
                 this.shader.use();
                 this.shader.setUniformsForBuiltins();
 
@@ -922,7 +915,6 @@ var TexImage2DTest = OpenGLTestLayer.extend({
     },
 
     initGL:function() {
-
         var texture = this.my_texture = gl.createTexture();
         gl.bindTexture( gl.TEXTURE_2D, texture );
 
@@ -990,12 +982,10 @@ var TexImage2DTest = OpenGLTestLayer.extend({
 //
 //------------------------------------------------------------------
 var GetSupportedExtensionsTest = OpenGLTestLayer.extend({
-
     ctor:function() {
         this._super();
 
         if( 'opengl' in sys.capabilities ) {
-
             if( ! autoTestEnabled ) {
                 var array = gl.getSupportedExtensions();
                 cc.log( JSON.stringify( array ) );
@@ -1040,11 +1030,9 @@ var GLTexParamterTest = OpenGLTestLayer.extend({
         this._super();
 
         if( 'opengl' in sys.capabilities ) {
-
             if( ! autoTestEnabled ) {
                 cc.log( this.getTexValues() );
             }
-
         }
     },
 
@@ -1055,7 +1043,12 @@ var GLTexParamterTest = OpenGLTestLayer.extend({
         return "tests texParameter()";
     },
     getTexValues:function() {
-        gl.bindTexture(gl.TEXTURE_2D, null);
+        if(sys.platform === "browser"){
+            var texture2d = cc.TextureCache.getInstance().textureForKey(s_pathGrossini);
+            gl.bindTexture(gl.TEXTURE_2D, texture2d.getName());
+        } else {
+            gl.bindTexture(gl.TEXTURE_2D, null);
+        }
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE );

@@ -346,7 +346,7 @@ var testNames = [
     //"MotionStreakTest",
     {
         title:"OpenGL Test",
-        platforms: PLATFORM_JSB,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new OpenGLTestScene();
         }

@@ -1242,6 +1242,10 @@ var TileMapTestScene = TestScene.extend({
         tileTestSceneIdx = -1;
         var layer = nextTileMapTest();
         this.addChild(layer);
+        // fix bug #486, #419.
+        // "test" is the default value in CCDirector::setGLDefaultValues()
+        // but TransitionTest may setDepthTest(false), we should revert it here
+        cc.Director.getInstance().setDepthTest(true);
 
         director.replaceScene(this);
     }
