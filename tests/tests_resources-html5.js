@@ -153,6 +153,28 @@ var s_image_icon = "res/Images/Icon.png";
 
 var g_ressources = [
     //global
+    //preload shader source
+    {src:"res/Shaders/example_Blur.fsh"},
+    {src:"res/Shaders/example_ColorBars.fsh"},
+    {src:"res/Shaders/example_ColorBars.vsh"},
+    {src:"res/Shaders/example_Flower.fsh"},
+    {src:"res/Shaders/example_Flower.vsh"},
+    {src:"res/Shaders/example_Heart.fsh"},
+    {src:"res/Shaders/example_Heart.vsh"},
+    {src:"res/Shaders/example_Julia.fsh"},
+    {src:"res/Shaders/example_Julia.vsh"},
+    {src:"res/Shaders/example_Mandelbrot.fsh"},
+    {src:"res/Shaders/example_Mandelbrot.vsh"},
+    {src:"res/Shaders/example_Monjori.fsh"},
+    {src:"res/Shaders/example_Monjori.vsh"},
+    {src:"res/Shaders/example_Plasma.fsh"},
+    {src:"res/Shaders/example_Plasma.vsh"},
+    {src:"res/Shaders/example_Twist.fsh"},
+    {src:"res/Shaders/example_Twist.vsh"},
+
+    {src:"res/fonts/west_england-64.fnt"},
+    {src:"res/fonts/west_england-64.png"},
+
     {src:s_pathB1},
     {src:s_pathB2},
     {src:s_pathR1},
@@ -241,7 +263,8 @@ var g_fileUtils = [
 
 var g_s9s_blocks = [
     {src:s_s9s_blocks9_plist},
-    {src:s_s9s_blocks9}
+    {src:s_s9s_blocks9},
+    {src:"res/Images/blocks9.png"}
 ];
 
 var g_label = [
