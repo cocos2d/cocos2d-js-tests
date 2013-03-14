@@ -92,7 +92,7 @@ var TileMapTest = TileDemo.extend({
     ctor:function () {
         this._super();
         var map = cc.TileMapAtlas.create(s_tilesPng, s_levelMapTga, 16, 16);
-        if (cc.renderContextType === cc.WEBGL)
+        if ("opengl" in sys.capabilities)
             map.getTexture().setAntiAliasTexParameters();
 
         var s = map.getContentSize();
@@ -293,7 +293,7 @@ var TMXReadWriteTest = TileDemo.extend({
         var s = map.getContentSize();
 
         var layer = map.getLayer("Layer 0");
-        if (cc.renderContextType === cc.WEBGL)
+        if ("opengl" in sys.capabilities)
             layer.getTexture().setAntiAliasTexParameters();
 
         map.setScale(1);
@@ -519,7 +519,7 @@ var TMXTilesetTest = TileDemo.extend({
         this.addChild(map, 0, TAG_TILE_MAP);
         var s = map.getContentSize();
 
-        if (cc.renderContextType === cc.WEBGL) {
+        if ("opengl" in sys.capabilities) {
             var layer;
             layer = map.getLayer("Layer 0");
             layer.getTexture().setAntiAliasTexParameters();
@@ -1108,7 +1108,7 @@ var TMXOrthoFromXMLTest = TileDemo.extend({
         var s = map.getContentSize();
         cc.log("ContentSize: " + s.width+ ", " + s.height);
 
-        if(cc.renderContextType === cc.WEBGL){
+        if("opengl" in sys.capabilities){
             var mapChildren = map.getChildren();
             for(var i = 0 ; i < mapChildren.length;i++) {
                 var child = mapChildren[i];
@@ -1144,7 +1144,7 @@ var TMXBug987 = TileDemo.extend({
         for (var i = 0, len = childs.length; i < len; i++) {
             node = childs[i];
             if (!node) break;
-            if (cc.renderContextType === cc.WEBGL)
+            if ("opengl" in sys.capabilities)
                 node.getTexture().setAntiAliasTexParameters();
         }
 

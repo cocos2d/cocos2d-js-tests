@@ -7,31 +7,38 @@ precision lowp float;
 varying vec2 v_texCoord;
 uniform sampler2D CC_Texture0;
 
-vec4 colors[10];
+vec4 getColorByCoord(int y){
+    if(y < 5){
+         if(y == 0){
+            return vec4(1,0,0,1);
+         } else if(y == 1){
+            return vec4(0,1,0,1);
+         } else if(y == 2){
+            return vec4(0,0,1,1);
+         } else if(y == 3){
+            return vec4(0,1,1,1);
+         } else{
+            return vec4(1,0,1,1);
+         }
+     } else {
+         if(y == 5){
+            return vec4(1,1,0,1);
+         } else if(y == 6){
+            return vec4(1,1,1,1);
+         } else if(y == 7){
+            return vec4(1,0.5,0,1);
+         } else if(y == 8){
+            return vec4(1,0.5,0.5,1);
+         }else {
+            return vec4(0.5,0.5,1,1);
+         }
+     }
+}
 
-void main(void)
-{
-	colors[0] = vec4(1,0,0,1);
-	colors[1] = vec4(0,1,0,1);
-	colors[2] = vec4(0,0,1,1);
-	colors[3] = vec4(0,1,1,1);
-	colors[4] = vec4(1,0,1,1);
-	colors[5] = vec4(1,1,0,1);
-	colors[6] = vec4(1,1,1,1);
-	colors[7] = vec4(1,0.5,0,1);
-	colors[8] = vec4(1,0.5,0.5,1);
-	colors[9] = vec4(0.5,0.5,1,1);
-	vec4 selColor = vec4(1,0,0,1);
-
+void main(void) {
 	// inline to prevent "float" loss and keep using lowp
-//	int y = int( mod(( (gl_FragCoord.y+gl_FragCoord.x)*mod(CC_Time[0],5.0)) / 10.0, 10.0 ) );
+    //int y = int( mod(( (gl_FragCoord.y+gl_FragCoord.x)*mod(CC_Time[0],5.0)) / 10.0, 10.0 ) );
 	//int y = int( mod( CC_Time[3] + (gl_FragCoord.y + gl_FragCoord.x) / 10.0, 10.0 ) );
-	//for(int i=0; i<10;i++){
-	//	if(i == y ){
-	//		selColor = colors[i];
-	//		break;
-	//	}
-	//}	
-	//gl_FragColor = selColor * texture2D(CC_Texture0, v_texCoord);
-	gl_FragColor = texture2D(CC_Texture0, v_texCoord);
+	int y = int( mod(gl_FragCoord.y / 10.0, 10.0 ) );
+	gl_FragColor = getColorByCoord(y) * texture2D(CC_Texture0, v_texCoord);
 }

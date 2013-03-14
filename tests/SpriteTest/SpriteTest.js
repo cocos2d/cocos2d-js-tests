@@ -43,7 +43,7 @@ var IDC_NEXT = 100;
 var IDC_BACK = 101;
 var IDC_RESTART = 102;
 
-var sceneIdx = -1;
+var spriteTestIdx  = -1;
 
 var spriteFrameCache = cc.SpriteFrameCache.getInstance();
 
@@ -52,45 +52,16 @@ var spriteFrameCache = cc.SpriteFrameCache.getInstance();
 // SpriteTestDemo
 //
 //------------------------------------------------------------------
-var SpriteTestDemo = cc.LayerGradient.extend({
+var SpriteTestDemo = BaseTestLayer.extend({
     _title:"",
     _subtitle:"",
 
-    ctor:function () {
-        this._super();
-        cc.associateWithNative(this, cc.LayerGradient);
-        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
-    },
-    onEnter:function () {
-        this._super();
-
-        var label = cc.LabelTTF.create(this._title, "Arial", 28);
-        this.addChild(label, 1);
-        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
-
-        if (this._subtitle !== "") {
-            var l = cc.LabelTTF.create(this._subtitle, "Thonburi", 16);
-            this.addChild(l, 1);
-            l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
+    ctor:function() {
+        if( arguments.length === 0 ) {
+            this._super( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
+        } else {
+            this._super.apply(this, arguments );
         }
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(cc.p(0, 0));
-        var cs = item2.getContentSize();
-        item1.setPosition(cc.p(winSize.width / 2 - cs.width * 2, cs.height / 2));
-        item2.setPosition(cc.p(winSize.width / 2, cs.height / 2));
-        item3.setPosition(cc.p(winSize.width / 2 + cs.width * 2, cs.height / 2));
-
-        this.addChild(menu, 1);
-    },
-
-    onExit:function () {
-        this._super();
     },
 
     onRestartCallback:function (sender) {
@@ -98,15 +69,26 @@ var SpriteTestDemo = cc.LayerGradient.extend({
         s.addChild(restartSpriteTest());
         director.replaceScene(s);
     },
+
     onNextCallback:function (sender) {
         var s = new SpriteTestScene();
         s.addChild(nextSpriteTest());
         director.replaceScene(s);
     },
+
     onBackCallback:function (sender) {
         var s = new SpriteTestScene();
         s.addChild(previousSpriteTest());
         director.replaceScene(s);
+    },
+
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfSpriteTest.length-1) - spriteTestIdx );
+    },
+
+    getTestNumber:function() {
+        return spriteTestIdx;
     }
 });
 
@@ -729,73 +711,90 @@ var SpriteZVertex = SpriteTestDemo.extend({
     _dir:0,
     _time:0,
     _title:"Sprite: openGL Z vertex",
+    _subtitle:"Scene should rotate",
 
     ctor:function () {
-        //
-        // This test tests z-order
-        // If you are going to use it is better to use a 3D projection
-        //
-        // WARNING:
-        // The developer is resposible for ordering it's sprites according to it's Z if the sprite has
-        // transparent parts.
-        //
-        if (cc.renderContextType === cc.WEBGL) {
+        this._super( cc.c4b(255,0,0,80), cc.c4b(255,98,117,20) );
+
+
+        if( "opengl" in sys.capabilities ) {
+
+            gl.enable( gl.DEPTH_TEST );
+            //
+            // This test tests z-order
+            // If you are going to use it is better to use a 3D projection
+            //
+            // WARNING:
+            // The developer is resposible for ordering it's sprites according to it's Z if the sprite has
+            // transparent parts.
+            //
+
             //
             // Configure shader to mimic glAlphaTest
             //
-            var alphaTestShader = cc.ShaderCache.getInstance().programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
-            var alphaValueLocation = cc.renderContext.getUniformLocation(alphaTestShader.getProgram(), cc.UNIFORM_ALPHATEST_VALUE);
+            var alphaTestShader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTextureColorAlphaTest");
+            var glprogram = alphaTestShader.getProgram();
+            var alphaValueLocation = gl.getUniformLocation(glprogram, cc.UNIFORM_ALPHA_TEST_VALUE_S);
 
             // set alpha test value
             // NOTE: alpha test shader is hard-coded to use the equivalent of a glAlphaFunc(GL_GREATER) comparison
-            //if (this.getShaderProgram()) {
-            //    this.getShaderProgram().setUniformLocationWith1f(alphaValueLocation, 0.0);
-            //}
-            if(alphaTestShader && alphaValueLocation){
-                alphaTestShader.use();
-                alphaTestShader.setUniformLocationWith1f(alphaValueLocation, 0.0);
+            gl.useProgram( glprogram );
+            alphaTestShader.setUniformLocationF32(alphaValueLocation, 0.5);
+
+            this._dir = 1;
+            this._time = 0;
+
+            var step = winSize.width / 12;
+
+            var node = cc.Node.create();
+            // camera uses the center of the image as the pivoting point
+            node.setContentSize(cc.size(winSize.width, winSize.height));
+            node.setAnchorPoint(cc.p(0.5, 0.5));
+            node.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+
+            this.addChild(node, 0);
+            var sprite;
+            for (var i = 0; i < 5; i++) {
+                sprite = cc.Sprite.create(s_grossini_dance_atlas, cc.rect(0, 121, 85, 121));
+                sprite.setPosition(cc.p((i + 1) * step, winSize.height / 2));
+                sprite.setVertexZ(10 + i * 40);
+                sprite.setShaderProgram(alphaTestShader);
+                node.addChild(sprite, 0);
             }
-        }
 
-        this._super();
-        this._dir = 1;
-        this._time = 0;
-        var step = winSize.width / 12;
-
-        var node = cc.Node.create();
-        // camera uses the center of the image as the pivoting point
-        node.setContentSize(cc.size(winSize.width, winSize.height));
-        node.setAnchorPoint(cc.p(0.5, 0.5));
-        node.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
-
-        this.addChild(node, 0);
-        var sprite;
-        for (var i = 0; i < 5; i++) {
-            sprite = cc.Sprite.create(s_grossini_dance_atlas, cc.rect(0, 121, 85, 121));
-            sprite.setPosition(cc.p((i + 1) * step, winSize.height / 2));
-            sprite.setVertexZ(10 + i * 40);
-            if(cc.renderContextType === cc.WEBGL)
+            for (i = 5; i < 11; i++) {
+                sprite = cc.Sprite.create(s_grossini_dance_atlas, cc.rect(85, 0, 85, 121));
+                sprite.setPosition(cc.p((i + 1) * step, winSize.height / 2));
+                sprite.setVertexZ(10 + (10 - i) * 40);
                 sprite.setShaderProgram(alphaTestShader);
-            node.addChild(sprite, 0);
-        }
+                node.addChild(sprite, 0);
+            }
 
-        for (i = 5; i < 11; i++) {
-            sprite = cc.Sprite.create(s_grossini_dance_atlas, cc.rect(85, 0, 85, 121));
-            sprite.setPosition(cc.p((i + 1) * step, winSize.height / 2));
-            sprite.setVertexZ(10 + (10 - i) * 40);
-            if(cc.renderContextType === cc.WEBGL)
-                sprite.setShaderProgram(alphaTestShader);
-            node.addChild(sprite, 0);
+            this.runAction(cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0));
+        } else {
+            cc.log("Only runs when OpenGL is enabled");
         }
-
-        node.runAction(cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0));
     },
     onEnter:function () {
         this._super();
-        director.setProjection(cc.DIRECTOR_PROJECTION_3D);
+        if( "opengl" in sys.capabilities ) {
+            director.setProjection(cc.DIRECTOR_PROJECTION_3D);
+            gl.enable( gl.DEPTH_TEST );
+
+            // Avoid Z-fighting with menu and title
+            var menu = this.getChildByTag( BASE_TEST_MENU_TAG );
+            menu.setVertexZ(1);
+            var title = this.getChildByTag( BASE_TEST_TITLE_TAG );
+            title.setVertexZ(1);
+            var subtitle = this.getChildByTag( BASE_TEST_SUBTITLE_TAG );
+            subtitle.setVertexZ(1);
+        }
     },
     onExit:function () {
-        director.setProjection(cc.DIRECTOR_PROJECTION_2D);
+        if( "opengl" in sys.capabilities ) {
+            director.setProjection(cc.DIRECTOR_PROJECTION_2D);
+            gl.disable( gl.DEPTH_TEST );
+        }
         this._super();
     }
 });
@@ -809,66 +808,90 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
     _dir:0,
     _time:0,
     _title:"SpriteBatchNode: openGL Z vertex",
+    _subtitle:"Scene should rotate",
 
     ctor:function () {
-        //
-        // This test tests z-order
-        // If you are going to use it is better to use a 3D projection
-        //
-        // WARNING:
-        // The developer is resposible for ordering it's sprites according to it's Z if the sprite has
-        // transparent parts.
-        //
+        this._super( cc.c4b(255,0,0,80), cc.c4b(255,98,117,20) );
 
-        //
-        // Configure shader to mimic glAlphaTest
-        //
-        //var alphaTestShader = cc.ShaderCache.getInstance().programForKey(kCCShader_PositionTextureColorAlphaTest);
-        //var alphaValueLocation = glGetUniformLocation(alphaTestShader.getProgram(), kCCUniformAlphaTestValue_s);
+        if( "opengl" in sys.capabilities ) {
 
-        // set alpha test value
-        // NOTE: alpha test shader is hard-coded to use the equivalent of a glAlphaFunc(GL_GREATER) comparison
-        //if (this.getShaderProgram()){
-        //    this.getShaderProgram().setUniformLocationWith1f(alphaValueLocation, 0.0);
-        //}
+            //
+            // This test tests z-order
+            // If you are going to use it is better to use a 3D projection
+            //
+            // WARNING:
+            // The developer is resposible for ordering it's sprites according to it's Z if the sprite has
+            // transparent parts.
+            //
 
-        this._super();
-        var step = winSize.width / 12;
+            //
+            // Configure shader to mimic glAlphaTest
+            //
+            var alphaTestShader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTextureColorAlphaTest");
+            var glprogram = alphaTestShader.getProgram();
+            var alphaValueLocation = gl.getUniformLocation(glprogram, cc.UNIFORM_ALPHA_TEST_VALUE_S);
 
-        // small capacity. Testing resizing.
-        // Don't use capacity=1 in your real game. It is expensive to resize the capacity
-        var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 1);
-        // camera uses the center of the image as the pivoting point
-        batch.setContentSize(cc.size(winSize.width, winSize.height));
-        batch.setAnchorPoint(cc.p(0.5, 0.5));
-        batch.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+            // set alpha test value
+            // NOTE: alpha test shader is hard-coded to use the equivalent of a glAlphaFunc(GL_GREATER) comparison
+            gl.useProgram( glprogram );
+            alphaTestShader.setUniformLocationF32(alphaValueLocation, 0.5);
 
-        this.addChild(batch, 0, TAG_SPRITE_BATCH_NODE);
-        var sprite;
+            var step = winSize.width / 12;
 
-        for (var i = 0; i < 5; i++) {
-            sprite = cc.Sprite.createWithTexture(batch.getTexture(), cc.rect(0, 121, 85, 121));
-            sprite.setPosition(cc.p((i + 1) * step, winSize.height / 2));
-            sprite.setVertexZ(10 + i * 40);
-            batch.addChild(sprite, 0);
+            // small capacity. Testing resizing.
+            // Don't use capacity=1 in your real game. It is expensive to resize the capacity
+            var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 1);
+            // camera uses the center of the image as the pivoting point
+            batch.setContentSize(cc.size(winSize.width, winSize.height));
+            batch.setAnchorPoint(cc.p(0.5, 0.5));
+            batch.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+            batch.setShaderProgram( alphaTestShader );
 
+            this.addChild(batch, 0, TAG_SPRITE_BATCH_NODE);
+            var sprite;
+
+            for (var i = 0; i < 5; i++) {
+                sprite = cc.Sprite.createWithTexture(batch.getTexture(), cc.rect(0, 121, 85, 121));
+                sprite.setPosition(cc.p((i + 1) * step, winSize.height / 2));
+                sprite.setVertexZ(10 + i * 40);
+                batch.addChild(sprite, 0);
+
+            }
+
+            for (i = 5; i < 11; i++) {
+                sprite = cc.Sprite.createWithTexture(batch.getTexture(), cc.rect(85, 0, 85, 121));
+                sprite.setPosition(cc.p((i + 1) * step, winSize.height / 2));
+                sprite.setVertexZ(10 + (10 - i) * 40);
+                batch.addChild(sprite, 0);
+            }
+
+            this.runAction(cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0));
+        } else {
+            cc.log("Only runs when OpenGL is enabled");
         }
-
-        for (i = 5; i < 11; i++) {
-            sprite = cc.Sprite.createWithTexture(batch.getTexture(), cc.rect(85, 0, 85, 121));
-            sprite.setPosition(cc.p((i + 1) * step, winSize.height / 2));
-            sprite.setVertexZ(10 + (10 - i) * 40);
-            batch.addChild(sprite, 0);
-        }
-
-        batch.runAction(cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0));
     },
     onEnter:function () {
         this._super();
-        director.setProjection(cc.DIRECTOR_PROJECTION_3D);
+
+        if( "opengl" in sys.capabilities ) {
+            director.setProjection(cc.DIRECTOR_PROJECTION_3D);
+            gl.enable( gl.DEPTH_TEST );
+
+            // Avoid Z-fighting with menu and title
+            var menu = this.getChildByTag( BASE_TEST_MENU_TAG );
+            menu.setVertexZ(1);
+            var title = this.getChildByTag( BASE_TEST_TITLE_TAG );
+            title.setVertexZ(1);
+            var subtitle = this.getChildByTag( BASE_TEST_SUBTITLE_TAG );
+            subtitle.setVertexZ(1);
+
+        }
     },
     onExit:function () {
-        director.setProjection(cc.DIRECTOR_PROJECTION_2D);
+        if( "opengl" in sys.capabilities ) {
+            director.setProjection(cc.DIRECTOR_PROJECTION_2D);
+            gl.disable( gl.DEPTH_TEST );
+        }
         this._super();
     }
 });
@@ -1076,7 +1099,6 @@ var SpriteBatchNodeFlip = SpriteTestDemo.extend({
 //
 //------------------------------------------------------------------
 var SpriteAliased = SpriteTestDemo.extend({
-
     _title:"Sprite Aliased",
     _subtitle:"You should see pixelated sprites",
 
@@ -1110,7 +1132,7 @@ var SpriteAliased = SpriteTestDemo.extend({
         // This change will affect every sprite that uses the same texture
         // So sprite1 and sprite2 will be affected by this change
         //
-        if (sys.platform == 'browser' && cc.renderContextType === cc.CANVAS) {
+        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild(label);
             label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
@@ -1121,7 +1143,7 @@ var SpriteAliased = SpriteTestDemo.extend({
 
     },
     onExit:function () {
-        if (sys.platform !== 'browser' || cc.renderContextType !== cc.CANVAS) {
+        if (sys.platform !== 'browser' || ("opengl" in sys.capabilities)) {
             var sprite = this.getChildByTag(TAG_SPRITE1);
             sprite.getTexture().setAntiAliasTexParameters();
         }
@@ -1171,7 +1193,7 @@ var SpriteBatchNodeAliased = SpriteTestDemo.extend({
         // This change will affect every sprite that uses the same texture
         // So sprite1 and sprite2 will be affected by this change
         //
-        if (sys.platform == 'browser' && cc.renderContextType === cc.CANVAS) {
+        if (sys.platform == 'browser' && !("opengl" in sys.capabilities)) {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild(label);
             label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
@@ -1182,7 +1204,7 @@ var SpriteBatchNodeAliased = SpriteTestDemo.extend({
 
     },
     onExit:function () {
-        if (sys.platform !== 'browser' || cc.renderContextType !== cc.CANVAS) {
+        if (sys.platform !== 'browser' || ("opengl" in sys.capabilities)) {
             var sprite = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
             sprite.getTexture().setAntiAliasTexParameters();
         }
@@ -3005,7 +3027,7 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         // SpriteBatchNode: 3 levels of children
         //
         var aParent = cc.SpriteBatchNode.create(s_ghosts);
-        if(cc.renderContextType === cc.WEBGL)
+        if("opengl" in sys.capabilities)
             aParent.getTexture().generateMipmap();
         this.addChild(aParent);
 
@@ -3374,7 +3396,7 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
 
         this._batchNode = aParent;
         //[[aParent texture] generateMipmap];
-        if(cc.renderContextType === cc.WEBGL)
+        if("opengl" in sys.capabilities)
             aParent.getTexture().generateMipmap();
         this.addChild(aParent);
 
@@ -3782,7 +3804,7 @@ var TextureRotatedSpriteFrame = SpriteTestDemo.extend({
 
 var SpriteTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        spriteTestIdx  = -1;
         var layer = nextSpriteTest();
         this.addChild(layer);
 
@@ -3855,19 +3877,19 @@ var arrayOfSpriteTest = [
 ];
 
 var nextSpriteTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfSpriteTest.length;
+    spriteTestIdx ++;
+    spriteTestIdx  = spriteTestIdx  % arrayOfSpriteTest.length;
 
-    return new arrayOfSpriteTest[sceneIdx]();
+    return new arrayOfSpriteTest[spriteTestIdx ]();
 };
 var previousSpriteTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfSpriteTest.length;
+    spriteTestIdx --;
+    if (spriteTestIdx  < 0)
+        spriteTestIdx  += arrayOfSpriteTest.length;
 
-    return new arrayOfSpriteTest[sceneIdx]();
+    return new arrayOfSpriteTest[spriteTestIdx ]();
 };
 var restartSpriteTest = function () {
-    return new arrayOfSpriteTest[sceneIdx]();
+    return new arrayOfSpriteTest[spriteTestIdx ]();
 };
 

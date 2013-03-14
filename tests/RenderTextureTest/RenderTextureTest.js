@@ -23,12 +23,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-
 var sceneIdx = -1;
 
 var RenderTextureBaseLayer = BaseTestLayer.extend({
     ctor:function () {
-        this._super();
+        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
         cc.associateWithNative(this, cc.Layer);
         this.init();
     },

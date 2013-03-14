@@ -192,7 +192,7 @@ var GameLayer = cc.LayerGradient.extend({
 
         // coin only needed to obtain the texture for the Batch Node
         var coin = cc.Sprite.createWithSpriteFrameName("coin01.png");
-        this._batch = cc.Node.create(); //cc.SpriteBatchNode.createWithTexture(coin.getTexture(), 100);
+        this._batch = cc.SpriteBatchNode.createWithTexture(coin.getTexture(), 100);    //cc.Node.create();
         scroll.addChild(this._batch, Z_SPRITES, cc._p(1, 1), cc.p(0,0));
 
         if( 'opengl' in sys.capabilities) {
@@ -202,7 +202,6 @@ var GameLayer = cc.LayerGradient.extend({
             scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
             background.setAnchorPoint( cc._p(0,0) );
             background.getTexture().setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE);
-
         } else {
             // This code runs on both HTML5 and JSB
             // It places two big sprites in the screen, one after the other.

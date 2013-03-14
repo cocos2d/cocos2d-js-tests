@@ -57,15 +57,15 @@ var cocos2dApp = cc.Application.extend({
 });
 var myApp = new cocos2dApp(TestController);
 
-var s_rcVisible = cc.RectZero();
-var s_ptCenter = cc.PointZero();
-var s_ptTop = cc.PointZero();
-var s_ptTopRight = cc.PointZero();
-var s_ptRight = cc.PointZero();
-var s_ptBottomRight = cc.PointZero();
-var s_ptBottom = cc.PointZero();
-var s_ptLeft = cc.PointZero();
-var s_ptTopLeft = cc.PointZero();
+var s_rcVisible = cc.RECT_ZERO;
+var s_ptCenter = cc.POINT_ZERO;
+var s_ptTop = cc.POINT_ZERO;
+var s_ptTopRight = cc.POINT_ZERO;
+var s_ptRight = cc.POINT_ZERO;
+var s_ptBottomRight = cc.POINT_ZERO;
+var s_ptBottom = cc.POINT_ZERO;
+var s_ptLeft = cc.POINT_ZERO;
+var s_ptTopLeft = cc.POINT_ZERO;
 
 var VisibleRect = {
     rect:function () {

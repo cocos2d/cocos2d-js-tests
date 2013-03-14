@@ -1,7 +1,7 @@
 /****************************************************************************
  Copyright (c) 2010-2013 cocos2d-x.org
  Copyright (c) 2008-2010 Ricardo Quesada
- Copyright (c) 2011      Zynga Inc.
+ Copyright (c) 2012 Pierre-David Bélanger
 
  http://www.cocos2d-x.org
 
@@ -611,7 +611,7 @@ var RawStencilBufferTest4 = RawStencilBufferTest.extend({
         gl.depthMask(false);
 
         var program = cc.ShaderCache.getInstance().programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
-        var alphaValueLocation = gl.getUniformLocation(program.getProgram(),cc.UNIFORM_ALPHATEST_VALUE);
+        var alphaValueLocation = gl.getUniformLocation(program.getProgram(),cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
         this._sprite.setShaderProgram(program );
@@ -635,7 +635,7 @@ var RawStencilBufferTest5 = RawStencilBufferTest.extend({
         gl.depthMask(false);
 
         var program = cc.ShaderCache.getInstance().programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
-        var alphaValueLocation = gl.getUniformLocation(program.getProgram(), cc.UNIFORM_ALPHATEST_VALUE);
+        var alphaValueLocation = gl.getUniformLocation(program.getProgram(), cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
         this._sprite.setShaderProgram( program );
@@ -671,7 +671,7 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
         gl.depthMask(false);
 
         var program = cc.ShaderCache.getInstance().programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
-        var alphaValueLocation = gl.getUniformLocation(program.getProgram(), cc.UNIFORM_ALPHATEST_VALUE);
+        var alphaValueLocation = gl.getUniformLocation(program.getProgram(), cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
         this._sprite.setShaderProgram(program);

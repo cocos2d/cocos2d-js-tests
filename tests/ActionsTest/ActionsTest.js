@@ -1677,7 +1677,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
         var context = ctx || cc.renderContext;
         var winSize = director.getWinSize();
 
-        if(cc.renderContextType === cc.CANVAS){
+        if(!("opengl" in sys.capabilities)){
             var apPoint = this.getAnchorPointInPoints();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
@@ -1842,7 +1842,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._super();
         var context = ctx || cc.renderContext;
 
-        if(cc.renderContextType === cc.CANVAS){
+        if(!("opengl" in sys.capabilities)){
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
             context.translate(50, - 50);

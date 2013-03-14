@@ -435,13 +435,6 @@ var testNames = [
         }
     },
     {
-        title:"Shader Test",
-        platforms: PLATFORM_HTML5_WEBGL,
-        testScene:function () {
-            return new ShaderTestScene();
-        }
-    },
-    {
         title:"Sprite Test",
         resource:g_sprites,
         platforms: PLATFORM_ALL,

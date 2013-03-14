@@ -86,8 +86,6 @@
             'SysTest/SysTest.js',
             'FileUtils/FileUtilsTest.js',
             'EffectsTest/EffectsTest.js',
-            'ShaderTest/ShaderString.js',
-            'ShaderTest/ShaderTest.js',
             'EffectsAdvancedTest/EffectsAdvancedTest.js',
             'MotionStreakTest/MotionStreakTest.js',
             'ClippingNodeTest/ClippingNodeTest.js',

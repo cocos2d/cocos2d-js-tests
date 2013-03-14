@@ -554,7 +554,7 @@ var DemoRotFlower = ParticleDemo.extend({
         this._super();
 
         this._emitter = new cc.ParticleSystemQuad();
-        this._emitter.initWithTotalParticles((cc.renderContextType === cc.WEBGL) ? 300 : 150);
+        this._emitter.initWithTotalParticles(("opengl" in sys.capabilities) ? 300 : 150);
 
         this._background.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars2));
@@ -764,7 +764,7 @@ var DemoModernArt = ParticleDemo.extend({
         this._super();
 
         this._emitter = new cc.ParticleSystemQuad();
-        this._emitter.initWithTotalParticles((cc.renderContextType === cc.WEBGL) ? 1000 : 200);
+        this._emitter.initWithTotalParticles(("opengl" in sys.capabilities) ? 1000 : 200);
 
         this._background.addChild(this._emitter, 10);
 

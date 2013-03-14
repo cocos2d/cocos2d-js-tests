@@ -553,7 +553,7 @@ var ShaderNode = cc.GLNode.extend({
         this.init();
 
         if( 'opengl' in sys.capabilities ) {
-            this.setContentSize(cc.size(256,256));
+            this.setContentSize(cc.SizeMake(256,256));
             this.setAnchorPoint(cc.p(0.5, 0.5));
 
             this.shader = cc.GLProgram.create(vertexShader, framentShader);
@@ -581,8 +581,7 @@ var ShaderNode = cc.GLNode.extend({
         //
         this.shader.setUniformLocationF32( this.uniformCenter, winSize.width/2, winSize.height/2);
         this.shader.setUniformLocationF32( this.uniformResolution, 256, 256);
-        //this.shader.setUniformLocationWith2f( this.uniformCenter, winSize.width/2, winSize.height/2);
-        //this.shader.setUniformLocationWith2f( this.uniformResolution, 256, 256);
+
         cc.glEnableVertexAttribs( cc.VERTEX_ATTRIB_FLAG_POSITION );
 
         // Draw fullscreen Square
@@ -654,11 +653,78 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
 
 //------------------------------------------------------------------
 //
+// ShaderMandelbrotTest
+//
+//------------------------------------------------------------------
+var ShaderMandelbrotTest = OpenGLTestLayer.extend({
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+            var shaderNode = new ShaderNode("res/Shaders/example_Mandelbrot.vsh", "res/Shaders/example_Mandelbrot.fsh");
+            this.addChild(shaderNode,10);
+            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+        }
+    },
+
+    title:function () {
+        return "Shader Mandelbrot Test";
+    },
+    subtitle:function () {
+        return "Mandelbrot shader with Zoom";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        throw "Automation Test Not implemented yet";
+    },
+    getCurrentResult:function() {
+        throw "Automation Test Not implemented yet";
+    }
+});
+
+//------------------------------------------------------------------
+//
+// ShaderMonjoriTest
+//
+//------------------------------------------------------------------
+var ShaderMonjoriTest = OpenGLTestLayer.extend({
+    ctor:function() {
+        this._super();
+
+        if( 'opengl' in sys.capabilities ) {
+            var shaderNode = new ShaderNode("res/Shaders/example_Monjori.vsh", "res/Shaders/example_Monjori.fsh");
+            this.addChild(shaderNode,10);
+            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+        }
+    },
+
+    title:function () {
+        return "Shader Monjori Test";
+    },
+    subtitle:function () {
+        return "Monjori plane deformations";
+    },
+
+    //
+    // Automation
+    //
+    getExpectedResult:function() {
+        throw "Automation Test Not implemented yet";
+    },
+    getCurrentResult:function() {
+        throw "Automation Test Not implemented yet";
+    }
+});
+
+//------------------------------------------------------------------
+//
 // ShaderPlasmaTest
 //
 //------------------------------------------------------------------
 var ShaderPlasmaTest = OpenGLTestLayer.extend({
-
     ctor:function() {
         this._super();
 
@@ -782,8 +848,10 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
             program.updateUniforms();
 
             var label = cc.LabelBMFont.create("RETRO EFFECT","res/fonts/west_england-64.fnt");
-            //TODO need fix
-            //label.setShaderProgram( program );
+
+            //TODO It doesn't work on HTML5, will fix soon
+            //if(sys.platform !== "browser")
+                label.setShaderProgram( program );
 
             label.setPosition(winSize.width/2, winSize.height/2);
             this.addChild(label);
@@ -1138,12 +1206,13 @@ var GLGetUniformTest = OpenGLTestLayer.extend({
 // Flow control
 //
 var arrayOfOpenGLTest = [
-
+    ShaderRetroEffect,
+    ShaderMonjoriTest,
+    ShaderMandelbrotTest,
     ShaderHeartTest,
     ShaderPlasmaTest,
     ShaderFlowerTest,
     ShaderJuliaTest,
-    ShaderRetroEffect,
     GLGetActiveTest,
     TexImage2DTest,
     GetSupportedExtensionsTest,
