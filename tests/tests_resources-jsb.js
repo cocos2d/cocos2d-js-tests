@@ -63,6 +63,7 @@ var s_s9s_blocks9_plist = "res/Images/blocks9ss.plist";
 
 var s_s9s_ui = "res/Images/ui.png";
 var s_s9s_ui_plist = "res/Images/ui.plist";
+var s_circle_plist  = "res/Images/bugs/circle.plist";
 
 var s_boilingFoamPlist = "res/Images/BoilingFoam.plist";
 var s_grossiniPlist = "res/animations/grossini.plist";

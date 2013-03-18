@@ -23,13 +23,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var sceneIdx = -1;
+var sceneRenderTextureIdx = -1;
 
 var RenderTextureBaseLayer = BaseTestLayer.extend({
     ctor:function () {
         this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
-        cc.associateWithNative(this, cc.Layer);
-        this.init();
     },
 
     title:function () {
@@ -76,7 +74,7 @@ var RenderTextureBaseLayer = BaseTestLayer.extend({
 // Tests
 //
 //------------------------------------------------------------------
-var RenderTextureSave = RenderTextureBaseLayer .extend({
+var RenderTextureSave = RenderTextureBaseLayer.extend({
     _brush:null,
     _target:null,
     _lastLocation:null,
@@ -194,7 +192,7 @@ var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
          *  B1: non-premulti sprite
          *  B2: non-premulti render
          */
-        var background = cc.LayerColor.create(cc.c4(200, 200, 200, 255));
+        var background = cc.LayerColor.create(cc.c4b(200, 200, 200, 255));
         this.addChild(background);
 
         var spr_premulti = cc.Sprite.create(s_fire);
@@ -447,7 +445,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
          *  B1: non-premulti sprite
          *  B2: non-premulti render
          */
-        var background = cc.LayerColor.create(cc.c4(40, 40, 40, 255));
+        var background = cc.LayerColor.create(cc.c4b(40, 40, 40, 255));
         this.addChild(background);
 
         // sprite 1
@@ -577,7 +575,7 @@ var Issue1464 = RenderTextureBaseLayer.extend({
 
 var RenderTextureTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        sceneRenderTextureIdx = -1;
         var layer = nextRenderTextureTest();
         this.addChild(layer);
 
@@ -588,29 +586,31 @@ var RenderTextureTestScene = TestScene.extend({
 //
 // Flow control
 //
-
 var arrayOfRenderTextureTest = [
     RenderTextureSave,
-    RenderTextureIssue937,
-    RenderTextureZbuffer,
-    RenderTextureTestDepthStencil,
-    RenderTextureTargetNode,
     Issue1464
 ];
 
-var nextRenderTextureTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfRenderTextureTest.length;
+if(('opengl' in sys.capabilities) && (sys.platform == 'browser') ){
+    arrayOfRenderTextureTest.push(RenderTextureIssue937);
+    arrayOfRenderTextureTest.push(RenderTextureZbuffer);
+    arrayOfRenderTextureTest.push(RenderTextureTestDepthStencil);
+    arrayOfRenderTextureTest.push(RenderTextureTargetNode);
+}
 
-    return new arrayOfRenderTextureTest[sceneIdx]();
+var nextRenderTextureTest = function () {
+    sceneRenderTextureIdx++;
+    sceneRenderTextureIdx = sceneRenderTextureIdx % arrayOfRenderTextureTest.length;
+
+    return new arrayOfRenderTextureTest[sceneRenderTextureIdx]();
 };
 var previousRenderTextureTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfRenderTextureTest.length;
+    sceneRenderTextureIdx--;
+    if (sceneRenderTextureIdx < 0)
+        sceneRenderTextureIdx += arrayOfRenderTextureTest.length;
 
-    return new arrayOfRenderTextureTest[sceneIdx]();
+    return new arrayOfRenderTextureTest[sceneRenderTextureIdx]();
 };
 var restartRenderTextureTest = function () {
-    return new arrayOfRenderTextureTest[sceneIdx]();
+    return new arrayOfRenderTextureTest[sceneRenderTextureIdx]();
 };

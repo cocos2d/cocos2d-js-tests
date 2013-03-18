@@ -228,16 +228,6 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
         var location = event.getLocation();
         this.addNewSpriteWithCoords(location);
         return true;
-    },
-    onRightMouseDown:function(event){
-        var batchNode = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
-
-        var children = batchNode.getChildren();
-        if(!children || children.length === 0)
-            return;
-
-        var firstChild = children[0] ;
-        batchNode.removeChild(firstChild, true);
     }
 });
 
@@ -3143,7 +3133,7 @@ var MySprite2 = cc.Sprite.extend({
 });
 MySprite2.spriteWithFile = function (name) {
     var sprite = new MySprite2();
-    sprite.initWithFile(name);
+    sprite.init(name);
     return sprite;
 };
 
@@ -3579,7 +3569,7 @@ var DoubleSprite = cc.Sprite.extend({
 
 DoubleSprite.create = function (fileName) {
     var pSp = new DoubleSprite();
-    pSp.initWithFile(fileName);
+    pSp.init(fileName);
     return pSp;
 };
 
