@@ -265,7 +265,7 @@ var StressTest1 = TestNodeDemo.extend({
     },
     onRemoveMe:function (node) {
         this.getParent().removeChild(node, true);
-        this.nextCallback(this);
+        this.onNextCallback(this);
     },
     title:function () {
         return "stress test #1: no crashes";

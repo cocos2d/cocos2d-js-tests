@@ -553,7 +553,7 @@ var ShaderNode = cc.GLNode.extend({
         this.init();
 
         if( 'opengl' in sys.capabilities ) {
-            this.setContentSize(cc.SizeMake(256,256));
+            this.setContentSize(cc.size(256,256));
             this.setAnchorPoint(cc.p(0.5, 0.5));
 
             this.shader = cc.GLProgram.create(vertexShader, framentShader);

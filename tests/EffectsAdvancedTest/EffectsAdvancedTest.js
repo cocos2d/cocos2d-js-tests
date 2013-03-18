@@ -143,8 +143,8 @@ var Effect1 = EffectAdvanceTextLayer.extend({
         //     Lens3D is Grid3D and it's size is (15,10)
         //     Waves3D is Grid3D and it's size is (15,10)
         var size = cc.Director.getInstance().getWinSize();
-        var lens = cc.Lens3D.create(0.0, cc.SizeMake(15, 10), cc.p(size.width / 2, size.height / 2), 240);
-        var waves = cc.Waves3D.create(10, cc.SizeMake(15, 10), 18, 15);
+        var lens = cc.Lens3D.create(0.0, cc.size(15, 10), cc.p(size.width / 2, size.height / 2), 240);
+        var waves = cc.Waves3D.create(10, cc.size(15, 10), 18, 15);
 
         var reuse = cc.ReuseGrid.create(1);
         var delay = cc.DelayTime.create(8);
@@ -171,9 +171,9 @@ var Effect2 = EffectAdvanceTextLayer.extend({
         //     ShakyTiles is TiledGrid3D and it's size is (15,10)
         //     Shuffletiles is TiledGrid3D and it's size is (15,10)
         //       TurnOfftiles is TiledGrid3D and it's size is (15,10)
-        var shaky = cc.ShakyTiles3D.create(5, cc.SizeMake(15, 10), 4, false);
-        var shuffle = cc.ShuffleTiles.create(0, cc.SizeMake(15, 10), 3);
-        var turnoff = cc.TurnOffTiles.create(0, cc.SizeMake(15, 10), 3);
+        var shaky = cc.ShakyTiles3D.create(5, cc.size(15, 10), 4, false);
+        var shuffle = cc.ShuffleTiles.create(0, cc.size(15, 10), 3);
+        var turnoff = cc.TurnOffTiles.create(0, cc.size(15, 10), 3);
         var turnon = turnoff.reverse();
 
         // reuse 2 times:
@@ -203,8 +203,8 @@ var Effect3 = EffectAdvanceTextLayer.extend({
         var target1 = bg.getChildByTag(EffectsAdvancedTest.TAG_SPRITE1);
         var target2 = bg.getChildByTag(EffectsAdvancedTest.TAG_SPRITE2);
 
-        var waves = cc.Waves.create(5, cc.SizeMake(15, 10), 5, 20, true, false);
-        var shaky = cc.Shaky3D.create(5, cc.SizeMake(15, 10), 4, false);
+        var waves = cc.Waves.create(5, cc.size(15, 10), 5, 20, true, false);
+        var shaky = cc.Shaky3D.create(5, cc.size(15, 10), 4, false);
 
         target1.runAction(cc.RepeatForever.create(waves));
         target2.runAction(cc.RepeatForever.create(shaky));
@@ -237,7 +237,7 @@ var Effect4 = EffectAdvanceTextLayer.extend({
     onEnter:function () {
         this._super();
 
-        var lens = cc.Lens3D.create(10, cc.SizeMake(32, 24), cc.p(100, 180), 150);
+        var lens = cc.Lens3D.create(10, cc.size(32, 24), cc.p(100, 180), 150);
         var move = cc.JumpBy.create(5, cc.p(380, 0), 100, 4);
         var move_back = move.reverse();
         var seq = cc.Sequence.create(move, move_back);
@@ -265,7 +265,7 @@ var Effect5 = EffectAdvanceTextLayer.extend({
         this._super();
 
         //CCDirector.sharedDirector().setProjection(CCDirectorProjection2D);
-        var effect = cc.Liquid.create(2, cc.SizeMake(32, 24), 1, 20);
+        var effect = cc.Liquid.create(2, cc.size(32, 24), 1, 20);
 
         var stopEffect = cc.Sequence.create(effect, cc.DelayTime.create(2), cc.StopGrid.create());
 
@@ -291,7 +291,7 @@ var Issue631 = EffectAdvanceTextLayer.extend({
     onEnter:function () {
         this._super();
 
-        var effect = cc.Sequence.create(cc.DelayTime.create(2.0), cc.Shaky3D.create(5.0, cc.SizeMake(5, 5), 16, false));
+        var effect = cc.Sequence.create(cc.DelayTime.create(2.0), cc.Shaky3D.create(5.0, cc.size(5, 5), 16, false));
 
         // cleanup
         var bg = this.getChildByTag(EffectsAdvancedTest.TAG_BACKGROUND);
