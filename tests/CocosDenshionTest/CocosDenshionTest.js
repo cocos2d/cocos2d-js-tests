@@ -186,7 +186,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
     },
     onExit:function () {
         this._super();
-        audioEngine.end();
+        cc.AudioEngine.end();
     },
 
     onMenuCallback:function (sender) {
