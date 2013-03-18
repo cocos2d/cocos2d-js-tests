@@ -28,7 +28,7 @@
 // JavaScript + chipmunk tests
 //
 
-var sceneIdx = -1;
+var chipmunkTestSceneIdx = -1;
 
 
 //------------------------------------------------------------------
@@ -44,13 +44,10 @@ var ChipmunkBaseLayer = function() {
 	// Only subclasses of a native classes MUST call cc.associateWithNative
 	// Failure to do so, it will crash.
 	//
-	var parent = cc.LayerGradient.call(this);
-	//var parent = cc.base(this);
-	cc.associateWithNative( this, parent );
-	this.init( cc.c4b(0,0,0,255), cc.c4b(98*0.5,99*0.5,117*0.5,255) );
+	var parent = BaseTestLayer.call(this, cc.c4b(0,0,0,255), cc.c4b(98*0.5,99*0.5,117*0.5,255) );
 
-	this.title =  "No title";
-	this.subtitle = "No Subtitle";
+	this._title =  "No title";
+	this._subtitle = "No Subtitle";
 
 	// Menu to toggle debug physics on / off
     var item = cc.MenuItemFont.create("Physics On/Off", this.onToggleDebug, this);
@@ -65,7 +62,7 @@ var ChipmunkBaseLayer = function() {
 	this.setupDebugNode();
 };
 
-cc.inherits(ChipmunkBaseLayer, cc.LayerGradient );
+cc.inherits(ChipmunkBaseLayer, BaseTestLayer );
 
 ChipmunkBaseLayer.prototype.setupDebugNode = function()
 {
@@ -85,30 +82,11 @@ ChipmunkBaseLayer.prototype.onToggleDebug = function(sender) {
 // XXX: Should be defined after "cc.inherits"
 //
 ChipmunkBaseLayer.prototype.onEnter = function() {
-	cc.LayerGradient.prototype.onEnter.call(this);
+	BaseTestLayer.prototype.onEnter.call(this);
     //cc.base(this, 'onEnter');
-	var label = cc.LabelTTF.create(this.title, "Arial", 28);
-	this.addChild(label, 1);
-	label.setPosition( cc.p(winSize.width / 2, winSize.height - 50));
 
-	if (this.subtitle !== "") {
-		var l = cc.LabelTTF.create(this.subtitle, "Thonburi", 16);
-		this.addChild(l, 1);
-		l.setPosition( cc.p(winSize.width / 2, winSize.height - 80));
-	}
-
-    // Menu: testing 3 different ways to pass 'this':
-    var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);   // 'this' as 2nd argument
-    var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);  // 'this' as 2nd argument
-    var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback.bind(this) );	// 'this' bound to the callback func
-
-    var menu = cc.Menu.create(item1, item2, item3 );
-
-    menu.setPosition( cc.p(0,0) );
-    item1.setPosition( cc.p(winSize.width / 2 - 100, 30));
-    item2.setPosition( cc.p(winSize.width / 2, 30));
-    item3.setPosition( cc.p(winSize.width / 2 + 100, 30));
-	this.addChild(menu, 1);
+    sys.dumpRoot();
+    sys.garbageCollect();
 };
 
 ChipmunkBaseLayer.prototype.onCleanup = function() {
@@ -137,6 +115,15 @@ ChipmunkBaseLayer.prototype.onBackCallback = function (sender) {
     director.replaceScene(s);
 };
 
+// automation
+ChipmunkBaseLayer.prototype.numberOfPendingTests = function() {
+    return ( (arrayOfChipmunkTest.length-1) - chipmunkTestSceneIdx );
+};
+
+ChipmunkBaseLayer.prototype.getTestNumber = function() {
+    return chipmunkTestSceneIdx;
+};
+
 //------------------------------------------------------------------
 //
 // Chipmunk + Sprite
@@ -151,8 +138,8 @@ var ChipmunkSprite = function() {
 		this.addChild( sprite );
 	};
 
-	this.title = 'Chipmunk Sprite Test';
-	this.subtitle = 'Chipmunk + cocos2d sprites tests. Tap screen.';
+	this._title = 'Chipmunk Sprite Test';
+	this._subtitle = 'Chipmunk + cocos2d sprites tests. Tap screen.';
 
 	this.initPhysics();
 };
@@ -247,8 +234,8 @@ var ChipmunkSpriteBatchTest = function() {
 		this.batch.addChild( sprite );
 	};
 
-	this.title = 'Chipmunk SpriteBatch Test';
-	this.subtitle = 'Chipmunk + cocos2d sprite batch tests. Tap screen.';
+	this._title = 'Chipmunk SpriteBatch Test';
+	this._subtitle = 'Chipmunk + cocos2d sprite batch tests. Tap screen.';
 };
 cc.inherits( ChipmunkSpriteBatchTest, ChipmunkSprite );
 
@@ -265,8 +252,8 @@ var ChipmunkCollisionTest = function() {
 	ChipmunkBaseLayer.call(this);
 	// cc.base(this);
 
-	this.title = 'Chipmunk Collision test';
-	this.subtitle = 'Using Object Oriented API. ** Use this API **';
+	this._title = 'Chipmunk Collision test';
+	this._subtitle = 'Using Object Oriented API. ** Use this API **';
 
 	// init physics
 	this.initPhysics = function() {
@@ -384,8 +371,8 @@ var ChipmunkCollisionTestB = function() {
 
 	this.messageDisplayed = false;
 
-	this.title = 'Chipmunk Collision Test';
-	this.subtitle = 'using "C"-like API. ** DO NOT USE THIS API **';
+	this._title = 'Chipmunk Collision Test';
+	this._subtitle = 'using "C"-like API. ** DO NOT USE THIS API **';
 
 	// init physics
 	this.initPhysics = function() {
@@ -505,8 +492,8 @@ var ChipmunkCollisionMemoryLeakTest = function() {
 	ChipmunkBaseLayer.call(this);
 	// cc.base(this);
 
-	this.title = 'Chipmunk Memory Leak Test';
-	this.subtitle = 'Testing possible memory leak on the collision handler. No visual feedback';
+	this._title = 'Chipmunk Memory Leak Test';
+	this._subtitle = 'Testing possible memory leak on the collision handler. No visual feedback';
 
 	this.collisionBegin = function ( arbiter, space ) {
 		return true;
@@ -557,8 +544,8 @@ var ChipmunkSpriteAnchorPoint = function() {
 	ChipmunkBaseLayer.call(this);
 	// cc.base(this);
 
-	this.title = 'AnchorPoint in PhysicsSprite';
-	this.subtitle = 'Tests AnchorPoint in PhysicsSprite. See animated sprites';
+	this._title = 'AnchorPoint in PhysicsSprite';
+	this._subtitle = 'Tests AnchorPoint in PhysicsSprite. See animated sprites';
 
     this.onEnter = function() {
 		ChipmunkBaseLayer.prototype.onEnter.call(this);
@@ -638,8 +625,8 @@ var ChipmunkReleaseTest = function() {
 	ChipmunkBaseLayer.call(this);
 	// cc.base(this);
 
-	this.title = 'Chipmunk Release Test';
-	this.subtitle = 'Space finalizer should be called';
+	this._title = 'Chipmunk Release Test';
+	this._subtitle = 'Space finalizer should be called';
 
 	this.collisionBegin = function ( arbiter, space ) {
 		return true;
@@ -662,8 +649,8 @@ var ChipmunkReleaseTest = function() {
         // cc.base(this, 'onEnter');
 
         cc.log("OnEnter");
-        __jsc__.dumpRoot();
-        __jsc__.garbageCollect();
+        sys.dumpRoot();
+        sys.garbageCollect();
 
         this.space.addCollisionHandler( 10,11,
 			this.collisionBegin.bind(this),
@@ -683,8 +670,8 @@ var ChipmunkReleaseTest = function() {
 
 		this.space = null;
 
-        __jsc__.dumpRoot();
-        __jsc__.garbageCollect();
+        sys.dumpRoot();
+        sys.garbageCollect();
 
         // cc.base(this, 'onExit');
         ChipmunkBaseLayer.prototype.onExit.call(this);
@@ -751,8 +738,8 @@ var PyramidStack = function() {
 
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this.title = 'Chipmunk Demo';
-	this.subtitle = 'Pyramid Stack';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Pyramid Stack';
 
 	var space = this.space;
 	//space.iterations = 30;
@@ -799,8 +786,8 @@ var PyramidTopple = function() {
 
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this.title = 'Chipmunk Demo';
-	this.subtitle = 'Pyramid Topple';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Pyramid Topple';
 
 	var WIDTH = 4;
 	var HEIGHT = 30;
@@ -868,8 +855,8 @@ PyramidTopple.prototype.update = function(dt)
 var Joints = function() {
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this.title = 'Chipmunk Demo';
-	this.subtitle = 'Joints';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Joints';
 
 	var space = this.space;
 	var boxOffset;
@@ -1109,8 +1096,8 @@ cc.inherits( Joints, ChipmunkDemo );
 var Balls = function() {
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this.title = 'Chipmunk Demo';
-	this.subtitle = 'Balls';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Balls';
 
 	var space = this.space;
 	space.iterations = 60;
@@ -1175,8 +1162,8 @@ var FLUID_DRAG = 2.0;
 var Buoyancy = function() {
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this.title = 'Chipmunk Demo';
-	this.subtitle = 'Buoyancy';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Buoyancy';
 
 	var space = this.space;
 	space.iterations = 30;
@@ -1354,8 +1341,8 @@ Buoyancy.prototype.waterPreSolve = function(arb, space, ptr) {
 var Planet = function() {
 	ChipmunkDemo.call(this);
 	// cc.base(this);
-	this.title = 'Chipmunk Demo';
-	this.subtitle = 'Planet';
+	this._subtitle = 'Chipmunk Demo';
+	this._title = 'Planet';
 
 	var space = this.space;
 
@@ -1463,7 +1450,7 @@ var ChipmunkTestScene = function() {
 cc.inherits(ChipmunkTestScene, TestScene );
 
 ChipmunkTestScene.prototype.runThisTest = function () {
-    sceneIdx = -1;
+    chipmunkTestSceneIdx = -1;
     var layer = nextChipmunkTest();
     this.addChild(layer);
     director.replaceScene(this);
@@ -1498,18 +1485,18 @@ if( sys.platform !== 'browser' ) {
 }
 
 var nextChipmunkTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfChipmunkTest.length;
+    chipmunkTestSceneIdx++;
+    chipmunkTestSceneIdx = chipmunkTestSceneIdx % arrayOfChipmunkTest.length;
 
-    return new arrayOfChipmunkTest[sceneIdx]();
+    return new arrayOfChipmunkTest[chipmunkTestSceneIdx]();
 };
 var previousChipmunkTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfChipmunkTest.length;
+    chipmunkTestSceneIdx--;
+    if (chipmunkTestSceneIdx < 0)
+        chipmunkTestSceneIdx += arrayOfChipmunkTest.length;
 
-    return new arrayOfChipmunkTest[sceneIdx]();
+    return new arrayOfChipmunkTest[chipmunkTestSceneIdx]();
 };
 var restartChipmunkTest = function () {
-    return new arrayOfChipmunkTest[sceneIdx]();
+    return new arrayOfChipmunkTest[chipmunkTestSceneIdx]();
 };

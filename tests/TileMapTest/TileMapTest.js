@@ -24,17 +24,15 @@
  THE SOFTWARE.
  ****************************************************************************/
 var TAG_TILE_MAP = 1;
-
+var tileTestSceneIdx = -1;
 //------------------------------------------------------------------
 //
 // TileDemo
 //
 //------------------------------------------------------------------
-var TileDemo = cc.Layer.extend({
+var TileDemo = BaseTestLayer.extend({
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.Layer);
-        this.init();
 
         if( 'touches' in sys.capabilities )
             this.setTouchEnabled(true);
@@ -46,40 +44,6 @@ var TileDemo = cc.Layer.extend({
     },
     subtitle:function () {
         return "drag the screen";
-    },
-    onEnter:function () {
-
-        //this.m_label.setString(this.title().toString());
-        //this.m_subtitle.setString(this.subtitle().toString());
-
-        this._super();
-        var s = director.getWinSize();
-        // add title and subtitle
-        var title = this.title();
-        var label = cc.LabelTTF.create(title, "Arial", 28);
-        this.addChild(label, 1);
-        label.setPosition(cc.p(s.width / 2, s.height - 50));
-
-        var strSubtitle = this.subtitle();
-        if (strSubtitle) {
-            var l = cc.LabelTTF.create(strSubtitle, "Thonburi", 16);
-            this.addChild(l, 1);
-            l.setPosition(cc.p(s.width / 2, s.height - 80));
-        }
-
-        // add menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(0, 0);
-        item1.setPosition(s.width / 2 - 100, 30);
-        item2.setPosition(s.width / 2, 30);
-        item3.setPosition(s.width / 2 + 100, 30);
-
-        this.addChild(menu, 1);
     },
 
     onRestartCallback:function (sender) {
@@ -112,7 +76,15 @@ var TileDemo = cc.Layer.extend({
         var node = this.getChildByTag(TAG_TILE_MAP);
         var diff = cc.pAdd(delta, node.getPosition());
         node.setPosition(diff);
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfTileMapTest.length-1) - tileTestSceneIdx );
+    },
+    getTestNumber:function() {
+        return tileTestSceneIdx;
     }
+
 
 });
 
@@ -123,7 +95,7 @@ var TileMapTest = TileDemo.extend({
         map.getTexture().setAntiAliasTexParameters();
 
         var s = map.getContentSize();
-        cc.log("ContentSize: " + s.width + " " + s.height);
+        this.log("ContentSize: " + s.width + " " + s.height);
 
         map.releaseMap();
 
@@ -151,7 +123,7 @@ var TileMapEditTest = TileDemo.extend({
         map.getTexture().setAliasTexParameters();
 
         var s = map.getContentSize();
-        cc.log("ContentSize: " + s.width + " " + s.height);
+        this.log("ContentSize: " + s.width + " " + s.height);
 
         // If you are not going to use the Map, you can free it now
         // [tilemap releaseMap);
@@ -581,7 +553,7 @@ var TMXOrthoObjectsTest = TileDemo.extend({
             if (!dict)
                 break;
             for (var k in dict) {
-                cc.log(k + ' = ' + dict[k]);
+                this.log(k + ' = ' + dict[k]);
             }
         }
     },
@@ -646,7 +618,7 @@ var TMXIsoObjectsTest = TileDemo.extend({
             if (!dict)
                 break;
             for (var k in dict) {
-                cc.log(k + ' = ' + dict[k]);
+                this.log(k + ' = ' + dict[k]);
             }
         }
     },
@@ -894,7 +866,7 @@ var TMXOrthoVertexZ = TileDemo.extend({
         // can use any cc.Sprite and it will work OK.
         var layer = map.getLayer("trees");
         this.tamara = layer.getTileAt(cc.p(0, 11));
-        cc.log("vertexZ: " + this.tamara.getVertexZ());
+        this.log("vertexZ: " + this.tamara.getVertexZ());
 
         var move = cc.MoveBy.create(10, cc.pMult(cc.p(400, 450), 1));
         var back = move.reverse();
@@ -903,7 +875,7 @@ var TMXOrthoVertexZ = TileDemo.extend({
 
         this.scheduleUpdate();
 
-        cc.log("DEPTH BUFFER MUST EXIST IN ORDER");
+        this.log("DEPTH BUFFER MUST EXIST IN ORDER");
     },
     title:function () {
         return "TMX Ortho vertexZ";
@@ -986,10 +958,10 @@ var TMXTilePropertyTest = TileDemo.extend({
 
         if (sys.platform == 'browser') {
             for (var i = 1; i <= 20; i++) {
-                cc.log("GID:" + i + ", Properties:" + JSON.stringify(map.propertiesForGID(i)));
+                this.log("GID:" + i + ", Properties:" + JSON.stringify(map.propertiesForGID(i)));
             }
         } else {
-            cc.log("Test not supported on JSB");
+            this.log("Test not supported on JSB");
         }
     },
     title:function () {
@@ -1011,7 +983,7 @@ var TMXOrthoFlipTest = TileDemo.extend({
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/ortho-rotation-test.tmx");
         this.addChild(map, 0, TAG_TILE_MAP);
         var s = map.getContentSize();
-        cc.log("ContentSize:" + s.width + "," + s.height);
+        this.log("ContentSize:" + s.width + "," + s.height);
 
         var action = cc.ScaleBy.create(2, 0.5);
         map.runAction(action);
@@ -1033,7 +1005,7 @@ var TMXOrthoFlipRunTimeTest = TileDemo.extend({
         this.addChild(map, 0, TAG_TILE_MAP);
 
         var s = map.getContentSize();
-        cc.log("ContentSize:" + s.width + "," + s.height);
+        this.log("ContentSize:" + s.width + "," + s.height);
 
         var action = cc.ScaleBy.create(2, 0.5);
         map.runAction(action);
@@ -1120,9 +1092,9 @@ var TMXOrthoFlipRunTimeTest = TileDemo.extend({
 //
 //------------------------------------------------------------------
 var TMXOrthoFromXMLTest = TileDemo.extend({
-    init:function () {
+    ctor:function () {
         this._super();
-        cc.log("Test not available");
+        this.log("Test not available");
     },
     title:function () {
         return "TMX created from XML test";
@@ -1145,7 +1117,7 @@ var TMXBug987 = TileDemo.extend({
         this.addChild(map, 0, TAG_TILE_MAP);
 
         var s1 = map.getContentSize();
-        cc.log("ContentSize:" + s1.width + "," + s1.height);
+        this.log("ContentSize:" + s1.width + "," + s1.height);
 
         var childs = map.getChildren();
         var node = null;
@@ -1195,8 +1167,8 @@ var TMXGIDObjectsTest = TileDemo.extend({
         this.addChild(map, -1, TAG_TILE_MAP);
 
         var s = map.getContentSize();
-        cc.log("ContentSize:" + s.width + "," + s.height);
-        cc.log("---. Iterating over all the group objets");
+        this.log("ContentSize:" + s.width + "," + s.height);
+        this.log("---. Iterating over all the group objets");
 
         var group = map.getObjectGroup("Object Layer 1");
         var array = group.getObjects();
@@ -1206,7 +1178,7 @@ var TMXGIDObjectsTest = TileDemo.extend({
             if (!dict)
                 break;
             for (var k in dict) {
-                cc.log(k + ' = ' + dict[k]);
+                this.log(k + ' = ' + dict[k]);
             }
         }
     },
@@ -1246,7 +1218,7 @@ var TMXGIDObjectsTest = TileDemo.extend({
 
 var TileMapTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        tileTestSceneIdx = -1;
         var layer = nextTileMapTest();
         this.addChild(layer);
 
@@ -1288,19 +1260,19 @@ var arrayOfTileMapTest = [
 ];
 
 var nextTileMapTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfTileMapTest.length;
+    tileTestSceneIdx++;
+    tileTestSceneIdx = tileTestSceneIdx % arrayOfTileMapTest.length;
 
-    return new arrayOfTileMapTest[sceneIdx]();
+    return new arrayOfTileMapTest[tileTestSceneIdx]();
 };
 var previousTileMapTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfTileMapTest.length;
+    tileTestSceneIdx--;
+    if (tileTestSceneIdx < 0)
+        tileTestSceneIdx += arrayOfTileMapTest.length;
 
-    return new arrayOfTileMapTest[sceneIdx]();
+    return new arrayOfTileMapTest[tileTestSceneIdx]();
 };
 var restartTileMapTest = function () {
-    return new arrayOfTileMapTest[sceneIdx]();
+    return new arrayOfTileMapTest[tileTestSceneIdx]();
 };
 

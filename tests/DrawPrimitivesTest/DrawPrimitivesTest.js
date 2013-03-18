@@ -24,51 +24,19 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+var drawTestSceneIdx = -1;
 
 //------------------------------------------------------------------
 //
 // DrawTestDemo
 //
 //------------------------------------------------------------------
-var DrawTestDemo = cc.LayerGradient.extend({
+var DrawTestDemo = BaseTestLayer.extend({
     _title:"",
     _subtitle:"",
 
     ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
-    },
-    onEnter:function () {
-        this._super();
-
-        var label = cc.LabelTTF.create(this._title, "Arial", 28);
-        this.addChild(label, 1);
-        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
-
-        if (this._subtitle !== "") {
-            var l = cc.LabelTTF.create(this._subtitle, "Thonburi", 16);
-            this.addChild(l, 1);
-            l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
-        }
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(cc.p(0,0));
-        var cs = item2.getContentSize();
-        item1.setPosition( cc.p(winSize.width/2 - cs.width*2, cs.height/2) );
-        item2.setPosition( cc.p(winSize.width/2, cs.height/2) );
-        item3.setPosition( cc.p(winSize.width/2 + cs.width*2, cs.height/2) );
-
-        this.addChild(menu, 1);
-    },
-
-    onExit:function () {
-        this._super();
+        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
     },
 
     onRestartCallback:function (sender) {
@@ -85,7 +53,16 @@ var DrawTestDemo = cc.LayerGradient.extend({
         var s = new DrawPrimitivesTestScene();
         s.addChild(previousDrawTest());
         director.replaceScene(s);
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfDrawTest.length-1) - drawTestSceneIdx );
+    },
+
+    getTestNumber:function() {
+        return drawTestSceneIdx;
     }
+
 });
 
 //------------------------------------------------------------------
@@ -94,7 +71,7 @@ var DrawTestDemo = cc.LayerGradient.extend({
 //
 //------------------------------------------------------------------
 var DrawOldAPITest = DrawTestDemo.extend({
-    init:function(){
+    ctor:function(){
         this._super();
         this.setAnchorPoint(cc.p(0,0));
     },
@@ -258,7 +235,7 @@ var DrawNewAPITest = DrawTestDemo.extend({
 //
 var DrawPrimitivesTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        drawTestSceneIdx = -1;
         var layer = nextDrawTest();
         this.addChild(layer);
 
@@ -280,19 +257,19 @@ if( sys.platform === 'browser' ) {
 }
 
 var nextDrawTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfDrawTest.length;
+    drawTestSceneIdx++;
+    drawTestSceneIdx = drawTestSceneIdx % arrayOfDrawTest.length;
 
-    return new arrayOfDrawTest[sceneIdx]();
+    return new arrayOfDrawTest[drawTestSceneIdx]();
 };
 var previousDrawTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfDrawTest.length;
+    drawTestSceneIdx--;
+    if (drawTestSceneIdx < 0)
+        drawTestSceneIdx += arrayOfDrawTest.length;
 
-    return new arrayOfDrawTest[sceneIdx]();
+    return new arrayOfDrawTest[drawTestSceneIdx]();
 };
 var restartDrawTest = function () {
-    return new arrayOfDrawTest[sceneIdx]();
+    return new arrayOfDrawTest[drawTestSceneIdx]();
 };
 

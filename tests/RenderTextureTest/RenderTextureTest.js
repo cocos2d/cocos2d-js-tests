@@ -24,14 +24,12 @@
  ****************************************************************************/
 
 
-var sceneIdx = -1;
+var sceneRenderTextureIdx = -1;
 
-var RenderTextureBaseLayer = cc.Layer.extend({
+var RenderTextureBaseLayer = BaseTestLayer.extend({
 
     ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
+        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
     },
 
     title:function () {
@@ -62,52 +60,20 @@ var RenderTextureBaseLayer = cc.Layer.extend({
         s.addChild(previousRenderTextureTest());
         director.replaceScene(s);
     },
-    onEnter:function () {
-       this._super();
 
-        // add title and subtitle
-        var label = cc.LabelTTF.create(this.title(), "Arial", 28);
-        this.addChild(label, 10);
-        label.setPosition( cc.p(winSize.width / 2, winSize.height - 40));
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfRenderTextureTest.length-1) - sceneRenderTextureIdx );
+    },
 
-        var strSubtitle = this.subtitle();
-        if (strSubtitle !== "") {
-            var l = cc.LabelTTF.create(strSubtitle, "Thonburi", 16);
-            this.addChild(l, 10);
-            l.setPosition( cc.p(winSize.width / 2, winSize.height - 70));
-        }
-
-        var strCode = this.code();
-        if( strCode !== "" ) {
-            label = cc.LabelTTF.create(strCode, 'CourierNewPSMT', 16);
-            label.setPosition( cc.p( winSize.width/2, winSize.height-120) );
-            this.addChild( label,10 );
-
-            var labelbg = cc.LabelTTF.create(strCode, 'CourierNewPSMT', 16);
-            labelbg.setColor( cc.c3b(10,10,255) );
-            labelbg.setPosition( cc.p( winSize.width/2 +1, winSize.height-120 -1) );
-            this.addChild( labelbg,9);
-        }
-
-        // Menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback.bind(this) );  // another way to pass 'this'
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition( cc.p(0,0) );
-        item1.setPosition( cc.p(winSize.width / 2 - 100, 30));
-        item2.setPosition( cc.p(winSize.width / 2, 30));
-        item3.setPosition( cc.p(winSize.width / 2 + 100, 30));
-
-        this.addChild(menu, 10);
+    getTestNumber:function() {
+        return sceneRenderTextureIdx;
     }
 });
 
 //------------------------------------------------------------------
 //
-// Tests
+// RenderTextureSave
 //
 //------------------------------------------------------------------
 var RenderTextureSave = RenderTextureBaseLayer.extend({
@@ -214,10 +180,69 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// Issue1464
+//
+//------------------------------------------------------------------
+var Issue1464 = RenderTextureBaseLayer.extend({
+    _brush : null,
+    _target : null,
+    _lastLocation : null,
+    _counter :0,
+
+    ctor:function() {
+        this._super();
+
+        var sprite = cc.Sprite.create(s_grossini);
+
+
+        // create a render texture
+        var rend = cc.RenderTexture.create( winSize.width/2, winSize.height/2 );
+        rend.setPosition( winSize.width/2, winSize.height/2 );
+        this.addChild( rend, 1 );
+
+        sprite.setPosition(winSize.width/4, winSize.height/4);
+        rend.begin();
+        sprite.visit();
+        rend.end();
+
+        var fadeout = cc.FadeOut.create(2);
+        var fadein = fadeout.reverse();
+        var delay = cc.DelayTime.create(0.25);
+        var seq = cc.Sequence.create(fadeout, delay, fadein, delay.copy() );
+        var fe = cc.RepeatForever.create(seq);
+        rend.getSprite().runAction(fe);
+    },
+
+    title:function () {
+        return "Issue 1464";
+    },
+
+    subtitle:function () {
+        return "Sprites should fade in / out correctly";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:2.1,
+
+    getExpectedResult:function() {
+        // blue, red, blue
+        var ret = {"0":0,"1":0,"2":0,"3":255,"4":0,"5":0,"6":0,"7":255,"8":0,"9":0,"10":0,"11":255,"12":0,"13":0,"14":0,"15":255,"16":0,"17":0,"18":0,"19":255,"20":0,"21":0,"22":0,"23":255,"24":0,"25":0,"26":0,"27":255,"28":0,"29":0,"30":0,"31":255,"32":0,"33":0,"34":0,"35":255,"36":0,"37":0,"38":0,"39":255,"40":0,"41":0,"42":0,"43":255,"44":0,"45":0,"46":0,"47":255,"48":0,"49":0,"50":0,"51":255,"52":0,"53":0,"54":0,"55":255,"56":0,"57":0,"58":0,"59":255,"60":0,"61":0,"62":0,"63":255};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = this.readPixels(winSize.width/2-2, winSize.height/2-2,  4, 4);
+        return JSON.stringify(ret);
+    }
+});
 
 var RenderTextureTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        sceneRenderTextureIdx = -1;
         var layer = nextRenderTextureTest();
         this.addChild(layer);
 
@@ -230,22 +255,23 @@ var RenderTextureTestScene = TestScene.extend({
 //
 
 var arrayOfRenderTextureTest = [
-    RenderTextureSave
+    RenderTextureSave,
+    Issue1464
 ];
 
 var nextRenderTextureTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfRenderTextureTest.length;
+    sceneRenderTextureIdx++;
+    sceneRenderTextureIdx = sceneRenderTextureIdx % arrayOfRenderTextureTest.length;
 
-    return new arrayOfRenderTextureTest[sceneIdx]();
+    return new arrayOfRenderTextureTest[sceneRenderTextureIdx]();
 };
 var previousRenderTextureTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfRenderTextureTest.length;
+    sceneRenderTextureIdx--;
+    if (sceneRenderTextureIdx < 0)
+        sceneRenderTextureIdx += arrayOfRenderTextureTest.length;
 
-    return new arrayOfRenderTextureTest[sceneIdx]();
+    return new arrayOfRenderTextureTest[sceneRenderTextureIdx]();
 };
 var restartRenderTextureTest = function () {
-    return new arrayOfRenderTextureTest[sceneIdx]();
+    return new arrayOfRenderTextureTest[sceneRenderTextureIdx]();
 };

@@ -44,11 +44,6 @@
 function clamp(val, min, max) {
     return Math.max(min, Math.min(max, val))
 }
-if (sys.platform === "browser") {
-    __jsc__ = {dumpRoot:function () {
-    }, garbageCollect:function () {
-    }};
-}
 
 // Z Orders (grouped by parent)
 
@@ -241,8 +236,8 @@ var GameLayer = cc.LayerGradient.extend({
         // should be after setting _game_state
         this.initHUD();
 
-        __jsc__.dumpRoot();
-        __jsc__.garbageCollect();
+        sys.dumpRoot();
+        sys.garbageCollect();
     },
 
     //
@@ -930,8 +925,8 @@ var BootLayer = cc.Layer.extend({
         var cache = cc.SpriteFrameCache.getInstance();
         cache.addSpriteFrames(s_coinsPlist);
 
-        __jsc__.dumpRoot();
-        __jsc__.garbageCollect();
+        sys.dumpRoot();
+        sys.garbageCollect();
     },
 
     onEnter:function () {
@@ -1011,8 +1006,8 @@ var OptionsLayer = cc.LayerGradient.extend({
         menu.alignItemsVertically();
         menu.setPosition(centerPos);
 
-        __jsc__.dumpRoot();
-        __jsc__.garbageCollect();
+        sys.dumpRoot();
+        sys.garbageCollect();
     },
 
     onBack:function (sender) {

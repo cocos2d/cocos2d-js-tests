@@ -13,9 +13,9 @@ If you modify the a test, please test it with all the projects to ensure 100% AP
 
 ![cocos2d JS tests](https://lh4.googleusercontent.com/-BKnI0dmMjn0/ULVSA8rPnYI/AAAAAAAAqWU/jy2cL6ZzuHA/s400/Screen%2520Shot%25202012-11-27%2520at%25203.48.56%2520PM.png)
 
-## Running the tests ##
+## Running the tests and games ##
 
-### cocos2d-html5 ###
+### For cocos2d-html5 ###
 
 ```shell
 $ git clone git://github.com/cocos2d/cocos2d-html5.git
@@ -25,21 +25,21 @@ $ python -m SimpleHTTPServer
 ```
 ... and run a brower and open it in `localhost:8000/samples`
 
-### cocos2d-iphone ###
+### For cocos2d-iphone ###
 
 ```shell
 $ git clone git://github.com/cocos2d/cocos2d-iphone.git
 $ cd cocos2d-iphone
 $ git checkout develop-v2
 $ git submodule update --init
-$ open cocos2d-ios.xcodeproj
+$ open cocos2d-tests-ios.xcodeproj
 ```
 - Select the "JS Test" scheme in Xcode
 - Run it
 
 ![Xcode JS-Tests](https://lh4.googleusercontent.com/-qK1AiPbVggI/UIgeykWN1rI/AAAAAAAAqHA/hBegMW0VTkE/s800/Xcode_jstests.png)
 
-### cocos2d-x ###
+### For cocos2d-x ###
 
 ```shell
 $ git clone git://github.com/cocos2d/cocos2d-x.git
@@ -69,6 +69,15 @@ $ ./build.native.sh
 
 - Import android projects into Eclipses and run, please refer to http://www.cocos2d-x.org/projects/cocos2d-x/wiki/How_to_build_and_run_HelloWorld_on_Android(gles20_branch)
 
+### Generating Published files ###
+
+Before running _Crystal Craze_ and _Cocos Dragon_, you need to open the CocosBuilder project file and press _publish_.
+
+1. Open the `CrystalCraze.ccbproj` file with CocosBuilder  (located here: [games/CrystalCraze/CrystalCraze.ccbproj](https://github.com/cocos2d/cocos2d-js-tests/blob/master/games/CrystalCraze/CrystalCraze.ccbproj) )
+2. `CocosBuilder` -> `File` ->  `Publish`
+3. Repeat those steps for CocosDragon
+
+
 ## Automated tests ##
 
 Automated tests are not ready yet.  In the meantime use the obsolete method of updating the following spreadsheet:
@@ -85,7 +94,7 @@ These tests can be run unmodified in the following platforms:
   - Android ( with _cocos2d-x_ + _JS Bindings_ )
   - Mac ( with _cocos2d-iphone_ + _JS Bindings_ )
 
-# Games
+# Games #
 
 ## Crystal Craze ##
 

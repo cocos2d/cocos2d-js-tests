@@ -40,6 +40,8 @@ var GameLayer = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
 
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_textureOpaquePack_plist);
+
             // reset global values
             MW.CONTAINER.ENEMIES = [];
             MW.CONTAINER.ENEMY_BULLETS = [];
@@ -171,9 +173,6 @@ var GameLayer = cc.Layer.extend({
             this.checkIsReborn();
             this.updateUI();
         }
-
-        if( sys.platform == 'browser' )
-            cc.$("#cou").innerHTML = "Ship:" + 1 + ", Enemy: " + MW.CONTAINER.ENEMIES.length + ", Bullet:" + MW.CONTAINER.ENEMY_BULLETS.length + "," + MW.CONTAINER.PLAYER_BULLETS.length + " all:" + this.getChildren().length;
     },
     checkIsCollide:function () {
         var selChild, bulletChild;

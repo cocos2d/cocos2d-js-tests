@@ -26,8 +26,8 @@
 
 var audioEngine = cc.AudioEngine.getInstance();
 
-var MUSIC_FILE = "res/background.mp3";
-var EFFECT_FILE = "res/effect2.mp3";
+var MUSIC_FILE = "res/Sound/background.mp3";
+var EFFECT_FILE = "res/Sound/effect2.mp3";
 
 var DenshionTests = [
     {
