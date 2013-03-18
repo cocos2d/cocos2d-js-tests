@@ -413,7 +413,12 @@ var g_extensions = [
     {src:"res/ccb/markerfelt24shadow.fnt"},
 
     {src:"res/ccb/grossini-generic.plist"},
-    {src:"res/ccb/animated-grossini.plist"}
+    {src:"res/ccb/animated-grossini.plist"},
+
+    //EditBox
+    {src:"res/extensions/green_edit.png"},
+    {src:"res/extensions/orange_edit.png"},
+    {src:"res/extensions/yellow_edit.png"}
 ];
 
 var g_tilemaps = [

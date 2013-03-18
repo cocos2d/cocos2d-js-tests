@@ -185,7 +185,7 @@
                 <file name="GUI/CCScrollView/CCSorting.js"/>
                 <file name="GUI/CCScrollView/CCScrollView.js"/>
                 <file name="GUI/CCScrollView/CCTableView.js"/>
-                <file name="CCControlEditBox.js"/>
+                <file name="CCEditBox.js"/>
             </sources>
             <sources dir="${basedir}/../../box2d">
                 <file name="box2d.js"/>
