@@ -408,6 +408,52 @@ var S9FrameNameSpriteSheetRotatedInsets = S9SpriteTestDemo.extend({
     }
 });
 
+// S9_TexturePacker
+
+var S9_TexturePacker = S9SpriteTestDemo.extend({
+
+    _title:"Scale9Sprite from a spritesheet created with TexturePacker",
+    _subtitle:"createWithSpriteFrameName('button_normal.png');createWithSpriteFrameName('button_actived.png');",
+
+    ctor:function() {
+        this._super();
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_s9s_ui_plist);
+
+        var x = winSize.width / 4;
+        var y = 0 + (winSize.height / 2);
+
+        cc.log("S9_TexturePacker ...");
+
+        var s = cc.Scale9Sprite.createWithSpriteFrameName('button_normal.png');
+        cc.log("... created");
+
+        s.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        s.setContentSize(cc.size(21 * 16, 13 * 16));
+        cc.log("... setContentSize");
+
+        this.addChild(s);
+        cc.log("this..addChild");
+
+        x = winSize.width * 3/4;
+
+        var s2 = cc.Scale9Sprite.createWithSpriteFrameName('button_actived.png');
+        cc.log("... created");
+
+        s2.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        s2.setContentSize(cc.size(21 * 16, 13 * 16));
+        cc.log("... setContentSize");
+
+        this.addChild(s2);
+        cc.log("this..addChild");
+
+        cc.log("... S9_TexturePacker done.");
+    }
+});
+
 // S9FrameNameSpriteSheetRotatedInsetsScaled
 
 var S9FrameNameSpriteSheetRotatedInsetsScaled = S9SpriteTestDemo.extend({
@@ -464,7 +510,8 @@ var arrayOfS9SpriteTest = [
     S9FrameNameSpriteSheetInsets,
     S9FrameNameSpriteSheetInsetsScaled,
     S9FrameNameSpriteSheetRotatedInsets,
-    S9FrameNameSpriteSheetRotatedInsetsScaled
+    S9FrameNameSpriteSheetRotatedInsetsScaled,
+    S9_TexturePacker
 ];
 
 var nextS9SpriteTest = function () {
