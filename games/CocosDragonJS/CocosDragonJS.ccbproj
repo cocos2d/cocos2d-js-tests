@@ -35,7 +35,7 @@
 	<key>publishEnabledAndroid</key>
 	<true/>
 	<key>publishEnabledHTML5</key>
-	<true/>
+	<false/>
 	<key>publishEnablediPhone</key>
 	<true/>
 	<key>publishResolutionHTML5_height</key>
