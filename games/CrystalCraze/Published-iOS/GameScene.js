@@ -652,14 +652,18 @@ function updatePowerPlay()
 		gPowerPlayParticles.setAutoRemoveOnFinish(true);
 		gParticleLayer.addChild(gPowerPlayParticles);
 
-		var contentSize = gGameLayer.getContentSize();
-		gPowerPlayLayer = cc.LayerColor.create(cc.c4b(85, 0, 70, 0), contentSize.width, contentSize.height);
+		if( 'opengl' in sys.capabilities ) {
 
-		var action = cc.Sequence.create(cc.FadeIn.create(0.25), cc.FadeOut.create(0.25));
-		gPowerPlayLayer.runAction(cc.RepeatForever.create(action));
-		gPowerPlayLayer.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+			var contentSize = gGameLayer.getContentSize();
+			gPowerPlayLayer = cc.LayerColor.create(cc.c4b(85, 0, 70, 0), contentSize.width, contentSize.height);
 
-		gEffectsLayer.addChild(gPowerPlayLayer);
+			var action = cc.Sequence.create(cc.FadeIn.create(0.25), cc.FadeOut.create(0.25));
+			gPowerPlayLayer.runAction(cc.RepeatForever.create(action));
+			gPowerPlayLayer.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+
+			gEffectsLayer.addChild(gPowerPlayLayer);
+		}
+
 	}
 	else
 	{
@@ -667,8 +671,11 @@ function updatePowerPlay()
 		if (gPowerPlayParticles)
 		{
 			gPowerPlayParticles.stopSystem();
-			gPowerPlayLayer.stopAllActions();
-			gPowerPlayLayer.runAction(cc.Sequence.create(cc.FadeOut.create(0.5), cc.CallFunc.create(onRemoveFromParent, this)));
+
+			if( 'opengl' in sys.capabilities ) {
+				gPowerPlayLayer.stopAllActions();
+				gPowerPlayLayer.runAction(cc.Sequence.create(cc.FadeOut.create(0.5), cc.CallFunc.create(onRemoveFromParent, this)));
+			}
 		}
 	}
 
@@ -694,6 +701,11 @@ GameScene.prototype.onDidLoadFromCCB = function()
 
 	gIsGameOver = false;
 	gIsDisplayingHint = false;
+
+	// XXX: quick hack to workaround a cocos2d-html5 bug
+	// On Browser, disable mouse event
+	if( sys.platform == 'browser')
+		this.rootNode.setMouseEnabled( false );
 
 	// Forward relevant touch events to controller (this)
     this.rootNode.onTouchesBegan = function( touches, event) {
