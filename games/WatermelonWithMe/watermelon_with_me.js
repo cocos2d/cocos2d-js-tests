@@ -76,8 +76,8 @@ STATE_LEVEL_COMPLETE = 4;
 //
 // Game State
 //
-var GameState = function() {
-    this.level = 0;
+var GameState = function(lvl) {
+    this.level = lvl || 0;
     this.score = 0;
     this.time = 0;
     this.state = STATE_PAUSE;
@@ -115,15 +115,15 @@ GRAVITY = 1200.0;
 WHEEL_MASS = 0.25;
 CHASSIS_MASS = 0.7;
 FRONT_SPRING = 150;
-FRONT_DAMPING = 3;
+FRONT_DAMPING = 2.0;
 COG_ADJUSTMENT = cp.v(0.0, -10.0);
-REAR_SPRING = 100;
-REAR_DAMPING = 3;
+REAR_SPRING = 120;
+REAR_DAMPING = 2.4;
 ROLLING_FRICTION = 5e2;
-ENGINE_MAX_TORQUE = 6.0e4;
+ENGINE_MAX_TORQUE = 5.0e4;
 ENGINE_MAX_W = 60;
 BRAKING_TORQUE = 3.0e4;
-DIFFERENTIAL_TORQUE = 0.5;
+DIFFERENTIAL_TORQUE = 0.4;
 
 // Groups
 GROUP_BUGGY = 1;
@@ -146,6 +146,7 @@ var GameLayer = cc.LayerGradient.extend({
     _frontBrake:null,
     _rearBrake:null,
     _rearWheel:null,
+    _frontWheel:null,
     _chassis:null,
     _batch:null,
     _shapesToRemove:[],
@@ -202,7 +203,6 @@ var GameLayer = cc.LayerGradient.extend({
             scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
             background.setAnchorPoint( cc._p(0,0) );
             background.getTexture().setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE);
-
         } else {
             // This code runs on both HTML5 and JSB
             // It places two big sprites in the screen, one after the other.
@@ -274,7 +274,7 @@ var GameLayer = cc.LayerGradient.extend({
     onRestart:function (sender) {
         var scene = cc.Scene.create();
         // reset scores / time
-        var layer = new GameLayer( new GameState());
+        var layer = new GameLayer( new GameState(this._game_state.level));
         scene.addChild(layer);
         director.replaceScene(cc.TransitionFade.create(0.5, scene));
         this._game_state.state = STATE_PAUSE;
@@ -411,8 +411,17 @@ var GameLayer = cc.LayerGradient.extend({
         }
 
         // Don't update physics on game over
-        if( this._game_state.state != STATE_PAUSE )
-            this._space.step(dt);
+        if( this._game_state.state != STATE_PAUSE ){
+            if(this._game_state.state === STATE_LEVEL_COMPLETE){
+                this._space.step(1/1200);
+            }
+            else if(this._game_state.state === STATE_GAME_OVER ){
+                this._space.step(1/300);
+            }
+            else{
+                this._space.step(1/60);
+            }
+        }
 
         // sync smoke with car
         if( this._carSprite ) {
@@ -552,7 +561,7 @@ var GameLayer = cc.LayerGradient.extend({
             // It's simple to code up and feels nice.
 
             // _motor.maxForce = cpfclamp01(1.0 - (_chassis.body.angVel - _rearWheel.body.angVel)/ENGINE_MAX_W)*ENGINE_MAX_TORQUE;
-            var maxForce = cp.clamp01(1.0 - ( (this._chassis.getAngVel() - this._rearWheel.getAngVel()) / ENGINE_MAX_W)) * ENGINE_MAX_TORQUE;
+            var maxForce = cp.clamp01(1.0 - ( (this._chassis.getAngVel() - this._frontWheel.getAngVel()) / ENGINE_MAX_W)) * ENGINE_MAX_TORQUE;
             this._motor.maxForce =  maxForce;
 
             // Set the brakes to apply the baseline rolling friction torque.
@@ -575,10 +584,10 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createCar : function(pos) {
-        var front = this.createWheel( cp.v.add(pos, cp.v(47,-25) ) );
+        this._frontWheel = this.createWheel( cp.v.add(pos, cp.v(38.5,-25) ) );
         this._chassis = this.createChassis( cp.v.add( pos, COG_ADJUSTMENT ) );
-        this._rearWheel = this.createWheel( cp.v.add( pos, cp.v(-35, -25) ) );
-        this.createCarJoints( this._chassis, front, this._rearWheel );
+        this._rearWheel = this.createWheel( cp.v.add( pos, cp.v(-33, -26.5) ) );
+        this.createCarJoints( this._chassis, this._frontWheel, this._rearWheel );
         this.createCarFruits( pos );
 
         this.setThrottle( 0 );
@@ -589,7 +598,7 @@ var GameLayer = cc.LayerGradient.extend({
         // The front wheel strut telescopes, so we'll attach the center of the wheel to a groov joint on the chassis.
         // I created the graphics specifically to have a 45 degree angle. So it's easy to just fudge the numbers.
         var grv_a = chassis.world2Local( front.getPos() );
-        var grv_b = cp.v.add( grv_a, cp.v.mult( cp.v(-1, 1), 7 ) );
+        var grv_b = cp.v.add( grv_a, cp.v.mult( cp.v(-0.8, 1.3), 7 ) );
         var frontJoint = new cp.GrooveJoint( chassis, front, grv_a, grv_b, cp.vzero );
 
         // Create the front zero-length spring.
@@ -598,7 +607,7 @@ var GameLayer = cc.LayerGradient.extend({
 
         // The rear strut is a swinging arm that holds the wheel a at a certain distance from a pivot on the chassis.
         // A perfect fit for a pin joint conected between the chassis and the wheel's center.
-        var rearJoint = new cp.PinJoint( chassis, rear, cp.v.sub( cp.v(-14,-8), COG_ADJUSTMENT), cp.vzero );
+        var rearJoint = new cp.PinJoint( chassis, rear, cp.v.sub( cp.v(-5,-12), COG_ADJUSTMENT), cp.vzero );
 
         // return cpvtoangle(cpvsub([_chassis.body local2world:_rearJoint.anchr1], _rearWheel.body.pos));
         var rearStrutRestAngle = cp.v.toangle( cp.v.sub(
@@ -610,10 +619,10 @@ var GameLayer = cc.LayerGradient.extend({
         var rearSpring = new cp.DampedSpring( chassis, rear, rear_anchor, cp.vzero, 0, REAR_SPRING, REAR_DAMPING );
 
         // Attach a slide joint to the wheel to limit it's range of motion.
-        var rearStrutLimit = new cp.SlideJoint( chassis, rear, rear_anchor, cp.vzero, 0, 20 );
+        var rearStrutLimit = new cp.SlideJoint( chassis, rear, rear_anchor, cp.vzero, 0, 9.5 );
 
         // The main motor that drives the buggy.
-        var motor = new cp.SimpleMotor( chassis, rear, ENGINE_MAX_W );
+        var motor = new cp.SimpleMotor( chassis, front, ENGINE_MAX_W );
         motor.maxForce = 0.0;
 
         // I don't know if "differential" is the correct word, but it transfers a fraction of the rear torque to the front wheels.
@@ -701,7 +710,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._space.addShape( shape );
 
         // box for fruits (right)
-        shape = new cp.BoxShape2( body, cp.bb(8, 0, 12, 30) );
+        shape = new cp.BoxShape2( body, cp.bb(8, 0, 25, 30) );
         shape.setFriction(0.3);
         shape.group = GROUP_BUGGY;
         shape.setLayers( COLLISION_LAYERS_BUGGY );
@@ -715,7 +724,8 @@ var GameLayer = cc.LayerGradient.extend({
         // create some fruits
         for(var i=0; i < 4;i++) {
             var sprite = cc.PhysicsSprite.createWithSpriteFrameName("watermelon.png");
-            var radius = 0.95 * sprite.getContentSize().width / 2;
+            var radius = 0.95 * sprite.getContentSize().width / 2 * 0.85;
+            sprite.setScale(0.85);
 
             var body = new cp.Body(WATERMELON_MASS, cp.momentForCircle(WATERMELON_MASS, 0, radius, cp.vzero) );
             body.setPos( cp.v(pos.x,pos.y) );
@@ -1070,9 +1080,9 @@ var ScoresLayer = cc.LayerGradient.extend({
             child.setPosition(dstPoint.x + offset, dstPoint.y);
             child.runAction(
                 cc.Sequence.create( cc.DelayTime.create(i*0.1),
-                                    cc.EaseElasticOut.create(cc.MoveBy.create(2, cc.p(-offset, 0)), 0.35)
-                                    )
-                );
+                    cc.EaseElasticOut.create(cc.MoveBy.create(2, cc.p(-offset, 0)), 0.35)
+                )
+            );
         }
     },
 
@@ -1080,6 +1090,7 @@ var ScoresLayer = cc.LayerGradient.extend({
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
         director.replaceScene( cc.TransitionFade.create(0.5, scene));
     }
+
 });
 
 //
