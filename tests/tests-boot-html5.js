@@ -100,6 +100,7 @@
             'ExtensionsTest/CocosBuilderTest/ParticleSystemTest/ParticleSystemTestLayer.js',
             'ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js',
             'ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.js',
+            'ExtensionsTest/CocosBuilderTest/TimelineCallbackTest/TimelineCallbackTestLayer.js',
             'ExtensionsTest/EditBoxTest/EditBoxTest.js',
             'ExtensionsTest/S9SpriteTest/S9SpriteTest.js',
 
