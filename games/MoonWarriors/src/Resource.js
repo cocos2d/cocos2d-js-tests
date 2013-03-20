@@ -35,6 +35,7 @@ var s_textureTransparentPack_plist = dirImg + "textureTransparentPack.plist";
 
 var g_mainmenu = [
     {src:s_loading},
+    {src:s_flare},
     {src:s_menu},
     {src:s_logo},
     {src:s_mainMainMusic},
@@ -47,7 +48,6 @@ var g_maingame = [
     //image
     {src:s_cocos2dhtml5},
     {src:s_gameOver},
-    {src:s_flare},
     {src:s_arial14},
     {src:s_explosion},
     {src:s_textureOpaquePack},
