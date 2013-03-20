@@ -39,11 +39,11 @@ var TAG_LABEL_SPRITE16 = 665;
 var TAG_LABEL_SPRITE17 = 666;
 var TAG_LABEL_SPRITE18 = 667;
 
-var labelTestIdx = -1;
+var sceneIdx = -1;
 
 var LabelTestScene = TestScene.extend({
     runThisTest:function () {
-        labelTestIdx = -1;
+        sceneIdx = -1;
         this.addChild(nextLabelTest());
         director.replaceScene(this);
     }
@@ -240,11 +240,26 @@ var LabelAtlasHD = AtlasDemo.extend({
     },
     subtitle:function () {
         return "loading larabie-16 / larabie-16-hd";
-    }
-
+    },
     //
     // Automation
     //
+
+    getExpectedResult:function() {
+        // yellow, red, green, blue, yellow
+        var ret = {"0":0,"1":0,"2":0,"3":255,"4":0,"5":0,"6":0,"7":255,"8":0,"9":0,"10":0,"11":255,"12":0,"13":0,"14":0,"15":255,
+        "16":0,"17":0,"18":0,"19":255,"20":0,"21":0,"22":0,"23":255,"24":0,"25":0,"26":0,"27":255,"28":0,"29":0,
+        "30":0,"31":255,"32":0,"33":0,"34":0,"35":255,"36":0,"37":0,"38":0,"39":255,"40":0,"41":0,"42":0,"43":255,
+        "44":0,"45":0,"46":0,"47":255,"48":0,"49":0,"50":0,"51":255,"52":0,"53":0,"54":0,"55":255,"56":0,"57":0,"58":0,
+        "59":255,"60":0,"61":0,"62":0,"63":255};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var s = director.getWinSize();
+        var ret =  this.readPixels(s.width/2, s.height/2, 4, 4);
+        return JSON.stringify(ret);
+    }
 });
 
 
@@ -267,7 +282,7 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
         var fade = cc.FadeOut.create(1.0);
         var fade_in = fade.reverse();
-        var seq = cc.Sequence.create(fade, fade_in);
+        var seq = cc.Sequence.create(fade, cc.DelayTime.create(0.25), fade_in);
         var repeat = cc.RepeatForever.create(seq);
         label1.runAction(repeat);
 
@@ -314,12 +329,30 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
     },
     subtitle:function () {
         return "Testing alignment. Testing opacity + tint";
-    }
+    },
+
 
     //
     // Automation
     //
+    testDuration:1.1,
+    getExpectedResult:function() {
+        // yellow, red, green, blue, yellow
+        var ret = [0,{"r":255,"g":255,"b":255},0,{"r":255,"g":0,"b":0}];
+        return JSON.stringify(ret);
+    },
 
+    getCurrentResult:function() {
+        var ret = [];
+        var tags = [TAG_BITMAP_ATLAS1, TAG_BITMAP_ATLAS2];
+
+        for( var i in tags ) {
+            var t = tags[i];
+            ret.push( this.getChildByTag(t).getOpacity() );
+            ret.push( this.getChildByTag(t).getColor() );
+        }
+        return JSON.stringify(ret);
+    }
 });
 
 //------------------------------------------------------------------
@@ -335,6 +368,7 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
 
         // Upper Label
         var label = cc.LabelBMFont.create("Bitmap Font Atlas", s_resprefix + "fonts/bitmapFontTest.fnt");
+        this.labelObj = label;
         this.addChild(label);
 
         var s = director.getWinSize();
@@ -346,20 +380,34 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
         var FChar = label.getChildByTag(7);
         var AChar = label.getChildByTag(12);
 
-        var rotate = cc.RotateBy.create(2, 360);
-        var rot_4ever = cc.RepeatForever.create(rotate);
+        
+        if(autoTestEnabled) {
+            var jump = cc.JumpBy.create(0.5, cc.p(0,0), 60, 1);
+            var jump_4ever = cc.RepeatForever.create(cc.Sequence.create(jump, cc.DelayTime.create(0.25)));
+            var fade_out = cc.FadeOut.create(0.5);
+            var rotate = cc.RotateBy.create(0.5, 180);
+            var rot_4ever = cc.RepeatForever.create(cc.Sequence.create(rotate, cc.DelayTime.create(0.25), rotate.copy()));
 
-        var scale = cc.ScaleBy.create(2, 1.5);
+            var scale = cc.ScaleBy.create(0.5, 1.5);
+
+
+        } else {
+            var jump = cc.JumpBy.create(4, cc.p(0,0), 60, 1);
+            var jump_4ever = cc.RepeatForever.create(jump);
+            var fade_out = cc.FadeOut.create(1);
+            var rotate = cc.RotateBy.create(2, 360);
+            var rot_4ever = cc.RepeatForever.create(rotate);
+
+            var scale = cc.ScaleBy.create(2, 1.5);
+
+        }
+
         var scale_back = scale.reverse();
-        var scale_seq = cc.Sequence.create(scale, scale_back);
+        var scale_seq = cc.Sequence.create(scale, cc.DelayTime.create(0.25), scale_back);
         var scale_4ever = cc.RepeatForever.create(scale_seq);
 
-        var jump = cc.JumpBy.create(0.5, cc.p(0,0), 60, 1);
-        var jump_4ever = cc.RepeatForever.create(jump);
-
-        var fade_out = cc.FadeOut.create(1);
         var fade_in = cc.FadeIn.create(1);
-        var seq = cc.Sequence.create(fade_out, fade_in);
+        var seq = cc.Sequence.create(fade_out, cc.DelayTime.create(0.25), fade_in);
         var fade_4ever = cc.RepeatForever.create(seq);
 
         BChar.runAction(rot_4ever);
@@ -392,10 +440,30 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
         cc.drawingUtil.drawLine(cc.p(s.width / 2, 0), cc.p(s.width / 2, s.height));
     },
     title:function () {
-        return "cc.LabelBMFont";
+        return "cc.LabelBMFont BMFontSubSpriteTest";
     },
     subtitle:function () {
         return "Using fonts as cc.Sprite objects. Some characters should rotate.";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:0.6,
+    getExpectedResult:function() {
+        // yellow, red, green, blue, yellow
+        var ret = {"rotate": 180, "scale": 1.5, "opacity": 0};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = this.labelObj.getChildByTag(0).getScale();
+        var r = this.labelObj.getChildByTag(0).getRotation();
+        var o = this.labelObj.getChildByTag(12).getOpacity();
+        var ret = {"rotate": r, "scale": s, "opacity": o};
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -416,10 +484,22 @@ var BMFontPaddingTest = AtlasDemo.extend({
         label.setAnchorPoint(cc.p(0.5, 0.5));
     },
     title:function () {
-        return "cc.LabelBMFont";
+        return "cc.LabelBMFont BMFontPaddingTest";
     },
     subtitle:function () {
         return "Testing padding";
+    },
+
+    getExpectedResult:function() {
+        var ret =  {"0":255,"1":255,"2":255,"3":255,"4":221,"5":221,"6":221,"7":255,
+                    "8":255,"9":255,"10":255,"11":255,"12":224,"13":224,"14":224,"15":255};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var s = director.getWinSize();
+        var ret =  this.readPixels(s.width/2, s.height/2, 2, 2);
+        return JSON.stringify(ret);
     }
 });
 
@@ -454,6 +534,19 @@ var BMFontOffsetTest = AtlasDemo.extend({
     },
     subtitle:function () {
         return "Rendering should be OK. Testing offset";
+    },
+
+    getExpectedResult:function() {
+        var ret =  {"0":124,"1":124,"2":124,"3":255,"4":218,"5":218,"6":218,
+                    "7":255,"8":80,"9":80,"10":80,"11":255,"12":129,"13":129,"14":129,"15":255};
+
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var s = director.getWinSize();
+        var ret =  this.readPixels(s.width/2, s.height/2, 2, 2);
+        return JSON.stringify(ret);
     }
 });
 
@@ -488,10 +581,30 @@ var BMFontTintTest = AtlasDemo.extend({
         label.setString("Green");
     },
     title:function () {
-        return "cc.LabelBMFont";
+        return "cc.LabelBMFont BMFontTintTest";
     },
     subtitle:function () {
         return "Testing color";
+    },
+
+    getExpectedResult:function() {
+        
+        var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = director.getWinSize();
+        var ret1 =  this.readPixels(s.width/2, s.height/4, 1, 1);
+        var ret2 =  this.readPixels(s.width/2, 2 * s.height/4, 1, 1);
+        var ret3 =  this.readPixels(s.width/2, 3 * s.height/4, 1, 1);
+
+        var ret = []; 
+        ret.push(ret1); 
+        ret.push(ret2); 
+        ret.push(ret3);
+        return JSON.stringify(ret);
     }
 });
 
@@ -565,10 +678,36 @@ var BMFontMultiLineTest = AtlasDemo.extend({
         label3.setPosition(cc.p(s.width, s.height));
     },
     title:function () {
-        return "cc.LabelBMFont";
+        return "cc.LabelBMFont BMFontMultiLineTest";
     },
     subtitle:function () {
         return "Multiline + anchor point";
+    },
+
+    // Automation
+
+    pixel: {"0": 255, "1": 186, "2": 33, "3": 255},
+
+    getExpectedResult:function() {
+        
+        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
+        var s = director.getWinSize();
+        var ret = {"left": "yes", "center": "yes", "right": "yes"};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = director.getWinSize();
+        var ret1 =  this.readPixels(0, 0, 100, 100);
+        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
+        var ret3 =  this.readPixels(s.width - 100, s.height - 100, 100, 100);        
+
+        
+        var ret = {"left": this.containsPixel(ret1, this.pixel) ? "yes" : "no",
+                   "center": this.containsPixel(ret2, this.pixel) ? "yes" : "no",
+                   "right": this.containsPixel(ret3, this.pixel) ? "yes" : "no"}
+        return JSON.stringify(ret);
     }
 });
 
@@ -617,10 +756,35 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         label3.setPosition(cc.p(s.width, s.height));
     },
     title:function () {
-        return "cc.LabelBMFont";
+        return "cc.LabelBMFont BMFontMultiLine2Test";
     },
     subtitle:function () {
         return "Multiline with 2 new lines. All characters should appear";
+    },
+        // Automation
+
+    pixel: {"0": 255, "1": 186, "2": 33, "3": 255},
+
+    getExpectedResult:function() {
+        
+        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
+        var s = director.getWinSize();
+        var ret = {"left": "yes", "center": "yes", "right": "yes"};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = director.getWinSize();
+        var ret1 =  this.readPixels(0, 0, 100, 100);
+        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
+        var ret3 =  this.readPixels(s.width - 100, s.height - 100, 100, 100);        
+
+        
+        var ret = {"left": this.containsPixel(ret1, this.pixel) ? "yes" : "no",
+                   "center": this.containsPixel(ret2, this.pixel) ? "yes" : "no",
+                   "right": this.containsPixel(ret3, this.pixel) ? "yes" : "no"}
+        return JSON.stringify(ret);
     }
 });
 
@@ -702,6 +866,27 @@ var BMFontHDTest = AtlasDemo.extend({
     },
     subtitle:function () {
         return "loading arista16 or arista16-hd";
+    },
+
+
+    pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
+
+    getExpectedResult:function() {
+        
+        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
+        var s = director.getWinSize();
+        var ret = {"center": "yes"};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = director.getWinSize();
+        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
+        
+        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -728,6 +913,26 @@ var BMFontGlyphDesignerTest = AtlasDemo.extend({
     },
     subtitle:function () {
         return "You should see a font with shawdows and outline";
+    },
+
+    pixel: {"0": 240, "1": 201, "2": 108, "3": 255},
+
+    getExpectedResult:function() {
+        
+        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
+        var s = director.getWinSize();
+        var ret = {"center": "yes"};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = director.getWinSize();
+        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
+
+        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -866,6 +1071,26 @@ var LabelTTFMultiline = AtlasDemo.extend({
     },
     subtitle:function () {
         return "Word wrap using cc.LabelTTF";
+    },
+
+    pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
+
+    getExpectedResult:function() {
+        
+        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
+        var s = director.getWinSize();
+        var ret = {"center": "yes"};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = director.getWinSize();
+        var ret2 =  this.readPixels(s.width/2, 125, 100, 100);
+
+        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -892,6 +1117,26 @@ var BMFontChineseTest = AtlasDemo.extend({
     },
     title:function () {
         return "Testing cc.LabelBMFont with Chinese character";
+    },
+
+    pixel: {"0": 255, "1": 0, "2": 142, "3": 255},
+
+    getExpectedResult:function() {
+        
+        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
+        var s = director.getWinSize();
+        var ret = {"center": "yes"};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = director.getWinSize();
+        var ret2 =  this.readPixels(s.width/2, s.height / 2, 100, 100);
+
+        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
+
+        return JSON.stringify(ret);
     }
 });
 
