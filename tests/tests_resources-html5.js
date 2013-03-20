@@ -217,7 +217,10 @@ var g_ressources = [
 
     {src:s_grossini},
     {src:s_grossiniPlist},
-
+    {src:s_grossini_blue},
+    {src:s_grossini_bluePlist},
+    {src:s_grossini_family},
+    {src:s_grossini_familyPlist},
     {src:s_animations2Plist},
     {src:s_helloWorld}
 ];
@@ -225,20 +228,17 @@ var g_ressources = [
 var g_sprites = [
     {src:s_piece},
     {src:s_grossini_gray},
-    {src:s_grossini_blue},
     {src:s_grossini_dance_atlas},
     {src:s_grossini_aliases},
     {src:s_dragon_animation},
     {src:s_ghosts},
-    {src:s_grossini_family},
 
     {src:s_grossini_dance_atlas_mono},
     {src:s_animationsPlist},
     {src:s_grossini_grayPlist},
-    {src:s_grossini_bluePlist},
+
     {src:s_grossini_aliasesPlist},
     {src:s_ghostsPlist},
-    {src:s_grossini_familyPlist},
 
     {src:s_tcc_issue_1_plist},
     {src:s_tcc_issue_2_plist},
@@ -404,6 +404,10 @@ var g_extensions = [
     {src:s_extensions_buttonHighlighted},
     {src:s_extensions_ribbon},
 
+    {fontName:"comic andy",
+        src:[
+            {src:"res/fonts/comic andy.ttf",type:"truetype"}]},
+
     //ccbi resource
     {src:"res/ccb/HelloCocosBuilder.ccbi"},
     {src:"res/ccb/ccb/TestAnimations.ccbi"},
@@ -418,6 +422,7 @@ var g_extensions = [
     {src:"res/ccb/ccb/TestSprites.ccbi"},
     {src:"res/ccb/ccb/TestTimelineCallback.ccbi"},
 
+    {src:"res/ccb/ccbParticleStars.png"},
     {src:"res/ccb/btn-test-0.png"},
     {src:"res/ccb/animated-grossini.png"},
     {src:"res/ccb/btn-a-0.png"},
