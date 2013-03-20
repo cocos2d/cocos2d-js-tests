@@ -39,11 +39,11 @@ var TAG_LABEL_SPRITE16 = 665;
 var TAG_LABEL_SPRITE17 = 666;
 var TAG_LABEL_SPRITE18 = 667;
 
-var sceneIdx = -1;
+var labelTestIdx = -1;
 
 var LabelTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        labelTestIdx = -1;
         this.addChild(nextLabelTest());
         director.replaceScene(this);
     }
@@ -587,15 +587,20 @@ var BMFontTintTest = AtlasDemo.extend({
         return "Testing color";
     },
 
+    pixel1: {"0":0,"1":0,"2":226,"3":255},
+    pixel2: {"0":47,"1":0,"2":0,"3":255},
+    pixel3: {"0":106,"1":133,"2":106,"3":193},
     getExpectedResult:function() {
-        
-        var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
+        var ret = {"left": "yes", "center": "yes", "right": "yes"};
         return JSON.stringify(ret);
     },
 
     getCurrentResult:function() {
 
         var s = director.getWinSize();
+        var ret = {"left": this.containsPixel(ret1, this.pixel1) ? "yes" : "no",
+                   "center": this.containsPixel(ret2, this.pixel2) ? "yes" : "no",
+                   "right": this.containsPixel(ret3, this.pixel3) ? "yes" : "no"}
         var ret1 =  this.readPixels(s.width/2, s.height/4, 1, 1);
         var ret2 =  this.readPixels(s.width/2, 2 * s.height/4, 1, 1);
         var ret3 =  this.readPixels(s.width/2, 3 * s.height/4, 1, 1);
