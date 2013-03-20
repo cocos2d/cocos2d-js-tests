@@ -383,6 +383,7 @@ var g_extensions = [
     {src:"res/ccb/ccb/TestSprites.ccbi"},
     {src:"res/ccb/ccb/TestTimelineCallback.ccbi"},
 
+    {src:"res/ccb/ccbParticleStars.png"},
     {src:"res/ccb/btn-test-0.png"},
     {src:"res/ccb/animated-grossini.png"},
     {src:"res/ccb/btn-a-0.png"},
