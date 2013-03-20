@@ -702,10 +702,8 @@ GameScene.prototype.onDidLoadFromCCB = function()
 	gIsGameOver = false;
 	gIsDisplayingHint = false;
 
-	// XXX: quick hack to workaround a cocos2d-html5 bug
-	// On Browser, disable mouse event
 	if( sys.platform == 'browser')
-		this.rootNode.setMouseEnabled( false );
+		this.rootNode.setMouseEnabled( true );
 
 	// Forward relevant touch events to controller (this)
     this.rootNode.onTouchesBegan = function( touches, event) {
@@ -744,17 +742,17 @@ GameScene.prototype.onDidLoadFromCCB = function()
 
     // TODO: Make into batch node
 
-    if ("opengl" in sys.capabilities)
+    if ("opengl" in sys.capabilities && !"browser" == sys.platform)
     {
-		cc.log("OpenGL rendering");
-		gParticleLayer = cc.ParticleBatchNode.create("particles/taken-gem.png", 250);
-		gGameLayer = cc.SpriteBatchNode.create("crystals.pvr.ccz");
+        cc.log("OpenGL rendering");
+        gParticleLayer = cc.ParticleBatchNode.create("particles/taken-gem.png", 250);
+        gGameLayer = cc.SpriteBatchNode.create("crystals.pvr.ccz");
     }
     else
     {
-		cc.log("Canvas rendering");
-		gParticleLayer = cc.Node.create();
-		gGameLayer = cc.Node.create();
+        cc.log("WebGL or Canvas rendering");
+        gParticleLayer = cc.Node.create();
+        gGameLayer = cc.Node.create();
     }
 
     gGameLayer.setContentSize(this.gameLayer.getContentSize());
