@@ -26,11 +26,11 @@
 
 var CocosBuilderTestScene = TestScene.extend({
      runThisTest:function(){
+         cc.BuilderReader.setResourcePath("res/");
          /* Create an autorelease CCNodeLoaderLibrary. */
          var ccNodeLoaderLibrary = cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary();
 
          ccNodeLoaderLibrary.registerCCNodeLoader("HelloCocosBuilderLayer", new HelloCocosBuilderLayerLoader());
-
          /* Create an autorelease CCBReader. */
          var ccbReader = new cc.BuilderReader(ccNodeLoaderLibrary);
          ccbReader.setCCBRootPath("res/");

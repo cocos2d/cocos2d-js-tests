@@ -1079,8 +1079,7 @@ var ScoresLayer = cc.LayerGradient.extend({
     onBack:function (sender) {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
         director.replaceScene( cc.TransitionFade.create(0.5, scene));
-    },
-
+    }
 });
 
 //

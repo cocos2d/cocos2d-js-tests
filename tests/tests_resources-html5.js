@@ -381,7 +381,9 @@ var g_extensions = [
     {src:"res/ccb/ccb/TestScrollViews.ccbi"},
     {src:"res/ccb/ccb/TestScrollViewsContentA.ccbi"},
     {src:"res/ccb/ccb/TestSprites.ccbi"},
+    {src:"res/ccb/ccb/TestTimelineCallback.ccbi"},
 
+    {src:"res/ccb/ccbParticleStars.png"},
     {src:"res/ccb/btn-test-0.png"},
     {src:"res/ccb/animated-grossini.png"},
     {src:"res/ccb/btn-a-0.png"},
@@ -414,11 +416,9 @@ var g_extensions = [
 
     {src:"res/ccb/grossini-generic.plist"},
     {src:"res/ccb/animated-grossini.plist"},
-
-    //EditBox
-    {src:"res/extensions/green_edit.png"},
-    {src:"res/extensions/orange_edit.png"},
-    {src:"res/extensions/yellow_edit.png"}
+    //wav
+    {src:"res/ccb/gem-0.wav"},
+    {src:"res/ccb/gem-1.wav"}
 ];
 
 var g_tilemaps = [
