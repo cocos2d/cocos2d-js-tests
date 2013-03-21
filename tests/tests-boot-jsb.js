@@ -55,7 +55,7 @@ var tests_files = [
 ];
 
 //whether to obfuscate the code
-var obfuscate = true;
+var obfuscate = false;
 
 if (!obfuscate) {
     for (var i = 0; i < tests_files.length; i++) {
