@@ -82,29 +82,32 @@ var EditBoxTestLayer = cc.Layer.extend({
     },
 
     editBoxEditingDidBegin: function (editBox) {
-        cc.log("editBox " + editBox + " DidBegin !");
+        cc.log("editBox " + this._getEditBoxName(editBox) + " DidBegin !");
     },
 
     editBoxEditingDidEnd: function (editBox) {
-        cc.log("editBox " + editBox + " DidEnd !");
+        cc.log("editBox " + this._getEditBoxName(editBox) + " DidEnd !");
     },
 
     editBoxTextChanged: function (editBox, text) {
-        cc.log("editBox " + editBox + ", TextChanged, text: " + text);
+        cc.log("editBox " + this._getEditBoxName(editBox) + ", TextChanged, text: " + text);
     },
 
     editBoxReturn: function (editBox) {
-        cc.log("editBox " + editBox + " was returned !");
+        cc.log("editBox " + this._getEditBoxName(editBox) + " was returned !");
+    },
 
+    _getEditBoxName :function(editBox){
         if (this._box1 == editBox) {
-            cc.log("box1 return !");
+            return "box1";
         } else if (this._box2 == editBox) {
-            cc.log("box2 return !");
+            return "box2";
         } else if (this._box3 == editBox) {
-            cc.log("box3 return !");
+            return "box3";
         } else if (this._box4 == editBox) {
-            cc.log("box4 return !");
+            return "box4";
         }
+        return "Unknown EditBox";
     }
 });
 
