@@ -28,6 +28,11 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
     _burstSprite:null,
     _testTitleLabelTTF:null,
 
+    _customPropertyInt:0,
+    _customPropertyFloat:0,
+    _customPropertyBoolean:false,
+    _customPropertyString:"",
+
     openTest:function(ccbFileName, nodeName,nodeLoader){
         /* Create an autorelease CCNodeLoaderLibrary. */
         var ccNodeLoaderLibrary = cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary();
@@ -79,6 +84,9 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
         if(this == target && "onScrollViewTestClicked" == selectorName){
             return this.onScrollViewTestClicked;
         }
+        if(this == target && "onTimelineCallbackSoundClicked" == selectorName){
+            return this.onTimelineCallbackSoundClicked;
+        }
 
         return null;
     },
@@ -100,6 +108,31 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
 
         return false;
     },
+
+    onAssignCCBCustomProperty:function(target, memberVariableName,ccbValue){
+        var bRet = false;
+        if (target == this) {
+            if (memberVariableName == "mCustomPropertyInt") {
+                this._customPropertyInt = ccbValue;
+                cc.log("CustomPropertyInt = " +this._customPropertyInt);
+                bRet = true;
+            } else if ( memberVariableName == "mCustomPropertyFloat") {
+                this._customPropertyFloat = ccbValue;
+                cc.log("CustomPropertyFloat = " + this._customPropertyFloat);
+                bRet = true;
+            } else if ( memberVariableName == "mCustomPropertyBoolean" ) {
+                this._customPropertyBoolean = ccbValue;
+                cc.log("CustomPropertyBoolean = " + this._customPropertyBoolean);
+                bRet = true;
+            } else if ( memberVariableName == "mCustomPropertyString" ) {
+                this._customPropertyString = ccbValue;
+                cc.log("CustomPropertyString = "  + this._customPropertyString);
+                bRet = true;
+            }
+        }
+        return bRet;
+    },
+
     onNodeLoaded:function(node,nodeLoader){
         var ccRotateBy = cc.RotateBy.create(20.0, 360);
         var ccRepeatForever = cc.RepeatForever.create(ccRotateBy);
@@ -158,6 +191,10 @@ var HelloCocosBuilderLayer = cc.Layer.extend({
     },
     onScrollViewTestClicked:function(sender,controlEvent){
         this.openTest("res/ccb/ccb/TestScrollViews.ccbi", "TestScrollViewsLayer", new ScrollViewTestLayerLoader());
+    },
+
+    onTimelineCallbackSoundClicked:function(sender,controlEvent){
+        this.openTest("res/ccb/ccb/TestTimelineCallback.ccbi", "TimelineCallbackTestLayer", new TimelineCallbackTestLayerLoader());
     }
 });
 
