@@ -26,6 +26,7 @@
 // boot code needed for cocos2d + JS bindings.
 // Not needed by cocos2d-html5
 
+require("jsb_cocos2d_constants.js");
 require("jsb_cocos2d.js");
 require("jsb_opengl.js");
 require("jsb_sys.js");
