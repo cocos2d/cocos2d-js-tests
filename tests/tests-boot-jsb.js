@@ -28,7 +28,7 @@ var tests_files = [
     'LabelTest/LabelTest.js',
     'LayerTest/LayerTest.js',
     'MenuTest/MenuTest.js',
-//		'OpenGLTest/OpenGLTest.js',
+//	'OpenGLTest/OpenGLTest.js',
     'ParallaxTest/ParallaxTest.js',
     'ParticleTest/ParticleTest.js',
     'PerformanceTest/PerformanceTest.js',
@@ -57,16 +57,11 @@ var tests_files = [
 ];
 
 //whether to obfuscate the code
-var obfuscate = true;
-
-if (!obfuscate) {
-    for (var i = 0; i < tests_files.length; i++) {
-        var name = "" + tests_files[i];
-        cc.log(" Loading: " + name);
-        require(name);
-    }
+for (var i = 0; i < tests_files.length; i++) {
+	var name = "" + tests_files[i];
+	cc.log(" Loading: " + name);
+	require(name);
 }
-
 
 var scene = cc.Scene.create();
 var layer = new TestController();
