@@ -16,6 +16,7 @@ var Ship = cc.Sprite.extend({
 
         // needed for JS-Bindings compatibility
         cc.associateWithNative( this, cc.Sprite );
+        this._super();
 
         //init life
         this.initWithSpriteFrameName("ship01.png");

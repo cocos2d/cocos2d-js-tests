@@ -23,12 +23,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-
 var sceneRenderTextureIdx = -1;
 
 var RenderTextureBaseLayer = BaseTestLayer.extend({
-
-    ctor:function() {
+    ctor:function () {
         this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
     },
 
@@ -73,81 +71,79 @@ var RenderTextureBaseLayer = BaseTestLayer.extend({
 
 //------------------------------------------------------------------
 //
-// RenderTextureSave
+// Tests
 //
 //------------------------------------------------------------------
 var RenderTextureSave = RenderTextureBaseLayer.extend({
-    _brush : null,
-    _target : null,
-    _lastLocation : null,
-    _counter :0,
+    _brush:null,
+    _target:null,
+    _lastLocation:null,
+    _counter:0,
 
     onEnter:function () {
         this._super();
 
-        if( 'touches' in sys.capabilities )
+        if ('touches' in sys.capabilities)
             this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities )
+        else if ('mouse' in sys.capabilities)
             this.setMouseEnabled(true);
 
         this._brush = cc.Sprite.create(s_fire);
         this._brush.retain();
 
-        this._brush.setColor( cc.RED );
-        this._brush.setOpacity( 20 );
+        this._brush.setColor(cc.RED);
+        this._brush.setOpacity(20);
 
-
-        var save = cc.MenuItemFont.create("Save", this.saveCB, this );
-        var clear = cc.MenuItemFont.create("Clear", this.clearCB.bind(this) ); // another way to pass 'this'
-        var menu = cc.Menu.create( save, clear );
+        var save = cc.MenuItemFont.create("Save", this.saveCB, this);
+        var clear = cc.MenuItemFont.create("Clear", this.clearCB.bind(this)); // another way to pass 'this'
+        var menu = cc.Menu.create(save, clear);
         menu.alignItemsVertically();
-        menu.setPosition( winSize.width-70, winSize.height-80  );
-        this.addChild( menu, 10 );
+        menu.setPosition(winSize.width - 70, winSize.height - 80);
+        this.addChild(menu, 10);
 
-		// create a render texture
-		var target = cc.RenderTexture.create( winSize.width, winSize.height );
-		target.setPosition( winSize.width/2, winSize.height/2 );
-        this.addChild( target, 1 );
+        // create a render texture
+        var target = cc.RenderTexture.create(winSize.width, winSize.height);
+        target.setPosition(winSize.width / 2, winSize.height / 2);
+        this.addChild(target, 1);
 
         this._target = target;
 
-        this._lastLocation = cc.p( winSize.width/2, winSize.height/2);
-
+        this._lastLocation = cc.p(winSize.width / 2, winSize.height / 2);
     },
 
-    onExit:function() {
+    onExit:function () {
         this._brush.release();
     },
 
-    saveCB:function(sender) {
+    saveCB:function (sender) {
         var namePNG = "image-" + this._counter + ".png";
         var nameJPG = "image-" + this._counter + ".jpg";
 
-        this._target.saveToFile( nameJPG, cc.IMAGE_FORMAT_JPEG );
-        this._target.saveToFile( namePNG, cc.IMAGE_FORMAT_PNG );
+        this._target.saveToFile(nameJPG, cc.IMAGE_FORMAT_JPEG);
+        this._target.saveToFile(namePNG, cc.IMAGE_FORMAT_PNG);
 
         cc.log("images saved!");
         this._counter++;
     },
 
-    clearCB:function(sender) {
-        this._target.clear( Math.random(), Math.random(), Math.random(), 1 );
+    clearCB:function (sender) {
+        this._target.clear(Math.random(), Math.random(), Math.random(), 1);
     },
 
-    drawInLocation: function( location ) {
-        var distance = cc.pDistance( location, this._lastLocation );
-        if( distance > 1 ) {
+    drawInLocation:function (location) {
+        var distance = cc.pDistance(location, this._lastLocation);
+        if (distance > 1) {
             this._target.begin();
-            for( var i=0; i < distance; i++ ) {
+            for (var i = 0; i < distance; i++) {
                 var diffX = this._lastLocation.x - location.x;
                 var diffY = this._lastLocation.y - location.y;
 
                 var delta = i / distance;
 
-                this._brush.setPosition( location.x + diffX * delta, location.y + diffY * delta  );
-                this._brush.setRotation( Math.random() * 360 );
-                this._brush.setScale( Math.random() * 2 );
-                this._brush.setColor( cc._c3b( Math.random()*255, 255, 255) );
+                this._brush.setPosition(location.x + diffX * delta, location.y + diffY * delta);
+                this._brush.setRotation(Math.random() * 360);
+                this._brush.setScale(Math.random() * 2);
+                this._brush.setColor(cc.c3b(Math.random() * 255, 255, 255));
                 this._brush.visit();
             }
             this._target.end();
@@ -161,22 +157,359 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     },
 
     onTouchesMoved:function (touches, event) {
-        this.drawInLocation( touches[0].getLocation() );
+        this.drawInLocation(touches[0].getLocation());
         return true;
     },
 
-    onMouseDown : function( event ) {
+    onMouseDown:function (event) {
         this._lastLocation = event.getLocation();
         return true;
     },
 
-    onMouseDragged : function( event ) {
-        this.drawInLocation( event.getLocation() );
+    onMouseDragged:function (event) {
+        this.drawInLocation(event.getLocation());
         return true;
     },
 
     subtitle:function () {
         return "Testing 'save'";
+    }
+});
+
+var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
+    ctor:function () {
+        this._super();
+        var winSize = cc.Director.getInstance().getWinSize();
+        /*
+         *     1    2
+         * A: A1   A2
+         *
+         * B: B1   B2
+         *
+         *  A1: premulti sprite
+         *  A2: premulti render
+         *
+         *  B1: non-premulti sprite
+         *  B2: non-premulti render
+         */
+        var background = cc.LayerColor.create(cc.c4b(200, 200, 200, 255));
+        this.addChild(background);
+
+        var spr_premulti = cc.Sprite.create(s_fire);
+        spr_premulti.setPosition(cc.p(16, 48));
+
+        var spr_nonpremulti = cc.Sprite.create(s_fire);
+        spr_nonpremulti.setPosition(cc.p(16, 16));
+
+        /* A2 & B2 setup */
+        var rend = cc.RenderTexture.create(32, 64, cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+        if (!rend)
+            return;
+        // It's possible to modify the RenderTexture blending function by
+        //        [[rend sprite] setBlendFunc:(ccBlendFunc) {GL_ONE, GL_ONE_MINUS_SRC_ALPHA}];
+        //rend.getSprite().setBlendFunc(cc.renderContext.ONE, cc.renderContext.ONE_MINUS_SRC_ALPHA);
+        rend.begin();
+        spr_premulti.visit();
+        spr_nonpremulti.visit();
+        rend.end();
+
+        /* A1: setup */
+        spr_premulti.setPosition(cc.p(winSize.width / 2 - 16, winSize.height / 2 + 16));
+        /* B1: setup */
+        spr_nonpremulti.setPosition(cc.p(winSize.width / 2 - 16, winSize.height / 2 - 16));
+
+        rend.setPosition(cc.p(winSize.width / 2 + 16, winSize.height / 2));
+        //background.setVisible(false);
+        this.addChild(spr_nonpremulti);
+        this.addChild(spr_premulti);
+        this.addChild(rend);
+    },
+
+    title:function () {
+        return "Testing issue #937";
+    },
+
+    subtitle:function () {
+        return "All images should be equal...";
+    }
+});
+
+var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
+    mgr:null,
+    sp1:null,
+    sp2:null,
+    sp3:null,
+    sp4:null,
+    sp5:null,
+    sp6:null,
+    sp7:null,
+    sp8:null,
+    sp9:null,
+
+    ctor:function () {
+        this._super();
+        this.setTouchEnabled(true);
+        var size = cc.Director.getInstance().getWinSize();
+        var label = cc.LabelTTF.create("vertexZ = 50", "Marker Felt", 64);
+        label.setPosition(cc.p(size.width / 2, size.height * 0.25));
+        this.addChild(label);
+
+        var label2 = cc.LabelTTF.create("vertexZ = 0", "Marker Felt", 64);
+        label2.setPosition(cc.p(size.width / 2, size.height * 0.5));
+        this.addChild(label2);
+
+        var label3 = cc.LabelTTF.create("vertexZ = -50", "Marker Felt", 64);
+        label3.setPosition(cc.p(size.width / 2, size.height * 0.75));
+        this.addChild(label3);
+
+        label.setVertexZ(50);
+        label2.setVertexZ(0);
+        label3.setVertexZ(-50);
+
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_circle_plist);
+        this.mgr = cc.SpriteBatchNode.create(s_circle_png, 9);
+        this.addChild(this.mgr);
+        this.sp1 = cc.Sprite.createWithSpriteFrameName("circle.png");
+        this.sp2 = cc.Sprite.createWithSpriteFrameName("circle.png");
+        this.sp3 = cc.Sprite.createWithSpriteFrameName("circle.png");
+        this.sp4 = cc.Sprite.createWithSpriteFrameName("circle.png");
+        this.sp5 = cc.Sprite.createWithSpriteFrameName("circle.png");
+        this.sp6 = cc.Sprite.createWithSpriteFrameName("circle.png");
+        this.sp7 = cc.Sprite.createWithSpriteFrameName("circle.png");
+        this.sp8 = cc.Sprite.createWithSpriteFrameName("circle.png");
+        this.sp9 = cc.Sprite.createWithSpriteFrameName("circle.png");
+
+        this.mgr.addChild(this.sp1, 9);
+        this.mgr.addChild(this.sp2, 8);
+        this.mgr.addChild(this.sp3, 7);
+        this.mgr.addChild(this.sp4, 6);
+        this.mgr.addChild(this.sp5, 5);
+        this.mgr.addChild(this.sp6, 4);
+        this.mgr.addChild(this.sp7, 3);
+        this.mgr.addChild(this.sp8, 2);
+        this.mgr.addChild(this.sp9, 1);
+
+        this.sp1.setVertexZ(400);
+        this.sp2.setVertexZ(300);
+        this.sp3.setVertexZ(200);
+        this.sp4.setVertexZ(100);
+        this.sp5.setVertexZ(0);
+        this.sp6.setVertexZ(-100);
+        this.sp7.setVertexZ(-200);
+        this.sp8.setVertexZ(-300);
+        this.sp9.setVertexZ(-400);
+
+        this.sp9.setScale(2);
+        this.sp9.setColor(cc.YELLOW);
+    },
+
+    onTouchesBegan:function (touches, event) {
+        if (!touches || touches.length === 0)
+            return;
+
+        for (var i = 0; i < touches.length; i++) {
+            var location = touches[i].getLocation();
+
+            this.sp1.setPosition(location);
+            this.sp2.setPosition(location);
+            this.sp3.setPosition(location);
+            this.sp4.setPosition(location);
+            this.sp5.setPosition(location);
+            this.sp6.setPosition(location);
+            this.sp7.setPosition(location);
+            this.sp8.setPosition(location);
+            this.sp9.setPosition(location);
+        }
+    },
+
+    onTouchesMoved:function (touches, event) {
+        if (!touches || touches.length === 0)
+            return;
+
+        for (var i = 0; i < touches.length; i++) {
+            var location = touches[i].getLocation();
+
+            this.sp1.setPosition(location);
+            this.sp2.setPosition(location);
+            this.sp3.setPosition(location);
+            this.sp4.setPosition(location);
+            this.sp5.setPosition(location);
+            this.sp6.setPosition(location);
+            this.sp7.setPosition(location);
+            this.sp8.setPosition(location);
+            this.sp9.setPosition(location);
+        }
+    },
+
+    onTouchesEnded:function (touches, event) {
+        this.renderScreenShot();
+    },
+
+    title:function () {
+        return "Testing Z Buffer in Render Texture";
+    },
+
+    subtitle:function () {
+        return "Touch screen. It should be green";
+    },
+
+    renderScreenShot:function () {
+        var winSize = cc.Director.getInstance().getWinSize();
+        var texture = cc.RenderTexture.create(winSize.width, winSize.width);
+        if (!texture)
+            return;
+
+        texture.setAnchorPoint(cc.p(0, 0));
+        texture.begin();
+        this.visit();
+        texture.end();
+
+        var sprite = cc.Sprite.createWithTexture(texture.getSprite().getTexture());
+
+        sprite.setPosition(cc.p(winSize.width/2, winSize.width/2));
+        sprite.setOpacity(182);
+        sprite.setFlipY(1);
+        this.addChild(sprite, 999999);
+        sprite.setColor(cc.GREEN);
+
+        sprite.runAction(cc.Sequence.create(cc.FadeTo.create(2, 0), cc.Hide.create()));
+    }
+});
+
+var RenderTextureTestDepthStencil = RenderTextureBaseLayer.extend({
+    ctor:function () {
+        this._super();
+        var gl = cc.renderContext;
+
+        var winSize = cc.Director.getInstance().getWinSize();
+
+        var sprite = cc.Sprite.create(s_fire);
+        sprite.setPosition(cc.p(winSize.width * 0.25, 0));
+        sprite.setScale(10);
+        //TODO GL_DEPTH24_STENCIL8
+        //var rend = cc.RenderTexture.create(winSize.width, winSize.height, cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
+        var rend = cc.RenderTexture.create(winSize.width, winSize.height);
+
+        gl.stencilMask(0xFF);
+        rend.beginWithClear(0, 0, 0, 0, 0, 0);
+
+        //! mark sprite quad into stencil buffer
+        gl.enable(gl.STENCIL_TEST);
+        gl.stencilFunc(gl.ALWAYS, 1, 0xFF);
+        gl.stencilOp(gl.KEEP, gl.KEEP, gl.REPLACE);
+        gl.colorMask(0, 0, 0, 1);
+        sprite.visit();
+
+        //! move sprite half width and height, and draw only where not marked
+        sprite.setPosition(cc.pAdd(sprite.getPosition(), cc.pMult(cc.p(sprite.getContentSize().width * sprite.getScale(), sprite.getContentSize().height * sprite.getScale()), 0.5)));
+        gl.stencilFunc(gl.NOTEQUAL, 1, 0xFF);
+        gl.colorMask(1, 1, 1, 1);
+        sprite.visit();
+
+        rend.end();
+
+        gl.disable(gl.STENCIL_TEST);
+
+        rend.setPosition(cc.p(winSize.width * 0.5, winSize.height * 0.5));
+
+        this.addChild(rend);
+    },
+
+    title:function () {
+        return "Testing depthStencil attachment";
+    },
+
+    subtitle:function () {
+        return "Circle should be missing 1/4 of its region";
+    }
+});
+
+var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
+    _sprite1:null,
+    _sprite2:null,
+    _time:0,
+
+    _renderTexture:null,
+
+    ctor:function () {
+        this._super();
+        /*
+         *     1    2
+         * A: A1   A2
+         *
+         * B: B1   B2
+         *
+         *  A1: premulti sprite
+         *  A2: premulti render
+         *
+         *  B1: non-premulti sprite
+         *  B2: non-premulti render
+         */
+        var background = cc.LayerColor.create(cc.c4b(40, 40, 40, 255));
+        this.addChild(background);
+
+        // sprite 1
+        this._sprite1 = cc.Sprite.create(s_fire);
+
+        // sprite 2
+        //todo Images/fire_rgba8888.pvr
+        this._sprite2 = cc.Sprite.create(s_fire);
+
+        var winSize = cc.Director.getInstance().getWinSize();
+
+        /* Create the render texture */
+        //var renderTexture = cc.RenderTexture.create(winSize.width, winSize.height, cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
+        var renderTexture = cc.RenderTexture.create(winSize.width, winSize.height);
+        this._renderTexture = renderTexture;
+
+        renderTexture.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        //		[renderTexture setPosition:cc.p(s.width, s.height)];
+        //		renderTexture.scale = 2;
+
+        /* add the sprites to the render texture */
+        renderTexture.addChild(this._sprite1);
+        renderTexture.addChild(this._sprite2);
+        renderTexture.setClearColor(cc.c4f(0, 0, 0, 0));
+        renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
+
+        /* add the render texture to the scene */
+        this.addChild(renderTexture);
+
+        renderTexture.setAutoDraw(true);
+
+        this.scheduleUpdate();
+
+        // Toggle clear on / off
+        var item = cc.MenuItemFont.create("Clear On/Off", this.touched, this);
+        var menu = cc.Menu.create(item);
+        this.addChild(menu);
+
+        menu.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+    },
+
+    update:function (dt) {
+        var r = 80;
+        this._sprite1.setPosition(cc.p(Math.cos(this._time * 2) * r, Math.sin(this._time * 2) * r));
+        this._sprite2.setPosition(cc.p(Math.sin(this._time * 2) * r, Math.cos(this._time * 2) * r));
+
+        this._time += dt;
+    },
+
+    title:function () {
+        return "Testing Render Target Node";
+    },
+
+    subtitle:function () {
+        return "Sprites should be equal and move with each frame";
+    },
+
+    touched:function (sender) {
+        if (this._renderTexture.getClearFlags() == 0)
+            this._renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
+        else {
+            this._renderTexture.setClearFlags(0);
+            this._renderTexture.setClearColor(cc.c4f(Math.random(), Math.random(), Math.random(), 1));
+        }
     }
 });
 
@@ -196,7 +529,6 @@ var Issue1464 = RenderTextureBaseLayer.extend({
 
         var sprite = cc.Sprite.create(s_grossini);
 
-
         // create a render texture
         var rend = cc.RenderTexture.create( winSize.width/2, winSize.height/2 );
         rend.setPosition( winSize.width/2, winSize.height/2 );
@@ -210,7 +542,7 @@ var Issue1464 = RenderTextureBaseLayer.extend({
         var fadeout = cc.FadeOut.create(2);
         var fadein = fadeout.reverse();
         var delay = cc.DelayTime.create(0.25);
-        var seq = cc.Sequence.create(fadeout, delay, fadein, delay.copy() );
+        var seq = cc.Sequence.create(fadeout, delay, fadein, delay.copy());
         var fe = cc.RepeatForever.create(seq);
         rend.getSprite().runAction(fe);
     },
@@ -240,6 +572,7 @@ var Issue1464 = RenderTextureBaseLayer.extend({
     }
 });
 
+
 var RenderTextureTestScene = TestScene.extend({
     runThisTest:function () {
         sceneRenderTextureIdx = -1;
@@ -253,11 +586,17 @@ var RenderTextureTestScene = TestScene.extend({
 //
 // Flow control
 //
-
 var arrayOfRenderTextureTest = [
     RenderTextureSave,
     Issue1464
 ];
+
+if(('opengl' in sys.capabilities) && (sys.platform == 'browser') ){
+    arrayOfRenderTextureTest.push(RenderTextureIssue937);
+    arrayOfRenderTextureTest.push(RenderTextureZbuffer);
+    arrayOfRenderTextureTest.push(RenderTextureTestDepthStencil);
+    arrayOfRenderTextureTest.push(RenderTextureTargetNode);
+}
 
 var nextRenderTextureTest = function () {
     sceneRenderTextureIdx++;

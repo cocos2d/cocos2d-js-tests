@@ -89,7 +89,7 @@ var EditBoxTestLayer = cc.Layer.extend({
     },
 
     cellSizeForTable:function (table) {
-        return cc.SizeMake(60, 60);
+        return cc.size(60, 60);
     }
 });
 

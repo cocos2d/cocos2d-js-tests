@@ -5,6 +5,7 @@ var SysMenu = cc.Layer.extend({
 
     ctor:function () {
         cc.associateWithNative( this, cc.Layer );
+        this._super();
     },
     init:function () {
         var bRet = false;

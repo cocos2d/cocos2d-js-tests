@@ -34,9 +34,9 @@ var TileDemo = BaseTestLayer.extend({
     ctor:function () {
         this._super();
 
-        if( 'touches' in sys.capabilities )
+        if ('touches' in sys.capabilities)
             this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities )
+        else if ('mouse' in sys.capabilities)
             this.setMouseEnabled(true);
     },
     title:function () {
@@ -92,7 +92,8 @@ var TileMapTest = TileDemo.extend({
     ctor:function () {
         this._super();
         var map = cc.TileMapAtlas.create(s_tilesPng, s_levelMapTga, 16, 16);
-        map.getTexture().setAntiAliasTexParameters();
+        if ("opengl" in sys.capabilities)
+            map.getTexture().setAntiAliasTexParameters();
 
         var s = map.getContentSize();
         this.log("ContentSize: " + s.width + " " + s.height);
@@ -259,18 +260,17 @@ var TMXOrthoTest4 = TileDemo.extend({
         sprite = layer.getTileAt(cc.p(s.width - 1, s.height - 1));
         sprite.setScale(2);
 
-        this.schedule(this.onRemoveSprite, 2);
+        this.scheduleOnce(this.onRemoveSprite, 2);
     },
     onRemoveSprite:function (dt) {
-        this.unschedule(this.onRemoveSprite);
-
         var map = this.getChildByTag(TAG_TILE_MAP);
 
         var layer = map.getLayer("Layer 0");
-        var s = layer.getLayerSize();
+        var layerSize = layer.getLayerSize();
 
-        var sprite = layer.getTileAt(cc.p(s.width - 1, 0));
+        var sprite = layer.getTileAt(cc.p(layerSize.width - 1, 0));
         layer.removeChild(sprite, true);
+        window.myLayer = layer;
     },
     title:function () {
         return "TMX width/height test";
@@ -293,7 +293,8 @@ var TMXReadWriteTest = TileDemo.extend({
         var s = map.getContentSize();
 
         var layer = map.getLayer("Layer 0");
-        //layer.getTexture().setAntiAliasTexParameters();
+        if ("opengl" in sys.capabilities)
+            layer.getTexture().setAntiAliasTexParameters();
 
         map.setScale(1);
 
@@ -518,15 +519,17 @@ var TMXTilesetTest = TileDemo.extend({
         this.addChild(map, 0, TAG_TILE_MAP);
         var s = map.getContentSize();
 
-        /*var layer;
-         layer = map.getLayer("Layer 0");
-         layer.getTexture().setAntiAliasTexParameters();
+        if ("opengl" in sys.capabilities) {
+            var layer;
+            layer = map.getLayer("Layer 0");
+            layer.getTexture().setAntiAliasTexParameters();
 
-         layer = map.getLayer("Layer 1");
-         layer.getTexture().setAntiAliasTexParameters();
+            layer = map.getLayer("Layer 1");
+            layer.getTexture().setAntiAliasTexParameters();
 
-         layer = map.getLayer("Layer 2");
-         layer.getTexture().setAntiAliasTexParameters();*/
+            layer = map.getLayer("Layer 2");
+            layer.getTexture().setAntiAliasTexParameters();
+        }
     },
     title:function () {
         return "TMX Tileset test";
@@ -557,7 +560,7 @@ var TMXOrthoObjectsTest = TileDemo.extend({
             }
         }
     },
-    onEnter:function(){
+    onEnter:function () {
         this._super();
         this.setAnchorPoint(cc.p(0, 0));
     },
@@ -623,7 +626,7 @@ var TMXIsoObjectsTest = TileDemo.extend({
         }
     },
 
-    onEnter:function(){
+    onEnter:function () {
         this._super();
         this.setAnchorPoint(cc.p(0, 0));
     },
@@ -821,7 +824,7 @@ var TMXIsoVertexZ = TileDemo.extend({
         var seq = cc.Sequence.create(move, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
 
-        this.scheduleUpdate();
+        this.schedule(this.repositionSprite);
     },
     title:function () {
         return "TMX Iso VertexZ";
@@ -833,13 +836,15 @@ var TMXIsoVertexZ = TileDemo.extend({
         this._super();
         // TIP: 2d projection should be used
         director.setProjection(cc.DIRECTOR_PROJECTION_2D);
+        // do nothing in draw of LayerGradient at this Testcase.
+        this.draw = function(){};
     },
     onExit:function () {
         // At exit use any other projection.
         //	director.setProjection:cc.DIRECTOR_PROJECTION_3D);
         this._super();
     },
-    update:function (dt) {
+    repositionSprite:function (dt) {
         // tile height is 64x32
         // map size: 30x30
         var p = this.tamara.getPosition();
@@ -873,7 +878,7 @@ var TMXOrthoVertexZ = TileDemo.extend({
         var seq = cc.Sequence.create(move, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
 
-        this.scheduleUpdate();
+        this.schedule(this.repositionSprite);
 
         this.log("DEPTH BUFFER MUST EXIST IN ORDER");
     },
@@ -888,17 +893,19 @@ var TMXOrthoVertexZ = TileDemo.extend({
 
         // TIP: 2d projection should be used
         director.setProjection(cc.DIRECTOR_PROJECTION_2D);
+        // do nothing in draw of LayerGradient at this Testcase.
+        this.draw = function(){};
     },
     onExit:function () {
         // At exit use any other projection.
         //	director.setProjection:cc.DIRECTOR_PROJECTION_3D);
         this._super();
     },
-    update:function (dt) {
+    repositionSprite:function (dt) {
         // tile height is 101x81
         // map size: 12x12
         var p = this.tamara.getPosition();
-        this.tamara.setVertexZ(-( (p.y + 81) / 81));
+        this.tamara.setVertexZ(-((p.y + 81) / 81));
     }
 });
 
@@ -1094,15 +1101,32 @@ var TMXOrthoFlipRunTimeTest = TileDemo.extend({
 var TMXOrthoFromXMLTest = TileDemo.extend({
     ctor:function () {
         this._super();
-        this.log("Test not available");
+
+        var resources = s_resprefix + "TileMaps";
+        var filePath = s_resprefix + "TileMaps/orthogonal-test1.tmx";
+        var xmlStr = cc.SAXParser.getInstance().getList(filePath);
+
+        var map = cc.TMXTiledMap.createWithXML(xmlStr, resources);
+        this.addChild(map, 0, TAG_TILE_MAP);
+
+        var s = map.getContentSize();
+        cc.log("ContentSize: " + s.width+ ", " + s.height);
+
+        if("opengl" in sys.capabilities){
+            var mapChildren = map.getChildren();
+            for(var i = 0 ; i < mapChildren.length;i++) {
+                var child = mapChildren[i];
+                if(child)
+                    child.getTexture().setAntiAliasTexParameters();
+            }
+        }
+
+        var action = cc.ScaleBy.create(2, 0.5);
+        map.runAction(action);
     },
     title:function () {
         return "TMX created from XML test";
-    },
-    subtitle:function () {
-        return "Test not available";
     }
-
 });
 
 //------------------------------------------------------------------
@@ -1124,7 +1148,8 @@ var TMXBug987 = TileDemo.extend({
         for (var i = 0, len = childs.length; i < len; i++) {
             node = childs[i];
             if (!node) break;
-            //node.getTexture().setAntiAliasTexParameters();
+            if ("opengl" in sys.capabilities)
+                node.getTexture().setAntiAliasTexParameters();
         }
 
         map.setAnchorPoint(cc.p(0, 0));
@@ -1221,6 +1246,10 @@ var TileMapTestScene = TestScene.extend({
         tileTestSceneIdx = -1;
         var layer = nextTileMapTest();
         this.addChild(layer);
+        // fix bug #486, #419.
+        // "test" is the default value in CCDirector::setGLDefaultValues()
+        // but TransitionTest may setDepthTest(false), we should revert it here
+        cc.Director.getInstance().setDepthTest(true);
 
         director.replaceScene(this);
     }

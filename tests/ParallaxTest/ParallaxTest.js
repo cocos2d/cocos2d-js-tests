@@ -169,7 +169,6 @@ Parallax2 = ParallaxDemo.extend({
 
 
     ctor:function () {
-
         this._super();
 
         if( 'touches' in sys.capabilities )

@@ -29,7 +29,7 @@ var TAG_SPRITE2 = 2;
 var TAG_SPRITE3 = 3;
 var TAG_SLIDER = 4;
 
-var nodeTestSceneIdx = -1;
+var nodeTestSceneIdx  = -1;
 var MAX_LAYER = 9;
 
 var TestNodeDemo = BaseTestLayer.extend({
@@ -42,7 +42,6 @@ var TestNodeDemo = BaseTestLayer.extend({
     subtitle:function () {
         return "";
     },
-
     onRestartCallback:function (sender) {
         var s = new NodeTestScene();
         s.addChild(restartNodeTest());
@@ -66,7 +65,6 @@ var TestNodeDemo = BaseTestLayer.extend({
     getTestNumber:function() {
         return nodeTestSceneIdx;
     }
-
 });
 
 var CCNodeTest2 = TestNodeDemo.extend({
@@ -244,7 +242,7 @@ var StressTest1 = TestNodeDemo.extend({
 
         var sp1 = cc.Sprite.create(s_pathSister1);
         this.addChild(sp1, 0, TAG_SPRITE1);
-        this.setContentSize(cc.size(0,0));
+        this.setContentSize(cc.size(0, 0));
 
         sp1.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
 
@@ -267,7 +265,7 @@ var StressTest1 = TestNodeDemo.extend({
     },
     onRemoveMe:function (node) {
         this.getParent().removeChild(node, true);
-        this.nextCallback(this);
+        this.onNextCallback(this);
     },
     title:function () {
         return "stress test #1: no crashes";
@@ -341,7 +339,7 @@ var NodeToWorld = TestNodeDemo.extend({
         var fe2 = cc.RepeatForever.create(seq);
         back.runAction(fe2);
     },
-    onClicked:function() {
+    onClicked:function () {
         cc.log("On clicked");
     },
     title:function () {
@@ -363,7 +361,7 @@ var CameraOrbitTest = TestNodeDemo.extend({
         var sprite = cc.Sprite.create(s_pathGrossini);
         sprite.setScale(0.5);
         p.addChild(sprite, 0);
-        sprite.setPosition(cc.p(winSize.width / 4 * 1, winSize.height / 2));
+        sprite.setPosition(cc.p(winSize.width / 4, winSize.height / 2));
         var cam = sprite.getCamera();
         var orbit = cc.OrbitCamera.create(2, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -412,50 +410,52 @@ var CameraZoomTest = TestNodeDemo.extend({
         // LEFT
         var sprite = cc.Sprite.create(s_pathGrossini);
         this.addChild(sprite, 0);
-        sprite.setPosition(cc.p(winSize.width / 4 * 1, winSize.height / 2));
-        var cam = sprite.getCamera();
-        if(cam.setEye)
-            cam.setEye(0, 0, 415);
-        if(cam.setCenter)
-            cam.setCenter(0,0,0);
+        sprite.setPosition(cc.p(winSize.width / 4, winSize.height / 2));
+        if ("opengl" in sys.capabilities) {
+            var cam = sprite.getCamera();
+            cam.setEyeXYZ(0, 0, 415/2);
+            cam.setCenterXYZ(0, 0, 0);
+        }
 
         // CENTER
         sprite = cc.Sprite.create(s_pathGrossini);
         this.addChild(sprite, 0, 40);
         sprite.setPosition(cc.p(winSize.width / 4 * 2, winSize.height / 2));
-//		cam = [sprite camera);
-//		[cam setEyeX:0 eyeY:0 eyeZ:415/2);
+        //cam = [sprite camera);
+        //[cam setEyeX:0 eyeY:0 eyeZ:415/2);
 
         // RIGHT
         sprite = cc.Sprite.create(s_pathGrossini);
         this.addChild(sprite, 0, 20);
         sprite.setPosition(cc.p(winSize.width / 4 * 3, winSize.height / 2));
-//		cam = [sprite camera);
-//		[cam setEyeX:0 eyeY:0 eyeZ:-485);
-//		[cam setCenterX:0 centerY:0 centerZ:0);
+        //cam = [sprite camera);
+        //[cam setEyeX:0 eyeY:0 eyeZ:-485);
+        //[cam setCenterX:0 centerY:0 centerZ:0);
 
         this._z = 0;
         this.scheduleUpdate();
     },
     update:function (dt) {
-        this._z += dt * 100;
+        if (!("opengl" in sys.capabilities))
+            return;
 
+        this._z += dt * 100;
         var sprite = this.getChildByTag(20);
         var cam = sprite.getCamera();
-        if(cam.setEye)
-            cam.setEye(0, 0, this._z);
+        cam.setEyeXYZ(0, 0, this._z);
 
         sprite = this.getChildByTag(40);
         cam = sprite.getCamera();
-        if(cam.setEye)
-            cam.setEye(0, 0, this._z);
+        cam.setEyeXYZ(0, 0, -this._z);
     },
 
     onEnter:function () {
         this._super();
+        //TODO
         director.setProjection(cc.DIRECTOR_PROJECTION_3D);
     },
     onExit:function () {
+        //TODO
         director.setProjection(cc.DIRECTOR_PROJECTION_2D);
         this._super();
     },
@@ -469,46 +469,46 @@ var CameraCenterTest = TestNodeDemo.extend({
         this._super();
 
         // LEFT-TOP
-        var sprite = cc.Sprite.create();
+        var sprite = cc.Sprite.create(s_texture512);
         this.addChild(sprite, 0);
-        sprite.setPosition(cc.p(winSize.width / 5 * 1, winSize.height / 5 * 1));
-        sprite.setColor(cc.c3b(255,0,0));
+        sprite.setPosition(cc.p(winSize.width / 5, winSize.height / 5));
+        sprite.setColor(cc.RED);
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         var orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
         // LEFT-BOTTOM
-        sprite = cc.Sprite.create();
+        sprite = cc.Sprite.create(s_texture512);     cc.RotateTo
         this.addChild(sprite, 0, 40);
-        sprite.setPosition(cc.p(winSize.width / 5 * 1, winSize.height / 5 * 4));
-        sprite.setColor(cc.c3b(0,0,255));
+        sprite.setPosition(cc.p(winSize.width / 5, winSize.height / 5 * 4));
+        sprite.setColor(cc.BLUE);
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
         // RIGHT-TOP
-        sprite = cc.Sprite.create();
+        sprite = cc.Sprite.create(s_texture512);
         this.addChild(sprite, 0);
-        sprite.setPosition(cc.p(winSize.width / 5 * 4, winSize.height / 5 * 1));
-        sprite.setColor(cc.c3b(255,255,0));
+        sprite.setPosition(cc.p(winSize.width / 5 * 4, winSize.height / 5));
+        sprite.setColor(cc.YELLOW);
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
         // RIGHT-BOTTOM
-        sprite = cc.Sprite.create();
+        sprite = cc.Sprite.create(s_texture512);
         this.addChild(sprite, 0, 40);
         sprite.setPosition(cc.p(winSize.width / 5 * 4, winSize.height / 5 * 4));
-        sprite.setColor(cc.c3b(255,255,0));
+        sprite.setColor(cc.GREEN);
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
         // CENTER
-        sprite = cc.Sprite.create();
+        sprite = cc.Sprite.create(s_texture512);
         this.addChild(sprite, 0, 40);
         sprite.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
-        sprite.setColor(cc.c3b(255,255,255));
+        sprite.setColor(cc.WHITE);
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -527,9 +527,9 @@ var CameraCenterTest = TestNodeDemo.extend({
 var ConvertToNode = TestNodeDemo.extend({
     ctor:function () {
         this._super();
-        if( 'touches' in sys.capabilities )
+        if ('touches' in sys.capabilities)
             this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities )
+        else if ('mouse' in sys.capabilities)
             this.setMouseEnabled(true);
 
         var rotate = cc.RotateBy.create(10, 360);
@@ -545,7 +545,7 @@ var ConvertToNode = TestNodeDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0,0));
+                    sprite.setAnchorPoint(cc.p(0, 0));
                     break;
                 case 1:
                     sprite.setAnchorPoint(cc.p(0.5, 0.5));
@@ -562,7 +562,7 @@ var ConvertToNode = TestNodeDemo.extend({
             this.addChild(sprite, i);
         }
     },
-    processEvent:function(location) {
+    processEvent:function (location) {
         for (var i = 0; i < 3; i++) {
             var node = this.getChildByTag(100 + i);
 
@@ -599,20 +599,88 @@ var BoundingBoxTest = TestNodeDemo.extend({
     ctor:function () {
         this._super();
         var sprite = cc.Sprite.create(s_pathGrossini);
-        this.addChild( sprite );
-        sprite.setPosition(winSize.width/2, winSize.height/2);
+        this.addChild(sprite);
+        sprite.setPosition(winSize.width / 2, winSize.height / 2);
         var bb = sprite.getBoundingBox();
         this.log('BoundingBox:');
         //for( var i in bb )
         //    cc.log( i + " = " + bb[i] );
-        this.log('origin = [ ' + bb.x + "," + bb.y + "]");
-        this.log('size = [ ' + bb.width + "," + bb.height + "]");
+        cc.log('origin = [ ' + bb.x + "," + bb.y + "]");
+        cc.log('size = [ ' + bb.width + "," + bb.height + "]");
     },
     title:function () {
         return "Bounding Box Test";
     },
     subtitle:function () {
         return "Testing getBoundingBox(). See console";
+    }
+});
+
+var SchedulerTest1 = TestNodeDemo.extend({
+    ctor:function () {
+        this._super();
+        var layer = cc.Layer.create();
+        //UXLOG("retain count after init is %d", layer->retainCount());                // 1
+
+        this.addChild(layer, 0);
+        //UXLOG("retain count after addChild is %d", layer->retainCount());      // 2
+
+        layer.schedule(this.doSomething);
+        //UXLOG("retain count after schedule is %d", layer->retainCount());      // 3 : (object-c viersion), but win32 version is still 2, because CCTimer class don't save target.
+
+        layer.unschedule(this.doSomething);
+        //UXLOG("retain count after unschedule is %d", layer->retainCount());        // STILL 3!  (win32 is '2')
+    },
+
+    doSomething:function (dt) {
+
+    },
+
+    title:function () {
+        return "cocosnode scheduler test #1";
+    }
+});
+
+var NodeOpaqueTest = TestNodeDemo.extend({
+    ctor:function () {
+        this._super();
+        var winSize = cc.Director.getInstance().getWinSize();
+        var background;
+        for (var i = 0; i < 50; i++) {
+            background = cc.Sprite.create(s_back1);
+            background.setBlendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+            background.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+            this.addChild(background);
+        }
+    },
+
+    title:function () {
+        return "Node Opaque Test";
+    },
+
+    subtitle:function () {
+        return "Node rendered with GL_BLEND disabled";
+    }
+});
+
+var NodeNonOpaqueTest = TestNodeDemo.extend({
+    ctor:function () {
+        this._super();
+        var winSize = cc.Director.getInstance().getWinSize();
+        var background;
+        for (var i = 0; i < 50; i++) {
+            background = cc.Sprite.create(s_back1);
+            background.setBlendFunc(cc.BlendFuncDisable());
+            background.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+            this.addChild(background);
+        }
+    },
+    title:function () {
+        return "Node Non Opaque Test";
+    },
+
+    subtitle:function () {
+        return "Node rendered with GL_BLEND enabled";
     }
 });
 
@@ -634,19 +702,26 @@ var NodeTestScene = TestScene.extend({
 // Flow control
 //
 var arrayOfNodeTest = [
-            CCNodeTest2,
-            CCNodeTest4,
-            CCNodeTest5,
-            CCNodeTest6,
-            StressTest1,
-            StressTest2,
-            NodeToWorld,
-            ConvertToNode,
-            CameraOrbitTest,
-            CameraZoomTest,
-            CameraCenterTest,
-            BoundingBoxTest
-            ];
+    CCNodeTest2,
+    CCNodeTest4,
+    CCNodeTest5,
+    CCNodeTest6,
+    StressTest1,
+    StressTest2,
+    NodeToWorld,
+    SchedulerTest1,
+    BoundingBoxTest,
+    ConvertToNode
+];
+
+if( 'opengl' in sys.capabilities ){
+    arrayOfNodeTest.push(CameraCenterTest);
+    arrayOfNodeTest.push(CameraOrbitTest);
+    arrayOfNodeTest.push(CameraZoomTest);
+    arrayOfNodeTest.push(NodeOpaqueTest);
+    arrayOfNodeTest.push(NodeNonOpaqueTest);
+}
+
 
 var nextNodeTest = function () {
     nodeTestSceneIdx++;
