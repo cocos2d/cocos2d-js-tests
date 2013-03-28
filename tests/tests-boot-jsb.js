@@ -28,7 +28,7 @@ var tests_files = [
     'LabelTest/LabelTest.js',
     'LayerTest/LayerTest.js',
     'MenuTest/MenuTest.js',
-//	'OpenGLTest/OpenGLTest.js',
+	'OpenGLTest/OpenGLTest.js',
     'ParallaxTest/ParallaxTest.js',
     'ParticleTest/ParticleTest.js',
     'PerformanceTest/PerformanceTest.js',
