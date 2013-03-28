@@ -836,6 +836,8 @@ var TMXIsoVertexZ = TileDemo.extend({
         this._super();
         // TIP: 2d projection should be used
         director.setProjection(cc.DIRECTOR_PROJECTION_2D);
+        // do nothing in draw of LayerGradient at this Testcase.
+        this.draw = function(){};
     },
     onExit:function () {
         // At exit use any other projection.
@@ -891,6 +893,8 @@ var TMXOrthoVertexZ = TileDemo.extend({
 
         // TIP: 2d projection should be used
         director.setProjection(cc.DIRECTOR_PROJECTION_2D);
+        // do nothing in draw of LayerGradient at this Testcase.
+        this.draw = function(){};
     },
     onExit:function () {
         // At exit use any other projection.
