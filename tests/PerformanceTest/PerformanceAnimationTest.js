@@ -92,7 +92,6 @@ var AnimationTest = AnimationMenuLayer.extend({
         var size = cc.Director.getInstance().getWinSize();
 
         cc.MenuItemFont.setFontSize(65);
-        var that = this;
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
         decrease.setColor(cc.c3b(0, 200, 20));
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);

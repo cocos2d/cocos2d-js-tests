@@ -157,310 +157,34 @@ var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
 
-var g_ressources = [
-    //global
-    {src:s_pathB1},
-    {src:s_pathB2},
-    {src:s_pathR1},
-    {src:s_pathR2},
-    {src:s_pathF1},
-    {src:s_pathF2},
-    {src:s_pathBlock},
-    {src:s_back3},
-    {src:s_fire},
-    {src:s_pathClose},
-    {src:s_pathGrossini},
-    {src:s_pathSister1},
-    {src:s_pathSister2},
-    {src:s_grossiniDance01},
-    {src:s_grossiniDance02},
-    {src:s_grossiniDance03},
-    {src:s_grossiniDance04},
-    {src:s_grossiniDance05},
-    {src:s_grossiniDance06},
-    {src:s_grossiniDance07},
-    {src:s_grossiniDance08},
-    {src:s_grossiniDance09},
-    {src:s_grossiniDance10},
-    {src:s_grossiniDance11},
-    {src:s_grossiniDance12},
-    {src:s_grossiniDance13},
-    {src:s_grossiniDance14},
+var g_ressources = [];
 
-    {src:s_grossini},
-    {src:s_grossiniPlist},
+var g_sprites = [];
 
-    {src:s_animations2Plist},
-    {src:s_helloWorld}
-];
+var g_menu = [];
 
-var g_sprites = [
-    {src:s_piece},
-    {src:s_grossini_gray},
-    {src:s_grossini_blue},
-    {src:s_grossini_dance_atlas},
-    {src:s_grossini_aliases},
-    {src:s_dragon_animation},
-    {src:s_ghosts},
-    {src:s_grossini_family},
+var g_touches = [];
 
-    {src:s_grossini_dance_atlas_mono},
-    {src:s_animationsPlist},
-    {src:s_grossini_grayPlist},
-    {src:s_grossini_bluePlist},
-    {src:s_grossini_aliasesPlist},
-    {src:s_ghostsPlist},
-    {src:s_grossini_familyPlist},
+var g_performace = [];
 
-    {src:s_tcc_issue_1_plist},
-    {src:s_tcc_issue_2_plist},
-    {src:s_tcc_issue_1},
-    {src:s_tcc_issue_2},
+var g_fileUtils = [];
 
-    {src:s_s9s_blocks9_plist},
-    {src:s_s9s_blocks9}
-];
+var g_s9s_blocks = [];
 
-var g_menu = [
-    {src:s_bitmapFontTest3_fnt},
-    {src:s_bitmapFontTest3},
-    {src:s_playNormal},
-    {src:s_playSelect},
-    {src:s_aboutNormal},
-    {src:s_aboutSelect},
-    {src:s_highNormal},
-    {src:s_highSelect},
-    {src:s_menuItem},
-    {src:s_sendScore},
-    {src:s_pressSendScore},
-    {src:s_fpsImages}
-];
+var g_label = [];
 
-var g_touches = [
-    {src:s_ball},
-    {src:s_paddle}
-];
+var g_transitions = [];
 
-var g_fileUtils = [
-    {src:"FileUtils/lookup-html5.plist"}
-];
+var g_box2d = [];
 
-var g_s9s_blocks = [
-    {src:s_s9s_blocks9_plist},
-    {src:s_s9s_blocks9}
-];
+var g_cocosdeshion = [];
 
-var g_label = [
-    //{src:s_atlasTest},
-    {src:s_bitmapFontTest},
-    {src:s_bitmapFontTest2},
-    {src:s_bitmapFontTest3},
-    {src:s_bitmapFontTest4},
-    {src:s_bitmapFontTest5},
-    {src:s_konqa32},
-    {src:s_konqa32_hd},
-    {src:s_bitmapFontChinese},
-    {src:s_arial16},
-    {src:s_larabie_16},
-    {src:s_larabie_16_hd},
-    {src:s_futura48},
-    {src:s_arial_unicode_26},
-    {src:s_fnTuffyBoldItalicCharmapPng},
+var g_parallax = [];
 
-    {src:s_arrows},
-    {src:s_arrowsBar},
-    {src:s_arrows_hd},
-    {src:s_arrowsBar_hd},
-    {src:s_larabie_16_plist},
-    {src:s_larabie_16_hd_plist},
-    {src:s_tuffy_bold_italic_charmap},
-    {src:s_tuffy_bold_italic_charmap_hd},
-    {src:s_bitmapFontTest_fnt},
-    {src:s_bitmapFontTest2_fnt},
-    {src:s_bitmapFontTest3_fnt},
-    {src:s_bitmapFontTest4_fnt},
-    {src:s_bitmapFontTest5_fnt},
-    {src:s_konqa32_fnt},
-    {src:s_konqa32_hd_fnt},
-    {src:s_bitmapFontChinese_fnt},
-    {src:s_arial16_fnt},
-    {src:s_futura48_fnt},
-    {src:s_helvetica32_fnt},
-    {src:s_geneva32_fnt},
-    {src:s_arial_unicode_26_fnt},
-    {src:s_markerFelt_fnt},
-    {src:s_markerFelt_hd_fnt},
-    {src:"res/fonts/strings.xml"}
-];
+var g_particle = [];
 
-var g_transitions = [
-    {src:s_back1},
-    {src:s_back2}
-];
+var g_fonts = [];
 
-var g_box2d = [
-    {src:s_pathBlock}
-];
+var g_extensions = [];
 
-var g_cocosdeshion = [
-    {src:"res/Sound/background.mp3"},
-    {src:"res/Sound/effect2.mp3"},
-    {src:"res/Sound/background.ogg"},
-    {src:"res/Sound/effect2.ogg"}
-];
-
-var g_parallax = [
-    {src:"res/TileMaps/orthogonal-test2.tmx"},
-    {src:s_fixedOrthoTest2Png},
-    {src:s_power},
-    {src:s_back}
-];
-
-var g_particle = [
-    {src:s_fpsImages},
-    {src:s_starsGrayscale},
-    {src:s_stars2Grayscale},
-    {src:s_textureModeMenuItem},
-    {src:s_shapeModeMenuItem},
-    {src:s_MovementMenuItem},
-    {src:s_stars1},
-    {src:s_stars2},
-    {src:s_snow},
-    {src:s_particles},
-    {src:s_particles_hd},
-    {src:"res/Particles/BoilingFoam.plist"},
-    {src:"res/Particles/BurstPipe.plist"},
-    {src:"res/Particles/Comet.plist"},
-    {src:"res/Particles/debian.plist"},
-    {src:"res/Particles/ExplodingRing.plist"},
-    {src:"res/Particles/Flower.plist"},
-    {src:"res/Particles/Galaxy.plist"},
-    {src:"res/Particles/LavaFlow.plist"},
-    {src:"res/Particles/Phoenix.plist"},
-    {src:"res/Particles/SmallSun.plist"},
-    {src:"res/Particles/SpinningPeas.plist"},
-    {src:"res/Particles/Spiral.plist"},
-    {src:"res/Particles/SpookyPeas.plist"},
-    {src:"res/Particles/TestPremultipliedAlpha.plist"},
-    {src:"res/Particles/Upsidedown.plist"}
-];
-
-var g_fonts = [
-    //@face-font for WebFonts
-    {fontName:"Thonburi",
-        src:[
-            {src:"res/fonts/Thonburi.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Thonburi.ttf",type:"truetype"}]},
-    //{src:"res/fonts/Schwarzwald_Regular.woff", type:"woff"},
-    //{src:"res/fonts/Schwarzwald Regular.svg",type:"svg"}]},
-    {fontName:"Schwarzwald Regular",
-        src:[
-            {src:"res/fonts/Schwarzwald_Regular.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Schwarzwald Regular.ttf",type:"truetype"}]},
-    {fontName:"ThonburiBold",
-        src:[
-            {src:"res/fonts/ThonburiBold.eot", type:"embedded-opentype"},
-            {src:"res/fonts/ThonburiBold.ttf",type:"truetype"}]},
-    {fontName:"Courier New",
-        src:[
-            {src:"res/fonts/Courier New.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Courier New.ttf",type:"truetype"}]}
-];
-
-var g_extensions = [
-    {src:s_image_icon},
-    {src:s_extensions_background},
-    {src:s_extensions_buttonBackground},
-    {src:s_extensions_button},
-    {src:s_extensions_buttonHighlighted},
-    {src:s_extensions_ribbon},
-
-    //ccbi resource
-    {src:"res/ccb/HelloCocosBuilder.ccbi"},
-    {src:"res/ccb/ccb/TestAnimations.ccbi"},
-    {src:"res/ccb/ccb/TestAnimationsSub.ccbi"},
-    {src:"res/ccb/ccb/TestButtons.ccbi"},
-    {src:"res/ccb/ccb/TestHeader.ccbi"},
-    {src:"res/ccb/ccb/TestLabels.ccbi"},
-    {src:"res/ccb/ccb/TestMenus.ccbi"},
-    {src:"res/ccb/ccb/TestParticleSystems.ccbi"},
-    {src:"res/ccb/ccb/TestScrollViews.ccbi"},
-    {src:"res/ccb/ccb/TestScrollViewsContentA.ccbi"},
-    {src:"res/ccb/ccb/TestSprites.ccbi"},
-
-    {src:"res/ccb/btn-test-0.png"},
-    {src:"res/ccb/animated-grossini.png"},
-    {src:"res/ccb/btn-a-0.png"},
-    {src:"res/ccb/btn-a-1.png"},
-    {src:"res/ccb/btn-a-2.png"},
-    {src:"res/ccb/btn-b-0.png"},
-    {src:"res/ccb/btn-b-1.png"},
-    {src:"res/ccb/btn-b-2.png"},
-    {src:"res/ccb/btn-back-0.png"},
-    {src:"res/ccb/btn-back-1.png"},
-    {src:"res/ccb/btn-test-0.png"},
-    {src:"res/ccb/btn-test-1.png"},
-    {src:"res/ccb/btn-test-2.png"},
-    {src:"res/ccb/burst.png"},
-    {src:"res/ccb/flower.jpg"},
-    {src:"res/ccb/grossini-generic.png"},
-    {src:"res/ccb/jungle.png"},
-    {src:"res/ccb/jungle-left.png"},
-    {src:"res/ccb/jungle-right.png"},
-    {src:"res/ccb/logo.png"},
-    {src:"res/ccb/logo-icon.png"},
-    {src:"res/ccb/markerfelt24shadow.png"},
-    {src:"res/ccb/particle-fire.png"},
-    {src:"res/ccb/particle-smoke.png"},
-    {src:"res/ccb/particle-snow.png"},
-    {src:"res/ccb/particle-stars.png"},
-    {src:"res/ccb/scale-9-demo.png"},
-
-    {src:"res/ccb/markerfelt24shadow.fnt"},
-
-    {src:"res/ccb/grossini-generic.plist"},
-    {src:"res/ccb/animated-grossini.plist"}
-];
-
-var g_tilemaps = [
-    //image
-    {src:s_fixedOrthoTest2Png},
-    {src:s_hexaTilesPng},
-    {src:s_isoTestPng},
-    {src:s_isoTest2Png},
-    {src:s_isoPng},
-    {src:s_orthoTest1BwPng},
-    {src:s_orthoTest1Png},
-    {src:s_tilesHdPng},
-    {src:s_tmwDesertSpacingHdPng},
-    {src:s_tmwDesertSpacingPng},
-    {src:s_tilesPng},
-
-    //tmx
-    {src:"res/TileMaps/orthogonal-test1.tmx"},
-    {src:"res/TileMaps/orthogonal-test1.tsx"},
-    {src:"res/TileMaps/orthogonal-test2.tmx"},
-    {src:"res/TileMaps/orthogonal-test3.tmx"},
-    {src:"res/TileMaps/orthogonal-test4.tmx"},
-    {src:"res/TileMaps/orthogonal-test4-hd.tmx"},
-    {src:"res/TileMaps/orthogonal-test5.tmx"},
-    {src:"res/TileMaps/orthogonal-test6.tmx"},
-    {src:"res/TileMaps/orthogonal-test6-hd.tmx"},
-    {src:"res/TileMaps/hexa-test.tmx"},
-    {src:"res/TileMaps/iso-test.tmx"},
-    {src:"res/TileMaps/iso-test1.tmx"},
-    {src:"res/TileMaps/iso-test2.tmx"},
-    {src:"res/TileMaps/iso-test2-uncompressed.tmx"},
-    {src:"res/TileMaps/ortho-objects.tmx"},
-    {src:"res/TileMaps/iso-test-objectgroup.tmx"},
-    {src:"res/TileMaps/iso-test-zorder.tmx"},
-    {src:"res/TileMaps/orthogonal-test-zorder.tmx"},
-    {src:"res/TileMaps/iso-test-vertexz.tmx"},
-    {src:"res/TileMaps/orthogonal-test-vertexz.tmx"},
-    {src:"res/TileMaps/iso-test-movelayer.tmx"},
-    {src:"res/TileMaps/orthogonal-test-movelayer.tmx"},
-    {src:"res/TileMaps/iso-test-bug787.tmx"},
-    {src:"res/TileMaps/test-object-layer.tmx"},
-    {src:"res/TileMaps/ortho-tile-property.tmx"},
-    {src:"res/TileMaps/ortho-rotation-test.tmx"}
-];
+var g_tilemaps = [];
