@@ -74,7 +74,7 @@ var AnimationMenuLayer = PerformBasicLayer.extend({
     performTests:function () {
 
     }
-})
+});
 
 ////////////////////////////////////////////////////////
 //
@@ -92,7 +92,6 @@ var AnimationTest = AnimationMenuLayer.extend({
         var size = cc.Director.getInstance().getWinSize();
 
         cc.MenuItemFont.setFontSize(65);
-        var that = this;
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
         decrease.setColor(cc.c3b(0, 200, 20));
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
@@ -158,7 +157,7 @@ var AnimationTest = AnimationMenuLayer.extend({
 
             this.lastRenderedCount = this.numNodes;
         }
-    },
+    }
 });
 
 var CharacterView = cc.Node.extend({
@@ -219,7 +218,7 @@ var CharacterView = cc.Node.extend({
 
     setDistance: function(){
         leftX = leftItem.getPositionX();
-    },
+    }
 });
 
 AnimationTest.scene = function () {
