@@ -5,6 +5,7 @@ var Explosion = cc.Sprite.extend({
     ctor:function () {
         // needed for JS-Bindings compatibility
         cc.associateWithNative( this, cc.Sprite );
+        this._super();
 
         var pFrame = cc.SpriteFrameCache.getInstance().getSpriteFrame("explosion_01.png");
         this.initWithSpriteFrame(pFrame);
@@ -40,7 +41,7 @@ Explosion.sharedExplosion = function () {
 
 Explosion.getOrCreateExplosion = function() {
 	for (var j = 0; j < MW.CONTAINER.EXPLOSIONS.length; j++) {
-		selChild = MW.CONTAINER.EXPLOSIONS[j];
+		var selChild = MW.CONTAINER.EXPLOSIONS[j];
 		
 		if (selChild.active == false)
 		{
@@ -57,4 +58,4 @@ Explosion.getOrCreateExplosion = function() {
 	g_sharedGameLayer.addExplosions(explosion);
 	MW.CONTAINER.EXPLOSIONS.push(explosion);
 	return explosion;
-}
+} ;

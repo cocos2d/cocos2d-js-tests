@@ -27,12 +27,12 @@ var TAG_SPRITE_MANAGER = 1;
 var PTM_RATIO = 32;
 
 Box2DTestLayer = cc.Layer.extend({
-
     world:null,
     //GLESDebugDraw *m_debugDraw;
 
-
     ctor:function () {
+        this._super();
+
         this.setMouseEnabled(true);
         //setAccelerometerEnabled( true );
 
@@ -45,7 +45,6 @@ Box2DTestLayer = cc.Layer.extend({
 
         var screenSize = cc.Director.getInstance().getWinSize();
         //UXLog(L"Screen width %0.2f screen height %0.2f",screenSize.width,screenSize.height);
-
 
         // Construct a world object, which will hold and simulate the rigid bodies.
         this.world = new b2World(new b2Vec2(0, -10), true);
@@ -100,11 +99,6 @@ Box2DTestLayer = cc.Layer.extend({
 
         this.scheduleUpdate();
     },
-
-
-    //draw:function(){
-
-    //},
 
     addNewSpriteWithCoords:function (p) {
         //UXLog(L"Add sprite %0.2f x %02.f",p.x,p.y);
@@ -181,8 +175,6 @@ Box2DTestLayer = cc.Layer.extend({
 });
 
 Box2DTestScene = TestScene.extend({
-
-
     runThisTest:function () {
         var layer = new Box2DTestLayer();
         this.addChild(layer);

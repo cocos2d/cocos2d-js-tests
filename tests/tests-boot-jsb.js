@@ -24,6 +24,7 @@ var tests_files = [
 		'DrawPrimitivesTest/DrawPrimitivesTest.js',
 		'EaseActionsTest/EaseActionsTest.js',
 		'EffectsTest/EffectsTest.js',
+        'EffectsAdvancedTest/EffectsAdvancedTest.js',
 		'EventTest/EventTest.js',
 		'FileUtils/FileUtilsTest.js',
 		'FontTest/FontTest.js',

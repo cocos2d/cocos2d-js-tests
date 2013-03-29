@@ -289,9 +289,6 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
         this._textField.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
         this._trackNode = this._textField;
     },
-    onExit:function () {
-        this._super();
-    },
 
     //CCTextFieldDelegate
     onTextFieldAttachWithIME:function (sender) {
