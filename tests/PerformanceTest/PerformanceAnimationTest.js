@@ -74,7 +74,7 @@ var AnimationMenuLayer = PerformBasicLayer.extend({
     performTests:function () {
 
     }
-})
+});
 
 ////////////////////////////////////////////////////////
 //
@@ -158,7 +158,7 @@ var AnimationTest = AnimationMenuLayer.extend({
 
             this.lastRenderedCount = this.numNodes;
         }
-    },
+    }
 });
 
 var CharacterView = cc.Node.extend({
@@ -219,7 +219,7 @@ var CharacterView = cc.Node.extend({
 
     setDistance: function(){
         leftX = leftItem.getPositionX();
-    },
+    }
 });
 
 AnimationTest.scene = function () {
