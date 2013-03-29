@@ -5,6 +5,7 @@ var dirMusic = "res/Music/";
 var s_loading = dirImg + "loading.png";
 var s_menu = dirImg + "menu.png";
 var s_logo = dirImg + "logo.png";
+var s_b01 = dirImg + "b01.png";
 var s_cocos2dhtml5 = dirImg + "cocos2d-html5.png";
 var s_gameOver = dirImg + "gameOver.png";
 var s_menuTitle = dirImg + "menuTitle.png";
@@ -37,6 +38,7 @@ var g_mainmenu = [
     {src:s_loading},
     {src:s_menu},
     {src:s_logo},
+	{src:s_b01},
     {src:s_mainMainMusic},
     {src:s_menuTitle},
     {src:s_textureTransparentPack_plist},

@@ -1,13 +1,15 @@
 // JS Bindings constants
 require("jsb.js");
 
-// Load tests files
-var tests_files = [
-    // Resources definitions
-    'tests_resources-jsb.js',
+// Resources definitions
+require("tests_resources-jsb.js");
 
-    // Load main file
-    'tests-main.js',
+// Load main file
+require("tests-main.js");
+
+// Load tests files
+
+var tests_files = [
 
     // base class
     'BaseTestLayer/BaseTestLayer.js',
@@ -21,6 +23,7 @@ var tests_files = [
     'DrawPrimitivesTest/DrawPrimitivesTest.js',
     'EaseActionsTest/EaseActionsTest.js',
     'EffectsTest/EffectsTest.js',
+    'EffectsAdvancedTest/EffectsAdvancedTest.js',
     'EventTest/EventTest.js',
     'FileUtils/FileUtilsTest.js',
     'FontTest/FontTest.js',
@@ -54,15 +57,10 @@ var tests_files = [
     'SysTest/SysTest.js'
 ];
 
-//whether to obfuscate the code
-var obfuscate = false;
-
-if (!obfuscate) {
-    for (var i = 0; i < tests_files.length; i++) {
-        var name = "" + tests_files[i];
-        cc.log(" Loading: " + name);
-        require(name);
-    }
+for (var i = 0; i < tests_files.length; i++) {
+    var name = "" + tests_files[i];
+    cc.log(" Loading: " + name);
+    require(name);
 }
 
 var scene = cc.Scene.create();

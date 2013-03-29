@@ -97,17 +97,17 @@ FontTest = BaseTestLayer.extend({
         this.removeChildByTag(TAG_LABEL3, true);
         this.removeChildByTag(TAG_LABEL4, true);
 
-        var s = director.getWinSize();
+        var winSize = director.getWinSize();
 
         var top = cc.LabelTTF.create(pFont, pFont, 24);
-        var left = cc.LabelTTF.create("alignment left", pFont, 32, cc.size(s.width, 50), cc.TEXT_ALIGNMENT_LEFT);
-        var center = cc.LabelTTF.create("alignment center", pFont, 32, cc.size(s.width, 50), cc.TEXT_ALIGNMENT_CENTER);
-        var right = cc.LabelTTF.create("alignment right", pFont, 32, cc.size(s.width, 50), cc.TEXT_ALIGNMENT_RIGHT);
+        var left = cc.LabelTTF.create("alignment left", pFont, 32, cc.size(winSize.width, 50), cc.TEXT_ALIGNMENT_LEFT);
+        var center = cc.LabelTTF.create("alignment center", pFont, 32, cc.size(winSize.width, 50), cc.TEXT_ALIGNMENT_CENTER);
+        var right = cc.LabelTTF.create("alignment right", pFont, 32, cc.size(winSize.width, 50), cc.TEXT_ALIGNMENT_RIGHT);
 
-        top.setPosition(s.width / 2, s.height * 3 / 4);
-        left.setPosition(s.width / 2, s.height / 2);
-        center.setPosition(s.width / 2, s.height * 3 / 8);
-        right.setPosition(s.width / 2, s.height / 4);
+        top.setPosition(winSize.width / 2, winSize.height * 3 / 4);
+        left.setPosition(winSize.width / 2, winSize.height / 2);
+        center.setPosition(winSize.width / 2, winSize.height * 3 / 8);
+        right.setPosition(winSize.width / 2, winSize.height / 4);
 
         this.addChild(left, 0, TAG_LABEL1);
         this.addChild(right, 0, TAG_LABEL2);

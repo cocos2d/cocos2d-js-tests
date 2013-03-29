@@ -15,6 +15,7 @@ var Enemy = cc.Sprite.extend({
     ctor:function (arg) {
         // needed for JS-Bindings compatibility
         cc.associateWithNative( this, cc.Sprite );
+        this._super();
 
         this.HP = arg.HP;
         this.moveType = arg.moveType;
