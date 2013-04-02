@@ -53,7 +53,6 @@ SceneTestLayer1 = cc.Layer.extend({
         var rotate = cc.RotateBy.create(2, 360);
         var repeat = cc.RepeatForever.create(rotate);
         sprite.runAction(repeat);
-        this._super();
         //cc.schedule(this.testDealloc);
     },
 
