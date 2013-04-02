@@ -150,13 +150,13 @@
 		<key>crystals/sparkle.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{226, 55}, {22, 22}}</string>
+			<string>{{226, 55}, {23, 23}}</string>
 			<key>offset</key>
 			<string>{0, 0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{1, 1}, {22, 22}}</string>
+			<string>{{0, 0}, {23, 23}}</string>
 			<key>sourceSize</key>
 			<string>{24, 24}</string>
 		</dict>
