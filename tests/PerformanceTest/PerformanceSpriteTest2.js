@@ -91,7 +91,6 @@ var PerformanceTestBase = cc.Layer.extend({
 
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.Layer );
         this.init();
     },
     onEnter:function () {

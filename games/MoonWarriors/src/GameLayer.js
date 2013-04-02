@@ -33,9 +33,7 @@ var GameLayer = cc.Layer.extend({
     _explosions:null,
     _texOpaqueBatch:null,
     _texTransparentBatch:null,
-    ctor:function () {
-        cc.associateWithNative( this, cc.Layer );
-    },
+
     init:function () {
         var bRet = false;
         if (this._super()) {

@@ -25,21 +25,12 @@
  ****************************************************************************/
 
 var CustomTableViewCell = cc.TableViewCell.extend({
-    ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.TableViewCell );
-    },
-
     draw:function (ctx) {
         this._super(ctx);
     }
 });
 
 var TableViewTestLayer = cc.Layer.extend({
-    ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.Layer );
-    },
 
     init:function () {
         if (!this._super()) {

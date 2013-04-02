@@ -1,7 +1,4 @@
 var SettingsLayer = cc.Layer.extend({
-    ctor:function () {
-        cc.associateWithNative( this, cc.Layer );
-    },
     init:function () {
         var bRet = false;
         if (this._super()) {

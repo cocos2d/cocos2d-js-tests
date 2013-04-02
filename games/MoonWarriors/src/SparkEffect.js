@@ -5,7 +5,7 @@ var SparkEffect = cc.Class.extend({
 	scale:1.2,
 	duration:0.7,
 	ctor:function () {
-		cc.associateWithNative( this, cc.Class );
+        this._super();
 
 		this.spark1 = cc.Sprite.createWithSpriteFrameName("explode2.png");
 		this.spark1.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
