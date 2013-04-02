@@ -1,7 +1,7 @@
 var HitEffect = cc.Sprite.extend({
 	active:true,
     ctor:function () {
-        cc.associateWithNative( this, cc.Sprite );
+		this._super();
 
 		this.initWithSpriteFrameName("hit.png");
 		this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);

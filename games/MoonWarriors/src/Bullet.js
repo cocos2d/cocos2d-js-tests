@@ -10,8 +10,7 @@ var Bullet = cc.Sprite.extend({
     attackMode:MW.ENEMY_MOVE_TYPE.NORMAL,
     parentType:MW.BULLET_TYPE.PLAYER,
     ctor:function (bulletSpeed, weaponType, attackMode) {
-        // needed for JS-Bindings compatibility
-        cc.associateWithNative( this, cc.Sprite );
+        this._super();
 
         this.yVelocity = -bulletSpeed;
         this.attackMode = attackMode;

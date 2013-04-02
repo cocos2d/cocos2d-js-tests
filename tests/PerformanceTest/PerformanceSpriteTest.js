@@ -280,7 +280,6 @@ var SpriteMainScene = cc.Scene.extend({
     _subtestNumber:1,
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.Scene );
         this.init();
     },
 

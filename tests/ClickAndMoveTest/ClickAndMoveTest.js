@@ -37,7 +37,7 @@ var ClickAndMoveTestScene = TestScene.extend({
 var MainLayer = cc.Layer.extend({
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.Layer);
+
         this.init();
 
         if( 'touches' in sys.capabilities )

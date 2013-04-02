@@ -42,7 +42,6 @@ var BaseTestLayer = cc.LayerGradient.extend({
         sys.garbageCollect();
 
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
 
         // default gradient colors
         var a = cc.c4b(98,99,117,255);

@@ -546,7 +546,6 @@ var ShaderNode = cc.GLNode.extend({
 
     ctor:function(vertexShader, framentShader) {
         this._super();
-        cc.associateWithNative( this, cc.GLNode );
         this.init();
 
         if( 'opengl' in sys.capabilities ) {

@@ -163,7 +163,7 @@ var GameLayer = cc.LayerGradient.extend({
     ctor:function (game_state) {
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_coinsPlist);
         this._super(); // if you extend CC object, and write your own constructor, you should always call parent's constructor
-        cc.associateWithNative(this, cc.LayerGradient);
+
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
         this.setPosition(0, 0);
 
@@ -917,7 +917,7 @@ var GameLayer = cc.LayerGradient.extend({
 var BootLayer = cc.Layer.extend({
 
     ctor:function () {
-        cc.associateWithNative(this, cc.Layer);
+        this._super();
         this.init();
         // music
         audioEngine.playMusic(s_game_music);
@@ -990,7 +990,7 @@ var OptionsLayer = cc.LayerGradient.extend({
 
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.LayerGradient);
+
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
 
         var label1 = cc.LabelBMFont.create("MUSIC ON", s_Konqa32FNT);
@@ -1032,7 +1032,7 @@ var ScoresLayer = cc.LayerGradient.extend({
 
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.LayerGradient);
+
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
 
         var label = cc.LabelBMFont.create("HI SCORES", s_Gas40FNT);

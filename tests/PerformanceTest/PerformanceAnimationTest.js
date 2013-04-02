@@ -168,10 +168,6 @@ var CharacterView = cc.Node.extend({
     rightItem:null,
     leftX:null,
 
-    ctor:function() {
-        this._super();
-        cc.associateWithNative(this, cc.Node);
-    },
     init: function() {
         this._super();
         cc.SpriteFrameCache.getInstance().addSpriteFrames("res/animations/crystals.plist");
