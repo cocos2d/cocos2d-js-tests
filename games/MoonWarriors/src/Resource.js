@@ -17,14 +17,23 @@ var s_textureOpaquePack = dirImg + "textureOpaquePack.png";
 var s_textureTransparentPack = dirImg + "textureTransparentPack.png";
 
 //music
-var s_bgMusic = dirMusic + "bgMusic.mp3";
-var s_mainMainMusic = dirMusic + "mainMainMusic.mp3";
+var s_bgMusic_mp3 = dirMusic + "bgMusic.mp3";
+var s_mainMainMusic_mp3 = dirMusic + "mainMainMusic.mp3";
 
 //effect
-var s_buttonEffect = dirMusic + "buttonEffet.mp3";
-var s_explodeEffect = dirMusic + "explodeEffect.mp3";
-var s_fireEffect = dirMusic + "fireEffect.mp3";
-var s_shipDestroyEffect = dirMusic + "shipDestroyEffect.mp3";
+var s_buttonEffect_mp3 = dirMusic + "buttonEffet.mp3";
+var s_explodeEffect_mp3 = dirMusic + "explodeEffect.mp3";
+var s_fireEffect_mp3 = dirMusic + "fireEffect.mp3";
+var s_shipDestroyEffect_mp3 = dirMusic + "shipDestroyEffect.mp3";
+
+var s_bgMusic_ogg = dirMusic + "bgMusic.ogg";
+var s_mainMainMusic_ogg = dirMusic + "mainMainMusic.ogg";
+
+//effect
+var s_buttonEffect_ogg = dirMusic + "buttonEffet.ogg";
+var s_explodeEffect_ogg = dirMusic + "explodeEffect.ogg";
+var s_fireEffect_ogg = dirMusic + "fireEffect.ogg";
+var s_shipDestroyEffect_ogg = dirMusic + "shipDestroyEffect.ogg";
 
 //tmx
 var s_level01 = dirImg + "level01.tmx";
@@ -39,7 +48,8 @@ var g_mainmenu = [
     {src:s_menu},
     {src:s_logo},
 	{src:s_b01},
-    {src:s_mainMainMusic},
+    {src:s_mainMainMusic_mp3},
+    {src:s_mainMainMusic_ogg},
     {src:s_menuTitle},
     {src:s_textureTransparentPack_plist},
     {src:s_textureTransparentPack}
@@ -62,13 +72,18 @@ var g_maingame = [
     {src:s_textureOpaquePack_plist},
 
     //music
-    {src:s_bgMusic},
+    {src:s_bgMusic_mp3},
+    {src:s_bgMusic_ogg},
 
     //effect
-    {src:s_buttonEffect},
-    {src:s_explodeEffect},
-    {src:s_fireEffect},
-    {src:s_shipDestroyEffect},
+    {src:s_buttonEffect_mp3},
+    {src:s_explodeEffect_mp3},
+    {src:s_fireEffect_mp3},
+    {src:s_shipDestroyEffect_mp3},
+    {src:s_buttonEffect_ogg},
+    {src:s_explodeEffect_ogg},
+    {src:s_fireEffect_ogg},
+    {src:s_shipDestroyEffect_ogg},
 
     // FNT
     {src:s_arial14_fnt}

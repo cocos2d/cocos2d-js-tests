@@ -374,7 +374,7 @@ var GameLayer = cc.LayerGradient.extend({
             // since Coin is a sensor, it can't be removed at PostStep.
             // PostStep is not called for Sensors
             this._shapesToRemove.push(shapeCoin);
-            audioEngine.playEffect(PickupCointWAV);
+            audioEngine.playEffect(PickupCointWAV_mp3);
 
             this.addScore(1);
         }
@@ -383,7 +383,7 @@ var GameLayer = cc.LayerGradient.extend({
 
     // Floor and Watermelon
     onCollisionBeginWatermelon:function (arbiter, space) {
-        audioEngine.playEffect(s_GameOverWAV);
+        audioEngine.playEffect(s_GameOverWAV_mp3);
 
         this.setThrottle(0);
         this.setGameStateDeferred(STATE_GAME_OVER);
@@ -854,7 +854,7 @@ var GameLayer = cc.LayerGradient.extend({
         this.enableEvents(false);
         this.enableCollisionEvents(false);
 
-        audioEngine.playEffect(s_LevelComplete);
+        audioEngine.playEffect(s_LevelComplete_mp3);
     },
 
     displayGameOver:function () {
@@ -919,7 +919,7 @@ var BootLayer = cc.Layer.extend({
         cc.associateWithNative(this, cc.Layer);
         this.init();
         // music
-        audioEngine.playMusic(s_game_music);
+        audioEngine.playMusic(s_game_music_mp3);
 
         var cache = cc.SpriteFrameCache.getInstance();
         cache.addSpriteFrames(s_coinsPlist);
@@ -1019,7 +1019,7 @@ var OptionsLayer = cc.LayerGradient.extend({
         if (audioEngine.isMusicPlaying()) {
             audioEngine.stopMusic();
         } else {
-            audioEngine.playMusic(s_game_music);
+            audioEngine.playMusic(s_game_music_mp3);
         }
     }
 });

@@ -30,10 +30,15 @@ var s_Konqa32HDPNG = "res/CCB/konqa32-hd.png";
 var s_Konqa32IPADFNT = "res/CCB/konqa32-ipad.fnt";
 var s_Konqa32IPADPNG = "res/CCB/konqa32-ipad.png";
 
-var s_GameOverWAV = "res/sound/GameOver.mp3";
-var PickupCointWAV = "res/sound/pickup_coin.mp3";
-var s_LevelComplete = "res/sound/LevelComplete.mp3";
-var s_game_music = "res/sound/game-music.mp3";
+var s_GameOverWAV_mp3 = "res/sound/GameOver.mp3";
+var PickupCointWAV_mp3 = "res/sound/pickup_coin.mp3";
+var s_LevelComplete_mp3 = "res/sound/LevelComplete.mp3";
+var s_game_music_mp3 = "res/sound/game-music.mp3";
+
+var s_GameOverWAV_ogg = "res/sound/GameOver.ogg";
+var PickupCointWAV_ogg = "res/sound/pickup_coin.ogg";
+var s_LevelComplete_ogg = "res/sound/LevelComplete.ogg";
+var s_game_music_ogg = "res/sound/game-music.ogg";
 
 var s_body = "res/body.png";
 var s_head = "res/head3.png";
@@ -64,10 +69,15 @@ var g_ressources = [
     {src:s_Konqa32PNG},
     {src:s_Konqa32HDPNG},
     {src:s_Konqa32IPADPNG},
-    {src:s_GameOverWAV},
-    {src:PickupCointWAV},
-    {src:s_LevelComplete},
-    {src:s_game_music},
+    {src:s_GameOverWAV_mp3},
+    {src:PickupCointWAV_mp3},
+    {src:s_LevelComplete_mp3},
+    {src:s_game_music_mp3},
+
+    {src:s_GameOverWAV_ogg},
+    {src:PickupCointWAV_ogg},
+    {src:s_LevelComplete_ogg},
+    {src:s_game_music_ogg},
 
     {src:"res/CCB/labels.plist"},
     {src:"res/CCB/labels.png"},
