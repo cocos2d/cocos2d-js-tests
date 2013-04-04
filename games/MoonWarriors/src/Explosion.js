@@ -3,8 +3,6 @@ var Explosion = cc.Sprite.extend({
     tmpHeight:0,
 	active:true,
     ctor:function () {
-        // needed for JS-Bindings compatibility
-        cc.associateWithNative( this, cc.Sprite );
         this._super();
 
         var pFrame = cc.SpriteFrameCache.getInstance().getSpriteFrame("explosion_01.png");

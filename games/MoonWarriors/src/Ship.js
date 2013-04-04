@@ -13,9 +13,6 @@ var Ship = cc.Sprite.extend({
     _hurtColorLife:0,
     active:true,
     ctor:function () {
-
-        // needed for JS-Bindings compatibility
-        cc.associateWithNative( this, cc.Sprite );
         this._super();
 
         //init life

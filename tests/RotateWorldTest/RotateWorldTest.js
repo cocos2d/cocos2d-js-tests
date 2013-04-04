@@ -36,7 +36,6 @@ var RotateWorldTestScene = TestScene.extend({
 var SpriteLayer = cc.Layer.extend({
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.Layer);
         this.init();
     },
 
@@ -90,7 +89,6 @@ SpriteLayer.create = function () {
 var TestLayer = cc.Layer.extend({
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.Layer);
         this.init();
     },
 
@@ -121,7 +119,6 @@ TestLayer.create = function () {
 var RotateWorldMainLayer = cc.Layer.extend({
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.Layer);
         this.init();
     },
 

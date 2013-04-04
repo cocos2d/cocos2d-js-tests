@@ -45,8 +45,6 @@ var TextInputTest = cc.Layer.extend({
     notificationLayer:null,
     ctor:function() {
         this._super();
-
-        cc.associateWithNative( this, cc.Layer );
         this.init();
     },
 

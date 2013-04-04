@@ -1,10 +1,7 @@
 var GameOver = cc.Layer.extend({
     _ship:null,
     _lbScore:0,
-    ctor:function() {
-        // needed for JS-Bindings compatibility
-        cc.associateWithNative( this, cc.Layer);
-    },
+
     init:function () {
         var bRet = false;
         if (this._super()) {

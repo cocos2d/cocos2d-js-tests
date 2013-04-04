@@ -42,7 +42,6 @@ var autoTestCurrentTestName = autoTestCurrentTestName || "N/A";
 var TestScene = cc.Scene.extend({
     ctor:function (bPortrait) {
         this._super();
-        cc.associateWithNative( this, cc.Scene );
         this.init();
     },
 
@@ -83,7 +82,6 @@ var TestController = cc.LayerGradient.extend({
 
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
         // this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255), cc.p(-1,-1));
         this.init( cc.c4b(0,0,0,255), cc.c4b(0x46,0x82,0xB4,255));
 

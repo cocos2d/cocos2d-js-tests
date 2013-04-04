@@ -74,7 +74,6 @@ var NodeChildrenMainScene = cc.Scene.extend({
 
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.Scene );
         this.init();
     },
 

@@ -3110,12 +3110,9 @@ var SpriteNilTexture = SpriteTestDemo.extend({
 //
 //------------------------------------------------------------------
 var MySprite1 = cc.Sprite.extend({
-    _ivar:0,
-    ctor:function () {
-        this._super();
-        cc.associateWithNative(this, cc.Sprite);
-    }
+    _ivar:0
 });
+
 MySprite1.spriteWithSpriteFrameName = function (spriteFrameName) {
     var pFrame = spriteFrameCache.getSpriteFrame(spriteFrameName);
     var sprite = new MySprite1();
@@ -3125,12 +3122,9 @@ MySprite1.spriteWithSpriteFrameName = function (spriteFrameName) {
 };
 
 var MySprite2 = cc.Sprite.extend({
-    _ivar:0,
-    ctor:function () {
-        this._super();
-        cc.associateWithNative(this, cc.Sprite);
-    }
+    _ivar:0
 });
+
 MySprite2.spriteWithFile = function (name) {
     var sprite = new MySprite2();
     sprite.init(name);
@@ -3532,11 +3526,6 @@ var SpriteSkewNegativeScaleChildren = SpriteTestDemo.extend({
 
 var DoubleSprite = cc.Sprite.extend({
     HD:false,
-
-    ctor:function () {
-        this._super();
-        cc.associateWithNative(this, cc.Sprite);
-    },
 
     initWithTexture:function (texture, rect) {
         if (this._super(texture, rect)) {
