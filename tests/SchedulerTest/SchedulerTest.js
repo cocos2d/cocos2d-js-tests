@@ -254,9 +254,8 @@ var TestNode = cc.Node.extend({
     _pString:"",
 
     ctor:function (str, priority) {
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
         this._super();
+        this.init();
         this._pString = str;
         this.scheduleUpdateWithPriority(priority);
     },

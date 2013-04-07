@@ -34,7 +34,6 @@ var MID_GOBACK = 105;
 SceneTestLayer1 = cc.Layer.extend({
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.Layer);
         this.init();
 
         var s = director.getWinSize();
@@ -54,7 +53,6 @@ SceneTestLayer1 = cc.Layer.extend({
         var rotate = cc.RotateBy.create(2, 360);
         var repeat = cc.RepeatForever.create(rotate);
         sprite.runAction(repeat);
-        this._super();
         //cc.schedule(this.testDealloc);
     },
 
@@ -100,7 +98,6 @@ SceneTestLayer2 = cc.Layer.extend({
 
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.Layer);
         this.init();
 
         this.timeCounter = 0;
@@ -154,11 +151,9 @@ SceneTestLayer2 = cc.Layer.extend({
 });
 
 SceneTestLayer3 = cc.LayerColor.extend({
-
-
+    
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.LayerColor);
         this.init( cc.c4b(0,128,255,255) );
 
         if( 'touches' in sys.capabilities )

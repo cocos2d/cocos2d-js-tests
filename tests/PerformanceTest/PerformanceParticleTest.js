@@ -78,7 +78,6 @@ var ParticleMainScene = cc.Scene.extend({
     _subtestNumber:null,
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.Scene);
         this.init();
     },
     initWithSubTest:function (asubtest, particles) {

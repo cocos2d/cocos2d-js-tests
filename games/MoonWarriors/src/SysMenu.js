@@ -3,10 +3,6 @@ cc.dumpConfig();
 var SysMenu = cc.Layer.extend({
     _ship:null,
 
-    ctor:function () {
-        cc.associateWithNative( this, cc.Layer );
-        this._super();
-    },
     init:function () {
         var bRet = false;
         if (this._super()) {
