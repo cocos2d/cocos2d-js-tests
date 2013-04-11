@@ -1241,6 +1241,22 @@ var TMXGIDObjectsTest = TileDemo.extend({
     }
 });
 
+
+var TMXIsoOffsetTest = TileDemo.extend({
+    ctor:function () {
+        this._super();
+        var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/tile_iso_offset.tmx");
+        this.addChild(map, 0, TAG_TILE_MAP);
+
+    },
+    title:function () {
+        return "TMX Tile Offset";
+    },
+    subtitle:function () {
+        return "Testing offset of tiles";
+    }
+});
+
 var TileMapTestScene = TestScene.extend({
     runThisTest:function () {
         tileTestSceneIdx = -1;
@@ -1285,7 +1301,8 @@ var arrayOfTileMapTest = [
     TMXOrthoFromXMLTest,
     TMXBug987,
     TMXBug787,
-    TMXGIDObjectsTest
+    TMXGIDObjectsTest,
+    TMXIsoOffsetTest
 ];
 
 var nextTileMapTest = function () {
