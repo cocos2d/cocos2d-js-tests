@@ -1,10 +1,7 @@
 var GameOver = cc.Layer.extend({
     _ship:null,
     _lbScore:0,
-    ctor:function() {
-        // needed for JS-Bindings compatibility
-        cc.associateWithNative( this, cc.Layer);
-    },
+
     init:function () {
         var bRet = false;
         if (this._super()) {
@@ -52,7 +49,7 @@ var GameOver = cc.Layer.extend({
 
 
             if(MW.SOUND){
-                cc.AudioEngine.getInstance().playMusic(s_mainMainMusic);
+                cc.AudioEngine.getInstance().playMusic(s_mainMainMusic_mp3);
             }
 
             bRet = true;

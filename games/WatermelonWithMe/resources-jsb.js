@@ -33,10 +33,10 @@ var s_Konqa32HDPNG = "res/CCB/konqa32-hd.PNG";
 var s_Konqa32IPADFNT = "res/CCB/konqa32-ipad.fnt";
 var s_Konqa32IPADPNG = "res/CCB/konqa32-ipad.PNG";
 
-var s_GameOverWAV = "res/sound/GameOver.mp3";
-var PickupCointWAV = "res/sound/pickup_coin.mp3";
-var s_LevelComplete = "res/sound/LevelComplete.mp3";
-var s_game_music = "res/sound/game-music.mp3";
+var s_GameOverWAV_mp3 = "res/sound/GameOver.mp3";
+var PickupCointWAV_mp3 = "res/sound/pickup_coin.mp3";
+var s_LevelComplete_mp3 = "res/sound/LevelComplete.mp3";
+var s_game_music_mp3 = "res/sound/game-music.mp3";
 
 
 var s_body = "res/body.png";

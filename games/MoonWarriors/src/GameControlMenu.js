@@ -1,8 +1,5 @@
 var GameControlMenu = cc.Layer.extend({
-    ctor:function() {
-        // needed for JS-Bindings compatibility
-        cc.associateWithNative( this, cc.Layer);
-    },
+
     init:function () {
         var bRet = false;
         if (this._super()) {

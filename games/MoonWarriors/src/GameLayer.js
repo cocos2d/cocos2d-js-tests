@@ -33,9 +33,7 @@ var GameLayer = cc.Layer.extend({
     _explosions:null,
     _texOpaqueBatch:null,
     _texTransparentBatch:null,
-    ctor:function () {
-        cc.associateWithNative( this, cc.Layer );
-    },
+
     init:function () {
         var bRet = false;
         if (this._super()) {
@@ -117,7 +115,7 @@ var GameLayer = cc.Layer.extend({
             this.schedule(this.scoreCounter, 1);
 
             if (MW.SOUND) {
-                cc.AudioEngine.getInstance().playMusic(s_bgMusic, true);
+                cc.AudioEngine.getInstance().playMusic(s_bgMusic_mp3, true);
             }
 
             bRet = true;

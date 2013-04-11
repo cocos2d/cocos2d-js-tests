@@ -163,7 +163,7 @@ var GameLayer = cc.LayerGradient.extend({
     ctor:function (game_state) {
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_coinsPlist);
         this._super(); // if you extend CC object, and write your own constructor, you should always call parent's constructor
-        cc.associateWithNative(this, cc.LayerGradient);
+
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
         this.setPosition(0, 0);
 
@@ -374,7 +374,7 @@ var GameLayer = cc.LayerGradient.extend({
             // since Coin is a sensor, it can't be removed at PostStep.
             // PostStep is not called for Sensors
             this._shapesToRemove.push(shapeCoin);
-            audioEngine.playEffect(PickupCointWAV);
+            audioEngine.playEffect(PickupCointWAV_mp3);
 
             this.addScore(1);
         }
@@ -383,7 +383,7 @@ var GameLayer = cc.LayerGradient.extend({
 
     // Floor and Watermelon
     onCollisionBeginWatermelon:function (arbiter, space) {
-        audioEngine.playEffect(s_GameOverWAV);
+        audioEngine.playEffect(s_GameOverWAV_mp3);
 
         this.setThrottle(0);
         this.setGameStateDeferred(STATE_GAME_OVER);
@@ -854,7 +854,7 @@ var GameLayer = cc.LayerGradient.extend({
         this.enableEvents(false);
         this.enableCollisionEvents(false);
 
-        audioEngine.playEffect(s_LevelComplete);
+        audioEngine.playEffect(s_LevelComplete_mp3);
     },
 
     displayGameOver:function () {
@@ -916,10 +916,10 @@ var GameLayer = cc.LayerGradient.extend({
 var BootLayer = cc.Layer.extend({
 
     ctor:function () {
-        cc.associateWithNative(this, cc.Layer);
+        this._super();
         this.init();
         // music
-        audioEngine.playMusic(s_game_music);
+        audioEngine.playMusic(s_game_music_mp3);
 
         var cache = cc.SpriteFrameCache.getInstance();
         cache.addSpriteFrames(s_coinsPlist);
@@ -989,7 +989,7 @@ var OptionsLayer = cc.LayerGradient.extend({
 
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.LayerGradient);
+
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
 
         var label1 = cc.LabelBMFont.create("MUSIC ON", s_Konqa32FNT);
@@ -1019,7 +1019,7 @@ var OptionsLayer = cc.LayerGradient.extend({
         if (audioEngine.isMusicPlaying()) {
             audioEngine.stopMusic();
         } else {
-            audioEngine.playMusic(s_game_music);
+            audioEngine.playMusic(s_game_music_mp3);
         }
     }
 });
@@ -1031,7 +1031,7 @@ var ScoresLayer = cc.LayerGradient.extend({
 
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.LayerGradient);
+
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
 
         var label = cc.LabelBMFont.create("HI SCORES", s_Gas40FNT);

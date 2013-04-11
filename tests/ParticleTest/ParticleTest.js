@@ -475,8 +475,7 @@ var DemoBigFlower = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = new cc.ParticleSystemQuad();
-        this._emitter.initWithTotalParticles(50);
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(50);
 
         this._background.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars1));
@@ -553,8 +552,7 @@ var DemoRotFlower = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = new cc.ParticleSystemQuad();
-        this._emitter.initWithTotalParticles(("opengl" in sys.capabilities) ? 300 : 150);
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(("opengl" in sys.capabilities) ? 300 : 150);
 
         this._background.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars2));
@@ -763,8 +761,7 @@ var DemoModernArt = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = new cc.ParticleSystemQuad();
-        this._emitter.initWithTotalParticles(("opengl" in sys.capabilities) ? 1000 : 200);
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(("opengl" in sys.capabilities) ? 1000 : 200);
 
         this._background.addChild(this._emitter, 10);
 

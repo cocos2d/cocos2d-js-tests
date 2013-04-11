@@ -34,8 +34,6 @@ var sceneIdx = -1;
 var EventTest = cc.Layer.extend({
     ctor:function() {
         this._super();
-
-        cc.associateWithNative( this, cc.Layer );
         this.init();
     },
 

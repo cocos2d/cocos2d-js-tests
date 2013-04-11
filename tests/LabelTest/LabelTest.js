@@ -874,8 +874,13 @@ var LabelTTFChinese = AtlasDemo.extend({
         this._super();
         var size = director.getWinSize();
         var label = cc.LabelTTF.create("中国", "Microsoft Yahei", 30);
-        label.setPosition(cc.p(size.width / 2, size.height / 2));
+        label.setPosition(cc.p(size.width / 2, size.height / 3 * 2));
         this.addChild(label);
+
+        // Test UTF8 string from native to jsval.
+        var label2 = cc.LabelTTF.create("string from native:"+label.getString(), "Microsoft Yahei", 30);
+        label2.setPosition(cc.p(size.width / 2, size.height / 3));
+        this.addChild(label2);
     },
     title:function () {
         return "Testing cc.LabelTTF with Chinese character";
@@ -1174,7 +1179,6 @@ var BMFontInit = AtlasDemo.extend({
         this._super();
 
         var bmFont = cc.LabelBMFont.create();
-        bmFont.init();
         bmFont.setFntFile(s_resprefix + "fonts/helvetica-32.fnt");
         bmFont.setString("It is working!");
         this.addChild(bmFont);
