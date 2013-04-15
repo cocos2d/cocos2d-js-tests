@@ -40,7 +40,6 @@ var SceneTestLayer1 = cc.Layer.extend({
         var item1 = cc.MenuItemFont.create("Test pushScene", this.onPushScene, this);
         var item2 = cc.MenuItemFont.create("Test pushScene w/transition", this.onPushSceneTran, this);
         var item3 = cc.MenuItemFont.create("Quit", function () {
-            console.log("SceneTestLayer1:onQuit()");
             cc.log("quit!")
         }, this);
 
@@ -73,7 +72,6 @@ var SceneTestLayer1 = cc.Layer.extend({
     },
 
     onPushScene:function (sender) {
-        console.log("SceneTestLayer1:onPushScene()");
         var scene = new SceneTestScene();
         var layer = new SceneTestLayer2();
         scene.addChild(layer, 0);
@@ -81,7 +79,6 @@ var SceneTestLayer1 = cc.Layer.extend({
     },
 
     onPushSceneTran:function (sender) {
-        console.log("SceneTestLayer1:onPushSceneTran()");
         var scene = new SceneTestScene();
         var layer = new SceneTestLayer2();
         scene.addChild(layer, 0);
@@ -130,7 +127,6 @@ var SceneTestLayer2 = cc.Layer.extend({
     },
 
     onGoBack:function (sender) {
-        console.log("SceneTestLayer2:onGoBack()");
         director.popScene();
     },
 
