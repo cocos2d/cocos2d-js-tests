@@ -31,7 +31,7 @@ var MID_REPLACESCENE = 103;
 var MID_REPLACESCENETRAN = 104;
 var MID_GOBACK = 105;
 
-SceneTestLayer1 = cc.Layer.extend({
+var SceneTestLayer1 = cc.Layer.extend({
     ctor:function () {
         this._super();
         this.init();
@@ -86,13 +86,12 @@ SceneTestLayer1 = cc.Layer.extend({
         director.pushScene(cc.TransitionSlideInT.create(1, scene));
     },
     onQuit:function (sender) {
-
     }
 
     //CREATE_NODE(SceneTestLayer1);
 });
 
-SceneTestLayer2 = cc.Layer.extend({
+var SceneTestLayer2 = cc.Layer.extend({
 
     timeCounter:0,
 
@@ -144,13 +143,12 @@ SceneTestLayer2 = cc.Layer.extend({
         var layer = new SceneTestLayer3();
         scene.addChild(layer, 0);
         director.replaceScene(cc.TransitionSlideInT.create(2, scene));
-
     }
 
     //CREATE_NODE(SceneTestLayer2);
 });
 
-SceneTestLayer3 = cc.LayerColor.extend({
+var SceneTestLayer3 = cc.LayerColor.extend({
     
     ctor:function () {
         this._super();
