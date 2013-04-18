@@ -508,7 +508,7 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
         var planeSize = cc.pMult(winPoint, 1.0 / _PLANE_COUNT);
 
         gl.enable(gl.STENCIL_TEST);
-        cc.CHECK_GL_ERROR_DEBUG();
+        //cc.CHECK_GL_ERROR_DEBUG();
 
         for (var i = 0; i < _PLANE_COUNT; i++) {
             var stencilPoint = cc.pMult(planeSize, _PLANE_COUNT - i);
@@ -520,7 +520,7 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
             this._sprite.setPosition( spritePoint );
 
             this.setupStencilForClippingOnPlane(i);
-            cc.CHECK_GL_ERROR_DEBUG();
+            //cc.CHECK_GL_ERROR_DEBUG();
 
             cc.drawingUtil.drawSolidRect(cc.PointZero(), stencilPoint, cc.c4f(1, 1, 1, 1));
 
@@ -530,7 +530,7 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
             cc.kmGLPopMatrix();
 
             this.setupStencilForDrawingOnPlane(i);
-            cc.CHECK_GL_ERROR_DEBUG();
+            //cc.CHECK_GL_ERROR_DEBUG();
 
             cc.drawingUtil.drawSolidRect(cc.PointZero(), winPoint, _planeColor[i]);
 
@@ -541,7 +541,7 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
         }
 
         gl.disable(gl.STENCIL_TEST);
-        cc.CHECK_GL_ERROR_DEBUG();
+        //cc.CHECK_GL_ERROR_DEBUG();
     },
 
     setupStencilForClippingOnPlane:function (plane) {

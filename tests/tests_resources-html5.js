@@ -107,6 +107,8 @@ var s_orthoTest1Png = "res/TileMaps/ortho-test1.png";
 var s_tilesHdPng = "res/TileMaps/tiles-hd.png";
 var s_tmwDesertSpacingHdPng = "res/TileMaps/tmw_desert_spacing-hd.png";
 var s_tmwDesertSpacingPng = "res/TileMaps/tmw_desert_spacing.png";
+var s_tileISOOffsetPng = "res/TileMaps/tile_iso_offset.png";
+var s_tileISOOffsetTmx = "res/TileMaps/tile_iso_offset.tmx";
 
 var s_fnTuffyBoldItalicCharmapPng = "res/fonts/tuffy_bold_italic-charmap.png";
 var s_fpsImages = "res/fonts/fps_images.png";
@@ -489,6 +491,8 @@ var g_tilemaps = [
     {src:s_tmwDesertSpacingHdPng},
     {src:s_tmwDesertSpacingPng},
     {src:s_tilesPng},
+    {src:s_tileISOOffsetPng},
+    {src:s_tileISOOffsetTmx},
     {src:"res/TileMaps/ortho-test2.png"},
 
     //tmx
