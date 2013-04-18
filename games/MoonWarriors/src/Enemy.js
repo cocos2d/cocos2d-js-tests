@@ -13,8 +13,7 @@ var Enemy = cc.Sprite.extend({
     attackMode:MW.ENEMY_MOVE_TYPE.NORMAL,
     _hurtColorLife:0,
     ctor:function (arg) {
-        // needed for JS-Bindings compatibility
-        cc.associateWithNative( this, cc.Sprite );
+        this._super();
 
         this.HP = arg.HP;
         this.moveType = arg.moveType;
@@ -57,7 +56,7 @@ var Enemy = cc.Sprite.extend({
         a.setPosition(this.getPosition());
         SparkEffect.getOrCreateSparkEffect(this.getPosition());
         if(MW.SOUND){
-            cc.AudioEngine.getInstance().playEffect(s_explodeEffect);
+            cc.AudioEngine.getInstance().playEffect(s_explodeEffect_mp3);
         }
 		this.setPosition(g_hideSpritePos);
 		this.stopAllActions();

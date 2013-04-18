@@ -23,8 +23,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-var MAX_SPRITES = 1000;
-var SPRITES_INCREASE = 50;
+var MAX_SPRITES = 10000;
+var SPRITES_INCREASE = 500;
 
 var TAG_INFO_LAYER = 1;
 var TAG_MAIN_LAYER = 2;
@@ -280,7 +280,6 @@ var SpriteMainScene = cc.Scene.extend({
     _subtestNumber:1,
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.Scene );
         this.init();
     },
 

@@ -3,9 +3,6 @@ cc.dumpConfig();
 var SysMenu = cc.Layer.extend({
     _ship:null,
 
-    ctor:function () {
-        cc.associateWithNative( this, cc.Layer );
-    },
     init:function () {
         var bRet = false;
         if (this._super()) {
@@ -54,7 +51,7 @@ var SysMenu = cc.Layer.extend({
 
             if (MW.SOUND) {
                 cc.AudioEngine.getInstance().setMusicVolume(0.7);
-                cc.AudioEngine.getInstance().playMusic(s_mainMainMusic, true);
+                cc.AudioEngine.getInstance().playMusic(s_mainMainMusic_mp3, true);
             }
 
             bRet = true;
@@ -93,7 +90,7 @@ var SysMenu = cc.Layer.extend({
     },
     onButtonEffect:function(){
         if (MW.SOUND) {
-            var s = cc.AudioEngine.getInstance().playEffect(s_buttonEffect);
+            var s = cc.AudioEngine.getInstance().playEffect(s_buttonEffect_mp3);
         }
     }
 });

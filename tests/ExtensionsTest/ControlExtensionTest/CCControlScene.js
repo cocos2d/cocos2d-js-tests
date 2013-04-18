@@ -27,8 +27,6 @@
 var ControlScene = cc.Layer.extend({
     _sceneTitleLabel:null,
 
-    ctor:function(){},
-
     getSceneTitleLabel:function(){return this._sceneTitleLabel;},
     setSceneTitleLabel:function(sceneTitleLabel){this._sceneTitleLabel = sceneTitleLabel;},
 
@@ -53,7 +51,7 @@ var ControlScene = cc.Layer.extend({
 
             // Add the ribbon
             var ribbon = cc.Scale9Sprite.create(s_extensions_ribbon, cc.RectMake(1, 1, 48, 55));
-            ribbon.setContentSize(cc.SizeMake(screensize.width, 57));
+            ribbon.setContentSize(cc.size(screensize.width, 57));
             ribbon.setPosition(cc.p(screensize.width / 2.0, screensize.height - ribbon.getContentSize().height / 2.0));
             this.addChild(ribbon);
 
@@ -63,7 +61,7 @@ var ControlScene = cc.Layer.extend({
             this.addChild(this._sceneTitleLabel, 1);
 
             // Add the menu
-            var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this, this.previousCallback);
+            var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.previousCallback, this);
             var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
             var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 

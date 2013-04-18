@@ -31,7 +31,9 @@ var winSize = null;
 
 var PLATFORM_JSB = 1 << 0;
 var PLATFORM_HTML5 = 1 << 1;
-var PLATFORM_ALL = PLATFORM_JSB | PLATFORM_HTML5;
+var PLATFORM_HTML5_WEBGL = 1 << 2;
+var PLATFORM_JSB_AND_WEBGL =  PLATFORM_JSB | PLATFORM_HTML5_WEBGL;
+var PLATFORM_ALL = PLATFORM_JSB | PLATFORM_HTML5 | PLATFORM_HTML5_WEBGL;
 
 // automation vars
 var autoTestEnabled = autoTestEnabled || false;
@@ -40,7 +42,6 @@ var autoTestCurrentTestName = autoTestCurrentTestName || "N/A";
 var TestScene = cc.Scene.extend({
     ctor:function (bPortrait) {
         this._super();
-        cc.associateWithNative( this, cc.Scene );
         this.init();
     },
 
@@ -78,9 +79,9 @@ var TestController = cc.LayerGradient.extend({
     _itemMenu:null,
     _beginPos:0,
     isMouseDown:false,
+
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
         // this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255), cc.p(-1,-1));
         this.init( cc.c4b(0,0,0,255), cc.c4b(0x46,0x82,0xB4,255));
 
@@ -118,8 +119,12 @@ var TestController = cc.LayerGradient.extend({
 
             // enable disable
             if ( sys.platform == 'browser') {
-                menuItem.setEnabled( testNames[i].platforms & PLATFORM_HTML5 );
-            } else { /* jsb */
+                if( 'opengl' in sys.capabilities ){
+                    menuItem.setEnabled( (testNames[i].platforms & PLATFORM_HTML5) | (testNames[i].platforms & PLATFORM_HTML5_WEBGL) );
+                }else{
+                    menuItem.setEnabled( testNames[i].platforms & PLATFORM_HTML5 );
+                }
+            } else {
                 menuItem.setEnabled( testNames[i].platforms & PLATFORM_JSB );
             }
         }
@@ -179,14 +184,12 @@ var TestController = cc.LayerGradient.extend({
     onScrollWheel:function(event){
         var delta = event.getWheelDelta();
         this.moveMenu({y:-delta});
-        //console.log(1);
         return true;
     },
     moveMenu:function(delta) {
         var current = this._itemMenu.getPosition();
 
         var newY = current.y + delta.y;
-
         if (newY < 0 )
             newY = 0;
 
@@ -236,6 +239,13 @@ var testNames = [
         }
     },
     {
+        title:"ClippingNode Test",
+        platforms: PLATFORM_HTML5_WEBGL,
+        testScene:function () {
+            return new ClippingNodeTestScene();
+        }
+    },
+    {
         title:"CocosDenshion Test",
         resource:g_cocosdeshion,
         platforms: PLATFORM_ALL,
@@ -282,12 +292,18 @@ var testNames = [
     },
     {
         title:"Effects Test",
-        platforms: PLATFORM_JSB,
+        platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new EffectsTestScene();
         }
     },
-    //"EffectAdvancedTest",
+    {
+        title:"Effects Advanced Test",
+        platforms: PLATFORM_JSB_AND_WEBGL,
+        testScene:function () {
+            return new EffectAdvanceScene();
+        }
+    },
     //"ExtensionsTest",
     {
         title:"FileUtils Test",
@@ -337,6 +353,13 @@ var testNames = [
         }
     },
     {
+        title:"MotionStreak Test",
+        platforms: PLATFORM_HTML5_WEBGL,
+        testScene:function () {
+            return new MotionStreakTestScene();
+        }
+    },
+    {
         title:"Node Test",
         platforms: PLATFORM_ALL,
         testScene:function () {
@@ -346,7 +369,7 @@ var testNames = [
     //"MotionStreakTest",
     {
         title:"OpenGL Test",
-        platforms: PLATFORM_JSB,
+        platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new OpenGLTestScene();
         }
@@ -383,7 +406,7 @@ var testNames = [
     },
     {
         title:"RenderTexture Test",
-        platforms: PLATFORM_JSB,
+        platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new RenderTextureTestScene();
         }

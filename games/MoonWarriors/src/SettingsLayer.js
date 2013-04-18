@@ -1,7 +1,4 @@
 var SettingsLayer = cc.Layer.extend({
-    ctor:function () {
-        cc.associateWithNative( this, cc.Layer );
-    },
     init:function () {
         var bRet = false;
         if (this._super()) {
@@ -72,7 +69,7 @@ var SettingsLayer = cc.Layer.extend({
         MW.SOUND = !MW.SOUND;
         var audioEngine = cc.AudioEngine.getInstance();
         if(MW.SOUND){
-            audioEngine.playMusic(s_mainMainMusic);
+            audioEngine.playMusic(s_mainMainMusic_mp3);
         }
         else{
             audioEngine.stopMusic();

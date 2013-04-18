@@ -37,7 +37,7 @@ var ClickAndMoveTestScene = TestScene.extend({
 var MainLayer = cc.Layer.extend({
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.Layer);
+
         this.init();
 
         if( 'touches' in sys.capabilities )
@@ -68,7 +68,7 @@ var MainLayer = cc.Layer.extend({
         var current = sprite.getPosition();
         var o = position.x - current.x;
         var a = position.y - current.y;
-        var at = Math.atan(o / a) * (180/Math.PI);  // radians to degrees
+        var at = Math.atan(o / a) * 57.29577951;  // radians to degrees
 
         if (a < 0) {
             if (o < 0)
@@ -76,7 +76,6 @@ var MainLayer = cc.Layer.extend({
             else
                 at = 180 - Math.abs(at);
         }
-        at = at % 360;
 
         sprite.runAction(cc.RotateTo.create(1, at));
     },

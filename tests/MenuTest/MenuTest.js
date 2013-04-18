@@ -36,7 +36,7 @@ var TAG_MENU1 = 77771;
 //------------------------------------------------------------------
 var MenuLayerMainMenu = cc.Layer.extend({
     ctor:function () {
-        cc.associateWithNative(this, cc.Layer);
+        this._super();
         this.init();
     },
     init:function () {
@@ -165,7 +165,7 @@ var MenuLayer2 = cc.Layer.extend({
     _alignedH:false,
 
     ctor:function () {
-        cc.associateWithNative(this, cc.Layer);
+        this._super();
         this.init();
     },
     init:function () {
@@ -250,7 +250,7 @@ var MenuLayer3 = cc.Layer.extend({
     _disabledItem:null,
 
     ctor:function () {
-        cc.associateWithNative(this, cc.Layer);
+        this._super();
         this.init();
     },
     init:function () {
@@ -311,7 +311,7 @@ var MenuLayer3 = cc.Layer.extend({
 
 var MenuLayer4 = cc.Layer.extend({
     ctor:function () {
-        cc.associateWithNative(this, cc.Layer);
+        this._super();
         this.init();
     },
     init:function () {
@@ -409,7 +409,7 @@ var MenuLayerPriorityTest = cc.Layer.extend({
     _priority:false,
 
     ctor:function () {
-        cc.associateWithNative(this, cc.Layer);
+        this._super();
         this.init();
 
         this._menu1 = cc.Menu.create();

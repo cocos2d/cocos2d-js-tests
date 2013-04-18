@@ -43,7 +43,6 @@ var PerformanceTests = [
 var PerformanceMainLayer = cc.LayerGradient.extend({
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
         this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
     },
 
@@ -107,7 +106,6 @@ var PerformBasicLayer = cc.Layer.extend({
     _curCase:0,
     ctor:function () {
         this._super();
-        cc.associateWithNative( this, cc.Layer );
         this.init();
         this._curCase = nCurCase;
     },

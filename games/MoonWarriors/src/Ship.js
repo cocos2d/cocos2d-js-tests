@@ -13,9 +13,7 @@ var Ship = cc.Sprite.extend({
     _hurtColorLife:0,
     active:true,
     ctor:function () {
-
-        // needed for JS-Bindings compatibility
-        cc.associateWithNative( this, cc.Sprite );
+        this._super();
 
         //init life
         this.initWithSpriteFrameName("ship01.png");
@@ -91,7 +89,7 @@ var Ship = cc.Sprite.extend({
 		explosion.setPosition(this.getPosition());
 
         if (MW.SOUND) {
-            cc.AudioEngine.getInstance().playEffect(s_shipDestroyEffect);
+            cc.AudioEngine.getInstance().playEffect(s_shipDestroyEffect_mp3);
         }
     },
     hurt:function () {
