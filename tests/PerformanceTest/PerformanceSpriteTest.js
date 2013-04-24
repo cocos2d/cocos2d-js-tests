@@ -159,11 +159,11 @@ var SubTest = cc.Class.extend({
          */
 
         // purge textures
-        var mgr = cc.TextureCache.getInstance();
+        //var mgr = cc.TextureCache.getInstance();
         //		[mgr removeAllTextures];
-        mgr.removeTexture(mgr.addImage("res/Images/grossinis_sister1.png"));
-        mgr.removeTexture(mgr.addImage("res/Images/grossini_dance_atlas.png"));
-        mgr.removeTexture(mgr.addImage("res/Images/spritesheet1.png"));
+        //mgr.removeTexture(mgr.addImage("res/Images/grossinis_sister1.png"));
+        //mgr.removeTexture(mgr.addImage("res/Images/grossini_dance_atlas.png"));
+        //mgr.removeTexture(mgr.addImage("res/Images/spritesheet1.png"));
 
         switch (this._subtestNumber) {
             case 1:
@@ -370,9 +370,15 @@ var SpriteMainScene = cc.Scene.extend({
             var sprite = this._subTest.createSpriteWithTag(this._quantityNodes);
             this.doTest(sprite);
             this._quantityNodes++;
+            if(i == 150)
+                window.selSprite1 = sprite;
+            if(i == 300)
+                window.selSprite2 = sprite;
         }
 
         this.updateNodes();
+        if(window.selSprite1._texture != window.selSprite2._texture)
+            throw "set texture error";
     },
     onDecrease:function (sender) {
         if (this._quantityNodes <= 0)
