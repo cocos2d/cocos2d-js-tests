@@ -24,170 +24,140 @@
  THE SOFTWARE.
  ****************************************************************************/
 var TAG_NODE = 9960;
-var TAG_GROSSINI = 9961;
 
-var sceneIdx = -1;
+var parallaxTestSceneIdx = -1;
 
-var MAX_LAYER = 2;
-
-
-function createParallaxTestLayer(index) {
-    switch (index) {
-        case 0:
-            return new Parallax1();
-        case 1:
-            return new Parallax2();
-    }
-
-    return null;
-}
-
-function nextParallaxAction() {
-    sceneIdx++;
-    sceneIdx = sceneIdx % MAX_LAYER;
-
-    var layer = createParallaxTestLayer(sceneIdx);
-    return layer;
-}
-
-function backParallaxAction() {
-    sceneIdx--;
-    var total = MAX_LAYER;
-    if (sceneIdx < 0)
-        sceneIdx += total;
-
-    var layer = createParallaxTestLayer(sceneIdx);
-    return layer;
-}
-
-function restartParallaxAction() {
-    var layer = createParallaxTestLayer(sceneIdx);
-    return layer;
-}
-ParallaxDemo = cc.LayerGradient.extend({
+ParallaxDemo = BaseTestLayer.extend({
 
     _atlas:null,
 
     ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(160,32,32,255));
+        this._super(cc.c4b(0,0,0,255), cc.c4b(160,32,32,255));
     },
 
     title:function () {
         return "No title";
     },
 
-    onEnter:function () {
-        this._super();
-
-        var label = cc.LabelTTF.create(this.title(), "Arial", 28);
-        this.addChild(label, 1);
-        label.setPosition(winSize.width / 2, winSize.height - 50);
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(0,0);
-        item1.setPosition(winSize.width / 2 - 100, 30);
-        item2.setPosition(winSize.width / 2, 30);
-        item3.setPosition(winSize.width / 2 + 100, 30);
-
-        this.addChild(menu, 1);
-
-    },
-
     onBackCallback:function (sender) {
         var s = new ParallaxTestScene();
-        s.addChild(backParallaxAction());
+        s.addChild(previousParallaxTest());
         director.replaceScene(s);
     },
 
     onRestartCallback:function (sender) {
         var s = new ParallaxTestScene();
-        s.addChild(restartParallaxAction());
+        s.addChild(restartParallaxTest());
 
         director.replaceScene(s);
     },
 
     onNextCallback:function (sender) {
         var s = new ParallaxTestScene();
-        s.addChild(nextParallaxAction());
+        s.addChild(nextParallaxTest());
         director.replaceScene(s);
 
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfParallaxTest.length-1) - parallaxTestSceneIdx );
+    },
+
+    getTestNumber:function() {
+        return parallaxTestSceneIdx;
     }
+
 });
 
 Parallax1 = ParallaxDemo.extend({
 
-    _root:null,
-    _target:null,
-    _streak:null,
-
+    _parent:null,
+    _background:null,
+    _tilemap:null,
+    _cocosimage:null,
 
     ctor:function () {
         this._super();
 
         // Top Layer, a simple image
-        var cocosImage = cc.Sprite.create(s_power);
+        _cocosimage = cc.Sprite.create(s_power);
         // scale the image (optional)
-        cocosImage.setScale(1.5);
+        _cocosimage.setScale(1.5);
         // change the transform anchor point to 0,0 (optional)
-        cocosImage.setAnchorPoint(cc.p(0, 0));
+        _cocosimage.setAnchorPoint(cc.p(0, 0));
 
 
         // Middle layer: a Tile map atlas
         //var tilemap = cc.TileMapAtlas.create(s_tilesPng, s_levelMapTga, 16, 16);
-        var tilemap = cc.TMXTiledMap.create(s_resprefix + "TileMaps/orthogonal-test2.tmx");
-
+        _tilemap = cc.TMXTiledMap.create(s_resprefix + "TileMaps/orthogonal-test2.tmx");
 
         // change the transform anchor to 0,0 (optional)
-        tilemap.setAnchorPoint(cc.p(0, 0));
+        _tilemap.setAnchorPoint(cc.p(0, 0));
 
         // Anti Aliased images
         //tilemap.getTexture().setAntiAliasTexParameters();
 
         // background layer: another image
-        var background = cc.Sprite.create(s_back);
+        _background = cc.Sprite.create(s_back);
         // scale the image (optional)
         //background.setScale(1.5);
         // change the transform anchor point (optional)
-        background.setAnchorPoint(cc.p(0, 0));
+        _background.setAnchorPoint(cc.p(0, 0));
 
 
         // create a void node, a parent node
-        var voidNode = cc.ParallaxNode.create();
+        _parent = cc.ParallaxNode.create();
 
         // NOW add the 3 layers to the 'void' node
 
         // background image is moved at a ratio of 0.4x, 0.5y
-        voidNode.addChild(background, -1, cc.p(0.4, 0.5), cc.p(0,0));
+        _parent.addChild(_background, -1, cc.p(0.4, 0.5), cc.p(0,0));
 
         // tiles are moved at a ratio of 2.2x, 1.0y
-        voidNode.addChild(tilemap, 1, cc.p(2.2, 1.0), cc.p(0, 0));
+        _parent.addChild(_tilemap, 1, cc.p(2.2, 1.0), cc.p(0, 0));
 
         // top image is moved at a ratio of 3.0x, 2.5y
-        voidNode.addChild(cocosImage, 2, cc.p(3.0, 2.5), cc.p(0, 0));
+        _parent.addChild(_cocosimage, 2, cc.p(3.0, 2.5), cc.p(0, 0));
 
 
-        // now create some actions that will move the 'void' node
-        // and the children of the 'void' node will move at different
+        // now create some actions that will move the '_parent' node
+        // and the children of the '_parent' node will move at different
         // speed, thus, simulation the 3D environment
-        var goUp = cc.MoveBy.create(4, cc.p(0, 100));
+        var goUp = cc.MoveBy.create(2, cc.p(0, 100));
+        var goRight = cc.MoveBy.create(2, cc.p(200, 0));
+        var delay = cc.DelayTime.create(2.0);
         var goDown = goUp.reverse();
-        var go = cc.MoveBy.create(8, cc.p(200, 0));
-        var goBack = go.reverse();
-        var seq = cc.Sequence.create(goUp, go, goDown, goBack);
-        voidNode.runAction((cc.RepeatForever.create(seq) ));
+        var goLeft = goRight.reverse();
+        var seq = cc.Sequence.create(goUp, goRight, delay, goDown, goLeft);
+        _parent.runAction((cc.RepeatForever.create(seq) ));
 
-        this.addChild(voidNode);
+        this.addChild(_parent);
     },
 
     title:function () {
         return "Parallax: parent and 3 children";
+    },
+
+    // default values for automation
+    testDuration:5,
+    getExpectedResult:function() {
+        var ret = {};
+        ret.pos_parent = cc.p(200,100);
+        ret.pos_child1 = cc.p(-120, -50);
+        ret.pos_child2 = cc.p(240, 0);
+        ret.pos_child3 = cc.p(400, 150);
+
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = {};
+        ret.pos_parent = cc.p(Math.round(_parent.getPosition().x), Math.round(_parent.getPosition().y));
+        ret.pos_child1 = cc.p(Math.round(_background.getPosition().x), Math.round(_background.getPosition().y));;
+        ret.pos_child2 = cc.p(Math.round(_tilemap.getPosition().x), Math.round(_tilemap.getPosition().y));
+        ret.pos_child3 = cc.p(Math.round(_cocosimage.getPosition().x), Math.round(_cocosimage.getPosition().y));
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -199,7 +169,6 @@ Parallax2 = ParallaxDemo.extend({
 
 
     ctor:function () {
-
         this._super();
 
         if( 'touches' in sys.capabilities )
@@ -272,11 +241,31 @@ Parallax2 = ParallaxDemo.extend({
 ParallaxTestScene = TestScene.extend({
 
     runThisTest:function () {
-        sceneIdx = -1;
-        MAX_LAYER = 2;
-        var layer = nextParallaxAction();
-
-        this.addChild(layer);
+        parallaxTestSceneIdx = -1;
+        this.addChild(nextParallaxTest());
         director.replaceScene(this);
     }
 });
+
+
+var arrayOfParallaxTest = [
+    Parallax1,
+    Parallax2
+];
+
+var nextParallaxTest = function () {
+    parallaxTestSceneIdx++;
+    parallaxTestSceneIdx = parallaxTestSceneIdx % arrayOfParallaxTest.length;
+
+    return new arrayOfParallaxTest[parallaxTestSceneIdx]();
+};
+var previousParallaxTest = function () {
+    parallaxTestSceneIdx--;
+    if (parallaxTestSceneIdx < 0)
+        parallaxTestSceneIdx += arrayOfParallaxTest.length;
+
+    return new arrayOfParallaxTest[parallaxTestSceneIdx]();
+};
+var restartParallaxTest = function () {
+    return new arrayOfParallaxTest[parallaxTestSceneIdx]();
+};

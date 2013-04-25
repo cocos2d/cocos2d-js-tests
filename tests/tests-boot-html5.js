@@ -33,12 +33,17 @@
         showFPS:true,
         loadExtension:true,
         frameRate:60,
+        renderMode:0,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
         tag:'gameCanvas', //the dom element to run cocos2d on
         engineDir:'../../cocos2d/',
         //SingleEngineFile:'',
         appFiles:[//'src/AppDelegate.js',
-            'tests-main.js',
+
+            // base class
+            'BaseTestLayer/BaseTestLayer.js',
+
             'tests_resources-html5.js',
+            'tests-main.js',
 
             'TouchesTest/Ball.js',
             'TouchesTest/Paddle.js',
@@ -59,6 +64,7 @@
             'CocosDenshionTest/CocosDenshionTest.js',
             'CocosNodeTest/CocosNodeTest.js',
             'RotateWorldTest/RotateWorldTest.js',
+            'RenderTextureTest/RenderTextureTest.js',
             'IntervalTest/IntervalTest.js',
             'ActionManagerTest/ActionManagerTest.js',
             'EaseActionsTest/EaseActionsTest.js',
@@ -69,6 +75,7 @@
             'PerformanceTest/PerformanceParticleTest.js',
             'PerformanceTest/PerformanceNodeChildrenTest.js',
             'PerformanceTest/PerformanceTextureTest.js',
+            'PerformanceTest/PerformanceAnimationTest.js',
             'PerformanceTest/seedrandom.js',
             'FontTest/FontTest.js',
             'PerformanceTest/PerformanceTouchesTest.js',
@@ -79,6 +86,11 @@
             'UnitTest/UnitTest.js',
             'SysTest/SysTest.js',
             'FileUtils/FileUtilsTest.js',
+            'EffectsTest/EffectsTest.js',
+            'EffectsAdvancedTest/EffectsAdvancedTest.js',
+            'MotionStreakTest/MotionStreakTest.js',
+            'ClippingNodeTest/ClippingNodeTest.js',
+            'OpenGLTest/OpenGLTest.js',
 
             'ExtensionsTest/ExtensionsTest.js',
             'ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js',
@@ -95,13 +107,29 @@
             'ExtensionsTest/CocosBuilderTest/ParticleSystemTest/ParticleSystemTestLayer.js',
             'ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js',
             'ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.js',
+            'ExtensionsTest/CocosBuilderTest/TimelineCallbackTest/TimelineCallbackTestLayer.js',
             'ExtensionsTest/EditBoxTest/EditBoxTest.js',
             'ExtensionsTest/S9SpriteTest/S9SpriteTest.js',
 
             'Box2dTest/Box2dTest.js',
             'ChipmunkTest/ChipmunkTest.js']
 
-};
+    };
+
+    if(!d.createElement('canvas').getContext){
+        var s = d.createElement('div');
+        s.innerHTML = '<h2>Your browser does not support HTML5 canvas!</h2>' +
+            '<p>Google Chrome is a browser that combines a minimal design with sophisticated technology to make the web faster, safer, and easier.Click the logo to download.</p>' +
+            '<a href="http://www.google.com/chrome" target="_blank"><img src="http://www.google.com/intl/zh-CN/chrome/assets/common/images/chrome_logo_2x.png" border="0"/></a>';
+        var p = d.getElementById(c.tag).parentNode;
+        p.style.background = 'none';
+        p.style.border = 'none';
+        p.insertBefore(s);
+
+        d.body.style.background = '#ffffff';
+        return;
+    }
+
     window.addEventListener('DOMContentLoaded', function () {
         //first load engine file if specified
         var s = d.createElement('script');

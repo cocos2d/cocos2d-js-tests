@@ -84,22 +84,9 @@ FontTestScene = TestScene.extend({
     }
 });
 
-FontTest = cc.LayerGradient.extend({
+FontTest = BaseTestLayer.extend({
     ctor:function () {
-        this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-        menu.setPosition(0,0);
-        item1.setPosition(winSize.width / 2 - 100, 30);
-        item2.setPosition(winSize.width / 2, 30);
-        item3.setPosition(winSize.width / 2 + 100, 30);
-        this.addChild(menu, 1);
+        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
 
         this.showFont(restartFontTestAction());
 
@@ -110,17 +97,17 @@ FontTest = cc.LayerGradient.extend({
         this.removeChildByTag(TAG_LABEL3, true);
         this.removeChildByTag(TAG_LABEL4, true);
 
-        var s = director.getWinSize();
+        var winSize = director.getWinSize();
 
         var top = cc.LabelTTF.create(pFont, pFont, 24);
-        var left = cc.LabelTTF.create("alignment left", pFont, 32, cc.size(s.width, 50), cc.TEXT_ALIGNMENT_LEFT);
-        var center = cc.LabelTTF.create("alignment center", pFont, 32, cc.size(s.width, 50), cc.TEXT_ALIGNMENT_CENTER);
-        var right = cc.LabelTTF.create("alignment right", pFont, 32, cc.size(s.width, 50), cc.TEXT_ALIGNMENT_RIGHT);
+        var left = cc.LabelTTF.create("alignment left", pFont, 32, cc.size(winSize.width, 50), cc.TEXT_ALIGNMENT_LEFT);
+        var center = cc.LabelTTF.create("alignment center", pFont, 32, cc.size(winSize.width, 50), cc.TEXT_ALIGNMENT_CENTER);
+        var right = cc.LabelTTF.create("alignment right", pFont, 32, cc.size(winSize.width, 50), cc.TEXT_ALIGNMENT_RIGHT);
 
-        top.setPosition(s.width / 2, s.height * 3 / 4);
-        left.setPosition(s.width / 2, s.height / 2);
-        center.setPosition(s.width / 2, s.height * 3 / 8);
-        right.setPosition(s.width / 2, s.height / 4);
+        top.setPosition(winSize.width / 2, winSize.height * 3 / 4);
+        left.setPosition(winSize.width / 2, winSize.height / 2);
+        center.setPosition(winSize.width / 2, winSize.height * 3 / 8);
+        right.setPosition(winSize.width / 2, winSize.height / 4);
 
         this.addChild(left, 0, TAG_LABEL1);
         this.addChild(right, 0, TAG_LABEL2);
@@ -138,9 +125,21 @@ FontTest = cc.LayerGradient.extend({
     onNextCallback:function (sender) {
         this.showFont(nextFontTestAction());
     },
-    title:function () {
+    subtitle:function () {
         return "Font test";
+    },
+    title:function () {
+        return "" + fontList[fontIdx];
+    },
+
+    // automation
+    numberOfPendingTests:function() {
+        return ( (fontList.length-1) - fontIdx );
+    },
+    getTestNumber:function() {
+        return fontIdx;
     }
+
 });
 
 FontTest.create = function () {

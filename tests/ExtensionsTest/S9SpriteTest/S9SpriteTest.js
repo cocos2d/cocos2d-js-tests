@@ -40,7 +40,6 @@ var S9SpriteTestDemo = cc.LayerGradient.extend({
 
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
         this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_s9s_blocks9_plist);
         cc.log('sprite frames added to sprite frame cache...');
@@ -98,13 +97,14 @@ var S9SpriteTestDemo = cc.LayerGradient.extend({
 
 var S9BatchNodeBasic = S9SpriteTestDemo.extend({
 
-    _title:"Test Scale9Sprite creation and rendering",
+    _title:"Scale9Sprite created empty and updated from SpriteBatchNode",
+    _subtitle:"updateWithBatchNode(); capInsets=full size",
 
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9BatchNodeBasic ...");
 
@@ -127,19 +127,20 @@ var S9BatchNodeBasic = S9SpriteTestDemo.extend({
     }
 });
 
-// S9BatchNodeBasicSpriteSheet
+// S9FrameNameSpriteSheet
 
-var S9BatchNodeBasicSpriteSheet = S9SpriteTestDemo.extend({
+var S9FrameNameSpriteSheet = S9SpriteTestDemo.extend({
 
-    _title:"Test Scale9Sprite sprite sheet creation and rendering",
+    _title:"Scale9Sprite from sprite sheet",
+    _subtitle:"createWithSpriteFrameName(); default cap insets",
 
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
-        cc.log("S9BatchNodeBasicSpriteSheet ...");
+        cc.log("S9FrameNameSpriteSheet ...");
 
         var blocks = cc.Scale9Sprite.createWithSpriteFrameName('blocks9.png');
         cc.log("... created");
@@ -150,23 +151,24 @@ var S9BatchNodeBasicSpriteSheet = S9SpriteTestDemo.extend({
         this.addChild(blocks);
         cc.log("this..addChild");
 
-        cc.log("... S9BatchNodeBasicSpriteSheet done.");
+        cc.log("... S9FrameNameSpriteSheet done.");
     }
 });
 
-// S9BatchNodeBasicSpriteSheetRotated
+// S9FrameNameSpriteSheetRotated
 
-var S9BatchNodeBasicSpriteSheetRotated = S9SpriteTestDemo.extend({
+var S9FrameNameSpriteSheetRotated = S9SpriteTestDemo.extend({
 
-    _title:"Test Scale9Sprite rotated sprite sheet creation and rendering",
+    _title:"Scale9Sprite from sprite sheet (stored rotated)",
+    _subtitle:"createWithSpriteFrameName(); default cap insets",
 
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
-        cc.log("S9BatchNodeBasicSpriteSheetRotated ...");
+        cc.log("S9FrameNameSpriteSheetRotated ...");
 
         var blocks = cc.Scale9Sprite.createWithSpriteFrameName('blocks9r.png');
         cc.log("... created");
@@ -177,24 +179,24 @@ var S9BatchNodeBasicSpriteSheetRotated = S9SpriteTestDemo.extend({
         this.addChild(blocks);
         cc.log("this..addChild");
 
-
-        cc.log("... S9BatchNodeBasicSpriteSheetRotated done.");
+        cc.log("... S9FrameNameSpriteSheetRotated done.");
     }
 });
 
-// S9BatchNodeScaleNoInsets
+// S9BatchNodeScaledNoInsets
 
-var S9BatchNodeScaleNoInsets = S9SpriteTestDemo.extend({
+var S9BatchNodeScaledNoInsets = S9SpriteTestDemo.extend({
 
-    _title:"Scale9Sprite scaled with no insets",
+    _title:"Scale9Sprite created empty and updated from SpriteBatchNode",
+    _subtitle:"updateWithBatchNode(); capInsets=full size; rendered 4 X width, 2 X height",
 
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
-        cc.log("S9BatchNodeScaleNoInsets ...");
+        cc.log("S9BatchNodeScaledNoInsets ...");
 
         // scaled without insets
         var batchNode_scaled = cc.SpriteBatchNode.create("res/Images/blocks9.png");
@@ -214,23 +216,24 @@ var S9BatchNodeScaleNoInsets = S9SpriteTestDemo.extend({
         this.addChild(blocks_scaled);
         cc.log("this..addChild");
 
-        cc.log("... S9BtchNodeScaleNoInsets done.");
+        cc.log("... S9BtchNodeScaledNoInsets done.");
     }
 });
 
-// S9BatchNodeScaleNoInsetsSpriteSheet
+// S9FrameNameSpriteSheetScaledNoInsets
 
-var S9BatchNodeScaleNoInsetsSpriteSheet = S9SpriteTestDemo.extend({
+var S9FrameNameSpriteSheetScaledNoInsets = S9SpriteTestDemo.extend({
 
-    _title:"Scale9Sprite scaled with no insets sprite sheet",
+    _title:"Scale9Sprite from sprite sheet",
+    _subtitle:"createWithSpriteFrameName(); default cap insets; rendered 4 X width, 2 X height",
 
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
-        cc.log("S9BatchNodeScaleNoInsetsSpriteSheet ...");
+        cc.log("S9FrameNameSpriteSheetScaledNoInsets ...");
 
         var blocks_scaled = cc.Scale9Sprite.createWithSpriteFrameName('blocks9.png');
         cc.log("... created");
@@ -244,23 +247,24 @@ var S9BatchNodeScaleNoInsetsSpriteSheet = S9SpriteTestDemo.extend({
         this.addChild(blocks_scaled);
         cc.log("this..addChild");
 
-        cc.log("... S9BatchNodeScaleNoInsetsSpriteSheet done.");
+        cc.log("... S9FrameNameSpriteSheetScaledNoInsets done.");
     }
 });
 
-// S9BatchNodeScaleNoInsetsSpriteSheetRotated
+// S9FrameNameSpriteSheetRotatedScaledNoInsets
 
-var S9BatchNodeScaleNoInsetsSpriteSheetRotated = S9SpriteTestDemo.extend({
+var S9FrameNameSpriteSheetRotatedScaledNoInsets = S9SpriteTestDemo.extend({
 
-    _title:"Scale9Sprite scaled with no insets rotated sprite sheet",
+    _title:"Scale9Sprite from sprite sheet (stored rotated)",
+    _subtitle:"createWithSpriteFrameName(); default cap insets; rendered 4 X width, 2 X height",
 
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
-        cc.log("S9BatchNodeScaleNoInsetsSpriteSheetRotated ...");
+        cc.log("S9FrameNameSpriteSheetRotatedScaledNoInsets ...");
 
         var blocks_scaled = cc.Scale9Sprite.createWithSpriteFrameName('blocks9r.png');
         cc.log("... created");
@@ -274,7 +278,7 @@ var S9BatchNodeScaleNoInsetsSpriteSheetRotated = S9SpriteTestDemo.extend({
         this.addChild(blocks_scaled);
         cc.log("this..addChild");
 
-        cc.log("... S9BatchNodeScaleNoInsetsSpriteSheetRotated done.");
+        cc.log("... S9FrameNameSpriteSheetRotatedScaledNoInsets done.");
     }
 });
 
@@ -283,13 +287,14 @@ var S9BatchNodeScaleNoInsetsSpriteSheetRotated = S9SpriteTestDemo.extend({
 
 var S9BatchNodeScaleWithCapInsets = S9SpriteTestDemo.extend({
 
-    _title:"Scale9Sprite scaled with insets",
+    _title:"Scale9Sprite created empty and updated from SpriteBatchNode",
+    _subtitle:"updateWithBatchNode(); capInsets=(32, 32, 32, 32)",
 
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
         cc.log("S9BatchNodeScaleWithCapInsets ...");
 
@@ -315,19 +320,48 @@ var S9BatchNodeScaleWithCapInsets = S9SpriteTestDemo.extend({
     }
 });
 
-// S9BatchNodeScaleWithCapInsetsSpriteSheet
+// S9FrameNameSpriteSheetInsets
 
-var S9BatchNodeScaleWithCapInsetsSpriteSheet = S9SpriteTestDemo.extend({
+var S9FrameNameSpriteSheetInsets = S9SpriteTestDemo.extend({
 
     _title:"Scale9Sprite scaled with insets sprite sheet",
+    _subtitle:"createWithSpriteFrameName(); cap insets=(32, 32, 32, 32)",
 
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
-        cc.log("S9BatchNodeScaleWithCapInsetsSpriteSheet ...");
+        cc.log("S9FrameNameSpriteSheetInsets ...");
+
+        var blocks_with_insets = cc.Scale9Sprite.createWithSpriteFrameName('blocks9.png', cc.rect(32, 32, 32, 32));
+        cc.log("... created");
+
+        blocks_with_insets.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        this.addChild(blocks_with_insets);
+        cc.log("this..addChild");
+
+        cc.log("... S9FrameNameSpriteSheetInsets done.");
+    }
+});
+
+// S9FrameNameSpriteSheetInsetsScaled
+
+var S9FrameNameSpriteSheetInsetsScaled = S9SpriteTestDemo.extend({
+
+    _title:"Scale9Sprite scaled with insets sprite sheet",
+    _subtitle:"createWithSpriteFrameName(); default cap insets; rendered scaled 4.5 X width, 2.5 X height",
+
+    ctor:function() {
+        this._super();
+
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
+
+        cc.log("S9FrameNameSpriteSheetInsetsScaled ...");
 
         var blocks_scaled_with_insets = cc.Scale9Sprite.createWithSpriteFrameName('blocks9.png', cc.rect(32, 32, 32, 32));
         cc.log("... created");
@@ -341,25 +375,100 @@ var S9BatchNodeScaleWithCapInsetsSpriteSheet = S9SpriteTestDemo.extend({
         this.addChild(blocks_scaled_with_insets);
         cc.log("this..addChild");
 
-        cc.log("... S9BatchNodeScaleWithCapInsetsSpriteSheet done.");
+        cc.log("... S9FrameNameSpriteSheetInsetsScaled done.");
     }
 });
 
-// S9BatchNodeScaleWithCapInsetsSpriteSheetRotated
+// S9FrameNameSpriteSheetRotatedInsets
 
-var S9BatchNodeScaleWithCapInsetsSpriteSheetRotated = S9SpriteTestDemo.extend({
+var S9FrameNameSpriteSheetRotatedInsets = S9SpriteTestDemo.extend({
 
-    _title:"Scale9Sprite scaled with insets rotated sprite sheet",
+    _title:"Scale9Sprite scaled with insets sprite sheet (stored rotated)",
+    _subtitle:"createWithSpriteFrameName(); cap insets=(32, 32, 32, 32)",
 
     ctor:function() {
         this._super();
 
-        var x = winSize.width / 6;
-        var y = 0 + (winSize.height / 6);
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
 
-        cc.log("S9BatchNodeScaleWithCapInsetsSpriteSheetRotated ...");
+        cc.log("S9FrameNameSpriteSheetRotatedInsets ...");
 
-        var blocks_scaled_with_insets = cc.Scale9Sprite.createWithSpriteFrameName('blocks9r.png', cc.rect(32, 32, 32, 32));
+        var blocks_with_insets = cc.Scale9Sprite.createWithSpriteFrameName('blocks9r.png', cc.rect(32, 32, 32, 32));
+        cc.log("... created");
+
+        blocks_with_insets.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        this.addChild(blocks_with_insets);
+        cc.log("this..addChild");
+
+        cc.log("... S9FrameNameSpriteSheetRotatedInsets done.");
+    }
+});
+
+// S9_TexturePacker
+
+var S9_TexturePacker = S9SpriteTestDemo.extend({
+
+    _title:"Scale9Sprite from a spritesheet created with TexturePacker",
+    _subtitle:"createWithSpriteFrameName('button_normal.png');createWithSpriteFrameName('button_actived.png');",
+
+    ctor:function() {
+        this._super();
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_s9s_ui_plist);
+
+        var x = winSize.width / 4;
+        var y = 0 + (winSize.height / 2);
+
+        cc.log("S9_TexturePacker ...");
+
+        var s = cc.Scale9Sprite.createWithSpriteFrameName('button_normal.png');
+        cc.log("... created");
+
+        s.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        s.setContentSize(cc.size(21 * 16, 13 * 16));
+        cc.log("... setContentSize");
+
+        this.addChild(s);
+        cc.log("this..addChild");
+
+        x = winSize.width * 3/4;
+
+        var s2 = cc.Scale9Sprite.createWithSpriteFrameName('button_actived.png');
+        cc.log("... created");
+
+        s2.setPosition(cc.p(x, y));
+        cc.log("... setPosition");
+
+        s2.setContentSize(cc.size(21 * 16, 13 * 16));
+        cc.log("... setContentSize");
+
+        this.addChild(s2);
+        cc.log("this..addChild");
+
+        cc.log("... S9_TexturePacker done.");
+    }
+});
+
+// S9FrameNameSpriteSheetRotatedInsetsScaled
+
+var S9FrameNameSpriteSheetRotatedInsetsScaled = S9SpriteTestDemo.extend({
+
+    _title:"Scale9Sprite scaled with insets sprite sheet (stored rotated)",
+    _subtitle:"createWithSpriteFrameName(); default cap insets; rendered scaled 4.5 X width, 2.5 X height",
+
+    ctor:function() {
+        this._super();
+
+        var x = winSize.width / 2;
+        var y = 0 + (winSize.height / 2);
+
+        cc.log("S9FrameNameSpriteSheetRotatedInsetsScaled ...");
+
+        var blocks_scaled_with_insets = cc.Scale9Sprite.createWithSpriteFrameName('blocks9.png', cc.rect(32, 32, 32, 32));
         cc.log("... created");
 
         blocks_scaled_with_insets.setContentSize(cc.size(96 * 4.5, 96 * 2.5));
@@ -371,10 +480,9 @@ var S9BatchNodeScaleWithCapInsetsSpriteSheetRotated = S9SpriteTestDemo.extend({
         this.addChild(blocks_scaled_with_insets);
         cc.log("this..addChild");
 
-        cc.log("... S9BatchNodeScaleWithCapInsetsSpriteSheetRotated done.");
+        cc.log("... S9FrameNameSpriteSheetRotatedInsetsScaled done.");
     }
 });
-
 
 var S9SpriteTestScene = TestScene.extend({
     runThisTest:function () {
@@ -392,14 +500,17 @@ var S9SpriteTestScene = TestScene.extend({
 
 var arrayOfS9SpriteTest = [
     S9BatchNodeBasic,
-    S9BatchNodeBasicSpriteSheet,
-    S9BatchNodeBasicSpriteSheetRotated,
-    S9BatchNodeScaleNoInsets,
-    S9BatchNodeScaleNoInsetsSpriteSheet,
-    S9BatchNodeScaleNoInsetsSpriteSheetRotated,
+    S9FrameNameSpriteSheet,
+    S9FrameNameSpriteSheetRotated,
+    S9BatchNodeScaledNoInsets,
+    S9FrameNameSpriteSheetScaledNoInsets,
+    S9FrameNameSpriteSheetRotatedScaledNoInsets,
     S9BatchNodeScaleWithCapInsets,
-    S9BatchNodeScaleWithCapInsetsSpriteSheet,
-    S9BatchNodeScaleWithCapInsetsSpriteSheetRotated
+    S9FrameNameSpriteSheetInsets,
+    S9FrameNameSpriteSheetInsetsScaled,
+    S9FrameNameSpriteSheetRotatedInsets,
+    S9FrameNameSpriteSheetRotatedInsetsScaled,
+    S9_TexturePacker
 ];
 
 var nextS9SpriteTest = function () {

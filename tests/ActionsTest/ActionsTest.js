@@ -25,30 +25,43 @@
  ****************************************************************************/
 
 
-var sceneIdx = -1;
+var actionsTestIdx = -1;
+
+var SPRITE_GROSSINI_TAG = 1;
+var SPRITE_TAMARA_TAG = 2;
+var SPRITE_KATHIA_TAG = 3;
 
 // the class inherit from TestScene
 // every Scene each test used must inherit from TestScene,
 // make sure the test have the menu item for back to main menu
 var ActionsTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        actionsTestIdx = -1;
         this.addChild(nextActionsTest());
         director.replaceScene(this);
     }
 });
 
-
-var ActionsDemo = cc.LayerGradient.extend({
+var ActionsDemo = BaseTestLayer.extend({
     _grossini:null,
     _tamara:null,
     _kathia:null,
     _code:null,
 
-    ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+    ctor:function () {
+        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
+
+        this._grossini = cc.Sprite.create(s_pathGrossini);
+        this._tamara = cc.Sprite.create(s_pathSister1);
+        this._kathia = cc.Sprite.create(s_pathSister2);
+        this.addChild(this._grossini, SPRITE_GROSSINI_TAG);
+        this.addChild(this._tamara, SPRITE_TAMARA_TAG);
+        this.addChild(this._kathia, SPRITE_KATHIA_TAG);
+        var s = director.getWinSize();
+        this._grossini.setPosition(s.width / 2, s.height / 3);
+        this._tamara.setPosition(s.width / 2, 2 * s.height / 3);
+        this._kathia.setPosition(s.width / 2, s.height / 2);
+
     },
 
     centerSprites:function (numberOfSprites) {
@@ -114,57 +127,12 @@ var ActionsDemo = cc.LayerGradient.extend({
         s.addChild(nextActionsTest());
         director.replaceScene(s);
     },
-    onEnter:function () {
-        this._super();
-        this._grossini = cc.Sprite.create(s_pathGrossini);
-        this._tamara = cc.Sprite.create(s_pathSister1);
-        this._kathia = cc.Sprite.create(s_pathSister2);
-        this.addChild(this._grossini, 1);
-        this.addChild(this._tamara, 2);
-        this.addChild(this._kathia, 3);
-        var s = director.getWinSize();
-        this._grossini.setPosition(s.width / 2, s.height / 3);
-        this._tamara.setPosition(s.width / 2, 2 * s.height / 3);
-        this._kathia.setPosition(s.width / 2, s.height / 2);
+    numberOfPendingTests:function() {
+        return ( (arrayOfActionsTest.length-1) - actionsTestIdx );
+    },
 
-        // add title and subtitle
-        var title = this.title();
-        var label = cc.LabelTTF.create(title, "Arial", 18);
-        this.addChild(label, 1);
-        label.setPosition(s.width / 2, s.height - 30);
-
-        var strSubtitle = this.subtitle();
-        if (strSubtitle) {
-            var l = cc.LabelTTF.create(strSubtitle, "Thonburi", 22);
-            this.addChild(l, 1);
-            l.setPosition(s.width / 2, s.height - 60);
-        }
-        if( this._code !== null ) {
-            label = cc.LabelTTF.create(this._code, 'Thonburi', 16);
-            label.setPosition( winSize.width/2, winSize.height-120 );
-            this.addChild( label,10 );
-
-            var labelbg = cc.LabelTTF.create(this._code, 'Thonburi', 16);
-            labelbg.setColor( cc.c3b(10,10,255) );
-            labelbg.setPosition( winSize.width/2 +1, winSize.height-120 -1 );
-            this.addChild( labelbg,9);
-        }
-
-        // add menu
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(0,0);
-
-        var cs = item2.getContentSize();
-        item1.setPosition( winSize.width/2 - cs.width*2, cs.height/2 );
-        item2.setPosition( winSize.width/2, cs.height/2 );
-        item3.setPosition( winSize.width/2 + cs.width*2, cs.height/2 );
-
-        this.addChild(menu, 1);
+    getTestNumber:function() {
+        return actionsTestIdx;
     }
 });
 
@@ -175,13 +143,11 @@ var ActionsDemo = cc.LayerGradient.extend({
 //------------------------------------------------------------------
 var ActionManual = ActionsDemo.extend({
     _code:"sprite.setPosition( 10,20 );\n" +
-            "sprite.setRotation( 90 );\n" +
-            "sprite.setScale( 2 );",
+        "sprite.setRotation( 90 );\n" +
+        "sprite.setScale( 2 );",
 
     onEnter:function () {
         this._super();
-
-        var s = director.getWinSize();
 
         this._tamara.setScaleX(2.5);
         //window.tam = this._tamara;
@@ -190,14 +156,43 @@ var ActionManual = ActionsDemo.extend({
         this._tamara.setOpacity(128);
 
         this._grossini.setRotation(120);
-        this._grossini.setPosition(s.width / 2, s.height / 2);
+        this._grossini.setPosition(winSize.width / 2, winSize.height / 2);
         this._grossini.setColor(cc.c3b(255, 0, 0));
 
-        this._kathia.setPosition(s.width - 100, s.height / 2);
-        this._kathia.setColor(cc.c3b(0,0,255));
+        this._kathia.setPosition(winSize.width - 100, winSize.height / 2);
+        this._kathia.setColor(cc.c3b(0, 0, 255));
+    },
+
+    title:function () {
+        return "Sprite properties";
     },
     subtitle:function () {
         return "Manual Transformation";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:0.1,
+    getExpectedResult:function() {
+        var ret = [2.5,{"x":100,"y":70},128,120,{"x":winSize.width/2,"y":winSize.height/2},{"r":255,"g":0,"b":0},{"x":winSize.width - 100,"y":winSize.height / 2},{"r":0,"g":0,"b":255}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getScaleX() );
+        ret.push( this._tamara.getPosition() );
+        ret.push( this._tamara.getOpacity() );
+
+        ret.push( this._grossini.getRotation() );
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._grossini.getColor() );
+
+        ret.push( this._kathia.getPosition() );
+        ret.push( this._kathia.getColor() );
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -210,7 +205,7 @@ var ActionManual = ActionsDemo.extend({
 var ActionMove = ActionsDemo.extend({
 
     _code:"a = cc.MoveBy.create( time, cc.p(x,y) );\n" +
-           "a = cc.MoveTo.create( time, cc.p(x,y) );",
+        "a = cc.MoveTo.create( time, cc.p(x,y) );",
 
     onEnter:function () {
         this._super();
@@ -220,16 +215,35 @@ var ActionMove = ActionsDemo.extend({
 
         var actionTo = cc.MoveTo.create(2, cc.p(s.width - 40, s.height - 40));
 
-        var actionBy = cc.MoveBy.create(2, cc.p(80, 80));
+        var actionBy = cc.MoveBy.create(1, cc.p(80, 80));
         var actionByBack = actionBy.reverse();
 
         this._tamara.runAction(actionTo);
         this._grossini.runAction(cc.Sequence.create(actionBy, actionByBack));
         this._kathia.runAction(cc.MoveTo.create(1, cc.p(40, 40)));
     },
-    subtitle:function () {
-        return "MoveTo / MoveBy";
+    title:function () {
+        return "cc.MoveTo / cc.MoveBy";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [{"x":winSize.width-40,"y":winSize.height-40},{"x":winSize.width/2,"y":winSize.height/2},{"x":40,"y":40}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getPosition() );
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._kathia.getPosition() );
+
+        return JSON.stringify(ret);
     }
+
 });
 
 //------------------------------------------------------------------
@@ -240,7 +254,7 @@ var ActionMove = ActionsDemo.extend({
 var ActionScale = ActionsDemo.extend({
 
     _code:"a = cc.ScaleBy.create( time, scale );\n" +
-               "a = cc.ScaleTo.create( time, scaleX, scaleY );",
+        "a = cc.ScaleTo.create( time, scaleX, scaleY );",
 
     onEnter:function () {
         this._super();
@@ -252,15 +266,130 @@ var ActionScale = ActionsDemo.extend({
         var actionBy2 = cc.ScaleBy.create(2, 0.25, 4.5);
 
         this._tamara.runAction(actionTo);
-        this._kathia.runAction(cc.Sequence.create(actionBy2, actionBy2.reverse()));
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionBy.reverse()));
+        this._kathia.runAction(cc.Sequence.create(actionBy2, cc.DelayTime.create(0.25), actionBy2.reverse()));
+        this._grossini.runAction(cc.Sequence.create(actionBy, cc.DelayTime.create(0.25), actionBy.reverse()));
 
     },
-    subtitle:function () {
-        return "ScaleTo / ScaleBy";
+    title:function () {
+        return "cc.ScaleTo / cc.ScaleBy";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [0.5,2,0.25,4.5];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getScale() );
+        ret.push( this._grossini.getScale() );
+        ret.push( this._kathia.getScaleX() );
+        ret.push( this._kathia.getScaleY() );
+
+        return JSON.stringify(ret);
     }
 });
 
+//------------------------------------------------------------------
+//
+//  ActionRotate
+//
+//------------------------------------------------------------------
+var ActionRotate = ActionsDemo.extend({
+
+    _code:"a = cc.RotateBy.create( time, degrees );\n" +
+            "a = cc.RotateTo.create( time, degrees );",
+
+    onEnter:function () {
+        this._super();
+        this.centerSprites(3);
+        var actionTo = cc.RotateTo.create(2, 45);
+        var actionTo2 = cc.RotateTo.create(2, -45);
+        var actionTo0 = cc.RotateTo.create(2, 0);
+        this._tamara.runAction(cc.Sequence.create(actionTo, cc.DelayTime.create(0.25), actionTo0));
+
+        var actionBy = cc.RotateBy.create(2, 360);
+        var actionByBack = actionBy.reverse();
+        this._grossini.runAction(cc.Sequence.create(actionBy, cc.DelayTime.create(0.25), actionByBack));
+
+        this._kathia.runAction(cc.Sequence.create(actionTo2, cc.DelayTime.create(0.25), actionTo0.copy()));
+
+    },
+    title:function () {
+        return "cc.RotateTo / cc.RotateBy";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [45,360,-45];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getRotation() );
+        ret.push( this._grossini.getRotation() );
+        ret.push( this._kathia.getRotation() );
+
+        return JSON.stringify(ret);
+    }
+
+});
+
+//------------------------------------------------------------------
+//
+//  ActionRotateXY
+//
+//------------------------------------------------------------------
+var ActionRotateXY = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+        this.centerSprites(3);
+        var actionTo = cc.RotateTo.create(2, 37.2, -37.2);
+        var actionToBack = cc.RotateTo.create(2, 0, 0);
+        var actionBy = cc.RotateBy.create(2, 0, -90);
+        var actionBy2 = cc.RotateBy.create(2, 45.0, 45.0);
+
+        var delay = cc.DelayTime.create(0.25);
+
+        this._tamara.runAction(cc.Sequence.create(actionTo, delay, actionToBack));
+        this._grossini.runAction(cc.Sequence.create(actionBy, delay.copy(), actionBy.reverse()));
+
+        this._kathia.runAction(cc.Sequence.create(actionBy2, delay.copy(), actionBy2.reverse()));
+    },
+    title:function () {
+        return "cc.RotateBy(x,y) / cc.RotateTo(x,y)";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = ["37.20","-37.20",0,-90,45,45];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getRotationX().toFixed(2) );
+        ret.push( this._tamara.getRotationY().toFixed(2) );
+
+        ret.push( this._grossini.getRotationX() );
+        ret.push( this._grossini.getRotationY() );
+
+        ret.push( this._kathia.getRotationX() );
+        ret.push( this._kathia.getRotationY() );
+
+        return JSON.stringify(ret);
+    }
+
+});
 //------------------------------------------------------------------
 //
 //	ActionSkew
@@ -269,7 +398,7 @@ var ActionScale = ActionsDemo.extend({
 var ActionSkew = ActionsDemo.extend({
 
     _code:"a = cc.SkewBy.create( time, skew );\n" +
-           "a = cc.SkewTo.create( time, skewX, skewY );",
+        "a = cc.SkewTo.create( time, skewX, skewY );",
 
     onEnter:function () {
         this._super();
@@ -279,24 +408,45 @@ var ActionSkew = ActionsDemo.extend({
         var actionBy = cc.SkewBy.create(2, 0, -90);
         var actionBy2 = cc.SkewBy.create(2, 45.0, 45.0);
 
-        this._tamara.runAction(cc.Sequence.create(actionTo, actionToBack));
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionBy.reverse()));
+        var delay = cc.DelayTime.create(0.25);
 
-        this._kathia.runAction(cc.Sequence.create(actionBy2, actionBy2.reverse()));
+        this._tamara.runAction(cc.Sequence.create(actionTo, delay, actionToBack));
+        this._grossini.runAction(cc.Sequence.create(actionBy, delay.copy(), actionBy.reverse()));
+
+        this._kathia.runAction(cc.Sequence.create(actionBy2, delay.copy(), actionBy2.reverse()));
     },
-    subtitle:function () {
-        return "SkewTo / SkewBy";
+    title:function () {
+        return "cc.SkewTo / cc.SkewBy";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = ["37.20","-37.20",0,0,45,45];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getSkewX().toFixed(2) );
+        ret.push( this._tamara.getSkewY().toFixed(2) );
+
+        ret.push( this._grossini.getSkewX() );
+        ret.push( this._grossini.getSkewX() );
+
+        ret.push( this._kathia.getSkewX() );
+        ret.push( this._kathia.getSkewY() );
+
+        return JSON.stringify(ret);
     }
 });
 
 var ActionSkewRotateScale = ActionsDemo.extend({
     onEnter:function () {
         this._super();
-        this._tamara.removeFromParent();
-        this._grossini.removeFromParent();
-        this._kathia.removeFromParent();
 
-        var winSize = director.getWinSize();
+        this.centerSprites(0);
 
         var boxSize = cc.size(100.0, 100.0);
         var box = cc.LayerColor.create(cc.c4b(255, 255, 0, 255));
@@ -327,45 +477,38 @@ var ActionSkewRotateScale = ActionsDemo.extend({
         var rotateToBack = cc.RotateTo.create(2, 0);
         var actionToBack = cc.SkewTo.create(2, 0, 0);
 
-        box.runAction(cc.Sequence.create(actionTo, actionToBack));
-        box.runAction(cc.Sequence.create(rotateTo, rotateToBack));
-        box.runAction(cc.Sequence.create(actionScaleTo, actionScaleToBack));
+        var delay = cc.DelayTime.create(0.25);
+
+        box.runAction(cc.Sequence.create(actionTo, delay, actionToBack));
+        box.runAction(cc.Sequence.create(rotateTo, delay.copy(), rotateToBack));
+        box.runAction(cc.Sequence.create(actionScaleTo, delay.copy(), actionScaleToBack));
+
+        this.box = box;
     },
-    subtitle:function () {
+    title:function () {
         return "Skew + Rotate + Scale";
-    }
-});
-
-//------------------------------------------------------------------
-//
-//	ActionRotate
-//
-//------------------------------------------------------------------
-var ActionRotate = ActionsDemo.extend({
-
-    _code:"a = cc.RotateBy.create( time, degrees );\n" +
-            "a = cc.RotateTo.create( time, degrees );",
-
-    onEnter:function () {
-        this._super();
-        this.centerSprites(3);
-        var actionTo = cc.RotateTo.create(2, 45);
-        var actionTo2 = cc.RotateTo.create(2, -45);
-        var actionTo0 = cc.RotateTo.create(2, 0);
-        this._tamara.runAction(cc.Sequence.create(actionTo, actionTo0));
-
-        var actionBy = cc.RotateBy.create(2, 360);
-        var actionByBack = actionBy.reverse();
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionByBack));
-
-        this._kathia.runAction(cc.Sequence.create(actionTo2, actionTo0.copy()));
-
     },
-    subtitle:function () {
-        return "RotateTo / RotateBy";
-    }
-});
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [0,2,61,"-0.44","0.47"];
+        return JSON.stringify(ret);
+    },
 
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.box.getSkewX() );
+        ret.push( this.box.getSkewY() );
+        ret.push( this.box.getRotation() );
+        ret.push( this.box.getScaleX().toFixed(2) );
+        ret.push( this.box.getScaleY().toFixed(2) );
+
+        return JSON.stringify(ret);
+    }
+
+});
 
 //------------------------------------------------------------------
 //
@@ -373,8 +516,8 @@ var ActionRotate = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionJump = ActionsDemo.extend({
-    _code: "a = cc.JumpBy.create( time, point, height, #_of_jumps );\n" +
-           "a = cc.JumpTo.create( time, point, height, #_of_jumps );",
+    _code:"a = cc.JumpBy.create( time, point, height, #_of_jumps );\n" +
+        "a = cc.JumpTo.create( time, point, height, #_of_jumps );",
 
     onEnter:function () {
         this._super();
@@ -385,14 +528,42 @@ var ActionJump = ActionsDemo.extend({
         var actionUp = cc.JumpBy.create(2, cc.p(0, 0), 80, 4);
         var actionByBack = actionBy.reverse();
 
+        var delay = cc.DelayTime.create(0.25);
+
         this._tamara.runAction(actionTo);
-        this._grossini.runAction(cc.Sequence.create(actionBy, actionByBack));
-        this._kathia.runAction(cc.RepeatForever.create(actionUp));
+        this._grossini.runAction(cc.Sequence.create(actionBy, delay, actionByBack));
+        this._kathia.runAction(cc.RepeatForever.create(
+            cc.Sequence.create(actionUp, delay.copy() )
+                ) );
 
     },
+    title:function () {
+        return "cc.JumpTo / cc.JumpBy";
+    },
     subtitle:function () {
-        return "JumpTo / JumpBy";
+        return "Actions will stop for 0.25s after 2 seconds";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [{"x":300,"y":300},
+                    {"x":winSize.width/2+300,"y":winSize.height/2},
+                    {"x":3*winSize.width/4,"y":winSize.height/2}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getPosition() );
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._kathia.getPosition() );
+
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
@@ -413,21 +584,26 @@ var ActionBezier = ActionsDemo.extend({
 
         // sprite 1
 
+        var delay = cc.DelayTime.create(0.25);
+
         // 3 and only 3 control points should be used for Bezier actions.
-        var controlPoints = [ cc.p(0, s.height / 2),
-                                cc.p(300, -s.height / 2),
+        var controlPoints = [ cc.p(0, 374),
+                                cc.p(300, -374),
                                 cc.p(300, 100) ];
 
-        var bezierForward = cc.BezierBy.create(3, controlPoints);
-        var rep = cc.RepeatForever.create(cc.Sequence.create(bezierForward, bezierForward.reverse()));
+        var bezierForward = cc.BezierBy.create(2, controlPoints);
+        var rep = cc.RepeatForever.create(
+            cc.Sequence.create(
+                bezierForward, delay, bezierForward.reverse(), delay.copy()
+            ));
 
         // sprite 2
         this._tamara.setPosition(80, 160);
 
         // 3 and only 3 control points should be used for Bezier actions.
         var controlPoints2 = [ cc.p(100, s.height / 2),
-                                cc.p(200, -s.height / 2),
-                                cc.p(240, 160) ];
+            cc.p(200, -s.height / 2),
+            cc.p(240, 160) ];
         var bezierTo1 = cc.BezierTo.create(2, controlPoints2);
 
         // // sprite 3
@@ -438,10 +614,92 @@ var ActionBezier = ActionsDemo.extend({
         this._grossini.runAction(rep);
         this._tamara.runAction(bezierTo1);
         this._kathia.runAction(bezierTo2);
+    },
+    title:function () {
+        return "cc.BezierBy / cc.BezierTo";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    setupAutomation:function() {
+        this.scheduleOnce(this.checkControl1, 0.66667);
+        this.scheduleOnce(this.checkControl2, 1.33333);
+    },
+    checkControl1:function(dt) {
+        this.control1 = this._grossini.getPosition();
+    },
+    verifyControl1:function(dt) {
+        var x = Math.abs( this.control1.x - 77 - winSize.width/2 );
+        var y = Math.abs( this.control1.y - 87 - winSize.height/2 );
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+    checkControl2:function(dt) {
+        this.control2 = this._grossini.getPosition();
+    },
+    verifyControl2:function(dt) {
+        var x = Math.abs( this.control2.x - 222 - winSize.width/2 );
+        var y = Math.abs( this.control2.y + 53 - winSize.height/2 );
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+
+    getExpectedResult:function() {
+        var ret = [ true,
+                    true,
+                    {"x":winSize.width/2+300,"y":winSize.height/2+100}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.verifyControl1() );
+        ret.push( this.verifyControl2() );
+        ret.push( this._grossini.getPosition() );
+
+        return JSON.stringify(ret);
+    }
+});
+
+//------------------------------------------------------------------
+//
+// ActionBezierToCopy
+//
+//------------------------------------------------------------------
+var ActionBezierToCopy = ActionsDemo.extend({
+    onEnter:function () {
+        this._super();
+
+        //
+        // startPosition can be any coordinate, but since the movement
+        // is relative to the Bezier curve, make it (0,0)
+        //
+
+        this.centerSprites(2);
+
+        // sprite 1
+        this._tamara.setPosition(80, 160);
+
+        // 3 and only 3 control points should be used for Bezier actions.
+        var controlPoints2 = [ cc.p(100, winSize.height / 2),
+                                cc.p(200, -winSize.height / 2),
+                                cc.p(240, 160) ];
+        var bezierTo1 = cc.BezierTo.create(2, controlPoints2);
+
+        // sprite 2
+        this._kathia.setPosition(80, 160);
+        var bezierTo2 = bezierTo1.copy();
+
+        this._tamara.runAction(bezierTo1);
+        this._kathia.runAction(bezierTo2);
 
     },
-    subtitle:function () {
-        return "BezierBy / BezierTo";
+    title:function () {
+        return "cc.BezierTo copy test";
+    },
+    subtitle:function() {
+        return "Both sprites should move across the same path";
     }
 });
 //------------------------------------------------------------------
@@ -457,32 +715,47 @@ var Issue1008 = ActionsDemo.extend({
 
         // sprite 1
 
-        this._grossini.setPosition(428,279);
+        this._grossini.setPosition(428, 279);
 
         // 3 and only 3 control points should be used for Bezier actions.
-        var controlPoints1 = [ cc.p(428,279), cc.p(100,100), cc.p(100,100)];
-        var controlPoints2 = [ cc.p(100,100), cc.p(428,279), cc.p(428,279)];
+        var controlPoints1 = [ cc.p(428, 279), cc.p(100, 100), cc.p(100, 100)];
+        var controlPoints2 = [ cc.p(100, 100), cc.p(428, 279), cc.p(428, 279)];
 
-        var bz1 = cc.BezierTo.create(3, controlPoints1);
-        var bz2 = cc.BezierTo.create(3, controlPoints2);
+        var bz1 = cc.BezierTo.create(1.5, controlPoints1);
+        var bz2 = cc.BezierTo.create(1.5, controlPoints2);
         var trace = cc.CallFunc.create(this.onTrace, this);
+        var delay = cc.DelayTime.create(0.25);
 
-        var rep = cc.RepeatForever.create(cc.Sequence.create(bz1, bz2, trace));
+        var rep = cc.RepeatForever.create(cc.Sequence.create(bz1, bz2, trace,delay));
 
         this._grossini.runAction(rep);
 
     },
-    onTrace:function (sender){
+    onTrace:function (sender) {
         var pos = sender.getPosition();
         cc.log("Position x: " + pos.x + ' y:' + pos.y);
-        if( pos.x != 428 || pos.y != 279)
-            cc.log("Error: Issue 1008 is still open");
+        if (pos.x != 428 || pos.y != 279)
+            this.log("Error: Issue 1008 is still open");
+
+        this.tracePos = pos;
     },
     title:function () {
         return "Issue 1008";
     },
     subtitle:function () {
-        return "BezierTo + Repeat. See console";
+        return "cc.BezierTo + Repeat. See console";
+    },
+    //
+    // Automation
+    //
+    testDuration:3.1,
+    getExpectedResult:function() {
+        var ret = {"x":428,"y":279};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        return JSON.stringify(this.tracePos);
     }
 });
 //------------------------------------------------------------------
@@ -491,7 +764,7 @@ var Issue1008 = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var ActionBlink = ActionsDemo.extend({
-    _code: "a = cc.Blink.create( time, #_of_blinks );",
+    _code:"a = cc.Blink.create( time, #_of_blinks );",
 
     onEnter:function () {
         this._super();
@@ -502,10 +775,30 @@ var ActionBlink = ActionsDemo.extend({
 
         this._tamara.runAction(action1);
         this._kathia.runAction(action2);
-
     },
-    subtitle:function () {
-        return "Blink";
+    title:function () {
+        return "cc.Blink";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    setupAutomation:function() {
+        this.scheduleOnce(this.checkControl1,0.1);
+    },
+    checkControl1:function(dt){
+        this.control1 = this._kathia.isVisible();
+    },
+    getExpectedResult:function() {
+        var ret = [false,true,true];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.control1 );
+        ret.push( this._tamara.isVisible());
+        ret.push( this._kathia.isVisible());
+        return JSON.stringify(ret);
     }
 });
 //------------------------------------------------------------------
@@ -515,11 +808,12 @@ var ActionBlink = ActionsDemo.extend({
 //------------------------------------------------------------------
 var ActionFade = ActionsDemo.extend({
     _code:"a = cc.FadeIn.create( time );\n" +
-            "a = cc.FadeOut.create( time );",
+        "a = cc.FadeOut.create( time );",
 
     onEnter:function () {
         this._super();
         this.centerSprites(2);
+        var delay = cc.DelayTime.create(0.25);
         this._tamara.setOpacity(0);
         var action1 = cc.FadeIn.create(1.0);
         var action1Back = action1.reverse();
@@ -527,14 +821,29 @@ var ActionFade = ActionsDemo.extend({
         var action2 = cc.FadeOut.create(1.0);
         var action2Back = action2.reverse();
 
-        this._tamara.runAction(cc.Sequence.create(action1, action1Back));
-        this._kathia.runAction(cc.Sequence.create(action2, action2Back));
+        this._tamara.runAction(cc.Sequence.create(action1, delay, action1Back));
+        this._kathia.runAction(cc.Sequence.create(action2, delay.copy(), action2Back));
 
 
     },
-    subtitle:function () {
-        return "FadeIn / FadeOut";
+    title:function () {
+        return "cc.FadeIn / cc.FadeOut";
+    },
+    //
+    // Automation
+    //
+    testDuration:1.1,
+    getExpectedResult:function() {
+        var ret = [255,0];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getOpacity() );
+        ret.push( this._kathia.getOpacity());
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
@@ -544,7 +853,7 @@ var ActionFade = ActionsDemo.extend({
 var ActionTint = ActionsDemo.extend({
 
     _code:"a = cc.TintBy.create( time, red, green, blue );\n" +
-            "a = cc.TintTo.create( time, red, green, blue );",
+        "a = cc.TintTo.create( time, red, green, blue );",
 
     onEnter:function () {
         this._super();
@@ -555,12 +864,27 @@ var ActionTint = ActionsDemo.extend({
         var action2Back = action2.reverse();
 
         this._tamara.runAction(action1);
-        this._kathia.runAction(cc.Sequence.create(action2, action2Back));
+        this._kathia.runAction(cc.Sequence.create(action2, cc.DelayTime.create(0.25), action2Back));
 
     },
-    subtitle:function () {
-        return "TintTo / TintBy";
+    title:function () {
+        return "cc.TintTo / cc.TintBy";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [{"r":255,"g":0,"b":255},{"r":128,"g":0,"b":128}];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._tamara.getColor() );
+        ret.push( this._kathia.getColor());
+        return JSON.stringify(ret);
     }
+
 });
 
 //------------------------------------------------------------------
@@ -632,15 +956,29 @@ var ActionSequence = ActionsDemo.extend({
         this.alignSpritesLeft(1);
 
         var action = cc.Sequence.create(
-            cc.MoveBy.create(2, cc.p(240, 0)),
-            cc.RotateBy.create(2, 540)
-            );
+            cc.MoveBy.create(1.5, cc.p(240, 0)),
+            cc.RotateBy.create(1.5, 540)
+        );
 
         this._grossini.runAction(action);
 
     },
-    subtitle:function () {
-        return "Sequence: Move + Rotate";
+    title:function () {
+        return "cc.Sequence: Move + Rotate";
+    },
+    //
+    // Automation
+    //
+    testDuration:3.1,
+    getExpectedResult:function() {
+        var ret = [{"x":60+240,"y":winSize.height/2},540];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._grossini.getRotation() );
+        return JSON.stringify(ret);
     }
 });
 //------------------------------------------------------------------
@@ -662,6 +1000,8 @@ var ActionSequence2 = ActionsDemo.extend({
             cc.CallFunc.create(this.onCallback3, this));
         this._grossini.runAction(action);
 
+        this.called1 = this.called2 = this.called3 = false;
+
     },
     onCallback1:function () {
         var s = director.getWinSize();
@@ -669,6 +1009,7 @@ var ActionSequence2 = ActionsDemo.extend({
         label.setPosition(s.width / 4 * 1, s.height / 2);
 
         this.addChild(label);
+        this.called1 = true;
     },
     onCallback2:function () {
         var s = director.getWinSize();
@@ -676,6 +1017,7 @@ var ActionSequence2 = ActionsDemo.extend({
         label.setPosition(s.width / 4 * 2, s.height / 2);
 
         this.addChild(label);
+        this.called2 = true;
     },
     onCallback3:function () {
         var s = director.getWinSize();
@@ -683,9 +1025,27 @@ var ActionSequence2 = ActionsDemo.extend({
         label.setPosition(s.width / 4 * 3, s.height / 2);
 
         this.addChild(label);
+        this.called3 = true;
     },
-    subtitle:function () {
+    title:function () {
         return "Sequence of InstantActions";
+    },
+    //
+    // Automation
+    //
+    testDuration:1.1,
+    getExpectedResult:function() {
+        var ret = [true,true,true,true,{"x":300,"y":200}];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.called1 );
+        ret.push( this.called2 );
+        ret.push( this.called3 );
+        ret.push( this._grossini.isVisible() );
+        ret.push( this._grossini.getPosition() );
+        return JSON.stringify(ret);
     }
 });
 //------------------------------------------------------------------
@@ -695,7 +1055,7 @@ var ActionSequence2 = ActionsDemo.extend({
 //------------------------------------------------------------------
 var ActionCallFunc1 = ActionsDemo.extend({
     _code:"a = cc.CallFunc.create( this.callback );\n" +
-            "a = cc.CallFunc.create( this.callback, this, optional_arg );",
+        "a = cc.CallFunc.create( this.callback, this, optional_arg );",
 
     onEnter:function () {
         this._super();
@@ -729,6 +1089,7 @@ var ActionCallFunc1 = ActionsDemo.extend({
         var label = cc.LabelTTF.create("callback 1 called", "Marker Felt", 16);
         label.setPosition(s.width / 4 * 1, s.height / 2);
         this.addChild(label);
+        this.control1 = true;
     },
     onCallback2:function (nodeExecutingAction, value) {
         var s = director.getWinSize();
@@ -736,15 +1097,35 @@ var ActionCallFunc1 = ActionsDemo.extend({
         label.setPosition(s.width / 4 * 2, s.height / 2);
 
         this.addChild(label);
+        this.control2 = true;
     },
     onCallback3:function (nodeExecutingAction, value) {
         var s = director.getWinSize();
         var label = cc.LabelTTF.create("callback 3 called:" + value, "Marker Felt", 16);
         label.setPosition(s.width / 4 * 3, s.height / 2);
         this.addChild(label);
+        this.control3 = true;
     },
-    subtitle:function () {
+    title:function () {
         return "Callbacks: CallFunc and friends";
+    },
+    //
+    // Automation
+    //
+    testDuration:5.05,
+    setupAutomation:function() {
+        this.control1 = this.control2 = this.control3 = false;
+    },
+    getExpectedResult:function() {
+        var ret = [true,true,true];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.control1 );
+        ret.push( this.control2 );
+        ret.push( this.control3 );
+        return JSON.stringify(ret);
     }
 });
 //------------------------------------------------------------------
@@ -768,10 +1149,25 @@ var ActionCallFunc2 = ActionsDemo.extend({
     },
 
     title:function () {
-        return "CallFunc + auto remove";
+        return "cc.CallFunc + auto remove";
     },
     subtitle:function () {
-        return "CallFunc + removeFromParentAndCleanup. Grossini dissapears in 2s";
+        return "cc.CallFunc + removeFromParentAndCleanup. Grossini dissapears in 2s";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    setupAutomation:function() {
+    },
+    getExpectedResult:function() {
+        var ret = [null];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.getChildByTag(SPRITE_GROSSINI_TAG) );
+        return JSON.stringify(ret);
     }
 });
 
@@ -785,23 +1181,36 @@ var ActionCallFunc3 = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        var action = cc.CallFunc.create(function(nodeExecutingAction, value) {
-            cc.log("Object: " + nodeExecutingAction + " value is: " + value);
+        var action = cc.CallFunc.create(function (nodeExecutingAction, value) {
+            this.control1 = "Value is: " + value;
+            this.log("Object:" + nodeExecutingAction + ". " + this.control1);
         }, this, "Hello world");
 
         this.runAction(action);
     },
 
-    removeFromParentAndCleanup:function (nodeExecutingAction, data) {
-        nodeExecutingAction.removeFromParent(data);
-    },
-
     title:function () {
-        return "CallFunc + parameters";
+        return "cc.CallFunc + parameters";
     },
     subtitle:function () {
-        return "CallFunc + parameters. Take a look at the console";
+        return "cc.CallFunc + parameters. Take a look at the console";
+    },
+    //
+    // Automation
+    //
+    testDuration:0.1,
+    setupAutomation:function() {
+    },
+    getExpectedResult:function() {
+        var ret = ["Value is: Hello world"];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.control1 );
+        return JSON.stringify(ret);
     }
+
 });
 
 //------------------------------------------------------------------
@@ -824,8 +1233,22 @@ var ActionSpawn = ActionsDemo.extend({
         this._grossini.runAction(action);
 
     },
-    subtitle:function () {
-        return "Spawn: Jump + Rotate";
+    title:function () {
+        return "cc.Spawn: Jump + Rotate";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function() {
+        var ret = [{"x":300+60,"y":winSize.height/2},720];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._grossini.getPosition() );
+        ret.push( this._grossini.getRotation() );
+        return JSON.stringify(ret);
     }
 });
 //------------------------------------------------------------------
@@ -848,12 +1271,29 @@ var ActionRepeatForever = ActionsDemo.extend({
 
     },
     repeatForever:function (sender) {
-        var repeat = cc.RepeatForever.create(cc.RotateBy.create(1.0, 360));
+        var repeat = cc.RepeatForever.create(cc.RotateBy.create(1, 360));
         sender.runAction(repeat);
     },
-    subtitle:function () {
-        return "CallFuncN + RepeatForever";
+    title:function () {
+        return "cc.CallFunc + cc.RepeatForever";
+    },
+    //
+    // Automation
+    //
+    testDuration:3.5,
+    getExpectedResult:function() {
+        var ret = [true];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        var r = this._grossini.getRotation();
+        var expected = 900;
+        var error = 15;
+        ret.push( r < expected+error && r > expected-error );
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
@@ -867,19 +1307,37 @@ var ActionRotateToRepeat = ActionsDemo.extend({
         this._super();
         this.centerSprites(2);
 
-        var act1 = cc.RotateTo.create(1, 90);
-        var act2 = cc.RotateTo.create(1, 0);
+        var act1 = cc.RotateTo.create(0.5, 90);
+        var act2 = cc.RotateTo.create(0.5, 0);
         var seq = cc.Sequence.create(act1, act2);
         var rep1 = cc.RepeatForever.create(seq);
-        var rep2 = cc.Repeat.create((seq.copy()), 10);
+        var rep2 = cc.Repeat.create((seq.copy()), 4);
 
         this._tamara.runAction(rep1);
         this._kathia.runAction(rep2);
 
     },
-    subtitle:function () {
+    title:function () {
         return "Repeat/RepeatForever + RotateTo";
+    },
+    //
+    // Automation
+    //
+    testDuration:4.5,
+    getExpectedResult:function() {
+        var ret = [0,true];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._kathia.getRotation() );
+        var r = this._tamara.getRotation();
+        var expected = 90;
+        var error = 15;
+        ret.push( r < expected+error && r > expected-error );
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
@@ -900,7 +1358,7 @@ var ActionRotateJerk = ActionsDemo.extend({
         this._tamara.runAction(rep1);
         this._kathia.runAction(rep2);
     },
-    subtitle:function () {
+    title:function () {
         return "RepeatForever / Repeat + Rotate";
     }
 });
@@ -918,13 +1376,36 @@ var ActionReverse = ActionsDemo.extend({
         this.alignSpritesLeft(1);
 
         var jump = cc.JumpBy.create(2, cc.p(300, 0), 50, 4);
-        var action = cc.Sequence.create(jump, jump.reverse());
+        var delay = cc.DelayTime.create(0.25);
+        var action = cc.Sequence.create(jump, delay, jump.reverse());
 
         this._grossini.runAction(action);
     },
-    subtitle:function () {
-        return "Reverse an action";
+    title:function () {
+        return "Reverse Jump action";
+    },
+
+    //
+    // Automation
+    //
+    testDuration:4.4,
+    setupAutomation:function() {
+        this.scheduleOnce(this.checkControl1,2.1);
+    },
+    checkControl1:function(dt) {
+        this.control1 = this._grossini.getPosition();
+    },
+    getExpectedResult:function() {
+        var ret = [{"x":360,"y":winSize.height/2},{"x":60,"y":winSize.height/2}];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.control1 );
+        ret.push( this._grossini.getPosition() );
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
@@ -940,12 +1421,25 @@ var ActionDelayTime = ActionsDemo.extend({
         this.alignSpritesLeft(1);
 
         var move = cc.MoveBy.create(1, cc.p(150, 0));
-        var action = cc.Sequence.create(move, cc.DelayTime.create(2), move);
+        var action = cc.Sequence.create(move, cc.DelayTime.create(2), move.copy());
 
         this._grossini.runAction(action);
     },
-    subtitle:function () {
+    title:function () {
         return "DelayTime: m + delay + m";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.9,
+    getExpectedResult:function() {
+        var ret = [{"x":210,"y":winSize.height/2}];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._grossini.getPosition() );
+        return JSON.stringify(ret);
     }
 });
 //------------------------------------------------------------------
@@ -1024,15 +1518,30 @@ var ActionRepeat = ActionsDemo.extend({
             cc.Sequence.create(cc.Place.create(cc.p(60, 60)), a1),
             3);
         var action2 = cc.RepeatForever.create(
-            (cc.Sequence.create((a1.copy()), a1.reverse()))
+            cc.Sequence.create( a1.copy(), a1.reverse(), cc.DelayTime.create(0.25) )
         );
 
         this._kathia.runAction(action1);
         this._tamara.runAction(action2);
     },
-    subtitle:function () {
+    title:function () {
         return "Repeat / RepeatForever actions";
+    },
+    //
+    // Automation
+    //
+    testDuration:4.30,
+    getExpectedResult:function() {
+        var ret = [{"x":210,"y":60},{"x":60,"y":2*winSize.height/3}];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this._kathia.getPosition() );
+        ret.push( this._tamara.getPosition() );
+        return JSON.stringify(ret);
     }
+
 });
 //------------------------------------------------------------------
 //
@@ -1087,7 +1596,7 @@ var ActionFollow = ActionsDemo.extend({
         this.centerSprites(1);
         var s = director.getWinSize();
 
-        this._grossini.setPosition(-(s.width/2), s.height / 2);
+        this._grossini.setPosition(-(s.width / 2), s.height / 2);
         var move = cc.MoveBy.create(2, cc.p(s.width * 3, 0));
         var move_back = move.reverse();
         var seq = cc.Sequence.create(move, move_back);
@@ -1111,7 +1620,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
     _array:null,
 
     _code:" a = cc.CadinalSplineBy.create( time, array_of_points, tension );\n" +
-            " a = cc.CadinalSplineTo.create( time, array_of_points, tension );",
+        " a = cc.CadinalSplineTo.create( time, array_of_points, tension );",
 
     ctor:function () {
         this._super();
@@ -1123,22 +1632,24 @@ var ActionCardinalSpline = ActionsDemo.extend({
 
         this.centerSprites(2);
 
+        var delay = cc.DelayTime.create(0.25);
+
         var array = [
             cc.p(0, 0),
             cc.p(winSize.width / 2 - 30, 0),
             cc.p(winSize.width / 2 - 30, winSize.height - 80),
             cc.p(0, winSize.height - 80),
             cc.p(0, 0)
-            ];
+        ];
 
         //
         // sprite 1 (By)
         //
         // Spline with no tension (tension==0)
         //
-        var action1 = cc.CardinalSplineBy.create(3, array, 0);
+        var action1 = cc.CardinalSplineBy.create(2, array, 0);
         var reverse1 = action1.reverse();
-        var seq = cc.Sequence.create(action1, reverse1);
+        var seq = cc.Sequence.create(action1, delay, reverse1, delay.copy() );
 
         this._tamara.setPosition(50, 50);
         this._tamara.runAction(seq);
@@ -1148,9 +1659,9 @@ var ActionCardinalSpline = ActionsDemo.extend({
         //
         // Spline with high tension (tension==1)
         //
-        var action2 = cc.CardinalSplineBy.create(3, array, 1);
+        var action2 = cc.CardinalSplineBy.create(2, array, 1);
         var reverse2 = action2.reverse();
-        var seq2 = cc.Sequence.create(action2, reverse2);
+        var seq2 = cc.Sequence.create(action2, delay.copy(), reverse2, delay.copy() );
 
         this._kathia.setPosition(winSize.width / 2, 50);
         this._kathia.runAction(seq2);
@@ -1164,26 +1675,92 @@ var ActionCardinalSpline = ActionsDemo.extend({
         this._super();
 
         var context = ctx || cc.renderContext;
+        var winSize = director.getWinSize();
 
-        var apPoint = this.getAnchorPointInPoints();
-        // move to 50,50 since the "by" path will start at 50,50
-        context.save();
-        context.translate(50 - apPoint.x ,  apPoint.y -50);
-        cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
-        context.restore();
+        if(!("opengl" in sys.capabilities)){
+            var apPoint = this.getAnchorPointInPoints();
+            // move to 50,50 since the "by" path will start at 50,50
+            context.save();
+            context.translate(50 , -50);
+            cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
+            context.restore();
 
-        var s = director.getWinSize();
+            context.save();
+            context.translate(winSize.width / 2 , -50);
+            cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
+            context.restore();
+        } else {
+            // move to 50,50 since the "by" path will start at 50,50
+            cc.kmGLPushMatrix();
+            cc.kmGLTranslatef(50, 50, 0);
+            cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
+            cc.kmGLPopMatrix();
 
-        context.save();
-        context.translate(s.width / 2 - apPoint.x ,  apPoint.y - 50);
-        cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
-        context.restore();
+            cc.kmGLPushMatrix();
+            cc.kmGLTranslatef(winSize.width/2, 50, 0);
+            cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
+            cc.kmGLPopMatrix();
+        }
     },
     subtitle:function () {
         return "Cardinal Spline paths. Testing different tensions for one array";
     },
     title:function () {
         return "CardinalSplineBy / CardinalSplineAt";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    setupAutomation:function() {
+        this.scheduleOnce(this.checkControl1, 0.5);
+        this.scheduleOnce(this.checkControl2, 1.0);
+        this.scheduleOnce(this.checkControl3, 1.5);
+    },
+    checkControl1:function(dt) {
+        this.control1 = this._tamara.getPosition();
+    },
+    verifyControl1:function(dt) {
+        var x = Math.abs( 50 + winSize.width/2 - 30 - this.control1.x);
+        var y = Math.abs( 50 - this.control1.y);
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+    checkControl2:function(dt) {
+        this.control2 = this._tamara.getPosition();
+    },
+    verifyControl2:function(dt) {
+        var x = Math.abs( 50 + winSize.width/2 - 30 - this.control2.x );
+        var y = Math.abs( 50 + winSize.height - 80 - this.control2.y );
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+    checkControl3:function(dt) {
+        this.control3 = this._tamara.getPosition();
+    },
+    verifyControl3:function(dt) {
+        var x = Math.abs( 50 - this.control3.x );
+        var y = Math.abs( 50 + winSize.height - 80 - this.control3.y );
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+
+    getExpectedResult:function() {
+        var ret = [ true,
+                    true,
+                    true,
+                    {"x":50,"y":50}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.verifyControl1() );
+        ret.push( this.verifyControl2() );
+        ret.push( this.verifyControl3() );
+        ret.push( this._tamara.getPosition() );
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -1197,7 +1774,7 @@ var ActionCatmullRom = ActionsDemo.extend({
     _array2:null,
 
     _code:"a = cc.CatmullRomBy.create( time, array_of_points );\n" +
-            " a = cc.CatmullRomTo.create( time, array_of_points );",
+        " a = cc.CatmullRomTo.create( time, array_of_points );",
 
     ctor:function () {
         this._super();
@@ -1210,6 +1787,8 @@ var ActionCatmullRom = ActionsDemo.extend({
 
         this.centerSprites(2);
 
+        var delay = cc.DelayTime.create(0.25);
+
         //
         // sprite 1 (By)
         //
@@ -1219,18 +1798,18 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._tamara.setPosition(50, 50);
 
         var array = [
-                cc.p(0, 0),
-                cc.p(80, 80),
-                cc.p(winSize.width - 80, 80),
-                cc.p(winSize.width - 80, winSize.height - 80),
-                cc.p(80, winSize.height - 80),
-                cc.p(80, 80),
-                cc.p(winSize.width / 2, winSize.height / 2)
-                ];
+            cc.p(0, 0),
+            cc.p(80, 80),
+            cc.p(winSize.width - 80, 80),
+            cc.p(winSize.width - 80, winSize.height - 80),
+            cc.p(80, winSize.height - 80),
+            cc.p(80, 80),
+            cc.p(winSize.width / 2, winSize.height / 2)
+        ];
 
         var action1 = cc.CatmullRomBy.create(3, array);
         var reverse1 = action1.reverse();
-        var seq1 = cc.Sequence.create(action1, reverse1);
+        var seq1 = cc.Sequence.create(action1, delay, reverse1);
 
         this._tamara.runAction(seq1);
 
@@ -1250,7 +1829,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         var action2 = cc.CatmullRomTo.create(3, array2);
         var reverse2 = action2.reverse();
 
-        var seq2 = cc.Sequence.create(action2, reverse2);
+        var seq2 = cc.Sequence.create(action2, delay.copy(), reverse2);
 
         this._kathia.runAction(seq2);
 
@@ -1263,23 +1842,83 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._super();
         var context = ctx || cc.renderContext;
 
-        var apPoint = this.getAnchorPointInPoints();
-        // move to 50,50 since the "by" path will start at 50,50
-        context.save();
-        context.translate(50 - apPoint.x, apPoint.y - 50);
-        cc.drawingUtil.drawCatmullRom(this._array1, 50);
-        context.restore();
+        if(!("opengl" in sys.capabilities)){
+            // move to 50,50 since the "by" path will start at 50,50
+            context.save();
+            context.translate(50, - 50);
+            cc.drawingUtil.drawCatmullRom(this._array1, 50);
+            context.restore();
 
-        context.save();
-        context.translate(- apPoint.x, apPoint.y);
-        cc.drawingUtil.drawCatmullRom(this._array2, 50);
-        context.restore();
+            cc.drawingUtil.drawCatmullRom(this._array2, 50);
+        } else {
+            // move to 50,50 since the "by" path will start at 50,50
+            cc.kmGLPushMatrix();
+            cc.kmGLTranslatef(50, 50, 0);
+            cc.drawingUtil.drawCatmullRom(this._array1, 50);
+            cc.kmGLPopMatrix();
+
+            cc.drawingUtil.drawCatmullRom(this._array2,50);
+        }
     },
     subtitle:function () {
         return "Catmull Rom spline paths. Testing reverse too";
     },
     title:function () {
         return "CatmullRomBy / CatmullRomTo";
+    },
+    //
+    // Automation
+    //
+    testDuration:3.1,
+    setupAutomation:function() {
+        this.scheduleOnce(this.checkControl1, 3 / 4 * 0);
+        this.scheduleOnce(this.checkControl2, 3 / 4 * 1);
+        this.scheduleOnce(this.checkControl3, 3 / 4 * 2);
+    },
+    checkControl1:function(dt) {
+        this.control1 = this._kathia.getPosition();
+    },
+    verifyControl1:function(dt) {
+        var x = Math.abs( winSize.width/2 - this.control1.x);
+        var y = Math.abs( 30 - this.control1.y);
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+    checkControl2:function(dt) {
+        this.control2 = this._kathia.getPosition();
+    },
+    verifyControl2:function(dt) {
+        var x = Math.abs( winSize.width - 80 - this.control2.x );
+        var y = Math.abs( 30 - this.control2.y );
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+    checkControl3:function(dt) {
+        this.control3 = this._kathia.getPosition();
+    },
+    verifyControl3:function(dt) {
+        var x = Math.abs( winSize.width - 80 - this.control3.x );
+        var y = Math.abs( winSize.height - 80 - this.control3.y );
+        //  -/+ 5 pixels of error
+        return ( x < 5 && y < 5);
+    },
+
+    getExpectedResult:function() {
+        var ret = [ true,
+                    true,
+                    true,
+                    {"x":winSize.width/2,"y":30}];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        ret.push( this.verifyControl1() );
+        ret.push( this.verifyControl2() );
+        ret.push( this.verifyControl3() );
+        ret.push( this._kathia.getPosition() );
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -1295,7 +1934,7 @@ var ActionTargeted = ActionsDemo.extend({
         this._super();
         this.centerSprites(2);
 
-        var jump1 = cc.JumpBy.create(2, cc.p(0,0), 100, 3);
+        var jump1 = cc.JumpBy.create(2, cc.p(0, 0), 100, 3);
         var jump2 = jump1.copy();
         var rot1 = cc.RotateBy.create(1, 360);
         var rot2 = rot1.copy();
@@ -1326,7 +1965,7 @@ var ActionTargetedCopy = ActionsDemo.extend({
         this._super();
         this.centerSprites(2);
 
-        var jump1 = cc.JumpBy.create(2, cc.p(0,0), 100, 3);
+        var jump1 = cc.JumpBy.create(2, cc.p(0, 0), 100, 3);
         var jump2 = jump1.copy();
 
         var t1 = cc.TargetedAction.create(this._kathia, jump2);
@@ -1354,21 +1993,22 @@ var ActionStackableMove = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        this._grossini.setPosition( 40, winSize.height/2);
+        this._grossini.setPosition(40, winSize.height / 2);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move = cc.MoveBy.create(0.2, cc._p(0,50));
         var move_back = move.reverse();
+        var delay = cc.DelayTime.create(0.25);
         var move_seq = cc.Sequence.create( move, move_back );
         var move_rep = cc.RepeatForever.create( move_seq );
         this._grossini.runAction( move_rep );
 
         // move
-        var action = cc.MoveBy.create(2, cc._p(winSize.width-80,0));
+        var action = cc.MoveBy.create(2, cc._p(winSize.width - 80, 0));
         var back = action.reverse();
-        var seq = cc.Sequence.create( action, back);
-        var repeat = cc.RepeatForever.create( seq );
-        this._grossini.runAction( repeat );
+        var seq = cc.Sequence.create(action, back);
+        var repeat = cc.RepeatForever.create(seq);
+        this._grossini.runAction(repeat);
 
 
     },
@@ -1376,7 +2016,28 @@ var ActionStackableMove = ActionsDemo.extend({
         return "Stackable actions: MoveBy + MoveBy";
     },
     subtitle:function () {
-        return "Grossini shall shake while he is moving";
+        return "Grossini shall move up and down while moving horizontally";
+    },
+    //
+    // Automation
+    //
+    testDuration:0.2,
+    getExpectedResult:function() {
+        var ret = [true, true];
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+        var ret = [];
+        var p = this._grossini.getPosition();
+        var error = 10;
+        var expected_x = 40 + 0.2 * (winSize.width-80) / 2;
+        var expected_y =winSize.height/2 + 50;
+        var ret_x = p.x < expected_x+error && p.x > expected_x-error;
+        var ret_y = p.y < expected_y+error && p.y > expected_y-error;
+        ret.push( ret_x );
+        ret.push( ret_y );
+        return JSON.stringify(ret);
     }
 });
 
@@ -1390,21 +2051,21 @@ var ActionStackableJump = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        this._grossini.setPosition( 40, winSize.height/2);
+        this._grossini.setPosition(40, winSize.height / 2);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
         var move_back = move.reverse();
-        var move_seq = cc.Sequence.create( move, move_back );
-        var move_rep = cc.RepeatForever.create( move_seq );
-        this._grossini.runAction( move_rep );
+        var move_seq = cc.Sequence.create(move, move_back);
+        var move_rep = cc.RepeatForever.create(move_seq);
+        this._grossini.runAction(move_rep);
 
         // jump
-        var action = cc.JumpBy.create(2, cc._p(winSize.width-80,0), 90, 5);
+        var action = cc.JumpBy.create(2, cc._p(winSize.width - 80, 0), 90, 5);
         var back = action.reverse();
-        var seq = cc.Sequence.create( action, back);
-        var repeat = cc.RepeatForever.create( seq );
-        this._grossini.runAction( repeat );
+        var seq = cc.Sequence.create(action, back);
+        var repeat = cc.RepeatForever.create(seq);
+        this._grossini.runAction(repeat);
 
 
     },
@@ -1426,24 +2087,24 @@ var ActionStackableBezier = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        this._grossini.setPosition( 40, winSize.height/2);
+        this._grossini.setPosition(40, winSize.height / 2);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
         var move_back = move.reverse();
-        var move_seq = cc.Sequence.create( move, move_back );
-        var move_rep = cc.RepeatForever.create( move_seq );
-        this._grossini.runAction( move_rep );
+        var move_seq = cc.Sequence.create(move, move_back);
+        var move_rep = cc.RepeatForever.create(move_seq);
+        this._grossini.runAction(move_rep);
 
         // Bezier
         var controlPoints = [ cc.p(0, winSize.height / 2),
-                                cc.p(winSize.width-80, -winSize.height / 2),
-                                cc.p(winSize.width-80, 100) ];
+            cc.p(winSize.width - 80, -winSize.height / 2),
+            cc.p(winSize.width - 80, 100) ];
 
         var bezierForward = cc.BezierBy.create(3, controlPoints);
         var repeat = cc.RepeatForever.create(
             cc.Sequence.create(bezierForward, bezierForward.reverse()));
-        this._grossini.runAction( repeat );
+        this._grossini.runAction(repeat);
 
 
     },
@@ -1465,31 +2126,31 @@ var ActionStackableCatmullRom = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        this._grossini.setPosition( 40, 40);
+        this._grossini.setPosition(40, 40);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
         var move_back = move.reverse();
-        var move_seq = cc.Sequence.create( move, move_back );
-        var move_rep = cc.RepeatForever.create( move_seq );
-        this._grossini.runAction( move_rep );
+        var move_seq = cc.Sequence.create(move, move_back);
+        var move_rep = cc.RepeatForever.create(move_seq);
+        this._grossini.runAction(move_rep);
 
         // CatmullRom
         var array = [
-                cc.p(0, 0),
-                cc.p(80, 80),
-                cc.p(winSize.width - 80, 80),
-                cc.p(winSize.width - 80, winSize.height - 80),
-                cc.p(80, winSize.height - 80),
-                cc.p(80, 80),
-                cc.p(winSize.width / 2, winSize.height / 2)
-                ];
+            cc.p(0, 0),
+            cc.p(80, 80),
+            cc.p(winSize.width - 80, 80),
+            cc.p(winSize.width - 80, winSize.height - 80),
+            cc.p(80, winSize.height - 80),
+            cc.p(80, 80),
+            cc.p(winSize.width / 2, winSize.height / 2)
+        ];
 
         var action1 = cc.CatmullRomBy.create(6, array);
         var reverse1 = action1.reverse();
         var seq1 = cc.Sequence.create(action1, reverse1);
-        var repeat = cc.RepeatForever.create( seq1 );
-        this._grossini.runAction( repeat );
+        var repeat = cc.RepeatForever.create(seq1);
+        this._grossini.runAction(repeat);
 
     },
     title:function () {
@@ -1510,31 +2171,31 @@ var ActionStackableCardinalSpline = ActionsDemo.extend({
         this._super();
         this.centerSprites(1);
 
-        this._grossini.setPosition( 40, 40);
+        this._grossini.setPosition(40, 40);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8,8));
+        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
         var move_back = move.reverse();
-        var move_seq = cc.Sequence.create( move, move_back );
-        var move_rep = cc.RepeatForever.create( move_seq );
-        this._grossini.runAction( move_rep );
+        var move_seq = cc.Sequence.create(move, move_back);
+        var move_rep = cc.RepeatForever.create(move_seq);
+        this._grossini.runAction(move_rep);
 
         // CardinalSpline
         var array = [
-                cc.p(0, 0),
-                cc.p(80, 80),
-                cc.p(winSize.width - 80, 80),
-                cc.p(winSize.width - 80, winSize.height - 80),
-                cc.p(80, winSize.height - 80),
-                cc.p(80, 80),
-                cc.p(winSize.width / 2, winSize.height / 2)
-                ];
+            cc.p(0, 0),
+            cc.p(80, 80),
+            cc.p(winSize.width - 80, 80),
+            cc.p(winSize.width - 80, winSize.height - 80),
+            cc.p(80, winSize.height - 80),
+            cc.p(80, 80),
+            cc.p(winSize.width / 2, winSize.height / 2)
+        ];
 
         var action1 = cc.CardinalSplineBy.create(6, array, 0.9);
         var reverse1 = action1.reverse();
         var seq1 = cc.Sequence.create(action1, reverse1);
-        var repeat = cc.RepeatForever.create( seq1 );
-        this._grossini.runAction( repeat );
+        var repeat = cc.RepeatForever.create(seq1);
+        this._grossini.runAction(repeat);
 
     },
     title:function () {
@@ -1777,14 +2438,14 @@ var Issue1438 = ActionsDemo.extend({
         var animation = cc.Animation.create();
 
         // Add 60 frames
-        for( var j=0; j<4; j++) {
+        for (var j = 0; j < 4; j++) {
             for (var i = 1; i < 15; i++) {
                 var frameName = "res/Images/grossini_dance_" + ((i < 10) ? ("0" + i) : i) + ".png";
                 animation.addSpriteFrameWithFile(frameName);
             }
         }
         // And display 60 frames per second
-        animation.setDelayPerUnit(1/60);
+        animation.setDelayPerUnit(1 / 60);
         animation.setRestoreOriginalFrame(true);
 
         var action = cc.Animate.create(animation);
@@ -1796,7 +2457,7 @@ var Issue1438 = ActionsDemo.extend({
         var animCache = cc.AnimationCache.getInstance();
         animCache.addAnimations(s_animations2Plist);
         var animation2 = animCache.getAnimation("dance_1");
-        animation2.setDelayPerUnit(1/60);
+        animation2.setDelayPerUnit(1 / 60);
 
         var action2 = cc.Animate.create(animation2);
         this._tamara.runAction(cc.Sequence.create(action2, action2.reverse()));
@@ -1817,7 +2478,6 @@ var Issue1438 = ActionsDemo.extend({
 //
 //------------------------------------------------------------------
 var Issue1446 = ActionsDemo.extend({
-
     title:function () {
         return "Sequence + Speed in 'reverse mode'";
     },
@@ -1826,33 +2486,32 @@ var Issue1446 = ActionsDemo.extend({
         return "Issue #1446. 'Hello World' should be visible for only 0.1 seconds";
     },
 
-    onEnter:function() {
+    onEnter:function () {
         this._super();
         this.centerSprites(0);
+        var label = this.label = cc.LabelTTF.create("Hello World", "Arial", 64);
 
-        var label = this.label = cc.LabelTTF.create("Hello World", "Marker Felt", 64);
-
-        label.setPosition( winSize.width/2, winSize.height/2);
-        label.setOpacity( 0 );
+        label.setPosition(winSize.width / 2, winSize.height / 2);
+        label.setOpacity(0);
 
         this.addChild(label);
 
-        this.backwardsFade = cc.Speed.create( cc.Sequence.create(
-                                cc.DelayTime.create(2),
-                                cc.FadeTo.create(1, 255),
-                                cc.DelayTime.create(2) ), 1);
-        label.runAction( this.backwardsFade );
+        this.backwardsFade = cc.Speed.create(cc.Sequence.create(
+            cc.DelayTime.create(2),
+            cc.FadeTo.create(1, 255),
+            cc.DelayTime.create(2)), 1);
+        label.runAction(this.backwardsFade);
 
         // Comment out to see that 1.0 in the update function is called which is expected
         // Leave it uncommented to see that 0.0 is never called when going in reverse
-        this.scheduleOnce( this.stepForwardGoBackward, 0.1);
+        this.scheduleOnce(this.stepForwardGoBackward, 0.1);
     },
 
-    stepForwardGoBackward:function() {
+    stepForwardGoBackward:function () {
         var action = this.backwardsFade.getInnerAction();
         action.step(2.5);
         // Try with -10.0f and you can see the opacity not fully faded out. Try with lower values to see it 'almost' fade out
-        this.backwardsFade.setSpeed( -10 );
+        this.backwardsFade.setSpeed(-10);
     }
 });
 
@@ -1861,15 +2520,16 @@ var Issue1446 = ActionsDemo.extend({
 // Flow control
 //
 var arrayOfActionsTest = [
-
     ActionManual,
     ActionMove,
     ActionScale,
     ActionRotate,
+    ActionRotateXY,
     ActionSkew,
     ActionSkewRotateScale,
     ActionJump,
     ActionBezier,
+    ActionBezierToCopy,
     Issue1008,
     ActionCardinalSpline,
     ActionCatmullRom,
@@ -1913,18 +2573,18 @@ var arrayOfActionsTest = [
 ];
 
 var nextActionsTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfActionsTest.length;
+    actionsTestIdx++;
+    actionsTestIdx = actionsTestIdx % arrayOfActionsTest.length;
 
-    return new arrayOfActionsTest[sceneIdx]();
+    return new arrayOfActionsTest[actionsTestIdx]();
 };
 var previousActionsTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfActionsTest.length;
+    actionsTestIdx--;
+    if (actionsTestIdx < 0)
+        actionsTestIdx += arrayOfActionsTest.length;
 
-    return new arrayOfActionsTest[sceneIdx]();
+    return new arrayOfActionsTest[actionsTestIdx]();
 };
 var restartActionsTest = function () {
-    return new arrayOfActionsTest[sceneIdx]();
+    return new arrayOfActionsTest[actionsTestIdx]();
 };

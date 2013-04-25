@@ -49,6 +49,7 @@ var PongLayer = cc.Layer.extend({
     _winSize:null,
 
     ctor:function () {
+        this._super();
         this._ballStartingVelocity = cc.p(20.0, -100.0);
         this._winSize = cc.Director.getInstance().getWinSize();
 

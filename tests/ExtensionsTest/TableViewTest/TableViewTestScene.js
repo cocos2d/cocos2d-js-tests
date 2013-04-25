@@ -31,6 +31,7 @@ var CustomTableViewCell = cc.TableViewCell.extend({
 });
 
 var TableViewTestLayer = cc.Layer.extend({
+
     init:function () {
         if (!this._super()) {
             return false;
@@ -38,14 +39,14 @@ var TableViewTestLayer = cc.Layer.extend({
 
         var winSize = cc.Director.getInstance().getWinSize();
 
-        var tableView = cc.TableView.create(this, cc.SizeMake(600, 60));
+        var tableView = cc.TableView.create(this, cc.size(600, 60));
         tableView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
         tableView.setPosition(cc.p(20, winSize.height / 2 - 150));
         tableView.setDelegate(this);
         this.addChild(tableView);
         tableView.reloadData();
 
-        tableView = cc.TableView.create(this, cc.SizeMake(60, 350));
+        tableView = cc.TableView.create(this, cc.size(60, 350));
         tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
         tableView.setPosition(cc.p(winSize.width - 150, winSize.height / 2 - 150));
         tableView.setDelegate(this);
@@ -78,7 +79,7 @@ var TableViewTestLayer = cc.Layer.extend({
     },
 
     cellSizeForTable:function (table) {
-        return cc.SizeMake(60, 60);
+        return cc.size(60, 60);
     },
 
     tableCellAtIndex:function (table, idx) {

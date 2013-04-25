@@ -652,14 +652,18 @@ function updatePowerPlay()
 		gPowerPlayParticles.setAutoRemoveOnFinish(true);
 		gParticleLayer.addChild(gPowerPlayParticles);
 
-		var contentSize = gGameLayer.getContentSize();
-		gPowerPlayLayer = cc.LayerColor.create(cc.c4b(85, 0, 70, 0), contentSize.width, contentSize.height);
+		if( 'opengl' in sys.capabilities ) {
 
-		var action = cc.Sequence.create(cc.FadeIn.create(0.25), cc.FadeOut.create(0.25));
-		gPowerPlayLayer.runAction(cc.RepeatForever.create(action));
-		gPowerPlayLayer.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+			var contentSize = gGameLayer.getContentSize();
+			gPowerPlayLayer = cc.LayerColor.create(cc.c4b(85, 0, 70, 0), contentSize.width, contentSize.height);
 
-		gEffectsLayer.addChild(gPowerPlayLayer);
+			var action = cc.Sequence.create(cc.FadeIn.create(0.25), cc.FadeOut.create(0.25));
+			gPowerPlayLayer.runAction(cc.RepeatForever.create(action));
+			gPowerPlayLayer.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+
+			gEffectsLayer.addChild(gPowerPlayLayer);
+		}
+
 	}
 	else
 	{
@@ -667,8 +671,11 @@ function updatePowerPlay()
 		if (gPowerPlayParticles)
 		{
 			gPowerPlayParticles.stopSystem();
-			gPowerPlayLayer.stopAllActions();
-			gPowerPlayLayer.runAction(cc.Sequence.create(cc.FadeOut.create(0.5), cc.CallFunc.create(onRemoveFromParent, this)));
+
+			if( 'opengl' in sys.capabilities ) {
+				gPowerPlayLayer.stopAllActions();
+				gPowerPlayLayer.runAction(cc.Sequence.create(cc.FadeOut.create(0.5), cc.CallFunc.create(onRemoveFromParent, this)));
+			}
 		}
 	}
 
@@ -694,6 +701,9 @@ GameScene.prototype.onDidLoadFromCCB = function()
 
 	gIsGameOver = false;
 	gIsDisplayingHint = false;
+
+	if( sys.platform == 'browser')
+		this.rootNode.setMouseEnabled( true );
 
 	// Forward relevant touch events to controller (this)
     this.rootNode.onTouchesBegan = function( touches, event) {
@@ -732,17 +742,17 @@ GameScene.prototype.onDidLoadFromCCB = function()
 
     // TODO: Make into batch node
 
-    if ("opengl" in sys.capabilities)
+    if ("opengl" in sys.capabilities && !"browser" == sys.platform)
     {
-		cc.log("OpenGL rendering");
-		gParticleLayer = cc.ParticleBatchNode.create("particles/taken-gem.png", 250);
-		gGameLayer = cc.SpriteBatchNode.create("crystals.pvr.ccz");
+        cc.log("OpenGL rendering");
+        gParticleLayer = cc.ParticleBatchNode.create("particles/taken-gem.png", 250);
+        gGameLayer = cc.SpriteBatchNode.create("crystals.pvr.ccz");
     }
     else
     {
-		cc.log("Canvas rendering");
-		gParticleLayer = cc.Node.create();
-		gGameLayer = cc.Node.create();
+        cc.log("WebGL or Canvas rendering");
+        gParticleLayer = cc.Node.create();
+        gGameLayer = cc.Node.create();
     }
 
     gGameLayer.setContentSize(this.gameLayer.getContentSize());

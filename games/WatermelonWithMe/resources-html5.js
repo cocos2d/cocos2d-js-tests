@@ -30,10 +30,15 @@ var s_Konqa32HDPNG = "res/CCB/konqa32-hd.png";
 var s_Konqa32IPADFNT = "res/CCB/konqa32-ipad.fnt";
 var s_Konqa32IPADPNG = "res/CCB/konqa32-ipad.png";
 
-var s_GameOverWAV = "res/sound/GameOver.mp3";
-var PickupCointWAV = "res/sound/pickup_coin.mp3";
-var s_LevelComplete = "res/sound/LevelComplete.mp3";
-var s_game_music = "res/sound/game-music.mp3";
+var s_GameOverWAV_mp3 = "res/sound/GameOver.mp3";
+var PickupCointWAV_mp3 = "res/sound/pickup_coin.mp3";
+var s_LevelComplete_mp3 = "res/sound/LevelComplete.mp3";
+var s_game_music_mp3 = "res/sound/game-music.mp3";
+
+var s_GameOverWAV_ogg = "res/sound/GameOver.ogg";
+var PickupCointWAV_ogg = "res/sound/pickup_coin.ogg";
+var s_LevelComplete_ogg = "res/sound/LevelComplete.ogg";
+var s_game_music_ogg = "res/sound/game-music.ogg";
 
 var s_body = "res/body.png";
 var s_head = "res/head3.png";
@@ -43,39 +48,44 @@ var s_MainMenu = "res/CCB/MainMenu.ccbi";
 var s_About = "res/CCB/About.ccbi";
 
 var g_ressources = [
-    {type:'plist', src:s_coinsPlist},
-    {type:'plist', src:s_coinsAnimation},
-    {type:'plist', src:s_carSmoke},
-    {type:'fnt', src:s_Abadi40HDFNT},
-    {type:'fnt', src:s_Abadi40IPADFNT},
-    {type:'fnt', src:s_Abadi40FNT},
-    {type:'image', src:s_Abadi40HDPNG},
-    {type:'image', src:s_Abadi40IPADPNG},
-    {type:'image', src:s_Abadi40PNG},
-    {type:'fnt', src:s_Gas40FNT},
-    {type:'fnt', src:s_Gas40HDFNT},
-    {type:'fnt', src:s_Gas40IPADFNT},
-    {type:'image', src:s_Gas40PNG},
-    {type:'image', src:s_Gas40HDPNG},
-    {type:'image', src:s_Gas40IPADPNG},
-    {type:'fnt', src:s_Konqa32FNT},
-    {type:'fnt', src:s_Konqa32HDFNT},
-    {type:'fnt', src:s_Konqa32IPADFNT},
-    {type:'image', src:s_Konqa32PNG},
-    {type:'image', src:s_Konqa32HDPNG},
-    {type:'image', src:s_Konqa32IPADPNG},
-    {type:'sound', src:s_GameOverWAV},
-    {type:'sound', src:PickupCointWAV},
-    {type:'sound', src:s_LevelComplete},
-    {type:'sound', src:s_game_music},
+    {src:s_coinsPlist},
+    {src:s_coinsAnimation},
+    {src:s_carSmoke},
+    {src:s_Abadi40HDFNT},
+    {src:s_Abadi40IPADFNT},
+    {src:s_Abadi40FNT},
+    {src:s_Abadi40HDPNG},
+    {src:s_Abadi40IPADPNG},
+    {src:s_Abadi40PNG},
+    {src:s_Gas40FNT},
+    {src:s_Gas40HDFNT},
+    {src:s_Gas40IPADFNT},
+    {src:s_Gas40PNG},
+    {src:s_Gas40HDPNG},
+    {src:s_Gas40IPADPNG},
+    {src:s_Konqa32FNT},
+    {src:s_Konqa32HDFNT},
+    {src:s_Konqa32IPADFNT},
+    {src:s_Konqa32PNG},
+    {src:s_Konqa32HDPNG},
+    {src:s_Konqa32IPADPNG},
+    {src:s_GameOverWAV_mp3},
+    {src:PickupCointWAV_mp3},
+    {src:s_LevelComplete_mp3},
+    {src:s_game_music_mp3},
 
-    {type:'plist', src:"res/CCB/labels.plist"},
-    {type:'image', src:"res/CCB/labels.png"},
+    {src:s_GameOverWAV_ogg},
+    {src:PickupCointWAV_ogg},
+    {src:s_LevelComplete_ogg},
+    {src:s_game_music_ogg},
 
-    {type:'image', src:"res/CCB/watermelon.png"},
-    {type:'image', src:"res/CCB/Gas40.png"},
-    {type:'image', src:s_parallax},
-    {type: 'ccbi', src:s_MainMenu},
-    {type: 'ccbi', src:s_HUD}
+    {src:"res/CCB/labels.plist"},
+    {src:"res/CCB/labels.png"},
+
+    {src:"res/CCB/watermelon.png"},
+    {src:"res/CCB/Gas40.png"},
+    {src:s_parallax},
+    {src:s_MainMenu},
+    {src:s_HUD}
 
 ];

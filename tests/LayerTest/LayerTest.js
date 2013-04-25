@@ -25,9 +25,11 @@
  ****************************************************************************/
 cc.TAG_LAYER = 1;
 
+var layerTestSceneIdx = -1;
+
 var LayerTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        layerTestSceneIdx = -1;
         this.addChild(nextLayerTest());
         director.replaceScene(this);
     }
@@ -38,51 +40,15 @@ var LayerTestScene = TestScene.extend({
 // LayerTest
 //
 //------------------------------------------------------------------
-var LayerTest = cc.Layer.extend({
+var LayerTest = BaseTestLayer.extend({
     _title:null,
 
-    ctor:function() {
-        cc.associateWithNative( this, cc.Layer );
-        this.init();
-    },
-
-    init:function() {
-        this._super();
-    },
 
     title:function () {
         return "No title";
     },
     subtitle:function () {
         return "";
-    },
-    onEnter:function () {
-        this._super();
-        var s = director.getWinSize();
-
-        var label = cc.LabelTTF.create(this.title(), "Arial", 32);
-        this.addChild(label, 1);
-        label.setPosition(cc.p(s.width / 2, s.height - 50));
-
-        var subtitle_ = this.subtitle();
-        if (subtitle_) {
-            var l = cc.LabelTTF.create(subtitle_, "Thonburi", 16, cc.size(400, 16), cc.TEXT_ALIGNMENT_CENTER);
-            this.addChild(l, 1);
-            l.setPosition(cc.p(s.width / 2, s.height - 80));
-        }
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(cc.p(0,0));
-        item1.setPosition(cc.p(s.width / 2 - 100, 30));
-        item2.setPosition(cc.p(s.width / 2, 30));
-        item3.setPosition(cc.p(s.width / 2 + 100, 30));
-
-        this.addChild(menu, 1);
     },
 
     onRestartCallback:function (sender) {
@@ -102,7 +68,16 @@ var LayerTest = cc.Layer.extend({
         s.addChild(previousLayerTest());
         director.replaceScene(s);
 
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfLayerTest.length-1) - layerTestSceneIdx );
+    },
+
+    getTestNumber:function() {
+        return layerTestSceneIdx;
     }
+
 });
 
 //------------------------------------------------------------------
@@ -162,7 +137,7 @@ var IgnoreAnchorpointTest1 = LayerTest.extend({
         this.addChild(layer1);
     },
     title:function () {
-        return "ignore Anchorpoint Test";
+        return "ignore Anchorpoint Test #1";
     },
     subtitle:function () {
         return "red:true  green:true";
@@ -182,7 +157,7 @@ var IgnoreAnchorpointTest2 = LayerTest.extend({
         this.addChild(layer1);
     },
     title:function () {
-        return "ignore Anchorpoint Test";
+        return "ignore Anchorpoint Test #2";
     },
     subtitle:function () {
         return "red:true  green:false";
@@ -202,7 +177,7 @@ var IgnoreAnchorpointTest3 = LayerTest.extend({
         this.addChild(layer1);
     },
     title:function () {
-        return "ignore Anchorpoint Test";
+        return "ignore Anchorpoint Test #3";
     },
     subtitle:function () {
         return "red:false  green:false";
@@ -222,7 +197,7 @@ var IgnoreAnchorpointTest4 = LayerTest.extend({
         this.addChild(layer1);
     },
     title:function () {
-        return "ignore Anchorpoint Test";
+        return "ignore Anchorpoint Test #4";
     },
     subtitle:function () {
         return "red:false  green:true";
@@ -272,7 +247,7 @@ var LayerTest2 = LayerTest.extend({
 var LayerTestBlend = LayerTest.extend({
     _blend:true,
 
-    init:function () {
+    ctor:function () {
         this._super();
         var layer1 = cc.LayerColor.create(cc.c4b(255, 255, 255, 80));
 
@@ -317,7 +292,7 @@ var LayerTestBlend = LayerTest.extend({
 //------------------------------------------------------------------
 var LayerGradient = LayerTest.extend({
     _isPressed:false,
-    init:function () {
+    ctor:function () {
         this._super();
         var layer1 = cc.LayerGradient.create(cc.c4b(255, 0, 0, 255), cc.c4b(0, 255, 0, 255), cc.p(0.9, 0.9));
         this.addChild(layer1, 0, cc.TAG_LAYER);
@@ -390,18 +365,18 @@ var arrayOfLayerTest = [
 ];
 
 var nextLayerTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfLayerTest.length;
+    layerTestSceneIdx++;
+    layerTestSceneIdx = layerTestSceneIdx % arrayOfLayerTest.length;
 
-    return new arrayOfLayerTest[sceneIdx]();
+    return new arrayOfLayerTest[layerTestSceneIdx]();
 };
 var previousLayerTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfLayerTest.length;
+    layerTestSceneIdx--;
+    if (layerTestSceneIdx < 0)
+        layerTestSceneIdx += arrayOfLayerTest.length;
 
-    return new arrayOfLayerTest[sceneIdx]();
+    return new arrayOfLayerTest[layerTestSceneIdx]();
 };
 var restartLayerTest = function () {
-    return new arrayOfLayerTest[sceneIdx]();
+    return new arrayOfLayerTest[layerTestSceneIdx]();
 };

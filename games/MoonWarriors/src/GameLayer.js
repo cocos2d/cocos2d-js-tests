@@ -33,12 +33,12 @@ var GameLayer = cc.Layer.extend({
     _explosions:null,
     _texOpaqueBatch:null,
     _texTransparentBatch:null,
-    ctor:function () {
-        cc.associateWithNative( this, cc.Layer );
-    },
+
     init:function () {
         var bRet = false;
         if (this._super()) {
+
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_textureOpaquePack_plist);
 
             // reset global values
             MW.CONTAINER.ENEMIES = [];
@@ -115,7 +115,7 @@ var GameLayer = cc.Layer.extend({
             this.schedule(this.scoreCounter, 1);
 
             if (MW.SOUND) {
-                cc.AudioEngine.getInstance().playMusic(s_bgMusic, true);
+                cc.AudioEngine.getInstance().playMusic(s_bgMusic_mp3, true);
             }
 
             bRet = true;
@@ -171,9 +171,6 @@ var GameLayer = cc.Layer.extend({
             this.checkIsReborn();
             this.updateUI();
         }
-
-        if( sys.platform == 'browser' )
-            cc.$("#cou").innerHTML = "Ship:" + 1 + ", Enemy: " + MW.CONTAINER.ENEMIES.length + ", Bullet:" + MW.CONTAINER.ENEMY_BULLETS.length + "," + MW.CONTAINER.PLAYER_BULLETS.length + " all:" + this.getChildren().length;
     },
     checkIsCollide:function () {
         var selChild, bulletChild;

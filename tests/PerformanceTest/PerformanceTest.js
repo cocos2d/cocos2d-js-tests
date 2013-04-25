@@ -32,6 +32,7 @@ var PerformanceTests = [
     "PerformanceSpriteTest",
     "PerformanceTextureTest",
     "PerformanceTouchesTest",
+    "PerformanceAnimationTest",
     "Automated Sprite Performance Test"
 ];
 ////////////////////////////////////////////////////////
@@ -42,7 +43,6 @@ var PerformanceTests = [
 var PerformanceMainLayer = cc.LayerGradient.extend({
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
         this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
     },
 
@@ -84,6 +84,9 @@ var PerformanceMainLayer = cc.LayerGradient.extend({
                 runTouchesTest();
                 break;
             case 5:
+                runAnimationTest();
+                break;
+            case 6:
                 runPerformanceSpriteTest2();
                 break;
             default:
@@ -103,7 +106,6 @@ var PerformBasicLayer = cc.Layer.extend({
     _curCase:0,
     ctor:function () {
         this._super();
-        cc.associateWithNative( this, cc.Layer );
         this.init();
         this._curCase = nCurCase;
     },

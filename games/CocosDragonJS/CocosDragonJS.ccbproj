@@ -33,7 +33,7 @@
 	<key>publishDirectoryHTML5</key>
 	<string>Published files HTML5</string>
 	<key>publishEnabledAndroid</key>
-	<false/>
+	<true/>
 	<key>publishEnabledHTML5</key>
 	<true/>
 	<key>publishEnablediPhone</key>
@@ -53,13 +53,13 @@
 	<key>publishResolution_ipadhd</key>
 	<true/>
 	<key>publishResolution_large</key>
-	<false/>
+	<true/>
 	<key>publishResolution_medium</key>
 	<false/>
 	<key>publishResolution_small</key>
-	<false/>
+	<true/>
 	<key>publishResolution_xlarge</key>
-	<false/>
+	<true/>
 	<key>publishResolution_xsmall</key>
 	<false/>
 	<key>publishToZipFile</key>

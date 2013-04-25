@@ -26,8 +26,8 @@
 
 var audioEngine = cc.AudioEngine.getInstance();
 
-var MUSIC_FILE = "res/background.mp3";
-var EFFECT_FILE = "res/effect2.mp3";
+var MUSIC_FILE = "res/Sound/background.mp3";
+var EFFECT_FILE = "res/Sound/effect2.mp3";
 
 var DenshionTests = [
     {
@@ -159,7 +159,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
     _testCount:0,
     ctor:function () {
         this._super();
-        cc.associateWithNative(this, cc.LayerGradient);
+
         this.init(cc.c4b(0, 0, 0, 255), cc.c4b(148, 80, 120, 255));
 
         this._itemMenu = cc.Menu.create();
@@ -186,7 +186,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
     },
     onExit:function () {
         this._super();
-        audioEngine.end();
+        cc.AudioEngine.end();
     },
 
     onMenuCallback:function (sender) {

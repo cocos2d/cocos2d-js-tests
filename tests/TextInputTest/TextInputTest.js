@@ -45,8 +45,6 @@ var TextInputTest = cc.Layer.extend({
     notificationLayer:null,
     ctor:function() {
         this._super();
-
-        cc.associateWithNative( this, cc.Layer );
         this.init();
     },
 
@@ -288,9 +286,6 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
 
         this._textField.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
         this._trackNode = this._textField;
-    },
-    onExit:function () {
-        this._super();
     },
 
     //CCTextFieldDelegate

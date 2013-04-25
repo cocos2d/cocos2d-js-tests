@@ -24,51 +24,19 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+var drawTestSceneIdx = -1;
 
 //------------------------------------------------------------------
 //
 // DrawTestDemo
 //
 //------------------------------------------------------------------
-var DrawTestDemo = cc.LayerGradient.extend({
+var DrawTestDemo = BaseTestLayer.extend({
     _title:"",
     _subtitle:"",
 
     ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
-        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
-    },
-    onEnter:function () {
-        this._super();
-
-        var label = cc.LabelTTF.create(this._title, "Arial", 28);
-        this.addChild(label, 1);
-        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
-
-        if (this._subtitle !== "") {
-            var l = cc.LabelTTF.create(this._subtitle, "Thonburi", 16);
-            this.addChild(l, 1);
-            l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
-        }
-
-        var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
-        var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
-        var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
-
-        var menu = cc.Menu.create(item1, item2, item3);
-
-        menu.setPosition(cc.p(0,0));
-        var cs = item2.getContentSize();
-        item1.setPosition( cc.p(winSize.width/2 - cs.width*2, cs.height/2) );
-        item2.setPosition( cc.p(winSize.width/2, cs.height/2) );
-        item3.setPosition( cc.p(winSize.width/2 + cs.width*2, cs.height/2) );
-
-        this.addChild(menu, 1);
-    },
-
-    onExit:function () {
-        this._super();
+        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
     },
 
     onRestartCallback:function (sender) {
@@ -85,7 +53,16 @@ var DrawTestDemo = cc.LayerGradient.extend({
         var s = new DrawPrimitivesTestScene();
         s.addChild(previousDrawTest());
         director.replaceScene(s);
+    },
+    // automation
+    numberOfPendingTests:function() {
+        return ( (arrayOfDrawTest.length-1) - drawTestSceneIdx );
+    },
+
+    getTestNumber:function() {
+        return drawTestSceneIdx;
     }
+
 });
 
 //------------------------------------------------------------------
@@ -94,7 +71,7 @@ var DrawTestDemo = cc.LayerGradient.extend({
 //
 //------------------------------------------------------------------
 var DrawOldAPITest = DrawTestDemo.extend({
-    init:function(){
+    ctor:function(){
         this._super();
         this.setAnchorPoint(cc.p(0,0));
     },
@@ -103,8 +80,7 @@ var DrawOldAPITest = DrawTestDemo.extend({
         this._super();
         var s = cc.Director.getInstance().getWinSize();
 
-        cc.renderContext.fillStyle = "rgba(255,255,255,1)";
-        cc.renderContext.strokeStyle = "rgba(255,255,255,1)";
+        cc.drawingUtil.setDrawColor4B(255,255,255,255);
         // draw a simple line
         // The default state is:
         // Line Width: 1
@@ -115,8 +91,8 @@ var DrawOldAPITest = DrawTestDemo.extend({
         // line: color, width, aliased
         // glLineWidth > 1 and GL_LINE_SMOOTH are not compatible
         // GL_SMOOTH_LINE_WIDTH_RANGE = (1,1) on iPhone
-        cc.renderContext.strokeStyle = "rgba(255,0,0,1)";
-        cc.renderContext.lineWidth = "5";
+        cc.drawingUtil.setDrawColor4B(255,0,0,255);
+        cc.drawingUtil.setLineWidth(5);
 
         /*glColor4ub(255,0,0,255);*/
         //glColor4f(1.0, 0.0, 0.0, 1.0);
@@ -131,47 +107,47 @@ var DrawOldAPITest = DrawTestDemo.extend({
         // draw big point in the center
         /*glColor4ub(0,0,255,128);*/
         //glColor4f(0.0, 0.0, 1.0, 0.5);
-        cc.renderContext.fillStyle = "rgba(0,0,255,0.5)";
+        cc.drawingUtil.setDrawColor4B(0,0,255,127);
         cc.drawingUtil.drawPoint(cc.p(s.width / 2, s.height / 2), 40);
 
         // draw 4 small points
         var points = [cc.p(60, 60), cc.p(70, 70), cc.p(60, 70), cc.p(70, 60)];
         /*glColor4ub(0,255,255,255);*/
-        cc.renderContext.fillStyle = "rgba(0,255,255,1)";
+        cc.drawingUtil.setDrawColor4B(0,255,255,255);
         //glColor4f(0.0, 1.0, 1.0, 1.0);
         cc.drawingUtil.drawPoints(points, 4, 4);
 
         // draw a green circle with 10 segments
         //glLineWidth(16);
-        cc.renderContext.lineWidth = "16";
+        cc.drawingUtil.setLineWidth(16);
         /*glColor4ub(0, 255, 0, 255);*/
         //glColor4f(0.0, 1.0, 0.0, 1.0);
-        cc.renderContext.strokeStyle = "rgba(0,255,0,1)";
+        cc.drawingUtil.setDrawColor4B(0,255,0,255);
         cc.drawingUtil.drawCircle(cc.p(s.width / 2, s.height / 2), 100, 0, 10, false);
 
         // draw a green circle with 50 segments with line to center
         //glLineWidth(2);
-        cc.renderContext.lineWidth = "2";
+        cc.drawingUtil.setLineWidth(2);
         /*glColor4ub(0, 255, 255, 255);*/
         //glColor4f(0.0, 1.0, 1.0, 1.0);
-        cc.renderContext.strokeStyle = "rgba(0,255,255,1)";
+        cc.drawingUtil.setDrawColor4B(0,255,255,255);
         cc.drawingUtil.drawCircle(cc.p(s.width / 2, s.height / 2), 50, cc.DEGREES_TO_RADIANS(90), 50, true);
 
         // open yellow poly
         /*glColor4ub(255, 255, 0, 255);*/
         //glColor4f(1.0, 1.0, 0.0, 1.0);
-        cc.renderContext.strokeStyle = "rgba(255,255,0,1)";
+        cc.drawingUtil.setDrawColor4B(255,255,0,255);
         //glLineWidth(10);
-        cc.renderContext.lineWidth = "10";
+        cc.drawingUtil.setLineWidth(10);
         var vertices = [cc.p(0, 0), cc.p(50, 50), cc.p(100, 50), cc.p(100, 100), cc.p(50, 100) ];
         cc.drawingUtil.drawPoly(vertices, 5, false);
 
         // closed purble poly
         /*glColor4ub(255, 0, 255, 255);*/
         //glColor4f(1.0, 0.0, 1.0, 1.0);
-        cc.renderContext.strokeStyle = "rgba(255,0,255,1)";
+        cc.drawingUtil.setDrawColor4B(255,0,255,255);
         //glLineWidth(2);
-        cc.renderContext.lineWidth = "2";
+        cc.drawingUtil.setLineWidth(2);
         var vertices2 = [cc.p(30, 130), cc.p(30, 230), cc.p(50, 200)];
         cc.drawingUtil.drawPoly(vertices2, 3, true);
 
@@ -183,13 +159,12 @@ var DrawOldAPITest = DrawTestDemo.extend({
             cc.p(s.width / 2 + 60, s.height / 2 - 50), cc.p(s.width, s.height / 2), 100);
 
         // restore original values
-        cc.renderContext.lineWidth = "1";
+        cc.drawingUtil.setLineWidth(1);
         //glLineWidth(1);
         /*glColor4ub(255,255,255,255);*/
         //glColor4f(1.0, 1.0, 1.0, 1.0);
         //glPointSize(1);
-        cc.renderContext.fillStyle = "rgba(255,255,255,1)";
-        cc.renderContext.strokeStyle = "rgba(255,255,255,1)";
+        cc.drawingUtil.setDrawColor4B(255,255,255,255);
     }
 });
 
@@ -258,7 +233,7 @@ var DrawNewAPITest = DrawTestDemo.extend({
 //
 var DrawPrimitivesTestScene = TestScene.extend({
     runThisTest:function () {
-        sceneIdx = -1;
+        drawTestSceneIdx = -1;
         var layer = nextDrawTest();
         this.addChild(layer);
 
@@ -271,7 +246,6 @@ var DrawPrimitivesTestScene = TestScene.extend({
 //
 
 var arrayOfDrawTest = [
-
     DrawNewAPITest
 ];
 
@@ -280,19 +254,19 @@ if( sys.platform === 'browser' ) {
 }
 
 var nextDrawTest = function () {
-    sceneIdx++;
-    sceneIdx = sceneIdx % arrayOfDrawTest.length;
+    drawTestSceneIdx++;
+    drawTestSceneIdx = drawTestSceneIdx % arrayOfDrawTest.length;
 
-    return new arrayOfDrawTest[sceneIdx]();
+    return new arrayOfDrawTest[drawTestSceneIdx]();
 };
 var previousDrawTest = function () {
-    sceneIdx--;
-    if (sceneIdx < 0)
-        sceneIdx += arrayOfDrawTest.length;
+    drawTestSceneIdx--;
+    if (drawTestSceneIdx < 0)
+        drawTestSceneIdx += arrayOfDrawTest.length;
 
-    return new arrayOfDrawTest[sceneIdx]();
+    return new arrayOfDrawTest[drawTestSceneIdx]();
 };
 var restartDrawTest = function () {
-    return new arrayOfDrawTest[sceneIdx]();
+    return new arrayOfDrawTest[drawTestSceneIdx]();
 };
 

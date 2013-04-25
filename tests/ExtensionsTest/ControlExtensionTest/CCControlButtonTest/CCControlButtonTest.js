@@ -49,12 +49,12 @@ var ControlButtonTest_HelloVariableSize = ControlScene.extend({
              }
 
              layer.setAnchorPoint(cc.p(0.5, 0.5));
-             layer.setContentSize(cc.SizeMake(total_width, height));
+             layer.setContentSize(cc.size(total_width, height));
              layer.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
 
              // Add the black background
              var background = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-             background.setContentSize(cc.SizeMake(total_width + 14, height + 14));
+             background.setContentSize(cc.size(total_width + 14, height + 14));
              background.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
              this.addChild(background);
              return true;
@@ -92,23 +92,21 @@ ControlButtonTest_HelloVariableSize.create = function(sceneTitle){
 var ControlButtonTest_Event = ControlScene.extend({
     _displayValueLabel:null,
 
-    ctor:function(){},
     init:function(){
         if (this._super()) {
             var screenSize = cc.Director.getInstance().getWinSize();
-
-            // Add a label in which the button events will be displayed
-            this.setDisplayValueLabel(cc.LabelTTF.create("No Event", "Marker Felt", 32));
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
-            this.addChild(this._displayValueLabel, 1);
 
             // Add the button
             var backgroundButton = cc.Scale9Sprite.create(s_extensions_button);
             var backgroundHighlightedButton = cc.Scale9Sprite.create(s_extensions_buttonHighlighted);
 
-            var titleButton = cc.LabelTTF.create("Touch Me!", "Marker Felt", 30);
+            // Add a label in which the button events will be displayed
+            this.setDisplayValueLabel(cc.LabelTTF.create("No Event", "Marker Felt", 32));
+            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
+            this._displayValueLabel.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
+            this.addChild(this._displayValueLabel, 10);
 
+            var titleButton = cc.LabelTTF.create("Touch Me!", "Marker Felt", 30);
             titleButton.setColor(cc.c3(159, 168, 176));
 
             var controlButton = cc.ControlButton.create(titleButton, backgroundButton);
@@ -121,18 +119,18 @@ var ControlButtonTest_Event = ControlScene.extend({
 
             // Add the black background
             var background = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-            background.setContentSize(cc.SizeMake(300, 170));
+            background.setContentSize(cc.size(300, 170));
             background.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
             this.addChild(background);
 
             // Sets up event handlers
             controlButton.addTargetWithActionForControlEvent(this, this.touchDownAction, cc.CONTROL_EVENT_TOUCH_DOWN);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchDragInsideAction, cc.CONTROL_EVENT_TOUCH_DRAGINSIDE);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchDragOutsideAction, cc.CONTROL_EVENT_TOUCH_DRAGOUTSIDE);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchDragEnterAction, cc.CONTROL_EVENT_TOUCH_DRAGENTER);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchDragExitAction, cc.CONTROL_EVENT_TOUCH_DRAGEXIT);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchUpInsideAction, cc.CONTROL_EVENT_TOUCH_UPINSIDE);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchUpOutsideAction, cc.CONTROL_EVENT_TOUCH_UPOUTSIDE);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchDragInsideAction, cc.CONTROL_EVENT_TOUCH_DRAG_INSIDE);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchDragOutsideAction, cc.CONTROL_EVENT_TOUCH_DRAG_OUTSIDE);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchDragEnterAction, cc.CONTROL_EVENT_TOUCH_DRAG_ENTER);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchDragExitAction, cc.CONTROL_EVENT_TOUCH_DRAG_EXIT);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchUpInsideAction, cc.CONTROL_EVENT_TOUCH_UP_INSIDE);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchUpOutsideAction, cc.CONTROL_EVENT_TOUCH_UP_OUTSIDE);
             controlButton.addTargetWithActionForControlEvent(this, this.touchCancelAction, cc.CONTROL_EVENT_TOUCH_CANCEL);
             return true;
         }
@@ -189,10 +187,8 @@ var ControlButtonTest_Styling = ControlScene.extend({
             var space = 10; // px
 
             var max_w = 0, max_h = 0;
-            for (var i = 0; i < 3; i++)
-            {
-                for (var j = 0; j < 3; j++)
-                {
+            for (var i = 0; i < 3; i++) {
+                for (var j = 0; j < 3; j++) {
                     // Add the buttons
                     var button = this.standardButtonWithTitle((0|(Math.random() * 30)) + "");
                     button.setAdjustBackgroundImage(false);  // Tells the button that the background image must not be adjust
@@ -207,12 +203,12 @@ var ControlButtonTest_Styling = ControlScene.extend({
             }
 
             layer.setAnchorPoint(cc.p(0.5, 0.5));
-            layer.setContentSize(cc.SizeMake(max_w, max_h));
+            layer.setContentSize(cc.size(max_w, max_h));
             layer.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
 
             // Add the black background
             var backgroundButton = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-            backgroundButton.setContentSize(cc.SizeMake(max_w + 14, max_h + 14));
+            backgroundButton.setContentSize(cc.size(max_w + 14, max_h + 14));
             backgroundButton.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
             this.addChild(backgroundButton);
             return true;
@@ -222,9 +218,9 @@ var ControlButtonTest_Styling = ControlScene.extend({
     standardButtonWithTitle:function(title){
         /** Creates and return a button with a default background and title color. */
         var backgroundButton = cc.Scale9Sprite.create(s_extensions_button);
-        backgroundButton.setPreferredSize(cc.SizeMake(45, 45));  // Set the prefered size
+        backgroundButton.setPreferredSize(cc.size(45, 45));  // Set the prefered size
         var backgroundHighlightedButton = cc.Scale9Sprite.create(s_extensions_buttonHighlighted);
-        backgroundHighlightedButton.setPreferredSize(cc.SizeMake(45, 45));  // Set the prefered size
+        backgroundHighlightedButton.setPreferredSize(cc.size(45, 45));  // Set the prefered size
 
         var titleButton = cc.LabelTTF.create(title, "Marker Felt", 30);
 

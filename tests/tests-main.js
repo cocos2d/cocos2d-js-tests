@@ -31,20 +31,24 @@ var winSize = null;
 
 var PLATFORM_JSB = 1 << 0;
 var PLATFORM_HTML5 = 1 << 1;
-var PLATFORM_ALL = PLATFORM_JSB | PLATFORM_HTML5;
+var PLATFORM_HTML5_WEBGL = 1 << 2;
+var PLATFORM_JSB_AND_WEBGL =  PLATFORM_JSB | PLATFORM_HTML5_WEBGL;
+var PLATFORM_ALL = PLATFORM_JSB | PLATFORM_HTML5 | PLATFORM_HTML5_WEBGL;
 
+// automation vars
+var autoTestEnabled = autoTestEnabled || false;
+var autoTestCurrentTestName = autoTestCurrentTestName || "N/A";
 
 var TestScene = cc.Scene.extend({
     ctor:function (bPortrait) {
         this._super();
-        cc.associateWithNative( this, cc.Scene );
         this.init();
     },
 
     // callbacks
     onEnter:function () {
         this._super();
-        var label = cc.LabelTTF.create("MainMenu", "Arial", 20);
+        var label = cc.LabelTTF.create("Main Menu", "Arial", 20);
         var menuItem = cc.MenuItemLabel.create(label, this.onMainMenuCallback, this);
 
         var menu = cc.Menu.create(menuItem);
@@ -75,9 +79,9 @@ var TestController = cc.LayerGradient.extend({
     _itemMenu:null,
     _beginPos:0,
     isMouseDown:false,
+
     ctor:function() {
         this._super();
-        cc.associateWithNative( this, cc.LayerGradient );
         // this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255), cc.p(-1,-1));
         this.init( cc.c4b(0,0,0,255), cc.c4b(0x46,0x82,0xB4,255));
 
@@ -87,9 +91,22 @@ var TestController = cc.LayerGradient.extend({
 
         // add close menu
         var closeItem = cc.MenuItemImage.create(s_pathClose, s_pathClose, this.onCloseCallback, this);
-        var menu = cc.Menu.create(closeItem);//pmenu is just a holder for the close button
-        menu.setPosition(0,0);
         closeItem.setPosition(winSize.width - 30, winSize.height - 30);
+
+        var subItem1 = cc.MenuItemFont.create("Automated Test: Off");
+        subItem1.setFontSize(18);
+        var subItem2 = cc.MenuItemFont.create("Automated Test: On");
+        subItem2.setFontSize(18);
+
+        var toggleAutoTestItem = cc.MenuItemToggle.create(subItem1, subItem2);
+        toggleAutoTestItem.setCallback(this.onToggleAutoTest, this);
+        toggleAutoTestItem.setPosition(winSize.width-90, 20);
+        if( autoTestEnabled )
+                toggleAutoTestItem.setSelectedIndex(1);
+
+
+        var menu = cc.Menu.create(closeItem, toggleAutoTestItem);//pmenu is just a holder for the close button
+        menu.setPosition(0,0);
 
         // add menu items for tests
         this._itemMenu = cc.Menu.create();//item menu is where all the label goes, and the one gets scrolled
@@ -102,8 +119,12 @@ var TestController = cc.LayerGradient.extend({
 
             // enable disable
             if ( sys.platform == 'browser') {
-                menuItem.setEnabled( testNames[i].platforms & PLATFORM_HTML5 );
-            } else { /* jsb */
+                if( 'opengl' in sys.capabilities ){
+                    menuItem.setEnabled( (testNames[i].platforms & PLATFORM_HTML5) | (testNames[i].platforms & PLATFORM_HTML5_WEBGL) );
+                }else{
+                    menuItem.setEnabled( testNames[i].platforms & PLATFORM_HTML5 );
+                }
+            } else {
                 menuItem.setEnabled( testNames[i].platforms & PLATFORM_JSB );
             }
         }
@@ -130,13 +151,23 @@ var TestController = cc.LayerGradient.extend({
         var idx = sender.getZOrder() - 10000;
         // get the userdata, it's the index of the menu item clicked
         // create the test scene and run it
-        var scene = testNames[idx].testScene();
-        if (scene) {
-            scene.runThisTest();
-        }
+
+        autoTestCurrentTestName = testNames[idx].title;
+
+        var testCase = testNames[idx];
+        var res = testCase.resource || [];
+        cc.Loader.preload(res, function () {
+            var scene = testCase.testScene();
+            if (scene) {
+                scene.runThisTest();
+            }
+        }, this);
     },
     onCloseCallback:function () {
         history.go(-1);
+    },
+    onToggleAutoTest:function() {
+        autoTestEnabled = !autoTestEnabled;
     },
 
     onTouchesMoved:function (touches, event) {
@@ -153,14 +184,12 @@ var TestController = cc.LayerGradient.extend({
     onScrollWheel:function(event){
         var delta = event.getWheelDelta();
         this.moveMenu({y:-delta});
-        //console.log(1);
         return true;
     },
     moveMenu:function(delta) {
         var current = this._itemMenu.getPosition();
 
         var newY = current.y + delta.y;
-
         if (newY < 0 )
             newY = 0;
 
@@ -188,6 +217,7 @@ var testNames = [
     },
     {
         title:"Box2D Test",
+        resource:g_box2d,
         platforms: PLATFORM_HTML5,
         testScene:function () {
             return new Box2DTestScene();
@@ -209,7 +239,15 @@ var testNames = [
         }
     },
     {
+        title:"ClippingNode Test",
+        platforms: PLATFORM_HTML5_WEBGL,
+        testScene:function () {
+            return new ClippingNodeTestScene();
+        }
+    },
+    {
         title:"CocosDenshion Test",
+        resource:g_cocosdeshion,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new CocosDenshionTestScene();
@@ -246,6 +284,7 @@ var testNames = [
     },
     {
         title:"Extensions Test",
+        resource:g_extensions,
         platforms: PLATFORM_HTML5,
         testScene:function () {
             return new ExtensionsTestScene();
@@ -253,15 +292,22 @@ var testNames = [
     },
     {
         title:"Effects Test",
-        platforms: PLATFORM_JSB,
+        platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new EffectsTestScene();
         }
     },
-    //"EffectAdvancedTest",
+    {
+        title:"Effects Advanced Test",
+        platforms: PLATFORM_JSB_AND_WEBGL,
+        testScene:function () {
+            return new EffectAdvanceScene();
+        }
+    },
     //"ExtensionsTest",
     {
         title:"FileUtils Test",
+        resource:g_fileUtils,
         platforms: PLATFORM_ALL,
         testScene:function () {
              return new FileUtilsTestScene();
@@ -269,6 +315,7 @@ var testNames = [
     },
     {
         title:"Font Test",
+        resource:g_fonts,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new FontTestScene();
@@ -284,6 +331,7 @@ var testNames = [
     },
     {
         title:"Label Test",
+        resource:g_label,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new LabelTestScene();
@@ -298,9 +346,17 @@ var testNames = [
     },
     {
         title:"Menu Test",
+        resource:g_menu,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new MenuTestScene();
+        }
+    },
+    {
+        title:"MotionStreak Test",
+        platforms: PLATFORM_HTML5_WEBGL,
+        testScene:function () {
+            return new MotionStreakTestScene();
         }
     },
     {
@@ -312,7 +368,15 @@ var testNames = [
     },
     //"MotionStreakTest",
     {
+        title:"OpenGL Test",
+        platforms: PLATFORM_JSB_AND_WEBGL,
+        testScene:function () {
+            return new OpenGLTestScene();
+        }
+    },
+    {
         title:"Parallax Test",
+        resource:g_parallax,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new ParallaxTestScene();
@@ -321,6 +385,7 @@ var testNames = [
     {
         title:"Particle Test",
         platforms: PLATFORM_ALL,
+        resource:g_particle,
         testScene:function () {
             return new ParticleTestScene();
         }
@@ -341,7 +406,7 @@ var testNames = [
     },
     {
         title:"RenderTexture Test",
-        platforms: PLATFORM_JSB,
+        platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new RenderTextureTestScene();
         }
@@ -369,6 +434,7 @@ var testNames = [
     },
     {
         title:"Sprite Test",
+        resource:g_sprites,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new SpriteTestScene();
@@ -376,6 +442,7 @@ var testNames = [
     },
     {
         title:"Scale9Sprite Test",
+        resource:g_s9s_blocks,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new S9SpriteTestScene();
@@ -398,6 +465,7 @@ var testNames = [
     },
     {
         title:"TileMap Test",
+        resource:g_tilemaps,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new TileMapTestScene();
@@ -405,6 +473,7 @@ var testNames = [
     },
     {
         title:"Touches Test",
+        resource:g_touches,
         platforms: PLATFORM_HTML5,
         testScene:function () {
             return new TouchesTestScene();
@@ -412,6 +481,7 @@ var testNames = [
     },
     {
         title:"Transitions Test",
+        resource:g_transitions,
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new TransitionsTestScene();

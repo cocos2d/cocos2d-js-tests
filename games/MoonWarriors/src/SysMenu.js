@@ -3,16 +3,11 @@ cc.dumpConfig();
 var SysMenu = cc.Layer.extend({
     _ship:null,
 
-    ctor:function () {
-        cc.associateWithNative( this, cc.Layer );
-    },
     init:function () {
         var bRet = false;
         if (this._super()) {
-                              
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_textureOpaquePack_plist);
             cc.SpriteFrameCache.getInstance().addSpriteFrames(s_textureTransparentPack_plist);
-                              
+
             winSize = cc.Director.getInstance().getWinSize();
             var sp = cc.Sprite.create(s_loading);
             sp.setAnchorPoint(cc.p(0,0));
@@ -56,7 +51,7 @@ var SysMenu = cc.Layer.extend({
 
             if (MW.SOUND) {
                 cc.AudioEngine.getInstance().setMusicVolume(0.7);
-                cc.AudioEngine.getInstance().playMusic(s_mainMainMusic, true);
+                cc.AudioEngine.getInstance().playMusic(s_mainMainMusic_mp3, true);
             }
 
             bRet = true;
@@ -64,10 +59,13 @@ var SysMenu = cc.Layer.extend({
         return bRet;
     },
     onNewGame:function (pSender) {
-        var scene = cc.Scene.create();
-        scene.addChild(GameLayer.create());
-        scene.addChild(GameControlMenu.create());
-        cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+        //load resources
+        cc.Loader.preload(g_maingame, function () {
+            var scene = cc.Scene.create();
+            scene.addChild(GameLayer.create());
+            scene.addChild(GameControlMenu.create());
+            cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+        }, this);
     },
     onSettings:function (pSender) {
         this.onButtonEffect();
@@ -92,7 +90,7 @@ var SysMenu = cc.Layer.extend({
     },
     onButtonEffect:function(){
         if (MW.SOUND) {
-            var s = cc.AudioEngine.getInstance().playEffect(s_buttonEffect);
+            var s = cc.AudioEngine.getInstance().playEffect(s_buttonEffect_mp3);
         }
     }
 });

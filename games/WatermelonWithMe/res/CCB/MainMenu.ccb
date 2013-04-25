@@ -5,7 +5,7 @@
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
-	<integer>1</integer>
+	<integer>0</integer>
 	<key>currentSequenceId</key>
 	<integer>0</integer>
 	<key>fileType</key>
@@ -90,7 +90,7 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>isTouchEnabled</string>
+						<string>touchEnabled</string>
 						<key>platform</key>
 						<string>iOS</string>
 						<key>type</key>
@@ -100,7 +100,7 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>isAccelerometerEnabled</string>
+						<string>accelerometerEnabled</string>
 						<key>platform</key>
 						<string>iOS</string>
 						<key>type</key>
@@ -120,7 +120,7 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>isKeyboardEnabled</string>
+						<string>keyboardEnabled</string>
 						<key>platform</key>
 						<string>Mac</string>
 						<key>type</key>
@@ -890,8 +890,6 @@
 								</array>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 					</dict>
 					<dict>
 						<key>baseClass</key>
@@ -1005,6 +1003,8 @@
 								</array>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 				</array>
 				<key>customClass</key>
@@ -1025,7 +1025,7 @@
 						<key>value</key>
 						<array>
 							<real>50</real>
-							<real>60</real>
+							<real>60.3125</real>
 							<integer>4</integer>
 						</array>
 					</dict>
@@ -1075,7 +1075,7 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>isTouchEnabled</string>
+						<string>touchEnabled</string>
 						<key>platform</key>
 						<string>iOS</string>
 						<key>type</key>
@@ -1085,7 +1085,7 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>isAccelerometerEnabled</string>
+						<string>accelerometerEnabled</string>
 						<key>platform</key>
 						<string>iOS</string>
 						<key>type</key>
@@ -1105,7 +1105,7 @@
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>isKeyboardEnabled</string>
+						<string>keyboardEnabled</string>
 						<key>platform</key>
 						<string>Mac</string>
 						<key>type</key>
@@ -1174,7 +1174,7 @@
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>isTouchEnabled</string>
+				<string>touchEnabled</string>
 				<key>platform</key>
 				<string>iOS</string>
 				<key>type</key>
@@ -1184,7 +1184,7 @@
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>isAccelerometerEnabled</string>
+				<string>accelerometerEnabled</string>
 				<key>platform</key>
 				<string>iOS</string>
 				<key>type</key>
@@ -1204,7 +1204,7 @@
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>isKeyboardEnabled</string>
+				<string>keyboardEnabled</string>
 				<key>platform</key>
 				<string>Mac</string>
 				<key>type</key>

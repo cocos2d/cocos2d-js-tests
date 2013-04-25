@@ -50,6 +50,8 @@ var s_grossini_aliases = "res/animations/grossini-aliases.png";
 var s_dragon_animation = "res/animations/dragon_animation.png";
 var s_ghosts = "res/animations/ghosts.png";
 var s_grossini_family = "res/animations/grossini_family.png";
+var s_texture512 = "res/Images/texture512x512.png";
+var s_hole_effect_png = "res/Images/hole_effect.png";
 
 var s_tcc_issue_1 = "res/animations/tcc_issue_1.png";
 var s_tcc_issue_2 = "res/animations/tcc_issue_2.png";
@@ -58,6 +60,10 @@ var s_tcc_issue_2_plist = "res/animations/tcc_issue_2.plist";
 
 var s_s9s_blocks9 = "res/Images/blocks9ss.png";
 var s_s9s_blocks9_plist = "res/Images/blocks9ss.plist";
+
+var s_s9s_ui = "res/Images/ui.png";
+var s_s9s_ui_plist = "res/Images/ui.plist";
+var s_circle_plist  = "res/Images/bugs/circle.plist";
 
 var s_boilingFoamPlist = "res/Images/BoilingFoam.plist";
 var s_grossiniPlist = "res/animations/grossini.plist";
@@ -150,3 +156,35 @@ var s_extensions_button = "res/extensions/button.png";
 var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
+
+var g_ressources = [];
+
+var g_sprites = [];
+
+var g_menu = [];
+
+var g_touches = [];
+
+var g_performace = [];
+
+var g_fileUtils = [];
+
+var g_s9s_blocks = [];
+
+var g_label = [];
+
+var g_transitions = [];
+
+var g_box2d = [];
+
+var g_cocosdeshion = [];
+
+var g_parallax = [];
+
+var g_particle = [];
+
+var g_fonts = [];
+
+var g_extensions = [];
+
+var g_tilemaps = [];
