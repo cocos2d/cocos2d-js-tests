@@ -149,6 +149,12 @@ var s_tuffy_bold_italic_charmap_hd = "res/fonts/tuffy_bold_italic-charmap-hd.pli
 
 var s_particles = "res/Images/particles.png";
 var s_particles_hd = "res/Images/particles-hd.png";
+var s_texture512 = "res/Images/texture512x512.png";
+var s_hole_effect_png = "res/Images/hole_effect.png";
+var s_hole_stencil_png = "res/Images/hole_stencil.png";
+var s_pathFog = "res/Images/Fog.png";
+var s_circle_plist  = "res/Images/bugs/circle.plist";
+var s_circle_png  = "res/Images/bugs/circle.png";
 
 var s_extensions_background = "res/extensions/background.png";
 var s_extensions_buttonBackground = "res/extensions/buttonBackground.png";

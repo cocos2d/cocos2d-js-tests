@@ -413,8 +413,8 @@ var CameraZoomTest = TestNodeDemo.extend({
         sprite.setPosition(cc.p(winSize.width / 4, winSize.height / 2));
         if ("opengl" in sys.capabilities) {
             var cam = sprite.getCamera();
-            cam.setEyeXYZ(0, 0, 415/2);
-            cam.setCenterXYZ(0, 0, 0);
+            cam.setEye(0, 0, 415/2);
+            cam.setCenter(0, 0, 0);
         }
 
         // CENTER
@@ -442,11 +442,11 @@ var CameraZoomTest = TestNodeDemo.extend({
         this._z += dt * 100;
         var sprite = this.getChildByTag(20);
         var cam = sprite.getCamera();
-        cam.setEyeXYZ(0, 0, this._z);
+        cam.setEye(0, 0, this._z);
 
         sprite = this.getChildByTag(40);
         cam = sprite.getCamera();
-        cam.setEyeXYZ(0, 0, -this._z);
+        cam.setEye(0, 0, -this._z);
     },
 
     onEnter:function () {
@@ -670,7 +670,7 @@ var NodeNonOpaqueTest = TestNodeDemo.extend({
         var background;
         for (var i = 0; i < 50; i++) {
             background = cc.Sprite.create(s_back1);
-            background.setBlendFunc(cc.BlendFuncDisable());
+            background.setBlendFunc(gl.ONE, gl.ZERO);
             background.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
             this.addChild(background);
         }
