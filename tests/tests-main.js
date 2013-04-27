@@ -393,6 +393,7 @@ var testNames = [
     {
         title:"Performance Test",
         platforms: PLATFORM_ALL,
+        resource:g_performace,
         testScene:function () {
             return new PerformanceTestScene();
         }

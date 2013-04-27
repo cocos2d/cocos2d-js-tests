@@ -595,7 +595,7 @@ var RawStencilBufferTest3 = RawStencilBufferTest.extend({
     setupStencilForDrawingOnPlane:function (plane) {
         var gl = cc.renderContext;
         gl.depthMask(true);
-        gl.enable(gl.DEPTH_TEST);
+        //gl.enable(gl.DEPTH_TEST);
         this._super(plane);
     }
 });
@@ -643,7 +643,7 @@ var RawStencilBufferTest5 = RawStencilBufferTest.extend({
 
     setupStencilForDrawingOnPlane:function (plane) {
         cc.renderContext.depthMask(true);
-        cc.renderContext.enable(cc.renderContext.DEPTH_TEST);
+        //cc.renderContext.enable(cc.renderContext.DEPTH_TEST);
         this._super(plane);
     }
 });
@@ -682,7 +682,7 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
     setupStencilForDrawingOnPlane:function (plane) {
         var gl = cc.renderContext;
         gl.depthMask(true);
-        gl.enable(gl.DEPTH_TEST);
+        //gl.enable(gl.DEPTH_TEST);
         this._super(plane);
         gl.flush();
     }
@@ -693,10 +693,6 @@ var arrayOfClippingNodeTest = [
     HoleDemo,
     ShapeTest,
     ShapeInvertedTest,
-    SpriteTest,
-    SpriteNoAlphaTest,
-    SpriteInvertedTest,
-    NestedTest,
     RawStencilBufferTest,
     RawStencilBufferTest2,
     RawStencilBufferTest3,
@@ -705,7 +701,16 @@ var arrayOfClippingNodeTest = [
     RawStencilBufferTest6
 ];
 
-var nextClippingNodeAction = function () {
+if ( sys.platform !== 'browser'){
+    //These tests don't support to HTML5
+    arrayOfClippingNodeTest.push(
+        SpriteTest,
+        SpriteNoAlphaTest,
+        SpriteInvertedTest,
+        NestedTest);
+}
+
+    var nextClippingNodeAction = function () {
     sceneIdx++;
     sceneIdx = sceneIdx % arrayOfClippingNodeTest.length;
     return new arrayOfClippingNodeTest[sceneIdx]();
