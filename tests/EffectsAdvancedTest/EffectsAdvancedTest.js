@@ -48,6 +48,11 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
     _atlas:null,
     _title:null,
 
+    ctor:function() {
+        this._super();
+        this.init();
+    },
+
     onEnter:function () {
         this._super();
 
@@ -93,7 +98,7 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.PointZero());
+        menu.setPosition(cc.p(0, 0));
         item1.setPosition(cc.p(VisibleRect.center().x - item2.getContentSize().width * 2, VisibleRect.bottom().y + item2.getContentSize().height / 2));
         item2.setPosition(cc.p(VisibleRect.center().x, VisibleRect.bottom().y + item2.getContentSize().height / 2));
         item3.setPosition(cc.p(VisibleRect.center().x + item2.getContentSize().width * 2, VisibleRect.bottom().y + item2.getContentSize().height / 2));
@@ -218,9 +223,25 @@ var Effect3 = EffectAdvanceTextLayer.extend({
 var Lens3DTarget = cc.Node.extend({
     _lens3D:null,
 
-    setPosition:function (position) {
-        this._lens3D.setPosition(position);
+    ctor:function() {
+        this._super();
+        this.init();
+    },
+
+    update: function(dt) {
+        this._lens3D.setPosition(this.getPosition());
+    },
+
+    onEnter: function() {
+        cc.log("Lens3DTarget onEnter");
+        this.scheduleUpdate();
+    },
+
+    onExit: function() {
+        cc.log("Lens3DTarget onExit");
+        this.unscheduleUpdate();
     }
+
 });
 
 Lens3DTarget.create = function (action) {
@@ -252,7 +273,11 @@ var Effect4 = EffectAdvanceTextLayer.extend({
         this.addChild(target);
 
         director.getActionManager().addAction(seq, target, false);
-        this.runAction(lens);
+        this.runAction(cc.Sequence.create(lens, cc.CallFunc.create(
+            function(sender) {
+                sender.removeChild(target, true);
+            }
+        )));
     }
 });
 
@@ -298,18 +323,17 @@ var Issue631 = EffectAdvanceTextLayer.extend({
         this.removeChild(bg, true);
 
         // background
-        var layer = cc.LayerColor.create(cc.c4(255, 0, 0, 255));
+        var layer = cc.LayerColor.create(cc.c4b(255, 0, 0, 255));
         this.addChild(layer, -10);
         var sprite = cc.Sprite.create(s_pathGrossini);
         sprite.setPosition(cc.p(50, 80));
         layer.addChild(sprite, 10);
 
         // foreground
-        var layer2 = cc.LayerColor.create(cc.c4(0, 255, 0, 255));
+        var layer2 = cc.LayerColor.create(cc.c4b(0, 255, 0, 255));
         var fog = cc.Sprite.create(s_pathFog);
 
-        var bf = {src:gl.SRC_ALPHA, dst:gl.ONE_MINUS_SRC_ALPHA};
-        fog.setBlendFunc(bf);
+        fog.setBlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
         layer2.addChild(fog, 1);
         this.addChild(layer2, 1);
 
