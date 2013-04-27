@@ -82,7 +82,6 @@ var particleSceneArr = [
     function () {
         return new DemoRing();
     },
-    //function(){return new ParallaxParticle();},
     function () {
         return new DemoParticleFromFile("BoilingFoam");
     },
@@ -101,7 +100,9 @@ var particleSceneArr = [
     function () {
         return new DemoParticleFromFile("LavaFlow");
     },
-    //function(){return new DemoParticleFromFile("SpinningPeas");},
+    function(){
+        return new DemoParticleFromFile("SpinningPeas");
+    },
     function () {
         return new DemoParticleFromFile("SpookyPeas");
     },
@@ -132,13 +133,23 @@ var particleSceneArr = [
     function () {
         return new DemoParticleFromFile("Phoenix");
     },
-    function () {
-        return new ParticleBatchTest();
-    },
     function() {
         return new ParticleResizeTest();
     }
 ];
+
+if ( sys.platform !== 'browser'){
+    //TODO ParticleBatchNode doesn't work in Html5
+    particleSceneArr.push(function () {
+        return new ParticleBatchTest();
+    });
+}
+
+if( 'opengl' in sys.capabilities ){
+    particleSceneArr.push( function () {
+        return new ParallaxParticle();
+    });
+}
 
 
 var nextParticleAction = function () {
@@ -241,7 +252,7 @@ var ParticleDemo = BaseTestLayer.extend({
         this._shapeModeButton.setPosition(10, 100);
         this._shapeModeButton.setAnchorPoint(cc.p(0, 0));
 
-        if (sys.platform != "browser") {
+        if ('opengl' in sys.capabilities ) {
             // Shape type is not compatible with JSB
             this._shapeModeButton.setEnabled(false);
         }
