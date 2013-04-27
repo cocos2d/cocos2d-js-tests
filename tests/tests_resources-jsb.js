@@ -177,6 +177,8 @@ var g_fileUtils = [];
 
 var g_s9s_blocks = [];
 
+var g_opengl_resources = [];
+
 var g_label = [];
 
 var g_transitions = [];
