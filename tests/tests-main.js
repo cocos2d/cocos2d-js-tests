@@ -366,9 +366,9 @@ var testNames = [
             return new NodeTestScene();
         }
     },
-    //"MotionStreakTest",
     {
         title:"OpenGL Test",
+        resource:g_opengl_resources,
         platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new OpenGLTestScene();
