@@ -59,7 +59,6 @@ var tests_files = [
 
 for (var i = 0; i < tests_files.length; i++) {
     var name = "" + tests_files[i];
-    cc.log(" Loading: " + name);
     require(name);
 }
 

@@ -48,6 +48,11 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
     _atlas:null,
     _title:null,
 
+    ctor:function() {
+        this._super();
+        this.init();
+    },
+
     onEnter:function () {
         this._super();
 
@@ -218,6 +223,11 @@ var Effect3 = EffectAdvanceTextLayer.extend({
 var Lens3DTarget = cc.Node.extend({
     _lens3D:null,
 
+    ctor:function() {
+        this._super();
+        this.init();
+    },
+
     update: function(dt) {
         this._lens3D.setPosition(this.getPosition());
     },
@@ -313,14 +323,14 @@ var Issue631 = EffectAdvanceTextLayer.extend({
         this.removeChild(bg, true);
 
         // background
-        var layer = cc.LayerColor.create(cc.c4(255, 0, 0, 255));
+        var layer = cc.LayerColor.create(cc.c4b(255, 0, 0, 255));
         this.addChild(layer, -10);
         var sprite = cc.Sprite.create(s_pathGrossini);
         sprite.setPosition(cc.p(50, 80));
         layer.addChild(sprite, 10);
 
         // foreground
-        var layer2 = cc.LayerColor.create(cc.c4(0, 255, 0, 255));
+        var layer2 = cc.LayerColor.create(cc.c4b(0, 255, 0, 255));
         var fog = cc.Sprite.create(s_pathFog);
 
         fog.setBlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
