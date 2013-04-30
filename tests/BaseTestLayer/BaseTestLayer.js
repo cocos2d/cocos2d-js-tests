@@ -227,6 +227,17 @@ var BaseTestLayer = cc.LayerGradient.extend({
             }
     },
 
+     containsPixel: function(arr, pix) {
+
+        for(var i=0; i < arr.length; i += 4) {
+            if(arr[i] == pix[0] && arr[i + 1] == pix[1] &&
+                arr[i + 2] == pix[2] && arr[i + 3] == pix[3]) {
+                return true;
+            }
+        }
+        return false;
+    },
+
     readPixels:function(x,y,w,h) {
         if( 'opengl' in sys.capabilities) {
             var size = 4 * w * h;
