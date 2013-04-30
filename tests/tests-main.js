@@ -240,7 +240,7 @@ var testNames = [
     },
     {
         title:"ClippingNode Test",
-        platforms: PLATFORM_HTML5_WEBGL,
+        platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new ClippingNodeTestScene();
         }
