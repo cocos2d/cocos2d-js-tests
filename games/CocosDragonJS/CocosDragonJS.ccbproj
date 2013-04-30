@@ -29,7 +29,7 @@
 	<key>publishDirectory</key>
 	<string>Published files iOS</string>
 	<key>publishDirectoryAndroid</key>
-	<string></string>
+	<string>Published files Android</string>
 	<key>publishDirectoryHTML5</key>
 	<string>Published files HTML5</string>
 	<key>publishEnabledAndroid</key>
