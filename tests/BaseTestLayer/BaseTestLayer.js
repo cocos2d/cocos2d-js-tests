@@ -227,11 +227,26 @@ var BaseTestLayer = cc.LayerGradient.extend({
             }
     },
 
-     containsPixel: function(arr, pix) {
+
+    containsPixel: function(arr, pix, approx, range) {
+
+	range = range || 50.0;
+	approx = approx || true;
+
+        var abs = function(a,b) {
+	    return ((a-b) > 0) ? (a-b) : (b-a);
+	};
+
+	var pixelEqual = function(pix1, pix2) {
+	    if(approx && abs(pix1, pix2) < range) return true;
+	    else if(pix1 == pix2) return true;
+	    return false;
+	};
+
 
         for(var i=0; i < arr.length; i += 4) {
-            if(arr[i] == pix[0] && arr[i + 1] == pix[1] &&
-                arr[i + 2] == pix[2] && arr[i + 3] == pix[3]) {
+	    if(pixelEqual(arr[i], pix[0]) && pixelEqual(arr[i + 1], pix[1]) &&
+	       pixelEqual(arr[i + 2], pix[2]) && pixelEqual(arr[i + 3], pix[3])) {
                 return true;
             }
         }
