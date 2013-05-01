@@ -241,23 +241,29 @@ var LabelAtlasHD = AtlasDemo.extend({
     subtitle:function () {
         return "loading larabie-16 / larabie-16-hd";
     },
+
+
     //
     // Automation
     //
 
+    pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
+
     getExpectedResult:function() {
-        // yellow, red, green, blue, yellow
-        var ret = {"0":0,"1":0,"2":0,"3":255,"4":0,"5":0,"6":0,"7":255,"8":0,"9":0,"10":0,"11":255,"12":0,"13":0,"14":0,"15":255,
-        "16":0,"17":0,"18":0,"19":255,"20":0,"21":0,"22":0,"23":255,"24":0,"25":0,"26":0,"27":255,"28":0,"29":0,
-        "30":0,"31":255,"32":0,"33":0,"34":0,"35":255,"36":0,"37":0,"38":0,"39":255,"40":0,"41":0,"42":0,"43":255,
-        "44":0,"45":0,"46":0,"47":255,"48":0,"49":0,"50":0,"51":255,"52":0,"53":0,"54":0,"55":255,"56":0,"57":0,"58":0,
-        "59":255,"60":0,"61":0,"62":0,"63":255};
+        
+        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
+        var s = director.getWinSize();
+        var ret = {"center": "yes"};
         return JSON.stringify(ret);
     },
 
     getCurrentResult:function() {
+
         var s = director.getWinSize();
-        var ret =  this.readPixels(s.width/2, s.height/2, 4, 4);
+        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
+        
+        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
+
         return JSON.stringify(ret);
     }
 });
@@ -490,15 +496,25 @@ var BMFontPaddingTest = AtlasDemo.extend({
         return "Testing padding";
     },
 
+
+    //
+    // Automation
+    //
+    pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
+
     getExpectedResult:function() {
-        var ret =  {"0":255,"1":255,"2":255,"3":255,"4":221,"5":221,"6":221,"7":255,
-                    "8":255,"9":255,"10":255,"11":255,"12":224,"13":224,"14":224,"15":255};
+        
+        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
+        var s = director.getWinSize();
+        var ret = {"center": "yes"};
         return JSON.stringify(ret);
     },
 
     getCurrentResult:function() {
+
         var s = director.getWinSize();
-        var ret =  this.readPixels(s.width/2, s.height/2, 2, 2);
+        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
+        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -536,16 +552,26 @@ var BMFontOffsetTest = AtlasDemo.extend({
         return "Rendering should be OK. Testing offset";
     },
 
+    //
+    // Automation
+    //
+
+    pixel: {"0":150,"1":150,"2":150,"3":255},
     getExpectedResult:function() {
-        var ret =  {"0":124,"1":124,"2":124,"3":255,"4":218,"5":218,"6":218,
-                    "7":255,"8":80,"9":80,"10":80,"11":255,"12":129,"13":129,"14":129,"15":255};
+	var ret =  {"top": "yes", "center": "yes", "bottom": "yes"};
 
         return JSON.stringify(ret);
     },
 
     getCurrentResult:function() {
+
         var s = director.getWinSize();
-        var ret =  this.readPixels(s.width/2, s.height/2, 2, 2);
+        var ret1 =  this.readPixels(s.width/2, s.height/2-50, 50, 50);
+        var ret2 =  this.readPixels(s.width/2, s.height/2, 50, 50);
+        var ret3 =  this.readPixels(s.width/2, s.height/2+50, 50, 50);
+        var ret = {"top": this.containsPixel(ret1, this.pixel, true, 140) ? "yes" : "no",
+                   "center": this.containsPixel(ret2, this.pixel, true, 140) ? "yes" : "no",
+                   "bottom": this.containsPixel(ret3, this.pixel, true, 140) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -587,9 +613,13 @@ var BMFontTintTest = AtlasDemo.extend({
         return "Testing color";
     },
 
-    pixel1: {"0":0,"1":0,"2":226,"3":255},
-    pixel2: {"0":47,"1":0,"2":0,"3":255},
-    pixel3: {"0":106,"1":133,"2":106,"3":193},
+    //
+    // Automation
+    //
+
+    pixel1: {"0":0,"1":0,"2":255,"3":255},
+    pixel2: {"0":255,"1":0,"2":0,"3":255},
+    pixel3: {"0":0,"1":255,"2":0,"3":255},
     getExpectedResult:function() {
         var ret = {"left": "yes", "center": "yes", "right": "yes"};
         return JSON.stringify(ret);
@@ -598,17 +628,12 @@ var BMFontTintTest = AtlasDemo.extend({
     getCurrentResult:function() {
 
         var s = director.getWinSize();
-        var ret = {"left": this.containsPixel(ret1, this.pixel1) ? "yes" : "no",
-                   "center": this.containsPixel(ret2, this.pixel2) ? "yes" : "no",
-                   "right": this.containsPixel(ret3, this.pixel3) ? "yes" : "no"}
-        var ret1 =  this.readPixels(s.width/2, s.height/4, 1, 1);
-        var ret2 =  this.readPixels(s.width/2, 2 * s.height/4, 1, 1);
-        var ret3 =  this.readPixels(s.width/2, 3 * s.height/4, 1, 1);
-
-        var ret = []; 
-        ret.push(ret1); 
-        ret.push(ret2); 
-        ret.push(ret3);
+        var ret1 =  this.readPixels(s.width/2, s.height/4, 50, 50);
+        var ret2 =  this.readPixels(s.width/2, 2 * s.height/4, 50, 50);
+        var ret3 =  this.readPixels(s.width/2, 3 * s.height/4, 50, 50);
+        var ret = {"left": this.containsPixel(ret1, this.pixel1, true, 100) ? "yes" : "no",
+                   "center": this.containsPixel(ret2, this.pixel2, true, 100) ? "yes" : "no",
+                   "right": this.containsPixel(ret3, this.pixel3, true, 100) ? "yes" : "no"}
         return JSON.stringify(ret);
     }
 });
@@ -873,6 +898,9 @@ var BMFontHDTest = AtlasDemo.extend({
         return "loading arista16 or arista16-hd";
     },
 
+    //
+    // Automation
+    //
 
     pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
 
@@ -919,6 +947,10 @@ var BMFontGlyphDesignerTest = AtlasDemo.extend({
     subtitle:function () {
         return "You should see a font with shawdows and outline";
     },
+
+    //
+    // Automation
+    //
 
     pixel: {"0": 240, "1": 201, "2": 108, "3": 255},
 
@@ -1078,6 +1110,10 @@ var LabelTTFMultiline = AtlasDemo.extend({
         return "Word wrap using cc.LabelTTF";
     },
 
+    //
+    // Automation
+    //
+
     pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
 
     getExpectedResult:function() {
@@ -1128,6 +1164,10 @@ var BMFontChineseTest = AtlasDemo.extend({
     title:function () {
         return "Testing cc.LabelBMFont with Chinese character";
     },
+
+    //
+    // Automation
+    //
 
     pixel: {"0": 255, "1": 0, "2": 142, "3": 255},
 
