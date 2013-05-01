@@ -26,8 +26,18 @@
 			<true/>
 			<key>dither</key>
 			<true/>
+			<key>ditherAndroid</key>
+			<true/>
+			<key>ditherHTML5</key>
+			<false/>
+			<key>isDirty</key>
+			<false/>
 			<key>textureFileFormat</key>
-			<integer>2</integer>
+			<integer>3</integer>
+			<key>textureFileFormatAndroid</key>
+			<integer>3</integer>
+			<key>textureFileFormatHTML5</key>
+			<integer>0</integer>
 		</dict>
 		<key>gamescene/shimmer</key>
 		<dict>
@@ -35,8 +45,18 @@
 			<true/>
 			<key>dither</key>
 			<true/>
+			<key>ditherAndroid</key>
+			<false/>
+			<key>ditherHTML5</key>
+			<false/>
+			<key>isDirty</key>
+			<false/>
 			<key>textureFileFormat</key>
 			<integer>2</integer>
+			<key>textureFileFormatAndroid</key>
+			<integer>0</integer>
+			<key>textureFileFormatHTML5</key>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>javascriptBased</key>
