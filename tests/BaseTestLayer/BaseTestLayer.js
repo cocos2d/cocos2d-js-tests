@@ -239,7 +239,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
 
 	var pixelEqual = function(pix1, pix2) {
 	    if(approx && abs(pix1, pix2) < range) return true;
-	    else if(pix1 == pix2) return true;
+	    else if(!approx && pix1 == pix2) return true;
 	    return false;
 	};
 
