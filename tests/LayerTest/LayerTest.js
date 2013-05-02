@@ -26,6 +26,8 @@
 cc.TAG_LAYER = 1;
 
 var layerTestSceneIdx = -1;
+var LAYERTEST2_LAYER1_TAG = 1;
+var LAYERTEST2_LAYER2_TAG = 2;
 
 var LayerTestScene = TestScene.extend({
     runThisTest:function () {
@@ -120,6 +122,29 @@ var LayerTest1 = LayerTest.extend({
     },
     onTouchesMoved:function (touches, event) {
         this.updateSize( touches[0].getLocation() );
+    },
+    
+
+    //
+    // Automation
+    //
+
+    pixel: {"0": 190, "1": 0, "2": 0, "3": 128},
+
+    getExpectedResult:function() {
+
+        var s = director.getWinSize();
+        var ret = {"center": "yes"};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = director.getWinSize();
+        var ret2 =  this.readPixels(s.width/2, s.height/2, 5, 5);
+        var ret = {"center": this.containsPixel(ret2, this.pixel, true, 100) ? "yes" : "no"};
+
+        return JSON.stringify(ret);
     }
 });
 
@@ -141,6 +166,32 @@ var IgnoreAnchorpointTest1 = LayerTest.extend({
     },
     subtitle:function () {
         return "red:true  green:true";
+	},
+
+
+    //
+    // Automation
+    //
+
+    pixel1: {"0": 100, "1": 150, "2": 100, "3": 200},
+    pixel2: {"0": 100, "1": 50, "2": 50, "3": 200},
+
+    getExpectedResult:function() {
+        
+        var s = director.getWinSize();
+        var ret = {"big": "yes", "small": "yes"};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = director.getWinSize();
+        var ret2 =  this.readPixels(s.width/2 + s.width/5, s.height/2 + s.height/5, 5, 5);
+        var ret3 =  this.readPixels(s.width - 50, s.height - 50, 50, 50);
+        var ret = {"big": this.containsPixel(ret2, this.pixel1, true, 100) ? "yes" : "no",
+		   "small": this.containsPixel(ret3, this.pixel2, true, 100) ? "yes" : "no",};
+	
+        return JSON.stringify(ret);
     }
 });
 var IgnoreAnchorpointTest2 = LayerTest.extend({
@@ -161,8 +212,35 @@ var IgnoreAnchorpointTest2 = LayerTest.extend({
     },
     subtitle:function () {
         return "red:true  green:false";
+    },
+
+
+    //
+    // Automation
+    //
+
+    pixel1: {"0": 50, "1": 100, "2": 50, "3": 200},
+    pixel2: {"0": 100, "1": 50, "2": 50, "3": 200},
+
+    getExpectedResult:function() {
+        
+        var s = director.getWinSize();
+        var ret = {"big": "yes", "small": "yes"};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = director.getWinSize();
+        var ret2 =  this.readPixels(s.width/2 - 50, s.height/2 - 50, 5, 5);
+        var ret3 =  this.readPixels(s.width - 50, s.height - 50, 5, 5);
+        var ret = {"big": this.containsPixel(ret2, this.pixel1, true, 100) ? "yes" : "no",
+		   "small": this.containsPixel(ret3, this.pixel2, true, 100) ? "yes" : "no"};
+	
+        return JSON.stringify(ret);
     }
 });
+
 var IgnoreAnchorpointTest3 = LayerTest.extend({
     onEnter:function () {
         this._super();
@@ -181,8 +259,9 @@ var IgnoreAnchorpointTest3 = LayerTest.extend({
     },
     subtitle:function () {
         return "red:false  green:false";
-    }
+    },
 });
+
 var IgnoreAnchorpointTest4 = LayerTest.extend({
     onEnter:function () {
         this._super();
@@ -201,7 +280,8 @@ var IgnoreAnchorpointTest4 = LayerTest.extend({
     },
     subtitle:function () {
         return "red:false  green:true";
-    }
+    },
+
 });
 
 //------------------------------------------------------------------
@@ -210,6 +290,7 @@ var IgnoreAnchorpointTest4 = LayerTest.extend({
 //
 //------------------------------------------------------------------
 var LayerTest2 = LayerTest.extend({
+
     onEnter:function () {
         this._super();
 
@@ -217,25 +298,68 @@ var LayerTest2 = LayerTest.extend({
         var layer1 = cc.LayerColor.create(cc.c4b(255, 255, 0, 80), 100, 300);
         layer1.setPosition(cc.p(s.width / 3, s.height / 2));
         layer1.ignoreAnchorPointForPosition(false);
-        this.addChild(layer1, 1);
+        this.addChild(layer1, 1, LAYERTEST2_LAYER1_TAG);
 
         var layer2 = cc.LayerColor.create(cc.c4b(0, 0, 255, 255), 100, 300);
         layer2.setPosition(cc.p((s.width / 3) * 2, s.height / 2));
         layer2.ignoreAnchorPointForPosition(false);
-        this.addChild(layer2, 1);
+        this.addChild(layer2, 2, LAYERTEST2_LAYER2_TAG);
 
         var actionTint = cc.TintBy.create(2, -255, -127, 0);
         var actionTintBack = actionTint.reverse();
-        var seq1 = cc.Sequence.create(actionTint, actionTintBack);
-        layer1.runAction(seq1);
 
         var actionFade = cc.FadeOut.create(2.0);
         var actionFadeBack = actionFade.reverse();
-        var seq2 = cc.Sequence.create(actionFade, actionFadeBack);
+
+        if(autoTestEnabled) {
+	    var seq1 = cc.Sequence.create(actionTint, cc.DelayTime.create(0.25), actionTintBack);
+	    var seq2 = cc.Sequence.create(actionFade, cc.DelayTime.create(0.25), actionFadeBack);
+	} else {
+	    var seq1 = cc.Sequence.create(actionTint, actionTintBack);
+	    var seq2 = cc.Sequence.create(actionFade, actionFadeBack);
+	}
+
+        layer1.runAction(seq1);
         layer2.runAction(seq2);
     },
     title:function () {
         return "ColorLayer: fade and tint";
+    },
+
+    //
+    // Automation
+    //
+
+    testDuration: 2.1,
+    tintTest: {"r": 0, "g": 128, "b": 60},
+    getExpectedResult:function() {
+        
+        var s = director.getWinSize();
+        var ret = {"tint": "yes", "opacity": 0};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var abs = function (a) {
+	    return (a > 0) ? a: a*-1;
+	};
+
+	var inColorRange = function (pix1, pix2) {
+	    // Color on iOS comes as 0,128,128 and on web as 0,128,0
+	    if(abs(pix1.r - pix2.r) < 50 && abs(pix1.g - pix2.g) < 50 && 
+	       abs(pix1.b - pix2.b) < 90) {
+		return true;
+	    }
+	    return false;
+	};
+        var s = director.getWinSize();
+	var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).getColor();
+	var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).getOpacity();
+        var ret = {"tint": inColorRange(tint, this.tintTest) ? "yes" : "no",
+		   "opacity": op};
+	
+        return JSON.stringify(ret);
     }
 });
 
@@ -350,6 +474,31 @@ var LayerGradient = LayerTest.extend({
     },
     subtitle:function () {
         return "Touch the screen and move your finger";
+    },
+
+    //
+    // Automation
+    //
+
+    pixel1: {"0": 255, "1": 0, "2": 0, "3": 255},
+    pixel2: {"0": 0, "1": 255, "2": 0, "3": 255},
+
+    getExpectedResult:function() {
+        
+        var s = director.getWinSize();
+        var ret = {"bottomleft": "yes", "topright": "yes"};
+        return JSON.stringify(ret);
+    },
+
+    getCurrentResult:function() {
+
+        var s = director.getWinSize();
+        var ret2 =  this.readPixels(50, 50, 50, 50);
+        var ret3 =  this.readPixels(s.width - 50, s.height - 50, 50, 50);
+        var ret = {"bottomleft": this.containsPixel(ret2, this.pixel1) ? "yes" : "no",
+		   "topright": this.containsPixel(ret3, this.pixel2) ? "yes" : "no",};
+	
+        return JSON.stringify(ret);
     }
 });
 
