@@ -849,6 +849,122 @@ var LabelTTFTest = AtlasDemo.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// LabelTTFTest
+//
+//------------------------------------------------------------------
+var LabelTTFStrokeShadowTest = AtlasDemo.extend({
+                                                
+    _labelShadow:null,
+    _labelStroke:null,
+    _labelStrokeShadow:null,
+                                                
+    ctor:function () {
+        this._super();
+        this.updateLabels();
+        },
+                                                
+     updateLabels:function () {
+                                                                                                
+            var blockSize = cc.size(400, 200);
+            var s = director.getWinSize();
+            
+            // colors
+            var redColor    = cc.c3b(255, 0, 0);
+            var yellowColor = cc.c3b(255, 255, 0);
+            var blueColor   = cc.c3b(0, 0, 255);
+                                                
+            // shadow offset
+            var shadowOffset = cc.size(+5, +5);
+                                                
+            if (this._labelShadow) {
+                this._labelShadow.removeFromParent();
+            }
+            if (this._labelStroke) {
+                this._labelStroke.removeFromParent();
+            }
+                                                
+            var posX   = s.width  / 2 - (blockSize.width/2);
+            var posY_5 = s.height / 7;
+                                                
+                                            
+            // font definition
+            var fontDefRedShadow = {};
+            fontDefRedShadow.FontName       = "Arial";
+            fontDefRedShadow.FontSize       = 32;
+            fontDefRedShadow.FontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
+            fontDefRedShadow.FontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
+            fontDefRedShadow.FontFillColor  = redColor;
+            fontDefRedShadow.FontDimensions = blockSize;
+            // shadow
+            fontDefRedShadow.ShadowEnabled  = true;
+            fontDefRedShadow.ShadowOffset   = shadowOffset;
+                                        
+            // create the label using the definition
+            this._labelShadow = cc.LabelTTF.create();
+            this._labelShadow.initWithStringAndTextDefinition("Red Text Shadow", fontDefRedShadow);
+            this._labelShadow.setAnchorPoint(cc.p(0, 0));
+            this._labelShadow.setPosition(cc.p(posX, posY_5));
+                                                
+            // font definition
+            var fontDefBlueStroke = {};
+            fontDefBlueStroke.FontName       = "Arial";
+            fontDefBlueStroke.FontSize       = 32;
+            fontDefBlueStroke.FontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
+            fontDefBlueStroke.FontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
+            fontDefBlueStroke.FontFillColor  = blueColor;
+            fontDefBlueStroke.FontDimensions = blockSize;
+            // stroke
+            fontDefBlueStroke.StrokeEnabled  = true;
+            fontDefBlueStroke.StrokeColor    = yellowColor;
+                                                
+            this._labelStroke = cc.LabelTTF.create();
+            this._labelStroke.initWithStringAndTextDefinition("Blue Text Yellow Stroke", fontDefBlueStroke);
+            this._labelStroke.setAnchorPoint(cc.p(0, 0));
+            this._labelStroke.setPosition(cc.p(posX, posY_5 * 2));
+                                                
+            // font definition                                    
+            var fontDefRedStrokeShadow = {};
+            fontDefRedStrokeShadow.FontName       = "Arial";
+            fontDefRedStrokeShadow.FontSize       = 32;
+            fontDefRedStrokeShadow.FontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
+            fontDefRedStrokeShadow.FontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
+            fontDefRedStrokeShadow.FontFillColor  = blueColor;
+            fontDefRedStrokeShadow.FontDimensions = blockSize;
+            // stroke
+            fontDefRedStrokeShadow.StrokeEnabled  = true;
+            fontDefRedStrokeShadow.StrokeColor    = redColor;
+            // shadow
+            fontDefRedStrokeShadow.ShadowEnabled  = true;
+            fontDefRedStrokeShadow.ShadowOffset   = shadowOffset;
+            
+            this._labelStrokeShadow = cc.LabelTTF.create();
+            this._labelStrokeShadow.initWithStringAndTextDefinition("Blue Text Red Stroke Shadow", fontDefRedStrokeShadow);
+            this._labelStrokeShadow.setAnchorPoint(cc.p(0, 0));
+            this._labelStrokeShadow.setPosition(cc.p(posX, posY_5 * 3));
+                      
+                                                
+            // add all the labels
+            this.addChild(this._labelShadow);
+            this.addChild(this._labelStroke);
+            this.addChild(this._labelStrokeShadow);
+        },
+                                                
+    
+        
+        title:function () {
+            return "Testing cc.LabelTTF + shadow and stroke";
+        },
+                                                
+        subtitle:function () {
+            return "";
+        }
+                                                
+                                                
+    });
+
+
 var LabelTTFMultiline = AtlasDemo.extend({
     ctor:function () {
         this._super();
@@ -1351,6 +1467,7 @@ var arrayOfLabelTest = [
     LabelTTFA8Test,
     LabelTTFFontInitTest,
     LabelTTFAlignment,
+    LabelTTFStrokeShadowTest,
 
     LabelsEmpty
 ];
