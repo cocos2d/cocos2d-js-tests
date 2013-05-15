@@ -138,16 +138,12 @@ var particleSceneArr = [
     }
 ];
 
-if ( sys.platform !== 'browser'){
-    //TODO ParticleBatchNode doesn't work in Html5
-    particleSceneArr.push(function () {
-        return new ParticleBatchTest();
-    });
-}
-
 if( 'opengl' in sys.capabilities ){
     particleSceneArr.push( function () {
         return new ParallaxParticle();
+    });
+    particleSceneArr.push(function () {
+        return new ParticleBatchTest();
     });
 }
 
@@ -469,9 +465,9 @@ var DemoFlower = ParticleDemo.extend({
 
         this._emitter = cc.ParticleFlower.create();
         this._background.addChild(this._emitter, 10);
-
         var myTexture = cc.TextureCache.getInstance().addImage(s_stars1);
         this._emitter.setTexture(myTexture);
+
         if (this._emitter.setShapeType)
             this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
 
