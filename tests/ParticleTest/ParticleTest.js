@@ -1251,7 +1251,7 @@ var ParticleResizeTest = ParticleDemo.extend({
         emitter1.setPosition( winSize.width/2, winSize.height/2);
         this.addChild(emitter1);
 
-        this.scheduleOnce( this.onResizeParticle50, 2 );
+        this.schedule( this.onResizeParticle50, 2 );
 
         // to be able to use "reset" button
         this.removeChild(this._background, true);
