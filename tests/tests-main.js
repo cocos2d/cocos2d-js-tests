@@ -507,6 +507,13 @@ var testNames = [
         testScene:function () {
             return new PresentationScene();
         }
+    },
+    {
+        title:"XMLHttpRequest",
+        platforms: PLATFORM_JSB,
+        testScene:function () {
+            return new XHRTestScene();
+        }
     }
 
     //"UserDefaultTest",
