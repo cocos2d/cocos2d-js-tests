@@ -24,7 +24,7 @@ MainScene.prototype.onDidLoadFromCCB = function()
 	this.lblLastScore.setString(""+gLastScore);
 
 	// Setup falling gems
-	this.fallingGems = new Array();
+	this.fallingGems = [];
 
 	// Schedule callback
     this.rootNode.onUpdate = function(dt) {
@@ -80,6 +80,8 @@ MainScene.prototype.onAnimationComplete = function()
 
 MainScene.prototype.onUpdate = function()
 {
+	var gem;
+	
 	if (Math.random() < 0.02)
 	{
 		var type = Math.floor(Math.random()*5);
@@ -100,7 +102,7 @@ MainScene.prototype.onUpdate = function()
 		//p.setScale(scale);
 		//p.setAutoRemoveOnFinish(true);
 
-		var gem = {sprt:sprt, speed:speed};
+		gem = {sprt:sprt, speed:speed};
 		//var gem = {sprt:sprt, speed:speed, particle:p};
 		this.fallingGems.push(gem);
 
@@ -110,7 +112,7 @@ MainScene.prototype.onUpdate = function()
 
 	for (var i = this.fallingGems.length-1; i >= 0; i--)
 	{
-		var gem = this.fallingGems[i];
+		gem = this.fallingGems[i];
 
 		var pos = gem.sprt.getPosition();
 		pos.y -= gem.speed;
