@@ -316,6 +316,7 @@ var ChipmunkCollisionTest = function() {
 
 	this.onExit = function() {
 		this.space.removeCollisionHandler( 1, 2 );
+        ChipmunkBaseLayer.prototype.onExit.call(this);
 	};
 
 	this.update = function( delta ) {
@@ -441,6 +442,7 @@ var ChipmunkCollisionTestB = function() {
 	this.onExit = function() {
 		cp.spaceRemoveCollisionHandler( this.space, 1, 2 );
         cp.spaceFree( this.space );
+        ChipmunkBaseLayer.prototype.onExit.call(this);
 	};
 
 	this.update = function( delta ) {
