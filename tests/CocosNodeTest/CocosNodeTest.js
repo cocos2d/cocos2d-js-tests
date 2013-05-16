@@ -29,7 +29,7 @@ var TAG_SPRITE2 = 2;
 var TAG_SPRITE3 = 3;
 var TAG_SLIDER = 4;
 
-var nodeTestSceneIdx  = -1;
+var nodeTestSceneIdx = -1;
 var MAX_LAYER = 9;
 
 var TestNodeDemo = BaseTestLayer.extend({
@@ -58,11 +58,11 @@ var TestNodeDemo = BaseTestLayer.extend({
         director.replaceScene(s);
     },
     // automation
-    numberOfPendingTests:function() {
-        return ( (arrayOfNodeTest.length-1) - nodeTestSceneIdx );
+    numberOfPendingTests:function () {
+        return ( (arrayOfNodeTest.length - 1) - nodeTestSceneIdx );
     },
 
-    getTestNumber:function() {
+    getTestNumber:function () {
         return nodeTestSceneIdx;
     }
 });
@@ -89,18 +89,42 @@ var CCNodeTest2 = TestNodeDemo.extend({
 
         var a1 = cc.RotateBy.create(2, 360);
         var a2 = cc.ScaleBy.create(2, 2);
+        var delay = cc.DelayTime.create(0.2);
 
-        var action1 = cc.RepeatForever.create(cc.Sequence.create(a1, a2, a2.reverse()));
+        var action1 = cc.RepeatForever.create(cc.Sequence.create(a1, a2, delay, a2.reverse()));
         var action2 = cc.RepeatForever.create(cc.Sequence.create(
-            a1.copy(), a2.copy(), a2.reverse()));
+            a1.copy(), a2.copy(), delay.copy(), a2.reverse()));
 
         sp2.setAnchorPoint(cc.p(0, 0));
 
         sp1.runAction(action1);
         sp2.runAction(action2);
+
+        //Automation parameters
+        this.autoParam1 = sp3;
+        this.autoParam2 = sp4;
     },
     title:function () {
         return "anchorPoint and children";
+    },
+    //
+    // Automation
+    //
+    testDuration:4.1,
+    getExpectedResult:function () {
+        var ret = [];
+        ret.push({"a":0.5, "b":1.2246063538223773e-16, "c":-1.2246063538223773e-16, "d":0.5, "tx":85, "ty":51.25 });
+        ret.push({"a":0.5, "b":1.2246063538223773e-16, "c":-1.2246063538223773e-16, "d":0.5, "tx":636, "ty":190.5 });
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = [];
+        var item1 = this.autoParam1.nodeToWorldTransform();
+        item1.tx = parseInt(item1.tx);
+        var item2 = this.autoParam2.nodeToWorldTransform();
+        ret.push(item1);
+        ret.push(item2);
+        return JSON.stringify(ret);
     }
 });
 
@@ -119,6 +143,9 @@ var CCNodeTest4 = TestNodeDemo.extend({
 
         this.schedule(this.delay2, 2.0);
         this.schedule(this.delay4, 4.0);
+
+        //Automation param
+        this.autoParam = sp1;
     },
     delay2:function (dt) {
         var node = this.getChildByTag(2);
@@ -131,6 +158,17 @@ var CCNodeTest4 = TestNodeDemo.extend({
     },
     title:function () {
         return "tags";
+    },
+    //
+    // Automation
+    //
+    testDuration:1,
+    getExpectedResult:function () {
+        return this.autoParam;
+    },
+    getCurrentResult:function () {
+        var node = this.getChildByTag(2);
+        return node;
     }
 });
 
@@ -168,6 +206,10 @@ var CCNodeTest5 = TestNodeDemo.extend({
         this.removeChild(sp1, false);
         this.removeChild(sp2, true);
 
+        //Automation parameters
+        this.autoParam1 = this.getChildByTag(TAG_SPRITE1);
+        this.autoParam2 = this.getChildByTag(TAG_SPRITE2);
+
         this.addChild(sp1, 0, TAG_SPRITE1);
         this.addChild(sp2, 0, TAG_SPRITE2);
 
@@ -177,6 +219,18 @@ var CCNodeTest5 = TestNodeDemo.extend({
     },
     title:function () {
         return "remove and cleanup";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.2,
+    getExpectedResult:function () {
+        var ret = [null, null];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = [this.autoParam1, this.autoParam2];
+        return JSON.stringify(ret);
     }
 });
 
@@ -201,9 +255,9 @@ var CCNodeTest6 = TestNodeDemo.extend({
         var forever21 = forever1.copy();
 
         this.addChild(sp1, 0, TAG_SPRITE1);
-        sp1.addChild(sp11);
+        sp1.addChild(sp11, 11);
         this.addChild(sp2, 0, TAG_SPRITE2);
-        sp2.addChild(sp21);
+        sp2.addChild(sp21, 21);
 
         sp1.runAction(forever1);
         sp11.runAction(forever11);
@@ -223,6 +277,10 @@ var CCNodeTest6 = TestNodeDemo.extend({
         this.removeChild(sp1, false);
         this.removeChild(sp2, true);
 
+        //Automation parameters
+        this.autoParam1 = sp1.getChildByTag(11);
+        this.autoParam2 = sp2.getChildByTag(21);
+
         this.addChild(sp1, 0, TAG_SPRITE1);
         this.addChild(sp2, 0, TAG_SPRITE2);
 
@@ -233,6 +291,18 @@ var CCNodeTest6 = TestNodeDemo.extend({
     },
     title:function () {
         return "remove/cleanup with children";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function () {
+        var ret = [null, null];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = [this.autoParam1, this.autoParam2];
+        return JSON.stringify(ret);
     }
 });
 
@@ -329,21 +399,37 @@ var NodeToWorld = TestNodeDemo.extend({
         menu.setPosition(cc.p(backSize.width / 2, backSize.height / 2));
         back.addChild(menu);
 
-        var rot = cc.RotateBy.create(5, 360);
-        var fe = cc.RepeatForever.create(rot);
+        var rot = cc.RotateBy.create(3, 360);
+        var delay = cc.DelayTime.create(0.3);
+        var fe = cc.RepeatForever.create(cc.Sequence.create(rot, delay));
         item.runAction(fe);
 
         var move = cc.MoveBy.create(3, cc.p(200, 0));
         var move_back = move.reverse();
-        var seq = cc.Sequence.create(move, move_back);
+        var seq = cc.Sequence.create(move, delay.copy(), move_back);
         var fe2 = cc.RepeatForever.create(seq);
         back.runAction(fe2);
+
+        //Automation parameters
+        this.autoParam = item;
     },
     onClicked:function () {
         cc.log("On clicked");
     },
     title:function () {
         return "nodeToParent transform";
+    },
+    //
+    // Automation
+    //
+    testDuration:3.1,
+    getExpectedResult:function () {
+        var ret = {"a":1, "b":2.4492127076447545e-16, "c":-2.4492127076447545e-16, "d":1, "tx":440, "ty":160};
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = this.autoParam.nodeToWorldTransform();
+        return JSON.stringify(ret);
     }
 });
 
@@ -385,9 +471,16 @@ var CameraOrbitTest = TestNodeDemo.extend({
 
         // PARENT
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 90);
-        p.runAction(cc.RepeatForever.create(orbit));
+        var fun = cc.CallFunc.create(function(){
+            this.checkAutomationParam();
+        },this);
+        var sq = cc.Sequence.create(orbit, fun);
+        p.runAction(cc.RepeatForever.create(sq));
 
         this.setScale(1);
+
+        //Automation parameters
+        this.autoParam = p;
     },
     onEnter:function () {
         this._super();
@@ -399,6 +492,23 @@ var CameraOrbitTest = TestNodeDemo.extend({
     },
     title:function () {
         return "Camera Orbit test";
+    },
+    //
+    // Automation
+    //
+    checkAutomationParam:function(){
+        if(autoTestEnabled){
+            this.autoParam.stopAllActions();
+        }
+    },
+    testDuration:10.2,
+    getExpectedResult:function () {
+        var ret = {"x":-1.7877348928944023e-39, "y":-2.9196890695762367e-23, "z":1.192092896e-7};
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = this.autoParam.getCamera().getEye();
+        return JSON.stringify(ret);
     }
 });
 
@@ -413,7 +523,7 @@ var CameraZoomTest = TestNodeDemo.extend({
         sprite.setPosition(cc.p(winSize.width / 4, winSize.height / 2));
         if ("opengl" in sys.capabilities) {
             var cam = sprite.getCamera();
-            cam.setEye(0, 0, 415/2);
+            cam.setEye(0, 0, 415 / 2);
             cam.setCenter(0, 0, 0);
         }
 
@@ -434,6 +544,9 @@ var CameraZoomTest = TestNodeDemo.extend({
 
         this._z = 0;
         this.scheduleUpdate();
+
+        //Automation parameters
+        this.autoParam = sprite;
     },
     update:function (dt) {
         if (!("opengl" in sys.capabilities))
@@ -448,7 +561,6 @@ var CameraZoomTest = TestNodeDemo.extend({
         cam = sprite.getCamera();
         cam.setEye(0, 0, -this._z);
     },
-
     onEnter:function () {
         this._super();
         //TODO
@@ -461,6 +573,18 @@ var CameraZoomTest = TestNodeDemo.extend({
     },
     title:function () {
         return "Camera Zoom test";
+    },
+    //
+    // Automation
+    //
+    testDuration:1.1,
+    getExpectedResult:function () {
+        var ret = {z:this._z};
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = {"z":this.autoParam.getCamera().getEye().z};
+        return JSON.stringify(ret);
     }
 });
 
@@ -478,7 +602,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         sprite.runAction(cc.RepeatForever.create(orbit));
 
         // LEFT-BOTTOM
-        sprite = cc.Sprite.create(s_texture512);     cc.RotateTo
+        sprite = cc.Sprite.create(s_texture512);
         this.addChild(sprite, 0, 40);
         sprite.setPosition(cc.p(winSize.width / 5, winSize.height / 5 * 4));
         sprite.setColor(cc.BLUE);
@@ -537,7 +661,6 @@ var ConvertToNode = TestNodeDemo.extend({
         for (var i = 0; i < 3; i++) {
             var sprite = cc.Sprite.create(s_pathGrossini);
             sprite.setPosition(cc.p(winSize.width / 4 * (i + 1), winSize.height / 2));
-
             var point = cc.Sprite.create(s_pathR1);
             point.setScale(0.25);
             point.setPosition(sprite.getPosition());
@@ -589,6 +712,28 @@ var ConvertToNode = TestNodeDemo.extend({
     },
     subtitle:function () {
         return "testing convertToNodeSpace / AR. Touch and see console";
+    },
+    //
+    // Automation
+    //
+    testDuration:1,
+    getExpectedResult:function () {
+        var ret = [];
+        ret.push({"x":-800, "y":-900}, {"x":-775.5, "y":-876.5});
+        ret.push({"x":-1600, "y":-900}, {"x":-1575.5, "y":-876.5});
+        ret.push({"x":-2400, "y":-900}, {"x":-2375.5, "y":-876.5});
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = [];
+        var worldPoint = cc.p(0, 0);
+        for (var i = 0; i < 3; i++) {
+            var node = this.getChildByTag(100 + i);
+            var p1 = node.convertToNodeSpaceAR(worldPoint);
+            var p2 = node.convertToNodeSpace(worldPoint);
+            ret.push({"x":p1.x, "y":p1.y}, {"x":p2.x, "y":p2.y});
+        }
+        return JSON.stringify(ret);
     }
 });
 
@@ -607,12 +752,31 @@ var BoundingBoxTest = TestNodeDemo.extend({
         //    cc.log( i + " = " + bb[i] );
         cc.log('origin = [ ' + bb.x + "," + bb.y + "]");
         cc.log('size = [ ' + bb.width + "," + bb.height + "]");
+
+        //Automation parameters
+        this.autoParam = bb;
     },
     title:function () {
         return "Bounding Box Test";
     },
     subtitle:function () {
         return "Testing getBoundingBox(). See console";
+    },
+    //
+    // Automation
+    //
+    testDuration:0.5,
+    getExpectedResult:function () {
+        var ret = [
+            {"x":357.5, "y":164.5, "w":85, "h":121}
+        ];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = [
+            {"x":this.autoParam.x, "y":this.autoParam.y, "w":this.autoParam.width, "h":this.autoParam.height}
+        ];
+        return JSON.stringify(ret);
     }
 });
 
@@ -630,14 +794,27 @@ var SchedulerTest1 = TestNodeDemo.extend({
 
         layer.unschedule(this.doSomething);
         //UXLOG("retain count after unschedule is %d", layer->retainCount());        // STILL 3!  (win32 is '2')
+
+        //Automation parameters
+        this.autoParam = true;
     },
 
     doSomething:function (dt) {
-
+        this.control1 = false;
     },
 
     title:function () {
         return "cocosnode scheduler test #1";
+    },
+    //
+    // Automation
+    //
+    testDuration:0.5,
+    getExpectedResult:function () {
+        return true;
+    },
+    getCurrentResult:function () {
+        return this.autoParam;
     }
 });
 
@@ -714,7 +891,7 @@ var arrayOfNodeTest = [
     ConvertToNode
 ];
 
-if( 'opengl' in sys.capabilities ){
+if ('opengl' in sys.capabilities) {
     arrayOfNodeTest.push(CameraCenterTest);
     arrayOfNodeTest.push(CameraOrbitTest);
     arrayOfNodeTest.push(CameraZoomTest);
