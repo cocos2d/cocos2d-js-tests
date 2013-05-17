@@ -319,7 +319,7 @@ var NodeToWorld = TestNodeDemo.extend({
         //  - It tests different children anchor points
         this._super();
         var back = cc.Sprite.create(s_back3);
-        this.addChild(back, -10);
+        this.addChild(back, 5);
         back.setAnchorPoint(cc.p(0, 0));
         var backSize = back.getContentSize();
 
@@ -357,12 +357,11 @@ var CameraOrbitTest = TestNodeDemo.extend({
         p.setOpacity(128);
 
         // LEFT
-        s = p.getContentSize();
+        var s = p.getContentSize();
         var sprite = cc.Sprite.create(s_pathGrossini);
         sprite.setScale(0.5);
         p.addChild(sprite, 0);
-        sprite.setPosition(cc.p(winSize.width / 4, winSize.height / 2));
-        var cam = sprite.getCamera();
+        sprite.setPosition(cc.p(s.width / 4, s.height / 2));
         var orbit = cc.OrbitCamera.create(2, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
@@ -370,7 +369,7 @@ var CameraOrbitTest = TestNodeDemo.extend({
         sprite = cc.Sprite.create(s_pathGrossini);
         sprite.setScale(1.0);
         p.addChild(sprite, 0);
-        sprite.setPosition(cc.p(winSize.width / 4 * 2, winSize.height / 2));
+        sprite.setPosition(cc.p(s.width / 4 * 2, s.height / 2));
         orbit = cc.OrbitCamera.create(2, 1, 0, 0, 360, 45, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
@@ -378,8 +377,7 @@ var CameraOrbitTest = TestNodeDemo.extend({
         sprite = cc.Sprite.create(s_pathGrossini);
         sprite.setScale(2.0);
         p.addChild(sprite, 0);
-        sprite.setPosition(cc.p(winSize.width / 4 * 3, winSize.height / 2));
-        var ss = sprite.getContentSize();
+        sprite.setPosition(cc.p(s.width / 4 * 3, s.height / 2));
         orbit = cc.OrbitCamera.create(2, 1, 0, 0, 360, 90, -45);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
