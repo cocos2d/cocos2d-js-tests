@@ -113,15 +113,27 @@ var CCNodeTest2 = TestNodeDemo.extend({
     testDuration:4.1,
     getExpectedResult:function () {
         var ret = [];
-        ret.push({"a":0.5, "b":1.2246063538223773e-16, "c":-1.2246063538223773e-16, "d":0.5, "tx":85, "ty":51.25 });
-        ret.push({"a":0.5, "b":1.2246063538223773e-16, "c":-1.2246063538223773e-16, "d":0.5, "tx":636, "ty":190.5 });
+        if (cc.renderContextType == cc.WEBGL) {
+            ret.push({"a":0.5, "b":"0.00", "c":"-0.00", "d":0.5, "tx":"85", "ty":"51" });
+            ret.push({"a":0.5, "b":"0.00", "c":"-0.00", "d":0.5, "tx":"636", "ty":"191" });
+        } else {
+            ret.push({"a":0.5, "b":"-0.00", "c":"0.00", "d":0.5, "tx":"85", "ty":"51" });
+            ret.push({"a":0.5, "b":"-0.00", "c":"0.00", "d":0.5, "tx":"636", "ty":"191" });
+        }
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
         var ret = [];
         var item1 = this.autoParam1.nodeToWorldTransform();
-        item1.tx = parseInt(item1.tx);
+        item1.b = item1.b.toFixed(2);
+        item1.c = item1.c.toFixed(2);
+        item1.tx = item1.tx.toFixed(0);
+        item1.ty = item1.ty.toFixed(0);
         var item2 = this.autoParam2.nodeToWorldTransform();
+        item2.b = item2.b.toFixed(2);
+        item2.c = item2.c.toFixed(2);
+        item2.tx = item2.tx.toFixed(0);
+        item2.ty = item2.ty.toFixed(0);
         ret.push(item1);
         ret.push(item2);
         return JSON.stringify(ret);
@@ -424,11 +436,17 @@ var NodeToWorld = TestNodeDemo.extend({
     //
     testDuration:3.1,
     getExpectedResult:function () {
-        var ret = {"a":1, "b":2.4492127076447545e-16, "c":-2.4492127076447545e-16, "d":1, "tx":440, "ty":160};
+        var ret = {"a":1, "b":"-0.00", "c":"0.00", "d":1, "tx":440, "ty":160};
+        if (cc.renderContextType == cc.WEBGL) {
+            ret["b"] = "0.00";
+            ret["c"] = "-0.00";
+        }
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
         var ret = this.autoParam.nodeToWorldTransform();
+        ret.b = ret.b.toFixed(2);
+        ret.c = ret.c.toFixed(2);
         return JSON.stringify(ret);
     }
 });
@@ -471,16 +489,9 @@ var CameraOrbitTest = TestNodeDemo.extend({
 
         // PARENT
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 90);
-        var fun = cc.CallFunc.create(function(){
-            this.checkAutomationParam();
-        },this);
-        var sq = cc.Sequence.create(orbit, fun);
-        p.runAction(cc.RepeatForever.create(sq));
+        p.runAction(cc.RepeatForever.create(orbit));
 
         this.setScale(1);
-
-        //Automation parameters
-        this.autoParam = p;
     },
     onEnter:function () {
         this._super();
@@ -492,23 +503,6 @@ var CameraOrbitTest = TestNodeDemo.extend({
     },
     title:function () {
         return "Camera Orbit test";
-    },
-    //
-    // Automation
-    //
-    checkAutomationParam:function(){
-        if(autoTestEnabled){
-            this.autoParam.stopAllActions();
-        }
-    },
-    testDuration:10.2,
-    getExpectedResult:function () {
-        var ret = {"x":-1.7877348928944023e-39, "y":-2.9196890695762367e-23, "z":1.192092896e-7};
-        return JSON.stringify(ret);
-    },
-    getCurrentResult:function () {
-        var ret = this.autoParam.getCamera().getEye();
-        return JSON.stringify(ret);
     }
 });
 
