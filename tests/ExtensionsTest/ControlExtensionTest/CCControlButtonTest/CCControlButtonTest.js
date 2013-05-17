@@ -125,12 +125,12 @@ var ControlButtonTest_Event = ControlScene.extend({
 
             // Sets up event handlers
             controlButton.addTargetWithActionForControlEvent(this, this.touchDownAction, cc.CONTROL_EVENT_TOUCH_DOWN);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchDragInsideAction, cc.CONTROL_EVENT_TOUCH_DRAG_INSIDE);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchDragOutsideAction, cc.CONTROL_EVENT_TOUCH_DRAG_OUTSIDE);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchDragEnterAction, cc.CONTROL_EVENT_TOUCH_DRAG_ENTER);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchDragExitAction, cc.CONTROL_EVENT_TOUCH_DRAG_EXIT);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchUpInsideAction, cc.CONTROL_EVENT_TOUCH_UP_INSIDE);
-            controlButton.addTargetWithActionForControlEvent(this, this.touchUpOutsideAction, cc.CONTROL_EVENT_TOUCH_UP_OUTSIDE);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchDragInsideAction, cc.CONTROL_EVENT_TOUCH_DRAGINSIDE);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchDragOutsideAction, cc.CONTROL_EVENT_TOUCH_DRAGOUTSIDE);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchDragEnterAction, cc.CONTROL_EVENT_TOUCH_DRAGENTER);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchDragExitAction, cc.CONTROL_EVENT_TOUCH_DRAGEXIT);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchUpInsideAction, cc.CONTROL_EVENT_TOUCH_UPINSIDE);
+            controlButton.addTargetWithActionForControlEvent(this, this.touchUpOutsideAction, cc.CONTROL_EVENT_TOUCH_UPOUTSIDE);
             controlButton.addTargetWithActionForControlEvent(this, this.touchCancelAction, cc.CONTROL_EVENT_TOUCH_CANCEL);
             return true;
         }

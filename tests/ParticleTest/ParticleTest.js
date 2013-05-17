@@ -82,6 +82,7 @@ var particleSceneArr = [
     function () {
         return new DemoRing();
     },
+    //function(){return new ParallaxParticle();},
     function () {
         return new DemoParticleFromFile("BoilingFoam");
     },
@@ -100,9 +101,7 @@ var particleSceneArr = [
     function () {
         return new DemoParticleFromFile("LavaFlow");
     },
-    function(){
-        return new DemoParticleFromFile("SpinningPeas");
-    },
+    //function(){return new DemoParticleFromFile("SpinningPeas");},
     function () {
         return new DemoParticleFromFile("SpookyPeas");
     },
@@ -133,19 +132,13 @@ var particleSceneArr = [
     function () {
         return new DemoParticleFromFile("Phoenix");
     },
+    function () {
+        return new ParticleBatchTest();
+    },
     function() {
         return new ParticleResizeTest();
     }
 ];
-
-if( 'opengl' in sys.capabilities ){
-    particleSceneArr.push( function () {
-        return new ParallaxParticle();
-    });
-    particleSceneArr.push(function () {
-        return new ParticleBatchTest();
-    });
-}
 
 
 var nextParticleAction = function () {
@@ -248,7 +241,7 @@ var ParticleDemo = BaseTestLayer.extend({
         this._shapeModeButton.setPosition(10, 100);
         this._shapeModeButton.setAnchorPoint(cc.p(0, 0));
 
-        if ('opengl' in sys.capabilities ) {
+        if (sys.platform != "browser") {
             // Shape type is not compatible with JSB
             this._shapeModeButton.setEnabled(false);
         }
@@ -465,9 +458,9 @@ var DemoFlower = ParticleDemo.extend({
 
         this._emitter = cc.ParticleFlower.create();
         this._background.addChild(this._emitter, 10);
+
         var myTexture = cc.TextureCache.getInstance().addImage(s_stars1);
         this._emitter.setTexture(myTexture);
-
         if (this._emitter.setShapeType)
             this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
 

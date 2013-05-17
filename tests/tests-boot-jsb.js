@@ -18,7 +18,6 @@ var tests_files = [
     'ActionsTest/ActionsTest.js',
     'ChipmunkTest/ChipmunkTest.js',
     'ClickAndMoveTest/ClickAndMoveTest.js',
-    'ClippingNodeTest/ClippingNodeTest.js',
     'CocosDenshionTest/CocosDenshionTest.js',
     'CocosNodeTest/CocosNodeTest.js',
     'DrawPrimitivesTest/DrawPrimitivesTest.js',
@@ -52,9 +51,6 @@ var tests_files = [
     'SchedulerTest/SchedulerTest.js',
     'SpriteTest/SpriteTest.js',
     'ExtensionsTest/S9SpriteTest/S9SpriteTest.js',
-    'ExtensionsTest/ExtensionsTest.js',
-    'ExtensionsTest/TableViewTest/TableViewTestScene.js',
-    'XHRTest/XHRTest.js',
     'TileMapTest/TileMapTest.js',
     'TransitionsTest/TransitionsTest.js',
     'UnitTest/UnitTest.js',
@@ -63,6 +59,7 @@ var tests_files = [
 
 for (var i = 0; i < tests_files.length; i++) {
     var name = "" + tests_files[i];
+    cc.log(" Loading: " + name);
     require(name);
 }
 
