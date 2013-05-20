@@ -240,32 +240,11 @@ var LabelAtlasHD = AtlasDemo.extend({
     },
     subtitle:function () {
         return "loading larabie-16 / larabie-16-hd";
-    },
-
+    }
 
     //
     // Automation
     //
-
-    pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
-
-    getExpectedResult:function() {
-        
-        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
-        var s = director.getWinSize();
-        var ret = {"center": "yes"};
-        return JSON.stringify(ret);
-    },
-
-    getCurrentResult:function() {
-
-        var s = director.getWinSize();
-        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
-        
-        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
-
-        return JSON.stringify(ret);
-    }
 });
 
 
@@ -288,7 +267,7 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
         var fade = cc.FadeOut.create(1.0);
         var fade_in = fade.reverse();
-        var seq = cc.Sequence.create(fade, cc.DelayTime.create(0.25), fade_in);
+        var seq = cc.Sequence.create(fade, fade_in);
         var repeat = cc.RepeatForever.create(seq);
         label1.runAction(repeat);
 
@@ -335,30 +314,12 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
     },
     subtitle:function () {
         return "Testing alignment. Testing opacity + tint";
-    },
-
+    }
 
     //
     // Automation
     //
-    testDuration:1.1,
-    getExpectedResult:function() {
-        // yellow, red, green, blue, yellow
-        var ret = [0,{"r":255,"g":255,"b":255},0,{"r":255,"g":0,"b":0}];
-        return JSON.stringify(ret);
-    },
 
-    getCurrentResult:function() {
-        var ret = [];
-        var tags = [TAG_BITMAP_ATLAS1, TAG_BITMAP_ATLAS2];
-
-        for( var i in tags ) {
-            var t = tags[i];
-            ret.push( this.getChildByTag(t).getOpacity() );
-            ret.push( this.getChildByTag(t).getColor() );
-        }
-        return JSON.stringify(ret);
-    }
 });
 
 //------------------------------------------------------------------
@@ -374,7 +335,6 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
 
         // Upper Label
         var label = cc.LabelBMFont.create("Bitmap Font Atlas", s_resprefix + "fonts/bitmapFontTest.fnt");
-        this.labelObj = label;
         this.addChild(label);
 
         var s = director.getWinSize();
@@ -386,34 +346,20 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
         var FChar = label.getChildByTag(7);
         var AChar = label.getChildByTag(12);
 
-        
-        if(autoTestEnabled) {
-            var jump = cc.JumpBy.create(0.5, cc.p(0,0), 60, 1);
-            var jump_4ever = cc.RepeatForever.create(cc.Sequence.create(jump, cc.DelayTime.create(0.25)));
-            var fade_out = cc.FadeOut.create(0.5);
-            var rotate = cc.RotateBy.create(0.5, 180);
-            var rot_4ever = cc.RepeatForever.create(cc.Sequence.create(rotate, cc.DelayTime.create(0.25), rotate.copy()));
+        var rotate = cc.RotateBy.create(2, 360);
+        var rot_4ever = cc.RepeatForever.create(rotate);
 
-            var scale = cc.ScaleBy.create(0.5, 1.5);
-
-
-        } else {
-            var jump = cc.JumpBy.create(4, cc.p(0,0), 60, 1);
-            var jump_4ever = cc.RepeatForever.create(jump);
-            var fade_out = cc.FadeOut.create(1);
-            var rotate = cc.RotateBy.create(2, 360);
-            var rot_4ever = cc.RepeatForever.create(rotate);
-
-            var scale = cc.ScaleBy.create(2, 1.5);
-
-        }
-
+        var scale = cc.ScaleBy.create(2, 1.5);
         var scale_back = scale.reverse();
-        var scale_seq = cc.Sequence.create(scale, cc.DelayTime.create(0.25), scale_back);
+        var scale_seq = cc.Sequence.create(scale, scale_back);
         var scale_4ever = cc.RepeatForever.create(scale_seq);
 
+        var jump = cc.JumpBy.create(0.5, cc.p(0, 0), 60, 1);
+        var jump_4ever = cc.RepeatForever.create(jump);
+
+        var fade_out = cc.FadeOut.create(1);
         var fade_in = cc.FadeIn.create(1);
-        var seq = cc.Sequence.create(fade_out, cc.DelayTime.create(0.25), fade_in);
+        var seq = cc.Sequence.create(fade_out, fade_in);
         var fade_4ever = cc.RepeatForever.create(seq);
 
         BChar.runAction(rot_4ever);
@@ -446,30 +392,10 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
         cc.drawingUtil.drawLine(cc.p(s.width / 2, 0), cc.p(s.width / 2, s.height));
     },
     title:function () {
-        return "cc.LabelBMFont BMFontSubSpriteTest";
+        return "cc.LabelBMFont";
     },
     subtitle:function () {
         return "Using fonts as cc.Sprite objects. Some characters should rotate.";
-    },
-
-    //
-    // Automation
-    //
-    testDuration:0.6,
-    getExpectedResult:function() {
-        // yellow, red, green, blue, yellow
-        var ret = {"rotate": 180, "scale": 1.5, "opacity": 0};
-        return JSON.stringify(ret);
-    },
-
-    getCurrentResult:function() {
-
-        var s = this.labelObj.getChildByTag(0).getScale();
-        var r = this.labelObj.getChildByTag(0).getRotation();
-        var o = this.labelObj.getChildByTag(12).getOpacity();
-        var ret = {"rotate": r, "scale": s, "opacity": o};
-
-        return JSON.stringify(ret);
     }
 });
 
@@ -490,32 +416,10 @@ var BMFontPaddingTest = AtlasDemo.extend({
         label.setAnchorPoint(cc.p(0.5, 0.5));
     },
     title:function () {
-        return "cc.LabelBMFont BMFontPaddingTest";
+        return "cc.LabelBMFont";
     },
     subtitle:function () {
         return "Testing padding";
-    },
-
-
-    //
-    // Automation
-    //
-    pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
-
-    getExpectedResult:function() {
-        
-        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
-        var s = director.getWinSize();
-        var ret = {"center": "yes"};
-        return JSON.stringify(ret);
-    },
-
-    getCurrentResult:function() {
-
-        var s = director.getWinSize();
-        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
-        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
-        return JSON.stringify(ret);
     }
 });
 
@@ -550,29 +454,6 @@ var BMFontOffsetTest = AtlasDemo.extend({
     },
     subtitle:function () {
         return "Rendering should be OK. Testing offset";
-    },
-
-    //
-    // Automation
-    //
-
-    pixel: {"0":150,"1":150,"2":150,"3":255},
-    getExpectedResult:function() {
-	var ret =  {"top": "yes", "center": "yes", "bottom": "yes"};
-
-        return JSON.stringify(ret);
-    },
-
-    getCurrentResult:function() {
-
-        var s = director.getWinSize();
-        var ret1 =  this.readPixels(s.width/2, s.height/2-50, 50, 50);
-        var ret2 =  this.readPixels(s.width/2, s.height/2, 50, 50);
-        var ret3 =  this.readPixels(s.width/2, s.height/2+50, 50, 50);
-        var ret = {"top": this.containsPixel(ret1, this.pixel, true, 140) ? "yes" : "no",
-                   "center": this.containsPixel(ret2, this.pixel, true, 140) ? "yes" : "no",
-                   "bottom": this.containsPixel(ret3, this.pixel, true, 140) ? "yes" : "no"};
-        return JSON.stringify(ret);
     }
 });
 
@@ -607,34 +488,10 @@ var BMFontTintTest = AtlasDemo.extend({
         label.setString("Green");
     },
     title:function () {
-        return "cc.LabelBMFont BMFontTintTest";
+        return "cc.LabelBMFont";
     },
     subtitle:function () {
         return "Testing color";
-    },
-
-    //
-    // Automation
-    //
-
-    pixel1: {"0":0,"1":0,"2":255,"3":255},
-    pixel2: {"0":255,"1":0,"2":0,"3":255},
-    pixel3: {"0":0,"1":255,"2":0,"3":255},
-    getExpectedResult:function() {
-        var ret = {"left": "yes", "center": "yes", "right": "yes"};
-        return JSON.stringify(ret);
-    },
-
-    getCurrentResult:function() {
-
-        var s = director.getWinSize();
-        var ret1 =  this.readPixels(s.width/2, s.height/4, 50, 50);
-        var ret2 =  this.readPixels(s.width/2, 2 * s.height/4, 50, 50);
-        var ret3 =  this.readPixels(s.width/2, 3 * s.height/4, 50, 50);
-        var ret = {"left": this.containsPixel(ret1, this.pixel1, true, 100) ? "yes" : "no",
-                   "center": this.containsPixel(ret2, this.pixel2, true, 100) ? "yes" : "no",
-                   "right": this.containsPixel(ret3, this.pixel3, true, 100) ? "yes" : "no"}
-        return JSON.stringify(ret);
     }
 });
 
@@ -708,36 +565,10 @@ var BMFontMultiLineTest = AtlasDemo.extend({
         label3.setPosition(cc.p(s.width, s.height));
     },
     title:function () {
-        return "cc.LabelBMFont BMFontMultiLineTest";
+        return "cc.LabelBMFont";
     },
     subtitle:function () {
         return "Multiline + anchor point";
-    },
-
-    // Automation
-
-    pixel: {"0": 255, "1": 186, "2": 33, "3": 255},
-
-    getExpectedResult:function() {
-        
-        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
-        var s = director.getWinSize();
-        var ret = {"left": "yes", "center": "yes", "right": "yes"};
-        return JSON.stringify(ret);
-    },
-
-    getCurrentResult:function() {
-
-        var s = director.getWinSize();
-        var ret1 =  this.readPixels(0, 0, 100, 100);
-        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
-        var ret3 =  this.readPixels(s.width - 100, s.height - 100, 100, 100);        
-
-        
-        var ret = {"left": this.containsPixel(ret1, this.pixel) ? "yes" : "no",
-                   "center": this.containsPixel(ret2, this.pixel) ? "yes" : "no",
-                   "right": this.containsPixel(ret3, this.pixel) ? "yes" : "no"}
-        return JSON.stringify(ret);
     }
 });
 
@@ -786,35 +617,10 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         label3.setPosition(cc.p(s.width, s.height));
     },
     title:function () {
-        return "cc.LabelBMFont BMFontMultiLine2Test";
+        return "cc.LabelBMFont";
     },
     subtitle:function () {
         return "Multiline with 2 new lines. All characters should appear";
-    },
-        // Automation
-
-    pixel: {"0": 255, "1": 186, "2": 33, "3": 255},
-
-    getExpectedResult:function() {
-        
-        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
-        var s = director.getWinSize();
-        var ret = {"left": "yes", "center": "yes", "right": "yes"};
-        return JSON.stringify(ret);
-    },
-
-    getCurrentResult:function() {
-
-        var s = director.getWinSize();
-        var ret1 =  this.readPixels(0, 0, 100, 100);
-        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
-        var ret3 =  this.readPixels(s.width - 100, s.height - 100, 100, 100);        
-
-        
-        var ret = {"left": this.containsPixel(ret1, this.pixel) ? "yes" : "no",
-                   "center": this.containsPixel(ret2, this.pixel) ? "yes" : "no",
-                   "right": this.containsPixel(ret3, this.pixel) ? "yes" : "no"}
-        return JSON.stringify(ret);
     }
 });
 
@@ -896,30 +702,6 @@ var BMFontHDTest = AtlasDemo.extend({
     },
     subtitle:function () {
         return "loading arista16 or arista16-hd";
-    },
-
-    //
-    // Automation
-    //
-
-    pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
-
-    getExpectedResult:function() {
-        
-        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
-        var s = director.getWinSize();
-        var ret = {"center": "yes"};
-        return JSON.stringify(ret);
-    },
-
-    getCurrentResult:function() {
-
-        var s = director.getWinSize();
-        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
-        
-        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
-
-        return JSON.stringify(ret);
     }
 });
 
@@ -946,30 +728,6 @@ var BMFontGlyphDesignerTest = AtlasDemo.extend({
     },
     subtitle:function () {
         return "You should see a font with shawdows and outline";
-    },
-
-    //
-    // Automation
-    //
-
-    pixel: {"0": 240, "1": 201, "2": 108, "3": 255},
-
-    getExpectedResult:function() {
-        
-        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
-        var s = director.getWinSize();
-        var ret = {"center": "yes"};
-        return JSON.stringify(ret);
-    },
-
-    getCurrentResult:function() {
-
-        var s = director.getWinSize();
-        var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
-
-        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
-
-        return JSON.stringify(ret);
     }
 });
 
@@ -1108,30 +866,6 @@ var LabelTTFMultiline = AtlasDemo.extend({
     },
     subtitle:function () {
         return "Word wrap using cc.LabelTTF";
-    },
-
-    //
-    // Automation
-    //
-
-    pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
-
-    getExpectedResult:function() {
-        
-        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
-        var s = director.getWinSize();
-        var ret = {"center": "yes"};
-        return JSON.stringify(ret);
-    },
-
-    getCurrentResult:function() {
-
-        var s = director.getWinSize();
-        var ret2 =  this.readPixels(s.width/2, 125, 100, 100);
-
-        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
-
-        return JSON.stringify(ret);
     }
 });
 
@@ -1163,30 +897,6 @@ var BMFontChineseTest = AtlasDemo.extend({
     },
     title:function () {
         return "Testing cc.LabelBMFont with Chinese character";
-    },
-
-    //
-    // Automation
-    //
-
-    pixel: {"0": 255, "1": 0, "2": 142, "3": 255},
-
-    getExpectedResult:function() {
-        
-        // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
-        var s = director.getWinSize();
-        var ret = {"center": "yes"};
-        return JSON.stringify(ret);
-    },
-
-    getCurrentResult:function() {
-
-        var s = director.getWinSize();
-        var ret2 =  this.readPixels(s.width/2, s.height / 2, 100, 100);
-
-        var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
-
-        return JSON.stringify(ret);
     }
 });
 

@@ -25,8 +25,8 @@
  ****************************************************************************/
 var TAG_PARTICLE_SYSTEM = 3;
 var TAG_LABEL_ATLAS = 4;
-var MAX_PARTICLES = 3000;
-var PARTICLE_NODES_INCREASE = 200;
+var MAX_PARTICLES = 1000;
+var PARTICLE_NODES_INCREASE = 50;
 var s_nParCurIdx = 0;
 var TAG_PARTICLE_MENU_LAYER = 1000;
 
@@ -157,6 +157,8 @@ var ParticleMainScene = cc.Scene.extend({
         atlas.setString(str);
     },
     createParticleSystem:function () {
+        var particleSystem = null;
+
         /*
          * Tests:
          * 1 Quad Particle System using 32-bit textures (PNG)
@@ -167,11 +169,12 @@ var ParticleMainScene = cc.Scene.extend({
 
         this.removeChildByTag(TAG_PARTICLE_SYSTEM, true);
 
+        //todo
         // remove the "fire.png" from the TextureCache cache.
-        //var texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
-        //cc.TextureCache.getInstance().removeTexture(texture);
+        var texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
+        cc.TextureCache.getInstance().removeTexture(texture);
 
-        var particleSystem = cc.ParticleSystem.createWithTotalParticles(this._quantityParticles);
+        particleSystem = cc.ParticleSystem.createWithTotalParticles(this._quantityParticles);
 
         switch (this._subtestNumber) {
             case 1:

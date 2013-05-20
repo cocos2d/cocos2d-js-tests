@@ -30,44 +30,80 @@ var TAG_STENCILNODE = 100;
 var TAG_CLIPPERNODE = 101;
 var TAG_CONTENTNODE = 102;
 
-var clippingNodeTestSceneIdx = -1;
+var sceneIdx = -1;
 
-var BaseClippingNodeTest = BaseTestLayer.extend({
-    _title:"",
-    _subtitle:"",
-
-    ctor:function() {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
-        this.setup();
+var BaseClippingNodeTest = cc.Layer.extend({
+    ctor:function(){
+       this._super();
+        this.init()
     },
 
-    onRestartCallback:function (sender) {
-        var s = new ClippingNodeTestScene();
-        s.addChild(restartClippingNodeTest());
-        director.replaceScene(s);
-    },
-    onNextCallback:function (sender) {
-        var s = new ClippingNodeTestScene();
-        s.addChild(nextClippingNodeTest());
-        director.replaceScene(s);
-    },
-    onBackCallback:function (sender) {
-        var s = new ClippingNodeTestScene();
-        s.addChild(previousClippingNodeTest());
-        director.replaceScene(s);
-    },
-    // automation
-    numberOfPendingTests:function() {
-        return ( (arrayOfClippingNodeTest.length-1) - clippingNodeTestSceneIdx );
+    init:function () {
+        if (this._super()) {
+            var winSize = cc.Director.getInstance().getWinSize();
+
+            var background = cc.Sprite.create(s_back3);
+            //background.setAnchorPoint(cc.PointZero());
+            background.setPosition(cc.p(winSize.width /2, winSize.height /2));
+            this.addChild(background, -1);
+
+            var label = cc.LabelTTF.create(this.title(), "Arial", 32);
+            this.addChild(label, 1, TAG_TITLELABEL);
+            label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
+
+            var subtitleText = this.subtitle();
+            if (subtitleText.length > 0) {
+                var subtitle = cc.LabelTTF.create(subtitleText, "Arial", 16);
+                this.addChild(subtitle, 1, TAG_SUBTITLELABEL);
+                subtitle.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
+            }
+
+            var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
+            var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.restartCallback, this);
+            var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
+
+            var menu = cc.Menu.create(item1, item2, item3);
+            menu.setPosition(cc.PointZero());
+            item1.setPosition(cc.p(winSize.width / 2 - item2.getContentSize().width * 2, item2.getContentSize().height / 2));
+            item2.setPosition(cc.p(winSize.width / 2, item2.getContentSize().height / 2));
+            item3.setPosition(cc.p(winSize.width / 2 + item2.getContentSize().width * 2, item2.getContentSize().height / 2));
+            this.addChild(menu, 1);
+
+            this.setup();
+            return true;
+        }
+        return false;
     },
 
-    getTestNumber:function() {
-        return clippingNodeTestSceneIdx;
+    title:function () {
+        return "Clipping Demo";
+    },
+
+    subtitle:function () {
+        return "";
+    },
+
+    setup:function () {
+    },
+
+    backCallback:function (sender) {
+        var scene = new ClippingNodeTestScene();
+        scene.addChild(backClippingNodeAction());
+        cc.Director.getInstance().replaceScene(scene);
+    },
+
+    nextCallback:function (sender) {
+        var scene = new ClippingNodeTestScene();
+        scene.addChild(nextClippingNodeAction());
+        cc.Director.getInstance().replaceScene(scene);
+    },
+
+    restartCallback:function (sender) {
+        var scene = new ClippingNodeTestScene();
+        scene.addChild(restartClippingNodeAction());
+        cc.Director.getInstance().replaceScene(scene);
     }
-
 });
-
-
 
 var BasicTest = BaseClippingNodeTest.extend({
     title:function () {
@@ -113,7 +149,7 @@ var BasicTest = BaseClippingNodeTest.extend({
         var triangle = [cc.p(-100, -100),cc.p(100, -100), cc.p(0, 100)];
 
         var green = cc.c4f(0, 1, 0, 1);
-        shape.drawPoly(triangle, 3, green, 0);
+        shape.drawPoly(triangle, 3, green, 0, green);
         return shape;
     },
 
@@ -280,7 +316,7 @@ var HoleDemo = BaseClippingNodeTest.extend({
 
     setup:function () {
         var target = cc.Sprite.create(s_pathBlock);
-        target.setAnchorPoint(cc.POINT_ZERO);
+        target.setAnchorPoint(cc.PointZero());
         target.setScale(3);
 
         this._outerClipper = cc.ClippingNode.create();
@@ -349,7 +385,7 @@ var HoleDemo = BaseClippingNodeTest.extend({
     onTouchesBegan:function (touches, event) {
         var touch = touches[0];
         var point = this._outerClipper.convertToNodeSpace(touch.getLocation());
-        var rect = cc.rect(0, 0, this._outerClipper.getContentSize().width, this._outerClipper.getContentSize().height);
+        var rect = cc.RectMake(0, 0, this._outerClipper.getContentSize().width, this._outerClipper.getContentSize().height);
         if (!cc.rectContainsPoint(rect,point))
             return;
         this.pokeHoleAtPoint(point);
@@ -383,7 +419,7 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
             cc.p(0, clipper.getContentSize().height)];
 
         var white = cc.c4f(1, 1, 1, 1);
-        stencil.drawPoly(rectangle, 4, white, 1);
+        stencil.drawPoly(rectangle, 4, white, 1, white);
         clipper.setStencil(stencil);
 
         var content = cc.Sprite.create(s_back2);
@@ -403,7 +439,7 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
         var touch =  touches[0];
         var clipper = this.getChildByTag(TAG_CLIPPERNODE);
         var point = clipper.convertToNodeSpace(touch.getLocation());
-        var rect = cc.rect(0, 0, clipper.getContentSize().width, clipper.getContentSize().height);
+        var rect = cc.RectMake(0, 0, clipper.getContentSize().width, clipper.getContentSize().height);
         this._scrolling = cc.rectContainsPoint(rect,point);
         this._lastPoint = point;
     },
@@ -486,7 +522,7 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
             this.setupStencilForClippingOnPlane(i);
             //cc.CHECK_GL_ERROR_DEBUG();
 
-            cc.drawingUtil.drawSolidRect(cc.POINT_ZERO, stencilPoint, cc.c4f(1, 1, 1, 1));
+            cc.drawingUtil.drawSolidRect(cc.PointZero(), stencilPoint, cc.c4f(1, 1, 1, 1));
 
             cc.kmGLPushMatrix();
             this.transform();
@@ -496,7 +532,7 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
             this.setupStencilForDrawingOnPlane(i);
             //cc.CHECK_GL_ERROR_DEBUG();
 
-            cc.drawingUtil.drawSolidRect(cc.POINT_ZERO, winPoint, _planeColor[i]);
+            cc.drawingUtil.drawSolidRect(cc.PointZero(), winPoint, _planeColor[i]);
 
             cc.kmGLPushMatrix();
             this.transform();
@@ -559,7 +595,7 @@ var RawStencilBufferTest3 = RawStencilBufferTest.extend({
     setupStencilForDrawingOnPlane:function (plane) {
         var gl = cc.renderContext;
         gl.depthMask(true);
-        //gl.enable(gl.DEPTH_TEST);
+        gl.enable(gl.DEPTH_TEST);
         this._super(plane);
     }
 });
@@ -607,7 +643,7 @@ var RawStencilBufferTest5 = RawStencilBufferTest.extend({
 
     setupStencilForDrawingOnPlane:function (plane) {
         cc.renderContext.depthMask(true);
-        //cc.renderContext.enable(cc.renderContext.DEPTH_TEST);
+        cc.renderContext.enable(cc.renderContext.DEPTH_TEST);
         this._super(plane);
     }
 });
@@ -628,7 +664,7 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
         gl.stencilMask(planeMask);
         gl.stencilFunc(gl.NEVER, 0, planeMask);
         gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
-        cc.drawingUtil.drawSolidRect(cc.POINT_ZERO, cc.pFromSize(cc.Director.getInstance().getWinSize()), cc.c4f(1, 1, 1, 1));
+        cc.drawingUtil.drawSolidRect(cc.PointZero(), cc.pFromSize(cc.Director.getInstance().getWinSize()), cc.c4f(1, 1, 1, 1));
         gl.stencilFunc(gl.NEVER, planeMask, planeMask);
         gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
         gl.disable(gl.DEPTH_TEST);
@@ -646,7 +682,7 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
     setupStencilForDrawingOnPlane:function (plane) {
         var gl = cc.renderContext;
         gl.depthMask(true);
-        //gl.enable(gl.DEPTH_TEST);
+        gl.enable(gl.DEPTH_TEST);
         this._super(plane);
         gl.flush();
     }
@@ -657,6 +693,10 @@ var arrayOfClippingNodeTest = [
     HoleDemo,
     ShapeTest,
     ShapeInvertedTest,
+    SpriteTest,
+    SpriteNoAlphaTest,
+    SpriteInvertedTest,
+    NestedTest,
     RawStencilBufferTest,
     RawStencilBufferTest2,
     RawStencilBufferTest3,
@@ -665,36 +705,27 @@ var arrayOfClippingNodeTest = [
     RawStencilBufferTest6
 ];
 
-if ( sys.platform !== 'browser'){
-    //These tests don't support to HTML5
-    arrayOfClippingNodeTest.push(
-        SpriteTest,
-        SpriteNoAlphaTest,
-        SpriteInvertedTest,
-        NestedTest);
-}
-
-var nextClippingNodeTest = function () {
-    clippingNodeTestSceneIdx++;
-    clippingNodeTestSceneIdx = clippingNodeTestSceneIdx % arrayOfClippingNodeTest.length;
-    return new arrayOfClippingNodeTest[clippingNodeTestSceneIdx]();
+var nextClippingNodeAction = function () {
+    sceneIdx++;
+    sceneIdx = sceneIdx % arrayOfClippingNodeTest.length;
+    return new arrayOfClippingNodeTest[sceneIdx]();
 };
 
-var previousClippingNodeTest = function () {
-    clippingNodeTestSceneIdx--;
-    if (clippingNodeTestSceneIdx < 0)
-        clippingNodeTestSceneIdx += arrayOfClippingNodeTest.length;
-    return new arrayOfClippingNodeTest[clippingNodeTestSceneIdx]();
+var backClippingNodeAction = function () {
+    sceneIdx--;
+    if (sceneIdx < 0)
+        sceneIdx += arrayOfClippingNodeTest.length;
+    return new arrayOfClippingNodeTest[sceneIdx]();
 };
 
-var restartClippingNodeTest = function () {
-    return new arrayOfClippingNodeTest[clippingNodeTestSceneIdx]();
+var restartClippingNodeAction = function () {
+    return new arrayOfClippingNodeTest[sceneIdx]();
 };
 
 var ClippingNodeTestScene = TestScene.extend({
     runThisTest:function () {
-        clippingNodeTestSceneIdx = -1;
-        var layer = nextClippingNodeTest();
+        sceneIdx = -1;
+        var layer = nextClippingNodeAction();
         this.addChild(layer);
         cc.Director.getInstance().replaceScene(this);
     }

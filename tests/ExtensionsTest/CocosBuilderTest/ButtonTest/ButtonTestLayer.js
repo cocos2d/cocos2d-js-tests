@@ -52,22 +52,22 @@ var ButtonTestLayer = cc.Layer.extend({
              case cc.CONTROL_EVENT_TOUCH_DOWN:
                  this._controlEventLabel.setString("Touch Down.");
                  break;
-             case cc.CONTROL_EVENT_TOUCH_DRAG_INSIDE:
+             case cc.CONTROL_EVENT_TOUCH_DRAGINSIDE:
                  this._controlEventLabel.setString("Touch Drag Inside.");
                  break;
-             case cc.CONTROL_EVENT_TOUCH_DRAG_OUTSIDE:
+             case cc.CONTROL_EVENT_TOUCH_DRAGOUTSIDE:
                  this._controlEventLabel.setString("Touch Drag Outside.");
                  break;
-             case cc.CONTROL_EVENT_TOUCH_DRAG_ENTER:
+             case cc.CONTROL_EVENT_TOUCH_DRAGENTER:
                  this._controlEventLabel.setString("Touch Drag Enter.");
                  break;
-             case cc.CONTROL_EVENT_TOUCH_DRAG_EXIT:
+             case cc.CONTROL_EVENT_TOUCH_DRAGEXIT:
                  this._controlEventLabel.setString("Touch Drag Exit.");
                  break;
-             case cc.CONTROL_EVENT_TOUCH_UP_INSIDE:
+             case cc.CONTROL_EVENT_TOUCH_UPINSIDE:
                  this._controlEventLabel.setString("Touch Up Inside.");
                  break;
-             case cc.CONTROL_EVENT_TOUCH_UP_OUTSIDE:
+             case cc.CONTROL_EVENT_TOUCH_UPOUTSIDE:
                  this._controlEventLabel.setString("Touch Up Outside.");
                  break;
              case cc.CONTROL_EVENT_TOUCH_CANCEL:
