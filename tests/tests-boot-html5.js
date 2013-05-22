@@ -132,7 +132,7 @@
             'CocosDenshion': '../../CocosDenshion',
             'extensions': '../../extensions',
             'chipmunk': '../../chipmunk',
-            'box2d': '../../box2d',
+            'box2d': '../../box2d'
         }
     });
     
