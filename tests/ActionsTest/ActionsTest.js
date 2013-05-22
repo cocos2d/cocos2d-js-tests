@@ -2550,7 +2550,7 @@ var arrayOfActionsTest = [
     ActionCallFunc3,
     ActionReverseSequence,
     ActionReverseSequence2,
-    ActionOrbit,
+
     ActionFollow,
     ActionTargeted,
     ActionTargetedCopy,
@@ -2571,6 +2571,10 @@ var arrayOfActionsTest = [
     Issue1438,
     Issue1446
 ];
+
+if("opengl" in sys.capabilities){
+    arrayOfActionsTest.push(ActionOrbit);
+}
 
 var nextActionsTest = function () {
     actionsTestIdx++;

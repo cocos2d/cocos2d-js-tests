@@ -161,9 +161,11 @@ var SubTest = cc.Class.extend({
         // purge textures
         //var mgr = cc.TextureCache.getInstance();
         //		[mgr removeAllTextures];
-        //mgr.removeTexture(mgr.addImage("res/Images/grossinis_sister1.png"));
-        //mgr.removeTexture(mgr.addImage("res/Images/grossini_dance_atlas.png"));
-        //mgr.removeTexture(mgr.addImage("res/Images/spritesheet1.png"));
+        if ( sys.platform != 'browser') {
+            mgr.removeTexture(mgr.addImage("res/Images/grossinis_sister1.png"));
+            mgr.removeTexture(mgr.addImage("res/Images/grossini_dance_atlas.png"));
+            mgr.removeTexture(mgr.addImage("res/Images/spritesheet1.png"));
+        }
 
         switch (this._subtestNumber) {
             case 1:
@@ -174,13 +176,13 @@ var SubTest = cc.Class.extend({
             case 2:
                 if( "opengl" in sys.capabilities )
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
-                this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 100);
+                this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 3:
                 if( "opengl" in sys.capabilities )
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
-                this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 100);
+                this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
 
@@ -188,13 +190,13 @@ var SubTest = cc.Class.extend({
             case 5:
                 if( "opengl" in sys.capabilities )
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
-                this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 100);
+                this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 6:
                 if( "opengl" in sys.capabilities )
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
-                this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 100);
+                this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
 
@@ -202,13 +204,13 @@ var SubTest = cc.Class.extend({
             case 8:
                 if( "opengl" in sys.capabilities )
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
-                this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 100);
+                this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 9:
                 if( "opengl" in sys.capabilities )
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
-                this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 100);
+                this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
 
