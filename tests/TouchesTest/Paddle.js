@@ -59,7 +59,7 @@ var Paddle = cc.Sprite.extend({
 
         myRect.origin.x += this.getPosition().x;
         myRect.origin.y += this.getPosition().y;
-        return cc.Rect.CCRectContainsPoint(myRect, getPoint);//this.convertTouchToNodeSpaceAR(touch));
+        return cc.rectContainsPoint(myRect, getPoint);//this.convertTouchToNodeSpaceAR(touch));
     },
 
     onTouchBegan:function (touch, event) {
