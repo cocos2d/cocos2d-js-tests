@@ -99,10 +99,6 @@ var CCNodeTest2 = TestNodeDemo.extend({
 
         sp1.runAction(action1);
         sp2.runAction(action2);
-
-        //Automation parameters
-        this.autoParam1 = sp3;
-        this.autoParam2 = sp4;
     },
     title:function () {
         return "anchorPoint and children";
@@ -111,31 +107,17 @@ var CCNodeTest2 = TestNodeDemo.extend({
     // Automation
     //
     testDuration:4.1,
+    pixel1:{"0":56, "1":116, "2":142, "3":255},
+    pixel2:{"0":204, "1":63, "2":57, "3":255},
     getExpectedResult:function () {
-        var ret = [];
-        if (cc.renderContextType == cc.WEBGL) {
-            ret.push({"a":0.5, "b":"0.00", "c":"-0.00", "d":0.5, "tx":"85", "ty":"51" });
-            ret.push({"a":0.5, "b":"0.00", "c":"-0.00", "d":0.5, "tx":"636", "ty":"191" });
-        } else {
-            ret.push({"a":0.5, "b":"-0.00", "c":"0.00", "d":0.5, "tx":"85", "ty":"51" });
-            ret.push({"a":0.5, "b":"-0.00", "c":"0.00", "d":0.5, "tx":"636", "ty":"191" });
-        }
+        var ret = {"pixel1":"yes", "pixel2":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret = [];
-        var item1 = this.autoParam1.nodeToWorldTransform();
-        item1.b = item1.b.toFixed(2);
-        item1.c = item1.c.toFixed(2);
-        item1.tx = item1.tx.toFixed(0);
-        item1.ty = item1.ty.toFixed(0);
-        var item2 = this.autoParam2.nodeToWorldTransform();
-        item2.b = item2.b.toFixed(2);
-        item2.c = item2.c.toFixed(2);
-        item2.tx = item2.tx.toFixed(0);
-        item2.ty = item2.ty.toFixed(0);
-        ret.push(item1);
-        ret.push(item2);
+        var ret1 = this.readPixels(90, 56, 5, 5);
+        var ret2 = this.readPixels(711, 384, 5, 5);
+        var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
+            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -218,9 +200,8 @@ var CCNodeTest5 = TestNodeDemo.extend({
         this.removeChild(sp1, false);
         this.removeChild(sp2, true);
 
-        //Automation parameters
-        this.autoParam1 = this.getChildByTag(TAG_SPRITE1);
-        this.autoParam2 = this.getChildByTag(TAG_SPRITE2);
+        this.testSP1 = this.getChildByTag(TAG_SPRITE1);
+        this.testSP2 = this.getChildByTag(TAG_SPRITE2);
 
         this.addChild(sp1, 0, TAG_SPRITE1);
         this.addChild(sp2, 0, TAG_SPRITE2);
@@ -235,13 +216,21 @@ var CCNodeTest5 = TestNodeDemo.extend({
     //
     // Automation
     //
-    testDuration:2.2,
+    testDuration:2.5,
+    testSP1:null,
+    testSP2:null,
+    pixel1:{"0":0, "1":0, "2":0, "3":255},
+    pixel2:{"0":51, "1":0, "2":0, "3":255},
     getExpectedResult:function () {
-        var ret = [null, null];
+        var ret = {"sp1":null, "sp2":null, "pixel1":"yes", "pixel2":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret = [this.autoParam1, this.autoParam2];
+        var ret1 = this.readPixels(134, 164, 5, 5);
+        var ret2 = this.readPixels(648, 276, 5, 5);
+        var ret = {"sp1":this.testSP1, "sp2":this.testSP2,
+            "pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
+            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -401,7 +390,7 @@ var NodeToWorld = TestNodeDemo.extend({
         //  - It tests different children anchor points
         this._super();
         var back = cc.Sprite.create(s_back3);
-        this.addChild(back, -10);
+        this.addChild(back, 0);
         back.setAnchorPoint(cc.p(0, 0));
         var backSize = back.getContentSize();
 
@@ -636,6 +625,26 @@ var CameraCenterTest = TestNodeDemo.extend({
     },
     subtitle:function () {
         return "Sprites should rotate at the same speed";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.6,
+    pixel1:{"0":255, "1":255, "2":255, "3":255},
+    pixel2:{"0":255, "1":255, "2":255, "3":255},
+    pixel3:{"0":255, "1":255, "2":255, "3":255},
+    getExpectedResult:function () {
+        var ret = {"pixel1":"yes", "pixel2":"yes", "pixel3":"yes"};
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret1 = this.readPixels(winSize.width / 2, winSize.height / 2, 5, 5);
+        var ret2 = this.readPixels(winSize.width / 2 - 25, winSize.height / 2, 5, 5);
+        var ret3 = this.readPixels(winSize.width / 2 + 20, winSize.height / 2, 5, 5);
+        var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
+            "pixel2":!this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
+            "pixel3":!this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"};
+        return JSON.stringify(ret);
     }
 });
 
@@ -680,6 +689,8 @@ var ConvertToNode = TestNodeDemo.extend({
         }
     },
     processEvent:function (location) {
+        this.testP1 = [];
+        this.testP2 = [];
         for (var i = 0; i < 3; i++) {
             var node = this.getChildByTag(100 + i);
 
@@ -687,6 +698,9 @@ var ConvertToNode = TestNodeDemo.extend({
             var p2 = node.convertToNodeSpace(location);
 
             cc.log("AR: x=" + p1.x.toFixed(2) + ", y=" + p1.y.toFixed(2) + " -- Not AR: x=" + p2.x.toFixed(2) + ", y=" + p2.y.toFixed(2));
+
+            this.testP1.push({"x":p1.x, "y":p1.y});
+            this.testP2.push({"x":p2.x, "y":p2.y});
         }
     },
     onTouchesEnded:function (touches, event) {
@@ -711,22 +725,23 @@ var ConvertToNode = TestNodeDemo.extend({
     // Automation
     //
     testDuration:1,
+    testP1:[],
+    testP2:[],
     getExpectedResult:function () {
-        var ret = [];
-        ret.push({"x":-800, "y":-900}, {"x":-775.5, "y":-876.5});
-        ret.push({"x":-1600, "y":-900}, {"x":-1575.5, "y":-876.5});
-        ret.push({"x":-2400, "y":-900}, {"x":-2375.5, "y":-876.5});
+        var ret1 = [];
+        ret1.push({"x":-800, "y":-900});
+        ret1.push({"x":-1600, "y":-900});
+        ret1.push({"x":-2400, "y":-900});
+        var ret2 = [];
+        ret2.push({"x":-775.5, "y":-876.5});
+        ret2.push({"x":-1575.5, "y":-876.5});
+        ret2.push({"x":-2375.5, "y":-876.5});
+        var ret = {"p1":ret1, "p1":ret2}
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret = [];
-        var worldPoint = cc.p(0, 0);
-        for (var i = 0; i < 3; i++) {
-            var node = this.getChildByTag(100 + i);
-            var p1 = node.convertToNodeSpaceAR(worldPoint);
-            var p2 = node.convertToNodeSpace(worldPoint);
-            ret.push({"x":p1.x, "y":p1.y}, {"x":p2.x, "y":p2.y});
-        }
+        this.processEvent(cc.p(0, 0));
+        var ret = {"p1":this.testP1, "p1":this.testP2}
         return JSON.stringify(ret);
     }
 });
@@ -747,8 +762,7 @@ var BoundingBoxTest = TestNodeDemo.extend({
         cc.log('origin = [ ' + bb.x + "," + bb.y + "]");
         cc.log('size = [ ' + bb.width + "," + bb.height + "]");
 
-        //Automation parameters
-        this.autoParam = bb;
+        this.testBB = bb;
     },
     title:function () {
         return "Bounding Box Test";
@@ -760,16 +774,13 @@ var BoundingBoxTest = TestNodeDemo.extend({
     // Automation
     //
     testDuration:0.5,
+    testBB:null,
     getExpectedResult:function () {
-        var ret = [
-            {"x":357.5, "y":164.5, "w":85, "h":121}
-        ];
+        var ret = {"x":357.5, "y":164.5, "w":85, "h":121};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret = [
-            {"x":this.autoParam.x, "y":this.autoParam.y, "w":this.autoParam.width, "h":this.autoParam.height}
-        ];
+        var ret = {"x":this.testBB.x, "y":this.testBB.y, "w":this.testBB.width, "h":this.testBB.height};
         return JSON.stringify(ret);
     }
 });
@@ -788,13 +799,10 @@ var SchedulerTest1 = TestNodeDemo.extend({
 
         layer.unschedule(this.doSomething);
         //UXLOG("retain count after unschedule is %d", layer->retainCount());        // STILL 3!  (win32 is '2')
-
-        //Automation parameters
-        this.autoParam = true;
     },
 
     doSomething:function (dt) {
-        this.control1 = false;
+        this.testBool = false;
     },
 
     title:function () {
@@ -804,11 +812,12 @@ var SchedulerTest1 = TestNodeDemo.extend({
     // Automation
     //
     testDuration:0.5,
+    testBool:true,
     getExpectedResult:function () {
         return true;
     },
     getCurrentResult:function () {
-        return this.autoParam;
+        return this.testBool;
     }
 });
 
