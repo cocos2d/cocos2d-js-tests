@@ -107,15 +107,15 @@ var CCNodeTest2 = TestNodeDemo.extend({
     // Automation
     //
     testDuration:4.1,
-    pixel1:{"0":56, "1":116, "2":142, "3":255},
+    pixel1:{"0":255, "1":230, "2":204, "3":255},
     pixel2:{"0":204, "1":63, "2":57, "3":255},
     getExpectedResult:function () {
         var ret = {"pixel1":"yes", "pixel2":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(90, 56, 5, 5);
-        var ret2 = this.readPixels(711, 384, 5, 5);
+        var ret1 = this.readPixels(96, winSize.height / 2 - 146, 5, 5);
+        var ret2 = this.readPixels(winSize.width - 89, winSize.height / 2 + 159, 5, 5);
         var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
             "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"};
         return JSON.stringify(ret);
@@ -227,7 +227,7 @@ var CCNodeTest5 = TestNodeDemo.extend({
     },
     getCurrentResult:function () {
         var ret1 = this.readPixels(134, 164, 5, 5);
-        var ret2 = this.readPixels(648, 276, 5, 5);
+        var ret2 = this.readPixels(winSize.width - 148, winSize.height / 2 + 51, 5, 5);
         var ret = {"sp1":this.testSP1, "sp2":this.testSP2,
             "pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
             "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"};
@@ -335,11 +335,28 @@ var StressTest1 = TestNodeDemo.extend({
         this.addChild(explosion);
     },
     onRemoveMe:function (node) {
+        if (autoTestEnabled) {
+            this.testPass = true;
+            return;
+        }
         this.getParent().removeChild(node, true);
         this.onNextCallback(this);
     },
     title:function () {
         return "stress test #1: no crashes";
+    },
+    //
+    // Automation
+    //
+    testDuration:3.2,
+    testPass:false,
+    getExpectedResult:function () {
+        var ret = {"pass":true};
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = {"pass":this.testPass};
+        return JSON.stringify(ret);
     }
 });
 
@@ -425,10 +442,10 @@ var NodeToWorld = TestNodeDemo.extend({
     //
     testDuration:3.1,
     getExpectedResult:function () {
-        var ret = {"a":1, "b":"-0.00", "c":"0.00", "d":1, "tx":440, "ty":160};
-        if (cc.renderContextType == cc.WEBGL) {
-            ret["b"] = "0.00";
-            ret["c"] = "-0.00";
+        var ret = {"a":1, "b":"0.00", "c":"-0.00", "d":1, "tx":440, "ty":160};
+        if (cc.renderContextType == cc.CANVAS) {
+            ret["b"] = "-0.00";
+            ret["c"] = "0.00";
         }
         return JSON.stringify(ret);
     },
@@ -561,13 +578,17 @@ var CameraZoomTest = TestNodeDemo.extend({
     // Automation
     //
     testDuration:1.1,
+    pixel:{"0":115, "1":0, "2":115, "3":255},
     getExpectedResult:function () {
-        var ret = {z:this._z};
+        var ret1 = {"z":this._z};
+        var ret2 = {"pixel":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret = {"z":this.autoParam.getCamera().getEye().z};
-        return JSON.stringify(ret);
+        var ret1 = {"z":this.autoParam.getCamera().getEye().z};
+        var readPixel = this.readPixels(winSize.width / 4 * 3, winSize.height / 2, 5, 5);
+        var ret2 = {"pixel":!this.containsPixel(readPixel, this.pixel, false) ? "yes" : "no"};
+        return JSON.stringify([ret1,ret2]);
     }
 });
 
@@ -729,19 +750,19 @@ var ConvertToNode = TestNodeDemo.extend({
     testP2:[],
     getExpectedResult:function () {
         var ret1 = [];
-        ret1.push({"x":-800, "y":-900});
-        ret1.push({"x":-1600, "y":-900});
-        ret1.push({"x":-2400, "y":-900});
+        ret1.push({"x":-winSize.width, "y":-winSize.height * 2});
+        ret1.push({"x":-winSize.width * 2, "y":-winSize.height * 2});
+        ret1.push({"x":-winSize.width * 3, "y":-winSize.height * 2});
         var ret2 = [];
-        ret2.push({"x":-775.5, "y":-876.5});
-        ret2.push({"x":-1575.5, "y":-876.5});
-        ret2.push({"x":-2375.5, "y":-876.5});
-        var ret = {"p1":ret1, "p1":ret2}
+        ret2.push({"x":-winSize.width + 24.5, "y":-winSize.height * 2 + 23.5});
+        ret2.push({"x":-winSize.width * 2 + 24.5, "y":-winSize.height * 2 + 23.5});
+        ret2.push({"x":-winSize.width * 3 + 24.5, "y":-winSize.height * 2 + 23.5});
+        var ret = {"p1":ret1, "p2":ret2}
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
         this.processEvent(cc.p(0, 0));
-        var ret = {"p1":this.testP1, "p1":this.testP2}
+        var ret = {"p1":this.testP1, "p2":this.testP2}
         return JSON.stringify(ret);
     }
 });
@@ -776,7 +797,7 @@ var BoundingBoxTest = TestNodeDemo.extend({
     testDuration:0.5,
     testBB:null,
     getExpectedResult:function () {
-        var ret = {"x":357.5, "y":164.5, "w":85, "h":121};
+        var ret = {"x":winSize.width / 2 - 42.5, "y":winSize.height / 2 - 60.5, "w":85, "h":121};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
