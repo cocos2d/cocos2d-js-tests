@@ -231,16 +231,16 @@ var TMXOrthoTest2 = TileDemo.extend({
 
     // Automation
     pixel1:{"0":108, "1":68, "2":60, "3":255},
-    pixel2:{"0":208, "1":208, "2":208, "3":255},
-    pixel3:{"0":168, "1":0, "2":0, "3":255},
+    pixel2:{"0":255, "1":255, "2":255, "3":255},
+    pixel3:{"0":40, "1":0, "2":0, "3":255},
     getExpectedResult:function () {
         var ret = {"one":"yes", "two":"yes", "three":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(90, 0, 10, 10);
-        var ret2 = this.readPixels(617, 204, 10, 10);
-        var ret3 = this.readPixels(560, 337, 10, 10);
+        var ret1 = this.readPixels(90, 0, 5, 5);
+        var ret2 = this.readPixels(238, 270, 5, 5);
+        var ret3 = this.readPixels(419, 239, 5, 5);
         var ret = {"one":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
             "two":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
             "three":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
@@ -455,14 +455,14 @@ var TMXReadWriteTest = TileDemo.extend({
     //
     testDuration:2.2,
     pixel1:{"0":0, "1":144, "2":0, "3":255},
-    pixel2:{"0":208, "1":208, "2":208, "3":255},
+    pixel2:{"0":192, "1":144, "2":16, "3":255},
     getExpectedResult:function () {
         var ret = {"pixel1":"yes", "pixel2":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(168, 203, 10, 10);
-        var ret2 = this.readPixels(619, 204, 10, 10);
+        var ret1 = this.readPixels(168, 203, 5, 5);
+        var ret2 = this.readPixels(239, 239, 5, 5);
         var ret = {"pixel1":!this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
             "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"}
         return JSON.stringify(ret);
@@ -723,6 +723,24 @@ var TMXTilesetTest = TileDemo.extend({
     },
     title:function () {
         return "TMX Tileset test";
+    },
+    // Automation
+    testDuration:1,
+    pixel1:{"0":255, "1":0, "2":0, "3":255},
+    pixel2:{"0":213, "1":202, "2":190, "3":255},
+    pixel3:{"0":61, "1":118, "2":71, "3":255},
+    getExpectedResult:function () {
+        var ret = {"pixel1":"yes", "pixel2":"yes", "pixel3":"yes"};
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret1 = this.readPixels(53, 80, 5, 5);
+        var ret2 = this.readPixels(38, 151, 5, 5);
+        var ret3 = this.readPixels(345, 202, 5, 5);
+        var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
+            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
+            "pixel3":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
+        return JSON.stringify(ret);
     }
 });
 
@@ -798,13 +816,19 @@ var TMXOrthoObjectsTest = TileDemo.extend({
     testObjects:null,
     getExpectedResult:function () {
         var ret = [];
-        ret.push({"name":"Object", "type":"", "x":0, "width":352, "height":32, "y":0});
-        ret.push({"name":"Object", "type":"", "x":224, "width":160, "height":32, "y":64});
-        ret.push({"name":"platform", "type":"platform", "x":2, "width":125, "height":60, "y":131, "friction":"1.0"});
+        ret.push({"name":"Object", "type":"", "x":0, "y":0, "width":352, "height":32});
+        ret.push({"name":"Object", "type":"", "x":224, "y":64, "width":160, "height":32 });
+        ret.push({"name":"platform", "type":"platform", "x":2, "y":131, "width":125, "height":60});
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        return JSON.stringify(this.testObjects);
+        var ret = [];
+        var obj = null;
+        for (var i = 0; i < this.testObjects.length; i++) {
+            obj = this.testObjects[i];
+            ret.push({"name":obj["name"] || "", "type":obj["type"] || "", "x":parseFloat(obj["x"]), "y":parseFloat(obj["y"]), "width":parseFloat(obj["width"]), "height":parseFloat(obj["height"])});
+        }
+        return JSON.stringify(ret);
     }
 });
 
@@ -883,14 +907,20 @@ var TMXIsoObjectsTest = TileDemo.extend({
     testObjects:null,
     getExpectedResult:function () {
         var ret = [];
-        ret.push({"name":"platform 1", "type":"", "x":0, "width":32, "height":30, "y":0});
-        ret.push({"name":"", "type":"", "x":0, "width":31, "height":32, "y":285});
-        ret.push({"name":"", "type":"", "x":130, "width":29, "height":29, "y":129});
-        ret.push({"name":"", "type":"", "x":290, "width":28, "height":29, "y":1});
+        ret.push({"name":"platform 1", "type":"", "x":0, "y":0, "width":32, "height":30});
+        ret.push({"name":"", "type":"", "x":0, "y":285, "width":31, "height":32});
+        ret.push({"name":"", "type":"", "x":130, "y":129, "width":29, "height":29});
+        ret.push({"name":"", "type":"", "x":290, "y":1, "width":28, "height":29});
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        return JSON.stringify(this.testObjects);
+        var ret = [];
+        var obj = null;
+        for (var i = 0; i < this.testObjects.length; i++) {
+            obj = this.testObjects[i];
+            ret.push({"name":obj["name"] || "", "type":obj["type"] || "", "x":parseFloat(obj["x"]), "y":parseFloat(obj["y"]), "width":parseFloat(obj["width"]), "height":parseFloat(obj["height"])});
+        }
+        return JSON.stringify(ret);
     }
 });
 
@@ -933,7 +963,7 @@ var TMXResizeTest = TileDemo.extend({
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(656, 67, 10, 10);
+        var ret1 = this.readPixels(156, 156, 5, 5);
         var ret = {"pixel":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no"}
         return JSON.stringify(ret);
     }
@@ -1025,7 +1055,7 @@ var TMXOrthoZorder = TileDemo.extend({
         map.addChild(this.tamara, map.getChildren().length, TAG_TILE_MAP);
         this.tamara.setAnchorPoint(cc.p(0.5, 0));
 
-        var move = cc.MoveBy.create(5, cc.pMult(cc.p(400, 450), 0.6));
+        var move = cc.MoveBy.create(5, cc.pMult(cc.p(400, 450), 0.58));
         var back = move.reverse();
         var delay = cc.DelayTime.create(0.5);
         var seq = cc.Sequence.create(move, delay, back);
@@ -1058,14 +1088,17 @@ var TMXOrthoZorder = TileDemo.extend({
     // Automation
     //
     testDuration:5.2,
-    pixel:{"0":152, "1":234, "2":85, "3":255},
+    pixel1:{"0":48, "1":99, "2":121, "3":255},
+    pixel2:{"0":89, "1":140, "2":47, "3":255},
     getExpectedResult:function () {
-        var ret = {"pixel":"yes"};
+        var ret = {"pixel1":"yes","pixel2":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(240, 340, 4, 4);
-        var ret = {"pixel":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no"}
+        var ret1 = this.readPixels(217, 271, 5, 5);
+        var ret2 = this.readPixels(226, 288, 5, 5);
+        var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
+            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"}
         return JSON.stringify(ret);
     }
 });
@@ -1267,14 +1300,10 @@ var TMXTilePropertyTest = TileDemo.extend({
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/ortho-tile-property.tmx");
         this.addChild(map, 0, TAG_TILE_MAP);
 
-        if (sys.platform == 'browser') {
-            for (var i = 1; i <= 6; i++) {
-                var properties = map.propertiesForGID(i);
-                this.log("GID:" + i + ", Properties:" + JSON.stringify(properties));
-                this.propertiesList.push(properties)
-            }
-        } else {
-            this.log("Test not supported on JSB");
+        for (var i = 1; i <= 6; i++) {
+            var properties = map.propertiesForGID(i);
+            this.log("GID:" + i + ", Properties:" + JSON.stringify(properties));
+            this.propertiesList.push(properties)
         }
     },
     title:function () {
@@ -1460,8 +1489,7 @@ var TMXOrthoFromXMLTest = TileDemo.extend({
 
         var resources = s_resprefix + "TileMaps";
         var filePath = s_resprefix + "TileMaps/orthogonal-test1.tmx";
-        var xmlStr = cc.SAXParser.getInstance().getList(filePath);
-
+        var xmlStr = cc.FileUtils.getInstance().getStringFromFile(filePath);
         var map = cc.TMXTiledMap.createWithXML(xmlStr, resources);
         this.addChild(map, 0, TAG_TILE_MAP);
 
@@ -1613,7 +1641,7 @@ var TMXGIDObjectsTest = TileDemo.extend({
                 this.log(k + ' = ' + dict[k]);
             }
         }
-        this.groupObjects = array;
+        this.testObjects = array;
     },
     title:function () {
         return "TMX GID objects";
@@ -1650,18 +1678,24 @@ var TMXGIDObjectsTest = TileDemo.extend({
     //
     // Automation
     //
-    groupObjects:[],
+    testObjects:[],
     getExpectedResult:function () {
         var ret = [];
-        ret.push({"name":"sandro", "type":"", "x":97, "width":14, "height":8, "y":-2});
-        ret.push({"name":"", "type":"", "x":119, "width":0, "height":0, "y":19});
-        ret.push({"name":"", "type":"", "x":140, "width":0, "height":0, "y":38});
-        ret.push({"name":"", "type":"", "x":160, "width":0, "height":0, "y":57});
-        ret.push({"name":"", "type":"", "x":180, "width":0, "height":0, "y":71});
+        ret.push({"name":"sandro", "type":"", "x":97, "y":-2, "width":14, "height":8});
+        ret.push({"name":"", "type":"", "x":119, "y":19, "width":0, "height":0});
+        ret.push({"name":"", "type":"", "x":140, "y":38, "width":0, "height":0});
+        ret.push({"name":"", "type":"", "x":160, "y":57, "width":0, "height":0});
+        ret.push({"name":"", "type":"", "x":180, "y":71, "width":0, "height":0});
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        return JSON.stringify(this.groupObjects);
+        var ret = [];
+        var obj = null;
+        for (var i = 0; i < this.testObjects.length; i++) {
+            obj = this.testObjects[i];
+            ret.push({"name":obj["name"] || "", "type":obj["type"] || "", "x":parseFloat(obj["x"]), "y":parseFloat(obj["y"]), "width":parseFloat(obj["width"]||0), "height":parseFloat(obj["height"]||0)});
+        }
+        return JSON.stringify(ret);
     }
 });
 
