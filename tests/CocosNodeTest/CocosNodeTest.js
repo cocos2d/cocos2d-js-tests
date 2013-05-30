@@ -582,13 +582,13 @@ var CameraZoomTest = TestNodeDemo.extend({
     getExpectedResult:function () {
         var ret1 = {"z":this._z};
         var ret2 = {"pixel":"yes"};
-        return JSON.stringify(ret);
+        return JSON.stringify([ret1, ret2]);
     },
     getCurrentResult:function () {
         var ret1 = {"z":this.autoParam.getCamera().getEye().z};
         var readPixel = this.readPixels(winSize.width / 4 * 3, winSize.height / 2, 5, 5);
         var ret2 = {"pixel":!this.containsPixel(readPixel, this.pixel, false) ? "yes" : "no"};
-        return JSON.stringify([ret1,ret2]);
+        return JSON.stringify([ret1, ret2]);
     }
 });
 
@@ -747,23 +747,56 @@ var ConvertToNode = TestNodeDemo.extend({
     //
     testDuration:1,
     testP1:[],
+    expectedP1:[],
     testP2:[],
+    expectedP2:[],
+    setupAutomation:function(){
+        this.expectedP1.push({"x":-winSize.width, "y":-winSize.height * 2});
+        this.expectedP1.push({"x":-winSize.width * 2, "y":-winSize.height * 2});
+        this.expectedP1.push({"x":-winSize.width * 3, "y":-winSize.height * 2});
+
+        this.expectedP2.push({"x":-winSize.width + 24.5, "y":-winSize.height * 2 + 23.5});
+        this.expectedP2.push({"x":-winSize.width * 2 + 24.5, "y":-winSize.height * 2 + 23.5});
+        this.expectedP2.push({"x":-winSize.width * 3 + 24.5, "y":-winSize.height * 2 + 23.5});
+    },
     getExpectedResult:function () {
-        var ret1 = [];
-        ret1.push({"x":-winSize.width, "y":-winSize.height * 2});
-        ret1.push({"x":-winSize.width * 2, "y":-winSize.height * 2});
-        ret1.push({"x":-winSize.width * 3, "y":-winSize.height * 2});
-        var ret2 = [];
-        ret2.push({"x":-winSize.width + 24.5, "y":-winSize.height * 2 + 23.5});
-        ret2.push({"x":-winSize.width * 2 + 24.5, "y":-winSize.height * 2 + 23.5});
-        ret2.push({"x":-winSize.width * 3 + 24.5, "y":-winSize.height * 2 + 23.5});
-        var ret = {"p1":ret1, "p2":ret2}
-        return JSON.stringify(ret);
+        if (cc.renderContextType == cc.CANVAS) {
+            return JSON.stringify({"p1":true, "p2":true});
+        }else{
+            return JSON.stringify({"p1":this.expectedP1, "p2":this.expectedP2});
+        }
     },
     getCurrentResult:function () {
         this.processEvent(cc.p(0, 0));
-        var ret = {"p1":this.testP1, "p2":this.testP2}
-        return JSON.stringify(ret);
+
+        if (cc.renderContextType == cc.CANVAS) {
+            var equal = function(a,b,error){
+                return Math.abs(a-b)<=error;
+            }
+            var ret1=true;
+            for(var i=0;i<this.testP1.length;i++){
+                var tp1=this.testP1[i];
+                var ep1=this.expectedP1[i];
+                if(!equal(tp1.x,ep1.x,6)||!equal(tp1.y,ep1.y,6)){
+                    ret1 = false;
+                    break;
+                }
+            }
+            var ret2=true;
+            for(var i=0;i<this.testP2.length;i++){
+                var tp1=this.testP2[i];
+                var ep1=this.expectedP2[i];
+                if(!equal(tp1.x,ep1.x,6)||!equal(tp1.y,ep1.y,6)){
+                    ret2 = false;
+                    break;
+                }
+            }
+
+            return JSON.stringify({"p1":ret1, "p2":ret2});
+        }else{
+            var ret = {"p1":this.testP1, "p2":this.testP2};
+            return JSON.stringify(ret);
+        }
     }
 });
 
@@ -797,11 +830,11 @@ var BoundingBoxTest = TestNodeDemo.extend({
     testDuration:0.5,
     testBB:null,
     getExpectedResult:function () {
-        var ret = {"x":winSize.width / 2 - 42.5, "y":winSize.height / 2 - 60.5, "w":85, "h":121};
+        var ret = {"x":0|(winSize.width / 2 - 42.5), "y":0|(winSize.height / 2 - 60.5), "w":85, "h":121};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret = {"x":this.testBB.x, "y":this.testBB.y, "w":this.testBB.width, "h":this.testBB.height};
+        var ret = {"x":0 | this.testBB.x, "y":0 | this.testBB.y, "w":this.testBB.width, "h":this.testBB.height};
         return JSON.stringify(ret);
     }
 });
