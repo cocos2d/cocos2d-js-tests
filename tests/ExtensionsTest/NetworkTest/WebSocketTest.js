@@ -23,6 +23,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+var WebSocket = WebSocket || window.WebSocket || window.MozWebSocket; 
+
 var WebSocketTestLayer = cc.Layer.extend({
 
     _wsiSendText: null,
@@ -136,7 +138,10 @@ var WebSocketTestLayer = cc.Layer.extend({
                     str += String.fromCharCode(hexChar);
                 }
             }
-            self._sendBinaryStatus.setString(binaryStr+str+", "+self._sendBinaryTimes);
+
+            binaryStr += str + ", " + self._sendBinaryTimes;
+            cc.log(binaryStr);
+            self._sendBinaryStatus.setString(binaryStr);
         };
 
         this._wsiSendBinary.onerror = function(evt) {
