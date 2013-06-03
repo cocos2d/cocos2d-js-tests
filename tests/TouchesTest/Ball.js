@@ -46,8 +46,8 @@ var Ball = cc.Sprite.extend({
     collideWithPaddle:function (paddle) {
         var paddleRect = paddle.rect();
 
-        paddleRect.origin.x += paddle.getPosition().x;
-        paddleRect.origin.y += paddle.getPosition().y;
+        paddleRect.x += paddle.getPosition().x;
+        paddleRect.y += paddle.getPosition().y;
 
         var lowY = cc.rectGetMinY(paddleRect);
         var midY = cc.rectGetMidY(paddleRect);
