@@ -113,7 +113,7 @@ math['seedrandom'] = function seedrandom(seed, use_entropy) {
   seed = mixkey(flatten(
     use_entropy ? [seed, pool] :
     arguments.length ? seed :
-    [new Date().getTime(), pool, window], 3), key);
+    [Date.now(), pool, window], 3), key);
 
   // Use the seed to initialize an ARC4 generator.
   arc4 = new ARC4(key);

@@ -440,8 +440,7 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
     },
     draw:function () {
         var s = director.getWinSize();
-        var c = cc.c3b(255, 0, 0);
-        cc.renderContext.strokeStyle = "rgba(" + c.r + "," + c.g + "," + c.b + ",1)";
+        cc.drawingUtil.setDrawColor4B(255,0,0,255);
         cc.drawingUtil.drawLine(cc.p(0, s.height / 2), cc.p(s.width, s.height / 2));
         cc.drawingUtil.drawLine(cc.p(s.width / 2, 0), cc.p(s.width / 2, s.height));
     },

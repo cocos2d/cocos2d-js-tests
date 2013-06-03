@@ -79,7 +79,7 @@ var s_ptTopLeft = cc.PointZero();
 
 var VisibleRect = {
     rect:function () {
-        if (s_rcVisible.size.width == 0) {
+        if (s_rcVisible.width == 0) {
             var s = cc.Director.getInstance().getWinSize();
             s_rcVisible = cc.RectMake(0, 0, s.width, s.height);
         }
@@ -88,48 +88,48 @@ var VisibleRect = {
     center:function () {
         if (s_ptCenter.x == 0) {
             var rc = this.rect();
-            s_ptCenter.x = rc.origin.x + rc.size.width / 2;
-            s_ptCenter.y = rc.origin.y + rc.size.height / 2;
+            s_ptCenter.x = rc.x + rc.width / 2;
+            s_ptCenter.y = rc.y + rc.height / 2;
         }
         return s_ptCenter;
     },
     top:function () {
         if (s_ptTop.x == 0) {
             var rc = this.rect();
-            s_ptTop.x = rc.origin.x + rc.size.width / 2;
-            s_ptTop.y = rc.origin.y + rc.size.height;
+            s_ptTop.x = rc.x + rc.width / 2;
+            s_ptTop.y = rc.y + rc.height;
         }
         return s_ptTop;
     },
     topRight:function () {
         if (s_ptTopRight.x == 0) {
             var rc = this.rect();
-            s_ptTopRight.x = rc.origin.x + rc.size.width;
-            s_ptTopRight.y = rc.origin.y + rc.size.height;
+            s_ptTopRight.x = rc.x + rc.width;
+            s_ptTopRight.y = rc.y + rc.height;
         }
         return s_ptTopRight;
     },
     right:function () {
         if (s_ptRight.x == 0) {
             var rc = this.rect();
-            s_ptRight.x = rc.origin.x + rc.size.width;
-            s_ptRight.y = rc.origin.y + rc.size.height / 2;
+            s_ptRight.x = rc.x + rc.width;
+            s_ptRight.y = rc.y + rc.height / 2;
         }
         return s_ptRight;
     },
     bottomRight:function () {
         if (s_ptBottomRight.x == 0) {
             var rc = this.rect();
-            s_ptBottomRight.x = rc.origin.x + rc.size.width;
-            s_ptBottomRight.y = rc.origin.y;
+            s_ptBottomRight.x = rc.x + rc.width;
+            s_ptBottomRight.y = rc.y;
         }
         return s_ptBottomRight;
     },
     bottom:function () {
         if (s_ptBottom.x == 0) {
             var rc = this.rect();
-            s_ptBottom.x = rc.origin.x + rc.size.width / 2;
-            s_ptBottom.y = rc.origin.y;
+            s_ptBottom.x = rc.x + rc.width / 2;
+            s_ptBottom.y = rc.y;
         }
         return s_ptBottom;
     },
@@ -139,20 +139,20 @@ var VisibleRect = {
     left:function () {
         if (s_ptLeft.x == 0) {
             var rc = this.rect();
-            s_ptLeft.x = rc.origin.x;
-            s_ptLeft.y = rc.origin.y + rc.size.height / 2;
+            s_ptLeft.x = rc.x;
+            s_ptLeft.y = rc.y + rc.height / 2;
         }
         return s_ptLeft;
     },
     topLeft:function () {
         if (s_ptTopLeft.x == 0) {
             var rc = this.rect();
-            s_ptTopLeft.x = rc.origin.x;
-            s_ptTopLeft.y = rc.origin.y + rc.size.height;
+            s_ptTopLeft.x = rc.x;
+            s_ptTopLeft.y = rc.y + rc.height;
         }
         return s_ptTopLeft;
     }
 };
 
-var screenWidth = VisibleRect.rect().size.width;
-var screenHeight = VisibleRect.rect().size.height;
+var screenWidth = VisibleRect.rect().width;
+var screenHeight = VisibleRect.rect().height;

@@ -204,8 +204,7 @@ function removeConnectedGems(x, y)
 		gAudioEngine.playEffect("sounds/miss.wav");
 	}
 
-	var d = new Date();
-	gLastMoveTime = d.getTime();
+	gLastMoveTime = Date.now();
 
 	return removedGems;
 }
@@ -733,9 +732,9 @@ GameScene.prototype.onDidLoadFromCCB = function()
     gTimer.setBarChangeRate(cc.p(1, 0));
     this.sprtHeader.addChild(gTimer);
 
-    var d = new Date();
-    gStartTime = d.getTime() + kIntroTime;
-    gLastMoveTime = d.getTime();
+    var dNow = Date.now();
+    gStartTime = dNow + kIntroTime;
+    gLastMoveTime = dNow;
     gNumConsecutiveGems = 0;
     gIsPowerPlay = false;
     gEndTimerStarted = false;
@@ -815,8 +814,7 @@ GameScene.prototype.processClick = function(loc)
 			gNumConsecutiveGems = 0;
 		}
 
-		var d = new Date();
-		gLastMoveTime = d.getTime();
+		gLastMoveTime = Date.now();
 	}
 };
 
@@ -937,8 +935,7 @@ GameScene.prototype.onUpdate = function(dt)
 		}
 
 		// Update timer
-		var d = new Date();
-		var currentTime = d.getTime();
+		var currentTime = Date.now();
 		var elapsedTime = (currentTime - gStartTime)/kTotalGameTime;
 		var timeLeft = (1 - elapsedTime)*100;
 		if (timeLeft < 0) timeLeft = 0;
