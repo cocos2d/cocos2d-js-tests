@@ -1681,7 +1681,7 @@ var TMXGIDObjectsTest = TileDemo.extend({
     testObjects:[],
     getExpectedResult:function () {
         var ret = [];
-        ret.push({"name":"sandro", "type":"", "x":97, "y":-2, "width":14, "height":8});
+        ret.push({"name":"sandro", "type":"", "x":97, "y":6, "width":0, "height":0});
         ret.push({"name":"", "type":"", "x":119, "y":19, "width":0, "height":0});
         ret.push({"name":"", "type":"", "x":140, "y":38, "width":0, "height":0});
         ret.push({"name":"", "type":"", "x":160, "y":57, "width":0, "height":0});
