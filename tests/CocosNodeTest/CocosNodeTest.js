@@ -580,12 +580,12 @@ var CameraZoomTest = TestNodeDemo.extend({
     testDuration:1.1,
     pixel:{"0":115, "1":0, "2":115, "3":255},
     getExpectedResult:function () {
-        var ret1 = {"z":this._z};
+        var ret1 = {"z":this._z.toFixed(2)};
         var ret2 = {"pixel":"yes"};
         return JSON.stringify([ret1, ret2]);
     },
     getCurrentResult:function () {
-        var ret1 = {"z":this.autoParam.getCamera().getEye().z};
+        var ret1 = {"z":this.autoParam.getCamera().getEye().z.toFixed(2)};
         var readPixel = this.readPixels(winSize.width / 4 * 3, winSize.height / 2, 5, 5);
         var ret2 = {"pixel":!this.containsPixel(readPixel, this.pixel, false) ? "yes" : "no"};
         return JSON.stringify([ret1, ret2]);
