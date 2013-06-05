@@ -1,5 +1,3 @@
-cc.dumpConfig();
-
 var SysMenu = cc.Layer.extend({
     _ship:null,
 

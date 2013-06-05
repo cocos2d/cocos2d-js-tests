@@ -9,7 +9,7 @@
                 debug="false" output="cocos2d-html5-testcases.js">
             <sources dir="${basedir}">
                 <file name="tests-main.js"/>
-                <file name="tests_resources-html5.js"/>
+                <file name="resources.js"/>
                 <file name="TouchesTest/Ball.js"/>
                 <file name="TouchesTest/Paddle.js"/>
                 <file name="TouchesTest/TouchesTest.js"/>
@@ -225,7 +225,7 @@
             </sources>
             <sources dir="${basedir}">
                 <file name="tests-main.js"/>
-                <file name="tests_resources-html5.js"/>
+                <file name="resources.js"/>
                 <file name="TouchesTest/Ball.js"/>
                 <file name="TouchesTest/Paddle.js"/>
                 <file name="TouchesTest/TouchesTest.js"/>
