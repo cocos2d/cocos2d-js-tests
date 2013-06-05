@@ -425,7 +425,7 @@ var GameLayer = cc.LayerGradient.extend({
 
         // sync smoke with car
         if( this._carSprite ) {
-            var p = this._carSprite.convertToWorldSpace( cc.POINT_ZERO );
+            var p = this._carSprite.convertToWorldSpace(cc.p(0,0));
             this._carSmoke.setPosition( p );
         }
 
