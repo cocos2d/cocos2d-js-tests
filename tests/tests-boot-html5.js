@@ -36,7 +36,7 @@
         renderMode:0,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
         tag:'gameCanvas', //the dom element to run cocos2d on
         engineDir:'../../cocos2d/',
-        //SingleEngineFile:'',
+        //SingleEngineFile:'../../lib/Cocos2d-html5-v2.1.2.beta2.min.js',
         appFiles:[//'src/AppDelegate.js',
 
             // base class
@@ -110,6 +110,7 @@
             'ExtensionsTest/CocosBuilderTest/TimelineCallbackTest/TimelineCallbackTestLayer.js',
             'ExtensionsTest/EditBoxTest/EditBoxTest.js',
             'ExtensionsTest/S9SpriteTest/S9SpriteTest.js',
+            'ExtensionsTest/NetworkTest/WebSocketTest.js',
 
             'Box2dTest/Box2dTest.js',
             'ChipmunkTest/ChipmunkTest.js']

@@ -31,7 +31,7 @@ var Paddle = cc.Sprite.extend({
     _rect:null,
 
     rect:function () {
-        return cc.rect(-this._rect.size.width / 2, -this._rect.size.height / 2, this._rect.size.width, this._rect.size.height);
+        return cc.rect(-this._rect.width / 2, -this._rect.height / 2, this._rect.width, this._rect.height);
     },
     initWithTexture:function (aTexture) {
         if (this._super(aTexture)) {
@@ -57,9 +57,9 @@ var Paddle = cc.Sprite.extend({
         var getPoint = touch.getLocation();
         var myRect = this.rect();
 
-        myRect.origin.x += this.getPosition().x;
-        myRect.origin.y += this.getPosition().y;
-        return cc.Rect.CCRectContainsPoint(myRect, getPoint);//this.convertTouchToNodeSpaceAR(touch));
+        myRect.x += this.getPosition().x;
+        myRect.y += this.getPosition().y;
+        return cc.rectContainsPoint(myRect, getPoint);//this.convertTouchToNodeSpaceAR(touch));
     },
 
     onTouchBegan:function (touch, event) {

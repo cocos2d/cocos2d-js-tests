@@ -1,4 +1,4 @@
- /*
+ /**
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -316,6 +316,7 @@ var ChipmunkCollisionTest = function() {
 
 	this.onExit = function() {
 		this.space.removeCollisionHandler( 1, 2 );
+        ChipmunkBaseLayer.prototype.onExit.call(this);
 	};
 
 	this.update = function( delta ) {
@@ -441,6 +442,7 @@ var ChipmunkCollisionTestB = function() {
 	this.onExit = function() {
 		cp.spaceRemoveCollisionHandler( this.space, 1, 2 );
         cp.spaceFree( this.space );
+        ChipmunkBaseLayer.prototype.onExit.call(this);
 	};
 
 	this.update = function( delta ) {

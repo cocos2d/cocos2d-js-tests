@@ -63,7 +63,10 @@ function setupBoard()
 
 	gNumGemsInColumn = new Array(kBoardWidth);
 	gTimeSinceAddInColumn = new Array(kBoardWidth);
-	for (var x = 0; x < kBoardWidth; x++)
+	
+	var x;
+	
+	for (x = 0; x < kBoardWidth; x++)
 	{
 		gNumGemsInColumn[x] = 0;
 		gTimeSinceAddInColumn[x] = 0;
@@ -71,7 +74,7 @@ function setupBoard()
 
 	// Setup falling pieces
 	gFallingGems = new Array(kBoardWidth);
-	for (var x = 0; x < kBoardWidth; x++)
+	for (x = 0; x < kBoardWidth; x++)
 	{
 		gFallingGems[x] = new Array(0);
 	}
@@ -110,7 +113,7 @@ function findConnectedGems_(x, y, arr, gemType)
 
 function findConnectedGems(x, y)
 {
-	var connected = new Array();
+	var connected = [];
 	if (gBoard[x + y*kBoardWidth] <= -1) return connected;
 
 	findConnectedGems_(x, y, connected, gBoard[x + y*kBoardWidth]);
@@ -141,8 +144,8 @@ function removeConnectedGems(x, y)
 		{
 			// Add power-up
 			idxPup = connected[Math.floor(Math.random()*connected.length)];
-			var pupX = idxPup % kBoardWidth;
-			var pupY = Math.floor(idxPup/kBoardWidth);
+			pupX = idxPup % kBoardWidth;
+			pupY = Math.floor(idxPup/kBoardWidth);
 		}
 
 		for (var i = 0; i < connected.length; i++)
@@ -201,8 +204,7 @@ function removeConnectedGems(x, y)
 		gAudioEngine.playEffect("sounds/miss.wav");
 	}
 
-	var d = new Date();
-	gLastMoveTime = d.getTime();
+	gLastMoveTime = Date.now();
 
 	return removedGems;
 }
@@ -228,11 +230,12 @@ function activatePowerUp(x, y)
 		gBoard[idx] = -kNumRemovalFrames;
 		gGameLayer.removeChild(gBoardSprites[idx], true);
 		gBoardSprites[idx] = null;
-
+		
 		// Remove a horizontal line
+		var idxRemove;
 		for (var xRemove = 0; xRemove < kBoardWidth; xRemove++)
 		{
-			var idxRemove = xRemove + y * kBoardWidth;
+			idxRemove = xRemove + y * kBoardWidth;
 			if (gBoard[idxRemove] >= 0 && gBoard[idxRemove] < 5)
 			{
 				gBoard[idxRemove] = -kNumRemovalFrames;
@@ -244,7 +247,7 @@ function activatePowerUp(x, y)
 		// Remove a vertical line
 		for (var yRemove = 0; yRemove < kBoardHeight; yRemove++)
 		{
-			var idxRemove = x + yRemove * kBoardWidth;
+			idxRemove = x + yRemove * kBoardWidth;
 			if (gBoard[idxRemove] >= 0 && gBoard[idxRemove] < 5)
 			{
 				gBoard[idxRemove] = -kNumRemovalFrames;
@@ -451,7 +454,7 @@ function createRandomMove()
 
 function createGameOver()
 {
-	gGameOverGems = new Array();
+	gGameOverGems = [];
 
 	for (var x = 0; x < kBoardWidth; x++)
 	{
@@ -469,14 +472,14 @@ function createGameOver()
 
 		for (var y = 0; y < kBoardHeight; y++)
 		{
-			var i = x + y * kBoardWidth;
-			if (gBoardSprites[i])
+			var i1 = x + y * kBoardWidth;
+			if (gBoardSprites[i1])
 			{
-				var ySpeed = (Math.random()*2-1)*kGameOverGemSpeed;
-				var xSpeed = (Math.random()*2-1)*kGameOverGemSpeed;
+				var ySpeed1 = (Math.random()*2-1)*kGameOverGemSpeed;
+				var xSpeed1 = (Math.random()*2-1)*kGameOverGemSpeed;
 
-				var gameOverGem = {sprite: gBoardSprites[i], xPos:x, yPos: y, ySpeed: ySpeed, xSpeed: xSpeed};
-				gGameOverGems.push(gameOverGem);
+				var gameOverGem1 = {sprite: gBoardSprites[i1], xPos:x, yPos: y, ySpeed: ySpeed1, xSpeed: xSpeed1};
+				gGameOverGems.push(gameOverGem1);
 			}
 		}
 	}
@@ -512,9 +515,9 @@ function displayHint()
 
 	for (var i = 0; i < connected.length; i++)
 	{
-		var idx = connected[i];
-		var x = idx % kBoardWidth;
-		var y = Math.floor(idx/kBoardWidth);
+		idx = connected[i];
+		x = idx % kBoardWidth;
+		y = Math.floor(idx/kBoardWidth);
 
 		var actionFadeIn = cc.FadeIn.create(0.5);
 		var actionFadeOut = cc.FadeOut.create(0.5);
@@ -538,8 +541,8 @@ function debugPrintBoard()
 		cc.log(""+gBoard[i]+gBoard[i+1]+gBoard[i+2]+gBoard[i+3]+gBoard[i+4]+gBoard[i+5]+gBoard[i+6]+gBoard[i+7]);
 	}
 	cc.log("--------");
-	cc.log(""+gNumGemsInColumn[0]+" "+gNumGemsInColumn[1]+" "+gNumGemsInColumn[2]+" "+gNumGemsInColumn[3]+" "
-		+gNumGemsInColumn[4]+" "+gNumGemsInColumn[5]+" "+gNumGemsInColumn[6]+" "+gNumGemsInColumn[7]);
+	cc.log(""+gNumGemsInColumn[0]+" "+gNumGemsInColumn[1]+" "+gNumGemsInColumn[2]+" "+gNumGemsInColumn[3]+" "+
+		gNumGemsInColumn[4]+" "+gNumGemsInColumn[5]+" "+gNumGemsInColumn[6]+" "+gNumGemsInColumn[7]);
 }
 
 function setupShimmer()
@@ -553,13 +556,17 @@ function setupShimmer()
 		var seqRot = null;
 		var seqMov = null;
 		var seqSca = null;
+		
+		var x;
+		var y;
+		var rot;
 
 		for (var j = 0; j < 10; j++)
 		{
 			var time = Math.random()*10+5;
-			var x = kBoardWidth*kGemSize/2;
-			var y = Math.random()*kBoardHeight*kGemSize;
-			var rot = Math.random()*180-90;
+			x = kBoardWidth*kGemSize/2;
+			y = Math.random()*kBoardHeight*kGemSize;
+			rot = Math.random()*180-90;
 			var scale = Math.random()*3 + 3;
 
 			var actionRot = cc.EaseInOut.create(cc.RotateTo.create(time, rot), 2);
@@ -580,9 +587,9 @@ function setupShimmer()
 			}
 		}
 
-		var x = kBoardWidth*kGemSize/2;
-		var y = Math.random()*kBoardHeight*kGemSize;
-		var rot = Math.random()*180-90;
+		x = kBoardWidth*kGemSize/2;
+		y = Math.random()*kBoardHeight*kGemSize;
+		rot = Math.random()*180-90;
 
 		sprt.setPosition(cc.p(x,y));
 		sprt.setRotation(rot);
@@ -725,9 +732,9 @@ GameScene.prototype.onDidLoadFromCCB = function()
     gTimer.setBarChangeRate(cc.p(1, 0));
     this.sprtHeader.addChild(gTimer);
 
-    var d = new Date();
-    gStartTime = d.getTime() + kIntroTime;
-    gLastMoveTime = d.getTime();
+    var dNow = Date.now();
+    gStartTime = dNow + kIntroTime;
+    gLastMoveTime = dNow;
     gNumConsecutiveGems = 0;
     gIsPowerPlay = false;
     gEndTimerStarted = false;
@@ -742,7 +749,7 @@ GameScene.prototype.onDidLoadFromCCB = function()
 
     // TODO: Make into batch node
 
-    if ("opengl" in sys.capabilities && !"browser" == sys.platform)
+    if ("opengl" in sys.capabilities && "browser" != sys.platform)
     {
         cc.log("OpenGL rendering");
         gParticleLayer = cc.ParticleBatchNode.create("particles/taken-gem.png", 250);
@@ -807,8 +814,7 @@ GameScene.prototype.processClick = function(loc)
 			gNumConsecutiveGems = 0;
 		}
 
-		var d = new Date();
-		gLastMoveTime = d.getTime();
+		gLastMoveTime = Date.now();
 	}
 };
 
@@ -831,11 +837,14 @@ GameScene.prototype.onUpdate = function(dt)
 	{
 		removeMarkedGems();
 
+		var x;
+		var gem;
+		
 		// Add falling gems
-		for (var x = 0; x < kBoardWidth; x++)
+		for (x = 0; x < kBoardWidth; x++)
 		{
-			if (gNumGemsInColumn[x] + gFallingGems[x].length < kBoardHeight
-				&& gTimeSinceAddInColumn[x] >= kTimeBetweenGemAdds)
+			if (gNumGemsInColumn[x] + gFallingGems[x].length < kBoardHeight &&
+				gTimeSinceAddInColumn[x] >= kTimeBetweenGemAdds)
 			{
 				// A gem should be added to this column!
 				var gemType = Math.floor(Math.random()*5);
@@ -843,7 +852,7 @@ GameScene.prototype.onUpdate = function(dt)
 				gemSprite.setPosition(cc.p(x * kGemSize, kBoardHeight * kGemSize));
 				gemSprite.setAnchorPoint(cc.p(0,0));
 
-				var gem = {gemType: gemType, sprite: gemSprite, yPos: kBoardHeight, ySpeed: 0};
+				gem = {gemType: gemType, sprite: gemSprite, yPos: kBoardHeight, ySpeed: 0};
 				gFallingGems[x].push(gem);
 
 				gGameLayer.addChild(gemSprite);
@@ -856,13 +865,13 @@ GameScene.prototype.onUpdate = function(dt)
 
 		// Move falling gems
 		var gemLanded = false;
-		for (var x = 0; x < kBoardWidth; x++)
+		for (x = 0; x < kBoardWidth; x++)
 		{
 			var column = gFallingGems[x];
 			var numFallingGems = gFallingGems[x].length;
 			for (var i = numFallingGems-1; i >= 0; i--)
 			{
-				var gem = column[i];
+				gem = column[i];
 
 				gem.ySpeed += 0.06;
 				gem.ySpeed *= 0.99;
@@ -906,7 +915,7 @@ GameScene.prototype.onUpdate = function(dt)
 
 		// Check if there are possible moves and no gems falling
 		var isFallingGems = false;
-		for (var x = 0; x < kBoardWidth; x++)
+		for (x = 0; x < kBoardWidth; x++)
 		{
 			if (gNumGemsInColumn[x] != kBoardHeight)
 			{
@@ -926,8 +935,7 @@ GameScene.prototype.onUpdate = function(dt)
 		}
 
 		// Update timer
-		var d = new Date();
-		var currentTime = d.getTime();
+		var currentTime = Date.now();
 		var elapsedTime = (currentTime - gStartTime)/kTotalGameTime;
 		var timeLeft = (1 - elapsedTime)*100;
 		if (timeLeft < 0) timeLeft = 0;
@@ -953,7 +961,7 @@ GameScene.prototype.onUpdate = function(dt)
 		}
 
 		// Check for game over
-		if (timeLeft == 0)
+		if (timeLeft === 0)
 		{
 			createGameOver();
 			this.rootNode.animationManager.runAnimationsForSequenceNamed("Outro");
@@ -980,7 +988,7 @@ GameScene.prototype.onAnimationComplete = function()
 	if (gIsGameOver)
 	{
 		var scene = cc.BuilderReader.loadAsScene("MainScene.ccbi");
-    	cc.Director.getInstance().replaceScene(scene);
+		cc.Director.getInstance().replaceScene(scene);
     }
 };
 

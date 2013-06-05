@@ -3549,8 +3549,8 @@ var DoubleSprite = cc.Sprite.extend({
     setVertexRect:function (rect) {
         // If Retina Display and Texture is in HD then scale the vertex rect
         if (cc.CONTENT_SCALE_FACTOR() == 2 && !this.HD) {
-            rect.size.width *= 2;
-            rect.size.height *= 2;
+            rect.width *= 2;
+            rect.height *= 2;
         }
         this._super(rect);
     }
