@@ -1020,7 +1020,7 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
     fontDefRedShadow.shadowOffset   = shadowOffset;
     
     // create the label using the definition
-    this._labelShadow = cc.LabelTTF.createWithStringFontDefinition("Shadow Only", fontDefRedShadow);
+    this._labelShadow = cc.LabelTTF.createWithFontDefinition("Shadow Only", fontDefRedShadow);
     this._labelShadow.setAnchorPoint(cc.p(0, 0));
     this._labelShadow.setPosition(cc.p(posX, posY_5));
     
@@ -1036,7 +1036,7 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
     fontDefBlueStroke.strokeEnabled  = true;
     fontDefBlueStroke.strokeColor    = yellowColor;
     
-    this._labelStroke = cc.LabelTTF.createWithStringFontDefinition("Stroke Only", fontDefBlueStroke);
+    this._labelStroke = cc.LabelTTF.createWithFontDefinition("Stroke Only", fontDefBlueStroke);
     this._labelStroke.setAnchorPoint(cc.p(0, 0));
     this._labelStroke.setPosition(cc.p(posX, posY_5 * 2));
     
@@ -1055,7 +1055,7 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
     fontDefRedStrokeShadow.shadowEnabled  = true;
     fontDefRedStrokeShadow.shadowOffset   = shadowOffset;
     
-    this._labelStrokeShadow = cc.LabelTTF.createWithStringFontDefinition("Stroke + Shadow", fontDefRedStrokeShadow);
+    this._labelStrokeShadow = cc.LabelTTF.createWithFontDefinition("Stroke + Shadow", fontDefRedStrokeShadow);
     this._labelStrokeShadow.setAnchorPoint(cc.p(0, 0));
     this._labelStrokeShadow.setPosition(cc.p(posX, posY_5 * 3));
     
