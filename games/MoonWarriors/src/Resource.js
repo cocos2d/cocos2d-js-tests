@@ -48,6 +48,7 @@ var g_mainmenu = [
     {src:s_flare},
     {src:s_menu},
     {src:s_logo},
+    {src:s_flare},
 	{src:s_b01},
     {src:s_mainMainMusic_mp3},
     {src:s_mainMainMusic_ogg},
