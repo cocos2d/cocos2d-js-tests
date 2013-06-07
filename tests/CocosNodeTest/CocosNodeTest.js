@@ -76,8 +76,8 @@ var CCNodeTest2 = TestNodeDemo.extend({
         var sp3 = cc.Sprite.create(s_pathSister1);
         var sp4 = cc.Sprite.create(s_pathSister2);
 
-        sp1.setPosition(cc.p(150, winSize.height / 2));
-        sp2.setPosition(cc.p(winSize.width - 150, winSize.height / 2));
+        sp1.setPosition(cc.p(winSize.width/4, winSize.height / 2));
+        sp2.setPosition(cc.p(winSize.width/4*3, winSize.height / 2));
         this.addChild(sp1);
         this.addChild(sp2);
 
@@ -108,14 +108,14 @@ var CCNodeTest2 = TestNodeDemo.extend({
     //
     testDuration:4.1,
     pixel1:{"0":255, "1":230, "2":204, "3":255},
-    pixel2:{"0":204, "1":63, "2":57, "3":255},
+    pixel2:{"0":204, "1":153, "2":102, "3":255},
     getExpectedResult:function () {
         var ret = {"pixel1":"yes", "pixel2":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(96, winSize.height / 2 - 146, 5, 5);
-        var ret2 = this.readPixels(winSize.width - 89, winSize.height / 2 + 159, 5, 5);
+        var ret1 = this.readPixels(winSize.width/4-54, winSize.height / 2-146, 5, 5);
+        var ret2 = this.readPixels(winSize.width/4*3+98, winSize.height / 2+115, 5, 5);
         var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
             "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"};
         return JSON.stringify(ret);
