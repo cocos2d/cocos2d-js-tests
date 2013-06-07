@@ -179,20 +179,20 @@ var TMXOrthoTest = TileDemo.extend({
 
     // Automation
     testDuration:2.1,
-    pixel1:{"0":213, "1":202, "2":190, "3":255},
+    pixel1:{"0":218, "1":218, "2":208, "3":255},
     pixel2:{"0":193, "1":143, "2":72, "3":255},
     pixel3:{"0":200, "1":15, "2":160, "3":255},
     getExpectedResult:function () {
-        var ret = {"one":"yes", "two":"yes", "three":"yes"};
+        var ret = {"pixel1":"yes", "pixel2":"yes", "pixel3":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(13, 3, 10, 10);
+        var ret1 = this.readPixels(82, 114, 10, 10);
         var ret2 = this.readPixels(475, 100, 10, 10);
         var ret3 = this.readPixels(312, 196, 10, 10);
-        var ret = {"one":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
-            "two":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
-            "three":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
+        var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
+            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
+            "pixel3":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
         return JSON.stringify(ret);
     }
 });
@@ -230,20 +230,20 @@ var TMXOrthoTest2 = TileDemo.extend({
     },
 
     // Automation
-    pixel1:{"0":108, "1":68, "2":60, "3":255},
+    pixel1:{"0":192, "1":144, "2":16, "3":255},
     pixel2:{"0":255, "1":255, "2":255, "3":255},
     pixel3:{"0":40, "1":0, "2":0, "3":255},
     getExpectedResult:function () {
-        var ret = {"one":"yes", "two":"yes", "three":"yes"};
+        var ret = {"pixel1":"yes", "pixel2":"yes", "pixel3":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(90, 0, 5, 5);
+        var ret1 = this.readPixels(99, 142, 5, 5);
         var ret2 = this.readPixels(238, 270, 5, 5);
         var ret3 = this.readPixels(419, 239, 5, 5);
-        var ret = {"one":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
-            "two":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
-            "three":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
+        var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
+            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
+            "pixel3":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
         return JSON.stringify(ret);
     }
 });
@@ -272,16 +272,16 @@ var TMXOrthoTest3 = TileDemo.extend({
     pixel2:{"0":0, "1":0, "2":0, "3":255},
     pixel3:{"0":0, "1":0, "2":0, "3":255},
     getExpectedResult:function () {
-        var ret = {"one":"yes", "two":"yes", "three":"yes"};
+        var ret = {"pixel1":"yes", "pixel2":"yes", "pixel3":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
         var ret1 = this.readPixels(0, 0, 10, 10);
         var ret2 = this.readPixels(107, 58, 10, 10);
         var ret3 = this.readPixels(58, 107, 10, 10);
-        var ret = {"one":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
-            "two":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
-            "three":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
+        var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
+            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
+            "pixel3":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
         return JSON.stringify(ret);
     }
 });
@@ -621,16 +621,16 @@ var TMXIsoTest2 = TileDemo.extend({
     // Automation
     //
     testDuration:1.2,
-    pixel:{"0":28, "1":28, "2":36, "3":255},
+    pixel:{"0":0, "1":0, "2":0, "3":255},
     getExpectedResult:function () {
         var ret = {"pixel":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
         var ret1 = true;
-        for (var i = 0; i < 6; i++) {
-            var item = this.readPixels(69, 291, 5, 5);
-            if (!this.containsPixel(item, this.pixel, false)) {
+        for (var i = 1; i < 6; i++) {
+            var item = this.readPixels(62*i, 191, 5, 5);
+            if (!this.containsPixel(item, this.pixel, true,2)) {
                 ret1 = false;
             }
         }
@@ -679,16 +679,16 @@ var TMXUncompressedTest = TileDemo.extend({
     // Automation
     //
     testDuration:1.2,
-    pixel:{"0":28, "1":28, "2":36, "3":255},
+    pixel:{"0":0, "1":0, "2":0, "3":255},
     getExpectedResult:function () {
         var ret = {"pixel":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
         var ret1 = true;
-        for (var i = 0; i < 6; i++) {
-            var item = this.readPixels(69, 291, 5, 5);
-            if (!this.containsPixel(item, this.pixel, false)) {
+        for (var i = 1; i < 6; i++) {
+            var item = this.readPixels(62*i, 191, 5, 5);
+            if (!this.containsPixel(item, this.pixel, true,2)) {
                 ret1 = false;
             }
         }
@@ -1057,8 +1057,7 @@ var TMXOrthoZorder = TileDemo.extend({
 
         var move = cc.MoveBy.create(5, cc.pMult(cc.p(400, 450), 0.58));
         var back = move.reverse();
-        var delay = cc.DelayTime.create(0.5);
-        var seq = cc.Sequence.create(move, delay, back);
+        var seq = cc.Sequence.create(move, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
 
         this.schedule(this.repositionSprite);
@@ -1087,16 +1086,16 @@ var TMXOrthoZorder = TileDemo.extend({
     //
     // Automation
     //
-    testDuration:5.2,
-    pixel1:{"0":48, "1":99, "2":121, "3":255},
-    pixel2:{"0":89, "1":140, "2":47, "3":255},
+    testDuration:2,
+    pixel1:{"0":117, "1":185, "2":63, "3":255},
+    pixel2:{"0":204, "1":153, "2":102, "3":255},
     getExpectedResult:function () {
         var ret = {"pixel1":"yes","pixel2":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(217, 271, 5, 5);
-        var ret2 = this.readPixels(226, 288, 5, 5);
+        var ret1 = this.readPixels(86, 131, 5, 5);
+        var ret2 = this.readPixels(82, 185, 5, 5);
         var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
             "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"}
         return JSON.stringify(ret);
@@ -1355,14 +1354,14 @@ var TMXOrthoFlipTest = TileDemo.extend({
     // Automation
     //
     testDuration:2.2,
-    pixel:{"0":27, "1":28, "2":36, "3":255},
+    pixel:{"0":41, "1":42, "2":54, "3":255},
     getExpectedResult:function () {
         var ret = {"pixel1":"yes", "pixel2":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(102, 156, 5, 5);
-        var ret2 = this.readPixels(105, 156, 5, 5);
+        var ret1 = this.readPixels(93, 153, 5, 5);
+        var ret2 = this.readPixels(105, 153, 5, 5);
         var ret = {"pixel1":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no",
             "pixel2":this.containsPixel(ret2, this.pixel, false) ? "yes" : "no"};
         return JSON.stringify(ret);
@@ -1463,17 +1462,23 @@ var TMXOrthoFlipRunTimeTest = TileDemo.extend({
     //
     // Automation
     //
-    testDuration:2.2,
-    pixel:{"0":27, "1":28, "2":36, "3":255},
+    testDuration:3.2,
+    pixel:{"0":41, "1":42, "2":54, "3":255},
+    pixel1:null,
+    setupAutomation:function(){
+        var fun = function(){
+            this.pixel1 = this.readPixels(104, 154, 5, 5);
+        }
+        this.scheduleOnce(fun,2.2);
+    },
     getExpectedResult:function () {
         var ret = {"pixel1":"yes", "pixel2":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(102, 156, 5, 5);
-        var ret2 = this.readPixels(105, 156, 5, 5);
-        var ret = {"pixel1":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no",
-            "pixel2":this.containsPixel(ret2, this.pixel, false) ? "yes" : "no"};
+        this.pixel2 = this.readPixels(145, 154, 5, 5);
+        var ret = {"pixel1":this.containsPixel(this.pixel1, this.pixel, false) ? "yes" : "no",
+            "pixel2":this.containsPixel(this.pixel2, this.pixel, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -1608,13 +1613,13 @@ var TMXBug787 = TileDemo.extend({
     // Automation
     //
     testDuration:0.25,
-    pixel:{"0":29, "1":177, "2":66, "3":255},
+    pixel:{"0":255, "1":255, "2":255, "3":255},
     getExpectedResult:function () {
         var ret = {"pixel":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(204, 244, 5, 5);
+        var ret1 = this.readPixels(364, 243, 5, 5);
         var ret = {"pixel":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
