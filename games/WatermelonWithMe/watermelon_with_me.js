@@ -1198,7 +1198,6 @@ if (sys.platform !== "browser") {
 // Main entry point - html5
 //
 //------------------------------------------------------------------
-
 var WaterMelonScene = cc.Scene.extend({
     ctor:function () {
         this._super();

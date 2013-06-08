@@ -5,7 +5,6 @@
 
  http://www.cocos2d-x.org
 
-
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
@@ -24,26 +23,26 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+
 (function () {
     var d = document;
     var c = {
-        COCOS2D_DEBUG:2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
-        box2d:false,
-        chipmunk:true,
-        showFPS:true,
-        loadExtension:true,
-        frameRate:60,
-        tag:'gameCanvas', //the dom element to run cocos2d on
-        engineDir:'../../../cocos2d/',
-        //SingleEngineFile:'',
-        appFiles:[//'src/AppDelegate.js',
-            'resources-html5.js',
-            'levels.js',
-            'watermelon_with_me.js']
-
+        COCOS2D_DEBUG: 2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
+        box2d: false,
+        chipmunk: true,
+        showFPS: true,
+        loadExtension: true,
+        frameRate: 60,
+        renderMode: 0,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
+        tag: 'gameCanvas' //the dom element to run cocos2d on
     };
 
-    if(!d.createElement('canvas').getContext){
+    var watermelonFiles = [
+        'resources-html5',
+        'levels',
+        'watermelon_with_me'];
+
+    if (!d.createElement('canvas').getContext) {
         var s = d.createElement('div');
         s.innerHTML = '<h2>Your browser does not support HTML5 canvas!</h2>' +
             '<p>Google Chrome is a browser that combines a minimal design with sophisticated technology to make the web faster, safer, and easier.Click the logo to download.</p>' +
@@ -56,27 +55,28 @@
         d.body.style.background = '#ffffff';
         return;
     }
+    document.ccConfig = c;
+    var paths = {'cocos2d': '../../../cocos2d',
+        'CocosDenshion': '../../../CocosDenshion',
+        'extensions': '../../../extensions'};
+    if (c.box2d)
+        paths['box2d'] = '../../../box2d';
+    if (c.chipmunk)
+        paths['chipmunk'] = '../../../chipmunk';
 
-    window.addEventListener('DOMContentLoaded', function () {
-        //first load engine file if specified
-        var s = d.createElement('script');
-        /*********Delete this section if you have packed all files into one*******/
-        if (c.SingleEngineFile && !c.engineDir) {
-            s.src = c.SingleEngineFile;
-        }
-        else if (c.engineDir && !c.SingleEngineFile) {
-            s.src = c.engineDir + 'platform/jsloader.js';
-        }
-        else {
-            alert('You must specify either the single engine file OR the engine directory in "cocos2d.js"');
-        }
-        /*********Delete this section if you have packed all files into one*******/
+    requirejs.config({
+        paths: paths
+    });
 
-            //s.src = 'Packed_Release_File.js'; //IMPORTANT: Un-comment this line if you have packed all files into one
+    var sysInclude = ["cocos2d/CCGlobal"];
+    if (c.chipmunk)
+        sysInclude.push("chipmunk/chipmunk");
+    if (c.box2d)
+        sysInclude.push("box2d/box2d");
 
-        d.body.appendChild(s);
-        document.ccConfig = c;
-        s.id = 'cocos2d-html5';
-        //else if single file specified, load singlefile
+    require(sysInclude, function () {
+        for (var i = 0; i < watermelonFiles.length; i++)
+            require([watermelonFiles[i]]);
+        require(["main"]);
     });
 })();

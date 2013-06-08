@@ -31,36 +31,37 @@ var MW = MW || {};
 (function () {
     var d = document;
     var c = {
-        COCOS2D_DEBUG:2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
-        showFPS:true,
-        loadExtension:true,
-        frameRate:60,
-        tag:'gameCanvas', //the dom element to run cocos2d on
-        engineDir:'../../../cocos2d/',
-        appFiles:[
-            'src/Resource.js',
-            'src/config/GameConfig.js',
-            'src/config/EnemyType.js',
-            'src/config/Level.js',
-            'src/Effect.js',
-            'src/Bullet.js',
-            'src/Enemy.js',
-            'src/Explosion.js',
-            'src/Ship.js',
-            'src/LevelManager.js',
-            'src/GameController.js',
-            'src/GameControlMenu.js',
-            'src/GameLayer.js',
-            'src/GameOver.js',
-            'src/AboutLayer.js',
-            'src/SettingsLayer.js',
-            'src/SysMenu.js',
-            'src/HitEffect.js',
-            'src/SparkEffect.js'
-        ]
+        COCOS2D_DEBUG: 2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
+        showFPS: true,
+        loadExtension: true,
+        frameRate: 60,
+        renderMode: 0,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
+        tag: 'gameCanvas' //the dom element to run cocos2d on
     };
 
-    if(!d.createElement('canvas').getContext){
+    var moonWarriorsFiles = [
+        'src/Resource',
+        'src/config/GameConfig',
+        'src/config/EnemyType',
+        'src/config/Level',
+        'src/Effect',
+        'src/Bullet',
+        'src/Enemy',
+        'src/Explosion',
+        'src/Ship',
+        'src/LevelManager',
+        'src/GameController',
+        'src/GameControlMenu',
+        'src/GameLayer',
+        'src/GameOver',
+        'src/AboutLayer',
+        'src/SettingsLayer',
+        'src/SysMenu',
+        'src/HitEffect',
+        'src/SparkEffect'
+    ];
+
+    if (!d.createElement('canvas').getContext) {
         var s = d.createElement('div');
         s.innerHTML = '<h2>Your browser does not support HTML5 canvas!</h2>' +
             '<p>Google Chrome is a browser that combines a minimal design with sophisticated technology to make the web faster, safer, and easier.Click the logo to download.</p>' +
@@ -70,27 +71,30 @@ var MW = MW || {};
         return;
     }
 
+    document.ccConfig = c;
+    var paths = {'cocos2d': '../../../cocos2d',
+        'CocosDenshion': '../../../CocosDenshion',
+        'extensions': '../../../extensions'};
+    if (c.box2d)
+        paths['box2d'] = '../../../box2d';
+    if (c.chipmunk)
+        paths['chipmunk'] = '../../../chipmunk';
 
-    window.addEventListener('DOMContentLoaded', function () {
-        //first load engine file if specified
-        var s = d.createElement('script');
-        /*********Delete this section if you have packed all files into one*******/
-        if (c.SingleEngineFile && !c.engineDir) {
-            s.src = c.SingleEngineFile;
-        }
-        else if (c.engineDir && !c.SingleEngineFile) {
-            s.src = c.engineDir + 'platform/jsloader.js';
-        }
-        else {
-            alert('You must specify either the single engine file OR the engine directory in "cocos2d.js"');
-        }
-        /*********Delete this section if you have packed all files into one*******/
+    requirejs.config({
+        paths: paths
+    });
 
-            //s.src = 'Packed_Release_File.js'; //IMPORTANT: Un-comment this line if you have packed all files into one
+    var sysInclude = ["cocos2d/CCGlobal"];
+    if (c.chipmunk)
+        sysInclude.push("chipmunk/chipmunk");
+    if (c.box2d)
+        sysInclude.push("box2d/box2d");
 
-        d.body.appendChild(s);
-        document.ccConfig = c;
-        s.id = 'cocos2d-html5';
-        //else if single file specified, load singlefile
+    require(sysInclude, function () {
+        require(['src/Resource'], function () {
+            for (var i = 0; i < moonWarriorsFiles.length; i++)
+                require([moonWarriorsFiles[i]]);
+            require(["main"]);
+        });
     });
 })();
