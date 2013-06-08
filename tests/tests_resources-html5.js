@@ -463,6 +463,9 @@ var g_extensions = [
     {src:"res/ccb/particle-snow.png"},
     {src:"res/ccb/particle-stars.png"},
     {src:"res/ccb/scale-9-demo.png"},
+    {src:"res/extensions/green_edit.png"},
+    {src:"res/extensions/orange_edit.png"},
+    {src:"res/extensions/yellow_edit.png"},
 
     {src:"res/ccb/markerfelt24shadow.fnt"},
 

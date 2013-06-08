@@ -105,6 +105,7 @@
         'ExtensionsTest/CocosBuilderTest/TimelineCallbackTest/TimelineCallbackTestLayer',
         'ExtensionsTest/EditBoxTest/EditBoxTest',
         'ExtensionsTest/S9SpriteTest/S9SpriteTest',
+        'ExtensionsTest/NetworkTest/WebSocketTest.js',
 
         'Box2dTest/Box2dTest',
         'ChipmunkTest/ChipmunkTest'
