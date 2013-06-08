@@ -295,7 +295,7 @@ var g_opengl_resources = [
     {src:"res/Shaders/example_Twist.vsh"},
 
     {src:"res/fonts/west_england-64.fnt"},
-    {src:"res/fonts/west_england-64.png"},
+    {src:"res/fonts/west_england-64.png"}
 ];
 
 var g_label = [
