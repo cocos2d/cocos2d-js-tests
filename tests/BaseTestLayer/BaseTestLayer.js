@@ -231,7 +231,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
     containsPixel: function(arr, pix, approx, range) {
 
 	range = range || 50.0;
-	approx = approx || true;
+	approx = approx || false;
 
         var abs = function(a,b) {
 	    return ((a-b) > 0) ? (a-b) : (b-a);
@@ -261,8 +261,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
             return array;
         } else {
             // implement a canvas-html5 readpixels
-            //throw "readPixels Not implemented on canvas yet";
-            return ctx.getImageData(x, y, w, h).data;
+            return cc.renderContext.getImageData(x, winSize.height-y-h, w, h).data;
         }
     },
 

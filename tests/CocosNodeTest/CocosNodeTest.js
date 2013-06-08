@@ -29,7 +29,7 @@ var TAG_SPRITE2 = 2;
 var TAG_SPRITE3 = 3;
 var TAG_SLIDER = 4;
 
-var nodeTestSceneIdx  = -1;
+var nodeTestSceneIdx = -1;
 var MAX_LAYER = 9;
 
 var TestNodeDemo = BaseTestLayer.extend({
@@ -58,11 +58,11 @@ var TestNodeDemo = BaseTestLayer.extend({
         director.replaceScene(s);
     },
     // automation
-    numberOfPendingTests:function() {
-        return ( (arrayOfNodeTest.length-1) - nodeTestSceneIdx );
+    numberOfPendingTests:function () {
+        return ( (arrayOfNodeTest.length - 1) - nodeTestSceneIdx );
     },
 
-    getTestNumber:function() {
+    getTestNumber:function () {
         return nodeTestSceneIdx;
     }
 });
@@ -76,8 +76,8 @@ var CCNodeTest2 = TestNodeDemo.extend({
         var sp3 = cc.Sprite.create(s_pathSister1);
         var sp4 = cc.Sprite.create(s_pathSister2);
 
-        sp1.setPosition(cc.p(150, winSize.height / 2));
-        sp2.setPosition(cc.p(winSize.width - 150, winSize.height / 2));
+        sp1.setPosition(cc.p(winSize.width/4, winSize.height / 2));
+        sp2.setPosition(cc.p(winSize.width/4*3, winSize.height / 2));
         this.addChild(sp1);
         this.addChild(sp2);
 
@@ -89,10 +89,11 @@ var CCNodeTest2 = TestNodeDemo.extend({
 
         var a1 = cc.RotateBy.create(2, 360);
         var a2 = cc.ScaleBy.create(2, 2);
+        var delay = cc.DelayTime.create(0.2);
 
-        var action1 = cc.RepeatForever.create(cc.Sequence.create(a1, a2, a2.reverse()));
+        var action1 = cc.RepeatForever.create(cc.Sequence.create(a1, a2, delay, a2.reverse()));
         var action2 = cc.RepeatForever.create(cc.Sequence.create(
-            a1.copy(), a2.copy(), a2.reverse()));
+            a1.copy(), a2.copy(), delay.copy(), a2.reverse()));
 
         sp2.setAnchorPoint(cc.p(0, 0));
 
@@ -101,6 +102,23 @@ var CCNodeTest2 = TestNodeDemo.extend({
     },
     title:function () {
         return "anchorPoint and children";
+    },
+    //
+    // Automation
+    //
+    testDuration:4.1,
+    pixel1:{"0":255, "1":230, "2":204, "3":255},
+    pixel2:{"0":204, "1":153, "2":102, "3":255},
+    getExpectedResult:function () {
+        var ret = {"pixel1":"yes", "pixel2":"yes"};
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret1 = this.readPixels(winSize.width/4-54, winSize.height / 2-146, 5, 5);
+        var ret2 = this.readPixels(winSize.width/4*3+98, winSize.height / 2+115, 5, 5);
+        var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
+            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"};
+        return JSON.stringify(ret);
     }
 });
 
@@ -119,6 +137,9 @@ var CCNodeTest4 = TestNodeDemo.extend({
 
         this.schedule(this.delay2, 2.0);
         this.schedule(this.delay4, 4.0);
+
+        //Automation param
+        this.autoParam = sp1;
     },
     delay2:function (dt) {
         var node = this.getChildByTag(2);
@@ -131,6 +152,17 @@ var CCNodeTest4 = TestNodeDemo.extend({
     },
     title:function () {
         return "tags";
+    },
+    //
+    // Automation
+    //
+    testDuration:1,
+    getExpectedResult:function () {
+        return this.autoParam;
+    },
+    getCurrentResult:function () {
+        var node = this.getChildByTag(2);
+        return node;
     }
 });
 
@@ -168,6 +200,9 @@ var CCNodeTest5 = TestNodeDemo.extend({
         this.removeChild(sp1, false);
         this.removeChild(sp2, true);
 
+        this.testSP1 = this.getChildByTag(TAG_SPRITE1);
+        this.testSP2 = this.getChildByTag(TAG_SPRITE2);
+
         this.addChild(sp1, 0, TAG_SPRITE1);
         this.addChild(sp2, 0, TAG_SPRITE2);
 
@@ -177,6 +212,26 @@ var CCNodeTest5 = TestNodeDemo.extend({
     },
     title:function () {
         return "remove and cleanup";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.5,
+    testSP1:null,
+    testSP2:null,
+    pixel1:{"0":0, "1":0, "2":0, "3":255},
+    pixel2:{"0":51, "1":0, "2":0, "3":255},
+    getExpectedResult:function () {
+        var ret = {"sp1":null, "sp2":null, "pixel1":"yes", "pixel2":"yes"};
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret1 = this.readPixels(134, 164, 5, 5);
+        var ret2 = this.readPixels(winSize.width - 148, winSize.height / 2 + 51, 5, 5);
+        var ret = {"sp1":this.testSP1, "sp2":this.testSP2,
+            "pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
+            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"};
+        return JSON.stringify(ret);
     }
 });
 
@@ -201,9 +256,9 @@ var CCNodeTest6 = TestNodeDemo.extend({
         var forever21 = forever1.copy();
 
         this.addChild(sp1, 0, TAG_SPRITE1);
-        sp1.addChild(sp11);
+        sp1.addChild(sp11, 11);
         this.addChild(sp2, 0, TAG_SPRITE2);
-        sp2.addChild(sp21);
+        sp2.addChild(sp21, 21);
 
         sp1.runAction(forever1);
         sp11.runAction(forever11);
@@ -223,6 +278,10 @@ var CCNodeTest6 = TestNodeDemo.extend({
         this.removeChild(sp1, false);
         this.removeChild(sp2, true);
 
+        //Automation parameters
+        this.autoParam1 = sp1.getChildByTag(11);
+        this.autoParam2 = sp2.getChildByTag(21);
+
         this.addChild(sp1, 0, TAG_SPRITE1);
         this.addChild(sp2, 0, TAG_SPRITE2);
 
@@ -233,6 +292,18 @@ var CCNodeTest6 = TestNodeDemo.extend({
     },
     title:function () {
         return "remove/cleanup with children";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.1,
+    getExpectedResult:function () {
+        var ret = [null, null];
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = [this.autoParam1, this.autoParam2];
+        return JSON.stringify(ret);
     }
 });
 
@@ -264,11 +335,28 @@ var StressTest1 = TestNodeDemo.extend({
         this.addChild(explosion);
     },
     onRemoveMe:function (node) {
+        if (autoTestEnabled) {
+            this.testPass = true;
+            return;
+        }
         this.getParent().removeChild(node, true);
         this.onNextCallback(this);
     },
     title:function () {
         return "stress test #1: no crashes";
+    },
+    //
+    // Automation
+    //
+    testDuration:3.2,
+    testPass:false,
+    getExpectedResult:function () {
+        var ret = {"pass":true};
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = {"pass":this.testPass};
+        return JSON.stringify(ret);
     }
 });
 
@@ -329,21 +417,43 @@ var NodeToWorld = TestNodeDemo.extend({
         menu.setPosition(cc.p(backSize.width / 2, backSize.height / 2));
         back.addChild(menu);
 
-        var rot = cc.RotateBy.create(5, 360);
-        var fe = cc.RepeatForever.create(rot);
+        var rot = cc.RotateBy.create(3, 360);
+        var delay = cc.DelayTime.create(0.3);
+        var fe = cc.RepeatForever.create(cc.Sequence.create(rot, delay));
         item.runAction(fe);
 
         var move = cc.MoveBy.create(3, cc.p(200, 0));
         var move_back = move.reverse();
-        var seq = cc.Sequence.create(move, move_back);
+        var seq = cc.Sequence.create(move, delay.copy(), move_back);
         var fe2 = cc.RepeatForever.create(seq);
         back.runAction(fe2);
+
+        //Automation parameters
+        this.autoParam = item;
     },
     onClicked:function () {
         cc.log("On clicked");
     },
     title:function () {
         return "nodeToParent transform";
+    },
+    //
+    // Automation
+    //
+    testDuration:3.1,
+    getExpectedResult:function () {
+        var ret = {"a":1, "b":"0.00", "c":"-0.00", "d":1, "tx":440, "ty":160};
+        if (cc.renderContextType == cc.CANVAS) {
+            ret["b"] = "-0.00";
+            ret["c"] = "0.00";
+        }
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = this.autoParam.nodeToWorldTransform();
+        ret.b = ret.b.toFixed(2);
+        ret.c = ret.c.toFixed(2);
+        return JSON.stringify(ret);
     }
 });
 
@@ -411,7 +521,7 @@ var CameraZoomTest = TestNodeDemo.extend({
         sprite.setPosition(cc.p(winSize.width / 4, winSize.height / 2));
         if ("opengl" in sys.capabilities) {
             var cam = sprite.getCamera();
-            cam.setEye(0, 0, 415/2);
+            cam.setEye(0, 0, 415 / 2);
             cam.setCenter(0, 0, 0);
         }
 
@@ -432,6 +542,9 @@ var CameraZoomTest = TestNodeDemo.extend({
 
         this._z = 0;
         this.scheduleUpdate();
+
+        //Automation parameters
+        this.autoParam = sprite;
     },
     update:function (dt) {
         if (!("opengl" in sys.capabilities))
@@ -446,7 +559,6 @@ var CameraZoomTest = TestNodeDemo.extend({
         cam = sprite.getCamera();
         cam.setEye(0, 0, -this._z);
     },
-
     onEnter:function () {
         this._super();
         //TODO
@@ -459,6 +571,22 @@ var CameraZoomTest = TestNodeDemo.extend({
     },
     title:function () {
         return "Camera Zoom test";
+    },
+    //
+    // Automation
+    //
+    testDuration:1.1,
+    pixel:{"0":115, "1":0, "2":115, "3":255},
+    getExpectedResult:function () {
+        var ret1 = {"z":this._z.toFixed(2)};
+        var ret2 = {"pixel":"yes"};
+        return JSON.stringify([ret1, ret2]);
+    },
+    getCurrentResult:function () {
+        var ret1 = {"z":this.autoParam.getCamera().getEye().z.toFixed(2)};
+        var readPixel = this.readPixels(winSize.width / 4 * 3, winSize.height / 2, 5, 5);
+        var ret2 = {"pixel":!this.containsPixel(readPixel, this.pixel, false) ? "yes" : "no"};
+        return JSON.stringify([ret1, ret2]);
     }
 });
 
@@ -476,7 +604,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         sprite.runAction(cc.RepeatForever.create(orbit));
 
         // LEFT-BOTTOM
-        sprite = cc.Sprite.create(s_texture512);     cc.RotateTo
+        sprite = cc.Sprite.create(s_texture512);
         this.addChild(sprite, 0, 40);
         sprite.setPosition(cc.p(winSize.width / 5, winSize.height / 5 * 4));
         sprite.setColor(cc.BLUE);
@@ -516,6 +644,26 @@ var CameraCenterTest = TestNodeDemo.extend({
     },
     subtitle:function () {
         return "Sprites should rotate at the same speed";
+    },
+    //
+    // Automation
+    //
+    testDuration:2.6,
+    pixel1:{"0":255, "1":255, "2":255, "3":255},
+    pixel2:{"0":255, "1":255, "2":255, "3":255},
+    pixel3:{"0":255, "1":255, "2":255, "3":255},
+    getExpectedResult:function () {
+        var ret = {"pixel1":"yes", "pixel2":"yes", "pixel3":"yes"};
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret1 = this.readPixels(winSize.width / 2, winSize.height / 2, 5, 5);
+        var ret2 = this.readPixels(winSize.width / 2 - 25, winSize.height / 2, 5, 5);
+        var ret3 = this.readPixels(winSize.width / 2 + 20, winSize.height / 2, 5, 5);
+        var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
+            "pixel2":!this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
+            "pixel3":!this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"};
+        return JSON.stringify(ret);
     }
 });
 
@@ -535,7 +683,6 @@ var ConvertToNode = TestNodeDemo.extend({
         for (var i = 0; i < 3; i++) {
             var sprite = cc.Sprite.create(s_pathGrossini);
             sprite.setPosition(cc.p(winSize.width / 4 * (i + 1), winSize.height / 2));
-
             var point = cc.Sprite.create(s_pathR1);
             point.setScale(0.25);
             point.setPosition(sprite.getPosition());
@@ -561,6 +708,8 @@ var ConvertToNode = TestNodeDemo.extend({
         }
     },
     processEvent:function (location) {
+        this.testP1 = [];
+        this.testP2 = [];
         for (var i = 0; i < 3; i++) {
             var node = this.getChildByTag(100 + i);
 
@@ -568,6 +717,9 @@ var ConvertToNode = TestNodeDemo.extend({
             var p2 = node.convertToNodeSpace(location);
 
             cc.log("AR: x=" + p1.x.toFixed(2) + ", y=" + p1.y.toFixed(2) + " -- Not AR: x=" + p2.x.toFixed(2) + ", y=" + p2.y.toFixed(2));
+
+            this.testP1.push({"x":p1.x, "y":p1.y});
+            this.testP2.push({"x":p2.x, "y":p2.y});
         }
     },
     onTouchesEnded:function (touches, event) {
@@ -587,6 +739,62 @@ var ConvertToNode = TestNodeDemo.extend({
     },
     subtitle:function () {
         return "testing convertToNodeSpace / AR. Touch and see console";
+    },
+    //
+    // Automation
+    //
+    testDuration:1,
+    testP1:[],
+    expectedP1:[],
+    testP2:[],
+    expectedP2:[],
+    setupAutomation:function(){
+        this.expectedP1.push({"x":-winSize.width, "y":-winSize.height * 2});
+        this.expectedP1.push({"x":-winSize.width * 2, "y":-winSize.height * 2});
+        this.expectedP1.push({"x":-winSize.width * 3, "y":-winSize.height * 2});
+
+        this.expectedP2.push({"x":-winSize.width + 24.5, "y":-winSize.height * 2 + 23.5});
+        this.expectedP2.push({"x":-winSize.width * 2 + 24.5, "y":-winSize.height * 2 + 23.5});
+        this.expectedP2.push({"x":-winSize.width * 3 + 24.5, "y":-winSize.height * 2 + 23.5});
+    },
+    getExpectedResult:function () {
+        if (cc.renderContextType == cc.CANVAS) {
+            return JSON.stringify({"p1":true, "p2":true});
+        }else{
+            return JSON.stringify({"p1":this.expectedP1, "p2":this.expectedP2});
+        }
+    },
+    getCurrentResult:function () {
+        this.processEvent(cc.p(0, 0));
+
+        if (cc.renderContextType == cc.CANVAS) {
+            var equal = function(a,b,error){
+                return Math.abs(a-b)<=error;
+            }
+            var ret1=true;
+            for(var i=0;i<this.testP1.length;i++){
+                var tp1=this.testP1[i];
+                var ep1=this.expectedP1[i];
+                if(!equal(tp1.x,ep1.x,6)||!equal(tp1.y,ep1.y,6)){
+                    ret1 = false;
+                    break;
+                }
+            }
+            var ret2=true;
+            for(var i=0;i<this.testP2.length;i++){
+                var tp1=this.testP2[i];
+                var ep1=this.expectedP2[i];
+                if(!equal(tp1.x,ep1.x,6)||!equal(tp1.y,ep1.y,6)){
+                    ret2 = false;
+                    break;
+                }
+            }
+
+            return JSON.stringify({"p1":ret1, "p2":ret2});
+        }else{
+            var ret = {"p1":this.testP1, "p2":this.testP2};
+            return JSON.stringify(ret);
+        }
     }
 });
 
@@ -605,12 +813,27 @@ var BoundingBoxTest = TestNodeDemo.extend({
         //    cc.log( i + " = " + bb[i] );
         cc.log('origin = [ ' + bb.x + "," + bb.y + "]");
         cc.log('size = [ ' + bb.width + "," + bb.height + "]");
+
+        this.testBB = bb;
     },
     title:function () {
         return "Bounding Box Test";
     },
     subtitle:function () {
         return "Testing getBoundingBox(). See console";
+    },
+    //
+    // Automation
+    //
+    testDuration:0.5,
+    testBB:null,
+    getExpectedResult:function () {
+        var ret = {"x":0|(winSize.width / 2 - 42.5), "y":0|(winSize.height / 2 - 60.5), "w":85, "h":121};
+        return JSON.stringify(ret);
+    },
+    getCurrentResult:function () {
+        var ret = {"x":0 | this.testBB.x, "y":0 | this.testBB.y, "w":this.testBB.width, "h":this.testBB.height};
+        return JSON.stringify(ret);
     }
 });
 
@@ -631,11 +854,22 @@ var SchedulerTest1 = TestNodeDemo.extend({
     },
 
     doSomething:function (dt) {
-
+        this.testBool = false;
     },
 
     title:function () {
         return "cocosnode scheduler test #1";
+    },
+    //
+    // Automation
+    //
+    testDuration:0.5,
+    testBool:true,
+    getExpectedResult:function () {
+        return true;
+    },
+    getCurrentResult:function () {
+        return this.testBool;
     }
 });
 
@@ -712,7 +946,7 @@ var arrayOfNodeTest = [
     ConvertToNode
 ];
 
-if( 'opengl' in sys.capabilities ){
+if ('opengl' in sys.capabilities) {
     arrayOfNodeTest.push(CameraCenterTest);
     arrayOfNodeTest.push(CameraOrbitTest);
     arrayOfNodeTest.push(CameraZoomTest);
