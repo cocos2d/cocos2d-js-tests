@@ -227,6 +227,32 @@ var BaseTestLayer = cc.LayerGradient.extend({
             }
     },
 
+
+    containsPixel: function(arr, pix, approx, range) {
+
+	range = range || 50.0;
+	approx = approx || false;
+
+        var abs = function(a,b) {
+	    return ((a-b) > 0) ? (a-b) : (b-a);
+	};
+
+	var pixelEqual = function(pix1, pix2) {
+	    if(approx && abs(pix1, pix2) < range) return true;
+	    else if(!approx && pix1 == pix2) return true;
+	    return false;
+	};
+
+
+        for(var i=0; i < arr.length; i += 4) {
+	    if(pixelEqual(arr[i], pix[0]) && pixelEqual(arr[i + 1], pix[1]) &&
+	       pixelEqual(arr[i + 2], pix[2]) && pixelEqual(arr[i + 3], pix[3])) {
+                return true;
+            }
+        }
+        return false;
+    },
+
     readPixels:function(x,y,w,h) {
         if( 'opengl' in sys.capabilities) {
             var size = 4 * w * h;
@@ -235,8 +261,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
             return array;
         } else {
             // implement a canvas-html5 readpixels
-            //throw "readPixels Not implemented on canvas yet";
-            return ctx.getImageData(x, y, w, h).data;
+            return cc.renderContext.getImageData(x, winSize.height-y-h, w, h).data;
         }
     },
 
