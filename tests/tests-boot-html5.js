@@ -27,14 +27,14 @@
 (function () {
     var d = document;
     var c = {
-        COCOS2D_DEBUG:2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
-        box2d:true,
-        chipmunk:true,
-        showFPS:true,
-        loadExtension:true,
-        frameRate:60,
-        renderMode:0,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
-        tag:'gameCanvas' //the dom element to run cocos2d on
+        COCOS2D_DEBUG: 2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
+        box2d: true,
+        chipmunk: true,
+        showFPS: true,
+        loadExtension: true,
+        frameRate: 60,
+        renderMode: 0,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
+        tag: 'gameCanvas' //the dom element to run cocos2d on
     };
 
     var tests = [
@@ -111,7 +111,7 @@
         'ChipmunkTest/ChipmunkTest'
     ];
 
-    if(!d.createElement('canvas').getContext){
+    if (!d.createElement('canvas').getContext) {
         var s = d.createElement('div');
         s.innerHTML = '<h2>Your browser does not support HTML5 canvas!</h2>' +
             '<p>Google Chrome is a browser that combines a minimal design with sophisticated technology to make the web faster, safer, and easier.Click the logo to download.</p>' +
@@ -126,29 +126,32 @@
     }
 
     document.ccConfig = c;
+    var paths = {'cocos2d': '../../cocos2d',
+        'CocosDenshion': '../../CocosDenshion',
+        'extensions': '../../extensions'};
+    if(c.box2d)
+        paths['box2d'] = '../../box2d';
+    if(c.chipmunk)
+        paths['chipmunk'] = '../../chipmunk';
 
     requirejs.config({
-        paths: {
-            'cocos2d': '../../cocos2d',
-            'CocosDenshion': '../../CocosDenshion',
-            'extensions': '../../extensions',
-            'chipmunk': '../../chipmunk',
-            'box2d': '../../box2d'
-        }
+        paths: paths
     });
 
-    require(["cocos2d", "cocos2d/CCGlobal"], function(){
-        require(['tests_resources-html5'], function(){
-            require(['BaseTestLayer/BaseTestLayer'], function(){
-                require(['tests-main'], function(){
+    var sysInclude = ["cocos2d/CCGlobal"];
+    if(c.chipmunk)
+        sysInclude.push("chipmunk/chipmunk");
+    if(c.box2d)
+        sysInclude.push("box2d/box2d");
 
+    require(sysInclude, function () {
+        require(['tests_resources-html5'], function () {
+            require(['BaseTestLayer/BaseTestLayer'], function () {
+                require(['tests-main'], function () {
                     for (var i = 0; i < tests.length; i++)
                         require([tests[i]]);
-
                     require(["main"]);
-
                 });
-
             });
         });
     });
