@@ -553,11 +553,11 @@ var CameraZoomTest = TestNodeDemo.extend({
         this._z += dt * 100;
         var sprite = this.getChildByTag(20);
         var cam = sprite.getCamera();
-        cam.setEye(0, 0, this._z);
+        cam.setEyeXYZ(0, 0, this._z);
 
         sprite = this.getChildByTag(40);
         cam = sprite.getCamera();
-        cam.setEye(0, 0, -this._z);
+        cam.setEyeXYZ(0, 0, -this._z);
     },
     onEnter:function () {
         this._super();
@@ -902,7 +902,7 @@ var NodeNonOpaqueTest = TestNodeDemo.extend({
         var background;
         for (var i = 0; i < 50; i++) {
             background = cc.Sprite.create(s_back1);
-            background.setBlendFunc(gl.ONE, gl.ZERO);
+            background.setBlendFunc(cc.BlendFuncDisable());
             background.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
             this.addChild(background);
         }

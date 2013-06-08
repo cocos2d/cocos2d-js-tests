@@ -34,88 +34,82 @@
         loadExtension:true,
         frameRate:60,
         renderMode:0,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
-        tag:'gameCanvas', //the dom element to run cocos2d on
-        engineDir:'../../cocos2d/',
-        //SingleEngineFile:'../../lib/Cocos2d-html5-v2.1.2.beta2.min.js',
-        appFiles:[//'src/AppDelegate.js',
-
-            // base class
-            'BaseTestLayer/BaseTestLayer.js',
-
-            'tests_resources-html5.js',
-            'tests-main.js',
-
-            'TouchesTest/Ball.js',
-            'TouchesTest/Paddle.js',
-            'TouchesTest/TouchesTest.js',
-            'SchedulerTest/SchedulerTest.js',
-            'ClickAndMoveTest/ClickAndMoveTest.js',
-            'MenuTest/MenuTest.js',
-            'ActionsTest/ActionsTest.js',
-            'TileMapTest/TileMapTest.js',
-            'TransitionsTest/TransitionsTest.js',
-            'DrawPrimitivesTest/DrawPrimitivesTest.js',
-            'ParticleTest/ParticleTest.js',
-            'ProgressActionsTest/ProgressActionsTest.js',
-            'LayerTest/LayerTest.js',
-            'SceneTest/SceneTest.js',
-            'SpriteTest/SpriteTest.js',
-            'TextureCacheTest/TextureCacheTest.js',
-            'CocosDenshionTest/CocosDenshionTest.js',
-            'CocosNodeTest/CocosNodeTest.js',
-            'RotateWorldTest/RotateWorldTest.js',
-            'RenderTextureTest/RenderTextureTest.js',
-            'IntervalTest/IntervalTest.js',
-            'ActionManagerTest/ActionManagerTest.js',
-            'EaseActionsTest/EaseActionsTest.js',
-            'ParallaxTest/ParallaxTest.js',
-            'PerformanceTest/PerformanceTest.js',
-            'PerformanceTest/PerformanceSpriteTest.js',
-            'PerformanceTest/PerformanceSpriteTest2.js',
-            'PerformanceTest/PerformanceParticleTest.js',
-            'PerformanceTest/PerformanceNodeChildrenTest.js',
-            'PerformanceTest/PerformanceTextureTest.js',
-            'PerformanceTest/PerformanceAnimationTest.js',
-            'PerformanceTest/seedrandom.js',
-            'FontTest/FontTest.js',
-            'PerformanceTest/PerformanceTouchesTest.js',
-            'LabelTest/LabelTest.js',
-            'CurrentLanguageTest/CurrentLanguageTest.js',
-            'TextInputTest/TextInputTest.js',
-            'EventTest/EventTest.js',
-            'UnitTest/UnitTest.js',
-            'SysTest/SysTest.js',
-            'FileUtils/FileUtilsTest.js',
-            'EffectsTest/EffectsTest.js',
-            'EffectsAdvancedTest/EffectsAdvancedTest.js',
-            'MotionStreakTest/MotionStreakTest.js',
-            'ClippingNodeTest/ClippingNodeTest.js',
-            'OpenGLTest/OpenGLTest.js',
-
-            'ExtensionsTest/ExtensionsTest.js',
-            'ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js',
-            'ExtensionsTest/ControlExtensionTest/CCControlScene.js',
-            'ExtensionsTest/ControlExtensionTest/CCControlButtonTest/CCControlButtonTest.js',
-            'ExtensionsTest/TableViewTest/TableViewTestScene.js',
-            'ExtensionsTest/CocosBuilderTest/CocosBuilderTest.js',
-            'ExtensionsTest/CocosBuilderTest/TestHeader/TestHeaderLayer.js',
-            'ExtensionsTest/CocosBuilderTest/HelloCocosBuilder/HelloCocosBuilderLayer.js',
-            'ExtensionsTest/CocosBuilderTest/ButtonTest/ButtonTestLayer.js',
-            'ExtensionsTest/CocosBuilderTest/SpriteTest/SpriteTestLayer.js',
-            'ExtensionsTest/CocosBuilderTest/MenuTest/MenuTestLayer.js',
-            'ExtensionsTest/CocosBuilderTest/LabelTest/LabelTestLayer.js',
-            'ExtensionsTest/CocosBuilderTest/ParticleSystemTest/ParticleSystemTestLayer.js',
-            'ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js',
-            'ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.js',
-            'ExtensionsTest/CocosBuilderTest/TimelineCallbackTest/TimelineCallbackTestLayer.js',
-            'ExtensionsTest/EditBoxTest/EditBoxTest.js',
-            'ExtensionsTest/S9SpriteTest/S9SpriteTest.js',
-            'ExtensionsTest/NetworkTest/WebSocketTest.js',
-
-            'Box2dTest/Box2dTest.js',
-            'ChipmunkTest/ChipmunkTest.js']
-
+        tag:'gameCanvas' //the dom element to run cocos2d on
     };
+
+    var tests = [
+        //'src/AppDelegate.js',
+
+        'TouchesTest/Ball',
+        'TouchesTest/Paddle',
+        'TouchesTest/TouchesTest',
+        'SchedulerTest/SchedulerTest',
+        'ClickAndMoveTest/ClickAndMoveTest',
+        'MenuTest/MenuTest',
+        'ActionsTest/ActionsTest',
+        'TileMapTest/TileMapTest',
+        'TransitionsTest/TransitionsTest',
+        'DrawPrimitivesTest/DrawPrimitivesTest',
+        'ParticleTest/ParticleTest',
+        'ProgressActionsTest/ProgressActionsTest',
+        'LayerTest/LayerTest',
+        'SceneTest/SceneTest',
+        'SpriteTest/SpriteTest',
+        'TextureCacheTest/TextureCacheTest',
+        'CocosDenshionTest/CocosDenshionTest',
+        'CocosNodeTest/CocosNodeTest',
+        'RotateWorldTest/RotateWorldTest',
+        'RenderTextureTest/RenderTextureTest',
+        'IntervalTest/IntervalTest',
+        'ActionManagerTest/ActionManagerTest',
+        'EaseActionsTest/EaseActionsTest',
+        'ParallaxTest/ParallaxTest',
+        'PerformanceTest/PerformanceTest',
+        'PerformanceTest/PerformanceSpriteTest',
+        'PerformanceTest/PerformanceSpriteTest2',
+        'PerformanceTest/PerformanceParticleTest',
+        'PerformanceTest/PerformanceNodeChildrenTest',
+        'PerformanceTest/PerformanceTextureTest',
+        'PerformanceTest/PerformanceAnimationTest',
+        'PerformanceTest/seedrandom',
+        'FontTest/FontTest',
+        'PerformanceTest/PerformanceTouchesTest',
+        'LabelTest/LabelTest',
+        'CurrentLanguageTest/CurrentLanguageTest',
+        'TextInputTest/TextInputTest',
+        'EventTest/EventTest',
+        'UnitTest/UnitTest',
+        'SysTest/SysTest',
+        'FileUtils/FileUtilsTest',
+        'EffectsTest/EffectsTest',
+        'EffectsAdvancedTest/EffectsAdvancedTest',
+        'MotionStreakTest/MotionStreakTest',
+        'ClippingNodeTest/ClippingNodeTest',
+        'OpenGLTest/OpenGLTest',
+
+        'ExtensionsTest/ExtensionsTest',
+        'ExtensionsTest/ControlExtensionTest/CCControlSceneManager',
+        'ExtensionsTest/ControlExtensionTest/CCControlScene',
+        'ExtensionsTest/ControlExtensionTest/CCControlButtonTest/CCControlButtonTest',
+        'ExtensionsTest/TableViewTest/TableViewTestScene',
+        'ExtensionsTest/CocosBuilderTest/CocosBuilderTest',
+        'ExtensionsTest/CocosBuilderTest/TestHeader/TestHeaderLayer',
+        'ExtensionsTest/CocosBuilderTest/HelloCocosBuilder/HelloCocosBuilderLayer',
+        'ExtensionsTest/CocosBuilderTest/ButtonTest/ButtonTestLayer',
+        'ExtensionsTest/CocosBuilderTest/SpriteTest/SpriteTestLayer',
+        'ExtensionsTest/CocosBuilderTest/MenuTest/MenuTestLayer',
+        'ExtensionsTest/CocosBuilderTest/LabelTest/LabelTestLayer',
+        'ExtensionsTest/CocosBuilderTest/ParticleSystemTest/ParticleSystemTestLayer',
+        'ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer',
+        'ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer',
+        'ExtensionsTest/CocosBuilderTest/TimelineCallbackTest/TimelineCallbackTestLayer',
+        'ExtensionsTest/EditBoxTest/EditBoxTest',
+        'ExtensionsTest/S9SpriteTest/S9SpriteTest',
+        'ExtensionsTest/NetworkTest/WebSocketTest.js',
+
+        'Box2dTest/Box2dTest',
+        'ChipmunkTest/ChipmunkTest'
+    ];
 
     if(!d.createElement('canvas').getContext){
         var s = d.createElement('div');
@@ -131,25 +125,33 @@
         return;
     }
 
-    window.addEventListener('DOMContentLoaded', function () {
-        //first load engine file if specified
-        var s = d.createElement('script');
-        /*********Delete this section if you have packed all files into one*******/
-        if (c.SingleEngineFile && !c.engineDir) {
-            s.src = c.SingleEngineFile;
-        }
-        else if (c.engineDir && !c.SingleEngineFile) {
-            s.src = c.engineDir + 'platform/jsloader.js';
-        }
-        else {
-            alert('You must specify either the single engine file OR the engine directory in "cocos2d.js"');
-        }
-        /*********Delete this section if you have packed all files into one*******/
-            //s.src = 'cocos2d-html5-testcases-advanced.js'; //IMPORTANT: Un-comment this line if you have packed all files into one
+    document.ccConfig = c;
 
-        d.body.appendChild(s);
-        document.ccConfig = c;
-        s.id = 'cocos2d-html5';
-        //else if single file specified, load singlefile
+    requirejs.config({
+        paths: {
+            'cocos2d': '../../cocos2d',
+            'CocosDenshion': '../../CocosDenshion',
+            'extensions': '../../extensions',
+            'chipmunk': '../../chipmunk',
+            'box2d': '../../box2d'
+        }
     });
+    
+    require(["cocos2d", "cocos2d/CCGlobal"], function(){
+        require(['tests_resources-html5'], function(){
+            require(['BaseTestLayer/BaseTestLayer'], function(){
+                require(['tests-main'], function(){
+
+                        for (var i = 0; i < tests.length; i++)
+                            require([tests[i]]);
+
+                        require(["main"]);
+
+                });
+
+            });
+        });
+    });
+
+
 })();
