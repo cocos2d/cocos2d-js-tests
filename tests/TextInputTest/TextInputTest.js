@@ -33,8 +33,8 @@ var textInputGetRect = function (node) {
     var pos = node.getPosition();
     var cs = node.getContentSize();
     var rc = cc.rect(pos.x, pos.y, cs.width, cs.height);
-    rc.origin.x -= rc.size.width / 2;
-    rc.origin.y -= rc.size.height / 2;
+    rc.x -= rc.width / 2;
+    rc.y -= rc.height / 2;
     return rc;
 };
 
@@ -127,22 +127,22 @@ var KeyboardNotificationLayer = TextInputTest.extend({
     },
 
     keyboardWillShow:function (info) {
-        cc.log("TextInputTest:keyboardWillShowAt(origin:" + info.end.origin.x + "," + info.end.origin.y
-            + ", size:" + info.end.size.width + "," + info.end.size.height + ")");
+        cc.log("TextInputTest:keyboardWillShowAt(origin:" + info.end.x + "," + info.end.y
+            + ", size:" + info.end.width + "," + info.end.height + ")");
 
         if (!this._trackNode)
             return;
 
         var rectTracked = textInputGetRect(this._trackNode);
-        cc.log("TextInputTest:trackingNodeAt(origin:" + info.end.origin.x + "," + info.end.origin.y
-            + ", size:" + info.end.size.width + "," + info.end.size.height + ")");
+        cc.log("TextInputTest:trackingNodeAt(origin:" + info.end.x + "," + info.end.y
+            + ", size:" + info.end.width + "," + info.end.height + ")");
 
         // if the keyboard area doesn't intersect with the tracking node area, nothing need to do.
-        if (!cc.Rect.CCRectIntersectsRect(rectTracked, info.end))
+        if (!cc.rectIntersectsRect(rectTracked, info.end))
             return;
 
         // assume keyboard at the bottom of screen, calculate the vertical adjustment.
-        var adjustVert = cc.Rect.CCRectGetMaxY(info.end) - cc.Rect.CCRectGetMinY(rectTracked);
+        var adjustVert = cc.rectGetMaxY(info.end) - cc.rectGetMinY(rectTracked);
         cc.log("TextInputTest:needAdjustVerticalPosition(" + adjustVert + ")");
 
         // move all the children node of KeyboardNotificationLayer
@@ -170,10 +170,10 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         cc.log("KeyboardNotificationLayer:clickedAt(" + point.x + "," + point.y + ")");
 
         var rect = textInputGetRect(this._trackNode);
-        cc.log("KeyboardNotificationLayer:TrackNode at(origin:" + rect.origin.x + "," + rect.origin.y
-            + ", size:" + rect.size.width + "," + rect.size.height + ")");
+        cc.log("KeyboardNotificationLayer:TrackNode at(origin:" + rect.x + "," + rect.y
+            + ", size:" + rect.width + "," + rect.height + ")");
 
-        this.onClickTrackNode(cc.Rect.CCRectContainsPoint(rect, point));
+        this.onClickTrackNode(cc.rectContainsPoint(rect, point));
         cc.log("----------------------------------");
     },
     onMouseUp:function (event) {
@@ -186,10 +186,10 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         cc.log("KeyboardNotificationLayer:clickedAt(" + point.x + "," + point.y + ")");
 
         var rect = textInputGetRect(this._trackNode);
-        cc.log("KeyboardNotificationLayer:TrackNode at(origin:" + rect.origin.x + "," + rect.origin.y
-            + ", size:" + rect.size.width + "," + rect.size.height + ")");
+        cc.log("KeyboardNotificationLayer:TrackNode at(origin:" + rect.x + "," + rect.y
+            + ", size:" + rect.width + "," + rect.height + ")");
 
-        this.onClickTrackNode(cc.Rect.CCRectContainsPoint(rect, point));
+        this.onClickTrackNode(cc.rectContainsPoint(rect, point));
         cc.log("----------------------------------");
     }
 });

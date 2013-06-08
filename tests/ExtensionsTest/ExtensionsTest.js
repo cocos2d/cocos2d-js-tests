@@ -75,6 +75,12 @@ var extensionsTestItemNames = [
         testScene:function () {
             runEditBoxTest();
         }
+    },
+    {
+        itemTitle:"WebSocketTest",
+        testScene:function () {
+            runWebSocketTest();
+        }
     }
 ];
 
