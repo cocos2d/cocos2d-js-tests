@@ -1738,10 +1738,14 @@ var arrayOfLabelTest = [
     LabelTTFA8Test,
     LabelTTFFontInitTest,
     LabelTTFAlignment,
-    LabelTTFStrokeShadowTest,
 
     LabelsEmpty
 ];
+
+if( sys.platform != "browser"){
+    //Not implement in HTML5
+    arrayOfLabelTest.push(LabelTTFStrokeShadowTest);
+}
 
 var nextLabelTest = function () {
     labelTestIdx++;
