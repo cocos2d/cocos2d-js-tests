@@ -76,8 +76,8 @@ var CCNodeTest2 = TestNodeDemo.extend({
         var sp3 = cc.Sprite.create(s_pathSister1);
         var sp4 = cc.Sprite.create(s_pathSister2);
 
-        sp1.setPosition(cc.p(winSize.width/4, winSize.height / 2));
-        sp2.setPosition(cc.p(winSize.width/4*3, winSize.height / 2));
+        sp1.setPosition(cc.p(winSize.width / 4, winSize.height / 2));
+        sp2.setPosition(cc.p(winSize.width / 4 * 3, winSize.height / 2));
         this.addChild(sp1);
         this.addChild(sp2);
 
@@ -114,10 +114,10 @@ var CCNodeTest2 = TestNodeDemo.extend({
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
-        var ret1 = this.readPixels(winSize.width/4-54, winSize.height / 2-146, 5, 5);
-        var ret2 = this.readPixels(winSize.width/4*3+98, winSize.height / 2+115, 5, 5);
-        var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
-            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"};
+        var ret1 = this.readPixels(winSize.width / 4 - 54, winSize.height / 2 - 146, 5, 5);
+        var ret2 = this.readPixels(winSize.width / 4 * 3 + 93, winSize.height / 2 + 113, 5, 5);
+        var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, true, 5) ? "yes" : "no",
+            "pixel2":this.containsPixel(ret2, this.pixel2, true, 5) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -230,7 +230,7 @@ var CCNodeTest5 = TestNodeDemo.extend({
         var ret2 = this.readPixels(winSize.width - 148, winSize.height / 2 + 51, 5, 5);
         var ret = {"sp1":this.testSP1, "sp2":this.testSP2,
             "pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
-            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"};
+            "pixel2":this.containsPixel(ret2, this.pixel2, true, 3) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -748,7 +748,7 @@ var ConvertToNode = TestNodeDemo.extend({
     expectedP1:[],
     testP2:[],
     expectedP2:[],
-    setupAutomation:function(){
+    setupAutomation:function () {
         this.expectedP1.push({"x":-winSize.width, "y":-winSize.height * 2});
         this.expectedP1.push({"x":-winSize.width * 2, "y":-winSize.height * 2});
         this.expectedP1.push({"x":-winSize.width * 3, "y":-winSize.height * 2});
@@ -760,7 +760,7 @@ var ConvertToNode = TestNodeDemo.extend({
     getExpectedResult:function () {
         if (cc.renderContextType == cc.CANVAS) {
             return JSON.stringify({"p1":true, "p2":true});
-        }else{
+        } else {
             return JSON.stringify({"p1":this.expectedP1, "p2":this.expectedP2});
         }
     },
@@ -768,30 +768,30 @@ var ConvertToNode = TestNodeDemo.extend({
         this.processEvent(cc.p(0, 0));
 
         if (cc.renderContextType == cc.CANVAS) {
-            var equal = function(a,b,error){
-                return Math.abs(a-b)<=error;
+            var equal = function (a, b, error) {
+                return Math.abs(a - b) <= error;
             }
-            var ret1=true;
-            for(var i=0;i<this.testP1.length;i++){
-                var tp1=this.testP1[i];
-                var ep1=this.expectedP1[i];
-                if(!equal(tp1.x,ep1.x,6)||!equal(tp1.y,ep1.y,6)){
+            var ret1 = true;
+            for (var i = 0; i < this.testP1.length; i++) {
+                var tp1 = this.testP1[i];
+                var ep1 = this.expectedP1[i];
+                if (!equal(tp1.x, ep1.x, 6) || !equal(tp1.y, ep1.y, 6)) {
                     ret1 = false;
                     break;
                 }
             }
-            var ret2=true;
-            for(var i=0;i<this.testP2.length;i++){
-                var tp1=this.testP2[i];
-                var ep1=this.expectedP2[i];
-                if(!equal(tp1.x,ep1.x,6)||!equal(tp1.y,ep1.y,6)){
+            var ret2 = true;
+            for (var i = 0; i < this.testP2.length; i++) {
+                var tp1 = this.testP2[i];
+                var ep1 = this.expectedP2[i];
+                if (!equal(tp1.x, ep1.x, 6) || !equal(tp1.y, ep1.y, 6)) {
                     ret2 = false;
                     break;
                 }
             }
 
             return JSON.stringify({"p1":ret1, "p2":ret2});
-        }else{
+        } else {
             var ret = {"p1":this.testP1, "p2":this.testP2};
             return JSON.stringify(ret);
         }
@@ -828,7 +828,7 @@ var BoundingBoxTest = TestNodeDemo.extend({
     testDuration:0.5,
     testBB:null,
     getExpectedResult:function () {
-        var ret = {"x":0|(winSize.width / 2 - 42.5), "y":0|(winSize.height / 2 - 60.5), "w":85, "h":121};
+        var ret = {"x":0 | (winSize.width / 2 - 42.5), "y":0 | (winSize.height / 2 - 60.5), "w":85, "h":121};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
