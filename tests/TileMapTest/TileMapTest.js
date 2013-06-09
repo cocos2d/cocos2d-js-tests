@@ -192,7 +192,7 @@ var TMXOrthoTest = TileDemo.extend({
         var ret3 = this.readPixels(312, 196, 10, 10);
         var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
             "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
-            "pixel3":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
+            "pixel3":this.containsPixel(ret3, this.pixel3, true,5) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -243,7 +243,7 @@ var TMXOrthoTest2 = TileDemo.extend({
         var ret3 = this.readPixels(419, 239, 5, 5);
         var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
             "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
-            "pixel3":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
+            "pixel3":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -281,7 +281,7 @@ var TMXOrthoTest3 = TileDemo.extend({
         var ret3 = this.readPixels(58, 107, 10, 10);
         var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
             "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
-            "pixel3":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
+            "pixel3":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -464,7 +464,7 @@ var TMXReadWriteTest = TileDemo.extend({
         var ret1 = this.readPixels(168, 203, 5, 5);
         var ret2 = this.readPixels(239, 239, 5, 5);
         var ret = {"pixel1":!this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
-            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"}
+            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -500,7 +500,7 @@ var TMXHexTest = TileDemo.extend({
         var ret1 = this.readPixels(438, 226, 10, 10);
         var ret2 = this.readPixels(195, 0, 10, 10);
         var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
-            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"}
+            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -544,7 +544,7 @@ var TMXIsoTest = TileDemo.extend({
                 ret1 = false;
             }
         }
-        var ret = { "pixel":ret1 == true ? "yes" : "no"}
+        var ret = { "pixel":ret1 == true ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -587,7 +587,7 @@ var TMXIsoTest1 = TileDemo.extend({
                 ret1 = false;
             }
         }
-        var ret = { "pixel":ret1 == true ? "yes" : "no"}
+        var ret = { "pixel":ret1 == true ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -629,12 +629,12 @@ var TMXIsoTest2 = TileDemo.extend({
     getCurrentResult:function () {
         var ret1 = true;
         for (var i = 1; i < 6; i++) {
-            var item = this.readPixels(62*i, 191, 5, 5);
-            if (!this.containsPixel(item, this.pixel, true,2)) {
+            var item = this.readPixels(62 * i, 191, 5, 5);
+            if (!this.containsPixel(item, this.pixel, true, 2)) {
                 ret1 = false;
             }
         }
-        var ret = { "pixel":ret1 == true ? "yes" : "no"}
+        var ret = { "pixel":ret1 == true ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -687,12 +687,12 @@ var TMXUncompressedTest = TileDemo.extend({
     getCurrentResult:function () {
         var ret1 = true;
         for (var i = 1; i < 6; i++) {
-            var item = this.readPixels(62*i, 191, 5, 5);
-            if (!this.containsPixel(item, this.pixel, true,2)) {
+            var item = this.readPixels(62 * i, 191, 5, 5);
+            if (!this.containsPixel(item, this.pixel, true, 2)) {
                 ret1 = false;
             }
         }
-        var ret = { "pixel":ret1 == true ? "yes" : "no"}
+        var ret = { "pixel":ret1 == true ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -739,7 +739,7 @@ var TMXTilesetTest = TileDemo.extend({
         var ret3 = this.readPixels(345, 202, 5, 5);
         var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
             "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no",
-            "pixel3":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"}
+            "pixel3":this.containsPixel(ret3, this.pixel3, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -964,7 +964,7 @@ var TMXResizeTest = TileDemo.extend({
     },
     getCurrentResult:function () {
         var ret1 = this.readPixels(156, 156, 5, 5);
-        var ret = {"pixel":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no"}
+        var ret = {"pixel":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -1032,7 +1032,7 @@ var TMXIsoZorder = TileDemo.extend({
     },
     getCurrentResult:function () {
         var ret1 = this.readPixels(223, 247, 5, 5);
-        var ret = {"pixel":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no"}
+        var ret = {"pixel":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -1088,16 +1088,16 @@ var TMXOrthoZorder = TileDemo.extend({
     //
     testDuration:2,
     pixel1:{"0":117, "1":185, "2":63, "3":255},
-    pixel2:{"0":204, "1":153, "2":102, "3":255},
+    pixel2:{"0":91, "1":55, "2":20, "3":255},
     getExpectedResult:function () {
-        var ret = {"pixel1":"yes","pixel2":"yes"};
+        var ret = {"pixel1":"yes", "pixel2":"yes"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
         var ret1 = this.readPixels(86, 131, 5, 5);
-        var ret2 = this.readPixels(82, 185, 5, 5);
+        var ret2 = this.readPixels(84, 200, 5, 5);
         var ret = {"pixel1":this.containsPixel(ret1, this.pixel1, false) ? "yes" : "no",
-            "pixel2":this.containsPixel(ret2, this.pixel2, false) ? "yes" : "no"}
+            "pixel2":this.containsPixel(ret2, this.pixel2, true, 5) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -1168,7 +1168,7 @@ var TMXIsoVertexZ = TileDemo.extend({
     },
     getCurrentResult:function () {
         var ret1 = this.readPixels(224, 246, 4, 4);
-        var ret = {"pixel":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no"}
+        var ret = {"pixel":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -1240,7 +1240,7 @@ var TMXOrthoVertexZ = TileDemo.extend({
     },
     getCurrentResult:function () {
         var ret1 = this.readPixels(266, 331, 5, 5);
-        var ret = {"pixel":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no"}
+        var ret = {"pixel":this.containsPixel(ret1, this.pixel, false) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
 });
@@ -1465,11 +1465,11 @@ var TMXOrthoFlipRunTimeTest = TileDemo.extend({
     testDuration:3.2,
     pixel:{"0":41, "1":42, "2":54, "3":255},
     pixel1:null,
-    setupAutomation:function(){
-        var fun = function(){
+    setupAutomation:function () {
+        var fun = function () {
             this.pixel1 = this.readPixels(104, 154, 5, 5);
         }
-        this.scheduleOnce(fun,2.2);
+        this.scheduleOnce(fun, 2.2);
     },
     getExpectedResult:function () {
         var ret = {"pixel1":"yes", "pixel2":"yes"};
@@ -1698,7 +1698,7 @@ var TMXGIDObjectsTest = TileDemo.extend({
         var obj = null;
         for (var i = 0; i < this.testObjects.length; i++) {
             obj = this.testObjects[i];
-            ret.push({"name":obj["name"] || "", "type":obj["type"] || "", "x":parseFloat(obj["x"]), "y":parseFloat(obj["y"]), "width":parseFloat(obj["width"]||0), "height":parseFloat(obj["height"]||0)});
+            ret.push({"name":obj["name"] || "", "type":obj["type"] || "", "x":parseFloat(obj["x"]), "y":parseFloat(obj["y"]), "width":parseFloat(obj["width"] || 0), "height":parseFloat(obj["height"] || 0)});
         }
         return JSON.stringify(ret);
     }
