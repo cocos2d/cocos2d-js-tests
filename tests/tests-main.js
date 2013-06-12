@@ -360,13 +360,6 @@ var testNames = [
         }
     },
     {
-        title:"MultiView Tests",
-        platforms: PLATFORM_ALL,
-        testScene:function () {
-            return new MultiViewTestScene();
-        }
-    },
-    {
         title:"Node Test",
         platforms: PLATFORM_ALL,
         testScene:function () {
@@ -519,6 +512,21 @@ var testNames = [
     //"UserDefaultTest",
     //"ZwoptexTest",
 ];
+
+var androidTestNames = [
+    {
+        title:"MultiView Tests",
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new MultiViewTestScene();
+        }
+    }
+]
+
+if(sys.os == "android") {
+    testNames = testNames.concat(androidTestNames);
+}
+
 
 var s_rcVisible = cc.rect(0, 0, 0, 0);
 var s_ptCenter = cc.p(0, 0);
