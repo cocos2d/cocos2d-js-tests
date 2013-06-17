@@ -1708,8 +1708,6 @@ var BMFontColorParentChild = AtlasDemo.extend({
 //
 var arrayOfLabelTest = [
 
-    LabelTTFStrokeShadowTest,
-
     LabelAtlasOpacityTest,
     LabelAtlasOpacityColorTest,
     LabelAtlasHD,
