@@ -753,7 +753,7 @@ var TMXOrthoObjectsTest = TileDemo.extend({
     ctor:function () {
         this._super();
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/ortho-objects.tmx");
-        this.addChild(map, -1, TAG_TILE_MAP);
+        this.addChild(map, 0, TAG_TILE_MAP);
         var s = map.getContentSize();
 
         var group = map.getObjectGroup("Object Group 1");
@@ -842,7 +842,7 @@ var TMXIsoObjectsTest = TileDemo.extend({
         this._super();
 
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/iso-test-objectgroup.tmx");
-        this.addChild(map, -1, TAG_TILE_MAP);
+        this.addChild(map, 0, TAG_TILE_MAP);
 
         var s = map.getContentSize();
 
