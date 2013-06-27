@@ -26,6 +26,7 @@
 TRANSITION_DURATION = 1.2;
 
 var arrayOfTransitionsTest = [
+
     {title:"JumpZoomTransition", transitionFunc:function (t, s) {
         return new JumpZoomTransition(t, s);
     }},
