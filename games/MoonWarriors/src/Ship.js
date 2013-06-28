@@ -1,6 +1,6 @@
 var Ship = cc.Sprite.extend({
     speed:220,
-    bulletSpeed:900,
+    bulletSpeed:MW.BulletSpeed.SHIP,
     HP:5,
     bulletTypeValue:1,
     bulletPowerValue:1,
@@ -76,10 +76,10 @@ var Ship = cc.Sprite.extend({
         var offset = 13;
         var p = this.getPosition();
         var cs = this.getContentSize();
-		var a = Bullet.getOrCreateBullet(this.bulletSpeed, "W1.png", MW.ENEMY_MOVE_TYPE.NORMAL,3000,MW.UNIT_TAG.PLAYER_BULLET);
+		var a = Bullet.getOrCreateBullet(this.bulletSpeed, "W1.png", MW.ENEMY_ATTACK_MODE.NORMAL,3000,MW.UNIT_TAG.PLAYER_BULLET);
 		a.setPosition(p.x + offset, p.y + 3 + cs.height * 0.3);
 
- 		var b = Bullet.getOrCreateBullet(this.bulletSpeed, "W1.png", MW.ENEMY_MOVE_TYPE.NORMAL,3000,MW.UNIT_TAG.PLAYER_BULLET);
+ 		var b = Bullet.getOrCreateBullet(this.bulletSpeed, "W1.png", MW.ENEMY_ATTACK_MODE.NORMAL,3000,MW.UNIT_TAG.PLAYER_BULLET);
         b.setPosition(p.x - offset, p.y + 3 + cs.height * 0.3);
     },
     destroy:function () {

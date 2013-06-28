@@ -1,27 +1,30 @@
 var Explosion = cc.Sprite.extend({
     tmpWidth:0,
     tmpHeight:0,
-	active:true,
+    active:true,
+    animation:null,
     ctor:function () {
         this._super();
 
         var pFrame = cc.SpriteFrameCache.getInstance().getSpriteFrame("explosion_01.png");
         this.initWithSpriteFrame(pFrame);
-		this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
+        this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 
         var cs = this.getContentSize();
         this.tmpWidth = cs.width;
         this.tmpHeight = cs.height;
-
-        var animation = cc.AnimationCache.getInstance().getAnimation("Explosion");
+        this.animation = cc.AnimationCache.getInstance().getAnimation("Explosion");
+    },
+    play:function(){
+        //return;
         this.runAction(cc.Sequence.create(
-            cc.Animate.create(animation),
+            cc.Animate.create(this.animation),
             cc.CallFunc.create(this.destroy, this)
         ));
     },
     destroy:function () {
-		this.setPosition(g_hideSpritePos);
-		this.active = false;
+        this.setVisible(false);
+        this.active = false;
     }
 });
 
@@ -37,23 +40,34 @@ Explosion.sharedExplosion = function () {
     cc.AnimationCache.getInstance().addAnimation(animation, "Explosion");
 };
 
-Explosion.getOrCreateExplosion = function() {
-	for (var j = 0; j < MW.CONTAINER.EXPLOSIONS.length; j++) {
-		var selChild = MW.CONTAINER.EXPLOSIONS[j];
-		
-		if (selChild.active == false)
-		{
-			selChild.active = true;
-			var animation = cc.AnimationCache.getInstance().getAnimation("Explosion");
-			selChild.runAction(cc.Sequence.create(
-											  cc.Animate.create(animation),
-											  cc.CallFunc.create(selChild.destroy, selChild)));
-			return selChild;
-		}
-	}
-	
-	var explosion = new Explosion();
-	g_sharedGameLayer.addExplosions(explosion);
-	MW.CONTAINER.EXPLOSIONS.push(explosion);
-	return explosion;
-} ;
+Explosion.getOrCreateExplosion = function () {
+    var selChild =null;
+    for (var j = 0; j < MW.CONTAINER.EXPLOSIONS.length; j++) {
+        var selChild = MW.CONTAINER.EXPLOSIONS[j];
+        if (selChild.active == false) {
+            selChild.setVisible(true);
+            selChild.active = true;
+            selChild.play();
+            return selChild;
+        }
+    }
+
+    selChild = Explosion.create();
+    selChild.play();
+    return selChild;
+};
+Explosion.create = function () {
+    var explosion = new Explosion();
+    g_sharedGameLayer.addExplosions(explosion);
+    MW.CONTAINER.EXPLOSIONS.push(explosion);
+    return explosion;
+};
+
+Explosion.preSet = function () {
+    var explosion = null;
+    for (var i = 0; i < 5; i++) {
+        explosion = Explosion.create();
+        explosion.setVisible(false);
+        explosion.active = false;
+    }
+};

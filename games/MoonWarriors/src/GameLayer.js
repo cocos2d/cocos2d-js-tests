@@ -121,6 +121,13 @@ var GameLayer = cc.Layer.extend({
             bRet = true;
 
 			g_sharedGameLayer = this;
+
+            //pre set
+            Bullet.preSet();
+            Enemy.preSet();
+            HitEffect.preSet();
+            SparkEffect.preSet();
+            Explosion.preSet();
         }
         return bRet;
     },
@@ -263,20 +270,21 @@ var GameLayer = cc.Layer.extend({
         this.addChild(this._backSky, -10);
 
         //tilemap
-        this._backTileMap = cc.TMXTiledMap.create(s_level01);
+        /*this._backTileMap = cc.TMXTiledMap.create(s_level01);
         this.addChild(this._backTileMap, -9);
         this._backTileMapHeight = this._backTileMap.getMapSize().height * this._backTileMap.getTileSize().height;
 
         this._backSkyHeight -= 48;
         this._backTileMapHeight -= 200;
         this._backSky.runAction(cc.MoveBy.create(3, cc.p(0, -48)));
-        this._backTileMap.runAction(cc.MoveBy.create(3, cc.p(0, -200)));
+        this._backTileMap.runAction(cc.MoveBy.create(3, cc.p(0, -200)));*/
 
         this.schedule(this.movingBackground, 3);
     },
     movingBackground:function () {
+        return;
         this._backSky.runAction(cc.MoveBy.create(3, cc.p(0, -48)));
-        this._backTileMap.runAction(cc.MoveBy.create(3, cc.p(0, -200)));
+        //this._backTileMap.runAction(cc.MoveBy.create(3, cc.p(0, -200)));
         this._backSkyHeight -= 48;
         this._backTileMapHeight -= 200;
 
