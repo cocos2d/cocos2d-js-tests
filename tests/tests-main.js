@@ -354,7 +354,7 @@ var testNames = [
     },
     {
         title:"MotionStreak Test",
-        platforms: PLATFORM_HTML5_WEBGL,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new MotionStreakTestScene();
         }
