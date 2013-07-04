@@ -45,6 +45,7 @@ var EffecstsBaseLayer = BaseTestLayer.extend({
     onNextCallback:function (sender) {
         var s = new EffectsTestScene();
         s.addChild(nextEffectsTest());
+        //director.replaceScene(cc.TransitionZoomFlipX.create(5, s));
         director.replaceScene(s);
     },
     onBackCallback:function (sender) {
