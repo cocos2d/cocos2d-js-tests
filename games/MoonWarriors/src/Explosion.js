@@ -51,7 +51,6 @@ Explosion.getOrCreateExplosion = function () {
             return selChild;
         }
     }
-
     selChild = Explosion.create();
     selChild.play();
     return selChild;
@@ -65,7 +64,7 @@ Explosion.create = function () {
 
 Explosion.preSet = function () {
     var explosion = null;
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 6; i++) {
         explosion = Explosion.create();
         explosion.setVisible(false);
         explosion.active = false;

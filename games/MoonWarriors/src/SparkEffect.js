@@ -48,7 +48,6 @@ SparkEffect.getOrCreateSparkEffect = function (pos) {
             return selChild;
         }
     }
-
     var spark = SparkEffect.create();
     spark.reset(pos);
     return spark;
@@ -64,7 +63,7 @@ SparkEffect.create = function () {
 
 SparkEffect.preSet = function () {
     var sparkEffect = null;
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 6; i++) {
         sparkEffect = SparkEffect.create();
         sparkEffect.active = false;
         sparkEffect.spark1.setVisible(false);
