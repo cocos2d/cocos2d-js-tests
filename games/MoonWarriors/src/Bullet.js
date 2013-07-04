@@ -16,17 +16,6 @@ var Bullet = cc.Sprite.extend({
         this.attackMode = attackMode;
         this.initWithSpriteFrameName(weaponType);
         this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
-
-        /*var tmpAction;
-         switch (this.attackMode) {
-         case MW.ENEMY_MOVE_TYPE.NORMAL:
-         tmpAction = cc.MoveBy.create(2, cc.p(this.getPosition().x, 400));
-         break;
-         case MW.ENEMY_ATTACK_MODE.TSUIHIKIDAN:
-         tmpAction = cc.MoveTo.create(2, GameLayer.create()._ship.getPosition());
-         break;
-         }
-         this.runAction(tmpAction);*/
     },
     update:function (dt) {
         var p = this.getPosition();
@@ -93,12 +82,12 @@ Bullet.create = function (bulletSpeed, weaponType, attackMode, zOrder, mode) {
 Bullet.preSet = function () {
     var bullet = null;
     for (var i = 0; i < 10; i++) {
-        var bullet = Bullet.create(MW.BulletSpeed.SHIP, "W1.png", MW.ENEMY_ATTACK_MODE.NORMAL, 3000, MW.UNIT_TAG.PLAYER_BULLET);
+        var bullet = Bullet.create(MW.BULLET_SPEED.SHIP, "W1.png", MW.ENEMY_ATTACK_MODE.NORMAL, 3000, MW.UNIT_TAG.PLAYER_BULLET);
         bullet.setVisible(false);
         bullet.active = false;
     }
     for (var i = 0; i < 10; i++) {
-        bullet = Bullet.create(MW.BulletSpeed.ENEMY, "W2.png", MW.ENEMY_ATTACK_MODE.NORMAL, 3000, MW.UNIT_TAG.ENMEY_BULLET);
+        bullet = Bullet.create(MW.BULLET_SPEED.ENEMY, "W2.png", MW.ENEMY_ATTACK_MODE.NORMAL, 3000, MW.UNIT_TAG.ENMEY_BULLET);
         bullet.setVisible(false);
         bullet.active = false;
     }

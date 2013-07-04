@@ -30,7 +30,6 @@ HitEffect.getOrCreateHitEffect = function (pos, rotation, scale) {
             return selChild;
         }
     }
-
     selChild = HitEffect.create(pos, rotation, scale);
     selChild.reset(pos, rotation, scale);
     return selChild;
@@ -45,7 +44,7 @@ HitEffect.create = function () {
 
 HitEffect.preSet = function () {
     var hitEffect = null;
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 10; i++) {
         hitEffect = HitEffect.create();
         hitEffect.setVisible(false);
         hitEffect.active = false;
