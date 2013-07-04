@@ -891,7 +891,7 @@ var ParallaxParticle = ParticleDemo.extend({
 
         var move = cc.MoveBy.create(4, cc.p(300, 0));
         var move_back = move.reverse();
-        var seq = cc.Sequence.create(move, move_back, null);
+        var seq = cc.Sequence.create(move, move_back);
         p.runAction(cc.RepeatForever.create(seq));
     },
     title:function () {
