@@ -3,7 +3,7 @@ var Enemy = cc.Sprite.extend({
     enemyType:1,
     active:true,
     speed:200,
-    bulletSpeed:MW.BulletSpeed.ENEMY,
+    bulletSpeed:MW.BULLET_SPEED.ENEMY,
     HP:15,
     bulletPowerValue:1,
     moveType:null,
@@ -36,9 +36,6 @@ var Enemy = cc.Sprite.extend({
             if (this._hurtColorLife > 0) {
                 this._hurtColorLife--;
             }
-            if (this._hurtColorLife == 1) {
-                this.setColor(cc.c3b(255, 255, 255));
-            }
         }
 
         var p = this.getPosition();
@@ -60,6 +57,7 @@ var Enemy = cc.Sprite.extend({
         this.active = false;
         this.stopAllActions();
         this.unschedule(this.shoot);
+        MW.ACTIVE_ENEMIES--;
     },
     shoot:function () {
         var p = this.getPosition();
@@ -69,11 +67,10 @@ var Enemy = cc.Sprite.extend({
     hurt:function () {
         this._hurtColorLife = 2;
         this.HP--;
-        this.setColor(cc.c3b(255, 0, 0));
     },
     collideRect:function (p) {
         var a = this.getContentSize();
-        return cc.rect(p.x - a.width / 2, p.y - a.height / 4, a.width, a.height / 2);
+        return cc.rect(p.x - a.width / 2, p.y - a.height / 4, a.width, a.height / 2+20);
     }
 });
 
@@ -89,14 +86,15 @@ Enemy.getOrCreateEnemy = function (arg) {
             selChild.scoreValue = arg.scoreValue;
             selChild.attackMode = arg.attackMode;
             selChild._hurtColorLife = 0;
-            selChild.setColor(cc.c3b(255, 255, 255));
 
             selChild.schedule(selChild.shoot, selChild.delayTime);
             selChild.setVisible(true);
+            MW.ACTIVE_ENEMIES++;
             return selChild;
         }
     }
     selChild = Enemy.create(arg);
+    MW.ACTIVE_ENEMIES++;
     return selChild;
 };
 
@@ -109,13 +107,13 @@ Enemy.create = function (arg) {
 
 Enemy.preSet = function () {
     var enemy = null;
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 3; i++) {
         for (var i = 0; i < EnemyType.length; i++) {
             enemy = Enemy.create(EnemyType[i]);
             enemy.setVisible(false);
             enemy.active = false;
             enemy.stopAllActions();
-            enemy.unschedule(this.shoot);
+            enemy.unscheduleAllCallbacks();
         }
     }
 };
