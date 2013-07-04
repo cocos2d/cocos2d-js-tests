@@ -639,6 +639,17 @@ var CameraCenterTest = TestNodeDemo.extend({
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
     },
+
+    onEnter:function(){
+        this._super();
+        cc.Director.getInstance().setProjection(cc.DIRECTOR_PROJECTION_3D);
+    },
+
+    onExit:function(){
+        cc.Director.getInstance().setProjection(cc.DIRECTOR_PROJECTION_2D);
+        this._super();
+    },
+
     title:function () {
         return "Camera Center test";
     },
