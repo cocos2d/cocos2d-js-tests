@@ -30,6 +30,9 @@ var LevelManager = cc.Class.extend({
     },
 
     loadLevelResource:function(deltaTime){
+        if(MW.ACTIVE_ENEMIES>= this._currentLevel.enemyMax){
+            return;
+        }
         //load enemy
         for(var i = 0; i< this._currentLevel.enemies.length; i++){
             var selEnemy = this._currentLevel.enemies[i];
