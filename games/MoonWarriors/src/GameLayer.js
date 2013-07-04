@@ -18,9 +18,6 @@ var GameLayer = cc.Layer.extend({
     _backSky:null,
     _backSkyHeight:0,
     _backSkyRe:null,
-    _backTileMap:null,
-    _backTileMapHeight:0,
-    _backTileMapRe:null,
     _levelManager:null,
     _tmpScore:0,
     _isBackSkyReload:false,
@@ -39,14 +36,18 @@ var GameLayer = cc.Layer.extend({
         if (this._super()) {
 
             cc.SpriteFrameCache.getInstance().addSpriteFrames(s_textureOpaquePack_plist);
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_b01_plist);
 
             // reset global values
             MW.CONTAINER.ENEMIES = [];
             MW.CONTAINER.ENEMY_BULLETS = [];
             MW.CONTAINER.PLAYER_BULLETS = [];
-			MW.CONTAINER.EXPLOSIONS = [];
-			MW.CONTAINER.SPARKS = [];
-			MW.CONTAINER.HITS = [];
+            MW.CONTAINER.EXPLOSIONS = [];
+            MW.CONTAINER.SPARKS = [];
+            MW.CONTAINER.HITS = [];
+            MW.CONTAINER.BACKSKYS = [];
+            MW.CONTAINER.BACKTILEMAPS = [];
+            MW.ACTIVE_ENEMIES = 0;
 
             MW.SCORE = 0;
             MW.LIFE = 4;
@@ -65,15 +66,15 @@ var GameLayer = cc.Layer.extend({
 
             winSize = cc.Director.getInstance().getWinSize();
             this._levelManager = new LevelManager(this);
-            this.initBackground();
+
             this.screenRect = cc.rect(0, 0, winSize.width, winSize.height + 10);
 
             // score
             this.lbScore = cc.LabelBMFont.create("Score: 0", s_arial14_fnt);
-            this.lbScore.setAnchorPoint( cc.p(1,0) );
-            this.lbScore.setAlignment( cc.TEXT_ALIGNMENT_RIGHT );
+            this.lbScore.setAnchorPoint(cc.p(1, 0));
+            this.lbScore.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
             this.addChild(this.lbScore, 1000);
-            this.lbScore.setPosition(winSize.width - 5 , winSize.height - 30);
+            this.lbScore.setPosition(winSize.width - 5, winSize.height - 30);
 
             // ship life
             var life = cc.Sprite.createWithSpriteFrameName("ship01.png");
@@ -84,7 +85,7 @@ var GameLayer = cc.Layer.extend({
             // ship Life count
             this._lbLife = cc.LabelTTF.create("0", "Arial", 20);
             this._lbLife.setPosition(60, 463);
-            this._lbLife.setColor(cc.c3b(255,0,0));
+            this._lbLife.setColor(cc.c3b(255, 0, 0));
             this.addChild(this._lbLife, 1000);
 
             // ship
@@ -101,13 +102,15 @@ var GameLayer = cc.Layer.extend({
 
             // accept touch now!
 
-            if( 'keyboard' in sys.capabilities )
+            if (sys["capabilities"].hasOwnProperty('keyboard'))
                 this.setKeyboardEnabled(true);
 
-            if( 'mouse' in sys.capabilities )
+            if (sys["capabilities"].hasOwnProperty('mouse'))
+            /*if ('mouse' in sys.capabilities)*/
                 this.setMouseEnabled(true);
 
-            if( 'touches' in sys.capabilities )
+            if (sys["capabilities"].hasOwnProperty('touches'))
+            /*if ('touches' in sys.capabilities)*/
                 this.setTouchEnabled(true);
 
             // schedule
@@ -120,7 +123,7 @@ var GameLayer = cc.Layer.extend({
 
             bRet = true;
 
-			g_sharedGameLayer = this;
+            g_sharedGameLayer = this;
 
             //pre set
             Bullet.preSet();
@@ -128,12 +131,16 @@ var GameLayer = cc.Layer.extend({
             HitEffect.preSet();
             SparkEffect.preSet();
             Explosion.preSet();
+            BackSky.preSet();
+            BackTileMap.preSet();
+
+            this.initBackground();
         }
         return bRet;
     },
 
     scoreCounter:function () {
-        if( this._state == STATE_PLAYING ) {
+        if (this._state == STATE_PLAYING) {
             this._time++;
 
             var minute = 0 | (this._time / 60);
@@ -146,20 +153,20 @@ var GameLayer = cc.Layer.extend({
     },
 
     onTouchesMoved:function (touches, event) {
-        this.processEvent( touches[0] );
+        this.processEvent(touches[0]);
     },
 
-    onMouseDragged:function( event ) {
-        this.processEvent( event );
+    onMouseDragged:function (event) {
+        this.processEvent(event);
     },
 
-    processEvent:function( event ) {
-        if( this._state == STATE_PLAYING ) {
+    processEvent:function (event) {
+        if (this._state == STATE_PLAYING) {
             var delta = event.getDelta();
             var curPos = this._ship.getPosition();
-            curPos= cc.pAdd( curPos, delta );
-            curPos = cc.pClamp(curPos, cc.POINT_ZERO, cc.p(winSize.width, winSize.height) );
-            this._ship.setPosition( curPos );
+            curPos = cc.pAdd(curPos, delta);
+            curPos = cc.pClamp(curPos, cc.POINT_ZERO, cc.p(winSize.width, winSize.height));
+            this._ship.setPosition(curPos);
         }
     },
 
@@ -172,7 +179,7 @@ var GameLayer = cc.Layer.extend({
     },
 
     update:function (dt) {
-        if( this._state == STATE_PLAYING ) {
+        if (this._state == STATE_PLAYING) {
             this.checkIsCollide();
             this.removeInactiveUnit(dt);
             this.checkIsReborn();
@@ -182,11 +189,11 @@ var GameLayer = cc.Layer.extend({
     checkIsCollide:function () {
         var selChild, bulletChild;
         // check collide
-        var i =0;
+        var i = 0;
         for (i = 0; i < MW.CONTAINER.ENEMIES.length; i++) {
             selChild = MW.CONTAINER.ENEMIES[i];
-			if(!selChild.active)
-				continue;
+            if (!selChild.active)
+                continue;
 
             for (var j = 0; j < MW.CONTAINER.PLAYER_BULLETS.length; j++) {
                 bulletChild = MW.CONTAINER.PLAYER_BULLETS[j];
@@ -195,13 +202,13 @@ var GameLayer = cc.Layer.extend({
                     selChild.hurt();
                 }
             }
-            if ( this.collide(selChild, this._ship)) {
+            if (this.collide(selChild, this._ship)) {
                 if (this._ship.active) {
                     selChild.hurt();
                     this._ship.hurt();
                 }
             }
-		}
+        }
 
         for (i = 0; i < MW.CONTAINER.ENEMY_BULLETS.length; i++) {
             selChild = MW.CONTAINER.ENEMY_BULLETS[i];
@@ -214,27 +221,27 @@ var GameLayer = cc.Layer.extend({
         }
     },
     removeInactiveUnit:function (dt) {
-        var selChild,children = this._texOpaqueBatch.getChildren();
-        for(var i in children){
-        selChild = children[i];
-            if (selChild && selChild.active){
-                selChild.update(dt);
-            }
-        }
-
-        var selChild,children = this._texTransparentBatch.getChildren();
-        for(var i in children){
+        var selChild, children = this._texOpaqueBatch.getChildren();
+        for (var i in children) {
             selChild = children[i];
-            if (selChild && selChild.active){
+            if (selChild && selChild.active) {
+                selChild.update(dt);
+            }
+        }
+
+        var selChild, children = this._texTransparentBatch.getChildren();
+        for (var i in children) {
+            selChild = children[i];
+            if (selChild && selChild.active) {
                 selChild.update(dt);
             }
         }
 
 
-        },
+    },
     checkIsReborn:function () {
         if (MW.LIFE > 0 && !this._ship.active) {
-			this._ship.born();
+            this._ship.born();
         }
         else if (MW.LIFE <= 0 && !this._ship.active) {
             this._state = STATE_GAMEOVER;
@@ -253,46 +260,42 @@ var GameLayer = cc.Layer.extend({
         this.lbScore.setString("Score: " + this._tmpScore);
     },
     collide:function (a, b) {
-		var pos1 = a.getPosition();
-		var pos2 = b.getPosition();
-		if(Math.abs(pos1.x - pos2.x) > MAX_CONTAINT_WIDTH || Math.abs(pos1.y - pos2.y) > MAX_CONTAINT_HEIGHT)
-			return false;
+        var pos1 = a.getPosition();
+        var pos2 = b.getPosition();
+        if (Math.abs(pos1.x - pos2.x) > MAX_CONTAINT_WIDTH || Math.abs(pos1.y - pos2.y) > MAX_CONTAINT_HEIGHT)
+            return false;
 
-		var aRect = a.collideRect(pos1);
-		var bRect = b.collideRect(pos2);
-		return cc.rectIntersectsRect(aRect, bRect);
+        var aRect = a.collideRect(pos1);
+        var bRect = b.collideRect(pos2);
+        return cc.rectIntersectsRect(aRect, bRect);
     },
     initBackground:function () {
-        // bg
-        this._backSky = cc.Sprite.createWithSpriteFrameName("bg01.png");
-        this._backSky.setAnchorPoint(cc.p(0, 0));
+        this._backSky = BackSky.getOrCreate();
         this._backSkyHeight = this._backSky.getContentSize().height;
-        this.addChild(this._backSky, -10);
 
-        //tilemap
-        /*this._backTileMap = cc.TMXTiledMap.create(s_level01);
-        this.addChild(this._backTileMap, -9);
-        this._backTileMapHeight = this._backTileMap.getMapSize().height * this._backTileMap.getTileSize().height;
-
-        this._backSkyHeight -= 48;
-        this._backTileMapHeight -= 200;
-        this._backSky.runAction(cc.MoveBy.create(3, cc.p(0, -48)));
-        this._backTileMap.runAction(cc.MoveBy.create(3, cc.p(0, -200)));*/
-
+        this.movingBackground();
         this.schedule(this.movingBackground, 3);
+
+        this.moveTileMap();
+        this.schedule(this.moveTileMap, 5);
+    },
+    moveTileMap:function () {
+        var backTileMap = BackTileMap.getOrCreate();
+        var ran = Math.random();
+        backTileMap.setPosition(ran * 320, winSize.height);
+        var move = cc.MoveBy.create(ran * 2 + 10, cc.p(0, -winSize.height-240));
+        var fun =cc.CallFunc.create(function(){
+            backTileMap.destroy();
+        },this);
+        backTileMap.runAction(cc.Sequence.create(move,fun));
     },
     movingBackground:function () {
-        return;
         this._backSky.runAction(cc.MoveBy.create(3, cc.p(0, -48)));
-        //this._backTileMap.runAction(cc.MoveBy.create(3, cc.p(0, -200)));
         this._backSkyHeight -= 48;
-        this._backTileMapHeight -= 200;
 
         if (this._backSkyHeight <= winSize.height) {
             if (!this._isBackSkyReload) {
-                this._backSkyRe = cc.Sprite.createWithSpriteFrameName("bg01.png");
-                this._backSkyRe.setAnchorPoint(cc.p(0, 0));
-                this.addChild(this._backSkyRe, -10);
+                this._backSkyRe = BackSky.getOrCreate();
                 this._backSkyRe.setPosition(0, winSize.height);
                 this._isBackSkyReload = true;
             }
@@ -300,27 +303,10 @@ var GameLayer = cc.Layer.extend({
         }
         if (this._backSkyHeight <= 0) {
             this._backSkyHeight = this._backSky.getContentSize().height;
-            this.removeChild(this._backSky, true);
+            this._backSky.destroy();
             this._backSky = this._backSkyRe;
             this._backSkyRe = null;
             this._isBackSkyReload = false;
-        }
-
-        if (this._backTileMapHeight <= winSize.height) {
-            if (!this._isBackTileReload) {
-                this._backTileMapRe = cc.TMXTiledMap.create(s_level01);
-                this.addChild(this._backTileMapRe, -9);
-                this._backTileMapRe.setPosition(0, winSize.height);
-                this._isBackTileReload = true;
-            }
-            this._backTileMapRe.runAction(cc.MoveBy.create(3, cc.p(0, -200)));
-        }
-        if (this._backTileMapHeight <= 0) {
-            this._backTileMapHeight = this._backTileMapRe.getMapSize().height * this._backTileMapRe.getTileSize().height;
-            this.removeChild(this._backTileMap, true);
-            this._backTileMap = this._backTileMapRe;
-            this._backTileMapRe = null;
-            this._isBackTileReload = false;
         }
     },
     onGameOver:function () {
@@ -345,22 +331,22 @@ GameLayer.scene = function () {
     return scene;
 };
 
-GameLayer.prototype.addEnemy = function (enemy,z,tag){
-    this._texTransparentBatch.addChild(enemy,z,tag);
+GameLayer.prototype.addEnemy = function (enemy, z, tag) {
+    this._texTransparentBatch.addChild(enemy, z, tag);
 };
 
 GameLayer.prototype.addExplosions = function (explosion) {
-	this._explosions.addChild(explosion);
+    this._explosions.addChild(explosion);
 };
 
 GameLayer.prototype.addBulletHits = function (hit, zOrder) {
-	this._texOpaqueBatch.addChild(hit, zOrder);
+    this._texOpaqueBatch.addChild(hit, zOrder);
 };
 
 GameLayer.prototype.addSpark = function (spark) {
     this._texOpaqueBatch.addChild(spark);
 };
 
-GameLayer.prototype.addBullet = function (bullet, zOrder ,mode) {
-	this._texOpaqueBatch.addChild(bullet, zOrder, mode);
+GameLayer.prototype.addBullet = function (bullet, zOrder, mode) {
+    this._texOpaqueBatch.addChild(bullet, zOrder, mode);
 };
