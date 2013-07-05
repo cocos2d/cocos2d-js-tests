@@ -354,7 +354,7 @@ var testNames = [
     },
     {
         title:"MotionStreak Test",
-        platforms: PLATFORM_HTML5_WEBGL,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new MotionStreakTestScene();
         }
@@ -507,6 +507,13 @@ var testNames = [
         platforms: PLATFORM_JSB,
         testScene:function () {
             return new PresentationScene();
+        }
+    },
+    {
+        title:"XMLHttpRequest",
+        platforms: PLATFORM_JSB,
+        testScene:function () {
+            return new XHRTestScene();
         }
     }
 

@@ -189,7 +189,7 @@ var IgnoreAnchorpointTest1 = LayerTest.extend({
         var ret2 =  this.readPixels(s.width/2 + s.width/5, s.height/2 + s.height/5, 5, 5);
         var ret3 =  this.readPixels(s.width - 50, s.height - 50, 50, 50);
         var ret = {"big": this.containsPixel(ret2, this.pixel1, true, 100) ? "yes" : "no",
-		   "small": this.containsPixel(ret3, this.pixel2, true, 100) ? "yes" : "no",};
+		   "small": this.containsPixel(ret3, this.pixel2, true, 100) ? "yes" : "no"};
 	
         return JSON.stringify(ret);
     }
@@ -259,7 +259,7 @@ var IgnoreAnchorpointTest3 = LayerTest.extend({
     },
     subtitle:function () {
         return "red:false  green:false";
-    },
+    }
 });
 
 var IgnoreAnchorpointTest4 = LayerTest.extend({
@@ -280,7 +280,7 @@ var IgnoreAnchorpointTest4 = LayerTest.extend({
     },
     subtitle:function () {
         return "red:false  green:true";
-    },
+    }
 
 });
 
@@ -353,7 +353,7 @@ var LayerTest2 = LayerTest.extend({
 	    }
 	    return false;
 	};
-        var s = director.getWinSize();
+    var s = director.getWinSize();
 	var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).getColor();
 	var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).getOpacity();
         var ret = {"tint": inColorRange(tint, this.tintTest) ? "yes" : "no",
@@ -496,7 +496,7 @@ var LayerGradient = LayerTest.extend({
         var ret2 =  this.readPixels(50, 50, 50, 50);
         var ret3 =  this.readPixels(s.width - 50, s.height - 50, 50, 50);
         var ret = {"bottomleft": this.containsPixel(ret2, this.pixel1) ? "yes" : "no",
-		   "topright": this.containsPixel(ret3, this.pixel2) ? "yes" : "no",};
+		   "topright": this.containsPixel(ret3, this.pixel2) ? "yes" : "no"};
 	
         return JSON.stringify(ret);
     }
