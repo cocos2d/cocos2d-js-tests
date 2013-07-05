@@ -63,6 +63,8 @@
 	<true/>
 	<key>javascriptMainCCB</key>
 	<string>MainScene</string>
+	<key>needRepublish</key>
+	<false/>
 	<key>onlyPublishCCBs</key>
 	<false/>
 	<key>publishDirectory</key>
@@ -94,7 +96,7 @@
 	<key>publishResolution_large</key>
 	<true/>
 	<key>publishResolution_medium</key>
-	<false/>
+	<true/>
 	<key>publishResolution_small</key>
 	<true/>
 	<key>publishResolution_xlarge</key>
@@ -112,5 +114,9 @@
 			<string>Resources</string>
 		</dict>
 	</array>
+	<key>versionStr</key>
+	<string>Version: 3.0-alpha5
+GitHub: 76499877e8
+</string>
 </dict>
 </plist>
