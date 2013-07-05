@@ -91,9 +91,17 @@ MW.CONTAINER = {
     ENEMIES:[],
     ENEMY_BULLETS:[],
     PLAYER_BULLETS:[],
-	EXPLOSIONS:[],
-	SPARKS:[],
-	HITS:[]
+    EXPLOSIONS:[],
+    SPARKS:[],
+    HITS:[],
+    BACKSKYS:[],
+    BACKTILEMAPS:[]
 };
 
-var g_hideSpritePos = cc.p( -10, -10);
+//bullet speed
+MW.BULLET_SPEED = {
+    ENEMY:-200,
+    SHIP:900
+};
+// the counter of active enemies
+MW.ACTIVE_ENEMIES = 0;
