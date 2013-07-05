@@ -49,7 +49,8 @@ var appFiles = [
     'src/SettingsLayer.js',
     'src/SysMenu.js',
 	'src/SparkEffect.js',
-	'src/HitEffect.js'
+	'src/HitEffect.js',
+    'src/Background.js'
 ];
 
 cc.dumpConfig();
