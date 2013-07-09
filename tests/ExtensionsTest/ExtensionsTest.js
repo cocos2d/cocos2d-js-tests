@@ -81,6 +81,15 @@ var extensionsTestItemNames = [
         testScene:function () {
             runWebSocketTest();
         }
+    },
+    {
+        itemTitle:"ArmatureTest",
+        testScene:function () {
+            var pScene = new ArmatureTestScene();
+            if (pScene) {
+                pScene.runThisTest();
+            }
+        }
     }
 ];
 
