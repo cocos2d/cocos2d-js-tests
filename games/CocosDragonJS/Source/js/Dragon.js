@@ -27,14 +27,14 @@
 //
 
 // Constants
-var CD_START_SPEED = 8;
-var CD_COIN_SPEED = 8;
+var CD_START_SPEED = 450;
+var CD_COIN_SPEED = 400;
 var CD_START_TARGET = 160;
 
 var CD_TARGET_FILTER_FACTOR = 0.05;
 var CD_SLOW_DOWN_FACTOR = 0.995;
-var CD_GRAVITY_SPEED = 0.1;
-var CD_GAMEOVER_SPEED = -10;
+var CD_GRAVITY_SPEED = 300;
+var CD_GAMEOVER_SPEED = -500;
 var CD_DELTA_TO_ROTATION_FACTOR = 5;
 
 var Dragon = function () {
@@ -43,16 +43,16 @@ var Dragon = function () {
     this.radius = 25;
 };
 
-Dragon.prototype.onUpdate = function () {
+Dragon.prototype.onUpdate = function (dt) {
     // Calculate the new position
     var oldPosition = cc.pMult(this.rootNode.getPosition(), 1.0 / gScaleFactor);
 
     var xNew = (this.xTarget / gScaleFactor) * CD_TARGET_FILTER_FACTOR + oldPosition.x * (1 - CD_TARGET_FILTER_FACTOR);
-    var yNew = oldPosition.y + this.ySpeed;
-    this.rootNode.setPosition(xNew * gScaleFactor, yNew * gScaleFactor);
 
     // Update the vertical speed
-    this.ySpeed = (this.ySpeed - CD_GRAVITY_SPEED) * CD_SLOW_DOWN_FACTOR;
+    this.ySpeed = this.ySpeed - CD_GRAVITY_SPEED * dt;
+    var yNew = oldPosition.y + this.ySpeed * dt;
+    this.rootNode.setPosition(xNew * gScaleFactor, yNew);
 
     // Tilt the dragon
     var xDelta = xNew - oldPosition.x;
@@ -67,7 +67,7 @@ Dragon.prototype.onUpdate = function () {
 Dragon.prototype.handleCollisionWith = function (gameObjectController) {
     if (gameObjectController.controllerName == "Coin") {
         // Took a coin
-        this.ySpeed = CD_COIN_SPEED;
+        this.ySpeed = this.ySpeed > CD_COIN_SPEED ? this.ySpeed : CD_COIN_SPEED;
         sharedGameScene.setScore(sharedGameScene.score + 1);
     }
     else if (gameObjectController.controllerName == "Bomb") {
