@@ -28,6 +28,7 @@
 //
 var Bomb = function () {
     this.radius = 15;
+    this.active = false;
 };
 
 Bomb.prototype.onUpdate = function () {
@@ -40,9 +41,7 @@ Bomb.prototype.handleCollisionWith = function (gameObjectController) {
 
         cc.AudioEngine.getInstance().playEffect("Explo.mp3");
 
-        var explosion = cc.BuilderReader.load("Explosion.ccbi");
-        explosion.setPosition(this.rootNode.getPosition());
-
-        this.rootNode.getParent().addChild(explosion);
+        var explosion = ExplosionManager.getOrCreateExplosion();
+        explosion.controller.playEffect(this.rootNode.getPosition());
     }
 };
