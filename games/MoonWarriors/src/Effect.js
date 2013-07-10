@@ -64,11 +64,11 @@ var spark = function (ccpoint, parent, scale, duration) {
     two.runAction(right);
 
     one.runAction(scaleBy);
-    two.runAction(scaleBy.copy());
-    three.runAction(scaleBy.copy());
+    two.runAction(scaleBy.clone());
+    three.runAction(scaleBy.clone());
 
     one.runAction(seq);
-    two.runAction(seq.copy() );
-    three.runAction(seq.copy());
+    two.runAction(seq.clone() );
+    three.runAction(seq.clone());
 };
 

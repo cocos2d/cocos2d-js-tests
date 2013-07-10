@@ -922,7 +922,7 @@ var SpriteAnchorPoint = SpriteTestDemo.extend({
 
             point.setPosition(sprite.getPosition());
 
-            //var copy = action.copy();
+            //var copy = action.clone();
             sprite.runAction(action);
             this.addChild(sprite, i);
         }
@@ -1012,7 +1012,7 @@ var Sprite6 = SpriteTestDemo.extend({
 
             var rotate = cc.RotateBy.create(5, 360);
             var action = cc.RepeatForever.create(rotate);
-            sprite.runAction(action.copy());
+            sprite.runAction(action.clone());
             batch.addChild(sprite, i);
         }
 
@@ -2217,7 +2217,7 @@ var SpriteBatchNodeOffsetAnchorFlip = SpriteTestDemo.extend({
             var flip = cc.FlipY.create(true);
             var flip_back = cc.FlipY.create(false);
             var delay = cc.DelayTime.create(1);
-            var seq = cc.Sequence.create(delay, flip, delay.copy(), flip_back);
+            var seq = cc.Sequence.create(delay, flip, delay.clone(), flip_back);
             sprite.runAction(cc.RepeatForever.create(seq));
 
             spritebatch.addChild(sprite, i);
@@ -2264,7 +2264,7 @@ var SpriteAnimationSplit = SpriteTestDemo.extend({
         var animate = cc.Animate.create(animation);
         var seq = cc.Sequence.create(animate,
             cc.FlipX.create(true),
-            animate.copy(),
+            animate.clone(),
             cc.FlipX.create(false));
 
         sprite.runAction(cc.RepeatForever.create(seq));
@@ -2945,14 +2945,14 @@ var SpriteChildrenChildren = SpriteTestDemo.extend({
         // parent
         var l1 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("father.gif"));
         l1.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
-        l1.runAction(seq.copy());
+        l1.runAction(seq.clone());
         aParent.addChild(l1);
         var l1Size = l1.getContentSize();
 
         // child left
         var l2a = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("sister1.gif"));
         l2a.setPosition(cc.p(-50 + l1Size.width / 2, 0 + l1Size.height / 2));
-        l2a.runAction(rot_back_fe.copy());
+        l2a.runAction(rot_back_fe.clone());
         l1.addChild(l2a);
         var l2aSize = l2a.getContentSize();
 
@@ -2960,7 +2960,7 @@ var SpriteChildrenChildren = SpriteTestDemo.extend({
         // child right
         var l2b = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("sister2.gif"));
         l2b.setPosition(cc.p(+50 + l1Size.width / 2, 0 + l1Size.height / 2));
-        l2b.runAction(rot_back_fe.copy());
+        l2b.runAction(rot_back_fe.clone());
         l1.addChild(l2b);
         var l2bSize = l2a.getContentSize();
 
@@ -3024,14 +3024,14 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         // parent
         var l1 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("father.gif"));
         l1.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
-        l1.runAction(seq.copy());
+        l1.runAction(seq.clone());
         aParent.addChild(l1);
         var l1Size = l1.getContentSize();
 
         // child left
         var l2a = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("sister1.gif"));
         l2a.setPosition(cc.p(-50 + l1Size.width / 2, 0 + l1Size.height / 2));
-        l2a.runAction(rot_back_fe.copy());
+        l2a.runAction(rot_back_fe.clone());
         l1.addChild(l2a);
         var l2aSize = l2a.getContentSize();
 
@@ -3039,7 +3039,7 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         // child right
         var l2b = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("sister2.gif"));
         l2b.setPosition(cc.p(50 + l1Size.width / 2, 0 + l1Size.height / 2));
-        l2b.runAction(rot_back_fe.copy());
+        l2b.runAction(rot_back_fe.clone());
         l1.addChild(l2b);
         var l2bSize = l2a.getContentSize();
 
@@ -3608,10 +3608,8 @@ var SpriteDoubleResolution = SpriteTestDemo.extend({
         var scale_back = scale.reverse();
         var seq = cc.Sequence.create(scale, scale_back);
 
-        var seq_copy = seq.copy();
-
         spriteSD.runAction(seq);
-        spriteHD.runAction(seq_copy);
+        spriteHD.runAction(seq.clone());
     }
 });
 

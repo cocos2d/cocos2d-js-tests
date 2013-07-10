@@ -83,7 +83,7 @@ var EffecstsBaseLayer = BaseTestLayer.extend({
         var repeat = cc.RepeatForever.create( seq );
 
         sister1.runAction( repeat );
-        sister2.runAction( repeat.copy() );
+        sister2.runAction( repeat.clone() );
     },
 
     getEffect:function(duration) {

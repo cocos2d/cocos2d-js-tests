@@ -542,7 +542,7 @@ var Issue1464 = RenderTextureBaseLayer.extend({
         var fadeout = cc.FadeOut.create(2);
         var fadein = fadeout.reverse();
         var delay = cc.DelayTime.create(0.25);
-        var seq = cc.Sequence.create(fadeout, delay, fadein, delay.copy());
+        var seq = cc.Sequence.create(fadeout, delay, fadein, delay.clone());
         var fe = cc.RepeatForever.create(seq);
         rend.getSprite().runAction(fe);
     },

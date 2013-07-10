@@ -392,9 +392,9 @@ var TMXReadWriteTest = TileDemo.extend({
         var seq0 = cc.Sequence.create(move, rotate, scale, opacity, fadein, scaleback, finish);
 
         tile0.runAction(seq0);
-        tile1.runAction(seq0.copy());
-        tile2.runAction(seq0.copy());
-        tile3.runAction(seq0.copy());
+        tile1.runAction(seq0.clone());
+        tile2.runAction(seq0.clone());
+        tile3.runAction(seq0.clone());
 
         this.gid = layer.getTileGIDAt(cc.p(0, 63));
 
