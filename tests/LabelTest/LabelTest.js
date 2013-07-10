@@ -250,7 +250,7 @@ var LabelAtlasHD = AtlasDemo.extend({
     pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
 
     getExpectedResult:function() {
-        
+
         // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
         var s = director.getWinSize();
         var ret = {"center": "yes"};
@@ -261,7 +261,7 @@ var LabelAtlasHD = AtlasDemo.extend({
 
         var s = director.getWinSize();
         var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
-        
+
         var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
 
         return JSON.stringify(ret);
@@ -386,7 +386,7 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
         var FChar = label.getChildByTag(7);
         var AChar = label.getChildByTag(12);
 
-        
+
         if(autoTestEnabled) {
             var jump = cc.JumpBy.create(0.5, cc.p(0,0), 60, 1);
             var jump_4ever = cc.RepeatForever.create(cc.Sequence.create(jump, cc.DelayTime.create(0.25)));
@@ -502,7 +502,7 @@ var BMFontPaddingTest = AtlasDemo.extend({
     pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
 
     getExpectedResult:function() {
-        
+
         // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
         var s = director.getWinSize();
         var ret = {"center": "yes"};
@@ -718,7 +718,7 @@ var BMFontMultiLineTest = AtlasDemo.extend({
     pixel: {"0": 255, "1": 186, "2": 33, "3": 255},
 
     getExpectedResult:function() {
-        
+
         // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
         var s = director.getWinSize();
         var ret = {"left": "yes", "center": "yes", "right": "yes"};
@@ -730,9 +730,9 @@ var BMFontMultiLineTest = AtlasDemo.extend({
         var s = director.getWinSize();
         var ret1 =  this.readPixels(0, 0, 100, 100);
         var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
-        var ret3 =  this.readPixels(s.width - 100, s.height - 100, 100, 100);        
+        var ret3 =  this.readPixels(s.width - 100, s.height - 100, 100, 100);
 
-        
+
         var ret = {"left": this.containsPixel(ret1, this.pixel) ? "yes" : "no",
                    "center": this.containsPixel(ret2, this.pixel) ? "yes" : "no",
                    "right": this.containsPixel(ret3, this.pixel) ? "yes" : "no"}
@@ -795,7 +795,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
     pixel: {"0": 255, "1": 186, "2": 33, "3": 255},
 
     getExpectedResult:function() {
-        
+
         // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
         var s = director.getWinSize();
         var ret = {"left": "yes", "center": "yes", "right": "yes"};
@@ -803,13 +803,11 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
     },
 
     getCurrentResult:function() {
-
         var s = director.getWinSize();
         var ret1 =  this.readPixels(0, 0, 100, 100);
         var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
-        var ret3 =  this.readPixels(s.width - 100, s.height - 100, 100, 100);        
+        var ret3 =  this.readPixels(s.width - 100, s.height - 100, 100, 100);
 
-        
         var ret = {"left": this.containsPixel(ret1, this.pixel) ? "yes" : "no",
                    "center": this.containsPixel(ret2, this.pixel) ? "yes" : "no",
                    "right": this.containsPixel(ret3, this.pixel) ? "yes" : "no"}
@@ -904,7 +902,7 @@ var BMFontHDTest = AtlasDemo.extend({
     pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
 
     getExpectedResult:function() {
-        
+
         // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
         var s = director.getWinSize();
         var ret = {"center": "yes"};
@@ -915,7 +913,7 @@ var BMFontHDTest = AtlasDemo.extend({
 
         var s = director.getWinSize();
         var ret2 =  this.readPixels(s.width/2, s.height/2, 100, 100);
-        
+
         var ret = {"center": this.containsPixel(ret2, this.pixel) ? "yes" : "no"};
 
         return JSON.stringify(ret);
@@ -954,7 +952,7 @@ var BMFontGlyphDesignerTest = AtlasDemo.extend({
     pixel: {"0": 240, "1": 201, "2": 108, "3": 255},
 
     getExpectedResult:function() {
-        
+
         // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
         var s = director.getWinSize();
         var ret = {"center": "yes"};
@@ -979,94 +977,94 @@ var BMFontGlyphDesignerTest = AtlasDemo.extend({
 //------------------------------------------------------------------
 
 var LabelTTFStrokeShadowTest = AtlasDemo.extend({
-                                                
-    _labelShadow:null,
-    _labelStroke:null,
-    _labelStrokeShadow:null,
-    
-    ctor:function () {
+    _labelShadow: null,
+    _labelStroke: null,
+    _labelStrokeShadow: null,
+
+    ctor: function () {
         this._super();
         this.updateLabels();
-        },
-    
-    updateLabels:function () {
-    
-        var blockSize = cc.size(0, 0);
+    },
+
+    updateLabels: function () {
+        var blockSize = cc.size(400, 100);
         var s = director.getWinSize();
-        
+
         // colors
-        var redColor    = cc.c3b(255, 0, 0);
+        var redColor = cc.c3b(255, 0, 0);
         var yellowColor = cc.c3b(255, 255, 0);
-        var blueColor   = cc.c3b(0, 0, 255);
-        
+        var blueColor = cc.c3b(0, 0, 255);
+
         // shadow offset
-        var shadowOffset = cc.size(10, 10);
-                                                    
+        var shadowOffset = cc.size(12, -12);
+
         // positioning stuff
-        var posX   = s.width  / 2 - (blockSize.width/2);
-        var posY   = s.height / 2;
-        
+        var posX = s.width / 2 - (blockSize.width / 2);
+        var posY_5 = s.height / 7;
+
         // font definition
         var fontDefRedShadow = {};
-        fontDefRedShadow.fontName       = "Arial";
-        fontDefRedShadow.fontSize       = 32;
+        fontDefRedShadow.fontName = "Arial";
+        fontDefRedShadow.fontSize = 32;
         fontDefRedShadow.fontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
         fontDefRedShadow.fontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
-        fontDefRedShadow.fontFillColor  = redColor;
+        fontDefRedShadow.fontFillColor = redColor;
         fontDefRedShadow.fontDimensions = blockSize;
         // shadow
-        fontDefRedShadow.shadowEnabled  = true;
-        fontDefRedShadow.shadowOffset   = shadowOffset;
-        
+        fontDefRedShadow.shadowEnabled = true;
+        fontDefRedShadow.shadowOffset = shadowOffset;
+
         // create the label using the definition
         this._labelShadow = cc.LabelTTF.createWithFontDefinition("Shadow Only", fontDefRedShadow);
-        this._labelShadow.setPosition(cc.p(posX, posY - 80));
-        
+        this._labelShadow.setAnchorPoint(cc.p(0, 0));
+        this._labelShadow.setPosition(cc.p(posX, posY_5));
+
         // font definition
         var fontDefBlueStroke = {};
-        fontDefBlueStroke.fontName       = "Arial";
-        fontDefBlueStroke.fontSize       = 32;
+        fontDefBlueStroke.fontName = "Arial";
+        fontDefBlueStroke.fontSize = 32;
         fontDefBlueStroke.fontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
         fontDefBlueStroke.fontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
-        fontDefBlueStroke.fontFillColor  = blueColor;
+        fontDefBlueStroke.fontFillColor = blueColor;
         fontDefBlueStroke.fontDimensions = blockSize;
         // stroke
-        fontDefBlueStroke.strokeEnabled  = true;
-        fontDefBlueStroke.strokeColor    = yellowColor;
-        
+        fontDefBlueStroke.strokeEnabled = true;
+        fontDefBlueStroke.strokeColor = yellowColor;
+
         this._labelStroke = cc.LabelTTF.createWithFontDefinition("Stroke Only", fontDefBlueStroke);
-        this._labelStroke.setPosition(cc.p(posX, posY));
-        
-        // font definition                                    
+        this._labelStroke.setAnchorPoint(cc.p(0, 0));
+        this._labelStroke.setPosition(cc.p(posX, posY_5 * 2));
+
+        // font definition
         var fontDefRedStrokeShadow = {};
-        fontDefRedStrokeShadow.fontName       = "Arial";
-        fontDefRedStrokeShadow.fontSize       = 32;
+        fontDefRedStrokeShadow.fontName = "Arial";
+        fontDefRedStrokeShadow.fontSize = 32;
         fontDefRedStrokeShadow.fontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
         fontDefRedStrokeShadow.fontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
-        fontDefRedStrokeShadow.fontFillColor  = blueColor;
+        fontDefRedStrokeShadow.fontFillColor = blueColor;
         fontDefRedStrokeShadow.fontDimensions = blockSize;
         // stroke
-        fontDefRedStrokeShadow.strokeEnabled  = true;
-        fontDefRedStrokeShadow.strokeColor    = redColor;
+        fontDefRedStrokeShadow.strokeEnabled = true;
+        fontDefRedStrokeShadow.strokeColor = redColor;
         // shadow
-        fontDefRedStrokeShadow.shadowEnabled  = true;
-        fontDefRedStrokeShadow.shadowOffset   = shadowOffset;
-        
-        this._labelStrokeShadow = cc.LabelTTF.createWithFontDefinition("Stroke + Shadow", fontDefRedStrokeShadow);
-        this._labelStrokeShadow.setPosition(cc.p(posX, posY + 80));
-        
-        
+        fontDefRedStrokeShadow.shadowEnabled = true;
+        fontDefRedStrokeShadow.shadowOffset = cc.size(-12,12);   //shadowOffset;
+
+        this._labelStrokeShadow = cc.LabelTTF.createWithFontDefinition("Stroke + Shadow\n New Line", fontDefRedStrokeShadow);
+        this._labelStrokeShadow.setAnchorPoint(cc.p(0, 0));
+        this._labelStrokeShadow.setPosition(cc.p(posX, posY_5 * 3));
+
         // add all the labels
         this.addChild(this._labelShadow);
         this.addChild(this._labelStroke);
         this.addChild(this._labelStrokeShadow);
     },
-                                                
-    title:function () {
+
+    title: function () {
         return "Testing cc.LabelTTF + shadow and stroke";
     },
-    
-    subtitle:function () {
+
+    subtitle: function () {
         return "";
     }
 });
@@ -1210,7 +1208,7 @@ var LabelTTFMultiline = AtlasDemo.extend({
     pixel: {"0": 255, "1": 255, "2": 255, "3": 255},
 
     getExpectedResult:function() {
-        
+
         // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
         var s = director.getWinSize();
         var ret = {"center": "yes"};
@@ -1265,7 +1263,7 @@ var BMFontChineseTest = AtlasDemo.extend({
     pixel: {"0": 255, "1": 0, "2": 142, "3": 255},
 
     getExpectedResult:function() {
-        
+
         // var ret = [{"0":0,"1":0,"2":226,"3":255},{"0":47,"1":0,"2":0,"3":255},{"0":0,"1":47,"2":0,"3":255}];
         var s = director.getWinSize();
         var ret = {"center": "yes"};
@@ -1378,8 +1376,8 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         return "";
     },
     onStringChanged:function (sender) {
-        sender.setColor(cc.c3b(255, 0, 0));
         this.lastSentenceItem.setColor(cc.c3b(255, 255, 255));
+        sender.setColor(cc.c3b(255, 0, 0));
         this.lastSentenceItem = sender;
 
         switch (sender.getTag()) {
@@ -1401,8 +1399,8 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
     },
     onAlignmentChanged:function (sender) {
         var item = sender;
-        item.setColor(cc.c3b(255, 0, 0));
         this.lastAlignmentItem.setColor(cc.c3b(255, 255, 255));
+        item.setColor(cc.c3b(255, 0, 0));
         this.lastAlignmentItem = item;
 
         switch (item.getTag()) {
@@ -1707,7 +1705,6 @@ var BMFontColorParentChild = AtlasDemo.extend({
 // Flow control
 //
 var arrayOfLabelTest = [
-
     LabelAtlasOpacityTest,
     LabelAtlasOpacityColorTest,
     LabelAtlasHD,
@@ -1736,13 +1733,9 @@ var arrayOfLabelTest = [
     LabelTTFFontInitTest,
     LabelTTFAlignment,
 
-    LabelsEmpty
+    LabelsEmpty,
+    LabelTTFStrokeShadowTest
 ];
-
-if( sys.platform != "browser"){
-    //Not implement in HTML5
-    arrayOfLabelTest.push(LabelTTFStrokeShadowTest);
-}
 
 var nextLabelTest = function () {
     labelTestIdx++;

@@ -47,7 +47,7 @@ var s_HUD = "res/CCB/HUD.ccbi";
 var s_MainMenu = "res/CCB/MainMenu.ccbi";
 var s_About = "res/CCB/About.ccbi";
 
-var g_ressources = [
+var g_resources = [
     {src:s_coinsPlist},
     {src:s_coinsAnimation},
     {src:s_carSmoke},

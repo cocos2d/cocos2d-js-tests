@@ -166,7 +166,7 @@ var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
 
-var g_ressources = [
+var g_resources = [
     //global
     {src:s_grossini_dance_atlas},
     {src:s_pathFog},
@@ -213,6 +213,8 @@ var g_ressources = [
     {src:s_grossini_familyPlist},
     {src:s_helloWorld},
     {src:s_bitmapFontTest5},
+    {src:s_playNormal},
+    {src:s_playSelect},
     {src:s_bitmapFontTest5_fnt}
 ];
 
@@ -245,8 +247,6 @@ var g_sprites = [
 var g_menu = [
     {src:s_bitmapFontTest3_fnt},
     {src:s_bitmapFontTest3},
-    {src:s_playNormal},
-    {src:s_playSelect},
     {src:s_aboutNormal},
     {src:s_aboutSelect},
     {src:s_highNormal},

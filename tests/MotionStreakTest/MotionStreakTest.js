@@ -62,7 +62,7 @@ var MotionStreakTest = cc.Layer.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.PointZero());
+        menu.setPosition(cc.p(0, 0));
         item1.setPosition(cc.p(VisibleRect.center().x - item2.getContentSize().width * 2, VisibleRect.bottom().y + item2.getContentSize().height / 2));
         item2.setPosition(cc.p(VisibleRect.center().x, VisibleRect.bottom().y + item2.getContentSize().height / 2));
         item3.setPosition(cc.p(VisibleRect.center().x + item2.getContentSize().width * 2, VisibleRect.bottom().y + item2.getContentSize().height / 2));
@@ -146,7 +146,7 @@ var MotionStreakTest1 = MotionStreakTest.extend({
     },
 
     onUpdate:function (delta) {
-        this._streak.setPosition(this._target.convertToWorldSpace(cc.PointZero()));
+        this._streak.setPosition(this._target.convertToWorldSpace(cc.p(0, 0)));
     },
 
     title:function () {
@@ -200,7 +200,7 @@ var Issue1358 = MotionStreakTest.extend({
 
         // ask director the the window size
         var size = cc.Director.getInstance().getWinSize();
-        this._streak = cc.MotionStreak.create(2.0, 1.0, 50.0, cc.c3(255, 255, 0), s_image_icon);
+        this._streak = cc.MotionStreak.create(2.0, 1.0, 50.0, cc.c3b(255, 255, 0), s_image_icon);
         this.addChild(this._streak);
 
         this._center = cc.p(size.width / 2, size.height / 2);

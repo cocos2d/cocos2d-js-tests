@@ -163,7 +163,7 @@ var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
 
-var g_ressources = [];
+var g_resources = [];
 
 var g_sprites = [];
 
