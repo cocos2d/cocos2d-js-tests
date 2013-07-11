@@ -31,6 +31,7 @@
 var Coin = function()
 {
     this.radius = 15;
+    this.active = false;
 };
 
 Coin.prototype.onUpdate = function()
