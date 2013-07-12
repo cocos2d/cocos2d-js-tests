@@ -517,7 +517,8 @@ var g_extensions = [
     {src:s_TestBone_json },
     {src:s_weapon_plist },
     {src:s_weapon_png },
-    {src:s_weapon_xml }
+    {src:s_weapon_xml },
+    {src:"res/Particles/SmallSun.plist"}
 ];
 var g_performace = [
     {src:"res/animations/crystals.plist"},
