@@ -29,6 +29,7 @@
 var EndCoin = function()
 {
     this.radius = 15;
+    this.active = false;
 };
 
 EndCoin.prototype.onUpdate = function()

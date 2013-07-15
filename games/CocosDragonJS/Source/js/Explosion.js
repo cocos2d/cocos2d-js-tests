@@ -29,6 +29,7 @@
 
 var Explosion = function () {
     this.radius = 15;
+    this.active = false;
 };
 
 Explosion.prototype.onDidLoadFromCCB = function () {
@@ -43,4 +44,48 @@ Explosion.prototype.handleCollisionWith = function (gameObjectController) {
 
 Explosion.prototype.onAnimationComplete = function (animationManager) {
     this.isScheduledForRemove = true;
+};
+
+Explosion.prototype.playEffect = function (pos) {
+    this.rootNode.setPosition(pos);
+    var children = this.rootNode.getChildren();
+    for(var i =0;i<children.length;i++){
+        children[i].resetSystem();
+    }
+};
+
+var ExplosionManager = {};
+ExplosionManager.addExplosions=[];
+ExplosionManager.getOrCreateExplosion = function () {
+    var selChild = null;
+    for (var j = 0; j < this.addExplosions.length; j++) {
+        selChild = this.addExplosions[j];
+        if (selChild.controller.active == false) {
+            selChild.setVisible(true);
+            return selChild;
+        }
+    }
+    selChild = this.createExplosion();
+    return selChild;
+};
+
+ExplosionManager.createExplosion = function () {
+    var explosion = cc.BuilderReader.load("Explosion.ccbi");
+    shareGameLevel.addChild(explosion);
+    this.addExplosions.push(explosion);
+    var children = explosion.getChildren();
+    for(var i =0;i<children.length;i++){
+        children[i].stopSystem();
+    }
+
+    return explosion;
+};
+
+ExplosionManager.preSetExplosion = function () {
+    this.addExplosions=[];
+    var explosion = null;
+    for (var i = 0; i < 2; i++) {
+        explosion = ExplosionManager.createExplosion();
+        explosion.setVisible(false);
+    }
 };
