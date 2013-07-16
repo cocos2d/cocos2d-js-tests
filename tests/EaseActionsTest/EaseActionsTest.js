@@ -143,18 +143,18 @@ var SpriteEase = EaseSpriteDemo.extend({
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         var move_back = move.reverse();
 
-        var move_ease_in = cc.EaseIn.create(move.copy(), 2.0);
+        var move_ease_in = cc.EaseIn.create(move.clone(), 2.0);
         var move_ease_in_back = move_ease_in.reverse();
 
-        var move_ease_out = cc.EaseOut.create(move.copy(), 2.0);
+        var move_ease_out = cc.EaseOut.create(move.clone(), 2.0);
         var move_ease_out_back = move_ease_out.reverse();
 
 
         var delay = cc.DelayTime.create(0.10);
 
-        var seq1 = cc.Sequence.create(move, delay, move_back, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease_in, delay.copy(), move_ease_in_back, delay.copy());
-        var seq3 = cc.Sequence.create(move_ease_out, delay.copy(), move_ease_out_back, delay.copy());
+        var seq1 = cc.Sequence.create(move, delay, move_back, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease_in, delay.clone(), move_ease_in_back, delay.clone());
+        var seq3 = cc.Sequence.create(move_ease_out, delay.clone(), move_ease_out_back, delay.clone());
 
 
         var a2 = this._grossini.runAction(cc.RepeatForever.create(seq1));
@@ -207,20 +207,20 @@ var SpriteEaseInOut = EaseSpriteDemo.extend({
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         //	id move_back = move.reverse();
 
-        var move_ease_inout1 = cc.EaseInOut.create(move.copy(), 2.0);
+        var move_ease_inout1 = cc.EaseInOut.create(move.clone(), 2.0);
         var move_ease_inout_back1 = move_ease_inout1.reverse();
 
-        var move_ease_inout2 = cc.EaseInOut.create(move.copy(), 3.0);
+        var move_ease_inout2 = cc.EaseInOut.create(move.clone(), 3.0);
         var move_ease_inout_back2 = move_ease_inout2.reverse();
 
-        var move_ease_inout3 = cc.EaseInOut.create(move.copy(), 4.0);
+        var move_ease_inout3 = cc.EaseInOut.create(move.clone(), 4.0);
         var move_ease_inout_back3 = move_ease_inout3.reverse();
 
         var delay = cc.DelayTime.create(0.1);
 
-        var seq1 = cc.Sequence.create(move_ease_inout1, delay, move_ease_inout_back1, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease_inout2, delay.copy(), move_ease_inout_back2, delay.copy());
-        var seq3 = cc.Sequence.create(move_ease_inout3, delay.copy(), move_ease_inout_back3, delay.copy());
+        var seq1 = cc.Sequence.create(move_ease_inout1, delay, move_ease_inout_back1, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease_inout2, delay.clone(), move_ease_inout_back2, delay.clone());
+        var seq3 = cc.Sequence.create(move_ease_inout3, delay.clone(), move_ease_inout_back3, delay.clone());
 
         this._tamara.runAction(cc.RepeatForever.create(seq1));
         this._kathia.runAction(cc.RepeatForever.create(seq2));
@@ -244,17 +244,17 @@ var SpriteEaseExponential = EaseSpriteDemo.extend({
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         var move_back = move.reverse();
 
-        var move_ease_in = cc.EaseExponentialIn.create(move.copy());
+        var move_ease_in = cc.EaseExponentialIn.create(move.clone());
         var move_ease_in_back = move_ease_in.reverse();
 
-        var move_ease_out = cc.EaseExponentialOut.create(move.copy());
+        var move_ease_out = cc.EaseExponentialOut.create(move.clone());
         var move_ease_out_back = move_ease_out.reverse();
 
         var delay = cc.DelayTime.create(0.1);
 
-        var seq1 = cc.Sequence.create(move, delay, move_back, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease_in, delay.copy(), move_ease_in_back, delay.copy());
-        var seq3 = cc.Sequence.create(move_ease_out, delay.copy(), move_ease_out_back, delay.copy());
+        var seq1 = cc.Sequence.create(move, delay, move_back, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease_in, delay.clone(), move_ease_in_back, delay.clone());
+        var seq3 = cc.Sequence.create(move_ease_out, delay.clone(), move_ease_out_back, delay.clone());
 
 
         this._grossini.runAction(cc.RepeatForever.create(seq1));
@@ -278,13 +278,13 @@ var SpriteEaseExponentialInOut = EaseSpriteDemo.extend({
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         var move_back = move.reverse();
 
-        var move_ease = cc.EaseExponentialInOut.create(move.copy());
+        var move_ease = cc.EaseExponentialInOut.create(move.clone());
         var move_ease_back = move_ease.reverse();
 
         var delay = cc.DelayTime.create(0.1);
 
-        var seq1 = cc.Sequence.create(move, delay, move_back, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease, delay.copy(), move_ease_back, delay.copy());
+        var seq1 = cc.Sequence.create(move, delay, move_back, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease, delay.clone(), move_ease_back, delay.clone());
 
         this.positionForTwo();
 
@@ -308,17 +308,17 @@ var SpriteEaseSine = EaseSpriteDemo.extend({
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         var move_back = move.reverse();
 
-        var move_ease_in = cc.EaseSineIn.create(move.copy());
+        var move_ease_in = cc.EaseSineIn.create(move.clone());
         var move_ease_in_back = move_ease_in.reverse();
 
-        var move_ease_out = cc.EaseSineOut.create(move.copy());
+        var move_ease_out = cc.EaseSineOut.create(move.clone());
         var move_ease_out_back = move_ease_out.reverse();
 
         var delay = cc.DelayTime.create(0.1);
 
-        var seq1 = cc.Sequence.create(move, delay, move_back, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease_in, delay, move_ease_in_back, delay.copy());
-        var seq3 = cc.Sequence.create(move_ease_out, delay, move_ease_out_back, delay.copy());
+        var seq1 = cc.Sequence.create(move, delay, move_back, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease_in, delay, move_ease_in_back, delay.clone());
+        var seq3 = cc.Sequence.create(move_ease_out, delay, move_ease_out_back, delay.clone());
 
 
         this._grossini.runAction(cc.RepeatForever.create(seq1));
@@ -343,13 +343,13 @@ var SpriteEaseSineInOut = EaseSpriteDemo.extend({
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         var move_back = move.reverse();
 
-        var move_ease = cc.EaseSineInOut.create(move.copy());
+        var move_ease = cc.EaseSineInOut.create(move.clone());
         var move_ease_back = move_ease.reverse();
 
         var delay = cc.DelayTime.create(0.1);
 
-        var seq1 = cc.Sequence.create(move, delay, move_back, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease, delay.copy(), move_ease_back, delay.copy());
+        var seq1 = cc.Sequence.create(move, delay, move_back, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease, delay.clone(), move_ease_back, delay.clone());
 
         this.positionForTwo();
 
@@ -373,17 +373,17 @@ var SpriteEaseElastic = EaseSpriteDemo.extend({
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         var move_back = move.reverse();
 
-        var move_ease_in = cc.EaseElasticIn.create(move.copy());
+        var move_ease_in = cc.EaseElasticIn.create(move.clone());
         var move_ease_in_back = move_ease_in.reverse();
 
-        var move_ease_out = cc.EaseElasticOut.create(move.copy());
+        var move_ease_out = cc.EaseElasticOut.create(move.clone());
         var move_ease_out_back = move_ease_out.reverse();
 
         var delay = cc.DelayTime.create(0.1);
 
-        var seq1 = cc.Sequence.create(move, delay, move_back, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease_in, delay.copy(), move_ease_in_back, delay.copy());
-        var seq3 = cc.Sequence.create(move_ease_out, delay.copy(), move_ease_out_back, delay.copy());
+        var seq1 = cc.Sequence.create(move, delay, move_back, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease_in, delay.clone(), move_ease_in_back, delay.clone());
+        var seq3 = cc.Sequence.create(move_ease_out, delay.clone(), move_ease_out_back, delay.clone());
 
         this._grossini.runAction(cc.RepeatForever.create(seq1));
         this._tamara.runAction(cc.RepeatForever.create(seq2));
@@ -405,20 +405,20 @@ var SpriteEaseElasticInOut = EaseSpriteDemo.extend({
 
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
 
-        var move_ease_inout1 = cc.EaseElasticInOut.create(move.copy(), 0.3);
+        var move_ease_inout1 = cc.EaseElasticInOut.create(move.clone(), 0.3);
         var move_ease_inout_back1 = move_ease_inout1.reverse();
 
-        var move_ease_inout2 = cc.EaseElasticInOut.create(move.copy(), 0.45);
+        var move_ease_inout2 = cc.EaseElasticInOut.create(move.clone(), 0.45);
         var move_ease_inout_back2 = move_ease_inout2.reverse();
 
-        var move_ease_inout3 = cc.EaseElasticInOut.create(move.copy(), 0.6);
+        var move_ease_inout3 = cc.EaseElasticInOut.create(move.clone(), 0.6);
         var move_ease_inout_back3 = move_ease_inout3.reverse();
 
         var delay = cc.DelayTime.create(0.1);
 
-        var seq1 = cc.Sequence.create(move_ease_inout1, delay, move_ease_inout_back1, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease_inout2, delay.copy(), move_ease_inout_back2, delay.copy());
-        var seq3 = cc.Sequence.create(move_ease_inout3, delay.copy(), move_ease_inout_back3, delay.copy());
+        var seq1 = cc.Sequence.create(move_ease_inout1, delay, move_ease_inout_back1, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease_inout2, delay.clone(), move_ease_inout_back2, delay.clone());
+        var seq3 = cc.Sequence.create(move_ease_inout3, delay.clone(), move_ease_inout_back3, delay.clone());
 
         this._tamara.runAction(cc.RepeatForever.create(seq1));
         this._kathia.runAction(cc.RepeatForever.create(seq2));
@@ -441,17 +441,17 @@ var SpriteEaseBounce = EaseSpriteDemo.extend({
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         var move_back = move.reverse();
 
-        var move_ease_in = cc.EaseBounceIn.create(move.copy());
+        var move_ease_in = cc.EaseBounceIn.create(move.clone());
         var move_ease_in_back = move_ease_in.reverse();
 
-        var move_ease_out = cc.EaseBounceOut.create(move.copy());
+        var move_ease_out = cc.EaseBounceOut.create(move.clone());
         var move_ease_out_back = move_ease_out.reverse();
 
         var delay = cc.DelayTime.create(0.1);
 
-        var seq1 = cc.Sequence.create(move, delay, move_back, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease_in, delay.copy(), move_ease_in_back, delay.copy());
-        var seq3 = cc.Sequence.create(move_ease_out, delay.copy(), move_ease_out_back, delay.copy());
+        var seq1 = cc.Sequence.create(move, delay, move_back, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease_in, delay.clone(), move_ease_in_back, delay.clone());
+        var seq3 = cc.Sequence.create(move_ease_out, delay.clone(), move_ease_out_back, delay.clone());
 
         this._grossini.runAction(cc.RepeatForever.create(seq1));
         this._tamara.runAction(cc.RepeatForever.create(seq2));
@@ -474,13 +474,13 @@ var SpriteEaseBounceInOut = EaseSpriteDemo.extend({
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         var move_back = move.reverse();
 
-        var move_ease = cc.EaseBounceInOut.create(move.copy());
+        var move_ease = cc.EaseBounceInOut.create(move.clone());
         var move_ease_back = move_ease.reverse();
 
         var delay = cc.DelayTime.create(0.1);
 
-        var seq1 = cc.Sequence.create(move, delay, move_back, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease, delay.copy(), move_ease_back, delay.copy());
+        var seq1 = cc.Sequence.create(move, delay, move_back, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease, delay.clone(), move_ease_back, delay.clone());
 
         this.positionForTwo();
 
@@ -504,17 +504,17 @@ var SpriteEaseBack = EaseSpriteDemo.extend({
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         var move_back = move.reverse();
 
-        var move_ease_in = cc.EaseBackIn.create(move.copy());
+        var move_ease_in = cc.EaseBackIn.create(move.clone());
         var move_ease_in_back = move_ease_in.reverse();
 
-        var move_ease_out = cc.EaseBackOut.create(move.copy());
+        var move_ease_out = cc.EaseBackOut.create(move.clone());
         var move_ease_out_back = move_ease_out.reverse();
 
         var delay = cc.DelayTime.create(0.1);
 
-        var seq1 = cc.Sequence.create(move, delay, move_back, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease_in, delay.copy(), move_ease_in_back, delay.copy());
-        var seq3 = cc.Sequence.create(move_ease_out, delay.copy(), move_ease_out_back, delay.copy());
+        var seq1 = cc.Sequence.create(move, delay, move_back, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease_in, delay.clone(), move_ease_in_back, delay.clone());
+        var seq3 = cc.Sequence.create(move_ease_out, delay.clone(), move_ease_out_back, delay.clone());
 
         this._grossini.runAction(cc.RepeatForever.create(seq1));
         this._tamara.runAction(cc.RepeatForever.create(seq2));
@@ -537,13 +537,13 @@ var SpriteEaseBackInOut = EaseSpriteDemo.extend({
         var move = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         var move_back = move.reverse();
 
-        var move_ease = cc.EaseBackInOut.create(move.copy());
+        var move_ease = cc.EaseBackInOut.create(move.clone());
         var move_ease_back = move_ease.reverse();
 
         var delay = cc.DelayTime.create(0.1);
 
-        var seq1 = cc.Sequence.create(move, delay, move_back, delay.copy());
-        var seq2 = cc.Sequence.create(move_ease, delay.copy(), move_ease_back, delay.copy());
+        var seq1 = cc.Sequence.create(move, delay, move_back, delay.clone());
+        var seq2 = cc.Sequence.create(move_ease, delay.clone(), move_ease_back, delay.clone());
 
         this.positionForTwo();
 
@@ -571,8 +571,8 @@ var SpeedTest = EaseSpriteDemo.extend({
         var action = cc.Speed.create(cc.RepeatForever.create(spawn), 1.0);
         action.setTag(TAG_ACTION1_EASE_ACTIONS);
 
-        var action2 = action.copy();
-        var action3 = action.copy();
+        var action2 = action.clone();
+        var action3 = action.clone();
 
         action2.setTag(TAG_ACTION1_EASE_ACTIONS);
         action3.setTag(TAG_ACTION1_EASE_ACTIONS);
@@ -626,8 +626,8 @@ var SchedulerTest = EaseSpriteDemo.extend({
         var spawn = cc.Spawn.create(seq3_1, seq3_2);
         var action = cc.RepeatForever.create(spawn);
 
-        var action2 = action.copy();
-        var action3 = action.copy();
+        var action2 = action.clone();
+        var action3 = action.clone();
 
         this._grossini.runAction(cc.Speed.create(action, 0.5));
         this._tamara.runAction(cc.Speed.create(action2, 1.5));
