@@ -961,7 +961,7 @@ MenuLayerController.prototype.onDidLoadFromCCB = function () {
     var a_tint = cc.TintTo.create(0.5, 0, 255, 0);
     var a_rotate = cc.RotateBy.create(4, 360);
     var a_rep = cc.Repeat.create(a_rotate, 1000);
-    var a_seq = cc.Sequence.create(a_delay, a_tint, a_delay.copy(), a_rep);
+    var a_seq = cc.Sequence.create(a_delay, a_tint, a_delay.clone(), a_rep);
     o.runAction(a_seq);
 };
 

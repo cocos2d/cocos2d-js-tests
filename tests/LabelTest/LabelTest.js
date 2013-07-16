@@ -170,7 +170,7 @@ var LabelAtlasOpacityColorTest = AtlasDemo.extend({
         var fade = cc.FadeOut.create(1.0);
         var fade_in = fade.reverse();
         var delay = cc.DelayTime.create(0.25);
-        var seq = cc.Sequence.create(fade, delay, fade_in, delay.copy());
+        var seq = cc.Sequence.create(fade, delay, fade_in, delay.clone());
         var repeat = cc.RepeatForever.create(seq);
         label2.runAction(repeat);
 
@@ -301,7 +301,7 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
         label2.setAnchorPoint(cc.p(0.5, 0.5));
         label2.setColor( cc.RED );
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
-        label2.runAction(repeat.copy());
+        label2.runAction(repeat.clone());
 
         var label3 = cc.LabelBMFont.create("Test", s_resprefix + "fonts/bitmapFontTest2.fnt");
         // testing anchors
@@ -392,7 +392,7 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
             var jump_4ever = cc.RepeatForever.create(cc.Sequence.create(jump, cc.DelayTime.create(0.25)));
             var fade_out = cc.FadeOut.create(0.5);
             var rotate = cc.RotateBy.create(0.5, 180);
-            var rot_4ever = cc.RepeatForever.create(cc.Sequence.create(rotate, cc.DelayTime.create(0.25), rotate.copy()));
+            var rot_4ever = cc.RepeatForever.create(cc.Sequence.create(rotate, cc.DelayTime.create(0.25), rotate.clone()));
 
             var scale = cc.ScaleBy.create(0.5, 1.5);
 
@@ -427,7 +427,7 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
         label2.setPosition(cc.p(s.width / 2.0, 80));
 
         var lastChar = label2.getChildByTag(3);
-        lastChar.runAction(rot_4ever.copy());
+        lastChar.runAction(rot_4ever.clone());
 
         this.schedule(this.step, 0.1);
     },
