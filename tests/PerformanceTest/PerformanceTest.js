@@ -33,7 +33,8 @@ var PerformanceTests = [
     "PerformanceTextureTest",
     "PerformanceTouchesTest",
     "PerformanceAnimationTest",
-    "Automated Sprite Performance Test"
+    "PerformanceVirtualMachineTest",
+    "Automated Sprite Performarnce Test"
 ];
 ////////////////////////////////////////////////////////
 //
@@ -87,6 +88,9 @@ var PerformanceMainLayer = cc.LayerGradient.extend({
                 runAnimationTest();
                 break;
             case 6:
+                runVirtualMachineTest();
+                break;
+            case 7:
                 runPerformanceSpriteTest2();
                 break;
             default:

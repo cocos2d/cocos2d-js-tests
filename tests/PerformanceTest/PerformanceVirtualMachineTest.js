@@ -1,0 +1,627 @@
+/****************************************************************************
+ Copyright (c) 2010-2012 cocos2d-x.org
+ Copyright (c) 2008-2010 Ricardo Quesada
+ Copyright (c) 2011      Zynga Inc.
+
+ http://www.cocos2d-x.org
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ ****************************************************************************/
+
+var VM_TAG_BASE = 2000;
+var VM_MAX_NODES = 1500;
+var VM_NODES_INCREASE = 500;
+var s_nVMCurCase = 0;
+
+////////////////////////////////////////////////////////
+//
+// VirtualMachineTestMenuLayer
+//
+// These are some demo test cases about low level JS engine behavior, so in
+// some sense this is simliar to PerformanceNodeChildrenTest. This file is
+// derived from PerformanceNodeChildrenTest.js actually.
+//
+// See https://github.com/oupengsoftware/v8/wiki for some of the details (V8)
+// under the hood.
+// Keyword: hidden class, inline cache, dictionary mode.
+//
+////////////////////////////////////////////////////////
+var VirtualMachineTestMenuLayer = PerformBasicLayer.extend({
+    _maxCases:6,
+    showCurrentTest:function () {
+        var nodes = (this.getParent()).getQuantityOfNodes();
+        var scene = null;
+        switch (this._curCase) {
+            case 0:
+                scene = new SpritesWithManyPropertiesTestScene1();
+                break;
+            case 1:
+                scene = new SpritesWithManyPropertiesTestScene2();
+                break;
+            case 2:
+                scene = new SpritesUndergoneDifferentOperationsTestScene1();
+                break;
+            case 3:
+                scene = new SpritesUndergoneDifferentOperationsTestScene2();
+                break;
+            case 4:
+                scene = new ClonedSpritesTestScene1();
+                break;
+            case 5:
+                scene = new ClonedSpritesTestScene2();
+                break;
+        }
+        s_nVMCurCase = this._curCase;
+
+        if (scene) {
+            scene.initWithQuantityOfNodes(nodes);
+            cc.Director.getInstance().replaceScene(scene);
+        }
+    }
+});
+
+////////////////////////////////////////////////////////
+//
+// VirtualMachineTestMainScene
+//
+////////////////////////////////////////////////////////
+var VirtualMachineTestMainScene = cc.Scene.extend({
+    _lastRenderedCount:null,
+    _quantityOfNodes:null,
+    _currentQuantityOfNodes:null,
+    _batchNode:null,
+    _profilingTimer:null,
+
+    ctor:function() {
+        this._super();
+        this.init();
+        if (cc.ENABLE_PROFILERS) {
+            this._profilingTimer = new cc.ProfilingTimer();
+        }
+    },
+
+    initWithQuantityOfNodes:function (nodes) {
+        this._batchNode = 
+            cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png");
+        this.addChild(this._batchNode);
+
+        //srand(time());
+        var s = cc.Director.getInstance().getWinSize();
+
+        // Title
+        var label = cc.LabelTTF.create(this.title(), "Arial", 40);
+        this.addChild(label, 1);
+        label.setPosition(cc.p(s.width / 2, s.height - 32));
+        label.setColor(cc.c3b(255, 255, 40));
+
+        // Subtitle
+        var strSubTitle = this.subtitle();
+        if (strSubTitle.length) {
+            var l = cc.LabelTTF.create(strSubTitle, "Thonburi", 16);
+            this.addChild(l, 1);
+            l.setPosition(cc.p(s.width / 2, s.height - 80));
+        }
+
+        this._lastRenderedCount = 0;
+        this._currentQuantityOfNodes = 0;
+        this._quantityOfNodes = nodes;
+
+        cc.MenuItemFont.setFontSize(65);
+        var that = this;
+        var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
+        decrease.setColor(cc.c3b(0, 200, 20));
+        var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
+        increase.setColor(cc.c3b(0, 200, 20));
+
+        var menu = cc.Menu.create(decrease, increase);
+        menu.alignItemsHorizontally();
+        menu.setPosition(cc.p(s.width / 2, s.height / 2 + 15));
+        this.addChild(menu, 1);
+
+        var infoLabel = cc.LabelTTF.create("0 nodes", "Marker Felt", 30);
+        infoLabel.setColor(cc.c3b(0, 200, 20));
+        infoLabel.setPosition(cc.p(s.width / 2, s.height / 2 - 15));
+        this.addChild(infoLabel, 1, TAG_INFO_LAYER);
+
+        var menu = new VirtualMachineTestMenuLayer(true, 3, s_nVMCurCase);
+        this.addChild(menu);
+
+        this.updateQuantityLabel();
+        this.updateQuantityOfNodes();
+        if (cc.ENABLE_PROFILERS) {
+            this._profilingTimer = 
+                cc.Profiler.timerWithName(this.profilerName(), this);
+        }
+        this.scheduleUpdate();
+    },
+    title:function () {
+        cc.Assert(0);
+        // override me
+    },
+    subtitle:function () {
+        cc.Assert(0);
+        // override me
+    },
+    updateQuantityOfNodes:function () {
+        cc.Assert(0);
+        // override me
+    },
+    onDecrease:function (sender) {
+        this._quantityOfNodes -= VM_NODES_INCREASE;
+        if (this._quantityOfNodes < 0) {
+            this._quantityOfNodes = 0;
+        }
+
+        this.updateQuantityLabel();
+        this.updateQuantityOfNodes();
+    },
+    onIncrease:function (sender) {
+        this._quantityOfNodes += VM_NODES_INCREASE;
+        if (this._quantityOfNodes > VM_MAX_NODES) {
+            this._quantityOfNodes = VM_MAX_NODES
+        }
+
+        this.updateQuantityLabel();
+        this.updateQuantityOfNodes();
+    },
+    updateQuantityLabel:function () {
+        if (this._quantityOfNodes != this._lastRenderedCount) {
+            var infoLabel = this.getChildByTag(TAG_INFO_LAYER);
+            var str = this._quantityOfNodes + " nodes";
+            infoLabel.setString(str);
+
+            this._lastRenderedCount = this._quantityOfNodes;
+        }
+    },
+    getQuantityOfNodes:function () {
+        return this._quantityOfNodes;
+    }
+});
+
+////////////////////////////////////////////////////////
+//
+// SpritesWithManyPropertiesTestScene
+//
+// Some JS engines (notably, V8) assume that objects with many properties are
+// dictionary (c.f CCClass.js) and that makes bad performance. Here we
+// simulate a character class with many properties of a character, but 
+// otherwise these properties are dummy (and probably doesn't make much 
+// sense) in ths test of course, except that position/velocity/acceleration 
+// are used to measure the performance of property access in the no draw() 
+// version of the test.
+// (TODO: Find a open source real world example, which shouldn't be that hard.
+//  :) )
+//
+////////////////////////////////////////////////////////
+var SpriteWithManyProperties = cc.Sprite.extend({
+    ctor:function(texture, rect) {
+        cc.Sprite.prototype.ctor.call(this);
+        this._name = "";
+        this._species = "";
+        this._id = -1;
+        this._hp = 100;
+        this._mp = 100;
+        this._exp = 100;
+        this._lv = 1;
+        this._str = 100;
+        this._dex = 100;
+        this._int = 100;
+        this._luk = 100;
+        this._gold = 10000000; // I'm rich.
+        this._weight = 100.0;
+        this._height = 100.0;
+        this._items = [];
+        this._spells = [];
+        this._dressing = null;
+        this._weapon = null;
+        this._mission = null;
+        this._friends = [];
+        this._groups = [];
+
+        this._velocityX = 0.0;
+        this._velocityY = 0.0;
+        this._accelerationX = 0.0;
+        this._accelerationY = 0.0;
+        this._idleTime = 0.0;
+        this._loginTime = 0.0;
+        this._isAutoMove = false;
+        this._autoMoveTarget = false;
+        this._attackMode = 0;
+        this._active = true;
+        this._canBeAttack = true;
+        this._isLocalPlayer = false;
+        this._moveType = null;
+        this._I_AM_TIRED_OF_COMING_UP_WITH_NEW_PROPERTIES = true;
+
+        this.initWithTexture(texture, rect);
+    }
+});
+
+var SpritesWithManyPropertiesTestScene1 = VirtualMachineTestMainScene.extend({
+    updateQuantityOfNodes:function () {
+        var s = cc.Director.getInstance().getWinSize();
+
+        // increase nodes
+        if (this._currentQuantityOfNodes < this._quantityOfNodes) {
+            for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
+                var sprite = new SpriteWithManyProperties(this._batchNode.getTexture(),
+                                                          cc.rect(0, 0, 52, 139));
+                this._batchNode.addChild(sprite);
+                sprite.setPosition(cc.p(Math.random() * s.width, Math.random() * s.height));
+            }
+        }
+
+        // decrease nodes
+        else if (this._currentQuantityOfNodes > this._quantityOfNodes) {
+            for (var i = 0; i < (this._currentQuantityOfNodes - this._quantityOfNodes); i++) {
+                var index = this._currentQuantityOfNodes - i - 1;
+                this._batchNode.removeChildAtIndex(index, true);
+            }
+        }
+
+        this._currentQuantityOfNodes = this._quantityOfNodes;
+    },
+    update:function (dt) {
+    },
+    title:function () {
+        return "A1 - Sprites Have Many Properties";
+    },
+    subtitle:function () {
+        return "See fps and console (and source code of this test).";
+    },
+    profilerName:function () {
+        return "sprites have many properties - normal";
+    }
+});
+
+var SpritesWithManyPropertiesTestScene2 = VirtualMachineTestMainScene.extend({
+    updateQuantityOfNodes:function () {
+        var s = cc.Director.getInstance().getWinSize();
+
+        // increase nodes
+        if (this._currentQuantityOfNodes < this._quantityOfNodes) {
+            for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
+                var sprite = new SpriteWithManyProperties(this._batchNode.getTexture(),
+                                                          cc.rect(0, 0, 52, 139));
+                this._batchNode.addChild(sprite);
+                sprite.setPosition(cc.p(Math.random() * s.width, Math.random() * s.height));
+                sprite.setVisible(false);
+            }
+        }
+
+        // decrease nodes
+        else if (this._currentQuantityOfNodes > this._quantityOfNodes) {
+            for (var i = 0; i < (this._currentQuantityOfNodes - this._quantityOfNodes); i++) {
+                var index = this._currentQuantityOfNodes - i - 1;
+                this._batchNode.removeChildAtIndex(index, true);
+            }
+        }
+
+        this._currentQuantityOfNodes = this._quantityOfNodes;
+    },
+    update:function (dt) {
+        for (var i = 0; i < this._currentQuantityOfNodes; ++i) {
+            var child = this._batchNode._children[i];
+            for (var j = 0; j < 1000; ++j ) {
+                child._velocityX = child._velocityX + child._accelerationX;
+                child._velocityY = child._velocityY + child._accelerationY;
+                child._position.x = child._position.x + child._velocityX;
+                child._position.y = child._position.y + child._velocityY;
+            }
+        }
+    },
+    title:function () {
+        return "A2 - Sprites Have Many Properties";
+    },
+    subtitle:function () {
+        return "No draw(). update() does heavy calculations.";
+    },
+    profilerName:function () {
+        return "sprites have many properties - no draw()";
+    }
+});
+
+////////////////////////////////////////////////////////
+//
+// SpritesUndergoneDifferentOperationsTestScene
+//
+// If properties in use are not initilized on each instance, a combinarial
+// explosion of hidden classes have to be created for each possible
+// permutation of operations. This increases inline cache size and
+// constitutes significant performance penalty.
+//
+////////////////////////////////////////////////////////
+
+// simple sprite extension used for testing the performance of property access
+var SimplePhysicsSprite = cc.Sprite.extend({
+    ctor:function(texture, rect) {
+        cc.Sprite.prototype.ctor.call(this);
+        this._velocityX = 0.0;
+        this._velocityY = 0.0;
+        this._accelerationX = 0.0;
+        this._accelerationY = 0.0;
+
+        this.initWithTexture(texture, rect);
+    }
+});
+
+var SpritesUndergoneDifferentOperationsTestScene1 = VirtualMachineTestMainScene.extend({
+    possibleOperationSeries:spx_permutations([
+        function() { this.getChildren(); }, // appends ._children
+        function() { this.setTag(cc.NODE_TAG_INVALID); }, // appends ._tag
+        function() { this.setParent(null); }, // appends ._parent
+        function() { this.setZOrder(0); }, // appends ._zOrder
+        function() { this.setRotation(0); }, // appends ._rotationX/Y
+        function() { this.setVisible(true); }, // appends ._visible
+        function() { this.onEnter(); } // appends ._running
+    ]),
+    updateQuantityOfNodes:function () {
+        var s = cc.Director.getInstance().getWinSize();
+
+        // increase nodes
+        if (this._currentQuantityOfNodes < this._quantityOfNodes) {
+            for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
+                var sprite = new SimplePhysicsSprite(this._batchNode.getTexture(),
+                                                     cc.rect(0, 0, 52, 139));
+                var series = this.possibleOperationSeries[i];
+                for (var op = 0, opmax = series.length; op < opmax; ++op)
+                    series[op].call(sprite);
+
+                this._batchNode.addChild(sprite);
+                sprite.setPosition(cc.p(Math.random() * s.width, Math.random() * s.height));
+            }
+        }
+
+        // decrease nodes
+        else if (this._currentQuantityOfNodes > this._quantityOfNodes) {
+            for (var i = 0; i < (this._currentQuantityOfNodes - this._quantityOfNodes); i++) {
+                var index = this._currentQuantityOfNodes - i - 1;
+                this._batchNode.removeChildAtIndex(index, true);
+            }
+        }
+
+        this._currentQuantityOfNodes = this._quantityOfNodes;
+    },
+    update:function (dt) {
+    },
+    title:function () {
+        return "B1 - Sprites Undergone Different Op. Order";
+    },
+    subtitle:function () {
+        return "See fps and console (and source code of this test).";
+    },
+    profilerName:function () {
+        return "sprites undergone different operations - normal";
+    }
+});
+
+var SpritesUndergoneDifferentOperationsTestScene2 = VirtualMachineTestMainScene.extend({
+    possibleOperationSeries:oupeng_permutations([
+        function() { this.getChildren(); }, // appends ._children
+        function() { this.setTag(cc.NODE_TAG_INVALID); }, // appends ._tag
+        function() { this.setParent(null); }, // appends ._parent
+        function() { this.setZOrder(0); }, // appends ._zOrder
+        function() { this.setRotation(0); }, // appends ._rotationX/Y
+        function() { this.setVisible(true); }, // appends ._visible
+        function() { this.onEnter(); } // appends ._running
+    ]),
+    updateQuantityOfNodes:function () {
+        var s = cc.Director.getInstance().getWinSize();
+
+        // increase nodes
+        if (this._currentQuantityOfNodes < this._quantityOfNodes) {
+            for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
+                var sprite = new SimplePhysicsSprite(this._batchNode.getTexture(),
+                                                     cc.rect(0, 0, 52, 139));
+                var series = this.possibleOperationSeries[i];
+                for (var op = 0, opmax = series.length; op < opmax; ++op)
+                    series[op].call(sprite);
+
+                this._batchNode.addChild(sprite);
+                sprite.setPosition(cc.p(Math.random() * s.width, Math.random() * s.height));
+                sprite.setVisible(false);
+            }
+        }
+
+        // decrease nodes
+        else if (this._currentQuantityOfNodes > this._quantityOfNodes) {
+            for (var i = 0; i < (this._currentQuantityOfNodes - this._quantityOfNodes); i++) {
+                var index = this._currentQuantityOfNodes - i - 1;
+                this._batchNode.removeChildAtIndex(index, true);
+            }
+        }
+
+        this._currentQuantityOfNodes = this._quantityOfNodes;
+    },
+    update:function (dt) {
+        for (var i = 0; i < this._currentQuantityOfNodes; ++i) {
+            var child = this._batchNode._children[i];
+            for (var j = 0; j < 1000; ++j ) {
+                child._velocityX = child._velocityX + child._accelerationX;
+                child._velocityY = child._velocityY + child._accelerationY;
+                child._position.x = child._position.x + child._velocityX;
+                child._position.y = child._position.y + child._velocityY;
+            }
+        }
+    },
+    title:function () {
+        return "B2 - Sprites Undergone Different Op. Order";
+    },
+    subtitle:function () {
+        return "No draw(). update() does heavy calculations.";
+    },
+    profilerName:function () {
+        return "sprites undergone different operations - no draw()";
+    }
+});
+
+////////////////////////////////////////////////////////
+//
+// ClonedSpritesTestScene
+//
+// cc.clone has to be written carefully or cloned objects all go to dictionary
+// mode.
+//
+////////////////////////////////////////////////////////
+var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
+    updateQuantityOfNodes:function () {
+        var s = cc.Director.getInstance().getWinSize();
+
+        // increase nodes
+        if (this._currentQuantityOfNodes < this._quantityOfNodes) {
+            for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
+                if (!ClonedSpritesTestScene1.template) {
+                    ClonedSpritesTestScene1.template = 
+                        new SimplePhysicsSprite(this._batchNode.getTexture(),
+                                                cc.rect(0, 0, 52, 139));
+                } 
+                var sprite = cc.clone(ClonedSpritesTestScene1.template);
+                sprite.setParent(null); // old cc.clone copies null as {}...
+                    
+                // cc.SpriteBatchNode doesn't support adding non-cc.Sprite child and hence
+                // incompatible with old cc.clone. We add the sprite to the scene directly.
+                this.addChild(sprite, -1); // zOrder has to be less than 0 or it overlaps
+                                           // the menu
+                sprite.setPosition(cc.p(Math.random() * s.width, Math.random() * s.height));
+            }
+        }
+
+        // decrease nodes
+        else if (this._currentQuantityOfNodes > this._quantityOfNodes) {
+            for (var i = 0; i < (this._currentQuantityOfNodes - this._quantityOfNodes); i++) {
+                var index = this._currentQuantityOfNodes - i - 1;
+                this._batchNode.removeChildAtIndex(index, true);
+            }
+        }
+
+        this._currentQuantityOfNodes = this._quantityOfNodes;
+    },
+    update:function (dt) {
+    },
+    title:function () {
+        return "C1 - Cloned Sprites";
+    },
+    subtitle:function () {
+        return "See fps and console (and source code of this test).";
+    },
+    profilerName:function () {
+        return "cloned sprites - normal";
+    }
+});
+
+var ClonedSpritesTestScene2 = VirtualMachineTestMainScene.extend({
+    updateQuantityOfNodes:function () {
+        var s = cc.Director.getInstance().getWinSize();
+
+        // increase nodes
+        if (this._currentQuantityOfNodes < this._quantityOfNodes) {
+            for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
+                if (!ClonedSpritesTestScene2.template) {
+                    ClonedSpritesTestScene2.template = 
+                        new SimplePhysicsSprite(this._batchNode.getTexture(),
+                                                cc.rect(0, 0, 52, 139));
+                    ClonedSpritesTestScene2.template.setVisible(false);
+                } 
+                var sprite = cc.clone(ClonedSpritesTestScene2.template);
+                sprite.setParent(null); // old cc.clone copies null as {}......
+
+                // cc.SpriteBatchNode doesn't support adding non-cc.Sprite child and hence
+                // incompatible with old cc.clone. We add the sprite to the scene directly.
+                this.addChild(sprite);
+                sprite.setPosition(cc.p(Math.random() * s.width, Math.random() * s.height));
+            }
+        }
+
+        // decrease nodes
+        else if (this._currentQuantityOfNodes > this._quantityOfNodes) {
+            for (var i = 0; i < (this._currentQuantityOfNodes - this._quantityOfNodes); i++) {
+                var index = this._currentQuantityOfNodes - i - 1;
+                this._batchNode.removeChildAtIndex(index, true);
+            }
+        }
+
+        this._currentQuantityOfNodes = this._quantityOfNodes;
+    },
+    update:function (dt) {
+        for (var i = 0; i < this._currentQuantityOfNodes; ++i) {
+            var child = this._children[this._children.length - i - 1];
+            for (var j = 0; j < 100; ++j ) {
+                child._velocityX = child._velocityX + child._accelerationX;
+                child._velocityY = child._velocityY + child._accelerationY;
+                child._position.x = child._position.x + child._velocityX;
+                child._position.y = child._position.y + child._velocityY;
+            }
+        }
+    },
+    title:function () {
+        return "C2 - Cloned Sprites";
+    },
+    subtitle:function () {
+        return "No draw(). update() does heavy calculations.";
+    },
+    profilerName:function () {
+        return "cloned sprites - no draw()";
+    }
+});
+
+ClonedSpritesTestScene1.template = ClonedSpritesTestScene2.template = null;
+
+// Adpated from http://codereview.stackexchange.com/a/7025
+function spx_permutations(array) {
+    var fn = function(active, rest, a) {
+        if (!active.length && !rest.length) {
+            a.push([]);
+            return;
+        }
+        if (!rest.length) {
+            if (active.length === 1) {
+                a.push(active);
+                return;
+            }
+
+            var fac = 1;
+            for (var i = active.length; i > 0; --i) fac = fac * i;
+            for (var i = 0; i < fac; ++i) {
+                var choice_num = i;
+                var choice = [];
+                for (var j = 1; j < active.length + 1; ++j) {
+                    choice.unshift(choice_num % j);
+                    choice_num = (choice_num - choice_num % j) / j;
+                }
+
+                var to_choose_from = active.slice(0);
+                var new_permutation = [];
+                for (var k = 0; k < active.length; ++k)
+                    new_permutation.push(to_choose_from.splice(choice[k], 1)[0]);
+                a.push(new_permutation);
+            }
+        } else {
+            fn(active.concat([rest[0]]), rest.slice(1), a);
+            fn(active, rest.slice(1), a);
+        }
+        return a;
+    };
+    return fn([], array, []);
+}
+
+function runVirtualMachineTest() {
+    var scene = new SpritesWithManyPropertiesTestScene1();
+    scene.initWithQuantityOfNodes(VM_NODES_INCREASE);
+    cc.Director.getInstance().replaceScene(scene);
+}

@@ -260,6 +260,7 @@
                 <file name="PerformanceTest/PerformanceNodeChildrenTest.js"/>
                 <file name="PerformanceTest/PerformanceTextureTest.js"/>
                 <file name="PerformanceTest/PerformanceAnimationTest.js"/>
+                <file name="PerformanceTest/PerformanceVirtualMachineTest.js"/>
                 <file name="PerformanceTest/seedrandom.js"/>
                 <file name="FontTest/FontTest.js"/>
                 <file name="PerformanceTest/PerformanceTouchesTest.js"/>
