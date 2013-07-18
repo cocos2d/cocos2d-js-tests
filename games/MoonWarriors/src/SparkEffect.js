@@ -26,8 +26,8 @@ var SparkEffect = cc.Class.extend({
         this.spark1.runAction(scaleBy);
         this.spark1.runAction(seq);
 
-        this.spark2.runAction(scaleBy.copy());
-        this.spark2.runAction(seq.copy());
+        this.spark2.runAction(scaleBy.clone());
+        this.spark2.runAction(seq.clone());
     },
     destroy:function () {
         this.active = false;

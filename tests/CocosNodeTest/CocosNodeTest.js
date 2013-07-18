@@ -93,7 +93,7 @@ var CCNodeTest2 = TestNodeDemo.extend({
 
         var action1 = cc.RepeatForever.create(cc.Sequence.create(a1, a2, delay, a2.reverse()));
         var action2 = cc.RepeatForever.create(cc.Sequence.create(
-            a1.copy(), a2.copy(), delay.copy(), a2.reverse()));
+            a1.clone(), a2.clone(), delay.clone(), a2.reverse()));
 
         sp2.setAnchorPoint(cc.p(0, 0));
 
@@ -177,7 +177,7 @@ var CCNodeTest5 = TestNodeDemo.extend({
         var rot = cc.RotateBy.create(2, 360);
         var rot_back = rot.reverse();
         var forever = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back));
-        var forever2 = forever.copy();
+        var forever2 = forever.clone();
         forever.setTag(101);
         forever2.setTag(102);
 
@@ -250,10 +250,10 @@ var CCNodeTest6 = TestNodeDemo.extend({
         var rot = cc.RotateBy.create(2, 360);
         var rot_back = rot.reverse();
         var forever1 = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back));
-        var forever11 = forever1.copy();
+        var forever11 = forever1.clone();
 
-        var forever2 = forever1.copy();
-        var forever21 = forever1.copy();
+        var forever2 = forever1.clone();
+        var forever21 = forever1.clone();
 
         this.addChild(sp1, 0, TAG_SPRITE1);
         sp1.addChild(sp11, 11);
@@ -370,7 +370,7 @@ var StressTest2 = TestNodeDemo.extend({
         sp1.setPosition(cc.p(80, winSize.height / 2));
 
         var move = cc.MoveBy.create(3, cc.p(350, 0));
-        var move_ease_inout3 = cc.EaseInOut.create(move.copy(), 2.0);
+        var move_ease_inout3 = cc.EaseInOut.create(move.clone(), 2.0);
         var move_ease_inout_back3 = move_ease_inout3.reverse();
         var seq3 = cc.Sequence.create(move_ease_inout3, move_ease_inout_back3);
         sp1.runAction(cc.RepeatForever.create(seq3));
@@ -380,7 +380,7 @@ var StressTest2 = TestNodeDemo.extend({
         fire.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
         fire.setPosition(cc.p(80, winSize.height / 2 - 50));
 
-        var copy_seq3 = seq3.copy();
+        var copy_seq3 = seq3.clone();
 
         fire.runAction(cc.RepeatForever.create(copy_seq3));
         sublayer.addChild(fire, 2);
@@ -424,7 +424,7 @@ var NodeToWorld = TestNodeDemo.extend({
 
         var move = cc.MoveBy.create(3, cc.p(200, 0));
         var move_back = move.reverse();
-        var seq = cc.Sequence.create(move, delay.copy(), move_back);
+        var seq = cc.Sequence.create(move, delay.clone(), move_back);
         var fe2 = cc.RepeatForever.create(seq);
         back.runAction(fe2);
 
@@ -713,7 +713,7 @@ var ConvertToNode = TestNodeDemo.extend({
 
             point.setPosition(sprite.getPosition());
 
-            var copy = action.copy();
+            var copy = action.clone();
             sprite.runAction(copy);
             this.addChild(sprite, i);
         }

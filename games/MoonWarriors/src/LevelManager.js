@@ -82,7 +82,7 @@ var LevelManager = cc.Class.extend({
                     var a2 = cc.DelayTime.create(1);
                     var a3 = cc.MoveBy.create(1, cc.p(100 + 100 * Math.random(), 0));
                     pSender.runAction(cc.RepeatForever.create(
-                        cc.Sequence.create(a2, a3, a2.copy(), a3.reverse())
+                        cc.Sequence.create(a2, a3, a2.clone(), a3.reverse())
                     ));
                 }.bind(addEnemy) );
                 tmpAction = cc.Sequence.create(a0, a1, onComplete);

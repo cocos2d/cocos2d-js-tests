@@ -428,6 +428,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
     _sprite1:null,
     _sprite2:null,
     _time:0,
+    _winSize:null,
 
     _renderTexture:null,
 
@@ -448,14 +449,19 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
         var background = cc.LayerColor.create(cc.c4b(40, 40, 40, 255));
         this.addChild(background);
 
+        var winSize = cc.Director.getInstance().getWinSize();
+        this._winSize = winSize;
+
         // sprite 1
-        this._sprite1 = cc.Sprite.create(s_fire);
+        var sprite1 = cc.Sprite.create(s_fire);
+        sprite1.setPosition(cc.p(winSize.width, winSize.height));
+        this._sprite1 = sprite1;
 
         // sprite 2
         //todo Images/fire_rgba8888.pvr
-        this._sprite2 = cc.Sprite.create(s_fire);
-
-        var winSize = cc.Director.getInstance().getWinSize();
+        var sprite2 = cc.Sprite.create(s_fire);
+        sprite2.setPosition(cc.p(winSize.width, winSize.height));
+        this._sprite2 = sprite2;
 
         /* Create the render texture */
         //var renderTexture = cc.RenderTexture.create(winSize.width, winSize.height, cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
@@ -489,8 +495,10 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
 
     update:function (dt) {
         var r = 80;
-        this._sprite1.setPosition(cc.p(Math.cos(this._time * 2) * r, Math.sin(this._time * 2) * r));
-        this._sprite2.setPosition(cc.p(Math.sin(this._time * 2) * r, Math.cos(this._time * 2) * r));
+        var locWinSize = this._winSize;
+        var locTime = this._time;
+        this._sprite1.setPosition(cc.p(Math.cos(locTime * 2) * r + locWinSize.width /2, Math.sin(locTime * 2) * r + locWinSize.height /2));
+        this._sprite2.setPosition(cc.p(Math.sin(locTime * 2) * r + locWinSize.width /2, Math.cos(locTime * 2) * r + locWinSize.height /2));
 
         this._time += dt;
     },
@@ -542,7 +550,7 @@ var Issue1464 = RenderTextureBaseLayer.extend({
         var fadeout = cc.FadeOut.create(2);
         var fadein = fadeout.reverse();
         var delay = cc.DelayTime.create(0.25);
-        var seq = cc.Sequence.create(fadeout, delay, fadein, delay.copy());
+        var seq = cc.Sequence.create(fadeout, delay, fadein, delay.clone());
         var fe = cc.RepeatForever.create(seq);
         rend.getSprite().runAction(fe);
     },
