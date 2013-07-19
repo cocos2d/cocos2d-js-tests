@@ -191,6 +191,35 @@ var VirtualMachineTestMainScene = cc.Scene.extend({
     },
     getQuantityOfNodes:function () {
         return this._quantityOfNodes;
+    },
+    arrayToUpdate:null,
+    update:function () {
+        if (!this.arrayToUpdate) return;
+        for (var i = 0, imax = this.arrayToUpdate.length; i < imax; ++i) {
+            var child = this.arrayToUpdate[i];
+            if (!(child instanceof SimpleNewtonianSprite) &&
+                child instanceof cc.Class) continue; // old cc.clone-ed
+                                                     // sprite is not a cc.Class
+            for (var j = 0; j < 1000; ++j ) {
+                child._velocityX = child._velocityX + child._accelerationX;
+                child._velocityY = child._velocityY + child._accelerationY;
+                child._position.x = child._position.x + child._velocityX;
+                child._position.y = child._position.y + child._velocityY;
+            }
+        }
+    }
+});
+
+// Simple sprite extension used for testing the performance of property access.
+var SimpleNewtonianSprite = cc.Sprite.extend({
+    ctor:function(texture, rect) {
+        cc.Sprite.prototype.ctor.call(this);
+        this._velocityX = 0.0;
+        this._velocityY = 0.0;
+        this._accelerationX = 0.0;
+        this._accelerationY = 0.0;
+
+        this.initWithTexture(texture, rect);
     }
 });
 
@@ -209,9 +238,9 @@ var VirtualMachineTestMainScene = cc.Scene.extend({
 //  :) )
 //
 ////////////////////////////////////////////////////////
-var SpriteWithManyProperties = cc.Sprite.extend({
+var SpriteWithManyProperties = SimpleNewtonianSprite.extend({
     ctor:function(texture, rect) {
-        cc.Sprite.prototype.ctor.call(this);
+        SimpleNewtonianSprite.prototype.ctor.call(this, texture, rect);
         this._name = "";
         this._species = "";
         this._id = -1;
@@ -248,8 +277,6 @@ var SpriteWithManyProperties = cc.Sprite.extend({
         this._isLocalPlayer = false;
         this._moveType = null;
         this._I_AM_TIRED_OF_COMING_UP_WITH_NEW_PROPERTIES = true;
-
-        this.initWithTexture(texture, rect);
     }
 });
 
@@ -283,8 +310,6 @@ var SpritesWithManyPropertiesTestScene1 = VirtualMachineTestMainScene.extend({
 
         this._currentQuantityOfNodes = this._quantityOfNodes;
     },
-    update:function (dt) {
-    },
     title:function () {
         return "A1 - Sprites Have Many Properties";
     },
@@ -302,17 +327,7 @@ var SpritesWithManyPropertiesTestScene2 =
         this._super();
         for (var i = 0, imax = this._batchNode._children.length; i < imax; ++i)
             this._batchNode._children[i].setVisible(false);
-    },
-    update:function (dt) {
-        for (var i = 0; i < this._currentQuantityOfNodes; ++i) {
-            var child = this._batchNode._children[i];
-            for (var j = 0; j < 1000; ++j ) {
-                child._velocityX = child._velocityX + child._accelerationX;
-                child._velocityY = child._velocityY + child._accelerationY;
-                child._position.x = child._position.x + child._velocityX;
-                child._position.y = child._position.y + child._velocityY;
-            }
-        }
+        this.arrayToUpdate = this._batchNode._children;
     },
     title:function () {
         return "A2 - Sprites Have Many Properties";
@@ -335,19 +350,6 @@ var SpritesWithManyPropertiesTestScene2 =
 // constitutes significant performance penalty.
 //
 ////////////////////////////////////////////////////////
-
-// Simple sprite extension used for testing the performance of property access.
-var SimplePhysicsSprite = cc.Sprite.extend({
-    ctor:function(texture, rect) {
-        cc.Sprite.prototype.ctor.call(this);
-        this._velocityX = 0.0;
-        this._velocityY = 0.0;
-        this._accelerationX = 0.0;
-        this._accelerationY = 0.0;
-
-        this.initWithTexture(texture, rect);
-    }
-});
 
 var SpritesUndergoneDifferentOperationsTestScene1 = VirtualMachineTestMainScene.extend({
     // Adpated from http://codereview.stackexchange.com/a/7025
@@ -405,8 +407,8 @@ var SpritesUndergoneDifferentOperationsTestScene1 = VirtualMachineTestMainScene.
                  i < (this._quantityOfNodes - this._currentQuantityOfNodes);
                  i++) {
                 var sprite = 
-                    new SimplePhysicsSprite(this._batchNode.getTexture(),
-                                            cc.rect(0, 0, 52, 139));
+                    new SimpleNewtonianSprite(this._batchNode.getTexture(),
+                                              cc.rect(0, 0, 52, 139));
                 var series = this.possibleOperationSeries[i];
                 for (var op = 0, opmax = series.length; op < opmax; ++op)
                     series[op].call(sprite);
@@ -429,8 +431,6 @@ var SpritesUndergoneDifferentOperationsTestScene1 = VirtualMachineTestMainScene.
 
         this._currentQuantityOfNodes = this._quantityOfNodes;
     },
-    update:function (dt) {
-    },
     title:function () {
         return "B1 - Sprites Undergone Different Op. Order";
     },
@@ -448,17 +448,7 @@ var SpritesUndergoneDifferentOperationsTestScene2 =
         this._super();
         for (var i = 0, imax = this._batchNode._children.length; i < imax; ++i)
             this._batchNode._children[i].setVisible(false);
-    },
-    update:function (dt) {
-        for (var i = 0; i < this._currentQuantityOfNodes; ++i) {
-            var child = this._batchNode._children[i];
-            for (var j = 0; j < 1000; ++j ) {
-                child._velocityX = child._velocityX + child._accelerationX;
-                child._velocityY = child._velocityY + child._accelerationY;
-                child._position.x = child._position.x + child._velocityX;
-                child._position.y = child._position.y + child._velocityY;
-            }
-        }
+        this.arrayToUpdate = this._batchNode._children;
     },
     title:function () {
         return "B2 - Sprites Undergone Different Op. Order";
@@ -483,8 +473,9 @@ var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
     template:null,
     updateQuantityOfNodes:function () {
         if (!this.template)
-            this.template = new SimplePhysicsSprite(this._batchNode.getTexture(),
-                                                    cc.rect(0, 0, 52, 139));
+            this.template = 
+            new SimpleNewtonianSprite(this._batchNode.getTexture(),
+                                      cc.rect(0, 0, 52, 139));
         var s = cc.Director.getInstance().getWinSize();
 
         // increase nodes
@@ -510,7 +501,7 @@ var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
             var lastChildToRemove = this._children.length;
             for (var i = this._children.length - 1; i >= 0; --i) {
                 var child = this._children[i];
-                if (child instanceof SimplePhysicsSprite || 
+                if (child instanceof SimpleNewtonianSprite || 
                     !(child instanceof cc.Class)) { // old cc.clone-ed
                                                     // sprite is not a cc.Class
                     lastChildToRemove = i;
@@ -528,8 +519,6 @@ var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
 
         this._currentQuantityOfNodes = this._quantityOfNodes;
     },
-    update:function (dt) {
-    },
     title:function () {
         return "C1 - Cloned Sprites";
     },
@@ -544,25 +533,13 @@ var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
 var ClonedSpritesTestScene2 = ClonedSpritesTestScene1.extend({
     updateQuantityOfNodes:function () {
         if (!this.template) {
-            this.template = new SimplePhysicsSprite(this._batchNode.getTexture(),
-                                                    cc.rect(0, 0, 52, 139));
+            this.template = 
+                new SimpleNewtonianSprite(this._batchNode.getTexture(),
+                                          cc.rect(0, 0, 52, 139));
             this.template.setVisible(false);
         }
         this._super();
-    },
-    update:function (dt) {
-        for (var i = 0, imax = this._children.length; i < imax; ++i) {
-            var child = this._children[i];
-            if (!(child instanceof SimplePhysicsSprite) &&
-                child instanceof cc.Class) continue; // old cc.clone-ed
-                                                     // sprite is not a cc.Class
-            for (var j = 0; j < 1000; ++j ) {
-                child._velocityX = child._velocityX + child._accelerationX;
-                child._velocityY = child._velocityY + child._accelerationY;
-                child._position.x = child._position.x + child._velocityX;
-                child._position.y = child._position.y + child._velocityY;
-            }
-        }
+        this.arrayToUpdate = this._children;
     },
     title:function () {
         return "C2 - Cloned Sprites";
