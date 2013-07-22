@@ -76,6 +76,7 @@
             'PerformanceTest/PerformanceNodeChildrenTest.js',
             'PerformanceTest/PerformanceTextureTest.js',
             'PerformanceTest/PerformanceAnimationTest.js',
+            'PerformanceTest/PerformanceVirtualMachineTest.js',
             'PerformanceTest/seedrandom.js',
             'FontTest/FontTest.js',
             'PerformanceTest/PerformanceTouchesTest.js',
