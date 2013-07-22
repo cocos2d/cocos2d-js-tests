@@ -26,7 +26,7 @@
 
 var VM_TAG_BASE = 2000;
 var VM_MAX_NODES = 1500;
-var VM_NODES_INCREASE = 500;
+var VM_NODES_INCREASE = 100;
 var s_nVMCurCase = 0;
 
 ////////////////////////////////////////////////////////
@@ -86,14 +86,10 @@ var VirtualMachineTestMainScene = cc.Scene.extend({
     _quantityOfNodes:null,
     _currentQuantityOfNodes:null,
     _batchNode:null,
-    _profilingTimer:null,
 
     ctor:function() {
         this._super();
         this.init();
-        if (cc.ENABLE_PROFILERS) {
-            this._profilingTimer = new cc.ProfilingTimer();
-        }
     },
 
     initWithQuantityOfNodes:function (nodes) {
@@ -144,10 +140,6 @@ var VirtualMachineTestMainScene = cc.Scene.extend({
 
         this.updateQuantityLabel();
         this.updateQuantityOfNodes();
-        if (cc.ENABLE_PROFILERS) {
-            this._profilingTimer = 
-                cc.Profiler.timerWithName(this.profilerName(), this);
-        }
         this.scheduleUpdate();
     },
     title:function () {
@@ -193,7 +185,7 @@ var VirtualMachineTestMainScene = cc.Scene.extend({
         return this._quantityOfNodes;
     },
     arrayToUpdate:null,
-    update:function () {
+    update:function (dt) {
         if (!this.arrayToUpdate) return;
         for (var i = 0, imax = this.arrayToUpdate.length; i < imax; ++i) {
             var child = this.arrayToUpdate[i];
@@ -201,10 +193,10 @@ var VirtualMachineTestMainScene = cc.Scene.extend({
                 child instanceof cc.Class) continue; // old cc.clone-ed
                                                      // sprite is not a cc.Class
             for (var j = 0; j < 1000; ++j ) {
-                child._velocityX = child._velocityX + child._accelerationX;
-                child._velocityY = child._velocityY + child._accelerationY;
-                child._position.x = child._position.x + child._velocityX;
-                child._position.y = child._position.y + child._velocityY;
+                child._velocityX = child._velocityX + dt * child._accelerationX;
+                child._velocityY = child._velocityY + dt * child._accelerationY;
+                child._positionX = child._positionX + dt * child._velocityX;
+                child._positionY = child._positionY + dt * child._velocityY;
             }
         }
     }
@@ -214,6 +206,14 @@ var VirtualMachineTestMainScene = cc.Scene.extend({
 var SimpleNewtonianSprite = cc.Sprite.extend({
     ctor:function(texture, rect) {
         cc.Sprite.prototype.ctor.call(this);
+        // Since jsb doesn't have ._position, in order not to make these 
+        // showcase more complicated by introducing fuction calls (because
+        // different JS engines have different inlining strategy), we simply
+        // introduce ._postionX ._positionY here. These (and update()) really 
+        // just represent *heavy property access operation* anyway (they're 
+        // otherwise dummy). 
+        this._positionX = 0.0;
+        this._positionY = 0.0;
         this._velocityX = 0.0;
         this._velocityY = 0.0;
         this._accelerationX = 0.0;
@@ -231,9 +231,7 @@ var SimpleNewtonianSprite = cc.Sprite.extend({
 // dictionary (c.f CCClass.js) and that makes bad performance. Here we
 // simulate a character class with many properties of a character, but 
 // otherwise these properties are dummy (and probably doesn't make much 
-// sense) in ths test of course, except that position/velocity/acceleration 
-// are used to measure the performance of property access in the no draw() 
-// version of the test.
+// sense) in the test of course.
 // (TODO: Find a open source real world example, which shouldn't be that hard.
 //  :) )
 //
@@ -263,10 +261,6 @@ var SpriteWithManyProperties = SimpleNewtonianSprite.extend({
         this._friends = [];
         this._groups = [];
 
-        this._velocityX = 0.0;
-        this._velocityY = 0.0;
-        this._accelerationX = 0.0;
-        this._accelerationY = 0.0;
         this._idleTime = 0.0;
         this._loginTime = 0.0;
         this._isAutoMove = false;
@@ -314,10 +308,7 @@ var SpritesWithManyPropertiesTestScene1 = VirtualMachineTestMainScene.extend({
         return "A1 - Sprites Have Many Properties";
     },
     subtitle:function () {
-        return "See fps and console (and source code of this test).";
-    },
-    profilerName:function () {
-        return "sprites have many properties - normal";
+        return "See fps (and source code of this test).";
     }
 });
 
@@ -325,18 +316,16 @@ var SpritesWithManyPropertiesTestScene2 =
     SpritesWithManyPropertiesTestScene1.extend({
     updateQuantityOfNodes:function () {
         this._super();
-        for (var i = 0, imax = this._batchNode._children.length; i < imax; ++i)
-            this._batchNode._children[i].setVisible(false);
-        this.arrayToUpdate = this._batchNode._children;
+        var arrayToUpdate = this._batchNode.getChildren();
+        for (var i = 0, imax = arrayToUpdate.length; i < imax; ++i)
+            arrayToUpdate[i].setVisible(false);
+        this.arrayToUpdate = arrayToUpdate;
     },
     title:function () {
         return "A2 - Sprites Have Many Properties";
     },
     subtitle:function () {
         return "No draw(). update() does heavy calculations.";
-    },
-    profilerName:function () {
-        return "sprites have many properties - no draw()";
     }
 });
 
@@ -435,29 +424,28 @@ var SpritesUndergoneDifferentOperationsTestScene1 = VirtualMachineTestMainScene.
         return "B1 - Sprites Undergone Different Op. Order";
     },
     subtitle:function () {
-        return "See fps and console (and source code of this test).";
-    },
-    profilerName:function () {
-        return "sprites undergone different operations - normal";
+        return "See fps (and source code of this test).";
     }
 });
 
 var SpritesUndergoneDifferentOperationsTestScene2 = 
     SpritesUndergoneDifferentOperationsTestScene1.extend({
+    // This looks exactly like the one on ManyPropertiesTestScene2, but
+    // we can't just do 
+    // 'updateQuantityOfNodes: SpritesWithManyPropertiesTestScene2.prototype.updateQuantityOfNodes'
+    // here becasue this._super() is different!
     updateQuantityOfNodes:function () {
         this._super();
-        for (var i = 0, imax = this._batchNode._children.length; i < imax; ++i)
-            this._batchNode._children[i].setVisible(false);
-        this.arrayToUpdate = this._batchNode._children;
+        var arrayToUpdate = this._batchNode.getChildren();
+        for (var i = 0, imax = arrayToUpdate.length; i < imax; ++i)
+            arrayToUpdate[i].setVisible(false);
+        this.arrayToUpdate = arrayToUpdate;
     },
     title:function () {
         return "B2 - Sprites Undergone Different Op. Order";
     },
     subtitle:function () {
         return "No draw(). update() does heavy calculations.";
-    },
-    profilerName:function () {
-        return "sprites undergone different operations - no draw()";
     }
 });
 
@@ -498,9 +486,10 @@ var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
 
         // decrease nodes
         else if (this._currentQuantityOfNodes > this._quantityOfNodes) {
-            var lastChildToRemove = this._children.length;
-            for (var i = this._children.length - 1; i >= 0; --i) {
-                var child = this._children[i];
+            var children = this.getChildren();
+            var lastChildToRemove = children.length;
+            for (var i = children.length - 1; i >= 0; --i) {
+                var child = children[i];
                 if (child instanceof SimpleNewtonianSprite || 
                     !(child instanceof cc.Class)) { // old cc.clone-ed
                                                     // sprite is not a cc.Class
@@ -513,7 +502,7 @@ var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
                  i < (this._currentQuantityOfNodes - this._quantityOfNodes);
                  i++) {
                 var index = lastChildToRemove - i;
-                this.removeChild(this._children[index], true);
+                this.removeChild(children[index], true);
             }
         }
 
@@ -523,10 +512,7 @@ var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
         return "C1 - Cloned Sprites";
     },
     subtitle:function () {
-        return "See fps and console (and source code of this test).";
-    },
-    profilerName:function () {
-        return "cloned sprites - normal";
+        return "See fps (and source code of this test).";
     }
 });
 
@@ -539,16 +525,13 @@ var ClonedSpritesTestScene2 = ClonedSpritesTestScene1.extend({
             this.template.setVisible(false);
         }
         this._super();
-        this.arrayToUpdate = this._children;
+        this.arrayToUpdate = this.getChildren();
     },
     title:function () {
         return "C2 - Cloned Sprites";
     },
     subtitle:function () {
         return "No draw(). update() does heavy calculations.";
-    },
-    profilerName:function () {
-        return "cloned sprites - no draw()";
     }
 });
 

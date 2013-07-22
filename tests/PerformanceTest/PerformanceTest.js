@@ -33,9 +33,16 @@ var PerformanceTests = [
     "PerformanceTextureTest",
     "PerformanceTouchesTest",
     "PerformanceAnimationTest",
-    "PerformanceVirtualMachineTest",
     "Automated Sprite Performarnce Test"
 ];
+
+// PerformanceVirtualMachineTest is about JS optimizations on cocos2d-html5.
+// It is pretty irrelevant in JSB so we don't include it in JSB.
+// "PerformanceVirtualMachineTest" is inserted before
+// "Automated Sprite Performarnce Test".
+if (sys.platform == 'browser')
+    PerformanceTests.splice(6, 0, "PerformanceVirtualMachineTest");
+
 ////////////////////////////////////////////////////////
 //
 // PerformanceMainLayer
@@ -88,8 +95,15 @@ var PerformanceMainLayer = cc.LayerGradient.extend({
                 runAnimationTest();
                 break;
             case 6:
-                runVirtualMachineTest();
-                break;
+                if (sys.platform == 'browser') {
+                    runVirtualMachineTest();
+                    break;
+                }
+                // Else, fall through (JSB). 
+                // TODO: For now I think it's ugly to have "Automated Sprite 
+                // Perforance Test" come before "PerformanceVirtualMachineTest",
+                // that's why there's ugly code like this. Let's think about
+                // this later.
             case 7:
                 runPerformanceSpriteTest2();
                 break;
