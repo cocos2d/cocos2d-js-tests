@@ -56,6 +56,28 @@ var s_tcc_issue_2 = "res/animations/tcc_issue_2.png";
 var s_tcc_issue_1_plist = "res/animations/tcc_issue_1.plist";
 var s_tcc_issue_2_plist = "res/animations/tcc_issue_2.plist";
 
+var s_Cowboy_json = "res/armatures/Cowboy.json";
+var s_Cowboy_plist = "res/armatures/Cowboy.plist";
+var s_Cowboy_png = "res/armatures/Cowboy.png";
+var s_cyborg_plist = "res/armatures/cyborg.plist";
+var s_cyborg_png = "res/armatures/cyborg.png";
+var s_cyborg_xml = "res/armatures/cyborg.xml";
+var s_Dragon_plist = "res/armatures/Dragon.plist";
+var s_Dragon_png = "res/armatures/Dragon.png";
+var s_Dragon_xml = "res/armatures/Dragon.xml";
+var s_knight_plist = "res/armatures/knight.plist";
+var s_knight_png = "res/armatures/knight.png";
+var s_knight_xml = "res/armatures/knight.xml";
+var s_robot_plist = "res/armatures/robot.plist";
+var s_robot_png = "res/armatures/robot.png";
+var s_robot_xml = "res/armatures/robot.xml";
+var s_TestBone_plist = "res/armatures/TestBone.plist";
+var s_TestBone_png = "res/armatures/TestBone.png";
+var s_TestBone_json = "res/armatures/TestBone.json";
+var s_weapon_plist = "res/armatures/weapon.plist";
+var s_weapon_png = "res/armatures/weapon.png";
+var s_weapon_xml = "res/armatures/weapon.xml";
+
 var s_s9s_blocks9 = "res/Images/blocks9ss.png";
 var s_s9s_blocks9_plist = "res/Images/blocks9ss.plist";
 var s_blocks9 = "res/Images/blocks9.png";
@@ -295,7 +317,7 @@ var g_opengl_resources = [
     {src:"res/Shaders/example_Twist.vsh"},
 
     {src:"res/fonts/west_england-64.fnt"},
-    {src:"res/fonts/west_england-64.png"},
+    {src:"res/fonts/west_england-64.png"}
 ];
 
 var g_label = [
@@ -488,7 +510,31 @@ var g_extensions = [
     {src:"res/ccb/markerfelt24shadow.fnt"},
 
     {src:"res/ccb/grossini-generic.plist"},
-    {src:"res/ccb/animated-grossini.plist"}
+    {src:"res/ccb/animated-grossini.plist"},
+
+    //Armature
+    {src:s_Cowboy_json },
+    {src:s_Cowboy_plist},
+    {src:s_Cowboy_png},
+    {src:s_cyborg_plist },
+    {src:s_cyborg_png },
+    {src:s_cyborg_xml },
+    {src:s_Dragon_plist },
+    {src:s_Dragon_png },
+    {src:s_Dragon_xml },
+    {src:s_knight_plist },
+    {src:s_knight_png },
+    {src:s_knight_xml },
+    {src:s_robot_plist },
+    {src:s_robot_png },
+    {src:s_robot_xml },
+    {src:s_TestBone_plist},
+    {src:s_TestBone_png },
+    {src:s_TestBone_json },
+    {src:s_weapon_plist },
+    {src:s_weapon_png },
+    {src:s_weapon_xml },
+    {src:"res/Particles/SmallSun.plist"}
 ];
 var g_performace = [
     {src:"res/animations/crystals.plist"},

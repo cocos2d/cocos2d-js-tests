@@ -286,8 +286,8 @@ var MenuLayer3 = cc.Layer.extend({
             )
         );
         var spin1 = cc.RotateBy.create(3, 360);
-        var spin2 = spin1.copy();
-        var spin3 = spin1.copy();
+        var spin2 = spin1.clone();
+        var spin3 = spin1.clone();
 
         item1.runAction(cc.RepeatForever.create(spin1));
         item2.runAction(cc.RepeatForever.create(spin2));

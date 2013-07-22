@@ -316,7 +316,7 @@ var ActionRotate = ActionsDemo.extend({
         var actionByBack = actionBy.reverse();
         this._grossini.runAction(cc.Sequence.create(actionBy, cc.DelayTime.create(0.25), actionByBack));
 
-        this._kathia.runAction(cc.Sequence.create(actionTo2, cc.DelayTime.create(0.25), actionTo0.copy()));
+        this._kathia.runAction(cc.Sequence.create(actionTo2, cc.DelayTime.create(0.25), actionTo0.clone()));
 
     },
     title:function () {
@@ -359,9 +359,9 @@ var ActionRotateXY = ActionsDemo.extend({
         var delay = cc.DelayTime.create(0.25);
 
         this._tamara.runAction(cc.Sequence.create(actionTo, delay, actionToBack));
-        this._grossini.runAction(cc.Sequence.create(actionBy, delay.copy(), actionBy.reverse()));
+        this._grossini.runAction(cc.Sequence.create(actionBy, delay.clone(), actionBy.reverse()));
 
-        this._kathia.runAction(cc.Sequence.create(actionBy2, delay.copy(), actionBy2.reverse()));
+        this._kathia.runAction(cc.Sequence.create(actionBy2, delay.clone(), actionBy2.reverse()));
     },
     title:function () {
         return "cc.RotateBy(x,y) / cc.RotateTo(x,y)";
@@ -411,9 +411,9 @@ var ActionSkew = ActionsDemo.extend({
         var delay = cc.DelayTime.create(0.25);
 
         this._tamara.runAction(cc.Sequence.create(actionTo, delay, actionToBack));
-        this._grossini.runAction(cc.Sequence.create(actionBy, delay.copy(), actionBy.reverse()));
+        this._grossini.runAction(cc.Sequence.create(actionBy, delay.clone(), actionBy.reverse()));
 
-        this._kathia.runAction(cc.Sequence.create(actionBy2, delay.copy(), actionBy2.reverse()));
+        this._kathia.runAction(cc.Sequence.create(actionBy2, delay.clone(), actionBy2.reverse()));
     },
     title:function () {
         return "cc.SkewTo / cc.SkewBy";
@@ -480,8 +480,8 @@ var ActionSkewRotateScale = ActionsDemo.extend({
         var delay = cc.DelayTime.create(0.25);
 
         box.runAction(cc.Sequence.create(actionTo, delay, actionToBack));
-        box.runAction(cc.Sequence.create(rotateTo, delay.copy(), rotateToBack));
-        box.runAction(cc.Sequence.create(actionScaleTo, delay.copy(), actionScaleToBack));
+        box.runAction(cc.Sequence.create(rotateTo, delay.clone(), rotateToBack));
+        box.runAction(cc.Sequence.create(actionScaleTo, delay.clone(), actionScaleToBack));
 
         this.box = box;
     },
@@ -533,7 +533,7 @@ var ActionJump = ActionsDemo.extend({
         this._tamara.runAction(actionTo);
         this._grossini.runAction(cc.Sequence.create(actionBy, delay, actionByBack));
         this._kathia.runAction(cc.RepeatForever.create(
-            cc.Sequence.create(actionUp, delay.copy() )
+            cc.Sequence.create(actionUp, delay.clone() )
                 ) );
 
     },
@@ -594,7 +594,7 @@ var ActionBezier = ActionsDemo.extend({
         var bezierForward = cc.BezierBy.create(2, controlPoints);
         var rep = cc.RepeatForever.create(
             cc.Sequence.create(
-                bezierForward, delay, bezierForward.reverse(), delay.copy()
+                bezierForward, delay, bezierForward.reverse(), delay.clone()
             ));
 
         // sprite 2
@@ -689,7 +689,7 @@ var ActionBezierToCopy = ActionsDemo.extend({
 
         // sprite 2
         this._kathia.setPosition(80, 160);
-        var bezierTo2 = bezierTo1.copy();
+        var bezierTo2 = bezierTo1.clone();
 
         this._tamara.runAction(bezierTo1);
         this._kathia.runAction(bezierTo2);
@@ -729,6 +729,7 @@ var Issue1008 = ActionsDemo.extend({
         var rep = cc.RepeatForever.create(cc.Sequence.create(bz1, bz2, trace,delay));
 
         this._grossini.runAction(rep);
+        //this._grossini.runAction(cc.Sequence.create(bz1, bz2, trace,delay));
 
     },
     onTrace:function (sender) {
@@ -822,7 +823,7 @@ var ActionFade = ActionsDemo.extend({
         var action2Back = action2.reverse();
 
         this._tamara.runAction(cc.Sequence.create(action1, delay, action1Back));
-        this._kathia.runAction(cc.Sequence.create(action2, delay.copy(), action2Back));
+        this._kathia.runAction(cc.Sequence.create(action2, delay.clone(), action2Back));
 
 
     },
@@ -927,7 +928,7 @@ var ActionAnimate = ActionsDemo.extend({
         // File animation
         //
         // with 4 loops
-        var animation3 = animation2.copy();
+        var animation3 = animation2.clone();
         animation3.setLoops(4);
 
         var action3 = cc.Animate.create(animation3);
@@ -1210,7 +1211,6 @@ var ActionCallFunc3 = ActionsDemo.extend({
         ret.push( this.control1 );
         return JSON.stringify(ret);
     }
-
 });
 
 //------------------------------------------------------------------
@@ -1311,7 +1311,7 @@ var ActionRotateToRepeat = ActionsDemo.extend({
         var act2 = cc.RotateTo.create(0.5, 0);
         var seq = cc.Sequence.create(act1, act2);
         var rep1 = cc.RepeatForever.create(seq);
-        var rep2 = cc.Repeat.create((seq.copy()), 4);
+        var rep2 = cc.Repeat.create((seq.clone()), 4);
 
         this._tamara.runAction(rep1);
         this._kathia.runAction(rep2);
@@ -1353,7 +1353,7 @@ var ActionRotateJerk = ActionsDemo.extend({
             cc.RotateTo.create(0.5, 20));
 
         var rep1 = cc.Repeat.create(seq, 10);
-        var rep2 = cc.RepeatForever.create((seq.copy()));
+        var rep2 = cc.RepeatForever.create((seq.clone()));
 
         this._tamara.runAction(rep1);
         this._kathia.runAction(rep2);
@@ -1421,7 +1421,7 @@ var ActionDelayTime = ActionsDemo.extend({
         this.alignSpritesLeft(1);
 
         var move = cc.MoveBy.create(1, cc.p(150, 0));
-        var action = cc.Sequence.create(move, cc.DelayTime.create(2), move.copy());
+        var action = cc.Sequence.create(move, cc.DelayTime.create(2), move.clone());
 
         this._grossini.runAction(action);
     },
@@ -1518,7 +1518,7 @@ var ActionRepeat = ActionsDemo.extend({
             cc.Sequence.create(cc.Place.create(cc.p(60, 60)), a1),
             3);
         var action2 = cc.RepeatForever.create(
-            cc.Sequence.create( a1.copy(), a1.reverse(), cc.DelayTime.create(0.25) )
+            cc.Sequence.create( a1.clone(), a1.reverse(), cc.DelayTime.create(0.25) )
         );
 
         this._kathia.runAction(action1);
@@ -1577,8 +1577,8 @@ var ActionOrbit = ActionsDemo.extend({
         var seq = cc.Sequence.create(move, move_back);
         var rfe = cc.RepeatForever.create(seq);
         this._kathia.runAction(rfe);
-        this._tamara.runAction((rfe.copy()));
-        this._grossini.runAction((rfe.copy()));
+        this._tamara.runAction((rfe.clone()));
+        this._grossini.runAction((rfe.clone()));
 
     },
     subtitle:function () {
@@ -1649,7 +1649,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
         //
         var action1 = cc.CardinalSplineBy.create(2, array, 0);
         var reverse1 = action1.reverse();
-        var seq = cc.Sequence.create(action1, delay, reverse1, delay.copy() );
+        var seq = cc.Sequence.create(action1, delay, reverse1, delay.clone() );
 
         this._tamara.setPosition(50, 50);
         this._tamara.runAction(seq);
@@ -1661,7 +1661,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
         //
         var action2 = cc.CardinalSplineBy.create(2, array, 1);
         var reverse2 = action2.reverse();
-        var seq2 = cc.Sequence.create(action2, delay.copy(), reverse2, delay.copy() );
+        var seq2 = cc.Sequence.create(action2, delay.clone(), reverse2, delay.clone());
 
         this._kathia.setPosition(winSize.width / 2, 50);
         this._kathia.runAction(seq2);
@@ -1829,7 +1829,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         var action2 = cc.CatmullRomTo.create(3, array2);
         var reverse2 = action2.reverse();
 
-        var seq2 = cc.Sequence.create(action2, delay.copy(), reverse2);
+        var seq2 = cc.Sequence.create(action2, delay.clone(), reverse2);
 
         this._kathia.runAction(seq2);
 
@@ -1935,9 +1935,9 @@ var ActionTargeted = ActionsDemo.extend({
         this.centerSprites(2);
 
         var jump1 = cc.JumpBy.create(2, cc.p(0, 0), 100, 3);
-        var jump2 = jump1.copy();
+        var jump2 = jump1.clone();
         var rot1 = cc.RotateBy.create(1, 360);
-        var rot2 = rot1.copy();
+        var rot2 = rot1.clone();
 
         var t1 = cc.TargetedAction.create(this._kathia, jump2);
         var t2 = cc.TargetedAction.create(this._kathia, rot2);
@@ -1966,10 +1966,10 @@ var ActionTargetedCopy = ActionsDemo.extend({
         this.centerSprites(2);
 
         var jump1 = cc.JumpBy.create(2, cc.p(0, 0), 100, 3);
-        var jump2 = jump1.copy();
+        var jump2 = jump1.clone();
 
         var t1 = cc.TargetedAction.create(this._kathia, jump2);
-        var t_copy = t1.copy();
+        var t_copy = t1.clone();
 
         var seq = cc.Sequence.create(jump1, t_copy);
 

@@ -192,7 +192,7 @@ var Effect2 = EffectAdvanceTextLayer.extend({
         //    id orbit_back = [orbit reverse];
         //
         //    [target runAction: [RepeatForever.create: [Sequence actions: orbit, orbit_back, nil]]];
-        target.runAction(cc.Sequence.create(shaky, delay, reuse, shuffle, delay.copy(), turnoff, turnon));
+        target.runAction(cc.Sequence.create(shaky, delay, reuse, shuffle, delay.clone(), turnoff, turnon));
     }
 });
 

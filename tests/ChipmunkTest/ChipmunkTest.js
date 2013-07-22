@@ -572,8 +572,8 @@ var ChipmunkSpriteAnchorPoint = function() {
 		var repeat = cc.RepeatForever.create( seq );
 
 		sprite1.runAction( repeat );
-		sprite2.runAction( repeat.copy() );
-		sprite3.runAction( repeat.copy() );
+		sprite2.runAction( repeat.clone() );
+		sprite3.runAction( repeat.clone() );
 
 		this.addChild(sprite1);
 		this.addChild(sprite2);
