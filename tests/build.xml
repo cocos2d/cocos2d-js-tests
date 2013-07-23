@@ -44,6 +44,11 @@
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js"/>
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlScene.js"/>
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlButtonTest/CCControlButtonTest.js"/>
+                <file name="ExtensionsTest/ControlExtensionTest/CCControlSwitchTest/CCControlSwitchTest.js"/>
+                <file name="ExtensionsTest/ControlExtensionTest/CCControlSliderTest/CCControlSliderTest.js"/>
+                <file name="ExtensionsTest/ControlExtensionTest/CCControlStepperTest/CCControlStepperTest.js"/>
+                <file name="ExtensionsTest/ControlExtensionTest/CCControlPotentiometerTest/CCControlPotentiometerTest.js"/>
+                <file name="ExtensionsTest/ControlExtensionTest/CCControlColourPickerTest/CCControlColourPickerTest.js"/>
                 <file name="ExtensionsTest/TableViewTest/TableViewTestScene.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/CocosBuilderTest.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/TestHeader/TestHeaderLayer.js"/>
@@ -213,6 +218,8 @@
                 <file name="GUI/CCControlExtension/CCControlColourPicker.js"/>
                 <file name="GUI/CCControlExtension/CCControlHuePicker.js"/>
                 <file name="GUI/CCControlExtension/CCControlSaturationBrightnessPicker.js"/>
+                <file name="GUI/CCControlExtension/CCControlStepper.js"/>
+                <file name="GUI/CCControlExtension/CCControlPotentiometer.js"/>
                 <file name="GUI/CCControlExtension/CCMenuPassive.js"/>
                 <file name="GUI/CCScrollView/CCSorting.js"/>
                 <file name="GUI/CCScrollView/CCScrollView.js"/>
@@ -279,6 +286,11 @@
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js"/>
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlScene.js"/>
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlButtonTest/CCControlButtonTest.js"/>
+                <file name="ExtensionsTest/ControlExtensionTest/CCControlSwitchTest/CCControlSwitchTest.js"/>
+                <file name="ExtensionsTest/ControlExtensionTest/CCControlSliderTest/CCControlSliderTest.js"/>
+                <file name="ExtensionsTest/ControlExtensionTest/CCControlStepperTest/CCControlStepperTest.js"/>
+                <file name="ExtensionsTest/ControlExtensionTest/CCControlPotentiometerTest/CCControlPotentiometerTest.js"/>
+                <file name="ExtensionsTest/ControlExtensionTest/CCControlColourPickerTest/CCControlColourPickerTest.js"/>
                 <file name="ExtensionsTest/TableViewTest/TableViewTestScene.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/CocosBuilderTest.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/TestHeader/TestHeaderLayer.js"/>
