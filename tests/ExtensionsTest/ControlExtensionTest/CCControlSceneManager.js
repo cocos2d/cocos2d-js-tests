@@ -25,24 +25,24 @@
  ****************************************************************************/
 
 var controTestItemNames = [
-/*    {
-        itemTitle:"CCControlSliderTest",
+    {
+        itemTitle:"ControlSliderTest",
         testScene:function () {
-            //
+            return ControlSliderTest.create(this.itemTitle);
         }
     },
     {
         itemTitle:"ControlColourPickerTest",
         testScene:function () {
-            //
+            return ControlColourPickerTest.create(this.itemTitle);
         }
     },
     {
         itemTitle:"ControlSwitchTest",
         testScene:function () {
-            //
+            return ControlSwitchTest.create(this.itemTitle);
         }
-    },*/
+    },
     {
         itemTitle:"ControlButtonTest_HelloVariableSize",
         testScene:function () {
@@ -59,6 +59,18 @@ var controTestItemNames = [
         itemTitle:"ControlButtonTest_Styling",
         testScene:function () {
             return ControlButtonTest_Styling.create(this.itemTitle);
+        }
+    },
+    {
+        itemTitle:"ControlPotentiometerTest",
+        testScene:function () {
+            return ControlPotentiometerTest.create(this.itemTitle);
+        }
+    },
+    {
+        itemTitle:"ControlStepperTest",
+        testScene:function () {
+            return ControlStepperTest.create(this.itemTitle);
         }
     }
 ];

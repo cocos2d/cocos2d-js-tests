@@ -25,45 +25,62 @@
  ****************************************************************************/
 
 var ControlButtonTest_HelloVariableSize = ControlScene.extend({
-     init:function(){
-         if (this._super()) {
-             var screenSize = cc.Director.getInstance().getWinSize();
+    init:function () {
+        if (this._super()) {
+            var screenSize = cc.Director.getInstance().getWinSize();
 
-             // Defines an array of title to create buttons dynamically
-             var stringArray = ["Hello", "Variable", "Size","!"];
+            // Defines an array of title to create buttons dynamically
+            var stringArray = ["Hello", "Variable", "Size", "!"];
 
-             var layer = cc.Node.create();
-             this.addChild(layer, 1);
+            var layer = cc.Node.create();
+            this.addChild(layer, 1);
 
-             var total_width = 0, height = 0;
+            var total_width = 0, height = 0;
 
-             // For each title in the array
-             for(var i = 0; i< stringArray.length; i++){
-                 var button = this.standardButtonWithTitle(stringArray[i]);
-                 button.setPosition(cc.p(total_width + button.getContentSize().width / 2, button.getContentSize().height / 2));
-                 layer.addChild(button);
+            // For each title in the array
+            for (var i = 0; i < stringArray.length; i++) {
+                var button = this.standardButtonWithTitle(stringArray[i]);
 
-                 // Compute the size of the layer
-                 height = button.getContentSize().height;
-                 total_width += button.getContentSize().width;
-             }
+                if (i == 0) {
+                    button.setOpacity(50);
+                    //todo setColor not work in canvas
+                    //button.setColor(cc.c3b(0, 255, 0));
+                }
+                else if (i == 1) {
+                    button.setOpacity(200);
+                    //todo setColor not work in canvas
+                    //button.setColor(cc.c3b(0, 255, 0));
+                }
+                else if (i == 2) {
+                    button.setOpacity(100);
+                    //todo setColor not work in canvas
+                    //button.setColor(cc.c3b(0, 0, 255));
+                }
 
-             layer.setAnchorPoint(cc.p(0.5, 0.5));
-             layer.setContentSize(cc.size(total_width, height));
-             layer.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
+                button.setPosition(cc.p(total_width + button.getContentSize().width / 2, button.getContentSize().height / 2));
+                layer.addChild(button);
 
-             // Add the black background
-             var background = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-             background.setContentSize(cc.size(total_width + 14, height + 14));
-             background.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
-             this.addChild(background);
-             return true;
-         }
-         return false;
-     },
-    /** Creates and return a button with a default background and title color. */
-    standardButtonWithTitle:function(title){
-        /** Creates and return a button with a default background and title color. */
+                // Compute the size of the layer
+                height = button.getContentSize().height;
+                total_width += button.getContentSize().width;
+            }
+
+            layer.setAnchorPoint(cc.p(0.5, 0.5));
+            layer.setContentSize(cc.size(total_width, height));
+            layer.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
+
+            // Add the black background
+            var background = cc.Scale9Sprite.create(s_extensions_buttonBackground);
+            background.setContentSize(cc.size(total_width + 14, height + 14));
+            background.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
+            this.addChild(background);
+            return true;
+        }
+        return false;
+    },
+    // Creates and return a button with a default background and title color.
+    standardButtonWithTitle:function (title) {
+        // Creates and return a button with a default background and title color.
         var backgroundButton = cc.Scale9Sprite.create(s_extensions_button);
         var backgroundHighlightedButton = cc.Scale9Sprite.create(s_extensions_buttonHighlighted);
 
@@ -79,10 +96,10 @@ var ControlButtonTest_HelloVariableSize = ControlScene.extend({
     }
 });
 
-ControlButtonTest_HelloVariableSize.create = function(sceneTitle){
+ControlButtonTest_HelloVariableSize.create = function (sceneTitle) {
     var scene = cc.Scene.create();
     var controlLayer = new ControlButtonTest_HelloVariableSize();
-    if(controlLayer && controlLayer.init()){
+    if (controlLayer && controlLayer.init()) {
         controlLayer.getSceneTitleLabel().setString(sceneTitle);
         scene.addChild(controlLayer);
     }
@@ -92,7 +109,7 @@ ControlButtonTest_HelloVariableSize.create = function(sceneTitle){
 var ControlButtonTest_Event = ControlScene.extend({
     _displayValueLabel:null,
 
-    init:function(){
+    init:function () {
         if (this._super()) {
             var screenSize = cc.Director.getInstance().getWinSize();
 
@@ -137,39 +154,43 @@ var ControlButtonTest_Event = ControlScene.extend({
         return false;
     },
 
-    getDisplayValueLabel:function(){return this._displayValueLabel;},
-    setDisplayValueLabel:function(displayValueLabel) {this._displayValueLabel = displayValueLabel;},
+    getDisplayValueLabel:function () {
+        return this._displayValueLabel;
+    },
+    setDisplayValueLabel:function (displayValueLabel) {
+        this._displayValueLabel = displayValueLabel;
+    },
 
-    touchDownAction:function(sender, controlEvent){
+    touchDownAction:function (sender, controlEvent) {
         this._displayValueLabel.setString("Touch Down");
     },
-    touchDragInsideAction:function(sender,controlEvent){
+    touchDragInsideAction:function (sender, controlEvent) {
         this._displayValueLabel.setString("Drag Inside");
     },
-    touchDragOutsideAction:function(sender, controlEvent){
+    touchDragOutsideAction:function (sender, controlEvent) {
         this._displayValueLabel.setString("Drag Outside");
     },
-    touchDragEnterAction:function(sender,controlEvent){
+    touchDragEnterAction:function (sender, controlEvent) {
         this._displayValueLabel.setString("Drag Enter");
     },
-    touchDragExitAction:function(sender, controlEvent){
+    touchDragExitAction:function (sender, controlEvent) {
         this._displayValueLabel.setString("Drag Exit");
     },
-    touchUpInsideAction:function(sender,controlEvent){
+    touchUpInsideAction:function (sender, controlEvent) {
         this._displayValueLabel.setString("Touch Up Inside.");
     },
-    touchUpOutsideAction:function(sender, controlEvent){
+    touchUpOutsideAction:function (sender, controlEvent) {
         this._displayValueLabel.setString("Touch Up Outside.");
     },
-    touchCancelAction:function(sender,controlEvent){
+    touchCancelAction:function (sender, controlEvent) {
         this._displayValueLabel.setString("Touch Cancel");
     }
 });
 
-ControlButtonTest_Event.create = function(sceneTitle){
+ControlButtonTest_Event.create = function (sceneTitle) {
     var scene = cc.Scene.create();
     var controlLayer = new ControlButtonTest_Event();
-    if(controlLayer && controlLayer.init()){
+    if (controlLayer && controlLayer.init()) {
         controlLayer.getSceneTitleLabel().setString(sceneTitle);
         scene.addChild(controlLayer);
     }
@@ -177,7 +198,7 @@ ControlButtonTest_Event.create = function(sceneTitle){
 };
 
 var ControlButtonTest_Styling = ControlScene.extend({
-    init:function(){
+    init:function () {
         if (this._super()) {
             var screenSize = cc.Director.getInstance().getWinSize();
 
@@ -190,14 +211,14 @@ var ControlButtonTest_Styling = ControlScene.extend({
             for (var i = 0; i < 3; i++) {
                 for (var j = 0; j < 3; j++) {
                     // Add the buttons
-                    var button = this.standardButtonWithTitle((0|(Math.random() * 30)) + "");
+                    var button = this.standardButtonWithTitle((0 | (Math.random() * 30)) + "");
                     button.setAdjustBackgroundImage(false);  // Tells the button that the background image must not be adjust
                     // It'll use the prefered size of the background image
-                    button.setPosition(cc.p (button.getContentSize().width / 2 + (button.getContentSize().width + space) * i,
+                    button.setPosition(cc.p(button.getContentSize().width / 2 + (button.getContentSize().width + space) * i,
                         button.getContentSize().height / 2 + (button.getContentSize().height + space) * j));
                     layer.addChild(button);
 
-                    max_w = Math.max(button.getContentSize().width * (i + 1) + space  * i, max_w);
+                    max_w = Math.max(button.getContentSize().width * (i + 1) + space * i, max_w);
                     max_h = Math.max(button.getContentSize().height * (j + 1) + space * j, max_h);
                 }
             }
@@ -215,7 +236,7 @@ var ControlButtonTest_Styling = ControlScene.extend({
         }
         return false;
     },
-    standardButtonWithTitle:function(title){
+    standardButtonWithTitle:function (title) {
         /** Creates and return a button with a default background and title color. */
         var backgroundButton = cc.Scale9Sprite.create(s_extensions_button);
         backgroundButton.setPreferredSize(cc.size(45, 45));  // Set the prefered size
@@ -234,10 +255,10 @@ var ControlButtonTest_Styling = ControlScene.extend({
     }
 });
 
-ControlButtonTest_Styling.create = function(sceneTitle){
+ControlButtonTest_Styling.create = function (sceneTitle) {
     var scene = cc.Scene.create();
     var controlLayer = new ControlButtonTest_Styling();
-    if(controlLayer && controlLayer.init()){
+    if (controlLayer && controlLayer.init()) {
         controlLayer.getSceneTitleLabel().setString(sceneTitle);
         scene.addChild(controlLayer);
     }
