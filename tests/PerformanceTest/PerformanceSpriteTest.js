@@ -26,6 +26,13 @@
 var MAX_SPRITES = 10000;
 var SPRITES_INCREASE = 500;
 
+if ( sys.platform == 'browser') {
+   if(cc.Browser.isMobile){
+       MAX_SPRITES = 3000;
+       SPRITES_INCREASE = 50;
+   }
+}
+
 var TAG_INFO_LAYER = 1;
 var TAG_MAIN_LAYER = 2;
 var TAG_SPRITE_MENU_LAYER = (MAX_SPRITES + 1000);
@@ -372,15 +379,9 @@ var SpriteMainScene = cc.Scene.extend({
             var sprite = this._subTest.createSpriteWithTag(this._quantityNodes);
             this.doTest(sprite);
             this._quantityNodes++;
-            if(i == 150)
-                window.selSprite1 = sprite;
-            if(i == 300)
-                window.selSprite2 = sprite;
         }
 
         this.updateNodes();
-        if(window.selSprite1._texture != window.selSprite2._texture)
-            throw "set texture error";
     },
     onDecrease:function (sender) {
         if (this._quantityNodes <= 0)
