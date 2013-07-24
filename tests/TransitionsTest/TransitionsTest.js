@@ -93,9 +93,6 @@ var arrayOfTransitionsTest = [
     {title:"SlideInBTransition", transitionFunc:function (t, s) {
         return new SlideInBTransition(t, s);
     }},
-    {title:"CCTransitionCrossFade", transitionFunc:function (t, s) {
-        return new CCTransitionCrossFade(t, s);
-    }},
     {title:"CCTransitionRadialCCW", transitionFunc:function (t, s) {
         return new CCTransitionRadialCCW(t, s);
     }},
@@ -164,6 +161,9 @@ if( 'opengl' in sys.capabilities ){
     }},
     {title:"SplitRowsTransition", transitionFunc:function (t, s) {
         return new SplitRowsTransition(t, s);
+    }},
+    {title:"CCTransitionCrossFade", transitionFunc:function (t, s) {
+        return new CCTransitionCrossFade(t, s);
     }},
     {title:"SplitColsTransition", transitionFunc:function (t, s) {
         return new SplitColsTransition(t, s);
