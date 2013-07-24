@@ -541,7 +541,7 @@ rect:function () {
 },
 center:function () {
     if (s_ptCenter.x == 0) {
-        var rc = this.rect();
+        var rc = VisibleRect.rect();
         s_ptCenter.x = rc.x + rc.width / 2;
         s_ptCenter.y = rc.y + rc.height / 2;
     }
@@ -549,7 +549,7 @@ center:function () {
 },
 top:function () {
     if (s_ptTop.x == 0) {
-        var rc = this.rect();
+        var rc = VisibleRect.rect();
         s_ptTop.x = rc.x + rc.width / 2;
         s_ptTop.y = rc.y + rc.height;
     }
@@ -557,7 +557,7 @@ top:function () {
 },
 topRight:function () {
     if (s_ptTopRight.x == 0) {
-        var rc = this.rect();
+        var rc = VisibleRect.rect();
         s_ptTopRight.x = rc.x + rc.width;
         s_ptTopRight.y = rc.y + rc.height;
     }
@@ -565,7 +565,7 @@ topRight:function () {
 },
 right:function () {
     if (s_ptRight.x == 0) {
-        var rc = this.rect();
+        var rc = VisibleRect.rect();
         s_ptRight.x = rc.x + rc.width;
         s_ptRight.y = rc.y + rc.height / 2;
     }
@@ -573,7 +573,7 @@ right:function () {
 },
 bottomRight:function () {
     if (s_ptBottomRight.x == 0) {
-        var rc = this.rect();
+        var rc = VisibleRect.rect();
         s_ptBottomRight.x = rc.x + rc.width;
         s_ptBottomRight.y = rc.y;
     }
@@ -581,18 +581,18 @@ bottomRight:function () {
 },
 bottom:function () {
     if (s_ptBottom.x == 0) {
-        var rc = this.rect();
+        var rc = VisibleRect.rect();
         s_ptBottom.x = rc.x + rc.width / 2;
         s_ptBottom.y = rc.y;
     }
     return s_ptBottom;
 },
 bottomLeft:function () {
-    return this.rect();
+    return VisibleRect.rect();
 },
 left:function () {
     if (s_ptLeft.x == 0) {
-        var rc = this.rect();
+        var rc = VisibleRect.rect();
         s_ptLeft.x = rc.x;
         s_ptLeft.y = rc.y + rc.height / 2;
     }
@@ -600,7 +600,7 @@ left:function () {
 },
 topLeft:function () {
     if (s_ptTopLeft.x == 0) {
-        var rc = this.rect();
+        var rc = VisibleRect.rect();
         s_ptTopLeft.x = rc.x;
         s_ptTopLeft.y = rc.y + rc.height;
     }

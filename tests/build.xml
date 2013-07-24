@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Javascript compress project" basedir="." default="compile_test">
+<project name="Javascript compress project" basedir="." default="compile_test_advanced">
 
     <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask"
              classpath="${basedir}/../../tools/compiler/compiler.jar"/>
@@ -8,8 +8,9 @@
         <jscomp compilationLevel="simple" warning="quiet"
                 debug="false" output="cocos2d-html5-testcases.js">
             <sources dir="${basedir}">
-                <file name="tests-main.js"/>
+                <file name="BaseTestLayer/BaseTestLayer.js"/>
                 <file name="tests_resources-html5.js"/>
+                <file name="tests-main.js"/>
                 <file name="TouchesTest/Ball.js"/>
                 <file name="TouchesTest/Paddle.js"/>
                 <file name="TouchesTest/TouchesTest.js"/>
@@ -40,6 +41,22 @@
                 <file name="PerformanceTest/PerformanceTextureTest.js"/>
                 <file name="PerformanceTest/PerformanceAnimationTest.js"/>
                 <file name="FontTest/FontTest.js"/>
+                <file name="PerformanceTest/PerformanceTouchesTest.js"/>
+                <file name="LabelTest/LabelTest.js"/>
+                <file name="CurrentLanguageTest/CurrentLanguageTest.js"/>
+                <file name="TextInputTest/TextInputTest.js"/>
+                <file name="Box2dTest/Box2dTest.js"/>
+                <file name="ChipmunkTest/ChipmunkTest.js"/>
+                <file name="ClippingNodeTest/ClippingNodeTest.js"/>
+                <file name="OpenGLTest/OpenGLTest.js"/>
+                <file name="EventTest/EventTest.js"/>
+                <file name="EffectsTest/EffectsTest.js"/>
+                <file name="EffectsAdvancedTest/EffectsAdvancedTest.js"/>
+                <file name="FileUtils/FileUtilsTest.js"/>
+                <file name="MotionStreakTest/MotionStreakTest.js"/>
+                <file name="RenderTextureTest/RenderTextureTest.js"/>
+                <file name="UnitTest/UnitTest.js"/>
+                <file name="SysTest/SysTest.js"/>
                 <file name="ExtensionsTest/ExtensionsTest.js"/>
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js"/>
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlScene.js"/>
@@ -61,25 +78,25 @@
                 <file name="ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.js"/>
                 <file name="ExtensionsTest/S9SpriteTest/S9SpriteTest.js"/>
-
-                <file name="PerformanceTest/PerformanceTouchesTest.js"/>
-                <file name="LabelTest/LabelTest.js"/>
-                <file name="CurrentLanguageTest/CurrentLanguageTest.js"/>
-                <file name="TextInputTest/TextInputTest.js"/>
-                <file name="Box2dTest/Box2dTest.js"/>
+                <file name="ExtensionsTest/ArmatureTest/ArmatureTest.js"/>
+                <file name="ExtensionsTest/EditBoxTest/EditBoxTest.js"/>
+                <file name="ExtensionsTest/NetworkTest/WebSocketTest.js"/>
             </sources>
         </jscomp>
     </target>
 
     <target name="compile_test_advanced">
         <jscomp compilationLevel="advanced" warning="quiet"
-                debug="false" output="cocos2d-html5-testcases-advanced.js"
+                debug="true" output="cocos2d-html5-testcases-advanced.js"
                 languageIn="ECMASCRIPT5">
             <externs dir="${basedir}/../../cocos2d">
                 <file name="cocos2d_externs.js"/>
             </externs>
             <sources dir="${basedir}/../../cocos2d">
                 <file name="platform/CCClass.js"/>
+                <file name="cocoa/CCGeometry.js"/>
+                <file name="platform/Sys.js"/>
+                <file name="platform/CCConfig.js"/>
                 <file name="platform/CCCommon.js"/>
                 <file name="platform/miniFramework.js"/>
                 <file name="platform/ZipUtils.js"/>
@@ -92,9 +109,6 @@
                 <file name="platform/CCEGLView.js"/>
                 <file name="platform/CCImage.js"/>
                 <file name="platform/zlib.min.js"/>
-                <file name="cocoa/CCGeometry.js"/>
-                <file name="platform/Sys.js"/>
-                <file name="platform/CCConfig.js"/>
                 <file name="cocoa/CCNS.js"/>
                 <file name="cocoa/CCSet.js"/>
                 <file name="kazmath/vec2.js"/>
@@ -225,6 +239,27 @@
                 <file name="GUI/CCScrollView/CCScrollView.js"/>
                 <file name="GUI/CCScrollView/CCTableView.js"/>
                 <file name="CCEditBox.js"/>
+                <file name="CCArmature/utils/CCArmatureDefine.js"/>
+                <file name="CCArmature/utils/CCDataReaderHelper.js"/>
+                <file name="CCArmature/utils/CCSpriteFrameCacheHelper.js"/>
+                <file name="CCArmature/utils/CCTransformHelp.js"/>
+                <file name="CCArmature/utils/CCTweenFunction.js"/>
+                <file name="CCArmature/utils/CCUtilMath.js"/>
+                <file name="CCArmature/utils/CSArmatureDataManager.js"/>
+                <file name="CCArmature/datas/CCDatas.js"/>
+                <file name="CCArmature/display/CCBatchNode.js"/>
+                <file name="CCArmature/display/CCDecorativeDisplay.js"/>
+                <file name="CCArmature/display/CCDisplayFactory.js"/>
+                <file name="CCArmature/display/CCDisplayManager.js"/>
+                <file name="CCArmature/display/CCShaderNode.js"/>
+                <file name="CCArmature/display/CCSkin.js"/>
+                <file name="CCArmature/animation/CCProcessBase.js"/>
+                <file name="CCArmature/animation/CCArmatureAnimation.js"/>
+                <file name="CCArmature/animation/CCTween.js"/>
+                <file name="CCArmature/physics/CCColliderDetector.js"/>
+                <file name="CCArmature/physics/CCPhysicsWorld.js"/>
+                <file name="CCArmature/CCArmature.js"/>
+                <file name="CCArmature/CCBone.js"/>
             </sources>
             <sources dir="${basedir}/../../box2d">
                 <file name="box2d.js"/>
@@ -234,8 +269,8 @@
             </sources>
             <sources dir="${basedir}">
                 <file name="BaseTestLayer/BaseTestLayer.js"/>
-                <file name="tests-main.js"/>
                 <file name="tests_resources-html5.js"/>
+                <file name="tests-main.js"/>
                 <file name="TouchesTest/Ball.js"/>
                 <file name="TouchesTest/Paddle.js"/>
                 <file name="TouchesTest/TouchesTest.js"/>
@@ -250,38 +285,38 @@
                 <file name="ProgressActionsTest/ProgressActionsTest.js"/>
                 <file name="LayerTest/LayerTest.js"/>
                 <file name="SceneTest/SceneTest.js"/>
-                <file name="SpriteTest/SpriteTest.js"/>
                 <file name="TextureCacheTest/TextureCacheTest.js"/>
+                <file name="SpriteTest/SpriteTest.js"/>
                 <file name="CocosDenshionTest/CocosDenshionTest.js"/>
                 <file name="CocosNodeTest/CocosNodeTest.js"/>
                 <file name="RotateWorldTest/RotateWorldTest.js"/>
-                <file name="RenderTextureTest/RenderTextureTest.js"/>
                 <file name="IntervalTest/IntervalTest.js"/>
                 <file name="ActionManagerTest/ActionManagerTest.js"/>
                 <file name="EaseActionsTest/EaseActionsTest.js"/>
                 <file name="ParallaxTest/ParallaxTest.js"/>
                 <file name="PerformanceTest/PerformanceTest.js"/>
                 <file name="PerformanceTest/PerformanceSpriteTest.js"/>
-                <file name="PerformanceTest/PerformanceSpriteTest2.js"/>
                 <file name="PerformanceTest/PerformanceParticleTest.js"/>
                 <file name="PerformanceTest/PerformanceNodeChildrenTest.js"/>
                 <file name="PerformanceTest/PerformanceTextureTest.js"/>
                 <file name="PerformanceTest/PerformanceAnimationTest.js"/>
-                <file name="PerformanceTest/PerformanceVirtualMachineTest.js"/>
-                <file name="PerformanceTest/seedrandom.js"/>
                 <file name="FontTest/FontTest.js"/>
                 <file name="PerformanceTest/PerformanceTouchesTest.js"/>
                 <file name="LabelTest/LabelTest.js"/>
                 <file name="CurrentLanguageTest/CurrentLanguageTest.js"/>
                 <file name="TextInputTest/TextInputTest.js"/>
-                <file name="EventTest/EventTest.js"/>
-                <file name="UnitTest/UnitTest.js"/>
-                <file name="SysTest/SysTest.js"/>
-                <file name="EffectsTest/EffectsTest.js"/>
-                <file name="EffectsAdvancedTest/EffectsAdvancedTest.js"/>
-                <file name="MotionStreakTest/MotionStreakTest.js"/>
+                <file name="Box2dTest/Box2dTest.js"/>
+                <file name="ChipmunkTest/ChipmunkTest.js"/>
                 <file name="ClippingNodeTest/ClippingNodeTest.js"/>
                 <file name="OpenGLTest/OpenGLTest.js"/>
+                <file name="EventTest/EventTest.js"/>
+                <file name="EffectsTest/EffectsTest.js"/>
+                <file name="EffectsAdvancedTest/EffectsAdvancedTest.js"/>
+                <file name="FileUtils/FileUtilsTest.js"/>
+                <file name="MotionStreakTest/MotionStreakTest.js"/>
+                <file name="RenderTextureTest/RenderTextureTest.js"/>
+                <file name="UnitTest/UnitTest.js"/>
+                <file name="SysTest/SysTest.js"/>
                 <file name="ExtensionsTest/ExtensionsTest.js"/>
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlSceneManager.js"/>
                 <file name="ExtensionsTest/ControlExtensionTest/CCControlScene.js"/>
@@ -302,12 +337,10 @@
                 <file name="ExtensionsTest/CocosBuilderTest/ParticleSystemTest/ParticleSystemTestLayer.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js"/>
                 <file name="ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.js"/>
-                <file name="ExtensionsTest/CocosBuilderTest/TimelineCallbackTest/TimelineCallbackTestLayer.js"/>
-                <file name="ExtensionsTest/EditBoxTest/EditBoxTest.js"/>
                 <file name="ExtensionsTest/S9SpriteTest/S9SpriteTest.js"/>
+                <file name="ExtensionsTest/ArmatureTest/ArmatureTest.js"/>
+                <file name="ExtensionsTest/EditBoxTest/EditBoxTest.js"/>
                 <file name="ExtensionsTest/NetworkTest/WebSocketTest.js"/>
-                <file name="Box2dTest/Box2dTest.js"/>
-                <file name="ChipmunkTest/ChipmunkTest.js"/>
                 <file name="main.js"/>
             </sources>
         </jscomp>
