@@ -13,7 +13,6 @@ var tests_files = [
 
     // base class
     'BaseTestLayer/BaseTestLayer.js',
-
     'ActionManagerTest/ActionManagerTest.js',
     'ActionsTest/ActionsTest.js',
     'ChipmunkTest/ChipmunkTest.js',
@@ -60,7 +59,8 @@ var tests_files = [
     'TileMapTest/TileMapTest.js',
     'TransitionsTest/TransitionsTest.js',
     'UnitTest/UnitTest.js',
-    'SysTest/SysTest.js'
+    'SysTest/SysTest.js',
+    'MultiViewTest/MultiViewTest.js'
 ];
 
 for (var i = 0; i < tests_files.length; i++) {

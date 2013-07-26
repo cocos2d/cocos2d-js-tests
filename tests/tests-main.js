@@ -240,7 +240,7 @@ var testNames = [
     },
     {
         title:"ClippingNode Test",
-        platforms: PLATFORM_JSB_AND_WEBGL,
+        platforms: PLATFORM_HTML5_WEBGL,
         testScene:function () {
             return new ClippingNodeTestScene();
         }
@@ -285,7 +285,7 @@ var testNames = [
     {
         title:"Extensions Test",
         resource:g_extensions,
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new ExtensionsTestScene();
         }
@@ -366,9 +366,9 @@ var testNames = [
             return new NodeTestScene();
         }
     },
+    //"MotionStreakTest",
     {
         title:"OpenGL Test",
-        resource:g_opengl_resources,
         platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new OpenGLTestScene();
@@ -393,7 +393,6 @@ var testNames = [
     {
         title:"Performance Test",
         platforms: PLATFORM_ALL,
-        resource:g_performace,
         testScene:function () {
             return new PerformanceTestScene();
         }
@@ -520,6 +519,21 @@ var testNames = [
     //"UserDefaultTest",
     //"ZwoptexTest",
 ];
+
+var androidTestNames = [
+    {
+        title:"MultiView Tests",
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new MultiViewTestScene();
+        }
+    }
+]
+
+if(sys.os == "android") {
+    testNames = testNames.concat(androidTestNames);
+}
+
 
 var s_rcVisible = cc.rect(0, 0, 0, 0);
 var s_ptCenter = cc.p(0, 0);

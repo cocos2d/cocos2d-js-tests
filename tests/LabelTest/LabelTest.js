@@ -1737,6 +1737,11 @@ var arrayOfLabelTest = [
     LabelTTFStrokeShadowTest
 ];
 
+if( sys.platform != "browser"){
+    //Not implement in HTML5
+    arrayOfLabelTest.push(LabelTTFStrokeShadowTest);
+}
+
 var nextLabelTest = function () {
     labelTestIdx++;
     labelTestIdx = labelTestIdx % arrayOfLabelTest.length;
