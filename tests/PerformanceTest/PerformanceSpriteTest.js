@@ -166,9 +166,10 @@ var SubTest = cc.Class.extend({
          */
 
         // purge textures
-        //var mgr = cc.TextureCache.getInstance();
+        //
         //		[mgr removeAllTextures];
         if ( sys.platform != 'browser') {
+            var mgr = cc.TextureCache.getInstance();
             mgr.removeTexture(mgr.addImage("res/Images/grossinis_sister1.png"));
             mgr.removeTexture(mgr.addImage("res/Images/grossini_dance_atlas.png"));
             mgr.removeTexture(mgr.addImage("res/Images/spritesheet1.png"));
