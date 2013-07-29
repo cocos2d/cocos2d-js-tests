@@ -45,9 +45,9 @@ var MenuLayerMainMenu = cc.Layer.extend({
         //this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
 
         // Font Item
-        var spriteNormal = cc.Sprite.create(s_menuItem, cc.RectMake(0,23*2,115,23));
-        var spriteSelected = cc.Sprite.create(s_menuItem, cc.RectMake(0,23,115,23));
-        var spriteDisabled = cc.Sprite.create(s_menuItem, cc.RectMake(0,0,115,23));
+        var spriteNormal = cc.Sprite.create(s_menuItem, cc.rect(0,23*2,115,23));
+        var spriteSelected = cc.Sprite.create(s_menuItem, cc.rect(0,23,115,23));
+        var spriteDisabled = cc.Sprite.create(s_menuItem, cc.rect(0,0,115,23));
 
         var item1 = cc.MenuItemSprite.create(spriteNormal, spriteSelected, spriteDisabled, this.onMenuCallback, this);
 
@@ -57,8 +57,8 @@ var MenuLayerMainMenu = cc.Layer.extend({
         // Label Item (LabelAtlas)
         var labelAtlas = cc.LabelAtlas.create("0123456789", s_fpsImages, 16, 24, '.');
         var item3 = cc.MenuItemLabel.create(labelAtlas, this.onMenuCallbackDisabled, this );
-        item3.setDisabledColor( cc.c3(32,32,64) );
-        item3.setColor( cc.c3(200,200,255) );
+        item3.setDisabledColor( cc.c3b(32,32,64) );
+        item3.setColor( cc.c3b(200,200,255) );
 
         // Font Item
         var item4 = cc.MenuItemFont.create("I toggle enable items", function(sender) {
@@ -495,7 +495,7 @@ var MenuBugsTest = cc.Layer.extend({
     },
 
     onBackMenuCallback:function(sender){
-        this._parent.switchTo(0);
+        this.getParent().switchTo(0);
     }
 });
 
@@ -539,7 +539,7 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
     },
 
     goBack:function(sender){
-        this._parent.switchTo(0);
+        this.getParent().switchTo(0);
     }
 });
 
