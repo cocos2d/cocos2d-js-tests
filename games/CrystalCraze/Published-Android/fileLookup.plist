@@ -32,6 +32,8 @@
 		<string>sounds/tap-3.ogg</string>
 		<key>sounds/timer.wav</key>
 		<string>sounds/timer.ogg</string>
+		<key>crystals.pvr.ccz</key>
+		<string>crystals.pvr</string>
 	</dict>
 	<key>metadata</key>
 	<dict>
