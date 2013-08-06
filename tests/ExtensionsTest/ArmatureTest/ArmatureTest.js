@@ -25,7 +25,7 @@
 var armatureSceneIdx = -1;
 
 var ArmatureTestScene = TestScene.extend({
-    runThisTest:function () {
+    onEnter:function(){
         cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_TestBone_png, s_TestBone_plist, s_TestBone_json);
         cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_png, s_Cowboy_plist, s_Cowboy_json);
         cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
@@ -33,14 +33,16 @@ var ArmatureTestScene = TestScene.extend({
         cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_robot_png, s_robot_plist, s_robot_xml);
         cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_cyborg_png, s_cyborg_plist, s_cyborg_xml);
         cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Dragon_png, s_Dragon_plist, s_Dragon_xml);
-
+        this._super();
+    },
+    runThisTest:function () {
         armatureSceneIdx = -1;
         this.addChild(nextArmatureTest());
         director.replaceScene(this);
     },
-    onMainMenuCallback:function () {
-        cc.ArmatureDataManager.purge();
+    onExit:function () {
         this._super();
+        cc.ArmatureDataManager.purge();
     }
 });
 
