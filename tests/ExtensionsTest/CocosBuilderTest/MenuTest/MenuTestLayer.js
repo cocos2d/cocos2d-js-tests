@@ -24,60 +24,16 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var MenuTestLayer = cc.Layer.extend({
-    _menuItemStatusLabelBMFont:null,
+var TestMenusLayer = function() {
+    this.onMenuItemAClicked = function(sender) {
+        this.mMenuItemStatusLabelBMFont.setString("Menu Item A clicked.");
+    };
 
-    onResolveCCBCCMenuItemSelector:function(target, selectorName){
-        if(target == this && selectorName == "onMenuItemAClicked"){
-            return this.onMenuItemAClicked;
-        }
+    this.onMenuItemBClicked = function(sender) {
+        this.mMenuItemStatusLabelBMFont.setString("Menu Item B clicked.");
+    };
 
-        if(target == this && selectorName == "onMenuItemBClicked"){
-            return this.onMenuItemBClicked;
-        }
-
-        if(target == this && selectorName == "onMenuItemCClicked"){
-            return this.onMenuItemCClicked;
-        }
-        return null;
-    },
-
-    onResolveCCBCCControlSelector:function(target, selectorName){
-        return null;
-    },
-
-    onAssignCCBMemberVariable:function(target, memberVariableName, node){
-        if(this == target && memberVariableName == "mMenuItemStatusLabelBMFont"){
-            if(node instanceof  cc.LabelBMFont)
-                this._menuItemStatusLabelBMFont = node;
-            return true;
-        }
-        return false;
-    },
-
-    onMenuItemAClicked:function(sender){
-        this._menuItemStatusLabelBMFont.setString("Menu Item A clicked.");
-    },
-
-    onMenuItemBClicked:function(sender){
-        this._menuItemStatusLabelBMFont.setString("Menu Item B clicked.");
-    },
-
-    onMenuItemCClicked:function(sender){
-        this._menuItemStatusLabelBMFont.setString("Menu Item C clicked.");
-    }
-});
-
-MenuTestLayer.create = function(){
-    var retLayer = new MenuTestLayer();
-    if(retLayer && retLayer.init()){
-        return retLayer;
-    }
-    return null;
+    this.onMenuItemCClicked = function(sender) {
+        this.mMenuItemStatusLabelBMFont.setString("Menu Item C clicked.");
+    };
 };
-
-var MenuTestLayerLoader = cc.LayerLoader.extend({
-    _createCCNode:function(parent,ccbReader){
-        return MenuTestLayer.create();
-    }
-});

@@ -24,70 +24,20 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var AnimationsTestLayer = cc.Layer.extend({
-     _animationManager:null,
+var TestAnimationsLayer = function() {
+    this.onCCControlButtonIdleClicked = function(sender, controlEvent) {
+        this.rootNode.animationManager.runAnimationsForSequenceNamedTweenDuration("Idle", 0.3);
+    };
 
-    onResolveCCBCCMenuItemSelector:function(target,selectorName){
-        return null;
-    },
+    this.onCCControlButtonWaveClicked = function(sender, controlEvent) {
+        this.rootNode.animationManager.runAnimationsForSequenceNamedTweenDuration("Wave", 0.3);
+    };
 
-    onResolveCCBCCControlSelector:function(target, selectorName){
-        if(this == target && "onCCControlButtonIdleClicked" == selectorName)
-            return this.onCCControlButtonIdleClicked;
+    this.onCCControlButtonJumpClicked = function(sender, controlEvent) {
+        this.rootNode.animationManager.runAnimationsForSequenceNamedTweenDuration("Jump", 0.3);
+    };
 
-        if(this == target && "onCCControlButtonWaveClicked" == selectorName)
-            return this.onCCControlButtonWaveClicked;
-
-        if(this == target && "onCCControlButtonJumpClicked" == selectorName)
-            return this.onCCControlButtonJumpClicked;
-
-        if(this == target && "onCCControlButtonFunkyClicked" == selectorName)
-            return this.onCCControlButtonFunkyClicked;
-
-        return null;
-    },
-
-    onAssignCCBMemberVariable:function(target, memberVariableName, node){
-        if (this._target == this && memberVariableName == "mAnimationManager") {
-            if(node instanceof  cc.BuilderAnimationManager){
-                this._animationManager = node;
-            }
-            return true;
-        }
-        return false;
-    },
-
-    onCCControlButtonIdleClicked:function(sender, controlEvent){
-        this._animationManager.runAnimations("Idle", 0.3);
-    },
-
-    onCCControlButtonWaveClicked:function(sender, controlEvent){
-        this._animationManager.runAnimations("Wave", 0.3);
-    },
-
-    onCCControlButtonJumpClicked:function(sender, controlEvent){
-        this._animationManager.runAnimations("Jump", 0.3);
-    },
-
-    onCCControlButtonFunkyClicked:function(sender, controlEvent){
-        this._animationManager.runAnimations("Funky", 0.3);
-    },
-
-    setAnimationManager:function(animationManager){
-        this._animationManager = animationManager;
-    }
-});
-
-AnimationsTestLayer.create = function(){
-    var retLayer = new AnimationsTestLayer();
-    if(retLayer && retLayer.init()){
-        return retLayer;
-    }
-    return null;
+    this.onCCControlButtonFunkyClicked = function(sender, controlEvent) {
+        this.rootNode.animationManager.runAnimationsForSequenceNamedTweenDuration("Funky", 0.3);
+    };
 };
-
-var AnimationsTestLayerLoader = cc.LayerLoader.extend({
-    _createCCNode:function(parent,ccbReader){
-        return AnimationsTestLayer.create();
-    }
-});
