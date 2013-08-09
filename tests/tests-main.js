@@ -285,7 +285,7 @@ var testNames = [
     {
         title:"Extensions Test",
         resource:g_extensions,
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new ExtensionsTestScene();
         }
