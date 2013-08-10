@@ -24,18 +24,5 @@
  THE SOFTWARE.
  ****************************************************************************/
 
- var SpriteTestLayer = cc.Layer.extend({});
+var TestSpritesLayer = function() {};
 
-SpriteTestLayer.create = function(){
-    var retLayer = new SpriteTestLayer();
-    if(retLayer && retLayer.init()){
-        return retLayer;
-    }
-    return null;
-};
-
-var SpriteTestLayerLoader = cc.LayerLoader.extend({
-    _createCCNode:function(parent,ccbReader){
-        return SpriteTestLayer.create();
-    }
-});

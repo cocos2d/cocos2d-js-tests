@@ -24,61 +24,16 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var TimelineCallbackTestLayer = cc.Layer.extend({
-    _helloLabel :null,
-
-    onResolveCCBCCMenuItemSelector:function(target, selectorName){
-        return null;
-    },
-
-    onResolveCCBCCControlSelector:function(target, selectorName){
-        return null;
-    },
-
-    onResolveCCBCCCallFuncSelector:function(target,selectorName){
-        if(this == target && "onCallback1" == selectorName){
-            return this.onCallback1;
-        }
-
-        if(this == target && "onCallback2" == selectorName){
-            return this.onCallback2;
-        }
-    },
-
-    onAssignCCBMemberVariable:function(target, memberVariableName,node){
-        if(target == this && memberVariableName == "helloLabel"){
-            if(node instanceof  cc.LabelTTF){
-                this._helloLabel = node;
-            }
-            return true;
-        }
-
-        return false;
-    },
-
-    onCallback1:function(sender){
+var TestTimelineLayer = function() {
+    this.onCallback1 = function(sender) {
         // Rotate the label when the button is pressed
-        this._helloLabel.runAction(cc.RotateBy.create(1,360));
-        this._helloLabel.setString("Callback 1");
-    },
+        this.helloLabel.runAction(cc.RotateBy.create(1,360));
+        this.helloLabel.setString("Callback 1");
+    };
 
-    onCallback2:function(sender){
+    this.onCallback2 = function(sender) {
         // Rotate the label when the button is pressed
-        this._helloLabel.runAction(cc.RotateBy.create(1,-360));
-        this._helloLabel.setString("Callback 2");
-    }
-});
-
-TimelineCallbackTestLayer.create = function(){
-    var retLayer = new TimelineCallbackTestLayer();
-    if(retLayer && retLayer.init()){
-        return retLayer;
-    }
-    return null;
+        this.helloLabel.runAction(cc.RotateBy.create(1,-360));
+        this.helloLabel.setString("Callback 2");
+    };
 };
-
-var TimelineCallbackTestLayerLoader = cc.LayerLoader.extend({
-    _createCCNode:function(parent,ccbReader){
-        return TimelineCallbackTestLayer.create();
-    }
-});
