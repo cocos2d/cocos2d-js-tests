@@ -24,33 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var TestHeaderLayer = cc.Layer.extend({
-    onResolveCCBCCMenuItemSelector:function(target, selectorName){
-        if(this == target && "onBackClicked" == selectorName){
-            return this.onBackClicked;
-        }
+var TestHeaderLayer = function() {
 
-        return null;
-    },
-    onResolveCCBCCControlSelector:function(target,selectorName){
-        return null;
-    },
-
-    onBackClicked:function(sender){
+    // CCB callback
+    this.onBackClicked = function() {
         cc.Director.getInstance().popScene();
-    }
-});
-
-TestHeaderLayer.create = function(){
-    var retObj = new TestHeaderLayer();
-    if(retObj && retObj.init()){
-        return retObj;
-    }
-    return null;
+    };
 };
-
-var TestHeaderLayerLoader = cc.LayerLoader.extend({
-    _createCCNode:function(parent,ccbReader){
-        return TestHeaderLayer.create();
-    }
-});

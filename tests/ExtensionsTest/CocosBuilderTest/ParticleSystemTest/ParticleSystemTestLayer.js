@@ -24,18 +24,4 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var ParticleSystemTestLayer = cc.Layer.extend({});
-
-ParticleSystemTestLayer.create = function(){
-    var retLayer = new ParticleSystemTestLayer();
-    if(retLayer && retLayer.init()){
-        return retLayer;
-    }
-    return null;
-};
-
-var ParticleSystemTestLayerLoader = cc.LayerLoader.extend({
-    _createCCNode:function(parent,ccbReader){
-        return ParticleSystemTestLayer.create();
-    }
-});
+var TestParticleSystemsLayer = function() {};

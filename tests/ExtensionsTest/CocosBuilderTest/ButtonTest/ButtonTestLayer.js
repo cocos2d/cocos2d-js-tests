@@ -24,75 +24,40 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var ButtonTestLayer = cc.Layer.extend({
-     _controlEventLabel:null,
+var TestButtonsLayer = function() {
 
-    onResolveCCBCCMenuItemSelector:function(target,selectorName){
-        return null;
-    } ,
-
-    onResolveCCBCCControlSelector:function(target, selectorName){
-        if(target == this && selectorName == "onCCControlButtonClicked"){
-            return this.onCCControlButtonClicked;
-        }
-        return null;
-    } ,
-
-    onAssignCCBMemberVariable:function(target, memberVariableName,node){
-        if(this == target && memberVariableName == "mCCControlEventLabel"){
-            if(node instanceof  cc.LabelBMFont)
-               this._controlEventLabel = node;
-            return true;
-        }
-        return false;
-    },
-
-    onCCControlButtonClicked:function(sender,controlEvent){
-         switch(controlEvent){
+    this.onCCControlButtonClicked = function(sender,controlEvent) {
+         switch(controlEvent) {
              case cc.CONTROL_EVENT_TOUCH_DOWN:
-                 this._controlEventLabel.setString("Touch Down.");
+                 this.mCCControlEventLabel.setString("Touch Down.");
                  break;
              case cc.CONTROL_EVENT_TOUCH_DRAG_INSIDE:
-                 this._controlEventLabel.setString("Touch Drag Inside.");
+                 this.mCCControlEventLabel.setString("Touch Drag Inside.");
                  break;
              case cc.CONTROL_EVENT_TOUCH_DRAG_OUTSIDE:
-                 this._controlEventLabel.setString("Touch Drag Outside.");
+                 this.mCCControlEventLabel.setString("Touch Drag Outside.");
                  break;
              case cc.CONTROL_EVENT_TOUCH_DRAG_ENTER:
-                 this._controlEventLabel.setString("Touch Drag Enter.");
+                 this.mCCControlEventLabel.setString("Touch Drag Enter.");
                  break;
              case cc.CONTROL_EVENT_TOUCH_DRAG_EXIT:
-                 this._controlEventLabel.setString("Touch Drag Exit.");
+                 this.mCCControlEventLabel.setString("Touch Drag Exit.");
                  break;
              case cc.CONTROL_EVENT_TOUCH_UP_INSIDE:
-                 this._controlEventLabel.setString("Touch Up Inside.");
+                 this.mCCControlEventLabel.setString("Touch Up Inside.");
                  break;
              case cc.CONTROL_EVENT_TOUCH_UP_OUTSIDE:
-                 this._controlEventLabel.setString("Touch Up Outside.");
+                 this.mCCControlEventLabel.setString("Touch Up Outside.");
                  break;
              case cc.CONTROL_EVENT_TOUCH_CANCEL:
-                 this._controlEventLabel.setString("Touch Cancel.");
+                 this.mCCControlEventLabel.setString("Touch Cancel.");
                  break;
              case cc.CONTROL_EVENT_VALUECHANGED:
-                 this._controlEventLabel.setString("Value Changed.");
+                 this.mCCControlEventLabel.setString("Value Changed.");
                  break;
              default:
-                 cc.assert(false);
+                 // cc.assert(false);
                  break;
          }
-    }
-});
-
-ButtonTestLayer.create = function(){
-    var retLayer = new ButtonTestLayer();
-    if(retLayer && retLayer.init()){
-        return retLayer;
-    }
-    return null;
+    };
 };
-
-var ButtonTestLayerLoader = cc.LayerLoader.extend({
-    _createCCNode:function(parent,ccbReader){
-        return ButtonTestLayer.create();
-    }
-});
