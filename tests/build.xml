@@ -81,6 +81,7 @@
                 <file name="ExtensionsTest/ArmatureTest/ArmatureTest.js"/>
                 <file name="ExtensionsTest/EditBoxTest/EditBoxTest.js"/>
                 <file name="ExtensionsTest/NetworkTest/WebSocketTest.js"/>
+                <file name="XHRTest/XHRTest.js"/>
             </sources>
         </jscomp>
     </target>
