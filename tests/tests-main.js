@@ -511,7 +511,7 @@ var testNames = [
     },
     {
         title:"XMLHttpRequest",
-        platforms: PLATFORM_JSB,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new XHRTestScene();
         }
