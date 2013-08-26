@@ -87,8 +87,10 @@ var XHRTestLayer = cc.Layer.extend({
             var response = xhr.responseText.substring(0,50) + "...";
             var responseLabel = cc.LabelTTF.create("GET Response (50 chars): \n" + response, "Thonburi", 16);
             that.addChild(responseLabel, 1);
+            responseLabel.setAnchorPoint(cc.p(0,1));
+            responseLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
 
-            responseLabel.setPosition(cc.p(100, winSize.height - 220));
+            responseLabel.setPosition(cc.p(winSize.width/6, winSize.height/2));
             statusGetLabel.setString("Status: Got GET response! " + httpStatus);
 
         }
@@ -103,7 +105,7 @@ var XHRTestLayer = cc.Layer.extend({
         var statusPostLabel = cc.LabelTTF.create("Status:", "Thonburi", 18);
         this.addChild(statusPostLabel, 1);
 
-        statusPostLabel.setPosition(cc.p(winSize.width / 2, winSize.height - 160));
+        statusPostLabel.setPosition(cc.p(winSize.width / 2, winSize.height - 140));
         statusPostLabel.setString("Status: Send Post Request to httpbin.org");
 
         xhr.open("POST", "http://httpbin.org/post");
@@ -113,8 +115,10 @@ var XHRTestLayer = cc.Layer.extend({
             var response = xhr.responseText.substring(0,50) + "...";
             var responseLabel = cc.LabelTTF.create("POST Response (50 chars):  \n" + response, "Thonburi", 16);
             that.addChild(responseLabel, 1);
+            responseLabel.setAnchorPoint(cc.p(0.5,1));
+            responseLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
 
-            responseLabel.setPosition(cc.p(350, winSize.height - 220));
+            responseLabel.setPosition(cc.p(winSize.width/4*3, winSize.height/2));
             statusPostLabel.setString("Status: Got POST response! " + httpStatus);
 
         }
