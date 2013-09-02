@@ -118,6 +118,7 @@
             'ExtensionsTest/S9SpriteTest/S9SpriteTest.js',
             'ExtensionsTest/NetworkTest/WebSocketTest.js',
             'ExtensionsTest/ArmatureTest/ArmatureTest.js',
+            'XHRTest/XHRTest.js',
 
             'Box2dTest/Box2dTest.js',
             'ChipmunkTest/ChipmunkTest.js']

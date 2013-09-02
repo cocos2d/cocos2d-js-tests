@@ -285,7 +285,7 @@ var testNames = [
     {
         title:"Extensions Test",
         resource:g_extensions,
-        platforms: PLATFORM_HTML5,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new ExtensionsTestScene();
         }
@@ -511,7 +511,7 @@ var testNames = [
     },
     {
         title:"XMLHttpRequest",
-        platforms: PLATFORM_JSB,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new XHRTestScene();
         }

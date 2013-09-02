@@ -73,7 +73,7 @@ var ControlStepperTest = ControlScene.extend({
 
     valueChanged:function (sender, controlEvent) {
         // Change value of label.
-        this._displayValueLabel.setString(sender.getValue());
+        this._displayValueLabel.setString(sender.getValue().toString());
     }
 });
 

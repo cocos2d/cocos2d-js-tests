@@ -23,19 +23,4 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-
-var LabelTestLayer = cc.Layer.extend({});
-
-LabelTestLayer.create = function(){
-    var retLayer = new LabelTestLayer();
-    if(retLayer && retLayer.init()){
-        return retLayer;
-    }
-    return null;
-};
-
-var LabelTestLayerLoader = cc.LayerLoader.extend({
-    _createCCNode:function(parent,ccbReader){
-        return LabelTestLayer.create();
-    }
-});
+var TestLabelsLayer = function() {};

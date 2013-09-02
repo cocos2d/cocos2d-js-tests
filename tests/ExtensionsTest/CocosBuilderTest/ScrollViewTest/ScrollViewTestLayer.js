@@ -24,18 +24,4 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var ScrollViewTestLayer = cc.Layer.extend({});
-
-ScrollViewTestLayer.create = function(){
-    var retLayer = new ScrollViewTestLayer();
-    if(retLayer && retLayer.init()){
-        return retLayer;
-    }
-    return null;
-};
-
-var ScrollViewTestLayerLoader = cc.LayerLoader.extend({
-    _createCCNode:function(parent,ccbReader){
-        return ScrollViewTestLayer.create();
-    }
-});
+var TestScrollViewsLayer = function() {};

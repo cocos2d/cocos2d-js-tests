@@ -27,16 +27,8 @@
 var CocosBuilderTestScene = TestScene.extend({
      runThisTest:function(){
          cc.BuilderReader.setResourcePath("res/");
-         /* Create an autorelease CCNodeLoaderLibrary. */
-         var ccNodeLoaderLibrary = cc.NodeLoaderLibrary.newDefaultCCNodeLoaderLibrary();
 
-         ccNodeLoaderLibrary.registerCCNodeLoader("HelloCocosBuilderLayer", new HelloCocosBuilderLayerLoader());
-         /* Create an autorelease CCBReader. */
-         var ccbReader = new cc.BuilderReader(ccNodeLoaderLibrary);
-         ccbReader.setCCBRootPath("res/");
-
-         /* Read a ccbi file. */
-         var node = ccbReader.readNodeGraphFromFile("res/ccb/HelloCocosBuilder.ccbi", this);
+         var node = cc.BuilderReader.load("res/ccb/HelloCocosBuilder.ccbi", this);
 
          if(node != null) {
              this.addChild(node);
