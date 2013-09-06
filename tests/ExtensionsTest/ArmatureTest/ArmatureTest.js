@@ -26,13 +26,6 @@ var armatureSceneIdx = -1;
 
 var ArmatureTestScene = TestScene.extend({
     onEnter:function(){
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_TestBone_png, s_TestBone_plist, s_TestBone_json);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_png, s_Cowboy_plist, s_Cowboy_json);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_weapon_png, s_weapon_plist, s_weapon_xml);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_robot_png, s_robot_plist, s_robot_xml);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_cyborg_png, s_cyborg_plist, s_cyborg_xml);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Dragon_png, s_Dragon_plist, s_Dragon_xml);
         this._super();
     },
     runThisTest:function () {
@@ -50,6 +43,9 @@ var armatureSceneArr = [
     function () {
         return new TestCSWithSkeleton();
     },
+//    function () {
+//        return new TestCSWithChariard();
+//    },
     function () {
         return new TestCSWithoutSkeleton();
     },
@@ -80,7 +76,6 @@ var armatureSceneArr = [
     function () {
         return new TestParticleDisplay();
     }
-
 ];
 
 var nextArmatureTest = function () {
@@ -144,6 +139,7 @@ var ArmatureTestLayer = BaseTestLayer.extend({
 //------------------------------------------------------------------
 var TestCSWithSkeleton = ArmatureTestLayer.extend({
     onEnter:function () {
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/Cowboy.ExportJson");
         this._super();
         var armature = cc.Armature.create("Cowboy");
         armature.getAnimation().playByIndex(0);
@@ -159,21 +155,56 @@ var TestCSWithSkeleton = ArmatureTestLayer.extend({
 
 //------------------------------------------------------------------
 //
+// TestCSWithChariard
+//
+//------------------------------------------------------------------
+var TestCSWithChariard = ArmatureTestLayer.extend({
+    onEnter:function () {
+//                                                  cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/chariard.ExportJson");
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfoAsync("res/armature/chariard.ExportJson",this, this.testCallBack);
+        this._super();
+    },
+    title:function () {
+        return "Test Export From CocoStudio With Chariard";
+    },
+    testCallBack:function(time){
+        var armature = cc.Armature.create("chariard");
+        armature.getAnimation().playByIndex(0);
+        armature.setScale(1.5);
+        armature.setAnchorPoint(cc.p(0.5, 0.5));
+        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        this.addChild(armature);
+    }
+});
+
+//------------------------------------------------------------------
+//
 // TestCSWithoutSkeleton
 //
 //------------------------------------------------------------------
 var TestCSWithoutSkeleton = ArmatureTestLayer.extend({
     onEnter:function () {
+//        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/TestBone0.png", "res/armature/TestBone0.plist", "res/armature/TestBone.json");
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfoAsync("res/armature/TestBone0.png", "res/armature/TestBone0.plist", "res/armature/TestBone.json", this, this.testCallBack);
+//        
         this._super();
-        var armature = cc.Armature.create("TestBone");
-        armature.getAnimation().playByIndex(0);
-        armature.setAnchorPoint(cc.p(0.5, 0.5));
-        armature.setScale(0.2);
-        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
-        this.addChild(armature);
+//        var armature = cc.Armature.create("TestBone");
+//        armature.getAnimation().playByIndex(0);
+//        armature.setAnchorPoint(cc.p(0.5, 0.5));
+//        armature.setScale(0.2);
+//        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+//        this.addChild(armature);
     },
     title:function () {
         return "Test Export From CocoStudio Without Skeleton Effect";
+    },
+    testCallBack:function(time){
+        var armature = cc.Armature.create("TestBone");
+        armature.getAnimation().playByIndex(0);
+        armature.setScale(0.2);
+        armature.setAnchorPoint(cc.p(0.5, 0.5));
+        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        this.addChild(armature);
     }
 });
 
@@ -184,6 +215,7 @@ var TestCSWithoutSkeleton = ArmatureTestLayer.extend({
 //------------------------------------------------------------------
 var TestDragonBones20 = ArmatureTestLayer.extend({
     onEnter:function () {
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/Dragon.png", "res/armature/Dragon.plist", "res/armature/Dragon.xml");
         this._super();
         var armature = cc.Armature.create("Dragon");
         armature.getAnimation().playByIndex(0);
@@ -193,10 +225,12 @@ var TestDragonBones20 = ArmatureTestLayer.extend({
         armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
         this.addChild(armature);
     },
+
     title:function () {
         return "Test Export From DragonBones version 2.0";
     }
 });
+
 
 //------------------------------------------------------------------
 //
@@ -207,6 +241,7 @@ var TestPerformance = ArmatureTestLayer.extend({
     armatureCount:0,
     times:0,
     onEnter:function () {
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/knight.png", "res/armature/knight.plist", "res/armature/knight.xml");
         this._super();
         this.armatureCount = 0;
         this.times = 0;
@@ -243,6 +278,10 @@ var TestPerformance = ArmatureTestLayer.extend({
 var TestChangeZorder = ArmatureTestLayer.extend({
     currentTag:0,
     onEnter:function () {
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/Cowboy0.png", "res/armature/Cowboy0.plist", "res/armature/Cowboy.json");
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/Dragon.png", "res/armature/Dragon.plist", "res/armature/Dragon.xml");
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/TestBone0.png", "res/armature/TestBone0.plist", "res/armature/TestBone.json");
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/knight.png", "res/armature/knight.plist", "res/armature/knight.xml");
         this._super();
         var armature = null;
         armature = cc.Armature.create("Knight_f/Knight");
@@ -284,39 +323,45 @@ var TestChangeZorder = ArmatureTestLayer.extend({
 //------------------------------------------------------------------
 var TestAnimationEvent = ArmatureTestLayer.extend({
     _armature:null,
-    _direction:1,
     onEnter:function () {
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/Cowboy.ExportJson");
         this._super();
-
+                                                  
         this._armature = cc.Armature.create("Cowboy");
-        this._armature.getAnimation().play("FireWithoutBullet");
-        this._armature.setScaleX(-0.25);
-        this._armature.setScaleY(0.25);
+        this._armature.getAnimation().play("Fire");
+        this._armature.setScaleX(-0.24);
+        this._armature.setScaleY(0.24);
         this._armature.setPosition(cc.p(winSize.width / 2 - 150, winSize.height / 2));
-        this._armature.getAnimation().connectEvent(this, this.animationEvent);
+        this._armature.getAnimation().setMovementEventCallFunc(this.animationEvent, this);
         this.addChild(this._armature);
-
-        this._direction = 1;
-
+                                                  
     },
     title:function () {
         return "Test Armature Animation Event";
     },
     animationEvent:function (armature, movementType, movementID) {
-        if (movementType == CC_MovementEventType_LOOP_COMPLETE) {
-            if (movementID == "FireWithoutBullet") {
-                var moveBy = cc.MoveBy.create(2, cc.p(300 * this._direction, 0));
+        if(movementType == 2){
+            if (movementID == "Fire") {
+                var actionToRight = cc.MoveTo.create(2, cc.p(VisibleRect.right().x - 50, VisibleRect.right().y));
                 this._armature.stopAllActions();
-                this._armature.runAction(cc.Sequence.create(moveBy, cc.CallFunc.create(this.callback, this)));
+                this._armature.runAction(cc.Sequence.create(actionToRight, cc.CallFunc.create(this.callback1, this)));
                 this._armature.getAnimation().play("Walk");
-
-                this._direction *= -1;
+                                                  
+            }else if(movementID == "FireMax"){
+                var actionToLeft = cc.MoveTo.create(2, cc.p(VisibleRect.left().x + 50, VisibleRect.left().y));
+                this._armature.stopAllActions();
+                this._armature.runAction(cc.Sequence.create(actionToLeft,  cc.CallFunc.create(this.callback2, this)));
+                this._armature.getAnimation().play("Walk");
             }
         }
     },
-    callback:function () {
-        this._armature.runAction(cc.ScaleTo.create(0.3, 0.25 * this._direction * -1, 0.25));
-        this._armature.getAnimation().play("FireWithoutBullet", 10);
+    callback1:function () {
+        this._armature.runAction(cc.ScaleTo.create(0.3, 0.24, 0.24));
+        this._armature.getAnimation().play("FireMax", 10);
+    },
+    callback2:function () {
+        this._armature.runAction(cc.ScaleTo.create(0.3, -0.24, 0.24));
+        this._armature.getAnimation().play("Fire", 10);
     }
 });
 
@@ -334,17 +379,19 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
 
         this.animationID = 0;
 
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/robot.png", "res/armature/robot.plist", "res/armature/robot.xml");
+        this._super();
         this.armature = cc.Armature.create("robot");
         this.armature.getAnimation().playByIndex(0);
         this.armature.setPosition(VisibleRect.center());
         this.armature.setScale(0.48);
         this.addChild(this.armature);
-
-        var displayData = new cc.ParticleDisplayData();
-        displayData.setParam("res/Particles/SmallSun.plist");
-
+                                                   
+        var p1 = cc.ParticleSystem.create("res/Particles/SmallSun.plist");
+        var p2 = cc.ParticleSystem.create("res/Particles/SmallSun.plist");
+                                                   
         var bone = cc.Bone.create("p1");
-        bone.addDisplay(displayData, 0);
+        bone.addDisplay(p1, 0);
         bone.changeDisplayByIndex(0, true);
         bone.setIgnoreMovementBoneData(true);
         bone.setZOrder(100);
@@ -352,7 +399,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
         this.armature.addBone(bone, "bady-a3");
 
         bone = cc.Bone.create("p2");
-        bone.addDisplay(displayData, 0);
+        bone.addDisplay(p2, 0);
         bone.changeDisplayByIndex(0, true);
         bone.setIgnoreMovementBoneData(true);
         bone.setZOrder(100);
@@ -373,7 +420,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
     }
 
 });
-
+//
 //------------------------------------------------------------------
 //
 // TestUseMutiplePicture
@@ -383,6 +430,8 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
     displayIndex:0,
     armature:null,
     onEnter:function () {
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/weapon.png", "res/armature/weapon.plist", "res/armature/weapon.xml");
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/knight.png", "res/armature/knight.plist", "res/armature/knight.xml");
         this._super();
         this.setTouchEnabled(true);
 
@@ -396,10 +445,9 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
 
         var weapon = ["weapon_f-sword.png", "weapon_f-sword2.png", "weapon_f-sword3.png", "weapon_f-sword4.png", "weapon_f-sword5.png", "weapon_f-knife.png", "weapon_f-hammer.png"];
 
-        var displayData = new cc.SpriteDisplayData();
         for (var i = 0; i < 7; i++) {
-            displayData.setParam(weapon[i]);
-            this.armature.getBone("weapon").addDisplay(displayData, i);
+            var skin = cc.Skin.createWithSpriteFrameName(weapon[i]);
+            this.armature.getBone("weapon").addDisplay(skin, i);
         }
     },
     title:function () {
@@ -440,7 +488,7 @@ var TestBoundingBox = ArmatureTestLayer.extend({
     armature:null,
     onEnter:function () {
         this._super();
-
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/Cowboy.ExportJson");
         this.armature = cc.Armature.create("Cowboy");
         this.armature.getAnimation().playByIndex(0);
         this.armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
@@ -465,6 +513,7 @@ var TestBoundingBox = ArmatureTestLayer.extend({
 //------------------------------------------------------------------
 var TestAnchorPoint = ArmatureTestLayer.extend({
     onEnter:function () {
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/Cowboy.ExportJson");
         this._super();
         for (var i = 0; i < 5; i++) {
             var armature = cc.Armature.create("Cowboy");
@@ -494,6 +543,7 @@ var TestArmatureNesting = ArmatureTestLayer.extend({
     armature:null,
     weaponIndex:0,
     onEnter:function () {
+        cc.ArmatureDataManager.getInstance().addArmatureFileInfo("res/armature/cyborg.png", "res/armature/cyborg.plist", "res/armature/cyborg.xml");
         this._super();
 
         this.setTouchEnabled(true);
@@ -506,10 +556,11 @@ var TestArmatureNesting = ArmatureTestLayer.extend({
         this.weaponIndex = 0;
     },
     title:function () {
-        return "Test Set AnchorPoint";
+        return "Test Set ChildByTag";
     },
     onTouchesEnded:function (touch, event) {
         ++this.weaponIndex;
+            
         this.weaponIndex = this.weaponIndex % 4;
         this.armature.getBone("armInside").getChildArmature().getAnimation().playByIndex(this.weaponIndex);
         this.armature.getBone("armOutside").getChildArmature().getAnimation().playByIndex(this.weaponIndex);
