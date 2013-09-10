@@ -75,6 +75,25 @@ var s_grossini_familyPlist = "res/animations/grossini_family.plist";
 var s_animations2Plist = "res/animations/animations-2.plist";
 var s_animationsPlist = "res/animations/animations.plist";
 
+var s_Cowboy_json = "res/armatures/Cowboy.ExportJson";
+var s_Cowboy_plist = "res/armatures/Cowboy0.plist";
+var s_Cowboy_png = "res/armatures/Cowboy0.png";
+var s_cyborg_plist = "res/armatures/cyborg.plist";
+var s_cyborg_png = "res/armatures/cyborg.png";
+var s_cyborg_xml = "res/armatures/cyborg.xml";
+var s_Dragon_plist = "res/armatures/Dragon.plist";
+var s_Dragon_png = "res/armatures/Dragon.png";
+var s_Dragon_xml = "res/armatures/Dragon.xml";
+var s_knight_plist = "res/armatures/knight.plist";
+var s_knight_png = "res/armatures/knight.png";
+var s_knight_xml = "res/armatures/knight.xml";
+var s_robot_plist = "res/armatures/robot.plist";
+var s_robot_png = "res/armatures/robot.png";
+var s_robot_xml = "res/armatures/robot.xml";
+var s_weapon_plist = "res/armatures/weapon.plist";
+var s_weapon_png = "res/armatures/weapon.png";
+var s_weapon_xml = "res/armatures/weapon.xml";
+
 var s_helloWorld = "res/Images/HelloWorld.png";
 var s_grossiniDance01 = "res/Images/grossini_dance_01.png";
 var s_grossiniDance02 = "res/Images/grossini_dance_02.png";
