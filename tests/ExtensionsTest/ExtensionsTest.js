@@ -83,7 +83,7 @@ var extensionsTestItemNames = [
         }
     },
     {
-        itemTitle:"ArmatureTest",
+        itemTitle:"CocoStudioArmatureTest",
         testScene:function () {
             var pScene = new ArmatureTestScene();
             if (pScene) {
