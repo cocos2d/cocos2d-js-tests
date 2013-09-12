@@ -442,17 +442,15 @@ var NodeToWorld = TestNodeDemo.extend({
     //
     testDuration:3.1,
     getExpectedResult:function () {
-        var ret = {"a":1, "b":"0.00", "c":"-0.00", "d":1, "tx":440, "ty":160};
-        if (cc.renderContextType == cc.CANVAS) {
-            ret["b"] = "-0.00";
-            ret["c"] = "0.00";
-        }
+        var ret = {"a":1, "b":"0.00", "c":"-0.00", "d":1, "tx":"378", "ty":"139"};
         return JSON.stringify(ret);
     },
     getCurrentResult:function () {
         var ret = this.autoParam.nodeToWorldTransform();
         ret.b = ret.b.toFixed(2);
         ret.c = ret.c.toFixed(2);
+        ret.tx = ret.tx.toFixed(0);
+        ret.ty = ret.ty.toFixed(0);
         return JSON.stringify(ret);
     }
 });
@@ -769,43 +767,12 @@ var ConvertToNode = TestNodeDemo.extend({
         this.expectedP2.push({"x":-winSize.width * 3 + 24.5, "y":-winSize.height * 2 + 23.5});
     },
     getExpectedResult:function () {
-        if (cc.renderContextType == cc.CANVAS) {
-            return JSON.stringify({"p1":true, "p2":true});
-        } else {
-            return JSON.stringify({"p1":this.expectedP1, "p2":this.expectedP2});
-        }
+        return JSON.stringify({"p1":this.expectedP1, "p2":this.expectedP2});
     },
     getCurrentResult:function () {
         this.processEvent(cc.p(0, 0));
-
-        if (cc.renderContextType == cc.CANVAS) {
-            var equal = function (a, b, error) {
-                return Math.abs(a - b) <= error;
-            }
-            var ret1 = true;
-            for (var i = 0; i < this.testP1.length; i++) {
-                var tp1 = this.testP1[i];
-                var ep1 = this.expectedP1[i];
-                if (!equal(tp1.x, ep1.x, 6) || !equal(tp1.y, ep1.y, 6)) {
-                    ret1 = false;
-                    break;
-                }
-            }
-            var ret2 = true;
-            for (var i = 0; i < this.testP2.length; i++) {
-                var tp1 = this.testP2[i];
-                var ep1 = this.expectedP2[i];
-                if (!equal(tp1.x, ep1.x, 6) || !equal(tp1.y, ep1.y, 6)) {
-                    ret2 = false;
-                    break;
-                }
-            }
-
-            return JSON.stringify({"p1":ret1, "p2":ret2});
-        } else {
-            var ret = {"p1":this.testP1, "p2":this.testP2};
-            return JSON.stringify(ret);
-        }
+        var ret = {"p1":this.testP1, "p2":this.testP2};
+        return JSON.stringify(ret);
     }
 });
 
