@@ -525,7 +525,7 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
     },
 
     registerWithTouchDispatcher: function(){
-        cc.Director.getInstance().getTouchDispatcher().addTargetedDelegate(this, -129, false);
+        cc.registerTargetedDelegate(-129, false, this);
     },
 
     onTouchBegan:function(touch, event){
