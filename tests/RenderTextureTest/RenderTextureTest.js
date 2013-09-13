@@ -554,6 +554,12 @@ var Issue1464 = RenderTextureBaseLayer.extend({
         var seq = cc.Sequence.create(fadeout, delay, fadein, delay.clone());
         var fe = cc.RepeatForever.create(seq);
         rend.getSprite().runAction(fe);
+
+        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+            var label = cc.LabelTTF.create("Not support Actions on HTML5-canvas", "Times New Roman", 30);
+            label.setPosition(winSize.width / 2, winSize.height / 2 + 50);
+            this.addChild(label, 100);
+        }
     },
 
     title:function () {

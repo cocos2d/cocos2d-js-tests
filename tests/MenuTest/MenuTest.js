@@ -40,9 +40,9 @@ var MenuLayerMainMenu = cc.Layer.extend({
     ctor:function () {
         this._super();
 
-        //this.setTouchEnabled(true);
-        //this.setTouchPriority(cc.MENU_HANDLER_PRIORITY + 1);
-        //this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
+        this.setTouchEnabled(true);
+        this.setTouchPriority(cc.MENU_HANDLER_PRIORITY + 1);
+        this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
 
         // Font Item
         var spriteNormal = cc.Sprite.create(s_menuItem, cc.rect(0,23*2,115,23));
