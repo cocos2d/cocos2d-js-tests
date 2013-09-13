@@ -46,11 +46,11 @@ var Paddle = cc.Sprite.extend({
         return true;
     },
     onEnter:function () {
-        cc.Director.getInstance().getTouchDispatcher().addTargetedDelegate(this, 0, true);
+        cc.registerTargetedDelegate(0, true, this);
         this._super();
     },
     onExit:function () {
-        cc.Director.getInstance().getTouchDispatcher().removeDelegate(this);
+        cc.unregisterTouchDelegate(this);
         this._super();
     },
     containsTouchLocation:function (touch) {
