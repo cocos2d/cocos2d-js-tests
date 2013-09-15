@@ -44,6 +44,10 @@ var s_nVMCurCase = 0;
 ////////////////////////////////////////////////////////
 var VirtualMachineTestMenuLayer = PerformBasicLayer.extend({
     _maxCases:6,
+    ctor:function(){
+        this._super();
+        this._maxCases = (cc.renderContextType === cc.CANVAS) ? 6 : 4;
+    },
     showCurrentTest:function () {
         var nodes = (this.getParent()).getQuantityOfNodes();
         var scene = null;
@@ -219,7 +223,8 @@ var SimpleNewtonianSprite = cc.Sprite.extend({
         this._accelerationX = 0.0;
         this._accelerationY = 0.0;
 
-        this.initWithTexture(texture, rect);
+        if(texture && rect)
+            this.initWithTexture(texture, rect);
     }
 });
 
