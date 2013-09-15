@@ -78,7 +78,10 @@ var TableViewTestLayer = cc.Layer.extend({
         cc.log("cell touched at index: " + cell.getIdx());
     },
 
-    cellSizeForTable:function (table) {
+    tableCellSizeForIndex:function (table, idx) {
+        if (idx == 2) {
+            return cc.size(100, 100);
+        }
         return cc.size(60, 60);
     },
 
