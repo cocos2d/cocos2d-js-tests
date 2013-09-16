@@ -533,7 +533,7 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
     },
     onTouchMoved: function(touch, event){
         if (this._item){
-            this._item.removeFromParentAndCleanup(true);
+            this._item.removeFromParent(true);
             this._item = null;
         }
     },
