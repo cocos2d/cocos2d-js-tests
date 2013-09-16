@@ -102,14 +102,14 @@ var GameLayer = cc.Layer.extend({
 
             // accept touch now!
 
-            if (sys["capabilities"].hasOwnProperty('keyboard'))
+            if (sys.capabilities.hasOwnProperty('keyboard'))
                 this.setKeyboardEnabled(true);
 
-            if (sys["capabilities"].hasOwnProperty('mouse'))
+            if (sys.capabilities.hasOwnProperty('mouse'))
             /*if ('mouse' in sys.capabilities)*/
                 this.setMouseEnabled(true);
 
-            if (sys["capabilities"].hasOwnProperty('touches'))
+            if (sys.capabilities.hasOwnProperty('touches'))
             /*if ('touches' in sys.capabilities)*/
                 this.setTouchEnabled(true);
 
