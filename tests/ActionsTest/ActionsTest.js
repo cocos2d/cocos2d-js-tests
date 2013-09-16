@@ -735,7 +735,7 @@ var Issue1008 = ActionsDemo.extend({
     onTrace:function (sender) {
         var pos = sender.getPosition();
         cc.log("Position x: " + pos.x + ' y:' + pos.y);
-        if (pos.x != 428 || pos.y != 279)
+        if (Math.round(pos.x) != 428 || Math.round(pos.y) != 279)
             this.log("Error: Issue 1008 is still open");
 
         this.tracePos = pos;
