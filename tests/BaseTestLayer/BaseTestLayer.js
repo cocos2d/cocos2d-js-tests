@@ -89,9 +89,9 @@ var BaseTestLayer = cc.LayerGradient.extend({
     getSubtitle:function() {
         var st = "";
         // some tests use "this.subtitle()" and others use "this._subtitle";
-        if( 'subtitle' in this )
+        if(this.subtitle)
             st = this.subtitle();
-        else if( '_subtitle' in this )
+        else if(this._subtitle)
             st = this._subtitle;
 
         return st;
