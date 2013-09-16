@@ -114,6 +114,7 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
 
     onExit:function () {
         this._brush.release();
+        this._super();
     },
 
     saveCB:function (sender) {
