@@ -370,7 +370,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
 
         sprite.setPosition(cc.p(winSize.width/2, winSize.width/2));
         sprite.setOpacity(182);
-        sprite.setFlipY(1);
+        sprite.setFlippedY(1);
         this.addChild(sprite, 999999);
         sprite.setColor(cc.GREEN);
 
