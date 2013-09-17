@@ -659,7 +659,6 @@ var PatternMatrix = cc.Layer.extend({
         var start = col;
         var end = col;
 
-        //水平方向扫描
         var i = col-1;
         while (i >= 0)
         {
@@ -905,7 +904,7 @@ var PatternMatrix = cc.Layer.extend({
             }
 
             // x x |  x
-            //  x  | x x  这些情况的处理
+            //  x  | x x
             for (var col = 0; col < this.m_nMatrixCol - 2; col++)
             {
                 if (this.mPatternsSpr[row][col].m_eExtraAttr != ePatternExtraAttr.Stone){
@@ -943,7 +942,7 @@ var PatternMatrix = cc.Layer.extend({
             }
         }
 
-        //纵向判断------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------
         for (var col = 0; col < this.m_nMatrixCol; col++)
         {
             for (var row = 0; row < this.m_nMatrixRow - 1; row++)
@@ -952,7 +951,7 @@ var PatternMatrix = cc.Layer.extend({
                 if (this.mPatternsSpr[row][col].m_eExtraAttr != ePatternExtraAttr.Stone && targetType == this.mPatternsSpr[row+1][col].m_ePatternType){
                     // ? ?	
                     //  x
-                    //  x   检查上端这两个点
+                    //  x
                     if (col>0 && row+2<this.m_nMatrixRow && this.mPatternsSpr[row+2][col-1].m_ePatternType == targetType )
                     {
                         if(this.mPatternsSpr[row+2][col-1].m_bSwapEnable)
@@ -980,7 +979,7 @@ var PatternMatrix = cc.Layer.extend({
                         }
                     }
 
-                    //  x   检查下端这两个点
+                    //  x
                     //  x
                     // ? ?
                     if (col>0 && row>0 && this.mPatternsSpr[row-1][col-1].m_ePatternType == targetType )
@@ -1010,7 +1009,7 @@ var PatternMatrix = cc.Layer.extend({
                         }
                     }
 
-                    //* ** *检查纵向这两个点
+                    //* ** *
                     if (row - 2 >= 0 && this.mPatternsSpr[row-2][col].m_ePatternType == targetType )
                     {
                         if(this.mPatternsSpr[row-2][col].m_bSwapEnable)
@@ -1041,7 +1040,7 @@ var PatternMatrix = cc.Layer.extend({
             }
 
             //  x | x
-            // x  |  x  这些情况的处理
+            // x  |  x
             //  x | x
             for (var row = 0; row < this.m_nMatrixRow - 2; row++)
             {
