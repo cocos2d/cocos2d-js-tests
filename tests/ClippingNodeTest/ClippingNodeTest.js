@@ -113,7 +113,7 @@ var BasicTest = BaseClippingNodeTest.extend({
         var triangle = [cc.p(-100, -100),cc.p(100, -100), cc.p(0, 100)];
 
         var green = cc.c4f(0, 1, 0, 1);
-        shape.drawPoly(triangle, 3, green, 0);
+        shape.drawPoly(triangle, green, 3, green);
         return shape;
     },
 
@@ -383,7 +383,7 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
             cc.p(0, clipper.getContentSize().height)];
 
         var white = cc.c4f(1, 1, 1, 1);
-        stencil.drawPoly(rectangle, 4, white, 1);
+        stencil.drawPoly(rectangle, white, 1, white);
         clipper.setStencil(stencil);
 
         var content = cc.Sprite.create(s_back2);
