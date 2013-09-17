@@ -1324,8 +1324,8 @@ var SpriteFlip = SpriteTestDemo.extend({
         var sprite1 = this.getChildByTag(TAG_SPRITE1);
         var sprite2 = this.getChildByTag(TAG_SPRITE2);
 
-        sprite1.setFlipX(!sprite1.isFlippedX());
-        sprite2.setFlipY(!sprite2.isFlippedY());
+        sprite1.setFlippedX(!sprite1.isFlippedX());
+        sprite2.setFlippedY(!sprite2.isFlippedY());
     },
     //
     // Automation
@@ -1386,8 +1386,8 @@ var SpriteBatchNodeFlip = SpriteTestDemo.extend({
         var sprite1 = batch.getChildByTag(TAG_SPRITE1);
         var sprite2 = batch.getChildByTag(TAG_SPRITE2);
 
-        sprite1.setFlipX(!sprite1.isFlippedX());
-        sprite2.setFlipY(!sprite2.isFlippedY());
+        sprite1.setFlippedX(!sprite1.isFlippedX());
+        sprite2.setFlippedY(!sprite2.isFlippedY());
     },
     //
     // Automation
@@ -1807,8 +1807,8 @@ var SpriteFrameTest = SpriteTestDemo.extend({
         this._sprite1.runAction(cc.RepeatForever.create(cc.Animate.create(animation)));
 
         // to test issue #732, uncomment the following line
-        this._sprite1.setFlipX(false);
-        this._sprite1.setFlipY(false);
+        this._sprite1.setFlippedX(false);
+        this._sprite1.setFlippedY(false);
 
         //
         // Animation using standard Sprite
@@ -1837,8 +1837,8 @@ var SpriteFrameTest = SpriteTestDemo.extend({
         this._sprite2.runAction(cc.RepeatForever.create(cc.Animate.create(animMixed)));
 
         // to test issue #732, uncomment the following line
-        this._sprite2.setFlipX(false);
-        this._sprite2.setFlipY(false);
+        this._sprite2.setFlippedX(false);
+        this._sprite2.setFlippedY(false);
 
         this.schedule(this.onStartIn05Secs, 0.5);
         this._counter = 0;
@@ -1879,10 +1879,10 @@ var SpriteFrameTest = SpriteTestDemo.extend({
                 break;
         }
 
-        this._sprite1.setFlipX(fx);
-        this._sprite1.setFlipY(fy);
-        this._sprite2.setFlipX(fx);
-        this._sprite2.setFlipY(fy);
+        this._sprite1.setFlippedX(fx);
+        this._sprite1.setFlippedY(fy);
+        this._sprite2.setFlippedX(fx);
+        this._sprite2.setFlippedY(fy);
     },
     //
     // Automation
@@ -3751,14 +3751,14 @@ var SpriteChildrenChildren = SpriteTestDemo.extend({
         // child right bottom
         var l3b1 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b1.setScale(0.45);
-        l3b1.setFlipY(true);
+        l3b1.setFlippedY(true);
         l3b1.setPosition(cc.p(0 + l2bSize.width / 2, -100 + l2bSize.height / 2));
         l2b.addChild(l3b1);
 
         // child right top
         var l3b2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b2.setScale(0.45);
-        l3b2.setFlipY(true);
+        l3b2.setFlippedY(true);
         l3b2.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
         l2b.addChild(l3b2);
     },
@@ -3850,14 +3850,14 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         // child right bottom
         var l3b1 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b1.setScale(0.45);
-        l3b1.setFlipY(true);
+        l3b1.setFlippedY(true);
         l3b1.setPosition(cc.p(0 + l2bSize.width / 2, -100 + l2bSize.height / 2));
         l2b.addChild(l3b1);
 
         // child right top
         var l3b2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b2.setScale(0.45);
-        l3b2.setFlipY(true);
+        l3b2.setFlippedY(true);
         l3b2.setPosition(cc.p(0 + l2bSize.width / 2, +100 + l2bSize.height / 2));
         l2b.addChild(l3b2);
     },
@@ -4323,14 +4323,14 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
         // child right bottom
         var l3b1 = cc.Sprite.createWithSpriteFrameName("child1.gif");
         l3b1.setScale(0.45);
-        l3b1.setFlipY(true);
+        l3b1.setFlippedY(true);
         l3b1.setPosition(cc.p(0 + l2bSize.width / 2, -50 + l2bSize.height / 2));
         l2b.addChild(l3b1);
 
         // child right top
         var l3b2 = cc.Sprite.createWithSpriteFrameName("child1.gif");
         l3b2.setScale(0.45);
-        l3b2.setFlipY(true);
+        l3b2.setFlippedY(true);
         l3b2.setPosition(cc.p(0 + l2bSize.width / 2, 50 + l2bSize.height / 2));
         l2b.addChild(l3b2);
 
