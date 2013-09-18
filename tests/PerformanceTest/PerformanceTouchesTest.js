@@ -100,12 +100,10 @@ var TouchesPerformTest1 = TouchesMainScene.extend({
     onEnter:function () {
         this._super();
         this.setTouchEnabled(true);
+        this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
     },
     title:function () {
         return "Targeted touches";
-    },
-    registerWithTouchDispatcher:function () {
-        cc.registerTargetedDelegate(0, true, this);
     },
     onTouchBegan:function (touch, event) {
         this._numberOfTouchesB++;
@@ -131,14 +129,11 @@ var TouchesPerformTest2 = TouchesMainScene.extend({
     onEnter:function () {
         this._super();
         this.setTouchEnabled(true);
+        this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
     },
     title:function () {
         return "Standard touches";
     },
-    registerWithTouchDispatcher:function () {
-        cc.registerStandardDelegate(this, 0);
-    },
-
     onTouchesBegan:function (touches, event) {
         this._numberOfTouchesB += touches.length;
     },

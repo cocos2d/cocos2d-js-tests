@@ -153,7 +153,7 @@ var ParticleMainScene = cc.Scene.extend({
         var atlas = this.getChildByTag(TAG_LABEL_ATLAS);
         var emitter = this.getChildByTag(TAG_PARTICLE_SYSTEM);
 
-        var str = emitter.getParticleCount();
+        var str = emitter.getParticleCount().toString();
         atlas.setString(str);
     },
     createParticleSystem:function () {
