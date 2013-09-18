@@ -94,10 +94,10 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
         this._brush.setColor(cc.RED);
         this._brush.setOpacity(20);
 
-        //var save = cc.MenuItemFont.create("Save", this.saveCB, this);
+        var save = cc.MenuItemFont.create("Save", this.saveCB, this);
         var clear = cc.MenuItemFont.create("Clear", this.clearCB.bind(this)); // another way to pass 'this'
-        //var menu = cc.Menu.create(save, clear);
-        var menu = cc.Menu.create(clear);
+        var menu = cc.Menu.create(save, clear);
+        // var menu = cc.Menu.create(clear);
         menu.alignItemsVertically();
         menu.setPosition(winSize.width - 70, winSize.height - 80);
         this.addChild(menu, 10);
@@ -118,6 +118,10 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     },
 
     saveCB:function (sender) {
+        if(sys.platform === "browser"){
+            cc.log("RenderTexture's saveToFile doesn't suppport on HTML5");
+            return;
+        }
         var namePNG = "image-" + this._counter + ".png";
         var nameJPG = "image-" + this._counter + ".jpg";
 
