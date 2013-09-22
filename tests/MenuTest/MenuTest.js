@@ -524,7 +524,7 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
 
     onEnter: function(){
         this._super();
-        cc.registerTargettedDelegate(-129, false, this);
+        cc.registerTargetedDelegate(-129, false, this);
     },
 
     onExit: function() {
