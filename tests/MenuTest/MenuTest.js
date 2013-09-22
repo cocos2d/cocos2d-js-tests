@@ -520,14 +520,17 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
         menu.alignItemsVertically();
 
         menu.setPosition(cc.p(s.width/2, s.height/2));
-
-        this.setTouchEnabled(true);
     },
 
-    registerWithTouchDispatcher: function(){
+    onEnter: function(){
+        this._super();
         cc.registerTargetedDelegate(-129, false, this);
     },
 
+    onExit: function() {
+        cc.unregisterTouchDelegate(this);
+        this._super();
+    },
     onTouchBegan:function(touch, event){
         return true;
     },
