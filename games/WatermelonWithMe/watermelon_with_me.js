@@ -254,7 +254,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._timeLabel.setAnchorPoint(cc._p(0, 0.5));
 
         // update with score
-        this._scoreLabel.setString( this._game_state.score );
+        this._scoreLabel.setString( this._game_state.score.toString() );
     },
 
     addScore:function (value) {
