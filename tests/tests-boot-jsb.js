@@ -74,6 +74,7 @@ var tests_files = [
     'ExtensionsTest/CocosBuilderTest/ScrollViewTest/ScrollViewTestLayer.js',
     'ExtensionsTest/CocosBuilderTest/AnimationsTest/AnimationsTestLayer.js',
     'ExtensionsTest/CocosBuilderTest/TimelineCallbackTest/TimelineCallbackTestLayer.js',
+    'ExtensionsTest/CocoStudioArmatureTest/ArmatureTest.js',
     'ExtensionsTest/TableViewTest/TableViewTestScene.js',
     'ExtensionsTest/NetworkTest/WebSocketTest.js',
     'XHRTest/XHRTest.js',
