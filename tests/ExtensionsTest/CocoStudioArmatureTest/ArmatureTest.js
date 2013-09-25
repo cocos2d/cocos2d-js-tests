@@ -292,7 +292,7 @@ var TestChangeZorder = ArmatureTestLayer.extend({
     },
     changeZorder:function (dt) {
         var node = this.getChildByTag(this.currentTag);
-        node.setZOrder(cc.RANDOM_0_1() * 3);
+        node.setZOrder(Math.random() * 3);
         this.currentTag++;
         this.currentTag = this.currentTag % 3;
     }
@@ -455,6 +455,9 @@ var TestColliderDetector = ArmatureTestLayer.extend({
     armature2:null,
     bullet:null,
     space:null,
+    enemyTag: 1,
+    bulletTag: 2,
+
     onEnter:function () {
         this._super();
         this.armature1 = cc.Armature.create("Cowboy");
