@@ -69,9 +69,6 @@ var armatureSceneArr = [
         return new TestUseMutiplePicture();
     },
     function () {
-        return new TestColliderDetector();
-    },
-    function () {
         return new TestBoundingBox();
     },
     function () {
@@ -80,8 +77,12 @@ var armatureSceneArr = [
     function () {
         return new TestArmatureNesting();
     }
-
 ];
+
+if (sys.platform === "browser")
+{
+    armatureSceneArr.push( function () { return new TestColliderDetector();} );
+}
 
 var nextArmatureTest = function () {
     armatureSceneIdx++;
