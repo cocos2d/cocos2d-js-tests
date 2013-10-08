@@ -362,6 +362,12 @@ var ActionRotateXY = ActionsDemo.extend({
         this._grossini.runAction(cc.Sequence.create(actionBy, delay.clone(), actionBy.reverse()));
 
         this._kathia.runAction(cc.Sequence.create(actionBy2, delay.clone(), actionBy2.reverse()));
+
+        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+            var label = cc.LabelTTF.create("Not support Actions on HTML5-canvas", "Times New Roman", 30);
+            label.setPosition(winSize.width / 2, winSize.height / 2 + 50);
+            this.addChild(label, 100);
+        }
     },
     title:function () {
         return "cc.RotateBy(x,y) / cc.RotateTo(x,y)";
@@ -1678,15 +1684,16 @@ var ActionCardinalSpline = ActionsDemo.extend({
         var winSize = director.getWinSize();
 
         if(!("opengl" in sys.capabilities)){
+            var locScaleX = cc.EGLView.getInstance().getScaleX(), locScaleY = cc.EGLView.getInstance().getScaleY();
             var apPoint = this.getAnchorPointInPoints();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
-            context.translate(50 , -50);
+            context.translate(50 * locScaleX , -50 * locScaleY);
             cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
             context.restore();
 
             context.save();
-            context.translate(winSize.width / 2 , -50);
+            context.translate((winSize.width * locScaleX) * 0.5 , -50 * locScaleY);
             cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
             context.restore();
         } else {
@@ -1843,9 +1850,10 @@ var ActionCatmullRom = ActionsDemo.extend({
         var context = ctx || cc.renderContext;
 
         if(!("opengl" in sys.capabilities)){
+            var eglViewer = cc.EGLView.getInstance();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
-            context.translate(50, - 50);
+            context.translate(50 * eglViewer.getScaleX(), - 50 * eglViewer.getScaleY());
             cc.drawingUtil.drawCatmullRom(this._array1, 50);
             context.restore();
 
