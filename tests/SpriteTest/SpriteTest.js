@@ -116,9 +116,7 @@ var Sprite1 = SpriteTestDemo.extend({
         var idx = 0 | (Math.random() * 14);
         var x = (idx % 5) * 85;
         var y = (0 | (idx / 5)) * 121;
-
         var sprite = cc.Sprite.create(s_grossini_dance_atlas, cc.rect(x, y, 85, 121));
-        window.lastAddSprite = sprite;
         this.addChild(sprite);
         sprite.setPosition(cc.p(p.x, p.y));
 
