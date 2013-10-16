@@ -156,7 +156,7 @@ var TestController = cc.LayerGradient.extend({
 
         var testCase = testNames[idx];
         var res = testCase.resource || [];
-        cc.Loader.preload(res, function () {
+        cc.LoaderScene.preload(res, function () {
             var scene = testCase.testScene();
             if (scene) {
                 scene.runThisTest();

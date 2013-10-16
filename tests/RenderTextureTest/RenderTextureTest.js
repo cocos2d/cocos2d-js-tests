@@ -138,19 +138,21 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
 
     drawInLocation:function (location) {
         var distance = cc.pDistance(location, this._lastLocation);
+
         if (distance > 1) {
+            var locBrush = this._brush, locLastLocation = this._lastLocation;
             this._target.begin();
             for (var i = 0; i < distance; i++) {
-                var diffX = this._lastLocation.x - location.x;
-                var diffY = this._lastLocation.y - location.y;
+                var diffX = locLastLocation.x - location.x;
+                var diffY = locLastLocation.y - location.y;
 
                 var delta = i / distance;
 
-                this._brush.setPosition(location.x + diffX * delta, location.y + diffY * delta);
-                this._brush.setRotation(Math.random() * 360);
-                this._brush.setScale(Math.random() * 2);
-                this._brush.setColor(cc.c3b(Math.random() * 255, 255, 255));
-                this._brush.visit();
+                locBrush.setPosition(location.x + diffX * delta, location.y + diffY * delta);
+                locBrush.setRotation(Math.random() * 360);
+                locBrush.setScale(Math.random() * 2);
+                locBrush.setColor(cc.c3b(Math.random() * 255, 255, 255));
+                locBrush.visit();
             }
             this._target.end();
         }
