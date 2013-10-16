@@ -37,7 +37,7 @@ var cocos2dApp = cc.Application.extend({
     applicationDidFinishLaunching:function () {
         // initialize director
         var director = cc.Director.getInstance();
-
+        cc.EGLView.getInstance()._adjustSizeToBrowser();
         cc.EGLView.getInstance().setDesignResolutionSize(800,450,cc.RESOLUTION_POLICY.SHOW_ALL);
 
         // enable High Resource Mode(2x, such as iphone4) and maintains low resource on other devices.

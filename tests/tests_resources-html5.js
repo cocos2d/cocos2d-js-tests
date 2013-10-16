@@ -288,7 +288,7 @@ var g_fileUtils = [
 var g_s9s_blocks = [
     {src:s_s9s_blocks9_plist},
     {src:s_s9s_blocks9},
-    {src:s_blocks9},
+    //{src:s_blocks9},
     {src:s_s9s_ui},
     {src:s_s9s_ui_plist}
 ];

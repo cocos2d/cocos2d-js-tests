@@ -138,7 +138,7 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
 
     drawInLocation:function (location) {
         var distance = cc.pDistance(location, this._lastLocation);
-        console.log(location.x, location.y);
+
         if (distance > 1) {
             var locBrush = this._brush, locLastLocation = this._lastLocation;
             this._target.begin();
