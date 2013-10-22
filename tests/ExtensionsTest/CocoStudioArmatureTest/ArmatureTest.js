@@ -34,9 +34,10 @@ var ArmatureTestScene = TestScene.extend({
         director.replaceScene(this);
     },
     onMainMenuCallback:function(){
-        this._super();
         this.removeAllChildren();
         cc.ArmatureDataManager.purge();
+        var scene = new ExtensionsTestScene();
+        scene.runThisTest();
     },
     onExit:function () {
         this._super();
@@ -666,3 +667,10 @@ var TestArmatureNesting = ArmatureTestLayer.extend({
         this.armature.getBone("armOutside").getChildArmature().getAnimation().playByIndex(this.weaponIndex);
     }
 });
+
+var runArmatureTestScene = function(){
+    var pScene = new ArmatureTestScene();
+    if (pScene) {
+        pScene.runThisTest();
+    }
+};

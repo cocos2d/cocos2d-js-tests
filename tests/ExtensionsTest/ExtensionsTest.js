@@ -83,12 +83,27 @@ var extensionsTestItemNames = [
         }
     },
     {
+        itemTitle:"CocoStudioComponentsTest",
+        testScene:function () {
+            runComponentsTestLayer();
+        }
+    },
+    {
         itemTitle:"CocoStudioArmatureTest",
         testScene:function () {
-            var pScene = new ArmatureTestScene();
-            if (pScene) {
-                pScene.runThisTest();
-            }
+            runArmatureTestScene();
+        }
+    },
+    {
+        itemTitle:"CocoStudioSceneTest",
+        testScene:function () {
+            runSceneEditorTestLayer();
+        }
+    },
+    {
+        itemTitle:"CocoStudioGUITest",
+        testScene:function () {
+            runCocosGUITestScene();
         }
     }
 ];
