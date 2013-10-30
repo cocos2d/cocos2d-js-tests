@@ -11,9 +11,9 @@ var LevelManager = cc.Class.extend({
     },
 
     setLevel:function(level){
-        for(var i = 0; i< level.enemies.length; i++){
-            this._currentLevel.enemies[i].ShowTime = this._minuteToSecond(this._currentLevel.enemies[i].ShowTime);
-        }
+        var locCurrentLevelEnemies = this._currentLevel.enemies;
+        for(var i = 0; i< level.enemies.length; i++)
+            locCurrentLevelEnemies[i].ShowTime = this._minuteToSecond(locCurrentLevelEnemies[i].ShowTime);
     },
     _minuteToSecond:function(minuteStr){
         if(!minuteStr)
@@ -34,16 +34,17 @@ var LevelManager = cc.Class.extend({
             return;
         }
         //load enemy
-        for(var i = 0; i< this._currentLevel.enemies.length; i++){
-            var selEnemy = this._currentLevel.enemies[i];
+        var locCurrentLevel = this._currentLevel;
+        for(var i = 0; i< locCurrentLevel.enemies.length; i++){
+            var selEnemy = locCurrentLevel.enemies[i];
             if(selEnemy){
-                if(selEnemy.ShowType == "Once"){
+                if(selEnemy.ShowType === "Once"){
                     if(selEnemy.ShowTime == deltaTime){
                         for(var tIndex = 0; tIndex < selEnemy.Types.length;tIndex++ ){
                             this.addEnemyToGameLayer(selEnemy.Types[tIndex]);
                         }
                     }
-                }else if(selEnemy.ShowType == "Repeate"){
+                }else if(selEnemy.ShowType === "Repeate"){
                     if(deltaTime % selEnemy.ShowTime === 0){
                         for(var rIndex = 0; rIndex < selEnemy.Types.length;rIndex++ ){
                             this.addEnemyToGameLayer(selEnemy.Types[rIndex]);
@@ -55,12 +56,10 @@ var LevelManager = cc.Class.extend({
     },
 
     addEnemyToGameLayer:function(enemyType){
-        
 		var addEnemy = Enemy.getOrCreateEnemy(EnemyType[enemyType]);
         var enemypos = cc.p( 80 + (winSize.width - 160) * Math.random(), winSize.height);
         var enemycs =  addEnemy.getContentSize();
         addEnemy.setPosition( enemypos );
-
 
         var offset, tmpAction;
         var a0=0;

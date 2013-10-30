@@ -11,7 +11,6 @@ MAX_CONTAINT_HEIGHT = 40;
 
 var g_sharedGameLayer;
 
-
 var GameLayer = cc.Layer.extend({
     _time:null,
     _ship:null,
@@ -142,12 +141,6 @@ var GameLayer = cc.Layer.extend({
     scoreCounter:function () {
         if (this._state == STATE_PLAYING) {
             this._time++;
-
-            var minute = 0 | (this._time / 60);
-            var second = this._time % 60;
-            minute = minute > 9 ? minute : "0" + minute;
-            second = second > 9 ? second : "0" + second;
-            var curTime = minute + ":" + second;
             this._levelManager.loadLevelResource(this._time);
         }
     },
@@ -184,12 +177,13 @@ var GameLayer = cc.Layer.extend({
             this.removeInactiveUnit(dt);
             this.checkIsReborn();
             this.updateUI();
+            this._movingBackground(dt);
         }
     },
     checkIsCollide:function () {
         var selChild, bulletChild;
         // check collide
-        var i = 0;
+        var i, locShip =this._ship;
         for (i = 0; i < MW.CONTAINER.ENEMIES.length; i++) {
             selChild = MW.CONTAINER.ENEMIES[i];
             if (!selChild.active)
@@ -202,20 +196,20 @@ var GameLayer = cc.Layer.extend({
                     selChild.hurt();
                 }
             }
-            if (this.collide(selChild, this._ship)) {
-                if (this._ship.active) {
+            if (this.collide(selChild, locShip)) {
+                if (locShip.active) {
                     selChild.hurt();
-                    this._ship.hurt();
+                    locShip.hurt();
                 }
             }
         }
 
         for (i = 0; i < MW.CONTAINER.ENEMY_BULLETS.length; i++) {
             selChild = MW.CONTAINER.ENEMY_BULLETS[i];
-            if (selChild.active && this.collide(selChild, this._ship)) {
-                if (this._ship.active) {
+            if (selChild.active && this.collide(selChild, locShip)) {
+                if (locShip.active) {
                     selChild.hurt();
-                    this._ship.hurt();
+                    locShip.hurt();
                 }
             }
         }
@@ -224,26 +218,22 @@ var GameLayer = cc.Layer.extend({
         var selChild, children = this._texOpaqueBatch.getChildren();
         for (var i in children) {
             selChild = children[i];
-            if (selChild && selChild.active) {
+            if (selChild && selChild.active)
                 selChild.update(dt);
-            }
         }
 
-        var selChild, children = this._texTransparentBatch.getChildren();
-        for (var i in children) {
+        children = this._texTransparentBatch.getChildren();
+        for (i in children) {
             selChild = children[i];
-            if (selChild && selChild.active) {
+            if (selChild && selChild.active)
                 selChild.update(dt);
-            }
         }
-
-
     },
     checkIsReborn:function () {
-        if (MW.LIFE > 0 && !this._ship.active) {
-            this._ship.born();
-        }
-        else if (MW.LIFE <= 0 && !this._ship.active) {
+        var locShip = this._ship;
+        if (MW.LIFE > 0 && !locShip.active) {
+            locShip.born();
+        } else if (MW.LIFE <= 0 && !locShip.active) {
             this._state = STATE_GAMEOVER;
             // XXX: needed for JS bindings.
             this._ship = null;
@@ -254,7 +244,7 @@ var GameLayer = cc.Layer.extend({
     },
     updateUI:function () {
         if (this._tmpScore < MW.SCORE) {
-            this._tmpScore += 5;
+            this._tmpScore += 1;
         }
         this._lbLife.setString(MW.LIFE + '');
         this.lbScore.setString("Score: " + this._tmpScore);
@@ -273,9 +263,6 @@ var GameLayer = cc.Layer.extend({
         this._backSky = BackSky.getOrCreate();
         this._backSkyHeight = this._backSky.getContentSize().height;
 
-        this.movingBackground();
-        this.schedule(this.movingBackground, 3);
-
         this.moveTileMap();
         this.schedule(this.moveTileMap, 5);
     },
@@ -289,26 +276,38 @@ var GameLayer = cc.Layer.extend({
         },this);
         backTileMap.runAction(cc.Sequence.create(move,fun));
     },
-    movingBackground:function () {
-        this._backSky.runAction(cc.MoveBy.create(3, cc.p(0, -48)));
-        this._backSkyHeight -= 48;
 
-        if (this._backSkyHeight <= winSize.height) {
-            if (!this._isBackSkyReload) {
-                this._backSkyRe = BackSky.getOrCreate();
-                this._backSkyRe.setPosition(0, winSize.height);
-                this._isBackSkyReload = true;
-            }
-            this._backSkyRe.runAction(cc.MoveBy.create(3, cc.p(0, -48)));
-        }
-        if (this._backSkyHeight <= 0) {
-            this._backSkyHeight = this._backSky.getContentSize().height;
-            this._backSky.destroy();
-            this._backSky = this._backSkyRe;
-            this._backSkyRe = null;
-            this._isBackSkyReload = false;
+    _movingBackground:function(dt){
+        var movingDist = 16 * dt;       // background's moving rate is 16 pixel per second
+
+        var locSkyHeight = this._backSkyHeight, locBackSky = this._backSky;
+        var currPosY = locBackSky.getPositionY() - movingDist;
+        var locBackSkyRe = this._backSkyRe;
+
+        if(locSkyHeight + currPosY <= winSize.height){
+             if(locBackSkyRe != null)
+                throw "The memory is leaking at moving background";
+            locBackSkyRe = this._backSky;
+            this._backSkyRe = this._backSky;
+
+            //create a new background
+            this._backSky = BackSky.getOrCreate();
+            locBackSky = this._backSky;
+            locBackSky.setPositionY(currPosY + locSkyHeight);
+        } else
+            locBackSky.setPositionY(currPosY);
+
+        if(locBackSkyRe){
+            //locBackSkyRe
+            currPosY = locBackSkyRe.getPositionY() - movingDist;
+            if(currPosY + locSkyHeight < 0){
+                locBackSkyRe.destroy();
+                this._backSkyRe = null;
+            } else
+                locBackSkyRe.setPositionY(currPosY);
         }
     },
+
     onGameOver:function () {
         var scene = cc.Scene.create();
         scene.addChild(GameOver.create());
