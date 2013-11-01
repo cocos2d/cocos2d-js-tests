@@ -23,17 +23,14 @@
  ****************************************************************************/
 
 var UIScrollViewTest_Vertical = UIScene.extend({
-    _displayValueLabel: null,
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("Move by vertical direction");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._displayValueLabel.getContentSize().height * 1.5));
-            this._uiLayer.addWidget(this._displayValueLabel);
+            //init text
+            this._topDisplayLabel.setText("Move by vertical direction");
+            this._topDisplayLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
+            this._bottomDisplayLabel.setText("ScrollView");
+            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getRect().size.height * 3));
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
 
@@ -89,17 +86,14 @@ var UIScrollViewTest_Vertical = UIScene.extend({
 });
 
 var UIScrollViewTest_Horizontal = UIScene.extend({
-    _displayValueLabel: null,
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("Move by vertical direction");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 + this._displayValueLabel.getContentSize().height * 1.5));
-            this._uiLayer.addWidget(this._displayValueLabel);
+            //init text
+            this._topDisplayLabel.setText("Move by horizontal direction");
+            this._topDisplayLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
+            this._bottomDisplayLabel.setText("ScrollView");
+            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getRect().size.height * 3));
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
 

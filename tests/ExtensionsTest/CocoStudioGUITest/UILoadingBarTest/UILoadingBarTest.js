@@ -25,23 +25,19 @@
 var UILoadingBarTest = UIScene.extend({
     _count: 0,
     ctor: function () {
-        UIScene.prototype.ctor.call(this);
+        this._super();
         this._count = 0;
     },
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
-            this.scheduleUpdate();
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            var alert = cc.UILabel.create();
-            alert.setText("LoadingBar");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 1.75));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("");
+            this._bottomDisplayLabel.setText("LoadingBar");
 
             this.createLoadingBar();
 
+            this.scheduleUpdate();
             return true;
         }
         return false;
@@ -61,17 +57,17 @@ var UILoadingBarTest = UIScene.extend({
 
     previousCallback: function (sender, type) {
         this.unscheduleUpdate();
-        UIScene.prototype.previousCallback.call(this, sender, type);
+        this._super(sender, type)
     },
 
     restartCallback: function (sender, type) {
         this.unscheduleUpdate();
-        UIScene.prototype.restartCallback.call(this, sender, type);
+        this._super(sender, type)
     },
 
     nextCallback: function (sender, type) {
         this.unscheduleUpdate();
-        UIScene.prototype.nextCallback.call(this, sender, type);
+        this._super(sender, type)
     }
 });
 

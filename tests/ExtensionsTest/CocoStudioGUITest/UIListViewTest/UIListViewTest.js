@@ -23,36 +23,24 @@
  ****************************************************************************/
 
 var UIListViewTest_Vertical = UIScene.extend({
-    _displayValueLabel: null,
     _count: 0,
     _array: [],
     ctor: function () {
-        UIScene.prototype.ctor.call(this);
-        this._displayValueLabel = null;
+        this._super();
         this._count = 0;
         this._array = [];
     },
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("Move by vertical direction");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._displayValueLabel.getContentSize().height * 1.5));
-            this._uiLayer.addWidget(this._displayValueLabel);
-
-            var alert = cc.UILabel.create();
-            alert.setText("ListView");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 2.925));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("Move by vertical direction");
+            this._topDisplayLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
+            this._bottomDisplayLabel.setText("ListView");
+            this._bottomDisplayLabel.setFontSize(30);
+            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getRect().size.height * 3));
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
-
             // Create the list view
             this._count = 0;
             this._array = [];
@@ -92,7 +80,7 @@ var UIListViewTest_Vertical = UIScene.extend({
 
                 listView.addChild(layout);
             }
-            listView.addEventListenter(this, this.listViewEvent);
+            listView.addEventListener(this.listViewEvent, this);
             listView.initChildWithDataLength(this._array.length);
             this._uiLayer.addWidget(listView);
 
@@ -137,33 +125,21 @@ var UIListViewTest_Vertical = UIScene.extend({
 });
 
 var UIListViewTest_Horizontal = UIScene.extend({
-    _displayValueLabel: null,
     _count: 0,
     _array: [],
     ctor: function () {
-        UIScene.prototype.ctor.call(this);
-        this._displayValueLabel = null;
+        this._super();
         this._count = 0;
         this._array = [];
     },
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("Move by horizontal direction");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._displayValueLabel.getContentSize().height * 1.5));
-            this._uiLayer.addWidget(this._displayValueLabel);
-
-            var alert = cc.UILabel.create();
-            alert.setText("ListView");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 2.925));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("Move by horizontal direction");
+            this._topDisplayLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
+            this._bottomDisplayLabel.setText("ListView");
+            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getRect().size.height * 3));
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
 
@@ -207,7 +183,7 @@ var UIListViewTest_Horizontal = UIScene.extend({
 
                 listView.addChild(layout);
             }
-            listView.addEventListenter(this, this.listViewEvent);
+            listView.addEventListener(this.listViewEvent, this);
             listView.initChildWithDataLength(this._array.length);
             this._uiLayer.addWidget(listView);
 

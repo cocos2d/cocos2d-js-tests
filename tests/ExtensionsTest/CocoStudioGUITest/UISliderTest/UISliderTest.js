@@ -23,26 +23,12 @@
  ****************************************************************************/
 
 var UISliderTest = UIScene.extend({
-    _displayValueLabel: null,
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("Move the slider thumb");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            this._uiLayer.addWidget(this._displayValueLabel);
-
-            // Add the alert
-            var alert = cc.UILabel.create();
-            alert.setText("Slider");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 1.75));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("Move the slider thumb");
+            this._bottomDisplayLabel.setText("Slider");
 
             // Create the slider
             var slider = cc.UISlider.create();
@@ -51,7 +37,7 @@ var UISliderTest = UIScene.extend({
             slider.loadSlidBallTextures("res/cocosgui/sliderThumb.png", "res/cocosgui/sliderThumb.png", "");
             slider.loadProgressBarTexture("res/cocosgui/sliderProgress.png");
             slider.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            slider.addEventListener(this, this.sliderEvent);
+            slider.addEventListener(this.sliderEvent, this);
             this._uiLayer.addWidget(slider);
 
             return true;
@@ -64,7 +50,7 @@ var UISliderTest = UIScene.extend({
             case cc.SliderEventType.PERCENTCHANGED:
                 var slider = sender;
                 var percent = slider.getPercent();
-                this._displayValueLabel.setText("Percent " + percent.toFixed(0));
+                this._topDisplayLabel.setText("Percent " + percent.toFixed(0));
                 break;
             default:
                 break;
@@ -73,26 +59,12 @@ var UISliderTest = UIScene.extend({
 });
 
 var UISliderTest_Scale9 = UIScene.extend({
-    _displayValueLabel: null,
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("Move the slider thumb");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            this._uiLayer.addWidget(this._displayValueLabel);
-
-            // Add the alert
-            var alert = cc.UILabel.create();
-            alert.setText("Slider scale9 render");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 1.75));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("Move the slider thumb");
+            this._bottomDisplayLabel.setText("Slider scale9 render");
 
             // Create the slider
             var slider = cc.UISlider.create();
@@ -104,7 +76,7 @@ var UISliderTest_Scale9 = UIScene.extend({
             slider.setCapInsets(cc.rect(0, 0, 0, 0));
             slider.setSize(cc.size(250, 10));
             slider.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            slider.addEventListener(this, this.sliderEvent);
+            slider.addEventListener(this.sliderEvent, this);
             this._uiLayer.addWidget(slider);
 
             return true;
@@ -117,7 +89,7 @@ var UISliderTest_Scale9 = UIScene.extend({
             case cc.SliderEventType.PERCENTCHANGED:
                 var slider = sender;
                 var percent = slider.getPercent();
-                this._displayValueLabel.setText("Percent " + percent.toFixed(0));
+                this._topDisplayLabel.setText("Percent " + percent.toFixed(0));
                 break;
             default:
                 break;

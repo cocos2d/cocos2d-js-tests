@@ -24,7 +24,7 @@
 var SceneEditorTestLayer = cc.LayerColor.extend({
     _curNode: null,
     init: function () {
-        if (cc.LayerColor.prototype.init.call(this, cc.c4b(0, 0, 0, 255))) {
+        if (this._super(cc.c4b(0, 0, 0, 255))) {
             this._curNode = cc.CCSSceneReader.getInstance().createNodeWithSceneFile("res/scenetest/FishJoy2.json");
             this.addChild(this._curNode, 0, 1);
             cc.CCSActionManager.getInstance().playActionByName("startMenu_1.json", "Animation1");

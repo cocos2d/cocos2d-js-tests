@@ -25,16 +25,12 @@
 
 var UILabelBMFontTest = UIScene.extend({
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
-            var widgetSize = this._widget.getRect().size;
-            var alert = cc.UILabel.create();
-            alert.setText("LabelBMFont");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 1.75));
-            this._uiLayer.addWidget(alert);
+        if (this._super()) {
+            //init text
+            this._topDisplayLabel.setText("");
+            this._bottomDisplayLabel.setText("LabelBMFont");
 
+            var widgetSize = this._widget.getRect().size;
             // Create the LabelBMFont
             var labelBMFont = cc.UILabelBMFont.create();
             labelBMFont.setFntFile("res/cocosgui/bitmapFontTest2.fnt");

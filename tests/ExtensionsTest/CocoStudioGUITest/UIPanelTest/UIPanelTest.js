@@ -28,15 +28,12 @@ var UIPanelTestBase = UIScene.extend({
     textButton: null,
     button_scale9: null,
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            var alert = cc.UILabel.create();
-            alert.setText(this.getText());
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 3));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("");
+            this._bottomDisplayLabel.setText(this.getText());
+            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getRect().size.height * 3));
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
 

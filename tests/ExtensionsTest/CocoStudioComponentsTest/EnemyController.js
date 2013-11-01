@@ -24,7 +24,7 @@
 
 var EnemyController = cc.ComController.extend({
     ctor: function () {
-        cc.ComController.prototype.ctor.call(this);
+        this._super();
         this._name = "EnemyController";
     },
     init: function () {

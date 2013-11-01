@@ -24,16 +24,12 @@
 
 var UIImageViewTest = UIScene.extend({
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
-            var widgetSize = this._widget.getRect().size;
-            var alert = cc.UILabel.create();
-            alert.setText("ImageView");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 1.75));
-            this._uiLayer.addWidget(alert);
+        if (this._super()) {
+            //init text
+            this._topDisplayLabel.setText("");
+            this._bottomDisplayLabel.setText("ImageView");
 
+            var widgetSize = this._widget.getRect().size;
             // Create the imageview
             var imageView = cc.UIImageView.create();
             imageView.loadTexture("res/cocosgui/ccicon.png");
@@ -48,15 +44,11 @@ var UIImageViewTest = UIScene.extend({
 
 var UIImageViewTest_Scale9 = UIScene.extend({
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            var alert = cc.UILabel.create();
-            alert.setText("ImageView scale9 render");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 1.75));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("");
+            this._bottomDisplayLabel.setText("ImageView scale9 render");
 
             // Create the imageview
             var imageView = cc.UIImageView.create();

@@ -23,12 +23,12 @@
  ****************************************************************************/
 
 var SceneController = cc.ComController.extend({
-    _targets: [],
-    _projectiles: [],
+    _targets: null,
+    _projectiles: null,
     _addTargetTime: 0,
     _elapsedTime: 0,
     ctor: function () {
-        cc.ComController.prototype.ctor.call(this);
+        this._super();
         this._name = "SceneController";
         this._targets = [];
         this._projectiles = [];

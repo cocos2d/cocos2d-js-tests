@@ -25,16 +25,12 @@
 
 var UILabelAtlasTest = UIScene.extend({
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
-            var widgetSize = this._widget.getRect().size;
-            var alert = cc.UILabel.create();
-            alert.setText("LabelAtlas");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 1.75));
-            this._uiLayer.addWidget(alert);
+        if (this._super()) {
+            //init text
+            this._topDisplayLabel.setText("");
+            this._bottomDisplayLabel.setText("LabelAtlas");
 
+            var widgetSize = this._widget.getRect().size;
             // Create the label atlas
             var labelAtlas = cc.UILabelAtlas.create();
             labelAtlas.setProperty("1234567890", "res/cocosgui/labelatlas.png", 17, 22, "0");

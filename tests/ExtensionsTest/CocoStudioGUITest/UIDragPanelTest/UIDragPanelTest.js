@@ -23,29 +23,17 @@
  ****************************************************************************/
 
 var UIDragPanelTest = UIScene.extend({
-    _displayValueLabel: null,
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("No Event");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 + this._displayValueLabel.getContentSize().height * 1.5));
-            this._uiLayer.addWidget(this._displayValueLabel);
+            //init text
+            this._topDisplayLabel.setText("No Event");
+            this._topDisplayLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
+            this._bottomDisplayLabel.setText("DragPanel");
+            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getRect().size.height * 3));
 
-            // Add the alert
-            var alert = cc.UILabel.create();
-            alert.setText("DragPanel");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 2.925));
-            this._uiLayer.addWidget(alert);
-
+            var widgetSize = this._widget.getRect().size;
             var background = this._uiLayer.getWidgetByName("background_Panel");
-
             // Create the dragpanel
             var dragPanel = cc.UIDragPanel.create();
             dragPanel.setTouchEnable(true);
@@ -57,7 +45,7 @@ var UIDragPanelTest = UIScene.extend({
                 (backgroundSize.width - dragPanel.getRect().size.width) / 2,
                 (widgetSize.height - backgroundSize.height) / 2 +
                     (backgroundSize.height - dragPanel.getRect().size.height) / 2));
-            dragPanel.addEventListener(this, this.dragPanelEvent);
+            dragPanel.addEventListener(this.dragPanelEvent, this);
 
             var imageView = cc.UIImageView.create();
             imageView.setTouchEnable(true);
@@ -78,35 +66,35 @@ var UIDragPanelTest = UIScene.extend({
     dragPanelEvent: function (sender, type) {
         switch (type) {
             case cc.DragPanelEventType.BERTH_LEFTBOTTOM:
-                this._displayValueLabel.setText("Berth To Left Bottom");
+                this._topDisplayLabel.setText("Berth To Left Bottom");
                 break;
 
-            case cc.DragPanelEventType.BERTH_LFETTOP:
-                this._displayValueLabel.setText("Berth To Left Top");
+            case cc.DragPanelEventType.BERTH_LEFTTOP:
+                this._topDisplayLabel.setText("Berth To Left Top");
                 break;
 
             case cc.DragPanelEventType.BERTH_RIGHTBOTTOM:
-                this._displayValueLabel.setText("Berth To Right Bottom");
+                this._topDisplayLabel.setText("Berth To Right Bottom");
                 break;
 
             case cc.DragPanelEventType.BERTH_RIGHTTOP:
-                this._displayValueLabel.setText("Berth To Right Top");
+                this._topDisplayLabel.setText("Berth To Right Top");
                 break;
 
             case cc.DragPanelEventType.BERTH_LEFT:
-                this._displayValueLabel.setText("Berth To Left");
+                this._topDisplayLabel.setText("Berth To Left");
                 break;
 
             case cc.DragPanelEventType.BERTH_TOP:
-                this._displayValueLabel.setText("Berth To Top");
+                this._topDisplayLabel.setText("Berth To Top");
                 break;
 
             case cc.DragPanelEventType.BERTH_RIGHT:
-                this._displayValueLabel.setText("Berth To Right");
+                this._topDisplayLabel.setText("Berth To Right");
                 break;
 
             case cc.DragPanelEventType.BERTH_BOTTOM:
-                this._displayValueLabel.setText("Berth To Bottom");
+                this._topDisplayLabel.setText("Berth To Bottom");
                 break;
 
             default:
@@ -116,26 +104,14 @@ var UIDragPanelTest = UIScene.extend({
 });
 
 var UIDragPanelTest_Bounce = UIScene.extend({
-    _displayValueLabel: null,
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("No Event");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 + this._displayValueLabel.getContentSize().height * 1.5));
-            this._uiLayer.addWidget(this._displayValueLabel);
-
-            // Add the alert
-            var alert = cc.UILabel.create();
-            alert.setText("DragPanel Bounce");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 2.925));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("No Event");
+            this._topDisplayLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
+            this._bottomDisplayLabel.setText("DragPanel Bounce");
+            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getRect().size.height * 3));
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
 
@@ -151,7 +127,7 @@ var UIDragPanelTest_Bounce = UIScene.extend({
                 (backgroundSize.width - dragPanel.getRect().size.width) / 2,
                 (widgetSize.height - backgroundSize.height) / 2 +
                     (backgroundSize.height - dragPanel.getRect().size.height) / 2));
-            dragPanel.addEventListener(this, this.dragPanelEvent);
+            dragPanel.addEventListener(this.dragPanelEvent, this);
 
             var imageView = cc.UIImageView.create();
             imageView.setTouchEnable(true);
@@ -171,36 +147,36 @@ var UIDragPanelTest_Bounce = UIScene.extend({
 
     dragPanelEvent: function (sender, type) {
         switch (type) {
-            case cc.DragPanelEventType.BERTH_LEFTBOTTOM:
-                this._displayValueLabel.setText("Berth To Left Bottom");
+            case cc.DragPanelEventType.BOUNCE_LEFTBOTTOM:
+                this._topDisplayLabel.setText("Berth To Left Bottom");
                 break;
 
-            case cc.DragPanelEventType.BERTH_LFETTOP:
-                this._displayValueLabel.setText("Berth To Left Top");
+            case cc.DragPanelEventType.BOUNCE_LEFTTOP:
+                this._topDisplayLabel.setText("Berth To Left Top");
                 break;
 
-            case cc.DragPanelEventType.BERTH_RIGHTBOTTOM:
-                this._displayValueLabel.setText("Berth To Right Bottom");
+            case cc.DragPanelEventType.BOUNCE_RIGHTBOTTOM:
+                this._topDisplayLabel.setText("Berth To Right Bottom");
                 break;
 
-            case cc.DragPanelEventType.BERTH_RIGHTTOP:
-                this._displayValueLabel.setText("Berth To Right Top");
+            case cc.DragPanelEventType.BOUNCE_RIGHTTOP:
+                this._topDisplayLabel.setText("Berth To Right Top");
                 break;
 
-            case cc.DragPanelEventType.BERTH_LEFT:
-                this._displayValueLabel.setText("Berth To Left");
+            case cc.DragPanelEventType.BOUNCE_LEFT:
+                this._topDisplayLabel.setText("Berth To Left");
                 break;
 
-            case cc.DragPanelEventType.BERTH_TOP:
-                this._displayValueLabel.setText("Berth To Top");
+            case cc.DragPanelEventType.BOUNCE_TOP:
+                this._topDisplayLabel.setText("Berth To Top");
                 break;
 
-            case cc.DragPanelEventType.BERTH_RIGHT:
-                this._displayValueLabel.setText("Berth To Right");
+            case cc.DragPanelEventType.BOUNCE_RIGHT:
+                this._topDisplayLabel.setText("Berth To Right");
                 break;
 
-            case cc.DragPanelEventType.BERTH_BOTTOM:
-                this._displayValueLabel.setText("Berth To Bottom");
+            case cc.DragPanelEventType.BOUNCE_BOTTOM:
+                this._topDisplayLabel.setText("Berth To Bottom");
                 break;
 
             default:

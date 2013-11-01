@@ -23,26 +23,12 @@
  ****************************************************************************/
 
 var UITextButtonTest = UIScene.extend({
-    _displayValueLabel: null,
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("No Event");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            this._uiLayer.addWidget(this._displayValueLabel);
-
-            // Add the alert
-            var alert = cc.UILabel.create();
-            alert.setText("TextButton");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 1.75));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("No Event");
+            this._bottomDisplayLabel.setText("TextButton");
 
             // Create the text button
             var textButton = cc.UITextButton.create();
@@ -50,7 +36,7 @@ var UITextButtonTest = UIScene.extend({
             textButton.loadTextures("res/cocosgui/backtotopnormal.png", "res/cocosgui/backtotoppressed.png", "");
             textButton.setTitleText("Text Button");
             textButton.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            textButton.addTouchEventListener(this, this.touchEvent);
+            textButton.addTouchEventListener(this.touchEvent ,this);
             this._uiLayer.addWidget(textButton);
 
             return true;
@@ -61,16 +47,16 @@ var UITextButtonTest = UIScene.extend({
     touchEvent: function (sender, type) {
         switch (type) {
             case cc.TouchEventType.BEGAN:
-                this._displayValueLabel.setText("Touch Down");
+                this._topDisplayLabel.setText("Touch Down");
                 break;
             case cc.TouchEventType.MOVED:
-                this._displayValueLabel.setText("Touch Move");
+                this._topDisplayLabel.setText("Touch Move");
                 break;
             case cc.TouchEventType.ENDED:
-                this._displayValueLabel.setText("Touch Up");
+                this._topDisplayLabel.setText("Touch Up");
                 break;
             case cc.TouchEventType.CANCELED:
-                this._displayValueLabel.setText("Touch Cancelled");
+                this._topDisplayLabel.setText("Touch Cancelled");
                 break;
             default:
                 break;
@@ -79,26 +65,12 @@ var UITextButtonTest = UIScene.extend({
 });
 
 var UITextButtonTest_Scale9 = UIScene.extend({
-    _displayValueLabel: null,
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("No Event");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            this._uiLayer.addWidget(this._displayValueLabel);
-
-            // Add the alert
-            var alert = cc.UILabel.create();
-            alert.setText("TextButton scale9 render");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 1.75));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("No Event");
+            this._bottomDisplayLabel.setText("TextButton scale9 render");
 
             // Create the text button
             var textButton = cc.UITextButton.create();
@@ -108,7 +80,7 @@ var UITextButtonTest_Scale9 = UIScene.extend({
             textButton.setSize(cc.size(180, textButton.getContentSize().height * 1.5));
             textButton.setTitleText("Text Button scale9 render");
             textButton.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            textButton.addTouchEventListener(this, this.touchEvent);
+            textButton.addTouchEventListener(this.touchEvent ,this);
             this._uiLayer.addWidget(textButton);
 
             return true;
@@ -119,16 +91,16 @@ var UITextButtonTest_Scale9 = UIScene.extend({
     touchEvent: function (sender, type) {
         switch (type) {
             case cc.TouchEventType.BEGAN:
-                this._displayValueLabel.setText("Touch Down");
+                this._topDisplayLabel.setText("Touch Down");
                 break;
             case cc.TouchEventType.MOVED:
-                this._displayValueLabel.setText("Touch Move");
+                this._topDisplayLabel.setText("Touch Move");
                 break;
             case cc.TouchEventType.ENDED:
-                this._displayValueLabel.setText("Touch Up");
+                this._topDisplayLabel.setText("Touch Up");
                 break;
             case cc.TouchEventType.CANCELED:
-                this._displayValueLabel.setText("Touch Cancelled");
+                this._topDisplayLabel.setText("Touch Cancelled");
                 break;
             default:
                 break;

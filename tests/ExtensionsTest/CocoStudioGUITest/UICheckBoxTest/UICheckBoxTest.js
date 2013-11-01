@@ -23,27 +23,13 @@
  ****************************************************************************/
 
 var UICheckBoxTest = UIScene.extend({
-    _displayValueLabel: null,
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
+            //init text
+            this._topDisplayLabel.setText("No Event");
+            this._bottomDisplayLabel.setText("CheckBox");
+
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("No Event");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            this._uiLayer.addWidget(this._displayValueLabel);
-
-            // Add the alert
-            var alert = cc.UILabel.create();
-            alert.setText("CheckBox");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 1.75));
-            this._uiLayer.addWidget(alert);
-
             // Create the checkbox
             var checkBox = cc.UICheckBox.create();
             checkBox.setTouchEnable(true);
@@ -53,7 +39,7 @@ var UICheckBoxTest = UIScene.extend({
                 "res/cocosgui/check_box_normal_disable.png",
                 "res/cocosgui/check_box_active_disable.png");
             checkBox.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            checkBox.addEventListener(this, this.selectedStateEvent);
+            checkBox.addEventListener(this.selectedStateEvent, this);
             this._uiLayer.addWidget(checkBox);
 
             return true;
@@ -64,10 +50,10 @@ var UICheckBoxTest = UIScene.extend({
     selectedStateEvent: function (sender, type) {
         switch (type) {
             case  cc.CheckBoxEventType.UNSELECTED:
-                this._displayValueLabel.setText("Unselected");
+                this._topDisplayLabel.setText("Unselected");
                 break;
             case cc.CheckBoxEventType.SELECTED:
-                this._displayValueLabel.setText("Selected");
+                this._topDisplayLabel.setText("Selected");
                 break;
 
             default:

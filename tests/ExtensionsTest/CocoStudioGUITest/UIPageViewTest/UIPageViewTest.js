@@ -23,26 +23,14 @@
  ****************************************************************************/
 
 var UIPageViewTest = UIScene.extend({
-    _displayValueLabel: null,
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            this._displayValueLabel = cc.UILabel.create();
-            this._displayValueLabel.setText("Move by horizontal direction");
-            this._displayValueLabel.setFontName("res/cocosgui/Marker Felt.ttf");
-            this._displayValueLabel.setFontSize(32);
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1));
-            this._displayValueLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 + this._displayValueLabel.getContentSize().height * 1.5));
-            this._uiLayer.addWidget(this._displayValueLabel);
-
-            // Add the black background
-            var alert = cc.UILabel.create();
-            alert.setText("PageView");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 2.925));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("Move by horizontal direction");
+            this._topDisplayLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
+            this._bottomDisplayLabel.setText("PageView");
+            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getRect().size.height * 3));
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
 
@@ -70,7 +58,7 @@ var UIPageViewTest = UIScene.extend({
 
                 var label = cc.UILabel.create();
                 label.setText("page" + (i + 1));
-                label.setFontName("res/cocosgui/Marker Felt.ttf");
+                label.setFontName("Marker Felt");
                 label.setFontSize(30);
                 label.setColor(cc.c3b(192, 192, 192));
                 label.setPosition(cc.p(layout.getRect().size.width / 2, layout.getRect().size.height / 2));
@@ -78,7 +66,7 @@ var UIPageViewTest = UIScene.extend({
 
                 pageView.addPage(layout);
             }
-            pageView.addEventListener(this, this.pageViewEvent);
+            pageView.addEventListener(this.pageViewEvent, this);
             var a = cc.Layout.create();
             this._uiLayer.addWidget(pageView);
 
@@ -91,7 +79,7 @@ var UIPageViewTest = UIScene.extend({
         switch (type) {
             case cc.PageViewEventType.TURNING:
                 var pageView = sender;
-                this._displayValueLabel.setText("page = " + (pageView.getCurPageIndex() + 1));
+                this._topDisplayLabel.setText("page = " + (pageView.getCurPageIndex() + 1));
                 break;
             default:
                 break;

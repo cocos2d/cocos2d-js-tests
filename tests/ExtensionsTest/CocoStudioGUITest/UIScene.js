@@ -26,13 +26,15 @@ UIScene = cc.Layer.extend({
     _uiLayer: null,
     _widget: null,
     _sceneTitle: null,
+    _topDisplayLabel:null,
+    _bottomDisplayLabel:null,
     ctor: function () {
         cc.Layer.prototype.ctor.call(this)
         this._uiLayer = null;
         this._widget = null;
     },
     init: function (title) {
-        if (cc.Layer.prototype.init.call(this)) {
+        if (this._super(title)) {
             this._uiLayer = cc.UILayer.create();
             this._uiLayer.scheduleUpdate();
             this.addChild(this._uiLayer);
@@ -43,22 +45,42 @@ UIScene = cc.Layer.extend({
             this._sceneTitle = this._uiLayer.getWidgetByName("UItest");
 
             var back_label = this._uiLayer.getWidgetByName("back");
-            back_label.addTouchEventListener(this, this.toExtensionsMainLayer);
+            back_label.addTouchEventListener(this.toExtensionsMainLayer, this);
 
             var left_button = this._uiLayer.getWidgetByName("left_Button");
-            left_button.addTouchEventListener(this, this.previousCallback);
+            left_button.addTouchEventListener(this.previousCallback ,this);
 
             var middle_button = this._uiLayer.getWidgetByName("middle_Button");
-            middle_button.addTouchEventListener(this, this.restartCallback);
+            middle_button.addTouchEventListener(this.restartCallback ,this);
 
             var right_button = this._uiLayer.getWidgetByName("right_Button");
-            right_button.addTouchEventListener(this, this.nextCallback);
+            right_button.addTouchEventListener(this.nextCallback ,this);
 
             var winSize = cc.Director.getInstance().getWinSize();
             var scale = winSize.height / 320;
             this._uiLayer.setAnchorPoint(cc.p(0,0));
             this._uiLayer.setScale(scale);
             this._uiLayer.setPosition(cc.p((winSize.width - 480 * scale) / 2, (winSize.height - 320 * scale) / 2));
+
+            var widgetSize = this._widget.getRect().size;
+            var eventLabel = cc.UILabel.create();
+            eventLabel.setText("");
+            eventLabel.setFontName("Marker Felt");
+            eventLabel.setFontSize(32);
+            eventLabel.setAnchorPoint(cc.p(0.5, -1));
+            eventLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
+            this._uiLayer.addWidget(eventLabel);
+            this._topDisplayLabel = eventLabel;
+
+            var uiLabel = cc.UILabel.create();
+            uiLabel.setText("");
+            uiLabel.setFontName("Marker Felt");
+            uiLabel.setFontSize(30);
+            uiLabel.setColor(cc.c3b(159, 168, 176));
+            uiLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 - uiLabel.getRect().size.height * 1.75));
+            this._uiLayer.addWidget(uiLabel);
+            this._bottomDisplayLabel = uiLabel;
+
             return true;
         }
         return false;

@@ -25,15 +25,11 @@
 
 var UITextAreaTest = UIScene.extend({
     init: function () {
-        if (UIScene.prototype.init.call(this)) {
+        if (this._super()) {
             var widgetSize = this._widget.getRect().size;
-            var alert = cc.UILabel.create();
-            alert.setText("TextArea");
-            alert.setFontName("res/cocosgui/Marker Felt.ttf");
-            alert.setFontSize(30);
-            alert.setColor(cc.c3b(159, 168, 176));
-            alert.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - alert.getRect().size.height * 1.75));
-            this._uiLayer.addWidget(alert);
+            //init text
+            this._topDisplayLabel.setText("");
+            this._bottomDisplayLabel.setText("TextArea");
 
             // Create the text area
             var textArea = cc.UITextArea.create();
