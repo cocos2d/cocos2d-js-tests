@@ -39,7 +39,6 @@ var Ship = cc.Sprite.extend({
         this.born();
     },
     update:function (dt) {
-
         // Keys are only enabled on the browser
         if (sys.platform == 'browser') {
             var pos = this.getPosition();
