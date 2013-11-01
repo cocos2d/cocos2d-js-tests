@@ -705,6 +705,7 @@ var g_extensions = [
     {src:"res/cocosgui/Hello.png"},
     {src:"res/cocosgui/labelatlas.png"},
     {src:"res/cocosgui/loadingbar.png"},
+    {fontName:"Marker Felt",src:[{src:"res/cocosgui/Marker Felt.ttf",type:"truetype"}]},
     {src:"res/cocosgui/scrollviewbg.png"},
     {src:"res/cocosgui/slidbar.png"},
     {src:"res/cocosgui/sliderballnormal.png"},
