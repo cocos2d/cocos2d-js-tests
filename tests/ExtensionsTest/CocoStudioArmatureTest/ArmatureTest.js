@@ -231,21 +231,22 @@ var TestChangeZorder = ArmatureTestLayer.extend({
     onEnter:function () {
         this._super();
         var armature = null;
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
+        var armatureDataManager = cc.ArmatureDataManager.getInstance();
+        armatureDataManager.addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
         armature = cc.Armature.create("Knight_f/Knight");
         armature.getAnimation().playByIndex(0);
         armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2 - 100));
         armature.setScale(0.6);
         this.addChild(armature, 0, 0);
 
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+        armatureDataManager.addArmatureFileInfo(s_Cowboy_json);
         armature = cc.Armature.create("Cowboy");
         armature.getAnimation().playByIndex(0);
         armature.setScale(0.24);
         armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2 - 100));
         this.addChild(armature, 1, 1);
 
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Dragon_png, s_Dragon_plist, s_Dragon_xml);
+        armatureDataManager.addArmatureFileInfo(s_Dragon_png, s_Dragon_plist, s_Dragon_xml);
         armature = cc.Armature.create("Dragon");
         armature.getAnimation().playByIndex(0);
         armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2 - 100));
@@ -379,8 +380,9 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
         this._super();
         this.setTouchEnabled(true);
         this.displayIndex = 0;
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfo(s_weapon_png, s_weapon_plist, s_weapon_xml);
+        var armatureDataManager = cc.ArmatureDataManager.getInstance();
+        armatureDataManager.addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
+        armatureDataManager.addArmatureFileInfo(s_weapon_png, s_weapon_plist, s_weapon_xml);
 
         this.armature = cc.Armature.create("Knight_f/Knight");
         this.armature.getAnimation().playByIndex(0);
@@ -649,12 +651,13 @@ var TestAsynchronousLoading = ArmatureTestLayer.extend({
     onEnter: function () {
         this._super();
         this.setMenuItemEnabled(false);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfoAsync(s_knight_png, s_knight_plist, s_knight_xml, this, this.dataLoaded);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfoAsync(s_weapon_png, s_weapon_plist, s_weapon_xml, this, this.dataLoaded);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfoAsync(s_robot_png, s_robot_plist, s_robot_xml, this, this.dataLoaded);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfoAsync(s_cyborg_png, s_cyborg_plist, s_cyborg_xml, this, this.dataLoaded);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfoAsync(s_Dragon_png, s_Dragon_plist, s_Dragon_xml, this, this.dataLoaded);
-        cc.ArmatureDataManager.getInstance().addArmatureFileInfoAsync(s_Cowboy_json, this, this.dataLoaded);
+        var armatureDataManager = cc.ArmatureDataManager.getInstance();
+        armatureDataManager.addArmatureFileInfoAsync(s_knight_png, s_knight_plist, s_knight_xml, this, this.dataLoaded);
+        armatureDataManager.addArmatureFileInfoAsync(s_weapon_png, s_weapon_plist, s_weapon_xml, this, this.dataLoaded);
+        armatureDataManager.addArmatureFileInfoAsync(s_robot_png, s_robot_plist, s_robot_xml, this, this.dataLoaded);
+        armatureDataManager.addArmatureFileInfoAsync(s_cyborg_png, s_cyborg_plist, s_cyborg_xml, this, this.dataLoaded);
+        armatureDataManager.addArmatureFileInfoAsync(s_Dragon_png, s_Dragon_plist, s_Dragon_xml, this, this.dataLoaded);
+        armatureDataManager.addArmatureFileInfoAsync(s_Cowboy_json, this, this.dataLoaded);
     },
     setMenuItemEnabled: function (bool) {
         var menu = this.getChildByTag(BASE_TEST_MENU_TAG);
