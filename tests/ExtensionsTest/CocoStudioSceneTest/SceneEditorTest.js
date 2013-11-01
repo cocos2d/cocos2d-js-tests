@@ -23,6 +23,8 @@
  ****************************************************************************/
 var SceneEditorTestLayer = cc.LayerColor.extend({
     _curNode: null,
+    _blowFishNode:null,
+    _flyFishNode:null,
     init: function () {
         if (this._super(cc.c4b(0, 0, 0, 255))) {
             this._curNode = cc.CCSSceneReader.getInstance().createNodeWithSceneFile("res/scenetest/FishJoy2.json");
@@ -42,22 +44,38 @@ var SceneEditorTestLayer = cc.LayerColor.extend({
 
             this.addChild(menuBack);
 
+            this._blowFishNode = this._curNode.getChildByTag(10007);
+            this._flyFishNode = this._curNode.getChildByTag(10008);
+            this._blowFishNode.setPosition(cc.p(413,150));
+            this._flyFishNode.setPosition(cc.p(413,84));
+
+            var startMenuUILayer = this.getComponentNode(10004,"GUIComponent");
+            var startUIPanel = startMenuUILayer.getWidgetByName("Panel");
+            var startUIButton = startUIPanel.getChildByTag(16).getChildByTag(7);
+            startUIButton.addTouchEventListener(this.startTouchEvent ,this);
             return true;
         }
         return false;
     },
-
+    startTouchEvent:function (sender, type) {
+        if(type == cc.TouchEventType.ENDED){
+            this._blowFishNode.stopAllActions();
+            this._flyFishNode.stopAllActions();
+            this._blowFishNode.setPosition(cc.p(420,150));
+            this._flyFishNode.setPosition(cc.p(420,84));
+            var moveAction = cc.MoveBy.create(5,cc.p(-360,0));
+            this._flyFishNode.runAction(moveAction);
+            this._blowFishNode.runAction(moveAction.copy());
+        }
+    },
     toExtensionsMainLayer: function (sender) {
         var scene = new ExtensionsTestScene();
         scene.runThisTest();
     },
 
-    getFish: function (tag, pszName) {
-        if (this._curNode == null) {
-            return null;
-        }
-        var fishRender = (this._curNode.getChildByTag(tag).getComponent(pszName));
-        return fishRender.getNode();
+    getComponentNode: function (objectTag, componentName) {
+        var component = (this._curNode.getChildByTag(objectTag).getComponent(componentName));
+        return component.getNode();
     }
 });
 SceneEditorTestLayer.create = function () {

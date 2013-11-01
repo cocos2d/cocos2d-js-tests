@@ -51,7 +51,7 @@
       "visible": 1,
       "x": 0,
       "y": 0,
-      "zorder": 1,
+      "zorder": 10,
       "gameobjects": [],
       "components": [
         {
