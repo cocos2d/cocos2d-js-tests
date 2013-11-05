@@ -81,30 +81,6 @@ var extensionsTestItemNames = [
         testScene:function () {
             runWebSocketTest();
         }
-    },
-    {
-        itemTitle:"CocoStudioComponentsTest",
-        testScene:function () {
-            runComponentsTestLayer();
-        }
-    },
-    {
-        itemTitle:"CocoStudioArmatureTest",
-        testScene:function () {
-            runArmatureTestScene();
-        }
-    },
-    {
-        itemTitle:"CocoStudioSceneTest",
-        testScene:function () {
-            runSceneEditorTestLayer();
-        }
-    },
-    {
-        itemTitle:"CocoStudioGUITest",
-        testScene:function () {
-            runCocosGUITestScene();
-        }
     }
 ];
 
