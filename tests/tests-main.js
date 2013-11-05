@@ -254,6 +254,14 @@ var testNames = [
         }
     },
     {
+        title:"CocoStudio Test",
+        resource:g_cocoStudio,
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new CocoStudioTestScene();
+        }
+    },
+    {
         title:"CurrentLanguage Test",
         platforms: PLATFORM_HTML5,
         testScene:function () {

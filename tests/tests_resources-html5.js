@@ -507,8 +507,10 @@ var g_extensions = [
     {src:"res/ccb/markerfelt24shadow.fnt"},
 
     {src:"res/ccb/grossini-generic.plist"},
-    {src:"res/ccb/animated-grossini.plist"},
+    {src:"res/ccb/animated-grossini.plist"}
+];
 
+var g_cocoStudio = [
     //Armature
     {src:s_Cowboy_json },
     {src:s_Cowboy_plist},
@@ -528,6 +530,7 @@ var g_extensions = [
     {src:s_weapon_plist },
     {src:s_weapon_png },
     {src:s_weapon_xml },
+    //GUI
     {src:"res/Particles/SmallSun.plist"},
     {src:"res/cocosgui/animationbuttonnormal.png"},
     {src:"res/cocosgui/animationbuttonpressed.png"},
@@ -728,9 +731,11 @@ var g_extensions = [
     {src:"res/cocosgui/UITest/UITest.json"},
     {src:"res/Sound/background-music-aac.wav"},
     {src:"res/Sound/pew-pew-lei.wav"},
+    //Components
     {src:"res/components/Player.png"},
     {src:"res/components/Projectile.png"},
     {src:"res/components/Target.png"},
+    //Scene
     {src:"res/scenetest/fishes/blowFish/Blowfish0.plist"},
     {src:"res/scenetest/fishes/blowFish/Blowfish0.png"},
     {src:"res/scenetest/fishes/Butterflyfish/Butterflyfish0.plist"},
@@ -746,6 +751,7 @@ var g_extensions = [
     {src:"res/scenetest/startMenu/Fish_UI/ui_logo_001-hd.png"},
     {src:"res/scenetest/startMenu/startMenu_1.json"}
 ];
+
 var g_performace = [
     {src:"res/animations/crystals.plist"},
     {src:"res/animations/crystals.png"},
