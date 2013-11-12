@@ -153,7 +153,7 @@ var TestCSWithSkeleton = ArmatureTestLayer.extend({
         armature.getAnimation().playByIndex(0);
         armature.setScale(0.2);
         armature.setAnchorPoint(cc.p(0.5, 0.5));
-        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        armature.setPosition(cc.p(winSize.width / 3, winSize.height / 2));
         this.addChild(armature);
     },
     title:function () {
@@ -376,6 +376,8 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
 var TestUseMutiplePicture = ArmatureTestLayer.extend({
     displayIndex:0,
     armature:null,
+    armature2:null,
+    weapon : null,
     onEnter:function () {
         this._super();
         this.setTouchEnabled(true);
@@ -386,22 +388,35 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
 
         this.armature = ccs.Armature.create("Knight_f/Knight");
         this.armature.getAnimation().playByIndex(0);
-        this.armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        this.armature.setPosition(cc.p(winSize.width / 3, winSize.height / 2));
         this.armature.setScale(1.2);
         this.addChild(this.armature);
 
-        var weapon = ["weapon_f-sword.png", "weapon_f-sword2.png", "weapon_f-sword3.png", "weapon_f-sword4.png", "weapon_f-sword5.png", "weapon_f-knife.png", "weapon_f-hammer.png"];
+        this.armature2 = ccs.Armature.create("Knight_f/Knight");
+        this.armature2.getAnimation().playByIndex(0);
+        this.armature2.setPosition(cc.p(2 * winSize.width / 3, winSize.height / 2));
+        this.armature2.setScale(1.2);
+        this.addChild(this.armature2);
+
+        this.weapon = ["weapon_f-sword.png", "weapon_f-sword2.png", "weapon_f-sword3.png", "weapon_f-sword4.png", "weapon_f-sword5.png", "weapon_f-knife.png", "weapon_f-hammer.png"];
 
         //add skin
         for (var i = 0; i < 7; i++) {
-            var skin = ccs.Skin.createWithSpriteFrameName(weapon[i]);
+            var skin = ccs.Skin.createWithSpriteFrameName(this.weapon[i]);
             this.armature.getBone("weapon").addDisplay(skin, i);
+
+            var skin2 = ccs.Skin.createWithSpriteFrameName(this.weapon[i]);
+            this.armature2.getBone("weapon").addDisplay(skin2, i);
         }
 
         //add label
         var label = cc.LabelTTF.create("This is a weapon!", "Arial", 18);
         label.setAnchorPoint(cc.p(0.2, 0.5));
         this.armature.getBone("weapon").addDisplay(label, 7);
+
+        var label2 = cc.LabelTTF.create("This is a weapon!", "Arial", 18);
+        label2.setAnchorPoint(cc.p(0.2, 0.5));
+        this.armature2.getBone("weapon").addDisplay(label2, 7);
     },
     title:function () {
         return "Test One CCArmature Use Different Picture";
@@ -413,6 +428,8 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
         ++this.displayIndex;
         this.displayIndex = (this.displayIndex) % 8;
         this.armature.getBone("weapon").changeDisplayByIndex(this.displayIndex, true);
+
+        this.armature2.getBone("weapon").changeDisplayByName(this.weapon[this.displayIndex], true);
         return false;
     }
 });
