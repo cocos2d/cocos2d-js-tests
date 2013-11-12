@@ -16,12 +16,12 @@
     "children": [
       {
         "classname": "Panel",
-        "name": null,
+        "name": "testMXS",
         "children": [],
         "options": {
           "__type": "ComGUIPanelSurrogate:#EditorCommon.JsonModel.Component.GUI",
           "classname": "Panel",
-          "name": "Panel",
+          "name": "testMXS",
           "ZOrder": 1,
           "actiontag": 109,
           "anchorPointX": 0,

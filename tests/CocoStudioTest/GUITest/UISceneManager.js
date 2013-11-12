@@ -219,18 +219,6 @@ var s_testArray = [
         }
     },
     {
-        title: "UIDragPanelTest",
-        func: function () {
-            return new UIDragPanelTest();
-        }
-    },
-    {
-        title: "UIDragPanelTest_Bounce",
-        func: function () {
-            return new UIDragPanelTest_Bounce();
-        }
-    },
-    {
         title: "UINodeContainerTest",
         func: function () {
             return new UINodeContainerTest();

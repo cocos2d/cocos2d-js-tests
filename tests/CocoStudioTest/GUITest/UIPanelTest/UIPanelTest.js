@@ -29,34 +29,35 @@ var UIPanelTestBase = UIScene.extend({
     button_scale9: null,
     init: function () {
         if (this._super()) {
-            var widgetSize = this._widget.getRect().size;
+            var widgetRect = this._widget.getRect();
             //init text
             this._topDisplayLabel.setText("");
             this._bottomDisplayLabel.setText(this.getText());
-            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getRect().size.height * 3));
+            this._bottomDisplayLabel.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2 - this._bottomDisplayLabel.getRect().height * 3));
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
 
             // Create the layout
             this.layout = this.createLayout();
-            var backgroundSize = background.getRect().size;
-            this.layout.setPosition(cc.p((widgetSize.width - backgroundSize.width) / 2 +
-                (backgroundSize.width - this.layout.getRect().size.width) / 2,
-                (widgetSize.height - backgroundSize.height) / 2 +
-                    (backgroundSize.height - this.layout.getRect().size.height) / 2));
+            var  layoutRect = this.layout.getRect();
+            var backgroundRect = background.getRect();
+            this.layout.setPosition(cc.p((widgetRect.width - backgroundRect.width) / 2 +
+                (backgroundRect.width - layoutRect.width) / 2,
+                (widgetRect.height - backgroundRect.height) / 2 +
+                    (backgroundRect.height - layoutRect.height) / 2));
             this._uiLayer.addWidget(this.layout);
 
             this.button = ccs.UIButton.create();
             this.button.setTouchEnable(true);
             this.button.loadTextures("res/cocosgui/animationbuttonnormal.png", "res/cocosgui/animationbuttonpressed.png", "");
-            this.button.setPosition(cc.p(this.button.getRect().size.width / 2, this.layout.getRect().size.height - this.button.getRect().size.height / 2));
+            this.button.setPosition(cc.p(this.button.getRect().width / 2, layoutRect.height - this.button.getRect().height / 2));
             this.layout.addChild(this.button);
 
             this.textButton = ccs.UITextButton.create();
             this.textButton.setTouchEnable(true);
             this.textButton.loadTextures("res/cocosgui/backtotopnormal.png", "res/cocosgui/backtotoppressed.png", "");
             this.textButton.setTitleText("Text Button");
-            this.textButton.setPosition(cc.p(this.layout.getRect().size.width / 2, this.layout.getRect().size.height / 2));
+            this.textButton.setPosition(cc.p(layoutRect.width / 2, layoutRect.height / 2));
             this.layout.addChild(this.textButton);
 
             this.button_scale9 = ccs.UIButton.create();
@@ -64,7 +65,7 @@ var UIPanelTestBase = UIScene.extend({
             this.button_scale9.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
             this.button_scale9.setScale9Enabled(true);
             this.button_scale9.setSize(cc.size(100, this.button_scale9.getContentSize().height));
-            this.button_scale9.setPosition(cc.p(this.layout.getRect().size.width - this.button_scale9.getRect().size.width / 2, this.button_scale9.getRect().size.height / 2));
+            this.button_scale9.setPosition(cc.p(layoutRect.width - this.button_scale9.getRect().width / 2, this.button_scale9.getRect().height / 2));
             this.layout.addChild(this.button_scale9);
 
             this.setLayoutParameter();

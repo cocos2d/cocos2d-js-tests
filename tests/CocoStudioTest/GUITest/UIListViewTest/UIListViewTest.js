@@ -32,13 +32,13 @@ var UIListViewTest_Vertical = UIScene.extend({
     },
     init: function () {
         if (this._super()) {
-            var widgetSize = this._widget.getRect().size;
+            var widgetRect = this._widget.getRect();
             //init text
             this._topDisplayLabel.setText("Move by vertical direction");
-            this._topDisplayLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
+            this._topDisplayLabel.setPosition(cc.p(widgetRect.width / 2.0,  widgetRect.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
             this._bottomDisplayLabel.setText("ListView");
             this._bottomDisplayLabel.setFontSize(30);
-            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getRect().size.height * 3));
+            this._bottomDisplayLabel.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2 - this._bottomDisplayLabel.getRect().height * 3));
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
             // Create the list view
@@ -54,13 +54,13 @@ var UIListViewTest_Vertical = UIScene.extend({
             listView.setBackGroundImage("res/cocosgui/green_edit.png");
             listView.setSize(cc.size(240, 130));
             var backgroundSize = background.getContentSize();
-            listView.setPosition(cc.p((widgetSize.width - backgroundSize.width) / 2 +
-                (backgroundSize.width - listView.getRect().size.width) / 2,
-                (widgetSize.height - backgroundSize.height) / 2 +
-                    (backgroundSize.height - listView.getRect().size.height) / 2));
+            listView.setPosition(cc.p((widgetRect.width - backgroundSize.width) / 2 +
+                (backgroundSize.width - listView.getRect().width) / 2,
+                (widgetRect.height - backgroundSize.height) / 2 +
+                    (backgroundSize.height - listView.getRect().height) / 2));
 
-            var listWidth = listView.getRect().size.width;
-            var listHeight = listView.getRect().size.height;
+            var listWidth = listView.getRect().width;
+            var listHeight = listView.getRect().height;
 
             for (var i = 0; i < 5; ++i) {
                 var textButton = ccs.UITextButton.create();
@@ -70,17 +70,17 @@ var UIListViewTest_Vertical = UIScene.extend({
 
                 var layout = ccs.UILayout.create();
                 layout.setName("panel_" + i);
-                layout.setSize(cc.size(textButton.getRect().size.width, textButton.getRect().size.height));
-                textButton.setPosition(cc.p(layout.getRect().size.width / 2, layout.getRect().size.height / 2));
+                layout.setSize(cc.size(textButton.getRect().width, textButton.getRect().height));
+                textButton.setPosition(cc.p(layout.getRect().width / 2, layout.getRect().height / 2));
                 layout.addChild(textButton);
 
-                var panel_size = layout.getRect().size;
+                var panel_size = cc.size(layout.getRect().width,layout.getRect().height);
                 layout.setPosition(cc.p((listWidth - panel_size.width) / 2,
                     (listHeight - (panel_size.height + panel_size.height * 0.25)) - i * (panel_size.height + panel_size.height * 0.25)));
 
                 listView.addChild(layout);
             }
-            listView.addEventListener(this.listViewEvent, this);
+            listView.addEventListenerListView(this.listViewEvent, this);
             listView.initChildWithDataLength(this._array.length);
             this._uiLayer.addWidget(listView);
 
@@ -134,12 +134,12 @@ var UIListViewTest_Horizontal = UIScene.extend({
     },
     init: function () {
         if (this._super()) {
-            var widgetSize = this._widget.getRect().size;
+            var widgetRect = this._widget.getRect();
             //init text
             this._topDisplayLabel.setText("Move by horizontal direction");
-            this._topDisplayLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
+            this._topDisplayLabel.setPosition(cc.p(widgetRect.width / 2.0,  widgetRect.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
             this._bottomDisplayLabel.setText("ListView");
-            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getRect().size.height * 3));
+            this._bottomDisplayLabel.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2 - this._bottomDisplayLabel.getRect().height * 3));
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
 
@@ -157,13 +157,13 @@ var UIListViewTest_Horizontal = UIScene.extend({
             listView.setBackGroundImage("res/cocosgui/green_edit.png");
             listView.setSize(cc.size(240, 130));
             var backgroundSize = background.getContentSize();
-            listView.setPosition(cc.p((widgetSize.width - backgroundSize.width) / 2 +
-                (backgroundSize.width - listView.getRect().size.width) / 2,
-                (widgetSize.height - backgroundSize.height) / 2 +
-                    (backgroundSize.height - listView.getRect().size.height) / 2));
+            listView.setPosition(cc.p((widgetRect.width - backgroundSize.width) / 2 +
+                (backgroundSize.width - listView.getRect().width) / 2,
+                (widgetRect.height - backgroundSize.height) / 2 +
+                    (backgroundSize.height - listView.getRect().height) / 2));
 
-            var listWidth = listView.getRect().size.width;
-            var listHeight = listView.getRect().size.height;
+            var listWidth = listView.getRect().width;
+            var listHeight = listView.getRect().height;
 
             for (var i = 0; i < 3; ++i) {
                 var textButton = ccs.UITextButton.create();
@@ -173,17 +173,17 @@ var UIListViewTest_Horizontal = UIScene.extend({
 
                 var layout = ccs.UILayout.create();
                 layout.setName("panel_" + i);
-                layout.setSize(cc.size(textButton.getRect().size.width, textButton.getRect().size.height));
-                textButton.setPosition(cc.p(layout.getRect().size.width / 2, layout.getRect().size.height / 2));
+                layout.setSize(cc.size(textButton.getRect().width, textButton.getRect().height));
+                textButton.setPosition(cc.p(layout.getRect().width / 2, layout.getRect().height / 2));
                 layout.addChild(textButton);
 
-                var layout_size = layout.getRect().size;
-                layout.setPosition(cc.p(0 + (layout_size.width * 0.2) + i * (layout_size.width + layout_size.width * 0.2),
-                    (listHeight - layout_size.height) / 2));
+                var layoutRect = layout.getRect();
+                layout.setPosition(cc.p(0 + (layoutRect.width * 0.2) + i * (layoutRect.width + layoutRect.width * 0.2),
+                    (listHeight - layoutRect.height) / 2));
 
                 listView.addChild(layout);
             }
-            listView.addEventListener(this.listViewEvent, this);
+            listView.addEventListenerListView(this.listViewEvent, this);
             listView.initChildWithDataLength(this._array.length);
             this._uiLayer.addWidget(listView);
 

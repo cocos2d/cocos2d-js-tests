@@ -127,7 +127,6 @@
             'CocoStudioTest/GUITest/UIScene.js',
             'CocoStudioTest/GUITest/UIButtonTest/UIButtonTest.js',
             'CocoStudioTest/GUITest/UICheckBoxTest/UICheckBoxTest.js',
-            'CocoStudioTest/GUITest/UIDragPanelTest/UIDragPanelTest.js',
             'CocoStudioTest/GUITest/UIImageViewTest/UIImageViewTest.js',
             'CocoStudioTest/GUITest/UILabelAtlasTest/UILabelAtlasTest.js',
             'CocoStudioTest/GUITest/UILabelBMFontTest/UILabelBMFontTest.js',

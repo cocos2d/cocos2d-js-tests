@@ -25,18 +25,18 @@
 var UINodeContainerTest = UIScene.extend({
     init: function () {
         if (this._super()) {
-            var widgetSize = this._widget.getRect().size;
+            var widgetRect = this._widget.getRect();
             //init text
             this._topDisplayLabel.setText("");
             this._bottomDisplayLabel.setText("NodeContainer");
 
             // Create the ui node container
             var nodeContainer = ccs.UINodeContainer.create();
-            nodeContainer.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2));
+            nodeContainer.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2));
             this._uiLayer.addWidget(nodeContainer);
 
             var sprite = cc.Sprite.create("res/cocosgui/ccicon.png");
-            sprite.setPosition(cc.p(0, sprite.getBoundingBox().size.height / 4));
+            sprite.setPosition(cc.p(0, sprite.getBoundingBox().height / 4));
             nodeContainer.addCCNode(sprite);
 
             return true;

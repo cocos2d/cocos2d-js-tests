@@ -46,6 +46,12 @@ var ArmatureTestScene = TestScene.extend({
 
 var armatureSceneArr = [
     function () {
+        return new TestAsynchronousLoading();
+    },
+    function () {
+        return new TestDirectLoading();
+    },
+    function () {
         return new TestCSWithSkeleton();
     },
     function () {
@@ -55,10 +61,16 @@ var armatureSceneArr = [
         return new TestPerformance();
     },
     function () {
+        return new TestPerformanceBatchNode();
+    },
+    function () {
         return new TestChangeZorder();
     },
     function () {
         return new TestAnimationEvent();
+    },
+    function () {
+        return new TestFrameEvent();
     },
     function () {
         return new TestParticleDisplay();
@@ -76,7 +88,7 @@ var armatureSceneArr = [
         return new TestArmatureNesting();
     },
     function () {
-        return new TestAsynchronousLoading();
+        return new TestArmatureNesting2();
     }
 ];
 
@@ -139,6 +151,82 @@ var ArmatureTestLayer = BaseTestLayer.extend({
     }
 });
 
+
+//------------------------------------------------------------------
+//
+// TestAsynchronousLoading
+//
+//------------------------------------------------------------------
+var TestAsynchronousLoading = ArmatureTestLayer.extend({
+    onEnter: function () {
+        this._super();
+        this.setMenuItemEnabled(false);
+        var armatureDataManager = ccs.ArmatureDataManager.getInstance();
+        armatureDataManager.addArmatureFileInfoAsync(s_knight_png, s_knight_plist, s_knight_xml, this.dataLoaded,  this);
+        armatureDataManager.addArmatureFileInfoAsync(s_weapon_png, s_weapon_plist, s_weapon_xml, this.dataLoaded,  this);
+        armatureDataManager.addArmatureFileInfoAsync(s_robot_png, s_robot_plist, s_robot_xml, this.dataLoaded,  this);
+        armatureDataManager.addArmatureFileInfoAsync(s_cyborg_png, s_cyborg_plist, s_cyborg_xml,this.dataLoaded,  this);
+        armatureDataManager.addArmatureFileInfoAsync(s_Dragon_png, s_Dragon_plist, s_Dragon_xml, this.dataLoaded,  this);
+        armatureDataManager.addArmatureFileInfoAsync(s_Cowboy_json, this.dataLoaded,  this);
+        armatureDataManager.addArmatureFileInfoAsync(s_hero_json, this.dataLoaded,  this);
+        armatureDataManager.addArmatureFileInfoAsync(s_horse_json, this.dataLoaded,  this);
+        armatureDataManager.addArmatureFileInfoAsync(s_bear_json, this.dataLoaded,  this);
+        armatureDataManager.addArmatureFileInfoAsync(s_HeroAnimation_json, this.dataLoaded,  this);
+    },
+    setMenuItemEnabled: function (bool) {
+        var menu = this.getChildByTag(BASE_TEST_MENU_TAG);
+        var backItem = menu.getChildByTag(BASE_TEST_MENUITEM_PREV_TAG);
+        var restartItem = menu.getChildByTag(BASE_TEST_MENUITEM_RESET_TAG);
+        var nextItem = menu.getChildByTag(BASE_TEST_MENUITEM_NEXT_TAG);
+        backItem.setEnabled(bool);
+        restartItem.setEnabled(bool);
+        nextItem.setEnabled(bool);
+    },
+    title: function () {
+        return "Test Asynchronous Loading";
+    },
+    subtitle: function () {
+        return "current percent : 0";
+    },
+    restartCallback: function (sender) {
+        ccs.ArmatureDataManager.getInstance().purge();
+        this._super(sender);
+    },
+    dataLoaded: function (percent) {
+        cc.log("percent:" + percent);
+        var subTile = this.getChildByTag(BASE_TEST_SUBTITLE_TAG);
+        subTile.setString("current percent : " + percent.toFixed(2) * 100);
+        if (percent >= 1) {
+            this.setMenuItemEnabled(true);
+        }
+    }
+});
+
+//------------------------------------------------------------------
+//
+// TestDirectLoading
+//
+//------------------------------------------------------------------
+var TestDirectLoading = ArmatureTestLayer.extend({
+    onEnter:function () {
+        this._super();
+        // remove sigle resource
+        ccs.ArmatureDataManager.getInstance().removeArmatureFileInfo(s_bear_json);
+        // load resource directly
+        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_bear_json);
+
+        var armature = ccs.Armature.create("bear");
+        armature.getAnimation().playByIndex(0);
+        armature.setScale(0.2);
+        armature.setAnchorPoint(cc.p(0.5, 0.5));
+        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        this.addChild(armature);
+    },
+    title:function () {
+        return "Test Direct Loading";
+    }
+});
+
 //------------------------------------------------------------------
 //
 // TestCSWithSkeleton
@@ -188,36 +276,87 @@ var TestDragonBones20 = ArmatureTestLayer.extend({
 // TestPerformance
 //
 //------------------------------------------------------------------
+var ArmaturePerformanceTag = 20000;
 var TestPerformance = ArmatureTestLayer.extend({
-    armatureCount:0,
-    times:0,
-    onEnter:function () {
+    armatureCount: 0,
+    onEnter: function () {
         this._super();
-        this.armatureCount = 0;
-        this.times = 0;
-        this.scheduleUpdate();
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
+        cc.MenuItemFont.setFontSize(65);
+        var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
+        decrease.setColor(cc.c3b(0, 200, 20));
+        var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
+        increase.setColor(cc.c3b(0, 200, 20));
+
+        var menu = cc.Menu.create(decrease, increase);
+        menu.alignItemsHorizontally();
+        menu.setPosition(cc.p(VisibleRect.getVisibleRect().size.width / 2, VisibleRect.getVisibleRect().size.height - 100));
+        this.addChild(menu, 10000);
+
     },
-    title:function () {
+    title: function () {
         return "Test Performance";
     },
-    subtitle:function () {
+    subtitle: function () {
         return "Current CCArmature Count :";
     },
-    update:function (delta) {
-        this.times += delta;
-        if (this.times > 0.25) {
-            this.times = 0;
+    onIncrease: function (sender) {
+        this.addArmature(20);
+    },
+    onDecrease: function (sender) {
+        if (this.armatureCount == 0)
+            return;
+
+        for (var i = 0; i < 20; i++) {
+            this.removeArmatureFromParent(ArmaturePerformanceTag + this.armatureCount);
+            this.armatureCount--;
+            this.refreshTitile();
+        }
+    },
+    addArmature: function (number) {
+        for (var i = 0; i < number; i++) {
+            this.armatureCount++;
             var armature = new ccs.Armature();
             armature.init("Knight_f/Knight");
             armature.getAnimation().playByIndex(0);
-            armature.setPosition(cc.p(50 + this.armatureCount * 5, winSize.height / 2));
+            armature.setPosition(50 + this.armatureCount * 2, 150);
             armature.setScale(0.6);
-            this.armatureCount++;
-            this.addChild(armature, this.armatureCount);
-            var subTile = this.getChildByTag(BASE_TEST_SUBTITLE_TAG);
-            subTile.setString(this.subtitle() + this.armatureCount);
+            this.addArmatureToParent(armature);
         }
+        this.refreshTitile();
+    },
+    addArmatureToParent: function (armature) {
+        this.addChild(armature, 0, ArmaturePerformanceTag + this.armatureCount);
+    },
+    removeArmatureFromParent: function (tag) {
+        this.removeChildByTag(tag);
+    },
+    refreshTitile: function () {
+        var subTile = this.getChildByTag(BASE_TEST_SUBTITLE_TAG);
+        subTile.setString(this.subtitle() + this.armatureCount);
+    }
+});
+
+//------------------------------------------------------------------
+//
+// TestPerformanceBatchNode
+//
+//------------------------------------------------------------------
+var TestPerformanceBatchNode = TestPerformance.extend({
+    batchNode: null,
+    onEnter: function () {
+        this.batchNode = ccs.BatchNode.create();
+        this.addChild(this.batchNode);
+        this._super();
+    },
+    title: function () {
+        return "Test Performance of using CCBatchNode";
+    },
+    addArmatureToParent: function (armature) {
+        this.batchNode.addChild(armature, 0, ArmaturePerformanceTag + this.armatureCount);
+    },
+    removeArmatureFromParent: function (tag) {
+        this.batchNode.removeChildByTag(tag);
     }
 });
 
@@ -294,7 +433,7 @@ var TestAnimationEvent = ArmatureTestLayer.extend({
         return "Test Armature Animation Event";
     },
     animationEvent:function (armature, movementType, movementID) {
-        if (movementType == cc.MovementEventType.loopComplete) {
+        if (movementType == ccs.MovementEventType.loopComplete) {
             if (movementID == "Fire") {
                 var moveBy = cc.MoveBy.create(2, cc.p(300 * this._direction, 0));
                 this._armature.stopAllActions();
@@ -308,6 +447,51 @@ var TestAnimationEvent = ArmatureTestLayer.extend({
     callback:function () {
         this._armature.runAction(cc.ScaleTo.create(0.3, 0.25 * this._direction * -1, 0.25));
         this._armature.getAnimation().play("Fire", 10);
+    }
+});
+
+//------------------------------------------------------------------
+//
+// TestAnimationEvent
+//
+//------------------------------------------------------------------
+
+var FRAME_EVENT_ACTION_TAG = 10000;
+var TestFrameEvent = ArmatureTestLayer.extend({
+    onEnter: function () {
+        this._super();
+        var armature = ccs.Armature.create("HeroAnimation");
+        armature.getAnimation().play("attack");
+        armature.getAnimation().setSpeedScale(0.5);
+        armature.setPosition(cc.p(VisibleRect.center().x - 50, VisibleRect.center().y - 100));
+        this.addChild(armature);
+        /*
+         * Set armature's frame event callback function
+         * To disconnect this event, just setFrameEventCallFunc(NULL, NULL);
+         */
+        armature.getAnimation().setFrameEventCallFunc(this.onFrameEvent, this);
+
+        this.schedule(this.checkAction);
+    },
+    title: function () {
+        return "Test Frame Event";
+    },
+    onFrameEvent: function (bone, evt, originFrameIndex, currentFrameIndex) {
+        cc.log("(" + bone.getName() + ") emit a frame event (" + evt + ") at frame index (" + currentFrameIndex + ").");
+        if (!this.getActionByTag(FRAME_EVENT_ACTION_TAG) || this.getActionByTag(FRAME_EVENT_ACTION_TAG).isDone()) {
+            this.stopAllActions();
+            if ("opengl" in sys.capabilities) {
+                var action = cc.ShatteredTiles3D.create(0.2, cc.size(16, 12), 5, false);
+                action.setTag(FRAME_EVENT_ACTION_TAG);
+                this.runAction(action);
+            }
+        }
+    },
+    checkAction: function (dt) {
+        if ("opengl" in sys.capabilities) {
+            if (this.numberOfRunningActions() == 0 && this.getGrid() != null)
+                this.setGrid(null);
+        }
     }
 });
 
@@ -490,12 +674,8 @@ var TestColliderDetector = ArmatureTestLayer.extend({
         body = new cp.Body(Infinity, Infinity);
         this.space.addBody(body);
         this.armature2.setBody(body);
-        var shapeList = this.armature2.getShapeList();
-        for(var i = 0 ;i<shapeList.length;i++){
-            shape = shapeList[i];
-            shape.collision_type = this.enemyTag;
-        }
-
+        var filter = ccs.ColliderFilter(this.enemyTag);
+        this.armature2.setColliderFilter(filter);
         //init collision handler
         this.space.addCollisionHandler(this.enemyTag, this.bulletTag, this.beginHit.bind(this), null, null, this.endHit.bind(this));
     },
@@ -576,7 +756,7 @@ var TestBoundingBox = ArmatureTestLayer.extend({
         return "Test BoundingBox";
     },
     draw:function () {
-        var rect = cc.RectApplyAffineTransform(this.armature.boundingBox(), this.armature.nodeToParentTransform());
+        var rect =  this.armature.boundingBox();
         cc.drawingUtil.setDrawColor4B(100, 100, 100, 255);
         cc.drawingUtil.setLineWidth(1);
         cc.drawingUtil.drawRect(rect.origin, cc.p(cc.rectGetMaxX(rect), cc.rectGetMaxY(rect)));
@@ -644,49 +824,165 @@ var TestArmatureNesting = ArmatureTestLayer.extend({
 
 //------------------------------------------------------------------
 //
-// TestAsynchronousLoading
+// TestArmatureNesting2
 //
 //------------------------------------------------------------------
-var TestAsynchronousLoading = ArmatureTestLayer.extend({
-    onEnter: function () {
+var Hero = ccs.Armature.extend({
+    _mount: null,
+    _layer: null,
+    ctor: function () {
         this._super();
-        this.setMenuItemEnabled(false);
-        var armatureDataManager = ccs.ArmatureDataManager.getInstance();
-        armatureDataManager.addArmatureFileInfoAsync(s_knight_png, s_knight_plist, s_knight_xml, this, this.dataLoaded);
-        armatureDataManager.addArmatureFileInfoAsync(s_weapon_png, s_weapon_plist, s_weapon_xml, this, this.dataLoaded);
-        armatureDataManager.addArmatureFileInfoAsync(s_robot_png, s_robot_plist, s_robot_xml, this, this.dataLoaded);
-        armatureDataManager.addArmatureFileInfoAsync(s_cyborg_png, s_cyborg_plist, s_cyborg_xml, this, this.dataLoaded);
-        armatureDataManager.addArmatureFileInfoAsync(s_Dragon_png, s_Dragon_plist, s_Dragon_xml, this, this.dataLoaded);
-        armatureDataManager.addArmatureFileInfoAsync(s_Cowboy_json, this, this.dataLoaded);
+        this._mount = null;
+        this._layer = null;
     },
-    setMenuItemEnabled: function (bool) {
-        var menu = this.getChildByTag(BASE_TEST_MENU_TAG);
-        var backItem = menu.getChildByTag(BASE_TEST_MENUITEM_PREV_TAG);
-        var restartItem = menu.getChildByTag(BASE_TEST_MENUITEM_RESET_TAG);
-        var nextItem = menu.getChildByTag(BASE_TEST_MENUITEM_NEXT_TAG);
-        backItem.setEnabled(bool);
-        restartItem.setEnabled(bool);
-        nextItem.setEnabled(bool);
+
+    changeMount: function (armature) {
+        if (armature == null) {
+            this.playByIndex(0);
+            //Remove hero from display list
+            this._mount.getBone("hero").removeDisplay(0);
+            this._mount.stopAllActions();
+
+            //Set position to current position
+            this.setPosition(this._mount.getPosition());
+            //Add to layer
+            this._layer.addChild(this);
+            this._mount = armature;
+        }
+        else {
+            this._mount = armature;
+            //Remove from layer
+            this.removeFromParentAndCleanup(false);
+
+            //Get the hero bone
+            var bone = armature.getBone("hero");
+            //Add hero as a display to this bone
+            bone.addDisplay(this, 0);
+            //Change this bone's display
+            bone.changeDisplayByIndex(0, true);
+            bone.setIgnoreMovementBoneData(true);
+
+            this.setPosition(cc.p(0, 0));
+            //Change animation
+            this.playByIndex(1);
+            this.setScale(1);
+        }
+
     },
-    title: function () {
-        return "Test Asynchronous Loading";
-    },
-    subtitle: function () {
-        return "current percent : 0";
-    },
-    dataLoaded: function (percent) {
-        cc.log("percent:"+percent);
-        var subTile = this.getChildByTag(BASE_TEST_SUBTITLE_TAG);
-        subTile.setString("current percent : " + percent.toFixed(2) * 100);
-        if (percent >= 1) {
-            this.setMenuItemEnabled(true);
+
+    playByIndex: function (index) {
+        this.getAnimation().playByIndex(index);
+        if (this._mount) {
+            this._mount.getAnimation().playByIndex(index);
         }
     },
-    onExit:function(){
-        this._super();
-        ccs.ArmatureDataManager.purge();
+    setLayer:function(layer){
+        this._layer = layer;
+    },
+    getLayer:function(){
+        return this._layer;
+    },
+    setMount:function(mount){
+        this._mount = mount;
+    },
+    getMount:function(){
+        return this._mount;
     }
 });
+
+
+Hero.create = function(name){
+    var hero = new Hero();
+    if (hero && hero.init(name))    {
+        return hero;
+    }
+    return null;
+};
+
+var TestArmatureNesting2 = ArmatureTestLayer.extend({
+    _hero: null,
+    _horse: null,
+    _horse2: null,
+    _bear: null,
+    _touchedMenu: false,
+    onEnter: function () {
+        this._super();
+        this.setTouchEnabled(true);
+        this._touchedMenu = false;
+        var label = cc.LabelTTF.create("Change Mount", "Arial", 20);
+        var menuItem = cc.MenuItemLabel.create(label, this.changeMountCallback, this);
+        var menu = cc.Menu.create(menuItem);
+        menu.setPosition(cc.p(0, 0));
+        menuItem.setPosition(cc.p(VisibleRect.right().x - 67, VisibleRect.bottom().y + 50));
+        this.addChild(menu, 2);
+
+        //Create a hero
+        var hero = Hero.create("hero");
+        hero.setLayer(this);
+        hero.playByIndex(0);
+        hero.setPosition(cc.p(VisibleRect.left().x + 20, VisibleRect.left().y));
+        this.addChild(hero);
+        this._hero = hero;
+
+        //Create 3 mount
+        this._horse = this.createMount("horse", VisibleRect.center());
+        this._horse2 = this.createMount("horse", cc.p(120, 200));
+        this._horse2.setOpacity(200);
+        this._bear = this.createMount("bear", cc.p(300, 70));
+    },
+    onExit: function () {
+        cc.Director.getInstance().getTouchDispatcher().removeDelegate(this);
+        this._super();
+    },
+    title: function () {
+        return "Test CCArmature Nesting 2";
+    },
+    subtitle: function () {
+        return "Move to a mount and press the ChangeMount Button.";
+    },
+    onTouchBegan: function (touch, event) {
+        var point = touch.getLocation();
+        var armature = this._hero.getMount() == null ? this._hero : this._hero.getMount();
+        //Set armature direction
+        if (point.x < armature.getPositionX()) {
+            armature.setScaleX(-1);
+        }
+        else {
+            armature.setScaleX(1);
+        }
+
+        var move = cc.MoveTo.create(2, point);
+        armature.stopAllActions();
+        armature.runAction(move);
+        return false;
+    },
+
+    changeMountCallback: function (sender) {
+        this._hero.stopAllActions();
+        if (this._hero.getMount()) {
+            this._hero.changeMount(null);
+        }
+        else {
+            if (cc.pDistance(this._hero.getPosition(), this._horse.getPosition()) < 20) {
+                this._hero.changeMount(this._horse);
+            }
+            else if (cc.pDistance(this._hero.getPosition(), this._horse2.getPosition()) < 20) {
+                this._hero.changeMount(this._horse2);
+            }
+            else if (cc.pDistance(this._hero.getPosition(), this._bear.getPosition()) < 30) {
+                this._hero.changeMount(this._bear);
+            }
+        }
+    },
+    createMount: function (name, position) {
+        var armature = cc.Armature.create(name);
+        armature.getAnimation().playByIndex(0);
+        armature.setPosition(position);
+        this.addChild(armature);
+        return armature;
+    }
+});
+
 
 var runArmatureTestScene = function(){
     var pScene = new ArmatureTestScene();
