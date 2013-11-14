@@ -30,23 +30,88 @@ var CustomTableViewCell = cc.TableViewCell.extend({
     }
 });
 
+var CustomDataSource = cc.TableViewDataSource.extend({
+    /**
+     * cell size for a given index
+     * @param {cc.TableView} table table to hold the instances of Class
+     * @param {Number} idx the index of a cell to get a size
+     * @return {cc.Size} size of a cell at given index
+     */
+    tableCellSizeForIndex:function(table, idx){
+        if (idx == 2) {
+            return cc.size(100, 100);
+        }
+        return cc.size(60, 60);
+    },
+    /**
+     * cell height for a given table.
+     *
+     * @param {cc.TableView} table table to hold the instances of Class
+     * @return {cc.Size} cell size
+     */
+    cellSizeForTable:function (table) {
+        return cc.size(60, 60);
+    },
+
+    /**
+     * a cell instance at a given index
+     * @param {cc.TableView} table table to hold the instances of Class
+     * @param idx index to search for a cell
+     * @return {cc.TableView} cell found at idx
+     */
+    tableCellAtIndex:function (table, idx) {
+        var strValue = idx.toFixed(0);
+        var cell = table.dequeueCell();
+        var label;
+        if (!cell) {
+            cell = new CustomTableViewCell();
+            var sprite = cc.Sprite.create(s_image_icon);
+            sprite.setAnchorPoint(cc.p(0,0));
+            sprite.setPosition(cc.p(0, 0));
+            cell.addChild(sprite);
+
+            label = cc.LabelTTF.create(strValue, "Helvetica", 20.0);
+            label.setPosition(cc.p(0,0));
+            label.setAnchorPoint(cc.p(0,0));
+            label.setTag(123);
+            cell.addChild(label);
+        } else {
+            label = cell.getChildByTag(123);
+            label.setString(strValue);
+        }
+
+        return cell;
+    },
+
+    /**
+     * Returns number of cells in a given table view.
+     * @param {cc.TableView} table table to hold the instances of Class
+     * @return {Number} number of cells
+     */
+    numberOfCellsInTableView:function (table) {
+        return 25;
+    }
+});
+
 var TableViewTestLayer = cc.Layer.extend({
 
     init:function () {
         if (!this._super()) {
             return false;
         }
-
+        var layer = cc.Layer.create();
         var winSize = cc.Director.getInstance().getWinSize();
-
-        var tableView = cc.TableView.create(this, cc.size(600, 60));
+        var dataSource = new CustomDataSource();
+        var tableView = cc.TableView.create(dataSource, cc.size(600, 60), layer);
         tableView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
         tableView.setPosition(cc.p(20, winSize.height / 2 - 150));
         tableView.setDelegate(this);
         this.addChild(tableView);
         tableView.reloadData();
 
-        tableView = cc.TableView.create(this, cc.size(60, 350));
+        var dataSource1 = new CustomDataSource();
+        var layer1 = cc.Layer.create();
+        tableView = cc.TableView.create(dataSource1, cc.size(60, 350), layer1);
         tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
         tableView.setPosition(cc.p(winSize.width - 150, winSize.height / 2 - 150));
         tableView.setDelegate(this);
@@ -76,41 +141,6 @@ var TableViewTestLayer = cc.Layer.extend({
 
     tableCellTouched:function (table, cell) {
         cc.log("cell touched at index: " + cell.getIdx());
-    },
-
-    tableCellSizeForIndex:function (table, idx) {
-        if (idx == 2) {
-            return cc.size(100, 100);
-        }
-        return cc.size(60, 60);
-    },
-
-    tableCellAtIndex:function (table, idx) {
-        var strValue = idx.toFixed(0);
-        var cell = table.dequeueCell();
-        var label;
-        if (!cell) {
-            cell = new CustomTableViewCell();
-            var sprite = cc.Sprite.create(s_image_icon);
-            sprite.setAnchorPoint(cc.p(0,0));
-            sprite.setPosition(cc.p(0, 0));
-            cell.addChild(sprite);
-
-            label = cc.LabelTTF.create(strValue, "Helvetica", 20.0);
-            label.setPosition(cc.p(0,0));
-            label.setAnchorPoint(cc.p(0,0));
-            label.setTag(123);
-            cell.addChild(label);
-        } else {
-            label = cell.getChildByTag(123);
-            label.setString(strValue);
-        }
-
-        return cell;
-    },
-
-    numberOfCellsInTableView:function (table) {
-        return 25;
     }
 });
 
