@@ -151,7 +151,7 @@ var UIListViewTest_Horizontal = UIScene.extend({
             }
 
             var listView = ccs.UIListView.create();
-            listView.setDirection(ccs.ListViewDirection.horizontal);
+            listView.setDirection(ccs.ScrollViewDir.horizontal);
             listView.setTouchEnable(true);
             listView.setBackGroundImageScale9Enabled(true);
             listView.setBackGroundImage("res/cocosgui/green_edit.png");

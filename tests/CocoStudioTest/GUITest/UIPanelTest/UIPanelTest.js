@@ -219,15 +219,15 @@ var UIPanelTest_Layout_Relative = UIPanelTestBase.extend({
     setLayoutParameter: function () {
         var lp1 = ccs.UIRelativeLayoutParameter.create();
         this.button.setLayoutParameter(lp1);
-        lp1.setGravity(ccs.UIRelativeAlign.PARENT_BOTTOM);
+        lp1.setGravity(ccs.UIRelativeAlign.alignParentLeftBottom);
 
         var lp2 = ccs.UIRelativeLayoutParameter.create();
         this.textButton.setLayoutParameter(lp2);
-        lp2.setGravity(ccs.UIRelativeAlign.PARENT_LEFT);
+        lp2.setGravity(ccs.UIRelativeAlign.alignParentLeftBottom);
 
         var lp3 = ccs.UIRelativeLayoutParameter.create();
         this.button_scale9.setLayoutParameter(lp3);
-        lp3.setGravity(ccs.UIRelativeAlign.PARENT_RIGHT);
+        lp3.setGravity(ccs.UIRelativeAlign.alignParentRightCenterVertical);
 
         this.layout.doLayout();
     }

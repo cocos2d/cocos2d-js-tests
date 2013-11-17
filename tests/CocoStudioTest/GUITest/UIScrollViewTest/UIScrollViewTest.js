@@ -36,7 +36,7 @@ var UIScrollViewTest_Vertical = UIScene.extend({
 
             // Create the scrollview
             var scrollView = ccs.UIScrollView.create();
-            scrollView.setDirection(ccs.SCROLLVIEW_DIR.vertical);
+            scrollView.setDirection(ccs.ScrollViewDir.vertical);
             scrollView.setTouchEnable(true);
             scrollView.setSize(cc.size(280, 150));
 
@@ -99,7 +99,7 @@ var UIScrollViewTest_Horizontal = UIScene.extend({
 
             // Create the scrollview
             var scrollView = ccs.UIScrollView.create();
-            scrollView.setDirection(ccs.SCROLLVIEW_DIR.horizontal);
+            scrollView.setDirection(ccs.ScrollViewDir.horizontal);
             scrollView.setTouchEnable(true);
             scrollView.setSize(cc.size(280, 150));
             var scrollViewRect = scrollView.getRect();

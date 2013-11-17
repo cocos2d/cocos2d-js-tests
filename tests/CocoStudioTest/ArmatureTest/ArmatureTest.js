@@ -61,9 +61,6 @@ var armatureSceneArr = [
         return new TestPerformance();
     },
     function () {
-        return new TestPerformanceBatchNode();
-    },
-    function () {
         return new TestChangeZorder();
     },
     function () {
@@ -95,6 +92,8 @@ var armatureSceneArr = [
 if (sys.platform === "browser")
 {
     armatureSceneArr.push( function () { return new TestColliderDetector();} );
+}else{
+    armatureSceneArr.push( function () { return new TestPerformanceBatchNode();} );
 }
 
 var nextArmatureTest = function () {
@@ -217,7 +216,6 @@ var TestDirectLoading = ArmatureTestLayer.extend({
 
         var armature = ccs.Armature.create("bear");
         armature.getAnimation().playByIndex(0);
-        armature.setScale(0.2);
         armature.setAnchorPoint(cc.p(0.5, 0.5));
         armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
         this.addChild(armature);
@@ -290,7 +288,7 @@ var TestPerformance = ArmatureTestLayer.extend({
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
-        menu.setPosition(cc.p(VisibleRect.getVisibleRect().size.width / 2, VisibleRect.getVisibleRect().size.height - 100));
+        menu.setPosition(cc.p(VisibleRect.rect().width / 2, VisibleRect.rect().height - 100));
         this.addChild(menu, 10000);
 
     },
@@ -479,8 +477,8 @@ var TestFrameEvent = ArmatureTestLayer.extend({
     onFrameEvent: function (bone, evt, originFrameIndex, currentFrameIndex) {
         cc.log("(" + bone.getName() + ") emit a frame event (" + evt + ") at frame index (" + currentFrameIndex + ").");
         if (!this.getActionByTag(FRAME_EVENT_ACTION_TAG) || this.getActionByTag(FRAME_EVENT_ACTION_TAG).isDone()) {
-            this.stopAllActions();
             if ("opengl" in sys.capabilities) {
+                this.stopAllActions();
                 var action = cc.ShatteredTiles3D.create(0.2, cc.size(16, 12), 5, false);
                 action.setTag(FRAME_EVENT_ACTION_TAG);
                 this.runAction(action);
@@ -674,7 +672,7 @@ var TestColliderDetector = ArmatureTestLayer.extend({
         body = new cp.Body(Infinity, Infinity);
         this.space.addBody(body);
         this.armature2.setBody(body);
-        var filter = ccs.ColliderFilter(this.enemyTag);
+        var filter = new ccs.ColliderFilter(this.enemyTag);
         this.armature2.setColliderFilter(filter);
         //init collision handler
         this.space.addCollisionHandler(this.enemyTag, this.bulletTag, this.beginHit.bind(this), null, null, this.endHit.bind(this));
@@ -930,18 +928,14 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
         this._horse2.setOpacity(200);
         this._bear = this.createMount("bear", cc.p(300, 70));
     },
-    onExit: function () {
-        cc.Director.getInstance().getTouchDispatcher().removeDelegate(this);
-        this._super();
-    },
     title: function () {
         return "Test CCArmature Nesting 2";
     },
     subtitle: function () {
         return "Move to a mount and press the ChangeMount Button.";
     },
-    onTouchBegan: function (touch, event) {
-        var point = touch.getLocation();
+    onTouchesBegan: function (touches, event) {
+        var point = touches[0].getLocation();
         var armature = this._hero.getMount() == null ? this._hero : this._hero.getMount();
         //Set armature direction
         if (point.x < armature.getPositionX()) {
@@ -975,7 +969,7 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
         }
     },
     createMount: function (name, position) {
-        var armature = cc.Armature.create(name);
+        var armature = ccs.Armature.create(name);
         armature.getAnimation().playByIndex(0);
         armature.setPosition(position);
         this.addChild(armature);

@@ -67,7 +67,7 @@ var UIPageViewTest = UIScene.extend({
 
                 pageView.addPage(layout);
             }
-            pageView.addEventListener(this.pageViewEvent, this);
+            pageView.addEventListenerPageView(this.pageViewEvent, this);
             var a = ccs.UILayout.create();
             this._uiLayer.addWidget(pageView);
 

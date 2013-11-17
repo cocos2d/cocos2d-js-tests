@@ -37,7 +37,7 @@ var UITextFieldTest = UIScene.extend({
             textField.setFontSize(30);
             textField.setPlaceHolder("input words here");
             textField.setPosition(cc.p(widgetRect.width / 2.0, widgetRect.height / 2.0));
-            textField.addEventListener(this.textFieldEvent, this);
+            textField.addEventListenerTextField(this.textFieldEvent, this);
             this._uiLayer.addWidget(textField);
 
             return true;
@@ -89,7 +89,7 @@ var UITextFieldTest_MaxLength = UIScene.extend({
             textField.setFontSize(30);
             textField.setPlaceHolder("input words here");
             textField.setPosition(cc.p(widgetRect.width / 2.0, widgetRect.height / 2.0));
-            textField.addEventListener(this.textFieldEvent, this);
+            textField.addEventListenerTextField(this.textFieldEvent, this);
             this._uiLayer.addWidget(textField);
 
             return true;
@@ -139,7 +139,7 @@ var UITextFieldTest_Password = UIScene.extend({
             textField.setFontSize(30);
             textField.setPlaceHolder("input password here");
             textField.setPosition(cc.p(widgetRect.width / 2.0, widgetRect.height / 2.0));
-            textField.addEventListener(this.textFieldEvent, this);
+            textField.addEventListenerTextField(this.textFieldEvent, this);
             this._uiLayer.addWidget(textField);
 
             return true;

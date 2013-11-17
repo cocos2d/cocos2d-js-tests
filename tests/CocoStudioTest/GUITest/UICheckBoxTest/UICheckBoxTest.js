@@ -39,7 +39,7 @@ var UICheckBoxTest = UIScene.extend({
                 "res/cocosgui/check_box_normal_disable.png",
                 "res/cocosgui/check_box_active_disable.png");
             checkBox.setPosition(cc.p(widgetRect.width / 2.0, widgetRect.height / 2.0));
-            checkBox.addEventListener(this.selectedStateEvent, this);
+            checkBox.addEventListenerCheckBox(this.selectedStateEvent, this);
             this._uiLayer.addWidget(checkBox);
 
             return true;
