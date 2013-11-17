@@ -954,7 +954,9 @@ var SpriteZVertex = SpriteTestDemo.extend({
 
             this.runAction(cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0));
         } else {
-            cc.log("Only runs when OpenGL is enabled");
+            var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
+            this.addChild(label);
+            label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
         }
     },
     onEnter:function () {
@@ -1066,7 +1068,9 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
 
             this.runAction(cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0));
         } else {
-            cc.log("Only runs when OpenGL is enabled");
+            var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
+            this.addChild(label);
+            label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
         }
     },
     onEnter:function () {
