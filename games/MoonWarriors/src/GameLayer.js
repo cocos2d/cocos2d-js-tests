@@ -293,7 +293,7 @@ var GameLayer = cc.Layer.extend({
             //create a new background
             this._backSky = BackSky.getOrCreate();
             locBackSky = this._backSky;
-            locBackSky.setPositionY(currPosY + locSkyHeight);
+            locBackSky.setPositionY(currPosY + locSkyHeight - 2);
         } else
             locBackSky.setPositionY(currPosY);
 

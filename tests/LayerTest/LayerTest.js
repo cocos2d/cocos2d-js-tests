@@ -382,8 +382,14 @@ var LayerTestBlend = LayerTest.extend({
         this.addChild(sister2);
         this.addChild(layer1, 100, cc.TAG_LAYER);
 
-        sister1.setPosition(cc.p(160, winSize.height / 2));
-        sister2.setPosition(cc.p(320, winSize.height / 2));
+        sister1.setPosition(cc.p(winSize.width/3, winSize.height / 2));
+        sister2.setPosition(cc.p(winSize.width/3 * 2, winSize.height / 2));
+
+        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+            var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
+            this.addChild(label);
+            label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        }
 
         this.schedule(this.onNewBlend, 1.0);
         this._blend = true;

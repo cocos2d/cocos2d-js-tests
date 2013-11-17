@@ -1129,6 +1129,12 @@ var TMXIsoVertexZ = TileDemo.extend({
         var seq = cc.Sequence.create(move, delay, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
 
+        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+            var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
+            this.addChild(label);
+            label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        }
+
         this.schedule(this.repositionSprite);
     },
     title:function () {
@@ -1198,6 +1204,12 @@ var TMXOrthoVertexZ = TileDemo.extend({
         var delay = cc.DelayTime.create(0.5);
         var seq = cc.Sequence.create(move, delay, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
+
+        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+            var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
+            this.addChild(label);
+            label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        }
 
         this.schedule(this.repositionSprite);
 
