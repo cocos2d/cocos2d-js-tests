@@ -85,15 +85,15 @@
 		<key>bg01.png</key>
 		<dict>
 			<key>frame</key>
-			<string>{{2,2},{320,576}}</string>
+			<string>{{2,2},{320,575}}</string>
 			<key>offset</key>
 			<string>{0,0}</string>
 			<key>rotated</key>
 			<false/>
 			<key>sourceColorRect</key>
-			<string>{{0,0},{320,576}}</string>
+			<string>{{0,0},{320,575}}</string>
 			<key>sourceSize</key>
-			<string>{320,576}</string>
+			<string>{320,575}</string>
 		</dict>
 		<key>ship01.png</key>
 		<dict>
