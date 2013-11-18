@@ -37,7 +37,7 @@ var UINodeContainerTest = UIScene.extend({
 
             var sprite = cc.Sprite.create("res/cocosgui/ccicon.png");
             sprite.setPosition(cc.p(0, sprite.getBoundingBox().height / 4));
-            nodeContainer.addCCNode(sprite);
+            nodeContainer.addRenderer(sprite,0);
 
             return true;
         }
