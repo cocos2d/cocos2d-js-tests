@@ -288,7 +288,7 @@ var TestPerformance = ArmatureTestLayer.extend({
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
-        menu.setPosition(cc.p(VisibleRect.rect().width / 2, VisibleRect.rect().height - 100));
+        menu.setPosition(cc.p(cc.VisibleRect.getWidth() / 2, cc.VisibleRect.getHeight() - 100));
         this.addChild(menu, 10000);
 
     },
@@ -461,7 +461,7 @@ var TestFrameEvent = ArmatureTestLayer.extend({
         var armature = ccs.Armature.create("HeroAnimation");
         armature.getAnimation().play("attack");
         armature.getAnimation().setSpeedScale(0.5);
-        armature.setPosition(cc.p(VisibleRect.center().x - 50, VisibleRect.center().y - 100));
+        armature.setPosition(cc.p(cc.VisibleRect.center().x - 50, cc.VisibleRect.center().y - 100));
         this.addChild(armature);
         /*
          * Set armature's frame event callback function
@@ -509,8 +509,8 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
 
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_robot_png, s_robot_plist, s_robot_xml);
         this.armature = ccs.Armature.create("robot");
-        this.armature.getAnimation().playByIndex(4,-1,-1,0);
-        this.armature.setPosition(VisibleRect.center());
+        this.armature.getAnimation().playByIndex(4);
+        this.armature.setPosition(cc.VisibleRect.center());
         this.armature.setScale(0.48);
         this.armature.getAnimation().setSpeedScale(0.5);
         this.addChild(this.armature);
@@ -911,19 +911,19 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
         var menuItem = cc.MenuItemLabel.create(label, this.changeMountCallback, this);
         var menu = cc.Menu.create(menuItem);
         menu.setPosition(cc.p(0, 0));
-        menuItem.setPosition(cc.p(VisibleRect.right().x - 67, VisibleRect.bottom().y + 50));
+        menuItem.setPosition(cc.p(cc.VisibleRect.right().x - 67, cc.VisibleRect.bottom().y + 50));
         this.addChild(menu, 2);
 
         //Create a hero
         var hero = Hero.create("hero");
         hero.setLayer(this);
         hero.playByIndex(0);
-        hero.setPosition(cc.p(VisibleRect.left().x + 20, VisibleRect.left().y));
+        hero.setPosition(cc.p(cc.VisibleRect.left().x + 20, cc.VisibleRect.left().y));
         this.addChild(hero);
         this._hero = hero;
 
         //Create 3 mount
-        this._horse = this.createMount("horse", VisibleRect.center());
+        this._horse = this.createMount("horse", cc.VisibleRect.center());
         this._horse2 = this.createMount("horse", cc.p(120, 200));
         this._horse2.setOpacity(200);
         this._bear = this.createMount("bear", cc.p(300, 70));

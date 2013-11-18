@@ -46,7 +46,7 @@ var ComponentsTestLayer = cc.LayerColor.extend({
 
         var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
         itemBack.setColor(cc.c3b(0, 0, 0));
-        itemBack.setPosition(VisibleRect.bottomRight().x - 50, VisibleRect.bottomRight().y + 25);
+        itemBack.setPosition(cc.VisibleRect.bottomRight().x - 50, cc.VisibleRect.bottomRight().y + 25);
         var menuBack = cc.Menu.create(itemBack);
         menuBack.setPosition(cc.p(0, 0));
         this.addChild(menuBack);

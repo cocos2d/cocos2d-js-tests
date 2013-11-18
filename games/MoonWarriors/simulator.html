@@ -410,13 +410,12 @@ Phone.prototype.stopAnim = function(){
         display.div.style.height = height+"px";
         display.touchPanel.style.width = width+"px";
         display.touchPanel.style.height = height+"px";
-        if(cc.canvas)
-        {
+        if(cc.canvas) {
             cc.canvas.width = width;
             cc.canvas.height = height;
             cc.container.style.width = width+"px";
             cc.container.style.height = height+"px";
-            cc.EGLView.getInstance()._adjustSizeKeepCanvasSize();
+            cc.EGLView.getInstance()._adjustSizeKeepCanvasSize(width, height);
         }
     }
 };
@@ -488,53 +487,64 @@ Display.prototype.resizeDisplay = function(){
         cc.canvas.height = height;
         cc.container.style.width = width+"px";
         cc.container.style.height = height+"px";
-        cc.EGLView.getInstance()._adjustSizeKeepCanvasSize();
+        cc.EGLView.getInstance()._adjustSizeKeepCanvasSize(width, height);
     }
 };
 Display.prototype.registerEvents = function(){
     var touchPanel = this.touchPanel;
     touchPanel.addEventListener("mousedown", function(e){
+        if(cc.canvas){
             var bcr = cc.canvas.getBoundingClientRect();
             var mdEvent = document.createEvent("MouseEvents");
             var pageOffsetY = document.body.scrollTop;
-            var x = ((e.offsetX))+ bcr.left;
-            var y = ((e.offsetY))+bcr.top - (touchPanel.clientHeight - bcr.height)+pageOffsetY;
+            var diffWidth = (parseInt(touchPanel.style.width) - cc.canvas.width)/2;
+            var diffHeight = (parseInt(touchPanel.style.height) - cc.canvas.height);
+            var x = ((e.offsetX))+ bcr.left - diffWidth;
+            var y = ((e.offsetY))+bcr.top - (touchPanel.clientHeight - bcr.height)+pageOffsetY + diffHeight;
             mdEvent.initMouseEvent("mousedown",false,false,cc.canvas,null, x, y, x, y, false,false,false,false,1,cc.canvas);
             cc.canvas.dispatchEvent(mdEvent);
             window.dispatchEvent(mdEvent);
+            e.stopPropagation();
+            e.preventDefault();
 
-        e.stopPropagation();
-        e.preventDefault();
-
-        return false;
+            return false;
+        }
     });
     touchPanel.addEventListener("mouseup", function(e){
+        if (cc.canvas) {
             var bcr = cc.canvas.getBoundingClientRect();
             var mdEvent = document.createEvent("MouseEvents");
             var pageOffsetY = document.body.scrollTop;
-            var x = ((e.offsetX))+ bcr.left;
-            var y = ((e.offsetY))+bcr.top - (touchPanel.clientHeight - bcr.height)+pageOffsetY;
-            mdEvent.initMouseEvent("mouseup",false,false,cc.canvas,null, x, y, x, y, false,false,false,false,1,cc.canvas);
+            var diffWidth = (parseInt(touchPanel.style.width) - cc.canvas.width)/2;
+            var diffHeight = (parseInt(touchPanel.style.height) - cc.canvas.height);
+            console.log(diffWidth, diffHeight);
+            var x = ((e.offsetX)) + bcr.left - diffWidth;
+            var y = ((e.offsetY)) + bcr.top - (touchPanel.clientHeight - bcr.height) + pageOffsetY + diffHeight;
+            mdEvent.initMouseEvent("mouseup", false, false, cc.canvas, null, x, y, x, y, false, false, false, false, 1, cc.canvas);
             mdEvent.pageY = e.offsetY + bcr.top;
             cc.canvas.dispatchEvent(mdEvent);
-        window.dispatchEvent(mdEvent);
-        e.stopPropagation();
-        e.preventDefault();
-        return false;
+            window.dispatchEvent(mdEvent);
+            e.stopPropagation();
+            e.preventDefault();
+            return false;
+        }
     });
-    touchPanel.addEventListener("mousemove", function(e){
+    touchPanel.addEventListener("mousemove", function (e) {
+        if (cc.canvas) {
             var bcr = cc.canvas.getBoundingClientRect();
             var mdEvent = document.createEvent("MouseEvents");
             var pageOffsetY = document.body.scrollTop;
-            var x = ((e.offsetX ))+ bcr.left;
-            var y = ((e.offsetY))+bcr.top - (touchPanel.clientHeight - bcr.height)+pageOffsetY;
-            mdEvent.initMouseEvent("mousemove",true,false,cc.canvas,null, x, y, x, y, false,false,false,false,0,cc.canvas);
+            var diffWidth = (parseInt(touchPanel.style.width) - cc.canvas.width)/2;
+            var diffHeight = (parseInt(touchPanel.style.height) - cc.canvas.height);
+            var x = ((e.offsetX )) + bcr.left - diffWidth;
+            var y = ((e.offsetY)) + bcr.top - (touchPanel.clientHeight - bcr.height) + pageOffsetY + diffHeight;
+            mdEvent.initMouseEvent("mousemove", true, false, cc.canvas, null, x, y, x, y, false, false, false, false, 0, cc.canvas);
             mdEvent.pageY = e.offsetY + bcr.top;
             cc.canvas.dispatchEvent(mdEvent);
-        e.stopPropagation();
-        e.preventDefault();
-        return false;
-
+            e.stopPropagation();
+            e.preventDefault();
+            return false;
+        }
     });
 };
 Display.getInstance = function(){
@@ -618,7 +628,5 @@ function changeDevice(newDevice){
         var targetScale = 1;
         Phone.getInstance().setScale(targetScale);
     });
-
-
 })();
 </script>

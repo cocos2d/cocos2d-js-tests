@@ -37,7 +37,7 @@ var SceneEditorTestLayer = cc.LayerColor.extend({
             this._curNode.setPosition(cc.p((winSize.width - 480 * scale) / 2, (winSize.height - 320 * scale) / 2));
 
             var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
-            itemBack.setPosition(cc.p(VisibleRect.bottomRight().x - 50, VisibleRect.bottomRight().y + 25));
+            itemBack.setPosition(cc.p(cc.VisibleRect.bottomRight().x - 50, cc.VisibleRect.bottomRight().y + 25));
             var menuBack = cc.Menu.create(itemBack);
             menuBack.setPosition(cc.PointZero());
             menuBack.setZOrder(4);
