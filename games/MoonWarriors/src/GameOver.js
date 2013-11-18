@@ -21,8 +21,11 @@ var GameOver = cc.Layer.extend({
             var cocos2dhtml5 = cc.Sprite.create(s_cocos2dhtml5);
             cocos2dhtml5.setPosition(160,150);
             this.addChild(cocos2dhtml5,10);
+            var flare = cc.Sprite.create(s_flare);
+            this.addChild(flare);
+            flare.setVisible(false);
             var playAgain = cc.MenuItemSprite.create(playAgainNormal, playAgainSelected, playAgainDisabled, function(){
-                flareEffect(this,this,this.onPlayAgain);
+                flareEffect(flare,this,this.onPlayAgain);
             }.bind(this) );
 
             var menu = cc.Menu.create(playAgain);

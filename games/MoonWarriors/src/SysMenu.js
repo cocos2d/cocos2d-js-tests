@@ -29,11 +29,13 @@ var SysMenu = cc.Layer.extend({
             var aboutNormal = cc.Sprite.create(s_menu, cc.rect(252, 0, 126, 33));
             var aboutSelected = cc.Sprite.create(s_menu, cc.rect(252, 33, 126, 33));
             var aboutDisabled = cc.Sprite.create(s_menu, cc.rect(252, 33 * 2, 126, 33));
-
+            var flare = cc.Sprite.create(s_flare);
+            this.addChild(flare);
+            flare.setVisible(false);
             var newGame = cc.MenuItemSprite.create(newGameNormal, newGameSelected, newGameDisabled, function () {
                 this.onButtonEffect();
                 //this.onNewGame();
-                flareEffect(this, this, this.onNewGame);
+                flareEffect(flare, this, this.onNewGame);
             }.bind(this));
             var gameSettings = cc.MenuItemSprite.create(gameSettingsNormal, gameSettingsSelected, gameSettingsDisabled, this.onSettings, this);
             var about = cc.MenuItemSprite.create(aboutNormal, aboutSelected, aboutDisabled, this.onAbout, this);
@@ -61,7 +63,7 @@ var SysMenu = cc.Layer.extend({
     },
     onNewGame:function (pSender) {
         //load resources
-        cc.Loader.preload(g_maingame, function () {
+        cc.LoaderScene.preload(g_maingame, function () {
             var scene = cc.Scene.create();
             scene.addChild(GameLayer.create());
             scene.addChild(GameControlMenu.create());
