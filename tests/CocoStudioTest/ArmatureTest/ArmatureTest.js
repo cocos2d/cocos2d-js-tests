@@ -487,7 +487,7 @@ var TestFrameEvent = ArmatureTestLayer.extend({
     },
     checkAction: function (dt) {
         if ("opengl" in sys.capabilities) {
-            if (this.numberOfRunningActions() == 0 && this.getGrid() != null)
+            if (this.getNumberOfRunningActions() == 0 && this.getGrid() != null)
                 this.setGrid(null);
         }
     }
@@ -509,7 +509,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
 
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_robot_png, s_robot_plist, s_robot_xml);
         this.armature = ccs.Armature.create("robot");
-        this.armature.getAnimation().playByIndex(4);
+        this.armature.getAnimation().playByIndex(4,-1,-1,0);
         this.armature.setPosition(VisibleRect.center());
         this.armature.setScale(0.48);
         this.armature.getAnimation().setSpeedScale(0.5);

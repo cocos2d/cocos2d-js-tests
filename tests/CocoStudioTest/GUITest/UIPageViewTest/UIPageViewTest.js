@@ -25,12 +25,12 @@
 var UIPageViewTest = UIScene.extend({
     init: function () {
         if (this._super()) {
-            var widgetRect = this._widget.getRect();
+            var widgetSize = this._widget.getSize();
             //init text
             this._topDisplayLabel.setText("Move by horizontal direction");
-            this._topDisplayLabel.setPosition(cc.p(widgetRect.width / 2.0,  widgetRect.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
+            this._topDisplayLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
             this._bottomDisplayLabel.setText("PageView");
-            this._bottomDisplayLabel.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2 - this._bottomDisplayLabel.getRect().height * 3));
+            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getSize().height * 3));
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
 
@@ -39,15 +39,15 @@ var UIPageViewTest = UIScene.extend({
             pageView.setTouchEnable(true);
             pageView.setSize(cc.size(240, 130));
             var backgroundSize = background.getContentSize();
-            pageView.setPosition(cc.p((widgetRect.width - backgroundSize.width) / 2 +
-                (backgroundSize.width - pageView.getRect().width) / 2,
-                (widgetRect.height - backgroundSize.height) / 2 +
-                    (backgroundSize.height - pageView.getRect().height) / 2));
+            pageView.setPosition(cc.p((widgetSize.width - backgroundSize.width) / 2 +
+                (backgroundSize.width - pageView.getSize().width) / 2,
+                (widgetSize.height - backgroundSize.height) / 2 +
+                    (backgroundSize.height - pageView.getSize().height) / 2));
 
             for (var i = 0; i < 3; ++i) {
                 var layout = ccs.UILayout.create();
                 layout.setSize(cc.size(240, 130));
-                var layoutRect = layout.getRect();
+                var layoutRect = layout.getSize();
 
                 var imageView = ccs.UIImageView.create();
                 imageView.setTouchEnable(true);
