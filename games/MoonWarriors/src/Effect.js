@@ -1,7 +1,7 @@
-var flareEffect = function (parent, target, callback) {
-    var flare = cc.Sprite.create(s_flare);
+var flareEffect = function (flare,target, callback) {
+    flare.setVisible(true);
+    flare.stopAllActions();
     flare.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
-    parent.addChild(flare, 10);
     flare.setOpacity(0);
     flare.setPosition(-30, 297);
     flare.setRotation(-120);

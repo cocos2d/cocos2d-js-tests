@@ -762,6 +762,7 @@ var g_cocoStudio = [
     {src:"res/components/Projectile.png"},
     {src:"res/components/Target.png"},
     //Scene
+    {src:"res/scenetest/startMenu/startMenu_1.json"},
     {src:"res/scenetest/fishes/blowFish/Blowfish0.plist"},
     {src:"res/scenetest/fishes/blowFish/Blowfish0.png"},
     {src:"res/scenetest/fishes/Butterflyfish/Butterflyfish0.plist"},
@@ -774,8 +775,8 @@ var g_cocoStudio = [
     {src:"res/scenetest/Particles/qipao01.png"},
     {src:"res/scenetest/startMenu/Fish_UI/starMenuButton01.png"},
     {src:"res/scenetest/startMenu/Fish_UI/starMenuButton02.png"},
-    {src:"res/scenetest/startMenu/Fish_UI/ui_logo_001-hd.png"},
-    {src:"res/scenetest/startMenu/startMenu_1.json"}
+    {src:"res/scenetest/startMenu/Fish_UI/ui_logo_001-hd.png"}
+
 ];
 
 var g_performace = [
