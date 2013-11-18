@@ -515,7 +515,7 @@ Display.prototype.registerEvents = function(){
             var bcr = cc.canvas.getBoundingClientRect();
             var mdEvent = document.createEvent("MouseEvents");
             var pageOffsetY = document.body.scrollTop;
-            var diffWidth = (parseInt(touchPanel.style.width) - cc.canvas.width);
+            var diffWidth = (parseInt(touchPanel.style.width) - cc.canvas.width)/2;
             var diffHeight = (parseInt(touchPanel.style.height) - cc.canvas.height);
             console.log(diffWidth, diffHeight);
             var x = ((e.offsetX)) + bcr.left - diffWidth;
@@ -534,7 +534,7 @@ Display.prototype.registerEvents = function(){
             var bcr = cc.canvas.getBoundingClientRect();
             var mdEvent = document.createEvent("MouseEvents");
             var pageOffsetY = document.body.scrollTop;
-            var diffWidth = (parseInt(touchPanel.style.width) - cc.canvas.width);
+            var diffWidth = (parseInt(touchPanel.style.width) - cc.canvas.width)/2;
             var diffHeight = (parseInt(touchPanel.style.height) - cc.canvas.height);
             var x = ((e.offsetX )) + bcr.left - diffWidth;
             var y = ((e.offsetY)) + bcr.top - (touchPanel.clientHeight - bcr.height) + pageOffsetY + diffHeight;
