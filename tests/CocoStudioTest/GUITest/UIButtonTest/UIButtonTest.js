@@ -29,10 +29,10 @@ var UIButtonTest = UIScene.extend({
             this._topDisplayLabel.setText("No Event");
             this._bottomDisplayLabel.setText("Button");
 
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             // Create the button
             var button = ccs.UIButton.create();
-            button.setTouchEnable(true);
+            button.setTouchEnabled(true);
             button.loadTextures("res/cocosgui/animationbuttonnormal.png", "res/cocosgui/animationbuttonpressed.png", "");
             button.setPosition(cc.p(widgetRect.width / 2.0, widgetRect.height / 2.0));
             button.addTouchEventListener(this.touchEvent ,this);
@@ -73,10 +73,10 @@ var UIButtonTest_Scale9 = UIScene.extend({
             this._topDisplayLabel.setText("No Event");
             this._bottomDisplayLabel.setText("Button scale9 render");
 
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             // Create the button
             var button = ccs.UIButton.create();
-            button.setTouchEnable(true);
+            button.setTouchEnabled(true);
             button.setScale9Enabled(true);
             button.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
             button.setPosition(cc.p(widgetRect.width / 2.0, widgetRect.height / 2.0));
@@ -117,10 +117,10 @@ var UIButtonTest_PressedAction = UIScene.extend({
             this._topDisplayLabel.setText("No Event");
             this._bottomDisplayLabel.setText("Button Pressed Action");
 
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             // Create the button
             var button = ccs.UIButton.create();
-            button.setTouchEnable(true);
+            button.setTouchEnabled(true);
             button.setPressedActionEnabled(true);
             button.loadTextures("res/cocosgui/animationbuttonnormal.png", "res/cocosgui/animationbuttonpressed.png", "");
             button.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2));

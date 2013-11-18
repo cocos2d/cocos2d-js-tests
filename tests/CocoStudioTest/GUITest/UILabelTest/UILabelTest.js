@@ -30,13 +30,13 @@ var UILabelTest = UIScene.extend({
             this._topDisplayLabel.setText("");
             this._bottomDisplayLabel.setText("Label");
 
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             // Create the label
             var label = ccs.UILabel.create();
             label.setText("Label");
             label.setFontName("AmericanTypewriter");
             label.setFontSize(30);
-            label.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2 + label.getRect().height / 4));
+            label.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2 + label.getSize().height / 4));
             this._uiLayer.addWidget(label);
 
             return true;

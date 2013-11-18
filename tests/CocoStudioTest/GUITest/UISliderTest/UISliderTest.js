@@ -25,7 +25,7 @@
 var UISliderTest = UIScene.extend({
     init: function () {
         if (this._super()) {
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             //init text
             this._topDisplayLabel.setText("Move the slider thumb");
             this._bottomDisplayLabel.setText("Slider");
@@ -61,7 +61,7 @@ var UISliderTest = UIScene.extend({
 var UISliderTest_Scale9 = UIScene.extend({
     init: function () {
         if (this._super()) {
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             //init text
             this._topDisplayLabel.setText("Move the slider thumb");
             this._bottomDisplayLabel.setText("Slider scale9 render");

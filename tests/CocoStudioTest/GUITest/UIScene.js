@@ -62,7 +62,7 @@ UIScene = cc.Layer.extend({
             this._uiLayer.setScale(scale);
             this._uiLayer.setPosition(cc.p((winSize.width - 480 * scale) / 2, (winSize.height - 320 * scale) / 2));
 
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             var eventLabel = ccs.UILabel.create();
             eventLabel.setText("");
             eventLabel.setFontName("Marker Felt");
@@ -77,7 +77,7 @@ UIScene = cc.Layer.extend({
             uiLabel.setFontName("Marker Felt");
             uiLabel.setFontSize(30);
             uiLabel.setColor(cc.c3b(159, 168, 176));
-            uiLabel.setPosition(cc.p(widgetRect.width / 2.0, widgetRect.height / 2.0 - uiLabel.getRect().height * 1.75));
+            uiLabel.setPosition(cc.p(widgetRect.width / 2.0, widgetRect.height / 2.0 - uiLabel.getSize().height * 1.75));
             this._uiLayer.addWidget(uiLabel);
             this._bottomDisplayLabel = uiLabel;
 

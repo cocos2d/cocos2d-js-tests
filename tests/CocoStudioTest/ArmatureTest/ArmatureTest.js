@@ -35,7 +35,7 @@ var ArmatureTestScene = TestScene.extend({
     },
     onMainMenuCallback:function(){
         this.removeAllChildren();
-        ccs.ArmatureDataManager.purge();
+        ccs.ArmatureDataManager.destoryInstance();
         var scene = new CocoStudioTestScene();
         scene.runThisTest();
     },
@@ -59,6 +59,9 @@ var armatureSceneArr = [
     },
     function () {
         return new TestPerformance();
+    },
+    function () {
+        return new TestPerformanceBatchNode();
     },
     function () {
         return new TestChangeZorder();
@@ -92,8 +95,6 @@ var armatureSceneArr = [
 if (sys.platform === "browser")
 {
     armatureSceneArr.push( function () { return new TestColliderDetector();} );
-}else{
-    armatureSceneArr.push( function () { return new TestPerformanceBatchNode();} );
 }
 
 var nextArmatureTest = function () {
@@ -291,6 +292,7 @@ var TestPerformance = ArmatureTestLayer.extend({
         menu.setPosition(cc.p(VisibleRect.rect().width / 2, VisibleRect.rect().height - 100));
         this.addChild(menu, 10000);
 
+        this.addArmature(100);
     },
     title: function () {
         return "Test Performance";
@@ -487,7 +489,7 @@ var TestFrameEvent = ArmatureTestLayer.extend({
     },
     checkAction: function (dt) {
         if ("opengl" in sys.capabilities) {
-            if (this.numberOfRunningActions() == 0 && this.getGrid() != null)
+            if (this.getNumberOfRunningActions() == 0 && this.getGrid() != null)
                 this.setGrid(null);
         }
     }

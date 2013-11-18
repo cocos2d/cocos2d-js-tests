@@ -30,7 +30,7 @@ var UILabelAtlasTest = UIScene.extend({
             this._topDisplayLabel.setText("");
             this._bottomDisplayLabel.setText("LabelAtlas");
 
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             // Create the label atlas
             var labelAtlas = ccs.UILabelAtlas.create();
             labelAtlas.setProperty("1234567890", "res/cocosgui/labelatlas.png", 17, 22, "0");

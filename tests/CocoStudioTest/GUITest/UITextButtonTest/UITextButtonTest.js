@@ -25,14 +25,14 @@
 var UITextButtonTest = UIScene.extend({
     init: function () {
         if (this._super()) {
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             //init text
             this._topDisplayLabel.setText("No Event");
             this._bottomDisplayLabel.setText("TextButton");
 
             // Create the text button
             var textButton = ccs.UITextButton.create();
-            textButton.setTouchEnable(true);
+            textButton.setTouchEnabled(true);
             textButton.loadTextures("res/cocosgui/backtotopnormal.png", "res/cocosgui/backtotoppressed.png", "");
             textButton.setTitleText("Text Button");
             textButton.setPosition(cc.p(widgetRect.width / 2.0, widgetRect.height / 2.0));
@@ -67,14 +67,14 @@ var UITextButtonTest = UIScene.extend({
 var UITextButtonTest_Scale9 = UIScene.extend({
     init: function () {
         if (this._super()) {
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             //init text
             this._topDisplayLabel.setText("No Event");
             this._bottomDisplayLabel.setText("TextButton scale9 render");
 
             // Create the text button
             var textButton = ccs.UITextButton.create();
-            textButton.setTouchEnable(true);
+            textButton.setTouchEnabled(true);
             textButton.setScale9Enabled(true);
             textButton.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
             textButton.setSize(cc.size(180, textButton.getContentSize().height * 1.5));

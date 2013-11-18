@@ -30,12 +30,12 @@ var UILabelBMFontTest = UIScene.extend({
             this._topDisplayLabel.setText("");
             this._bottomDisplayLabel.setText("LabelBMFont");
 
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             // Create the LabelBMFont
             var labelBMFont = ccs.UILabelBMFont.create();
             labelBMFont.setFntFile("res/cocosgui/bitmapFontTest2.fnt");
             labelBMFont.setText("BMFont");
-            labelBMFont.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2.0 + labelBMFont.getRect().height / 8.0));
+            labelBMFont.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2.0 + labelBMFont.getSize().height / 8.0));
             this._uiLayer.addWidget(labelBMFont);
 
             return true;

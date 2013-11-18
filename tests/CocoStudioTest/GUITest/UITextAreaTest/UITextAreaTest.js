@@ -26,7 +26,7 @@
 var UITextAreaTest = UIScene.extend({
     init: function () {
         if (this._super()) {
-            var widgetRect = this._widget.getRect();
+            var widgetRect = this._widget.getSize();
             //init text
             this._topDisplayLabel.setText("");
             this._bottomDisplayLabel.setText("TextArea");
@@ -38,7 +38,7 @@ var UITextAreaTest = UIScene.extend({
             textArea.setText("TextArea widget can line wrap");
             textArea.setFontName("AmericanTypewriter");
             textArea.setFontSize(32);
-            textArea.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2 - textArea.getRect().height / 8));
+            textArea.setPosition(cc.p(widgetRect.width / 2, widgetRect.height / 2 - textArea.getSize().height / 8));
             this._uiLayer.addWidget(textArea);
 
             return true;
