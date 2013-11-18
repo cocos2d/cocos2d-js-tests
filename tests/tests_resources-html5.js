@@ -59,6 +59,19 @@ var s_tcc_issue_2_plist = "res/animations/tcc_issue_2.plist";
 var s_Cowboy_json = "res/armatures/Cowboy.ExportJson";
 var s_Cowboy_plist = "res/armatures/Cowboy0.plist";
 var s_Cowboy_png = "res/armatures/Cowboy0.png";
+var s_hero_json = "res/armatures/hero.ExportJson";
+var s_hero0_plist = "res/armatures/hero0.plist";
+var s_hero0_png = "res/armatures/hero0.png";
+var s_horse_json = "res/armatures/horse.ExportJson";
+var s_horse0_plist = "res/armatures/horse0.plist";
+var s_horse0_png = "res/armatures/horse0.png";
+var s_bear_json = "res/armatures/bear.ExportJson";
+var s_bear0_plist = "res/armatures/bear0.plist";
+var s_bear0_png = "res/armatures/bear0.png";
+var s_blood_plist = "res/armatures/blood.plist";
+var s_HeroAnimation_json = "res/armatures/HeroAnimation.ExportJson";
+var s_HeroAnimation0_plist = "res/armatures/HeroAnimation0.plist";
+var s_HeroAnimation0_png = "res/armatures/HeroAnimation0.png";
 var s_cyborg_plist = "res/armatures/cyborg.plist";
 var s_cyborg_png = "res/armatures/cyborg.png";
 var s_cyborg_xml = "res/armatures/cyborg.xml";
@@ -515,6 +528,19 @@ var g_cocoStudio = [
     {src:s_Cowboy_json },
     {src:s_Cowboy_plist},
     {src:s_Cowboy_png},
+    {src: s_hero_json},
+    {src: s_hero0_plist},
+    {src: s_hero0_png},
+    {src: s_horse_json},
+    {src: s_horse0_plist},
+    {src: s_horse0_png},
+    {src: s_bear_json},
+    {src: s_bear0_plist},
+    {src: s_bear0_png},
+    {src: s_blood_plist},
+    {src: s_HeroAnimation_json},
+    {src: s_HeroAnimation0_plist},
+    {src: s_HeroAnimation0_png},
     {src:s_cyborg_plist },
     {src:s_cyborg_png },
     {src:s_cyborg_xml },

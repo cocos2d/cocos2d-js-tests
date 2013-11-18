@@ -25,19 +25,19 @@
 var UISliderTest = UIScene.extend({
     init: function () {
         if (this._super()) {
-            var widgetSize = this._widget.getRect().size;
+            var widgetRect = this._widget.getRect();
             //init text
             this._topDisplayLabel.setText("Move the slider thumb");
             this._bottomDisplayLabel.setText("Slider");
 
             // Create the slider
-            var slider = cc.UISlider.create();
+            var slider = ccs.UISlider.create();
             slider.setTouchEnabled(true);
             slider.loadBarTexture("res/cocosgui/sliderTrack.png");
             slider.loadSlidBallTextures("res/cocosgui/sliderThumb.png", "res/cocosgui/sliderThumb.png", "");
             slider.loadProgressBarTexture("res/cocosgui/sliderProgress.png");
-            slider.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            slider.addEventListener(this.sliderEvent, this);
+            slider.setPosition(cc.p(widgetRect.width / 2.0, widgetRect.height / 2.0));
+            slider.addEventListenerSlider(this.sliderEvent, this);
             this._uiLayer.addWidget(slider);
 
             return true;
@@ -61,13 +61,13 @@ var UISliderTest = UIScene.extend({
 var UISliderTest_Scale9 = UIScene.extend({
     init: function () {
         if (this._super()) {
-            var widgetSize = this._widget.getRect().size;
+            var widgetRect = this._widget.getRect();
             //init text
             this._topDisplayLabel.setText("Move the slider thumb");
             this._bottomDisplayLabel.setText("Slider scale9 render");
 
             // Create the slider
-            var slider = cc.UISlider.create();
+            var slider = ccs.UISlider.create();
             slider.setTouchEnabled(true);
             slider.loadBarTexture("res/cocosgui/sliderTrack2.png");
             slider.loadSlidBallTextures("res/cocosgui/sliderThumb.png", "res/cocosgui/sliderThumb.png", "");
@@ -75,8 +75,8 @@ var UISliderTest_Scale9 = UIScene.extend({
             slider.setScale9Enabled(true);
             slider.setCapInsets(cc.rect(0, 0, 0, 0));
             slider.setSize(cc.size(250, 10));
-            slider.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            slider.addEventListener(this.sliderEvent, this);
+            slider.setPosition(cc.p(widgetRect.width / 2.0, widgetRect.height / 2.0));
+            slider.addEventListenerSlider(this.sliderEvent, this);
             this._uiLayer.addWidget(slider);
 
             return true;
