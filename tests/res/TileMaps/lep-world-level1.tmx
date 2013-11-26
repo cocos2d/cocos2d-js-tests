@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="300" height="18" tilewidth="54" tileheight="54">
+ <tileset firstgid="1" name="TileMap" tilewidth="54" tileheight="54" spacing="2" margin="2">
+  <image source="lep-world-level1.png" width="640" height="640"/>
+  <tile id="0">
+   <properties>
+    <property name="nix" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="neuer feind" value=""/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="Goldkiste" value=""/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="newHind2" value=""/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="zapfen" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="bridge" value=""/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="newCol" value=""/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="Münze" value=""/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="neuHind1" value=""/>
+   </properties>
+  </tile>
+  <tile id="57">
+   <properties>
+    <property name="Baumtop" value=""/>
+   </properties>
+  </tile>
+  <tile id="84">
+   <properties>
+    <property name="newCol" value=""/>
+   </properties>
+  </tile>
+  <tile id="85">
+   <properties>
+    <property name="newCol" value=""/>
+   </properties>
+  </tile>
+  <tile id="93">
+   <properties>
+    <property name="Wasser" value=""/>
+   </properties>
+  </tile>
+  <tile id="94">
+   <properties>
+    <property name="Lava" value=""/>
+   </properties>
+  </tile>
+  <tile id="95">
+   <properties>
+    <property name="newCol" value=""/>
+   </properties>
+  </tile>
+  <tile id="96">
+   <properties>
+    <property name="newCol" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Deku" width="300" height="18">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+2ZyU4DMQyG8wTcuc597qynsp3Ybmw3NqnsS4G3x5GIGkI8WepM6PT/pF8VpXEcOxNnEqUAAAAAAAAAAAAAQN+sktZI67UdAUkgb2DRGJG2SNukncq+gHiQN7CI7JMOSIekI9JxXXdAJMjb/DGq7cAAOCGdks5I56SLuu6ASJC34YL3fJ5L0hXpmnRDuq3rDogEeRsmeM/305Ia0iPpifRMeiG91nRqAKyo8vWRy1tTqL+S46m5l5DqW3IMfb7n14h9iT5bYV8kfJyXPXLp+vhGeu/4v6lDUpQcT829hFTfqXbGpDvSvfWdrnHNz2fXe76be/373Ge1RuxL9GnH80HAFwkf52mPLFUfc/OQgnlGuihZ713bfSI1rhQ7OtaTgD3uPb9R/jrEfR+ixn1NiT51PD9In6QvAV8kfJynuzCpc3A7DzUpea5f885Aqu9YO7Hriu89P1S3YuqOS43Yl+wztb5zvkj4+J/uwkJx4epjSjxza6Ykxs/Uc/2UccbanmWvybXNua/w2eqyI7VHtvcPZm2y16hxRl8+v1Ns5IxNKuY+3H1W7nMa8jHGnz7mdSxuXPS80WcI5myBOwd329lnEbq9mYMbpE3SLmlP/Z2frec7s77FnGWEzr8Mxk/uPqaxbNnrKxcfX/332Ta/tf1M2fO767zbNnTPZOdSqWl8OVtd9x657yqpTJi+zDi0n+688vnts2HnWalp/Lix2euo3Y6LuZtvd16FYuh7XlqmnfG9K/9d852zq9Tv55GbE66vfc0PAAAAAABQlyVHyvqMacv9nWprVnz9+Pwp1VcJ3Nz01W9fLDsCi8U3nzrQW2BUAAA=
+  </data>
+ </layer>
+ <layer name="Waterbridge" width="300" height="18">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3XMQrAIBAEQF/i09Ln/x9InyZGNnqEGbhCkWO3tDUAAAAAAAAAAAAAAAAAgNr64F0V92xvzwAAAH/19P/pg28AvnaEZlW2xI4dXWYk8lbtBjPO0KzKltixo8uMRN6q3ajpAktLmrNgVAAA
+  </data>
+ </layer>
+ <layer name="Items" width="300" height="18">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+1aWYsUMRAOu67CwKwHI87oKAOj7rOLCuqD4vXoBQpesILHvnn9f7AKp9hMbSqpTic9PbP1wUe6M+mkKpV8OXadMxgMBoPBYDAYDAaDwWAwGPqLvVUbYDAYDEqMVm2AwWAwKGF6tVk4H8i72LkVBkMdlNKr08DpIu0b5gueBGwBd9z/WISeDYYuMKxUr6RX4wW7wjzA0nWXLttHXAFeTjzXQJvYrXufa3FS/ER0rVc1MHbd62BTrGJMhbRaYt8Qsk1rr/RdSfRhvNEc8/3D/e428JSXImvugWPj6R7wPvBBoba61Cu/L5v0X+49yZZbjltO2yXxpFA92v6opVezhuU3ERq9wjjNKrXv35H4McT5vAs866XI667OuJ8v7ODEfBzvT4HPgM8LtdelXuHZ4RbwppPPEP59lZRqgFp1A7jvtXnJHcWuhG7dBt5Z2JWLpt/6/dD2Tm+mKJO6t0rdYeWuUbTW7CTyYjZL7zFMXbt4Iig2peLkAzVwxOpN6RWlKc2aOr3/AydrFfEF8CXwFfA18I2i3hQ24TxIc8KPBWoj10XMI83ad/p7Fxrv1xgPgF+UdZC2xXBGWZcG2P++rZr3EDT3VrE7LM0axeGvNaH4hebdgH17zvttKHzTBpp41qjH18CQDvp6RayxzwppFe056f098APwI/AT8HOBdtddr6SxjeBnHvybPPo7ccvjOQVpPr4FvlPWoSl7oYFNMYzc8f7XvPfhf1Bi8UT4mhW6p8FvcV5yvSp9JnoIfFSwnlL3a+QrEse5r1XafVYK0r6K4yvwG/A78AfwsEWbhHXSq4E7WkcRNLb5+ESE7mhi5XNw4Jb3V9w+wtgrK915PAZeLWDTyLXTq640624gL6VVBNKs3QBpXvp6RjFvOldDNhKarFUxUD0l9IrWY39vNRGeczUrdgbk+An8BfwN/AP8m9EeR0292nbH18CSKR+H2vIUK36+8ymdAXkZ7qPks/QcyuPjiP/NR/PM60jpFfeF+6NtX+Or1FcYH9QazVpC5x6uVf5eQvqNtCy0P0vFRrI95WfTunL6PPatZF9qzjQduyk/SqR7FYjzga95fUpTc2KoLMN9lHyWnkN5vF1+h6p55nWk9Ir7wuuM5fHzRspXqa+IWr3idzOh/VaKoTpSPoTuhVJ+pmIfetfGPOWbZsw1iZHWv1jbbdJaehUa000pzY22LKVXXdiW006OXtXwpUZsYvZqdKYUJ4XKNvkttx6tvdL5sVSf5P7u59fAPyXoFjRgVAAA
+  </data>
+ </layer>
+</map>

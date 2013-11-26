@@ -866,6 +866,7 @@ var g_tilemaps = [
     {src:s_tileISOOffsetPng},
     {src:s_tileISOOffsetTmx},
     {src:"res/TileMaps/ortho-test2.png"},
+    {src:"res/TileMaps/lep-world-level1.png"},
 
     //tmx
     {src:"res/TileMaps/orthogonal-test1.tmx"},
@@ -877,6 +878,7 @@ var g_tilemaps = [
     {src:"res/TileMaps/orthogonal-test5.tmx"},
     {src:"res/TileMaps/orthogonal-test6.tmx"},
     {src:"res/TileMaps/orthogonal-test6-hd.tmx"},
+    {src:"res/TileMaps/lep-world-level1.tmx"},
     {src:"res/TileMaps/hexa-test.tmx"},
     {src:"res/TileMaps/iso-test.tmx"},
     {src:"res/TileMaps/iso-test1.tmx"},
