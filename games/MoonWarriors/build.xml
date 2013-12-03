@@ -7,7 +7,9 @@
 
     <target name="compile_test_advanced">
         <jscomp compilationLevel="advanced" warning="quiet"
-                debug="false" output="MoonWarriors-compress.js">
+                debug="false" output="MoonWarriors-compress.js"
+                sourceMapOutputFile="sourcemap"
+                sourceMapFormat="V3">
             <externs dir="${basedir}/../../../cocos2d">
                 <file name="cocos2d_externs.js"/>
             </externs>

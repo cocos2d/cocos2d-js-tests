@@ -6,7 +6,9 @@
 
     <target name="compile_test">
         <jscomp compilationLevel="simple" warning="quiet"
-                debug="false" output="cocos2d-html5-testcases.js">
+                debug="false" output="cocos2d-html5-testcases.js"
+                sourceMapOutputFile="sourcemap"
+                sourceMapFormat="V3">
             <sources dir="${basedir}">
                 <file name="BaseTestLayer/BaseTestLayer.js"/>
                 <file name="tests_resources-html5.js"/>
@@ -119,6 +121,8 @@
     <target name="compile_test_advanced">
         <jscomp compilationLevel="advanced" warning="quiet"
                 debug="false" output="cocos2d-html5-testcases-advanced.js"
+                sourceMapOutputFile="sourcemap"
+                sourceMapFormat="V3"
                 languageIn="ECMASCRIPT5">
             <externs dir="${basedir}">
                 <file name="../../cocos2d/cocos2d_externs.js"/>
