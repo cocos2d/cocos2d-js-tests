@@ -198,6 +198,11 @@ var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
 
+//cocosDenshion
+var s_cocosDenshion_plist = "res/cocosDenshion/cocosDenshion.plist";
+var s_cocosDenshion_png = "res/cocosDenshion/cocosDenshion.png";
+var s_cocosDenshion_bg = "res/cocosDenshion/background_0.png";
+
 var g_resources = [
     //global
     {src:s_grossini_dance_atlas},
@@ -237,6 +242,9 @@ var g_resources = [
 
     {src:s_grossini},
     {src:s_grossiniPlist},
+    {src:s_cocosDenshion_plist},
+    {src:s_cocosDenshion_png},
+    {src:s_cocosDenshion_bg},
 
     {src:s_animations2Plist},
     {src:s_grossini_blue},
