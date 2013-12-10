@@ -58,19 +58,6 @@ var s_tcc_issue_2 = "res/animations/tcc_issue_2.png";
 var s_tcc_issue_1_plist = "res/animations/tcc_issue_1.plist";
 var s_tcc_issue_2_plist = "res/animations/tcc_issue_2.plist";
 
-var s_hero_json = "res/armatures/hero.ExportJson";
-var s_hero0_plist = "res/armatures/hero0.plist";
-var s_hero0_png = "res/armatures/hero0.png";
-var s_horse_json = "res/armatures/horse.ExportJson";
-var s_horse0_plist = "res/armatures/horse0.plist";
-var s_horse0_png = "res/armatures/horse0.png";
-var s_bear_json = "res/armatures/bear.ExportJson";
-var s_bear0_plist = "res/armatures/bear0.plist";
-var s_bear0_png = "res/armatures/bear0.png";
-var s_HeroAnimation_json = "res/armatures/HeroAnimation.ExportJson";
-var s_HeroAnimation0_plist = "res/armatures/HeroAnimation0.plist";
-var s_HeroAnimation0_png = "res/armatures/HeroAnimation0.png";
-
 var s_s9s_blocks9 = "res/Images/blocks9ss.png";
 var s_s9s_blocks9_plist = "res/Images/blocks9ss.plist";
 
@@ -195,6 +182,11 @@ var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
 
+//cocosDenshion
+var s_cocosDenshion_plist = "res/cocosDenshion/cocosDenshion.plist";
+var s_cocosDenshion_png = "res/cocosDenshion/cocosDenshion.png";
+var s_cocosDenshion_bg = "res/cocosDenshion/background_0.png";
+
 var g_resources = [];
 
 var g_sprites = [];
@@ -228,5 +220,3 @@ var g_fonts = [];
 var g_extensions = [];
 
 var g_tilemaps = [];
-
-var g_cocoStudio = [];

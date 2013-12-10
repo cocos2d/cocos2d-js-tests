@@ -172,7 +172,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
         this._musicPart.setPosition(0,0);
         this.addChild(this._musicPart);
 
-        var musicMenu = cc.Menu.create(null);
+        var musicMenu = cc.Menu.create();
         musicMenu.setPosition(0,0);
         this._musicPart.addChild(musicMenu);
         //add back
@@ -231,7 +231,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
         this._effectPart.setPosition(0,0);
         this.addChild(this._effectPart);
 
-        var effectMenu = cc.Menu.create(null);
+        var effectMenu = cc.Menu.create();
         effectMenu.setPosition(0,0);
         this._effectPart.addChild(effectMenu);
         //add back
