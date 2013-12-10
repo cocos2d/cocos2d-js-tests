@@ -242,9 +242,6 @@ var g_resources = [
 
     {src:s_grossini},
     {src:s_grossiniPlist},
-    {src:s_cocosDenshion_plist},
-    {src:s_cocosDenshion_png},
-    {src:s_cocosDenshion_bg},
 
     {src:s_animations2Plist},
     {src:s_grossini_blue},
@@ -395,7 +392,10 @@ var g_cocosdeshion = [
     {src:"res/Sound/background.mp3"},
     {src:"res/Sound/effect2.mp3"},
     {src:"res/Sound/background.ogg"},
-    {src:"res/Sound/effect2.ogg"}
+    {src:"res/Sound/effect2.ogg"},
+    {src:s_cocosDenshion_plist},
+    {src:s_cocosDenshion_png},
+    {src:s_cocosDenshion_bg}
 ];
 
 var g_parallax = [
