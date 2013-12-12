@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets"
+	id="http://yourdomain/Run_Snail_Run" version="0.2.1" viewmodes="fullscreen">
+	<icon src="icon.png" />
+	 <tizen:application id="DaDqOlnv04.RunSnailRun" package="DaDqOlnv04" required_version="2.1"/>
+	<content src="index.html" />
+	<name>Run Snail Run</name>
+	<tizen:setting screen-orientation="landscape"
+		 />
+	<tizen:privilege name="http://tizen.org/privilege/power" />
+</widget>

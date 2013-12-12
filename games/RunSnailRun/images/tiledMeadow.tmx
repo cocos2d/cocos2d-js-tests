@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="42" height="22" tilewidth="30" tileheight="30">
+ <tileset firstgid="1" name="lettuce" tilewidth="30" tileheight="30">
+  <image source="lettuce.png" width="30" height="30"/>
+ </tileset>
+ <tileset firstgid="2" name="ground" tilewidth="30" tileheight="30">
+  <image source="ground.png" width="30" height="30"/>
+ </tileset>
+ <layer name="Background" width="42" height="22">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3DwQkAAAwDoSP7D90l+lRw1VRVVfX5AdD9n3ZwDgAA
+  </data>
+ </layer>
+ <objectgroup name="hedgehog" width="42" height="22">
+  <object name="StartPosition" x="698" y="240"/>
+ </objectgroup>
+ <layer name="collidable" width="42" height="22">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3WUQoAIQgE0Lz/pbuAok6pKQ30tZWvqKW1eoWqAcZMdlasDXVmW6OdxDQkJ07LWK9T+s7NY5kL7Ys6o5PlvHG2vPXQcd7zeJLpzuw634nX4fpGOJF/r2Z68V30ilPb687OikQ6pbuB3JVbb7oO2annGc9wDgAA
+  </data>
+ </layer>
+ <objectgroup name="snails" width="42" height="22">
+  <object x="35" y="60"/>
+  <object x="35" y="120"/>
+  <object x="180" y="120"/>
+  <object x="150" y="60"/>
+  <object x="120" y="510"/>
+  <object x="120" y="570"/>
+  <object x="90" y="630"/>
+  <object x="120" y="390"/>
+  <object x="713" y="265"/>
+  <object x="901" y="28"/>
+  <object x="903" y="104"/>
+  <object x="822" y="68"/>
+  <object x="965" y="150"/>
+  <object x="964" y="100"/>
+  <object x="1039" y="126"/>
+  <object x="722" y="67"/>
+  <object x="816" y="441"/>
+  <object x="527" y="591"/>
+  <object x="454" y="448"/>
+  <object x="448" y="488"/>
+  <object x="372" y="512"/>
+  <object x="239" y="295"/>
+  <object x="500" y="278"/>
+  <object x="500" y="368"/>
+  <object x="607" y="41"/>
+  <object x="887" y="333"/>
+  <object x="812" y="353"/>
+  <object x="1119" y="473"/>
+  <object x="1056" y="313"/>
+  <object x="928" y="466"/>
+ </objectgroup>
+</map>
