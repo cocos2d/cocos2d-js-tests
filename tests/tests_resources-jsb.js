@@ -57,7 +57,6 @@ var s_tcc_issue_1 = "res/animations/tcc_issue_1.png";
 var s_tcc_issue_2 = "res/animations/tcc_issue_2.png";
 var s_tcc_issue_1_plist = "res/animations/tcc_issue_1.plist";
 var s_tcc_issue_2_plist = "res/animations/tcc_issue_2.plist";
-
 var s_hero_json = "res/armatures/hero.ExportJson";
 var s_hero0_plist = "res/armatures/hero0.plist";
 var s_hero0_png = "res/armatures/hero0.png";
@@ -194,6 +193,11 @@ var s_extensions_button = "res/extensions/button.png";
 var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
+
+//cocosDenshion
+var s_cocosDenshion_plist = "res/cocosDenshion/cocosDenshion.plist";
+var s_cocosDenshion_png = "res/cocosDenshion/cocosDenshion.png";
+var s_cocosDenshion_bg = "res/cocosDenshion/background_0.png";
 
 var g_resources = [];
 
