@@ -53,7 +53,7 @@ var ControlColourPickerTest = ControlScene.extend({
             // Add the black background for the text
             var background = cc.Scale9Sprite.create("res/extensions/buttonBackground.png");
             background.setContentSize(cc.size(150, 50));
-            background.setPosition(cc.p(layer_width + background.getContentSize().width / 2.0, 0));
+            background.setPosition(layer_width + background.getContentSize().width / 2.0, 0);
             layer.addChild(background);
 
             layer_width += background.getContentSize().width;

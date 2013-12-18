@@ -561,9 +561,9 @@ var ChipmunkSpriteAnchorPoint = function() {
 		var sprite2 = this.createPhysicsSprite( cp.v(winSize.width/4*2, winSize.height/2) );
 		var sprite3 = this.createPhysicsSprite( cp.v(winSize.width/4*3, winSize.height/2) );
 
-		sprite1.setAnchorPoint( cc.p(0,0) );
-		sprite2.setAnchorPoint( cc.p(0.5,0.5) );
-		sprite3.setAnchorPoint( cc.p(1,1) );
+		sprite1.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+		sprite2.setAnchorPoint(cc.ANCHOR_MIDDLE);
+		sprite3.setAnchorPoint(cc.ANCHOR_TOP_RIGHT);
 
 		// scale sprite
 		var scaledown = cc.ScaleBy.create(0.5, 0.5);

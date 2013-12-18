@@ -36,14 +36,14 @@ var ControlScene = cc.Layer.extend({
             var screensize = cc.Director.getInstance().getWinSize();
 
             var pBackItem = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
-            pBackItem.setPosition(cc.p(screensize.width - 50, 25));
+            pBackItem.setPosition(screensize.width - 50, 25);
             var pBackMenu = cc.Menu.create(pBackItem);
-            pBackMenu.setPosition( cc.p(0,0));
+            pBackMenu.setPosition(0,0);
             this.addChild(pBackMenu, 10);
 
             // Add the generated background
             var background = cc.Sprite.create(s_extensions_background);
-            background.setPosition(cc.p(screensize.width / 2, screensize.height / 2));
+            background.setPosition(screensize.width / 2, screensize.height / 2);
             var bgRect = background.getTextureRect();
             background.setScaleX(screensize.width/bgRect.width);
             background.setScaleY(screensize.height/bgRect.height);
@@ -52,7 +52,7 @@ var ControlScene = cc.Layer.extend({
             // Add the ribbon
             var ribbon = cc.Scale9Sprite.create(s_extensions_ribbon, cc.rect(1, 1, 48, 55));
             ribbon.setContentSize(cc.size(screensize.width, 57));
-            ribbon.setPosition(cc.p(screensize.width / 2.0, screensize.height - ribbon.getContentSize().height / 2.0));
+            ribbon.setPosition(screensize.width / 2.0, screensize.height - ribbon.getContentSize().height / 2.0);
             this.addChild(ribbon);
 
             // Add the title
@@ -66,10 +66,10 @@ var ControlScene = cc.Layer.extend({
             var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
             var menu = cc.Menu.create(item1, item3, item2);
-            menu.setPosition(cc.p(0,0));
-            item1.setPosition(cc.p(screensize.width / 2 - 100, 37));
-            item2.setPosition(cc.p(screensize.width / 2, 35));
-            item3.setPosition(cc.p(screensize.width / 2 + 100, 37));
+            menu.setPosition(0,0);
+            item1.setPosition(screensize.width / 2 - 100, 37);
+            item2.setPosition(screensize.width / 2, 35);
+            item3.setPosition(screensize.width / 2 + 100, 37);
 
             this.addChild(menu ,1);
 

@@ -73,7 +73,7 @@ var DrawTestDemo = BaseTestLayer.extend({
 var DrawOldAPITest = DrawTestDemo.extend({
     ctor:function(){
         this._super();
-        this.setAnchorPoint(cc.p(0,0));
+        this.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
     },
 
     draw:function () {
