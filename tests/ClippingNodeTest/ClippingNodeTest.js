@@ -654,21 +654,23 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
 
 var arrayOfClippingNodeTest = [
     ScrollViewDemo,
-    HoleDemo,
     ShapeTest,
-    ShapeInvertedTest,
+    SpriteTest
+];
+if (sys.platform === 'browser' && ("opengl" in sys.capabilities)) {
+    arrayOfClippingNodeTest.push(
+    HoleDemo,
     RawStencilBufferTest,
     RawStencilBufferTest2,
     RawStencilBufferTest3,
     RawStencilBufferTest4,
     RawStencilBufferTest5,
-    RawStencilBufferTest6
-];
-
+    RawStencilBufferTest6);
+}
 if ( sys.platform !== 'browser'){
     //These tests don't support to HTML5
     arrayOfClippingNodeTest.push(
-        SpriteTest,
+        ShapeInvertedTest,
         SpriteNoAlphaTest,
         SpriteInvertedTest,
         NestedTest);

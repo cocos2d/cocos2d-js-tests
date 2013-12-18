@@ -684,7 +684,7 @@ var TestColliderDetector = ArmatureTestLayer.extend({
          * currentFrameIndex is the current index animation played to
          * frame event may be delay emit, so originFrameIndex may be different from currentFrameIndex.
          */
-        var p = this.armature1.getBone("Layer126").getDisplayRenderNode().convertToWorldSpaceAR(cc.p(0, 0));
+        var p = this.armature1.getBone("Layer126").getDisplayRenderNode().convertToWorldSpace(cc.p(0, 0));
         this.bullet.setPosition(cc.p(p.x + 60, p.y));
         this.bullet.stopAllActions();
         this.bullet.runAction(cc.MoveBy.create(1.5, cc.p(800, 0)));
