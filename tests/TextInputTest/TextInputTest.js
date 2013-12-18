@@ -80,13 +80,13 @@ var TextInputTest = cc.Layer.extend({
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 24);
         this.addChild(label);
-        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
+        label.setPosition(winSize.width / 2, winSize.height - 50);
 
         var subTitle = this.subtitle();
         if (subTitle && subTitle !== "") {
             var l = cc.LabelTTF.create(subTitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
+            l.setPosition(winSize.width / 2, winSize.height - 80);
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
@@ -94,10 +94,10 @@ var TextInputTest = cc.Layer.extend({
         var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
-        menu.setPosition(cc.p(0,0));
-        item1.setPosition(cc.p(winSize.width / 2 - 100, 30));
-        item2.setPosition(cc.p(winSize.width / 2, 30));
-        item3.setPosition(cc.p(winSize.width / 2 + 100, 30));
+        menu.setPosition(0,0);
+        item1.setPosition(winSize.width / 2 - 100, 30);
+        item2.setPosition(winSize.width / 2, 30);
+        item3.setPosition(winSize.width / 2 + 100, 30);
 
         this.addChild(menu, 1);
     }
@@ -224,7 +224,7 @@ var TextFieldTTFDefaultTest = KeyboardNotificationLayer.extend({
             TEXT_INPUT_FONT_NAME,
             TEXT_INPUT_FONT_SIZE);
         this.addChild(textField);
-        textField.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        textField.setPosition(winSize.width / 2, winSize.height / 2);
 
         this._trackNode = textField;
     }
@@ -284,7 +284,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
         this.addChild(this._textField);
         this._textField.setDelegate(this);
 
-        this._textField.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        this._textField.setPosition(winSize.width / 2, winSize.height / 2);
         this._trackNode = this._textField;
     },
 

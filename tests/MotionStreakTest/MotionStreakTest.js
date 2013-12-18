@@ -47,13 +47,13 @@ var MotionStreakTest = cc.Layer.extend({
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 32);
         this.addChild(label, 0, TAG_LABEL);
-        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
+        label.setPosition(winSize.width / 2, winSize.height - 50);
 
         var subTitle = this.subtitle();
         if (subTitle.length > 0) {
             var l = cc.LabelTTF.create(subTitle, "Arial", 16);
             this.addChild(l, 1);
-            l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
+            l.setPosition(winSize.width / 2, winSize.height - 80);
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
@@ -62,10 +62,10 @@ var MotionStreakTest = cc.Layer.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.p(0, 0));
-        item1.setPosition(cc.p(cc.VisibleRect.center().x - item2.getContentSize().width * 2, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2));
-        item2.setPosition(cc.p(cc.VisibleRect.center().x, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2));
-        item3.setPosition(cc.p(cc.VisibleRect.center().x + item2.getContentSize().width * 2, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2));
+        menu.setPosition(0, 0);
+        item1.setPosition(cc.VisibleRect.center().x - item2.getContentSize().width * 2, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2);
+        item2.setPosition(cc.VisibleRect.center().x, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2);
+        item3.setPosition(cc.VisibleRect.center().x + item2.getContentSize().width * 2, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2);
 
         this.addChild(menu, 1);
 
@@ -75,7 +75,7 @@ var MotionStreakTest = cc.Layer.extend({
         var menuMode = cc.Menu.create(itemMode);
         this.addChild(menuMode);
 
-        menuMode.setPosition(cc.p(winSize.width / 2, winSize.height / 4));
+        menuMode.setPosition(winSize.width / 2, winSize.height / 4);
     },
 
     restartCallback:function (sender) {
@@ -113,12 +113,12 @@ var MotionStreakTest1 = MotionStreakTest.extend({
         // the root object just rotates around
         this._root = cc.Sprite.create(s_pathR1);
         this.addChild(this._root, 1);
-        this._root.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        this._root.setPosition(winSize.width / 2, winSize.height / 2);
 
         // the target object is offset from root, and the streak is moved to follow it
         this._target = cc.Sprite.create(s_pathR1);
         this._root.addChild(this._target);
-        this._target.setPosition(cc.p(winSize.width / 4, 0));
+        this._target.setPosition(winSize.width / 4, 0);
 
         // create the streak object and add it to the scene
         this._streak = cc.MotionStreak.create(2, 3, 32, cc.GREEN, s_streak);
@@ -166,7 +166,7 @@ var MotionStreakTest2 = MotionStreakTest.extend({
         // create the streak object and add it to the scene
         this._streak = cc.MotionStreak.create(3, 3, 64, cc.WHITE, s_streak);
         this.addChild(this._streak);
-        this._streak.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        this._streak.setPosition(winSize.width / 2, winSize.height / 2);
     },
 
     onTouchesMoved:function (touches, event) {
@@ -211,8 +211,8 @@ var Issue1358 = MotionStreakTest.extend({
 
     update:function (dt) {
         this._angle += 1.0;
-        this._streak.setPosition(cc.p(this._center.x + Math.cos(this._angle / 180 * Math.PI) * this._radius,
-            this._center.y + Math.sin(this._angle / 180 * Math.PI) * this._radius));
+        this._streak.setPosition(this._center.x + Math.cos(this._angle / 180 * Math.PI) * this._radius,
+            this._center.y + Math.sin(this._angle / 180 * Math.PI) * this._radius);
     }
 });
 

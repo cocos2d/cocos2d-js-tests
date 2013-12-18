@@ -52,7 +52,7 @@ var PatternMatrix = cc.Layer.extend({
             this.setTag(111);
 
             var bgSprite = cc.Sprite.create("res/background.jpg");
-            bgSprite.setAnchorPoint(cc.p(0,0));
+            bgSprite.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
             this.addChild(bgSprite);
 
             this.initProgressWithGameMode();
@@ -66,11 +66,11 @@ var PatternMatrix = cc.Layer.extend({
             this.addChild(this.mPatternBatchNode,1);
 
             this.mCheckMarkSpr = cc.Sprite.createWithSpriteFrameName("pattern_selected.png");
-            this.mCheckMarkSpr.setPosition(cc.p(-100.0,-100.0));
+            this.mCheckMarkSpr.setPosition(-100.0,-100.0);
             this.addChild(this.mCheckMarkSpr,1);
 
             this.mPromptMarkSpr = cc.Sprite.createWithSpriteFrameName("pattern_selected.png");
-            this.mPromptMarkSpr.setPosition(cc.p(-100.0,-100.0));
+            this.mPromptMarkSpr.setPosition(-100.0,-100.0);
             this.addChild(this.mPromptMarkSpr,1);
 
             this.mPromptMarkSpr.runAction(cc.RepeatForever.create( cc.Sequence.create(cc.FadeIn.create(1.0),cc.FadeOut.create(1.0)) ));
@@ -151,18 +151,18 @@ var PatternMatrix = cc.Layer.extend({
         var patternType = 0|(temp % this.mPatternTypeMax);
 
         this.mPatternsSpr[row][col] = new PatternSprite(patternType, attr);
-        this.mPatternsSpr[row][col].setAnchorPoint(cc.p(0.5,0.5));
+        this.mPatternsSpr[row][col].setAnchorPoint(cc.ANCHOR_MIDDLE);
         this.mPatternsSpr[row][col].m_nRowIndex = row;
         this.mPatternsSpr[row][col].m_nColIndex = col;
-        this.mPatternsSpr[row][col].setPosition(cc.p(this.mPatternsPos[row][col].x,this.mPatternsPos[row][col].y+400.0));
+        this.mPatternsSpr[row][col].setPosition(this.mPatternsPos[row][col].x,this.mPatternsPos[row][col].y+400.0);
         this.mPatternsSpr[row][col].moveTo(gPatternsFallTime,this.mPatternsPos[row][col]);
 
         this.mPatternBatchNode.addChild(this.mPatternsSpr[row][col]);
     },
     initProgressWithGameMode:function(){
         this.mProgressBgSpr = cc.Sprite.create("res/ProgressBarBack.png");
-        this.mProgressBgSpr.setAnchorPoint(cc.p(0.0,0.5));
-        this.mProgressBgSpr.setPosition(cc.p(32,20));
+        this.mProgressBgSpr.setAnchorPoint(cc.ANCHOR_MIDDLE_LEFT);
+        this.mProgressBgSpr.setPosition(32,20);
         this.addChild(this.mProgressBgSpr);
 
         this.mProgressSpr = cc.Sprite.create("res/ProgressBarFront.png");
@@ -180,14 +180,14 @@ var PatternMatrix = cc.Layer.extend({
                 break;
             }
         }
-        this.mProgressSpr.setAnchorPoint(cc.p(0.0,0.5));
-        this.mProgressSpr.setPosition(cc.p(32,20));
+        this.mProgressSpr.setAnchorPoint(cc.ANCHOR_MIDDLE_LEFT);
+        this.mProgressSpr.setPosition(32,20);
         this.mProgressSpr.setTextureRect(this.mVisibleRect);
         this.addChild(this.mProgressSpr);
     },
     initLabels:function(){
         this.mScoreLabel = cc.LabelTTF.create("Score 0", "Courier", 20);
-        this.mScoreLabel.setPosition(cc.p(150,450));
+        this.mScoreLabel.setPosition(150,450);
 
         this.addChild(this.mScoreLabel);
     },
@@ -231,7 +231,7 @@ var PatternMatrix = cc.Layer.extend({
     onCheckPattern:function(pPattern){
         if ( pPattern != null){
             this.mPromptTimerTally = 0;
-            this.mPromptMarkSpr.setPosition(cc.p(-1000.0,-1000.0));
+            this.mPromptMarkSpr.setPosition(-1000.0,-1000.0);
 
             if (this.mFirstCheckPattern === null){
                 this.mFirstCheckPattern = pPattern;
@@ -266,7 +266,7 @@ var PatternMatrix = cc.Layer.extend({
                 }
 
                 if (isAdjacent){
-                    this.mCheckMarkSpr.setPosition(cc.p(-1000.0,-1000.0));
+                    this.mCheckMarkSpr.setPosition(-1000.0,-1000.0);
 
                     this.swapTwoPattern(this.mFirstCheckPattern,this.mSecondCheckPattern,false);
                     this.mFirstCheckPattern = null;
@@ -288,14 +288,14 @@ var PatternMatrix = cc.Layer.extend({
             var pFirstCheckPattern = pPattern;
             if (this.mFirstCheckPattern === pFirstCheckPattern){
                 this.mFirstCheckPattern = null;
-                this.mCheckMarkSpr.setPosition(cc.p(-1000.0,-1000.0));
+                this.mCheckMarkSpr.setPosition(-1000.0,-1000.0);
             }
 
             if(pFirstCheckPattern.g_ePatternStatus != ePatternStatus.Normal)
                 return;
 
             this.mPromptTimerTally = 0;
-            this.mPromptMarkSpr.setPosition(cc.p(-1000.0,-1000.0));
+            this.mPromptMarkSpr.setPosition(-1000.0,-1000.0);
 
             var pSecondCheckPattern = null;
             switch(pFirstCheckPattern.m_eSwapDirection){
@@ -324,7 +324,7 @@ var PatternMatrix = cc.Layer.extend({
             if (pSecondCheckPattern && pSecondCheckPattern.g_ePatternStatus==ePatternStatus.Normal){
                 if (this.mFirstCheckPattern == pSecondCheckPattern){
                     this.mFirstCheckPattern = null;
-                    this.mCheckMarkSpr.setPosition(cc.p(-1000.0,-1000.0));
+                    this.mCheckMarkSpr.setPosition(-1000.0,-1000.0);
                 }
                 this.swapTwoPattern(pFirstCheckPattern,pSecondCheckPattern,false);
             }
@@ -476,7 +476,7 @@ var PatternMatrix = cc.Layer.extend({
                         }
 
                         if(this.mPatternsSpr[notnull_r][col] == this.mFirstCheckPattern){
-                            this.mCheckMarkSpr.setPosition(cc.p(-100.0,-100.0));
+                            this.mCheckMarkSpr.setPosition(-100.0,-100.0);
                             this.mFirstCheckPattern = null;
                         }
 

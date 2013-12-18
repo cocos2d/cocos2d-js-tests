@@ -83,19 +83,19 @@ var BasicTest = BaseClippingNodeTest.extend({
 
         var stencil = this.stencil();
         stencil.setTag(TAG_STENCILNODE);
-        stencil.setPosition(cc.p(50, 50));
+        stencil.setPosition(50, 50);
 
         var clipper = this.clipper();
         clipper.setTag(TAG_CLIPPERNODE);
-        clipper.setAnchorPoint(cc.p(0.5, 0.5));
-        clipper.setPosition(cc.p(winSize.width / 2 - 50, winSize.height / 2 - 50));
+        clipper.setAnchorPoint(cc.ANCHOR_MIDDLE);
+        clipper.setPosition(winSize.width / 2 - 50, winSize.height / 2 - 50);
         clipper.setStencil(stencil);
         this.addChild(clipper);
 
         var content = this.content();
-        content.setPosition(cc.p(50, 50));
+        content.setPosition(50, 50);
         clipper.addChild(content);
-        //content.setPosition(cc.p(400, 225));
+        //content.setPosition(400, 225);
         //this.addChild(content);
     },
 
@@ -253,16 +253,16 @@ var NestedTest = BaseClippingNodeTest.extend({
 
             var clipper = cc.ClippingNode.create();
             clipper.setContentSize(cc.size(size, size));
-            clipper.setAnchorPoint(cc.p(0.5, 0.5));
-            clipper.setPosition(cc.p(parent.getContentSize().width / 2, parent.getContentSize().height / 2));
+            clipper.setAnchorPoint(cc.ANCHOR_MIDDLE);
+            clipper.setPosition(parent.getContentSize().width / 2, parent.getContentSize().height / 2);
             clipper.setAlphaThreshold(0.05);
             clipper.runAction(cc.RepeatForever.create(cc.RotateBy.create((i % 3) ? 1.33 : 1.66, (i % 2) ? 90 : -90)));
             parent.addChild(clipper);
 
             var stencil = cc.Sprite.create(s_pathGrossini);
             stencil.setScale(2.5 - (i * (2.5 / depth)));
-            stencil.setAnchorPoint(cc.p(0.5, 0.5));
-            stencil.setPosition(cc.p(clipper.getContentSize().width / 2, clipper.getContentSize().height / 2));
+            stencil.setAnchorPoint(cc.ANCHOR_MIDDLE);
+            stencil.setPosition(clipper.getContentSize().width / 2, clipper.getContentSize().height / 2);
             stencil.setVisible(false);
             stencil.runAction(cc.Sequence.create(cc.DelayTime.create(i), cc.Show.create()));
             clipper.setStencil(stencil);
@@ -289,7 +289,7 @@ var HoleDemo = BaseClippingNodeTest.extend({
         transform = cc.AffineTransformScale(transform, target.getScale(), target.getScale());
 
         this._outerClipper.setContentSize(cc.SizeApplyAffineTransform(target.getContentSize(), transform));
-        this._outerClipper.setAnchorPoint(cc.p(0.5, 0.5));
+        this._outerClipper.setAnchorPoint(cc.ANCHOR_MIDDLE);
         this._outerClipper.setPosition(cc.pMult(cc.pFromSize(this.getContentSize()), 0.5));
         this._outerClipper.runAction(cc.RepeatForever.create(cc.RotateBy.create(1, 45)));
 
@@ -372,8 +372,8 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
         var clipper = cc.ClippingNode.create();
         clipper.setTag(TAG_CLIPPERNODE);
         clipper.setContentSize(cc.size(200, 200));
-        clipper.setAnchorPoint(cc.p(0.5, 0.5));
-        clipper.setPosition(cc.p(this.getContentSize().width / 2, this.getContentSize().height / 2));
+        clipper.setAnchorPoint(cc.ANCHOR_MIDDLE);
+        clipper.setPosition(this.getContentSize().width / 2, this.getContentSize().height / 2);
         clipper.runAction(cc.RepeatForever.create(cc.RotateBy.create(1, 45)));
         this.addChild(clipper);
 
@@ -388,8 +388,8 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
 
         var content = cc.Sprite.create(s_back2);
         content.setTag(TAG_CONTENTNODE);
-        content.setAnchorPoint(cc.p(0.5, 0.5));
-        content.setPosition(cc.p(clipper.getContentSize().width / 2, clipper.getContentSize().height / 2));
+        content.setAnchorPoint(cc.ANCHOR_MIDDLE);
+        content.setPosition(clipper.getContentSize().width / 2, clipper.getContentSize().height / 2);
         clipper.addChild(content);
 
         this._scrolling = false;
@@ -461,7 +461,7 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
             cc.log("Stencil must be enabled for the current CCGLView.");
 
         this._sprite = cc.Sprite.create(s_pathGrossini);
-        this._sprite.setAnchorPoint(  cc.p(0.5, 0) );
+        this._sprite.setAnchorPoint(cc.ANCHOR_MIDDLE_BOTTOM);
         this._sprite.setScale( 2.5 );
         cc.Director.getInstance().setAlphaBlending(true);
     },

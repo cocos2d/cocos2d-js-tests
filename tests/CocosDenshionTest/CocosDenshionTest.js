@@ -125,12 +125,12 @@ CocosDenshionTest = cc.LayerGradient.extend({
     },
     addBackground:function(){
         var sp_bk = cc.Sprite.create(s_cocosDenshion_bg);
-        sp_bk.setPosition(cc.p(winSize.width/2, winSize.height/2));
+        sp_bk.setPosition(winSize.width/2, winSize.height/2);
         this.addChild(sp_bk);
 
         this._batchNode = cc.SpriteBatchNode.create(s_cocosDenshion_png);
-        this._batchNode.setPosition(cc.p(0, 0));
-        this._batchNode.setAnchorPoint(cc.p(0, 0));
+        this._batchNode.setPosition(0, 0);
+        this._batchNode.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
         this.addChild(this._batchNode);
 
         //four peg
@@ -212,11 +212,11 @@ CocosDenshionTest = cc.LayerGradient.extend({
 
         //add audio icon
         var icon_l = cc.Sprite.createWithSpriteFrameName("music_icon_l.png");
-        icon_l.setPosition(cc.p(winSize.width*0.34, winSize.height*0.18));
+        icon_l.setPosition(winSize.width*0.34, winSize.height*0.18);
         icon_l.setScale(this._scale);
         this._musicPart.addChild(icon_l);
         var icon_r = cc.Sprite.createWithSpriteFrameName("music_icon_r.png");
-        icon_r.setPosition(cc.p(winSize.width*0.66, winSize.height*0.18));
+        icon_r.setPosition(winSize.width * 0.66, winSize.height*0.18);
         icon_r.setScale(this._scale);
         this._musicPart.addChild(icon_r);
 
@@ -236,7 +236,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
         this._effectPart.addChild(effectMenu);
         //add back
         var btn_bk = cc.Scale9Sprite.createWithSpriteFrameName("effect_btn_bk.png");
-        btn_bk.setPosition(cc.p(winSize.width/2, winSize.height*0.46));
+        btn_bk.setPosition(winSize.width/2, winSize.height*0.46);
         btn_bk.setContentSize(cc.size(winSize.width*0.80, winSize.height*0.145));
         btn_bk.setScale(this._scale);
         this._effectPart.addChild(btn_bk);
@@ -282,7 +282,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
             //add button background.
             var two_btn_bk = cc.Scale9Sprite.createWithSpriteFrameName("effect_long_bk.png");
             two_btn_bk.setContentSize(cc.size(b_w, b_h));
-            two_btn_bk.setPosition(cc.p(x + w*i, y));
+            two_btn_bk.setPosition(x + w*i, y);
             //two_btn_bk->setScale(_scale);
             this._effectPart.addChild(two_btn_bk);
 
@@ -296,11 +296,11 @@ CocosDenshionTest = cc.LayerGradient.extend({
 
         //add audio icon
         var icon_l = cc.Sprite.createWithSpriteFrameName("music_icon_l.png");
-        icon_l.setPosition(cc.p(winSize.width*0.34, winSize.height*0.12));
+        icon_l.setPosition(winSize.width*0.34, winSize.height*0.12);
         icon_l.setScale(this._scale);
         this._effectPart.addChild(icon_l);
         var icon_r = cc.Sprite.createWithSpriteFrameName("music_icon_r.png");
-        icon_r.setPosition(cc.p(winSize.width*0.66, winSize.height*0.12));
+        icon_r.setPosition(winSize.width*0.66, winSize.height*0.12);
         icon_r.setScale(this._scale);
         this._effectPart.addChild(icon_r);
 

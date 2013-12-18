@@ -58,7 +58,7 @@ UIScene = cc.Layer.extend({
 
             var winSize = cc.Director.getInstance().getWinSize();
             var scale = winSize.height / 320;
-            this._uiLayer.setAnchorPoint(cc.p(0,0));
+            this._uiLayer.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
             this._uiLayer.setScale(scale);
             this._uiLayer.setPosition(cc.p((winSize.width - 480 * scale) / 2, (winSize.height - 320 * scale) / 2));
 

@@ -553,7 +553,7 @@ var ShaderNode = cc.GLNode.extend({
 
         if( 'opengl' in sys.capabilities ) {
             this.setContentSize(cc.size(256,256));
-            this.setAnchorPoint(cc.p(0.5, 0.5));
+            this.setAnchorPoint(cc.ANCHOR_MIDDLE);
 
             this.shader = cc.GLProgram.create(vertexShader, framentShader);
             this.shader.retain();
@@ -950,7 +950,7 @@ var TexImage2DTest = OpenGLTestLayer.extend({
             this.glnode = glnode;
             glnode.setPosition(winSize.width/2, winSize.height/2);
             glnode.setContentSize(cc.size(128,128));
-            glnode.setAnchorPoint(cc.p(0.5,0.5));
+            glnode.setAnchorPoint(cc.ANCHOR_MIDDLE);
 
             this.shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTexture");
             this.initGL();
@@ -1172,8 +1172,11 @@ var GLGetUniformTest = OpenGLTestLayer.extend({
         var shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTextureColor");
         var program = shader.getProgram();
         shader.use();
-
-        var loc = gl.getUniformLocation( program, "CC_MVPMatrix");
+        var loc;
+        if(sys.platform == 'browser')
+            loc = gl.getUniformLocation( program, "CC_MVMatrix");   //Move MV * P to shader on HTML5
+        else
+            loc = gl.getUniformLocation( program, "CC_MVPMatrix");
 
         var pMatrix = [1,2,3,4, 4,3,2,1, 1,2,4,8, 1.1,1.2,1.3,1.4];
         this.pMatrix = pMatrix = new Float32Array(pMatrix);

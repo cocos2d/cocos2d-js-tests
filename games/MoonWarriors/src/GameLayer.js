@@ -70,7 +70,7 @@ var GameLayer = cc.Layer.extend({
 
             // score
             this.lbScore = cc.LabelBMFont.create("Score: 0", s_arial14_fnt);
-            this.lbScore.setAnchorPoint(cc.p(1, 0));
+            this.lbScore.setAnchorPoint(cc.ANCHOR_BOTTOM_RIGHT);
             this.lbScore.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
             this.addChild(this.lbScore, 1000);
             this.lbScore.setPosition(winSize.width - 5, winSize.height - 30);

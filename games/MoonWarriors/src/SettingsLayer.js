@@ -3,7 +3,7 @@ var SettingsLayer = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
             var sp = cc.Sprite.create(s_loading);
-            sp.setAnchorPoint(cc.p(0,0));
+            sp.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
             this.addChild(sp, 0, 1);
 
             var cacheImage = cc.TextureCache.getInstance().addImage(s_menuTitle);
@@ -51,9 +51,7 @@ var SettingsLayer = cc.Layer.extend({
             this.addChild(menu);
 
             var cp_back = back.getPosition();
-            cp_back.y -= 50.0;
-            back.setPosition(cp_back);
-
+            back.setPositionY(cp_back.y - 50.0);
 
             bRet = true;
         }

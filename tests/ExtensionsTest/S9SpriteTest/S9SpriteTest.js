@@ -49,12 +49,12 @@ var S9SpriteTestDemo = cc.LayerGradient.extend({
 
         var label = cc.LabelTTF.create(this._title, "Arial", 28);
         this.addChild(label, 1);
-        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
+        label.setPosition(winSize.width / 2, winSize.height - 50);
 
         if (this._subtitle !== "") {
             var l = cc.LabelTTF.create(this._subtitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
+            l.setPosition(winSize.width / 2, winSize.height - 80);
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
@@ -63,7 +63,7 @@ var S9SpriteTestDemo = cc.LayerGradient.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(cc.p(0,0));
+        menu.setPosition(0,0);
         var cs = item2.getContentSize();
         item1.setPosition( cc.p(winSize.width/2 - cs.width*2, cs.height/2) );
         item2.setPosition( cc.p(winSize.width/2, cs.height/2) );
@@ -117,7 +117,7 @@ var S9BatchNodeBasic = S9SpriteTestDemo.extend({
         blocks.updateWithBatchNode(batchNode, cc.rect(0, 0, 96, 96), false, cc.rect(0, 0, 96, 96));
         cc.log("... updateWithBatchNode");
 
-        blocks.setPosition(cc.p(x, y));
+        blocks.setPosition(x, y);
         cc.log("... setPosition");
 
         this.addChild(blocks);
@@ -145,7 +145,7 @@ var S9FrameNameSpriteSheet = S9SpriteTestDemo.extend({
         var blocks = cc.Scale9Sprite.createWithSpriteFrameName('blocks9.png');
         cc.log("... created");
 
-        blocks.setPosition(cc.p(x, y));
+        blocks.setPosition(x, y);
         cc.log("... setPosition");
 
         this.addChild(blocks);
@@ -173,7 +173,7 @@ var S9FrameNameSpriteSheetRotated = S9SpriteTestDemo.extend({
         var blocks = cc.Scale9Sprite.createWithSpriteFrameName('blocks9r.png');
         cc.log("... created");
 
-        blocks.setPosition(cc.p(x, y));
+        blocks.setPosition(x, y);
         cc.log("... setPosition");
 
         this.addChild(blocks);
@@ -207,7 +207,7 @@ var S9BatchNodeScaledNoInsets = S9SpriteTestDemo.extend({
         blocks_scaled.updateWithBatchNode(batchNode_scaled, cc.rect(0, 0, 96, 96), false, cc.rect(0, 0, 96, 96));
         cc.log("... updateWithBatchNode");
 
-        blocks_scaled.setPosition(cc.p(x, y));
+        blocks_scaled.setPosition(x, y);
         cc.log("... setPosition");
 
         blocks_scaled.setContentSize(cc.size(96 * 4, 96*2));
@@ -238,7 +238,7 @@ var S9FrameNameSpriteSheetScaledNoInsets = S9SpriteTestDemo.extend({
         var blocks_scaled = cc.Scale9Sprite.createWithSpriteFrameName('blocks9.png');
         cc.log("... created");
 
-        blocks_scaled.setPosition(cc.p(x, y));
+        blocks_scaled.setPosition(x, y);
         cc.log("... setPosition");
 
         blocks_scaled.setContentSize(cc.size(96 * 4, 96*2));
@@ -269,7 +269,7 @@ var S9FrameNameSpriteSheetRotatedScaledNoInsets = S9SpriteTestDemo.extend({
         var blocks_scaled = cc.Scale9Sprite.createWithSpriteFrameName('blocks9r.png');
         cc.log("... created");
 
-        blocks_scaled.setPosition(cc.p(x, y));
+        blocks_scaled.setPosition(x, y);
         cc.log("... setPosition");
 
         blocks_scaled.setContentSize(cc.size(96 * 4, 96*2));
@@ -310,7 +310,7 @@ var S9BatchNodeScaleWithCapInsets = S9SpriteTestDemo.extend({
         blocks_scaled_with_insets.setContentSize(cc.size(96 * 4.5, 96 * 2.5));
         cc.log("... setContentSize");
 
-        blocks_scaled_with_insets.setPosition(cc.p(x, y));
+        blocks_scaled_with_insets.setPosition(x, y);
         cc.log("... setPosition");
 
         this.addChild(blocks_scaled_with_insets);
@@ -338,7 +338,7 @@ var S9FrameNameSpriteSheetInsets = S9SpriteTestDemo.extend({
         var blocks_with_insets = cc.Scale9Sprite.createWithSpriteFrameName('blocks9.png', cc.rect(32, 32, 32, 32));
         cc.log("... created");
 
-        blocks_with_insets.setPosition(cc.p(x, y));
+        blocks_with_insets.setPosition(x, y);
         cc.log("... setPosition");
 
         this.addChild(blocks_with_insets);
@@ -369,7 +369,7 @@ var S9FrameNameSpriteSheetInsetsScaled = S9SpriteTestDemo.extend({
         blocks_scaled_with_insets.setContentSize(cc.size(96 * 4.5, 96 * 2.5));
         cc.log("... setContentSize");
 
-        blocks_scaled_with_insets.setPosition(cc.p(x, y));
+        blocks_scaled_with_insets.setPosition(x, y);
         cc.log("... setPosition");
 
         this.addChild(blocks_scaled_with_insets);
@@ -397,7 +397,7 @@ var S9FrameNameSpriteSheetRotatedInsets = S9SpriteTestDemo.extend({
         var blocks_with_insets = cc.Scale9Sprite.createWithSpriteFrameName('blocks9r.png', cc.rect(32, 32, 32, 32));
         cc.log("... created");
 
-        blocks_with_insets.setPosition(cc.p(x, y));
+        blocks_with_insets.setPosition(x, y);
         cc.log("... setPosition");
 
         this.addChild(blocks_with_insets);
@@ -426,7 +426,7 @@ var S9_TexturePacker = S9SpriteTestDemo.extend({
         var s = cc.Scale9Sprite.createWithSpriteFrameName('button_normal.png');
         cc.log("... created");
 
-        s.setPosition(cc.p(x, y));
+        s.setPosition(x, y);
         cc.log("... setPosition");
 
         s.setContentSize(cc.size(21 * 16, 13 * 16));
@@ -440,7 +440,7 @@ var S9_TexturePacker = S9SpriteTestDemo.extend({
         var s2 = cc.Scale9Sprite.createWithSpriteFrameName('button_actived.png');
         cc.log("... created");
 
-        s2.setPosition(cc.p(x, y));
+        s2.setPosition(x, y);
         cc.log("... setPosition");
 
         s2.setContentSize(cc.size(21 * 16, 13 * 16));
@@ -474,7 +474,7 @@ var S9FrameNameSpriteSheetRotatedInsetsScaled = S9SpriteTestDemo.extend({
         blocks_scaled_with_insets.setContentSize(cc.size(96 * 4.5, 96 * 2.5));
         cc.log("... setContentSize");
 
-        blocks_scaled_with_insets.setPosition(cc.p(x, y));
+        blocks_scaled_with_insets.setPosition(x, y);
         cc.log("... setPosition");
 
         this.addChild(blocks_scaled_with_insets);
