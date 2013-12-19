@@ -456,22 +456,22 @@ var ActionSkewRotateScale = ActionsDemo.extend({
 
         var boxSize = cc.size(100.0, 100.0);
         var box = cc.LayerColor.create(cc.c4b(255, 255, 0, 255));
-        box.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+        box.setAnchorPoint(0, 0);
         box.setPosition((winSize.width - boxSize.width) / 2, (winSize.height - boxSize.height) / 2);
         box.setContentSize(boxSize);
 
         var markrside = 10.0;
         var uL = cc.LayerColor.create(cc.c4b(255, 0, 0, 255));
         box.addChild(uL);
-        uL.setContentSize(cc.size(markrside, markrside));
+        uL.setContentSize(markrside, markrside);
         uL.setPosition(0, boxSize.height - markrside);
-        uL.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+        uL.setAnchorPoint(0, 0);
 
         var uR = cc.LayerColor.create(cc.c4b(0, 0, 255, 255));
         box.addChild(uR);
-        uR.setContentSize(cc.size(markrside, markrside));
+        uR.setContentSize(markrside, markrside);
         uR.setPosition(boxSize.width - markrside, boxSize.height - markrside);
-        uR.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+        uR.setAnchorPoint(0, 0);
 
 
         this.addChild(box);
@@ -1832,8 +1832,6 @@ var ActionCatmullRom = ActionsDemo.extend({
             cc.p(winSize.width - 80, winSize.height - 80),
             cc.p(winSize.width / 2, winSize.height - 80),
             cc.p(winSize.width / 2, 30) ];
-
-        this._kathia.setPosition(winSize.width / 2, 30);
 
         var action2 = cc.CatmullRomTo.create(3, array2);
         var reverse2 = action2.reverse();

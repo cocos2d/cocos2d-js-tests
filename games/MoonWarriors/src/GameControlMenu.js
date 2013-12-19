@@ -1,4 +1,5 @@
 var GameControlMenu = cc.Layer.extend({
+
     init:function () {
         var bRet = false;
         if (this._super()) {
@@ -7,11 +8,12 @@ var GameControlMenu = cc.Layer.extend({
             var systemMenu = cc.MenuItemFont.create("Main Menu", this.onSysMenu);
             var menu = cc.Menu.create(systemMenu);
             menu.setPosition(0, 0);
-            systemMenu.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+            systemMenu.setAnchorPoint(0, 0);
             systemMenu.setPosition(winSize.width-95, 5);
             this.addChild(menu, 1, 2);
             bRet = true;
         }
+
         return bRet;
     },
     onSysMenu:function (pSender) {

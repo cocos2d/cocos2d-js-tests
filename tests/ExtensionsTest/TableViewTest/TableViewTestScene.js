@@ -41,14 +41,14 @@ var TableViewTestLayer = cc.Layer.extend({
 
         var tableView = cc.TableView.create(this, cc.size(600, 60));
         tableView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
-        tableView.setPosition(20, winSize.height / 2 - 150);
+        tableView.setPosition(cc.p(20, winSize.height / 2 - 150));
         tableView.setDelegate(this);
         this.addChild(tableView);
         tableView.reloadData();
 
         tableView = cc.TableView.create(this, cc.size(60, 350));
         tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
-        tableView.setPosition(winSize.width - 150, winSize.height / 2 - 150);
+        tableView.setPosition(cc.p(winSize.width - 150, winSize.height / 2 - 150));
         tableView.setDelegate(this);
         tableView.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
         this.addChild(tableView);
@@ -56,9 +56,9 @@ var TableViewTestLayer = cc.Layer.extend({
 
         // Back Menu
         var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
-        itemBack.setPosition(winSize.width - 50, 25);
+        itemBack.setPosition(cc.p(winSize.width - 50, 25));
         var menuBack = cc.Menu.create(itemBack);
-        menuBack.setPosition(0,0);
+        menuBack.setPosition(cc.p(0,0));
         this.addChild(menuBack);
 
         return true;
@@ -92,13 +92,13 @@ var TableViewTestLayer = cc.Layer.extend({
         if (!cell) {
             cell = new CustomTableViewCell();
             var sprite = cc.Sprite.create(s_image_icon);
-            sprite.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
-            sprite.setPosition(0, 0);
+            sprite.setAnchorPoint(0,0);
+            sprite.setPosition(cc.p(0, 0));
             cell.addChild(sprite);
 
             label = cc.LabelTTF.create(strValue, "Helvetica", 20.0);
-            label.setPosition(0,0);
-            label.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+            label.setPosition(cc.p(0,0));
+            label.setAnchorPoint(0,0);
             label.setTag(123);
             cell.addChild(label);
         } else {

@@ -6,11 +6,11 @@ var GameOver = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
             var sp = cc.Sprite.create(s_loading);
-            sp.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+            sp.setAnchorPoint(0,0);
             this.addChild(sp, 0, 1);
 
             var logo = cc.Sprite.create(s_gameOver);
-            logo.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+            logo.setAnchorPoint(0,0);
             logo.setPosition(0,300);
             this.addChild(logo,10,1);
 

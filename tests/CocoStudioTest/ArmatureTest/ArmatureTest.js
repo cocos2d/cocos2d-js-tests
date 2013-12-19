@@ -216,7 +216,7 @@ var TestDirectLoading = ArmatureTestLayer.extend({
 
         var armature = ccs.Armature.create("bear");
         armature.getAnimation().playByIndex(0);
-        armature.setAnchorPoint(cc.ANCHOR_MIDDLE);
+        armature.setAnchorPoint(0.5, 0.5);
         armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
         this.addChild(armature);
     },
@@ -238,7 +238,7 @@ var TestCSWithSkeleton = ArmatureTestLayer.extend({
         var armature = ccs.Armature.create("Cowboy");
         armature.getAnimation().playByIndex(0);
         armature.setScale(0.2);
-        armature.setAnchorPoint(cc.ANCHOR_MIDDLE);
+        armature.setAnchorPoint(0.5, 0.5);
         armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
         this.addChild(armature);
     },
@@ -260,7 +260,7 @@ var TestDragonBones20 = ArmatureTestLayer.extend({
         armature.getAnimation().playByIndex(0);
         armature.getAnimation().setSpeedScale(0.4);
         armature.setScale(0.6);
-        armature.setAnchorPoint(cc.ANCHOR_MIDDLE);
+        armature.setAnchorPoint(0.5, 0.5);
         armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
         this.addChild(armature);
     },
@@ -582,7 +582,7 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
 
         //add label
         var label = cc.LabelTTF.create("This is a weapon!", "Arial", 18);
-        label.setAnchorPoint(cc.p(0.2, 0.5));
+        label.setAnchorPoint(0.2, 0.5);
         this.armature.getBone("weapon").addDisplay(label, 7);
     },
     title:function () {
@@ -778,11 +778,11 @@ var TestAnchorPoint = ArmatureTestLayer.extend({
             this.addChild(armature, 0, i);
         }
 
-        this.getChildByTag(0).setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
-        this.getChildByTag(1).setAnchorPoint(cc.ANCHOR_TOP_LEFT);
-        this.getChildByTag(2).setAnchorPoint(cc.ANCHOR_BOTTOM_RIGHT);
-        this.getChildByTag(3).setAnchorPoint(cc.ANCHOR_TOP_RIGHT);
-        this.getChildByTag(4).setAnchorPoint(cc.ANCHOR_MIDDLE);
+        this.getChildByTag(0).setAnchorPoint(0, 0);
+        this.getChildByTag(1).setAnchorPoint(0, 1);
+        this.getChildByTag(2).setAnchorPoint(1, 0);
+        this.getChildByTag(3).setAnchorPoint(1, 1);
+        this.getChildByTag(4).setAnchorPoint(0.5, 0.5);
     },
     title:function () {
         return "Test Set AnchorPoint";

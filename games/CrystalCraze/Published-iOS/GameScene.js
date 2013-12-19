@@ -171,12 +171,12 @@ function removeConnectedGems(x, y)
 
 				var sprt = cc.Sprite.createWithSpriteFrameName("crystals/bomb.png");
 				sprt.setPosition(cc.p(gemX*kGemSize, gemY*kGemSize));
-				sprt.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+				sprt.setAnchorPoint(0,0);
 				sprt.setOpacity(0);
 				sprt.runAction(cc.FadeIn.create(0.4));
 
 				var sprtGlow = cc.Sprite.createWithSpriteFrameName("crystals/bomb-hi.png");
-				sprtGlow.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+				sprtGlow.setAnchorPoint(0,0);
 				sprtGlow.setOpacity(0);
 				sprtGlow.runAction(cc.RepeatForever.create(cc.Sequence.create(cc.FadeIn.create(0.4),cc.FadeOut.create(0.4))));
 				sprt.addChild(sprtGlow);
@@ -389,7 +389,7 @@ function setGemType(x, y, newType)
 
 	var gemSprite = cc.Sprite.createWithSpriteFrameName("crystals/"+newType+".png");
 	gemSprite.setPosition(cc.p(x * kGemSize, y * kGemSize));
-	gemSprite.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+	gemSprite.setAnchorPoint(0,0);
 
 	gGameLayer.addChild(gemSprite);
 	gBoardSprites[idx] = gemSprite;
@@ -527,7 +527,7 @@ function displayHint()
 		var hintSprite = cc.Sprite.createWithSpriteFrameName("crystals/hint.png");
 		hintSprite.setOpacity(0);
 		hintSprite.setPosition(cc.p(x*kGemSize, y*kGemSize));
-		hintSprite.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT)
+		hintSprite.setAnchorPoint(0, 0);
 		gHintLayer.addChild(hintSprite);
 		hintSprite.runAction(action);
 	}
@@ -850,7 +850,7 @@ GameScene.prototype.onUpdate = function(dt)
 				var gemType = Math.floor(Math.random()*5);
 				var gemSprite = cc.Sprite.createWithSpriteFrameName("crystals/"+gemType+".png");
 				gemSprite.setPosition(cc.p(x * kGemSize, kBoardHeight * kGemSize));
-				gemSprite.setAnchorPoint(cc.ANCHOR_BOTTOM_LEFT);
+				gemSprite.setAnchorPoint(0,0);
 
 				gem = {gemType: gemType, sprite: gemSprite, yPos: kBoardHeight, ySpeed: 0};
 				gFallingGems[x].push(gem);

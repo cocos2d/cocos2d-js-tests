@@ -30,14 +30,14 @@ var ControlStepperTest = ControlScene.extend({
             var screenSize = cc.Director.getInstance().getWinSize();
 
             var layer = cc.Node.create();
-            layer.setPosition(screenSize.width / 2, screenSize.height / 2);
+            layer.setPosition(cc.p(screenSize.width / 2, screenSize.height / 2));
             this.addChild(layer, 1);
             var layer_width = 0;
 
             // Add the black background for the text
             var background = cc.Scale9Sprite.create("res/extensions/buttonBackground.png");
-            background.setContentSize(cc.size(100, 50));
-            background.setPosition(layer_width + background.getContentSize().width / 2.0, 0);
+            background.setContentSize(100, 50);
+            background.setPosition(cc.p(layer_width + background.getContentSize().width / 2.0, 0));
             layer.addChild(background);
 
             this._displayValueLabel = cc.LabelTTF.create("0", "HelveticaNeue-Bold", 30);
@@ -48,15 +48,15 @@ var ControlStepperTest = ControlScene.extend({
             layer_width += background.getContentSize().width;
 
             var stepper = this.makeControlStepper();
-            stepper.setPosition(layer_width + 10 + stepper.getContentSize().width / 2, 0);
+            stepper.setPosition(cc.p(layer_width + 10 + stepper.getContentSize().width / 2, 0));
             stepper.addTargetWithActionForControlEvents(this, this.valueChanged, cc.CONTROL_EVENT_VALUECHANGED);
             layer.addChild(stepper);
 
             layer_width += stepper.getContentSize().width;
 
             // Set the layer size
-            layer.setContentSize(cc.size(layer_width, 0));
-            layer.setAnchorPoint(cc.ANCHOR_MIDDLE);
+            layer.setContentSize(layer_width, 0);
+            layer.setAnchorPoint(0.5, 0.5);
 
             // Update the value label
             this.valueChanged(stepper, cc.CONTROL_EVENT_VALUECHANGED);
