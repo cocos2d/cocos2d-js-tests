@@ -130,7 +130,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
 
         this._batchNode = cc.SpriteBatchNode.create(s_cocosDenshion_png);
         this._batchNode.setPosition(cc.p(0, 0));
-        this._batchNode.setAnchorPoint(cc.p(0, 0));
+        this._batchNode.setAnchorPoint(0, 0);
         this.addChild(this._batchNode);
 
         //four peg

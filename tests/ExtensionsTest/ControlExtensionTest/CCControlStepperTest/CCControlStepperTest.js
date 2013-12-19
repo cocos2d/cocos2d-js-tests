@@ -56,7 +56,7 @@ var ControlStepperTest = ControlScene.extend({
 
             // Set the layer size
             layer.setContentSize(cc.size(layer_width, 0));
-            layer.setAnchorPoint(cc.p(0.5, 0.5));
+            layer.setAnchorPoint(0.5, 0.5);
 
             // Update the value label
             this.valueChanged(stepper, cc.CONTROL_EVENT_VALUECHANGED);

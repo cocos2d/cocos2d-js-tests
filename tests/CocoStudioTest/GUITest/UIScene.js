@@ -58,7 +58,7 @@ UIScene = cc.Layer.extend({
 
             var winSize = cc.Director.getInstance().getWinSize();
             var scale = winSize.height / 320;
-            this._uiLayer.setAnchorPoint(cc.p(0,0));
+            this._uiLayer.setAnchorPoint(0,0);
             this._uiLayer.setScale(scale);
             this._uiLayer.setPosition(cc.p((winSize.width - 480 * scale) / 2, (winSize.height - 320 * scale) / 2));
 
@@ -67,7 +67,7 @@ UIScene = cc.Layer.extend({
             eventLabel.setText("");
             eventLabel.setFontName("Marker Felt");
             eventLabel.setFontSize(32);
-            eventLabel.setAnchorPoint(cc.p(0.5, -1));
+            eventLabel.setAnchorPoint(0.5, -1);
             eventLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
             this._uiLayer.addWidget(eventLabel);
             this._topDisplayLabel = eventLabel;

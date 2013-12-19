@@ -931,7 +931,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
             var node = cc.Node.create();
             // camera uses the center of the image as the pivoting point
             node.setContentSize(cc.size(winSize.width, winSize.height));
-            node.setAnchorPoint(cc.p(0.5, 0.5));
+            node.setAnchorPoint(0.5, 0.5);
             node.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
 
             this.addChild(node, 0);
@@ -1044,7 +1044,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
             var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 1);
             // camera uses the center of the image as the pivoting point
             batch.setContentSize(cc.size(winSize.width, winSize.height));
-            batch.setAnchorPoint(cc.p(0.5, 0.5));
+            batch.setAnchorPoint(0.5, 0.5);
             batch.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
             batch.setShaderProgram(alphaTestShader);
 
@@ -1140,13 +1140,13 @@ var SpriteAnchorPoint = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
 
@@ -1203,13 +1203,13 @@ var SpriteBatchNodeAnchorPoint = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
 
@@ -1252,7 +1252,7 @@ var Sprite6 = SpriteTestDemo.extend({
         this.addChild(batch, 0, TAG_SPRITE_BATCH_NODE);
         batch.ignoreAnchorPointForPosition(true);
 
-        batch.setAnchorPoint(cc.p(0.5, 0.5));
+        batch.setAnchorPoint(0.5, 0.5);
         batch.setContentSize(cc.size(winSize.width, winSize.height));
 
         // SpriteBatchNode actions
@@ -2005,13 +2005,13 @@ var SpriteOffsetAnchorRotation = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
 
@@ -2086,13 +2086,13 @@ var SpriteBatchNodeOffsetAnchorRotation = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
             point.setPosition(sprite.getPosition());
@@ -2163,13 +2163,13 @@ var SpriteOffsetAnchorScale = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
 
@@ -2250,13 +2250,13 @@ var SpriteBatchNodeOffsetAnchorScale = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
 
@@ -2330,13 +2330,13 @@ var SpriteOffsetAnchorSkew = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
 
@@ -2411,13 +2411,13 @@ var SpriteBatchNodeOffsetAnchorSkew = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
 
@@ -2490,13 +2490,13 @@ var SpriteOffsetAnchorSkewScale = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
 
@@ -2583,13 +2583,13 @@ var SpriteBatchNodeOffsetAnchorSkewScale = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
 
@@ -2673,13 +2673,13 @@ var SpriteOffsetAnchorFlip = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
 
@@ -2756,13 +2756,13 @@ var SpriteBatchNodeOffsetAnchorFlip = SpriteTestDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(cc.p(0, 0));
+                    sprite.setAnchorPoint(0, 0);
                     break;
                 case 1:
-                    sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                    sprite.setAnchorPoint(0.5, 0.5);
                     break;
                 case 2:
-                    sprite.setAnchorPoint(cc.p(1, 1));
+                    sprite.setAnchorPoint(1, 1);
                     break;
             }
 
@@ -3370,7 +3370,7 @@ var SpriteChildrenAnchorPoint = SpriteTestDemo.extend({
         // anchor (0,0)
         var sprite1 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_08.png"));
         sprite1.setPosition(cc.p(winSize.width / 4, winSize.height / 2));
-        sprite1.setAnchorPoint(cc.p(0, 0));
+        sprite1.setAnchorPoint(0, 0);
 
         var sprite2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_02.png"));
         sprite2.setPosition(cc.p(20, 30));
@@ -3395,7 +3395,7 @@ var SpriteChildrenAnchorPoint = SpriteTestDemo.extend({
         // anchor (0.5, 0.5)
         sprite1 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_08.png"));
         sprite1.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
-        sprite1.setAnchorPoint(cc.p(0.5, 0.5));
+        sprite1.setAnchorPoint(0.5, 0.5);
 
         sprite2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_02.png"));
         sprite2.setPosition(cc.p(20, 30));
@@ -3420,7 +3420,7 @@ var SpriteChildrenAnchorPoint = SpriteTestDemo.extend({
         // anchor (1,1)
         sprite1 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_08.png"));
         sprite1.setPosition(cc.p(winSize.width / 2 + winSize.width / 4, winSize.height / 2));
-        sprite1.setAnchorPoint(cc.p(1, 1));
+        sprite1.setAnchorPoint(1, 1);
 
         sprite2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_02.png"));
         sprite2.setPosition(cc.p(20, 30));
@@ -3483,7 +3483,7 @@ var SpriteBatchNodeChildrenAnchorPoint = SpriteTestDemo.extend({
         // anchor (0,0)
         var sprite1 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_08.png"));
         sprite1.setPosition(cc.p(winSize.width / 4, winSize.height / 2));
-        sprite1.setAnchorPoint(cc.p(0, 0));
+        sprite1.setAnchorPoint(0, 0);
 
         var sprite2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_02.png"));
         sprite2.setPosition(cc.p(20, 30));
@@ -3508,7 +3508,7 @@ var SpriteBatchNodeChildrenAnchorPoint = SpriteTestDemo.extend({
         // anchor (0.5, 0.5)
         sprite1 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_08.png"));
         sprite1.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
-        sprite1.setAnchorPoint(cc.p(0.5, 0.5));
+        sprite1.setAnchorPoint(0.5, 0.5);
 
         sprite2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_02.png"));
         sprite2.setPosition(cc.p(20, 30));
@@ -3534,7 +3534,7 @@ var SpriteBatchNodeChildrenAnchorPoint = SpriteTestDemo.extend({
         // anchor (1,1)
         sprite1 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_08.png"));
         sprite1.setPosition(cc.p(winSize.width / 2 + winSize.width / 4, winSize.height / 2));
-        sprite1.setAnchorPoint(cc.p(1, 1));
+        sprite1.setAnchorPoint(1, 1);
 
         sprite2 = cc.Sprite.createWithSpriteFrame(spriteFrameCache.getSpriteFrame("grossini_dance_02.png"));
         sprite2.setPosition(cc.p(20, 30));
