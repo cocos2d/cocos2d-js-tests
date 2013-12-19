@@ -36,7 +36,7 @@ var ControlStepperTest = ControlScene.extend({
 
             // Add the black background for the text
             var background = cc.Scale9Sprite.create("res/extensions/buttonBackground.png");
-            background.setContentSize(cc.size(100, 50));
+            background.setContentSize(100, 50);
             background.setPosition(cc.p(layer_width + background.getContentSize().width / 2.0, 0));
             layer.addChild(background);
 
@@ -55,7 +55,7 @@ var ControlStepperTest = ControlScene.extend({
             layer_width += stepper.getContentSize().width;
 
             // Set the layer size
-            layer.setContentSize(cc.size(layer_width, 0));
+            layer.setContentSize(layer_width, 0);
             layer.setAnchorPoint(0.5, 0.5);
 
             // Update the value label

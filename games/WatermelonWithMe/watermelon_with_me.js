@@ -679,7 +679,7 @@ var GameLayer = cc.LayerGradient.extend({
         var sprite = cc.PhysicsSprite.createWithSpriteFrameName("Chassis.png");
         var anchor = cp.v.add( sprite.getAnchorPointInPoints(), COG_ADJUSTMENT );
         var cs = sprite.getContentSize();
-        sprite.setAnchorPoint( cc.p(anchor.x / cs.width, anchor.y/cs.height) );
+        sprite.setAnchorPoint(anchor.x / cs.width, anchor.y/cs.height);
 
         // XXX: Space Patrol uses a nice poly for the chassis.
         // XXX: Add something similar here, instead of a boxed chassis

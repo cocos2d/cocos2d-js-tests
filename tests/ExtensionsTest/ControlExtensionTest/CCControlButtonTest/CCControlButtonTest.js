@@ -66,12 +66,12 @@ var ControlButtonTest_HelloVariableSize = ControlScene.extend({
             }
 
             layer.setAnchorPoint(0.5, 0.5);
-            layer.setContentSize(cc.size(total_width, height));
+            layer.setContentSize(total_width, height);
             layer.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
 
             // Add the black background
             var background = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-            background.setContentSize(cc.size(total_width + 14, height + 14));
+            background.setContentSize(total_width + 14, height + 14);
             background.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
             this.addChild(background);
             return true;
@@ -136,7 +136,7 @@ var ControlButtonTest_Event = ControlScene.extend({
 
             // Add the black background
             var background = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-            background.setContentSize(cc.size(300, 170));
+            background.setContentSize(300, 170);
             background.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
             this.addChild(background);
 
@@ -224,12 +224,12 @@ var ControlButtonTest_Styling = ControlScene.extend({
             }
 
             layer.setAnchorPoint(0.5, 0.5);
-            layer.setContentSize(cc.size(max_w, max_h));
+            layer.setContentSize(max_w, max_h);
             layer.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
 
             // Add the black background
             var backgroundButton = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-            backgroundButton.setContentSize(cc.size(max_w + 14, max_h + 14));
+            backgroundButton.setContentSize(max_w + 14, max_h + 14);
             backgroundButton.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0));
             this.addChild(backgroundButton);
             return true;

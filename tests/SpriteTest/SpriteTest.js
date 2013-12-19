@@ -930,7 +930,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
 
             var node = cc.Node.create();
             // camera uses the center of the image as the pivoting point
-            node.setContentSize(cc.size(winSize.width, winSize.height));
+            node.setContentSize(winSize.width, winSize.height);
             node.setAnchorPoint(0.5, 0.5);
             node.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
 
@@ -1043,7 +1043,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
             // Don't use capacity=1 in your real game. It is expensive to resize the capacity
             var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 1);
             // camera uses the center of the image as the pivoting point
-            batch.setContentSize(cc.size(winSize.width, winSize.height));
+            batch.setContentSize(winSize.width, winSize.height);
             batch.setAnchorPoint(0.5, 0.5);
             batch.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
             batch.setShaderProgram(alphaTestShader);
@@ -1253,7 +1253,7 @@ var Sprite6 = SpriteTestDemo.extend({
         batch.ignoreAnchorPointForPosition(true);
 
         batch.setAnchorPoint(0.5, 0.5);
-        batch.setContentSize(cc.size(winSize.width, winSize.height));
+        batch.setContentSize(winSize.width, winSize.height);
 
         // SpriteBatchNode actions
         var rotate1 = cc.RotateBy.create(5, 360);

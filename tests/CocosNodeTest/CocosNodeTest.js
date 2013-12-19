@@ -313,7 +313,7 @@ var StressTest1 = TestNodeDemo.extend({
 
         var sp1 = cc.Sprite.create(s_pathSister1);
         this.addChild(sp1, 0, TAG_SPRITE1);
-        this.setContentSize(cc.size(0, 0));
+        this.setContentSize(0, 0);
 
         sp1.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
 

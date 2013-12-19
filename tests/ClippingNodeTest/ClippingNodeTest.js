@@ -252,7 +252,7 @@ var NestedTest = BaseClippingNodeTest.extend({
             var size = 225 - i * (225 / (depth * 2));
 
             var clipper = cc.ClippingNode.create();
-            clipper.setContentSize(cc.size(size, size));
+            clipper.setContentSize(size, size);
             clipper.setAnchorPoint(0.5, 0.5);
             clipper.setPosition(cc.p(parent.getContentSize().width / 2, parent.getContentSize().height / 2));
             clipper.setAlphaThreshold(0.05);
@@ -371,7 +371,7 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
     setup:function () {
         var clipper = cc.ClippingNode.create();
         clipper.setTag(TAG_CLIPPERNODE);
-        clipper.setContentSize(cc.size(200, 200));
+        clipper.setContentSize(200, 200);
         clipper.setAnchorPoint(0.5, 0.5);
         clipper.setPosition(cc.p(this.getContentSize().width / 2, this.getContentSize().height / 2));
         clipper.runAction(cc.RepeatForever.create(cc.RotateBy.create(1, 45)));
