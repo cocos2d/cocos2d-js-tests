@@ -52,7 +52,7 @@ var PatternMatrix = cc.Layer.extend({
             this.setTag(111);
 
             var bgSprite = cc.Sprite.create("res/background.jpg");
-            bgSprite.setAnchorPoint(cc.p(0,0));
+            bgSprite.setAnchorPoint(0,0);
             this.addChild(bgSprite);
 
             this.initProgressWithGameMode();
@@ -151,7 +151,7 @@ var PatternMatrix = cc.Layer.extend({
         var patternType = 0|(temp % this.mPatternTypeMax);
 
         this.mPatternsSpr[row][col] = new PatternSprite(patternType, attr);
-        this.mPatternsSpr[row][col].setAnchorPoint(cc.p(0.5,0.5));
+        this.mPatternsSpr[row][col].setAnchorPoint(0.5,0.5);
         this.mPatternsSpr[row][col].m_nRowIndex = row;
         this.mPatternsSpr[row][col].m_nColIndex = col;
         this.mPatternsSpr[row][col].setPosition(cc.p(this.mPatternsPos[row][col].x,this.mPatternsPos[row][col].y+400.0));
@@ -161,7 +161,7 @@ var PatternMatrix = cc.Layer.extend({
     },
     initProgressWithGameMode:function(){
         this.mProgressBgSpr = cc.Sprite.create("res/ProgressBarBack.png");
-        this.mProgressBgSpr.setAnchorPoint(cc.p(0.0,0.5));
+        this.mProgressBgSpr.setAnchorPoint(0.0,0.5);
         this.mProgressBgSpr.setPosition(cc.p(32,20));
         this.addChild(this.mProgressBgSpr);
 
@@ -180,7 +180,7 @@ var PatternMatrix = cc.Layer.extend({
                 break;
             }
         }
-        this.mProgressSpr.setAnchorPoint(cc.p(0.0,0.5));
+        this.mProgressSpr.setAnchorPoint(0.0,0.5);
         this.mProgressSpr.setPosition(cc.p(32,20));
         this.mProgressSpr.setTextureRect(this.mVisibleRect);
         this.addChild(this.mProgressSpr);

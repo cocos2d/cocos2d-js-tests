@@ -92,13 +92,13 @@ var TableViewTestLayer = cc.Layer.extend({
         if (!cell) {
             cell = new CustomTableViewCell();
             var sprite = cc.Sprite.create(s_image_icon);
-            sprite.setAnchorPoint(cc.p(0,0));
+            sprite.setAnchorPoint(0,0);
             sprite.setPosition(cc.p(0, 0));
             cell.addChild(sprite);
 
             label = cc.LabelTTF.create(strValue, "Helvetica", 20.0);
             label.setPosition(cc.p(0,0));
-            label.setAnchorPoint(cc.p(0,0));
+            label.setAnchorPoint(0,0);
             label.setTag(123);
             cell.addChild(label);
         } else {

@@ -38,7 +38,7 @@ var ControlPotentiometerTest = ControlScene.extend({
 
             // Add the black background for the text
             var background = cc.Scale9Sprite.create("res/extensions/buttonBackground.png");
-            background.setContentSize(cc.size(80, 50));
+            background.setContentSize(80, 50);
             background.setPosition(cc.p(layer_width + background.getContentSize().width / 2.0, 0));
             layer.addChild(background);
 
@@ -63,8 +63,8 @@ var ControlPotentiometerTest = ControlScene.extend({
             layer_width += potentiometer.getContentSize().width;
 
             // Set the layer size
-            layer.setContentSize(cc.size(layer_width, 0));
-            layer.setAnchorPoint(cc.p(0.5, 0.5));
+            layer.setContentSize(layer_width, 0);
+            layer.setAnchorPoint(0.5, 0.5);
 
             // Update the value label
             this.valueChanged(potentiometer, cc.CONTROL_EVENT_VALUECHANGED);

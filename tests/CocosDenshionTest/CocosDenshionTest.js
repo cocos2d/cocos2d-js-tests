@@ -130,7 +130,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
 
         this._batchNode = cc.SpriteBatchNode.create(s_cocosDenshion_png);
         this._batchNode.setPosition(cc.p(0, 0));
-        this._batchNode.setAnchorPoint(cc.p(0, 0));
+        this._batchNode.setAnchorPoint(0, 0);
         this.addChild(this._batchNode);
 
         //four peg
@@ -178,7 +178,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
         //add back
         var btn_bk = cc.Scale9Sprite.createWithSpriteFrameName("music_btn_bk.png");
         btn_bk.setPosition(winSize.width/2, winSize.height*0.45);
-        btn_bk.setContentSize(cc.size(winSize.width*0.75, winSize.height*0.17));
+        btn_bk.setContentSize(winSize.width*0.75, winSize.height*0.17);
         this._musicPart.addChild(btn_bk);
 
         var oneItems = [
@@ -237,7 +237,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
         //add back
         var btn_bk = cc.Scale9Sprite.createWithSpriteFrameName("effect_btn_bk.png");
         btn_bk.setPosition(cc.p(winSize.width/2, winSize.height*0.46));
-        btn_bk.setContentSize(cc.size(winSize.width*0.80, winSize.height*0.145));
+        btn_bk.setContentSize(winSize.width*0.80, winSize.height*0.145);
         btn_bk.setScale(this._scale);
         this._effectPart.addChild(btn_bk);
         var oneItems = [
@@ -281,7 +281,7 @@ CocosDenshionTest = cc.LayerGradient.extend({
         for (var i=0; i<twoItems.length/2; i++) {
             //add button background.
             var two_btn_bk = cc.Scale9Sprite.createWithSpriteFrameName("effect_long_bk.png");
-            two_btn_bk.setContentSize(cc.size(b_w, b_h));
+            two_btn_bk.setContentSize(b_w, b_h);
             two_btn_bk.setPosition(cc.p(x + w*i, y));
             //two_btn_bk->setScale(_scale);
             this._effectPart.addChild(two_btn_bk);
