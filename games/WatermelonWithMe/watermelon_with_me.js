@@ -213,8 +213,8 @@ var GameLayer = cc.LayerGradient.extend({
             backLayer.addChild(background2, Z_MOUNTAINS+1);
             background2.setPosition(cc.p(1024, 0));
             scroll.addChild(backLayer, Z_MOUNTAINS, cc._p(0.2, 0.2), cc._p(0, -150));
-            background1.setAnchorPoint(cc._p(0,0));
-            background2.setAnchorPoint(cc._p(0,0));
+            background1.setAnchorPoint(0,0);
+            background2.setAnchorPoint(0,0);
         }
 
         // Terrain
@@ -250,8 +250,8 @@ var GameLayer = cc.LayerGradient.extend({
         this._timeLabel = hud.getChildByTag(TIME_LABEL_TAG);
 
         // bug in cocosbuilder
-        this._scoreLabel.setAnchorPoint(cc._p(1, 0.5));
-        this._timeLabel.setAnchorPoint(cc._p(0, 0.5));
+        this._scoreLabel.setAnchorPoint(1, 0.5);
+        this._timeLabel.setAnchorPoint(0, 0.5);
 
         // update with score
         this._scoreLabel.setString( this._game_state.score.toString() );

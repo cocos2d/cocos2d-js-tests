@@ -280,7 +280,7 @@ var HoleDemo = BaseClippingNodeTest.extend({
 
     setup:function () {
         var target = cc.Sprite.create(s_pathBlock);
-        target.setAnchorPoint(cc.POINT_ZERO);
+        target.setAnchorPoint(0,0);
         target.setScale(3);
 
         this._outerClipper = cc.ClippingNode.create();
