@@ -50,10 +50,7 @@ var SettingsLayer = cc.Layer.extend({
             menu.alignItemsInColumns(2, 2, 1);
             this.addChild(menu);
 
-            var cp_back = back.getPosition();
-            cp_back.y -= 50.0;
-            back.setPosition(cp_back);
-
+            back.setPositionY(back.getPositionY() - 50);
 
             bRet = true;
         }
