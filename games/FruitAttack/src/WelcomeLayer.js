@@ -8,11 +8,11 @@ var WelcomeLayer = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
             var bgSprite = cc.Sprite.create("res/background.jpg");
-            bgSprite.setPosition(cc.p(160,240));
+            bgSprite.setPosition(160,240);
             this.addChild(bgSprite);
 
             var logoSprite = cc.Sprite.create("res/logo.png");
-            logoSprite.setPosition(cc.p(160,320));
+            logoSprite.setPosition(160,320);
             this.addChild(logoSprite);
 
             var itemStartGame = cc.MenuItemImage.create(
@@ -21,10 +21,10 @@ var WelcomeLayer = cc.Layer.extend({
                 this.menuCallBack,
                 this
             );
-            itemStartGame.setPosition(cc.p(160, 160));
+            itemStartGame.setPosition(160, 160);
 
             var menu = cc.Menu.create(itemStartGame);
-            menu.setPosition(cc.p(0, 0));
+            menu.setPosition(0,0);
             this.addChild(menu);
 
             bRet = true;

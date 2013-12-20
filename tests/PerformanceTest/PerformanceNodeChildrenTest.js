@@ -84,7 +84,7 @@ var NodeChildrenMainScene = cc.Scene.extend({
         // Title
         var label = cc.LabelTTF.create(this.title(), "Arial", 40);
         this.addChild(label, 1);
-        label.setPosition(cc.p(s.width / 2, s.height - 32));
+        label.setPosition(s.width / 2, s.height - 32);
         label.setColor(cc.c3b(255, 255, 40));
 
         // Subtitle
@@ -92,7 +92,7 @@ var NodeChildrenMainScene = cc.Scene.extend({
         if (strSubTitle.length) {
             var l = cc.LabelTTF.create(strSubTitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(cc.p(s.width / 2, s.height - 80));
+            l.setPosition(s.width / 2, s.height - 80);
         }
 
         this._lastRenderedCount = 0;
@@ -108,12 +108,12 @@ var NodeChildrenMainScene = cc.Scene.extend({
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
-        menu.setPosition(cc.p(s.width / 2, s.height / 2 + 15));
+        menu.setPosition(s.width / 2, s.height / 2 + 15);
         this.addChild(menu, 1);
 
         var infoLabel = cc.LabelTTF.create("0 nodes", "Marker Felt", 30);
         infoLabel.setColor(cc.c3b(0, 200, 20));
-        infoLabel.setPosition(cc.p(s.width / 2, s.height / 2 - 15));
+        infoLabel.setPosition(s.width / 2, s.height / 2 - 15);
         this.addChild(infoLabel, 1, TAG_INFO_LAYER);
 
         var menu = new NodeChildrenMenuLayer(true, 4, s_nCurCase);
@@ -185,7 +185,7 @@ var IterateSpriteSheet = NodeChildrenMainScene.extend({
             for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
                 var sprite = cc.Sprite.createWithTexture(this._batchNode.getTexture(), cc.rect(0, 0, 32, 32));
                 this._batchNode.addChild(sprite);
-                sprite.setPosition(cc.p(Math.random() * s.width, Math.random() * s.height));
+                sprite.setPosition(Math.random() * s.width, Math.random() * s.height);
             }
         }
 
@@ -307,7 +307,7 @@ var AddRemoveSpriteSheet = NodeChildrenMainScene.extend({
             for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
                 var sprite = cc.Sprite.createWithTexture(this._batchNode.getTexture(), cc.rect(0, 0, 32, 32));
                 this._batchNode.addChild(sprite);
-                sprite.setPosition(cc.p(Math.random() * s.width, Math.random() * s.height));
+                sprite.setPosition(Math.random() * s.width, Math.random() * s.height);
                 sprite.setVisible(false);
             }
         }

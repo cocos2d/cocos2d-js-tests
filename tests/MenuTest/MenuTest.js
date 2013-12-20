@@ -99,22 +99,24 @@ var MenuLayerMainMenu = cc.Layer.extend({
         var winSize = cc.Director.getInstance().getWinSize();
 
         var locChildren = menu.getChildren();
+        var dstPoint = cc.p(0,0);
         for(var i = 0; i < locChildren.length; i++){
             var selChild = locChildren[i];
             if(selChild){
-                var dstPoint = selChild.getPosition();
+                dstPoint.x = selChild.getPositionX();
+                dstPoint.y = selChild.getPositionY();
                 var offset = 0|(winSize.width/2 + 50);
                 if( i % 2 == 0)
                     offset = -offset;
 
-                selChild.setPosition( cc.p( dstPoint.x + offset, dstPoint.y) );
+                selChild.setPosition( dstPoint.x + offset, dstPoint.y);
                 selChild.runAction(cc.EaseElasticOut.create(cc.MoveBy.create(2, cc.p(dstPoint.x - offset,0)), 0.35));
             }
         }
         this._disabledItem = item3;
         this._disabledItem.setEnabled( false );
         this.addChild(menu);
-        menu.setPosition(cc.p(winSize.width/2, winSize.height/2));
+        menu.setPosition(winSize.width/2, winSize.height/2);
     },
 
     onTouchBegan:function () {
@@ -188,7 +190,7 @@ var MenuLayer2 = cc.Layer.extend({
             var winSize = director.getWinSize();
 
             menu.setTag(TAG_MENU);
-            menu.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+            menu.setPosition(winSize.width / 2, winSize.height / 2);
 
             this.addChild(menu, 0, 100 + i);
 
@@ -291,13 +293,13 @@ var MenuLayer3 = cc.Layer.extend({
         this._disabledItem.setEnabled(false);
 
         var menu = cc.Menu.create(item1, item2, item3);
-        menu.setPosition(cc.p(0, 0));
+        menu.setPosition(0, 0);
 
         var s = director.getWinSize();
 
-        item1.setPosition(cc.p(s.width / 2 - 150, s.height / 2));
-        item2.setPosition(cc.p(s.width / 2 - 200, s.height / 2));
-        item3.setPosition(cc.p(s.width / 2, s.height / 2 - 100));
+        item1.setPosition(s.width / 2 - 150, s.height / 2);
+        item2.setPosition(s.width / 2 - 200, s.height / 2);
+        item3.setPosition(s.width / 2, s.height / 2 - 100);
 
         var jump = cc.JumpBy.create(3, cc.p(400, 0), 50, 4);
         item2.runAction(cc.RepeatForever.create(cc.Sequence.create(jump, jump.reverse())));
@@ -310,7 +312,7 @@ var MenuLayer3 = cc.Layer.extend({
         item3.runAction(cc.RepeatForever.create(spin3));
 
         this.addChild(menu);
-        menu.setPosition(cc.p(0, 0));
+        menu.setPosition(0, 0);
     }
 });
 
@@ -475,7 +477,7 @@ var MenuBugsTest = cc.Layer.extend({
          menu.alignItemsVertically();
 
          var s = cc.Director.getInstance().getWinSize();
-         menu.setPosition(cc.p(s.width/2, s.height/2));
+         menu.setPosition(s.width/2, s.height/2);
      },
 
     onIssue1410MenuCallback:function(sender){
@@ -508,7 +510,7 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
         var s = cc.Director.getInstance().getWinSize();
 
         var label = cc.LabelTTF.create("click item and move, should not crash", "Arial", 20);
-        label.setPosition(cc.p(s.width/2, s.height - 30));
+        label.setPosition(s.width/2, s.height - 30);
         this.addChild(label);
 
         this._item = cc.MenuItemFont.create("item 1");
@@ -519,7 +521,7 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
         this.addChild(menu);
         menu.alignItemsVertically();
 
-        menu.setPosition(cc.p(s.width/2, s.height/2));
+        menu.setPosition(s.width/2, s.height/2);
     },
 
     onEnter: function(){

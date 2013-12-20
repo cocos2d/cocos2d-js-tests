@@ -19,9 +19,7 @@ var Bullet = cc.Sprite.extend({
     },
     update:function (dt) {
         var p = this.getPosition();
-        p.x -= this.xVelocity * dt;
-        p.y -= this.yVelocity * dt;
-        this.setPosition(p);
+        this.setPosition(p.x - this.xVelocity * dt, p.y - this.yVelocity * dt);
         if (p.x < 0 || p.x > g_sharedGameLayer.screenRect.width || p.y < 0 || p.y > g_sharedGameLayer.screenRect.height || this.HP <= 0) {
             this.destroy();
         }

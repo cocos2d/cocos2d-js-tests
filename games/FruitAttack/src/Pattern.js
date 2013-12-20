@@ -62,7 +62,7 @@ var PatternSprite = cc.Sprite.extend({
 
             if (this.m_extraTypeSpr != null){
                 var size = this.getContentSize();
-                this.m_extraTypeSpr.setPosition(cc.p(size.width/2,size.height/2));
+                this.m_extraTypeSpr.setPosition(size.width/2,size.height/2);
                 this.addChild(this.m_extraTypeSpr);
             }
             bRet = true;
@@ -73,7 +73,7 @@ var PatternSprite = cc.Sprite.extend({
         this.g_ePatternStatus = ePatternStatus.Destroy;
 
         var effectSprite = cc.Sprite.createWithSpriteFrameName("pattern_destroy_00.png");
-        effectSprite.setPosition(cc.p(22.5,22.5));
+        effectSprite.setPosition(22.5,22.5);
         this.addChild(effectSprite);
         var animation = cc.Animation.create(frams,0.025);
         effectSprite.runAction(cc.Animate.create(animation));
@@ -84,7 +84,7 @@ var PatternSprite = cc.Sprite.extend({
     explodePattern:function(frams){
         this.g_ePatternStatus = ePatternStatus.Explode;
         var effectSprite = cc.Sprite.createWithSpriteFrameName("pattern_explode_00.png");
-        effectSprite.setPosition(cc.p(22.5,22.5));
+        effectSprite.setPosition(22.5,22.5);
         this.addChild(effectSprite);
         var animation = cc.Animation.create(frams,0.025);
         effectSprite.runAction(cc.Animate.create(animation));

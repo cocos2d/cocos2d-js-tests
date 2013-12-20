@@ -53,7 +53,7 @@ var TextureMenuLayer = PerformBasicLayer.extend({
         // Title
         var label = cc.LabelTTF.create(this.title(), "Arial", 40);
         this.addChild(label, 1);
-        label.setPosition(cc.p(s.width / 2, s.height - 32));
+        label.setPosition(s.width / 2, s.height - 32);
         label.setColor(cc.c3b(255, 255, 40));
 
         // Subtitle
@@ -61,7 +61,7 @@ var TextureMenuLayer = PerformBasicLayer.extend({
         if (strSubTitle.length) {
             var l = cc.LabelTTF.create(strSubTitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(cc.p(s.width / 2, s.height - 80));
+            l.setPosition(s.width / 2, s.height - 80);
         }
 
         this.performTests();

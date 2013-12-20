@@ -31,15 +31,15 @@ var ControlPotentiometerTest = ControlScene.extend({
             var screenSize = cc.Director.getInstance().getWinSize();
 
             var layer = cc.Node.create();
-            layer.setPosition(cc.p(screenSize.width / 2, screenSize.height / 2));
+            layer.setPosition(screenSize.width / 2, screenSize.height / 2);
             this.addChild(layer, 1);
 
             var layer_width = 0;
 
             // Add the black background for the text
             var background = cc.Scale9Sprite.create("res/extensions/buttonBackground.png");
-            background.setContentSize(cc.size(80, 50));
-            background.setPosition(cc.p(layer_width + background.getContentSize().width / 2.0, 0));
+            background.setContentSize(80, 50);
+            background.setPosition(layer_width + background.getContentSize().width / 2.0, 0);
             layer.addChild(background);
 
             layer_width += background.getContentSize().width;
@@ -53,7 +53,7 @@ var ControlPotentiometerTest = ControlScene.extend({
             var potentiometer = cc.ControlPotentiometer.create("res/extensions/potentiometerTrack.png"
                 , "res/extensions/potentiometerProgress.png"
                 , "res/extensions/potentiometerButton.png");
-            potentiometer.setPosition(cc.p(layer_width + 10 + potentiometer.getContentSize().width / 2, 0));
+            potentiometer.setPosition(layer_width + 10 + potentiometer.getContentSize().width / 2, 0);
 
             // When the value of the slider will change, the given selector will be call
             potentiometer.addTargetWithActionForControlEvents(this, this.valueChanged, cc.CONTROL_EVENT_VALUECHANGED);
@@ -63,8 +63,8 @@ var ControlPotentiometerTest = ControlScene.extend({
             layer_width += potentiometer.getContentSize().width;
 
             // Set the layer size
-            layer.setContentSize(cc.size(layer_width, 0));
-            layer.setAnchorPoint(cc.p(0.5, 0.5));
+            layer.setContentSize(layer_width, 0);
+            layer.setAnchorPoint(0.5, 0.5);
 
             // Update the value label
             this.valueChanged(potentiometer, cc.CONTROL_EVENT_VALUECHANGED);

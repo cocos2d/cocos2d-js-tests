@@ -86,6 +86,15 @@ var armatureSceneArr = [
     },
     function () {
         return new TestArmatureNesting2();
+    },
+    function(){
+        return new TestPlaySeveralMovement();
+    },
+    function(){
+        return new TestEasing();
+    },
+    function(){
+        return new TestCalculatedVertex();
     }
 ];
 
@@ -94,6 +103,7 @@ if (sys.platform === "browser")
     armatureSceneArr.push( function () { return new TestColliderDetector();} );
 }else{
     armatureSceneArr.push( function () { return new TestPerformanceBatchNode();} );
+    armatureSceneArr.push( function () { return new TestChangeAnimationInternal();} );
 }
 
 var nextArmatureTest = function () {
@@ -216,8 +226,8 @@ var TestDirectLoading = ArmatureTestLayer.extend({
 
         var armature = ccs.Armature.create("bear");
         armature.getAnimation().playByIndex(0);
-        armature.setAnchorPoint(cc.p(0.5, 0.5));
-        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        armature.setAnchorPoint(0.5, 0.5);
+        armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.addChild(armature);
     },
     title:function () {
@@ -238,8 +248,8 @@ var TestCSWithSkeleton = ArmatureTestLayer.extend({
         var armature = ccs.Armature.create("Cowboy");
         armature.getAnimation().playByIndex(0);
         armature.setScale(0.2);
-        armature.setAnchorPoint(cc.p(0.5, 0.5));
-        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        armature.setAnchorPoint(0.5, 0.5);
+        armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.addChild(armature);
     },
     title:function () {
@@ -260,8 +270,8 @@ var TestDragonBones20 = ArmatureTestLayer.extend({
         armature.getAnimation().playByIndex(0);
         armature.getAnimation().setSpeedScale(0.4);
         armature.setScale(0.6);
-        armature.setAnchorPoint(cc.p(0.5, 0.5));
-        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        armature.setAnchorPoint(0.5, 0.5);
+        armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.addChild(armature);
     },
     title:function () {
@@ -288,7 +298,7 @@ var TestPerformance = ArmatureTestLayer.extend({
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
-        menu.setPosition(cc.p(cc.VisibleRect.getWidth() / 2, cc.VisibleRect.getHeight() - 100));
+        menu.setPosition(cc.VisibleRect.getWidth() / 2, cc.VisibleRect.getHeight() - 100);
         this.addChild(menu, 10000);
 
     },
@@ -372,7 +382,7 @@ var TestChangeZorder = ArmatureTestLayer.extend({
         armatureDataManager.addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
         armature = ccs.Armature.create("Knight_f/Knight");
         armature.getAnimation().playByIndex(0);
-        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2 - 100));
+        armature.setPosition(winSize.width / 2, winSize.height / 2 - 100);
         armature.setScale(0.6);
         this.addChild(armature, 0, 0);
 
@@ -380,13 +390,13 @@ var TestChangeZorder = ArmatureTestLayer.extend({
         armature = ccs.Armature.create("Cowboy");
         armature.getAnimation().playByIndex(0);
         armature.setScale(0.24);
-        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2 - 100));
+        armature.setPosition(winSize.width / 2, winSize.height / 2 - 100);
         this.addChild(armature, 1, 1);
 
         armatureDataManager.addArmatureFileInfo(s_Dragon_png, s_Dragon_plist, s_Dragon_xml);
         armature = ccs.Armature.create("Dragon");
         armature.getAnimation().playByIndex(0);
-        armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2 - 100));
+        armature.setPosition(winSize.width / 2, winSize.height / 2 - 100);
         armature.setScale(0.6);
         this.addChild(armature, 2, 2);
 
@@ -420,7 +430,7 @@ var TestAnimationEvent = ArmatureTestLayer.extend({
         this._armature.getAnimation().play("Fire");
         this._armature.setScaleX(-0.25);
         this._armature.setScaleY(0.25);
-        this._armature.setPosition(cc.p(winSize.width / 2 - 150, winSize.height / 2));
+        this._armature.setPosition(winSize.width / 2 - 150, winSize.height / 2);
         this._armature.getAnimation().setMovementEventCallFunc(this.animationEvent,this);
         this.addChild(this._armature);
 
@@ -461,7 +471,7 @@ var TestFrameEvent = ArmatureTestLayer.extend({
         var armature = ccs.Armature.create("HeroAnimation");
         armature.getAnimation().play("attack");
         armature.getAnimation().setSpeedScale(0.5);
-        armature.setPosition(cc.p(cc.VisibleRect.center().x - 50, cc.VisibleRect.center().y - 100));
+        armature.setPosition(cc.VisibleRect.center().x - 50, cc.VisibleRect.center().y - 100);
         this.addChild(armature);
         /*
          * Set armature's frame event callback function
@@ -568,7 +578,7 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
 
         this.armature = ccs.Armature.create("Knight_f/Knight");
         this.armature.getAnimation().playByIndex(0);
-        this.armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        this.armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.armature.setScale(1.2);
         this.addChild(this.armature);
 
@@ -582,7 +592,7 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
 
         //add label
         var label = cc.LabelTTF.create("This is a weapon!", "Arial", 18);
-        label.setAnchorPoint(cc.p(0.2, 0.5));
+        label.setAnchorPoint(0.2, 0.5);
         this.armature.getBone("weapon").addDisplay(label, 7);
     },
     title:function () {
@@ -614,6 +624,7 @@ var TestColliderDetector = ArmatureTestLayer.extend({
 
     onEnter:function () {
         this._super();
+        ccs.ENABLE_PHYSICS_CHIPMUNK_DETECT = true;
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
 
         this.armature1 = ccs.Armature.create("Cowboy");
@@ -621,7 +632,7 @@ var TestColliderDetector = ArmatureTestLayer.extend({
         this.armature1.getAnimation().setSpeedScale(0.2);
         this.armature1.setScaleX(-0.2);
         this.armature1.setScaleY(0.2);
-        this.armature1.setPosition(cc.p(170, winSize.height / 2));
+        this.armature1.setPosition(170, winSize.height / 2);
 
         /*
          * Set armature's frame event callback function
@@ -635,7 +646,7 @@ var TestColliderDetector = ArmatureTestLayer.extend({
         this.armature2.getAnimation().play("Walk");
         this.armature2.setScaleX(-0.2);
         this.armature2.setScaleY(0.2);
-        this.armature2.setPosition(cc.p(winSize.width - 160, winSize.height / 2));
+        this.armature2.setPosition(winSize.width - 160, winSize.height / 2);
         this.addChild(this.armature2);
 
         this.bullet = cc.PhysicsSprite.createWithSpriteFrameName("25.png");
@@ -666,7 +677,7 @@ var TestColliderDetector = ArmatureTestLayer.extend({
         shape.collision_type = this.bulletTag;
         this.space.addShape(shape);
         this.bullet.setBody(body);
-        this.bullet.setPosition(cc.p(-100,-100));
+        this.bullet.setPosition(-100,-100);
 
         //init armature body
         body = new cp.Body(Infinity, Infinity);
@@ -684,8 +695,8 @@ var TestColliderDetector = ArmatureTestLayer.extend({
          * currentFrameIndex is the current index animation played to
          * frame event may be delay emit, so originFrameIndex may be different from currentFrameIndex.
          */
-        var p = this.armature1.getBone("Layer126").getDisplayRenderNode().convertToWorldSpace(cc.p(0, 0));
-        this.bullet.setPosition(cc.p(p.x + 60, p.y));
+        var p = this.armature1.getBone("Layer126").getDisplayRenderNode().convertToWorldSpaceAR(cc.p(0, 0));
+        this.bullet.setPosition(p.x + 60, p.y);
         this.bullet.stopAllActions();
         this.bullet.runAction(cc.MoveBy.create(1.5, cc.p(800, 0)));
     },
@@ -730,6 +741,113 @@ var TestColliderDetector = ArmatureTestLayer.extend({
         }
         this.space.removeBody(this.armature2.getBody());
         this.space.removeBody(this.bullet.getBody());
+        ccs.ENABLE_PHYSICS_CHIPMUNK_DETECT = false;
+    }
+});
+
+//------------------------------------------------------------------
+//
+// TestCalculatedVertex
+//
+//------------------------------------------------------------------
+var TestCalculatedVertex = ArmatureTestLayer.extend({
+    armature1: null,
+    armature2: null,
+    bullet: null,
+    space: null,
+    enemyTag: 1,
+    bulletTag: 2,
+
+    onEnter: function () {
+        this._super();
+        ccs.ENABLE_PHYSICS_SAVE_CALCULATED_VERTEX = true;
+        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+
+        this.armature1 = ccs.Armature.create("Cowboy");
+        this.armature1.getAnimation().play("FireWithoutBullet");
+        this.armature1.getAnimation().setSpeedScale(0.2);
+        this.armature1.setScaleX(-0.2);
+        this.armature1.setScaleY(0.2);
+        this.armature1.setPosition(170, winSize.height / 2);
+
+        /*
+         * Set armature's frame event callback function
+         * To disconnect this event, just setFrameEventCallFunc(nul, null);
+         */
+        this.armature1.getAnimation().setFrameEventCallFunc(this.onFrameEvent, this);
+
+        this.addChild(this.armature1);
+
+        this.armature2 = ccs.Armature.create("Cowboy");
+        this.armature2.getAnimation().play("Walk");
+        this.armature2.setScaleX(-0.2);
+        this.armature2.setScaleY(0.2);
+        this.armature2.setPosition(winSize.width - 160, winSize.height / 2);
+        this.addChild(this.armature2);
+
+        this.bullet = cc.Sprite.createWithSpriteFrameName("25.png");
+        this.addChild(this.bullet);
+
+        this.scheduleUpdate();
+    },
+    onFrameEvent: function (bone, evt, originFrameIndex, currentFrameIndex) {
+        cc.log("(" + bone.getName() + ") emit a frame event (" + evt + ") at frame index (" + currentFrameIndex + ").");
+        /*
+         * originFrameIndex is the frame index editted in Action Editor
+         * currentFrameIndex is the current index animation played to
+         * frame event may be delay emit, so originFrameIndex may be different from currentFrameIndex.
+         */
+        var p = this.armature1.getBone("Layer126").getDisplayRenderNode().convertToWorldSpaceAR(cc.p(0, 0));
+        this.bullet.setPosition(p.x + 60, p.y);
+        this.bullet.stopAllActions();
+        this.bullet.runAction(cc.MoveBy.create(1.5, cc.p(800, 0)));
+    },
+
+    update: function (dt) {
+        this.armature2.setVisible(true);
+
+        var rect = this.bullet.getBoundingBox();
+
+        // This code is just telling how to get the vertex.
+        // For a more accurate collider detection, you need to implemente yourself.
+
+        var dict = this.armature2.getBoneDic();
+        for (var key in dict) {
+            var bone = dict[key];
+            var bodyList = bone.getColliderBodyList();
+            for (var i = 0; i < bodyList.length; i++) {
+                var body = bodyList[i];
+                var vertexList = body.getCalculatedVertexList();
+                var minx =  miny = maxx =  maxy = 0;
+                for (var j = 0; j < vertexList.length; j++) {
+                    var vertex = vertexList[j];
+                    if (j == 0) {
+                        minx = maxx = vertex.x;
+                        miny = maxy = vertex.y;
+                    } else {
+                        minx = vertex.x < minx ? vertex.x : minx;
+                        miny = vertex.y < miny ? vertex.y : miny;
+                        maxx = vertex.x > maxx ? vertex.x : maxx;
+                        maxy = vertex.y > maxy ? vertex.y : maxy;
+                    }
+                }
+                var temp = cc.rect(minx, miny, maxx - minx, maxy - miny);
+
+                if (cc.rectContainsRect(temp, rect)) {
+                    this.armature2.setVisible(false);
+                }
+            }
+        }
+    },
+    draw: function () {
+        this.armature2.drawContour();
+    },
+    title: function () {
+        return "Test calculated vertex";
+    },
+    onExit:function(){
+        this._super();
+        ccs.ENABLE_PHYSICS_SAVE_CALCULATED_VERTEX = false;
     }
 });
 
@@ -746,7 +864,7 @@ var TestBoundingBox = ArmatureTestLayer.extend({
 
         this.armature = ccs.Armature.create("Cowboy");
         this.armature.getAnimation().playByIndex(0);
-        this.armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        this.armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.armature.setScale(0.2);
         this.addChild(this.armature);
     },
@@ -773,16 +891,16 @@ var TestAnchorPoint = ArmatureTestLayer.extend({
         for (var i = 0; i < 5; i++) {
             var armature = ccs.Armature.create("Cowboy");
             armature.getAnimation().playByIndex(0);
-            armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+            armature.setPosition(winSize.width / 2, winSize.height / 2);
             armature.setScale(0.2);
             this.addChild(armature, 0, i);
         }
 
-        this.getChildByTag(0).setAnchorPoint(cc.p(0, 0));
-        this.getChildByTag(1).setAnchorPoint(cc.p(0, 1));
-        this.getChildByTag(2).setAnchorPoint(cc.p(1, 0));
-        this.getChildByTag(3).setAnchorPoint(cc.p(1, 1));
-        this.getChildByTag(4).setAnchorPoint(cc.p(0.5, 0.5));
+        this.getChildByTag(0).setAnchorPoint(0, 0);
+        this.getChildByTag(1).setAnchorPoint(0, 1);
+        this.getChildByTag(2).setAnchorPoint(1, 0);
+        this.getChildByTag(3).setAnchorPoint(1, 1);
+        this.getChildByTag(4).setAnchorPoint(0.5, 0.5);
     },
     title:function () {
         return "Test Set AnchorPoint";
@@ -803,7 +921,7 @@ var TestArmatureNesting = ArmatureTestLayer.extend({
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_cyborg_png, s_cyborg_plist, s_cyborg_xml);
         this.armature = ccs.Armature.create("cyborg");
         this.armature.getAnimation().playByIndex(1);
-        this.armature.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        this.armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.armature.setScale(1.2);
         this.armature.getAnimation().setSpeedScale(0.4);
         this.addChild(this.armature);
@@ -860,7 +978,7 @@ var Hero = ccs.Armature.extend({
             bone.changeDisplayByIndex(0, true);
             bone.setIgnoreMovementBoneData(true);
 
-            this.setPosition(cc.p(0, 0));
+            this.setPosition(0, 0);
             //Change animation
             this.playByIndex(1);
             this.setScale(1);
@@ -910,15 +1028,15 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
         var label = cc.LabelTTF.create("Change Mount", "Arial", 20);
         var menuItem = cc.MenuItemLabel.create(label, this.changeMountCallback, this);
         var menu = cc.Menu.create(menuItem);
-        menu.setPosition(cc.p(0, 0));
-        menuItem.setPosition(cc.p(cc.VisibleRect.right().x - 67, cc.VisibleRect.bottom().y + 50));
+        menu.setPosition(0, 0);
+        menuItem.setPosition(cc.VisibleRect.right().x - 67, cc.VisibleRect.bottom().y + 50);
         this.addChild(menu, 2);
 
         //Create a hero
         var hero = Hero.create("hero");
         hero.setLayer(this);
         hero.playByIndex(0);
-        hero.setPosition(cc.p(cc.VisibleRect.left().x + 20, cc.VisibleRect.left().y));
+        hero.setPosition(cc.VisibleRect.left().x + 20, cc.VisibleRect.left().y);
         this.addChild(hero);
         this._hero = hero;
 
@@ -977,6 +1095,106 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
     }
 });
 
+//------------------------------------------------------------------
+//
+// TestPlaySeveralMovement
+//
+//------------------------------------------------------------------
+var TestPlaySeveralMovement = ArmatureTestLayer.extend({
+    onEnter:function () {
+        this._super();
+        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+        var armature = ccs.Armature.create("Cowboy");
+        armature.getAnimation().play(["Walk", "FireMax", "Fire"],1);
+        armature.setScale(0.2);
+        armature.setPosition(winSize.width / 2, winSize.height / 2);
+        this.addChild(armature);
+    },
+    title:function () {
+        return "Test play several movement";
+    },
+    subtitle:function () {
+        return "Movement is played one by one";
+    }
+});
+
+//------------------------------------------------------------------
+//
+// TestChangeAnimationInternal
+//
+//------------------------------------------------------------------
+var TestChangeAnimationInternal = ArmatureTestLayer.extend({
+    onEnter:function () {
+        this._super();
+        this.setTouchEnabled(true);
+        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+        var armature = ccs.Armature.create("Cowboy");
+        armature.getAnimation().playByIndex(0);
+        armature.setScale(0.2);
+        armature.setPosition(winSize.width / 2, winSize.height / 2);
+        this.addChild(armature);
+    },
+    title:function () {
+        return "Test change animation internal";
+    },
+    subtitle:function () {
+        return "Touch to change animation internal";
+    },
+    onTouchesBegan: function (touch, event) {
+        if (cc.Director.getInstance().getAnimationInterval() == 1 / 30) {
+            cc.Director.getInstance().setAnimationInterval(1 / 60);
+        }
+        else {
+            cc.Director.getInstance().setAnimationInterval(1 / 30);
+        }
+        return false;
+    },
+    onExit: function () {
+        this._super();
+        cc.Director.getInstance().setAnimationInterval(1 / 60);
+    }
+});
+
+//------------------------------------------------------------------
+//
+// TestChangeAnimationInternal
+//
+//------------------------------------------------------------------
+var TestEasing = ArmatureTestLayer.extend({
+    animationID: 0,
+    armature: null,
+    onEnter: function () {
+        this._super();
+        this.setTouchEnabled(true);
+        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_testEasing_json);
+        var armature = ccs.Armature.create("testEasing");
+        armature.getAnimation().playByIndex(0);
+        armature.setScale(0.8);
+        armature.setPosition(winSize.width / 2, winSize.height / 2);
+        this.addChild(armature);
+        this.armature = armature;
+        this.updateSubTitle();
+    },
+    title: function () {
+        return "Test easing effect";
+    },
+    subtitle: function () {
+        return "Current easing :";
+    },
+    onTouchesBegan: function (touch, event) {
+        this.animationID++;
+        this.animationID = this.animationID % this.armature.getAnimation().getMovementCount();
+        this.armature.getAnimation().playByIndex(this.animationID);
+
+        this.updateSubTitle();
+        return false;
+    },
+    updateSubTitle: function () {
+        var str = this.subtitle() + this.armature.getAnimation().getCurrentMovementID();
+        var label = this.getChildByTag(BASE_TEST_SUBTITLE_TAG);
+        label.setString(str);
+    }
+});
 
 var runArmatureTestScene = function(){
     var pScene = new ArmatureTestScene();
