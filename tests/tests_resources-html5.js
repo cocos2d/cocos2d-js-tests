@@ -87,6 +87,9 @@ var s_robot_xml = "res/armatures/robot.xml";
 var s_weapon_plist = "res/armatures/weapon.plist";
 var s_weapon_png = "res/armatures/weapon.png";
 var s_weapon_xml = "res/armatures/weapon.xml";
+var s_testEasing_json = "res/armatures/testEasing.ExportJson";
+var s_testEasing0_plist = "res/armatures/testEasing0.plist";
+var s_testEasing0_png = "res/armatures/testEasing0.png";
 
 var s_s9s_blocks9 = "res/Images/blocks9ss.png";
 var s_s9s_blocks9_plist = "res/Images/blocks9ss.plist";
@@ -556,7 +559,11 @@ var g_cocoStudio = [
     {src:s_weapon_plist },
     {src:s_weapon_png },
     {src:s_weapon_xml },
-    //GUI
+    {src:s_testEasing_json },
+    {src:s_testEasing0_plist },
+    {src:s_testEasing0_png },
+
+//GUI
     {src:"res/Particles/SmallSun.plist"},
     {src:"res/cocosgui/animationbuttonnormal.png"},
     {src:"res/cocosgui/animationbuttonpressed.png"},

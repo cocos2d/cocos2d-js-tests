@@ -70,6 +70,10 @@ var s_bear0_png = "res/armatures/bear0.png";
 var s_HeroAnimation_json = "res/armatures/HeroAnimation.ExportJson";
 var s_HeroAnimation0_plist = "res/armatures/HeroAnimation0.plist";
 var s_HeroAnimation0_png = "res/armatures/HeroAnimation0.png";
+var s_testEasing_json = "res/armatures/testEasing.ExportJson";
+var s_testEasing0_plist = "res/armatures/testEasing0.plist";
+var s_testEasing0_png = "res/armatures/testEasing0.png";
+
 
 var s_s9s_blocks9 = "res/Images/blocks9ss.png";
 var s_s9s_blocks9_plist = "res/Images/blocks9ss.plist";
