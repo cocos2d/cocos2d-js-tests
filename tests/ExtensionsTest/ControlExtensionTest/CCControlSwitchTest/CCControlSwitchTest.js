@@ -30,7 +30,7 @@ var ControlSwitchTest = ControlScene.extend({
             var screenSize = cc.Director.getInstance().getWinSize();
 
             var layer = cc.Node.create();
-            layer.setPosition(cc.p(screenSize.width / 2, screenSize.height / 2));
+            layer.setPosition(screenSize.width / 2, screenSize.height / 2);
             this.addChild(layer, 1);
 
             var layer_width = 0;
@@ -38,7 +38,7 @@ var ControlSwitchTest = ControlScene.extend({
             // Add the black background for the text
             var background = cc.Scale9Sprite.create("res/extensions/buttonBackground.png");
             background.setContentSize(80, 50);
-            background.setPosition(cc.p(layer_width + background.getContentSize().width / 2.0, 0));
+            background.setPosition(layer_width + background.getContentSize().width / 2.0, 0);
             layer.addChild(background);
 
             layer_width += background.getContentSize().width;
@@ -59,7 +59,7 @@ var ControlSwitchTest = ControlScene.extend({
                     cc.LabelTTF.create("On", "Arial-BoldMT", 16),
                     cc.LabelTTF.create("Off", "Arial-BoldMT", 16)
                 );
-            switchControl.setPosition(cc.p(layer_width + 10 + switchControl.getContentSize().width / 2, 0));
+            switchControl.setPosition(layer_width + 10 + switchControl.getContentSize().width / 2, 0);
             layer.addChild(switchControl);
 
             switchControl.addTargetWithActionForControlEvents(this, this.valueChanged, cc.CONTROL_EVENT_VALUECHANGED);

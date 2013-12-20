@@ -65,9 +65,9 @@ var S9SpriteTestDemo = cc.LayerGradient.extend({
 
         menu.setPosition(0,0);
         var cs = item2.getContentSize();
-        item1.setPosition( cc.p(winSize.width/2 - cs.width*2, cs.height/2) );
-        item2.setPosition( cc.p(winSize.width/2, cs.height/2) );
-        item3.setPosition( cc.p(winSize.width/2 + cs.width*2, cs.height/2) );
+        item1.setPosition(winSize.width/2 - cs.width*2, cs.height/2);
+        item2.setPosition(winSize.width/2, cs.height/2);
+        item3.setPosition(winSize.width/2 + cs.width*2, cs.height/2);
 
         this.addChild(menu, 1);
     },

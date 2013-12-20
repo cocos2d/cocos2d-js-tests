@@ -30,14 +30,14 @@ var GameOverLayer = cc.LayerColor.extend({
             this._label = cc.LabelTTF.create("", "Artial", 32);
             this._label.retain();
             this._label.setColor(cc.c3b(0, 0, 0));
-            this._label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+            this._label.setPosition(winSize.width / 2, winSize.height / 2);
             this.addChild(this._label);
             this.runAction(cc.Sequence.create(cc.DelayTime.create(3), cc.CallFunc.create(this.gameOverDone, this)));
             var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
             itemBack.setColor(cc.c3b(0, 0, 0));
-            itemBack.setPosition(cc.p(cc.VisibleRect.bottomRight().x - 50, cc.VisibleRect.bottomRight().y + 25));
+            itemBack.setPosition(cc.VisibleRect.bottomRight().x - 50, cc.VisibleRect.bottomRight().y + 25);
             var menuBack = cc.Menu.create(itemBack);
-            menuBack.setPosition(cc.p(0, 0));
+            menuBack.setPosition(0, 0);
             this.addChild(menuBack);
             return true;
         }

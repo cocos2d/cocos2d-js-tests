@@ -24,7 +24,7 @@ var WelcomeLayer = cc.Layer.extend({
             itemStartGame.setPosition(160, 160);
 
             var menu = cc.Menu.create(itemStartGame);
-            menu.setPosition(cc.POINT_ZERO);
+            menu.setPosition(0,0);
             this.addChild(menu);
 
             bRet = true;

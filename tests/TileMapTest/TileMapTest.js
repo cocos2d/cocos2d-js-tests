@@ -135,7 +135,7 @@ var TileMapEditTest = TileDemo.extend({
         this.addChild(map, 0, TAG_TILE_MAP);
 
         map.setAnchorPoint(0, 0);
-        map.setPosition(cc.p(-20, -200));
+        map.setPosition(-20, -200);
 
     },
     title:function () {
@@ -982,7 +982,7 @@ var TMXIsoZorder = TileDemo.extend({
         this.addChild(map, 0, TAG_TILE_MAP);
 
         var s = map.getContentSize();
-        map.setPosition(cc.p(-s.width / 2, 0));
+        map.setPosition(-s.width / 2, 0);
 
         this.tamara = cc.Sprite.create(s_pathSister1);
         map.addChild(this.tamara, map.getChildren().length);
@@ -1116,7 +1116,7 @@ var TMXIsoVertexZ = TileDemo.extend({
         this.addChild(map, 0, TAG_TILE_MAP);
 
         var s = map.getContentSize();
-        map.setPosition(cc.p(-s.width / 2, 0));
+        map.setPosition(-s.width / 2, 0);
 
         // because I'm lazy, I'm reusing a tile as an sprite, but since this method uses vertexZ, you
         // can use any cc.Sprite and it will work OK.
@@ -1132,7 +1132,7 @@ var TMXIsoVertexZ = TileDemo.extend({
         if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild(label);
-            label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+            label.setPosition(winSize.width / 2, winSize.height / 2);
         }
 
         this.schedule(this.repositionSprite);
@@ -1208,7 +1208,7 @@ var TMXOrthoVertexZ = TileDemo.extend({
         if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild(label);
-            label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+            label.setPosition(winSize.width / 2, winSize.height / 2);
         }
 
         this.schedule(this.repositionSprite);
@@ -1267,7 +1267,7 @@ var TMXIsoMoveLayer = TileDemo.extend({
         this._super();
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/iso-test-movelayer.tmx");
         this.addChild(map, 0, TAG_TILE_MAP);
-        map.setPosition(cc.p(-700, -50));
+        map.setPosition(-700, -50);
 
         var s = map.getContentSize();
     },
