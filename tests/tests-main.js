@@ -442,6 +442,13 @@ var testNames = [
         }
     },
     {
+        title:"Spine Test",
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new SpineTestScene();
+        }
+    },
+    {
         title:"Sprite Test",
         resource:g_sprites,
         platforms: PLATFORM_ALL,
