@@ -34,7 +34,7 @@ var ControlSliderTest = ControlScene.extend({
             this._displayValueLabel = cc.LabelTTF.create("Move the slider thumb!\nThe lower slider is restricted.", "Marker Felt", 32);
             this._displayValueLabel.retain();
             this._displayValueLabel.setAnchorPoint(0.5, -1.0);
-            this._displayValueLabel.setPosition(cc.p(screenSize.width / 1.7, screenSize.height / 2.0));
+            this._displayValueLabel.setPosition(screenSize.width / 1.7, screenSize.height / 2.0);
             this.addChild(this._displayValueLabel);
 
             // Add the slider
@@ -42,7 +42,7 @@ var ControlSliderTest = ControlScene.extend({
             slider.setAnchorPoint(0.5, 1.0);
             slider.setMinimumValue(0.0); // Sets the min value of range
             slider.setMaximumValue(5.0); // Sets the max value of range
-            slider.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0 + 16));
+            slider.setPosition(screenSize.width / 2.0, screenSize.height / 2.0 + 16);
             slider.setTag(1);
 
             // When the value of the slider will change, the given selector will be call
@@ -55,7 +55,7 @@ var ControlSliderTest = ControlScene.extend({
             restrictSlider.setMaximumAllowedValue(4.0);
             restrictSlider.setMinimumAllowedValue(1.5);
             restrictSlider.setValue(3.0);
-            restrictSlider.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0 - 24));
+            restrictSlider.setPosition(screenSize.width / 2.0, screenSize.height / 2.0 - 24);
             restrictSlider.setTag(2);
 
             //same with restricted

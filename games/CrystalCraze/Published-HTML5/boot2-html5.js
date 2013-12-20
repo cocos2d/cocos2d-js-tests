@@ -6,6 +6,6 @@ var CCBMainScene = cc.Scene.extend({
         var node = cc.BuilderReader.load("MainScene.ccbi");
 
         this.addChild(node);
-        this.setPosition(cc.p(0, 0));
+        this.setPosition(0, 0);
     }
 });

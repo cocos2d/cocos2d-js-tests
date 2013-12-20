@@ -181,7 +181,7 @@ var GameLayer = cc.LayerGradient.extend({
         var menu = cc.Menu.create(item1, item2);
         menu.alignItemsVertically();
         this.addChild(menu, Z_DEBUG_MENU);
-        menu.setPosition(cc.p(winSize.width - (50 * sizeRatio), winSize.height - (80 * sizeRatio)));
+        menu.setPosition(winSize.width - (50 * sizeRatio), winSize.height - (80 * sizeRatio));
 
         var animCache = cc.AnimationCache.getInstance();
         animCache.addAnimations(s_coinsAnimation);
@@ -211,7 +211,7 @@ var GameLayer = cc.LayerGradient.extend({
             var backLayer = cc.Layer.create();
             backLayer.addChild(background1, Z_MOUNTAINS);
             backLayer.addChild(background2, Z_MOUNTAINS+1);
-            background2.setPosition(cc.p(1024, 0));
+            background2.setPosition(1024, 0);
             scroll.addChild(backLayer, Z_MOUNTAINS, cc._p(0.2, 0.2), cc._p(0, -150));
             background1.setAnchorPoint(0,0);
             background2.setAnchorPoint(0,0);
@@ -224,7 +224,7 @@ var GameLayer = cc.LayerGradient.extend({
 
         // Smoke
         this._carSmoke = cc.ParticleSystem.create(s_carSmoke);
-        this._carSmoke.setPosition(cc.p(0,0));
+        this._carSmoke.setPosition(0,0);
         this.addChild(this._carSmoke, Z_SMOKE);
         this._carSmoke.setPositionType(cc.PARTICLE_TYPE_FREE);
 
@@ -1216,6 +1216,6 @@ var WaterMelonScene = cc.Scene.extend({
         var menu = new BootLayer();
         //var menu = new OptionsLayer();
         this.addChild(menu);
-        this.setPosition(cc.p(0, 0));
+        this.setPosition(0, 0);
     }
 });

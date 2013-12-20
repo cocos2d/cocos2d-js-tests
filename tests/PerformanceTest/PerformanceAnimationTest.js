@@ -53,7 +53,7 @@ var AnimationMenuLayer = PerformBasicLayer.extend({
         // Title
         var label = cc.LabelTTF.create(this.title(), "Arial", 40);
         this.addChild(label, 1);
-        label.setPosition(cc.p(s.width / 2, s.height - 32));
+        label.setPosition(s.width / 2, s.height - 32);
         label.setColor(cc.c3b(255, 255, 40));
 
         // Subtitle
@@ -61,7 +61,7 @@ var AnimationMenuLayer = PerformBasicLayer.extend({
         if (strSubTitle.length) {
             var l = cc.LabelTTF.create(strSubTitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(cc.p(s.width / 2, s.height - 80));
+            l.setPosition(s.width / 2, s.height - 80);
         }
 
     },
@@ -99,12 +99,12 @@ var AnimationTest = AnimationMenuLayer.extend({
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
-        menu.setPosition(cc.p(size.width / 2, size.height / 2 + 100));
+        menu.setPosition(size.width / 2, size.height / 2 + 100);
         this.addChild(menu, 1);
 
         var infoLabel = cc.LabelTTF.create("0 nodes", "Marker Felt", 24);
         infoLabel.setColor(cc.c3b(0, 200, 20));
-        infoLabel.setPosition(cc.p(size.width / 2, size.height - 90));
+        infoLabel.setPosition(size.width / 2, size.height - 90);
         this.addChild(infoLabel, 1, TAG_INFO_LAYER);
 
         this.numNodes = 0;
@@ -127,7 +127,7 @@ var AnimationTest = AnimationMenuLayer.extend({
         for(var i=0; i<10; i++) {
             var character = new CharacterView();
             character.init();
-            character.setPosition(cc.p(size.width /2 - i*15 - 200, size.height /2 - i*15));
+            character.setPosition(size.width /2 - i*15 - 200, size.height /2 - i*15);
             this.numNodes++;
             cc.log("create"+this.numNodes);
             this.moveLayer.addChild(character, 0, this.numNodes);
@@ -172,23 +172,23 @@ var CharacterView = cc.Node.extend({
         cc.SpriteFrameCache.getInstance().addSpriteFrames("res/animations/crystals.plist");
         var i = 0;
         rightData = new Array(10);
-        for(i=0; i<10; i++){
-             var right = cc.Sprite.createWithSpriteFrameName("crystals/4.png");
-             right.setPosition(cc.p(50,i*10-40));
-             right.setRotation(-90);
-             right.setScale(1);
-             this.addChild(right);
+        for (i = 0; i < 10; i++) {
+            var right = cc.Sprite.createWithSpriteFrameName("crystals/4.png");
+            right.setPosition(50, i * 10 - 40);
+            right.setRotation(-90);
+            right.setScale(1);
+            this.addChild(right);
             // var scaleStep = cc.ScaleBy.create(0.5, -0.8);
             // right.runAction(cc.RepeatForever.create(scaleStep));
-             rightData[i] = right;
-             if(i==0){
+            rightData[i] = right;
+            if (i == 0) {
                 rightItem = right;
             }
         }
 
         for(i=0; i<10; i++){
             var head = cc.Sprite.createWithSpriteFrameName("crystals/1.png");
-            head.setPosition(cc.p(i*5,50));
+            head.setPosition(i * 5, 50);
             this.addChild(head);
             head.setScale(1.5);
             head.setRotation(350);
@@ -199,7 +199,7 @@ var CharacterView = cc.Node.extend({
         leftData = new Array(10);
         for(i=0; i<10; i++){
             var left = cc.Sprite.createWithSpriteFrameName("crystals/2.png");
-            left.setPosition(cc.p(10,i*5-20));
+            left.setPosition(10, i * 5 - 20);
             left.setRotation(90);
             this.addChild(left);
             //var moveStep = cc.MoveBy.create(0.01, cc.p(-5,0));

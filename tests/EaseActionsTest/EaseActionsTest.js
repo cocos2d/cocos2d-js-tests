@@ -67,9 +67,9 @@ var EaseSpriteDemo = BaseTestLayer.extend({
         this.addChild(this._kathia, 2);
         this.addChild(this._tamara, 1);
 
-        this._grossini.setPosition(cc.p(60, winSize.height / 5));
-        this._kathia.setPosition(cc.p(60, winSize.height / 2));
-        this._tamara.setPosition(cc.p(60, winSize.height * 4 / 5));
+        this._grossini.setPosition(60, winSize.height / 5);
+        this._kathia.setPosition(60, winSize.height / 2);
+        this._tamara.setPosition(60, winSize.height * 4 / 5);
 
         this.twoSprites = false;
     },
@@ -91,8 +91,8 @@ var EaseSpriteDemo = BaseTestLayer.extend({
     },
     positionForTwo:function () {
         this.twoSprites = true;
-        this._grossini.setPosition(cc.p(60, winSize.height / 5));
-        this._tamara.setPosition(cc.p(60, winSize.height * 4 / 5));
+        this._grossini.setPosition(60, winSize.height / 5);
+        this._tamara.setPosition(60, winSize.height * 4 / 5);
         this._kathia.setVisible(false);
     },
 

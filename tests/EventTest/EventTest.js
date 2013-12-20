@@ -64,13 +64,13 @@ var EventTest = cc.Layer.extend({
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 24);
         this.addChild(label);
-        label.setPosition(cc.p(s.width / 2, s.height - 50));
+        label.setPosition(s.width / 2, s.height - 50);
 
         var subTitle = this.subtitle();
         if (subTitle && subTitle !== "") {
             var l = cc.LabelTTF.create(subTitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(cc.p(s.width / 2, s.height - 80));
+            l.setPosition(s.width / 2, s.height - 80);
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
@@ -78,10 +78,10 @@ var EventTest = cc.Layer.extend({
         var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
-        menu.setPosition(cc.p(0,0));
-        item1.setPosition(cc.p(s.width / 2 - 100, 30));
-        item2.setPosition(cc.p(s.width / 2, 30));
-        item3.setPosition(cc.p(s.width / 2 + 100, 30));
+        menu.setPosition(0,0);
+        item1.setPosition(s.width / 2 - 100, 30);
+        item2.setPosition(s.width / 2, 30);
+        item3.setPosition(s.width / 2 + 100, 30);
 
         this.addChild(menu, 1);
     }
