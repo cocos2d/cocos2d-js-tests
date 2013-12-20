@@ -456,22 +456,22 @@ var ActionSkewRotateScale = ActionsDemo.extend({
 
         var boxSize = cc.size(100.0, 100.0);
         var box = cc.LayerColor.create(cc.c4b(255, 255, 0, 255));
-        box.setAnchorPoint(cc.p(0, 0));
+        box.setAnchorPoint(0, 0);
         box.setPosition((winSize.width - boxSize.width) / 2, (winSize.height - boxSize.height) / 2);
         box.setContentSize(boxSize);
 
         var markrside = 10.0;
         var uL = cc.LayerColor.create(cc.c4b(255, 0, 0, 255));
         box.addChild(uL);
-        uL.setContentSize(cc.size(markrside, markrside));
+        uL.setContentSize(markrside, markrside);
         uL.setPosition(0, boxSize.height - markrside);
-        uL.setAnchorPoint(cc.p(0, 0));
+        uL.setAnchorPoint(0, 0);
 
         var uR = cc.LayerColor.create(cc.c4b(0, 0, 255, 255));
         box.addChild(uR);
-        uR.setContentSize(cc.size(markrside, markrside));
+        uR.setContentSize(markrside, markrside);
         uR.setPosition(boxSize.width - markrside, boxSize.height - markrside);
-        uR.setAnchorPoint(cc.p(0, 0));
+        uR.setAnchorPoint(0, 0);
 
 
         this.addChild(box);

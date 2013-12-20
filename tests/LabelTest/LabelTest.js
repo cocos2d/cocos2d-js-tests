@@ -230,7 +230,7 @@ var LabelAtlasHD = AtlasDemo.extend({
 
         // cc.LabelBMFont
         var label1 = cc.LabelAtlas.create("TESTING RETINA DISPLAY", s_resprefix + "fonts/larabie-16.plist");
-        label1.setAnchorPoint(cc.p(0.5, 0.5));
+        label1.setAnchorPoint(0.5, 0.5);
 
         this.addChild(label1);
         label1.setPosition(cc.p(s.width / 2, s.height / 2));
@@ -284,7 +284,7 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
         var label1 = cc.LabelBMFont.create("Test", s_resprefix + "fonts/bitmapFontTest2.fnt");
 
         // testing anchors
-        label1.setAnchorPoint(cc.p(0, 0));
+        label1.setAnchorPoint(0, 0);
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
         var fade = cc.FadeOut.create(1.0);
         var fade_in = fade.reverse();
@@ -298,14 +298,14 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
         // Of course, you can also tell XCode not to compress PNG images, but I think it doesn't work as expected
         var label2 = cc.LabelBMFont.create("Test", s_resprefix + "fonts/bitmapFontTest2.fnt");
         // testing anchors
-        label2.setAnchorPoint(cc.p(0.5, 0.5));
+        label2.setAnchorPoint(0.5, 0.5);
         label2.setColor( cc.RED );
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
         label2.runAction(repeat.clone());
 
         var label3 = cc.LabelBMFont.create("Test", s_resprefix + "fonts/bitmapFontTest2.fnt");
         // testing anchors
-        label3.setAnchorPoint(cc.p(1, 1));
+        label3.setAnchorPoint(1, 1);
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
 
         var s = director.getWinSize();
@@ -380,7 +380,7 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
         var s = director.getWinSize();
 
         label.setPosition(cc.p(s.width / 2, s.height / 2));
-        label.setAnchorPoint(cc.p(0.5, 0.5));
+        label.setAnchorPoint(0.5, 0.5);
 
         var BChar = label.getChildByTag(0);
         var FChar = label.getChildByTag(7);
@@ -486,7 +486,7 @@ var BMFontPaddingTest = AtlasDemo.extend({
         var s = director.getWinSize();
 
         label.setPosition(cc.p(s.width / 2, s.height / 2));
-        label.setAnchorPoint(cc.p(0.5, 0.5));
+        label.setAnchorPoint(0.5, 0.5);
     },
     title:function () {
         return "cc.LabelBMFont BMFontPaddingTest";
@@ -532,17 +532,17 @@ var BMFontOffsetTest = AtlasDemo.extend({
         label = cc.LabelBMFont.create("FaFeFiFoFu", s_resprefix + "fonts/bitmapFontTest5.fnt");
         this.addChild(label);
         label.setPosition(cc.p(s.width / 2, s.height / 2 + 50));
-        label.setAnchorPoint(cc.p(0.5, 0.5));
+        label.setAnchorPoint(0.5, 0.5);
 
         label = cc.LabelBMFont.create("fafefifofu", s_resprefix + "fonts/bitmapFontTest5.fnt");
         this.addChild(label);
         label.setPosition(cc.p(s.width / 2, s.height / 2));
-        label.setAnchorPoint(cc.p(0.5, 0.5));
+        label.setAnchorPoint(0.5, 0.5);
 
         label = cc.LabelBMFont.create("aeiou", s_resprefix + "fonts/bitmapFontTest5.fnt");
         this.addChild(label);
         label.setPosition(cc.p(s.width / 2, s.height / 2 - 50));
-        label.setAnchorPoint(cc.p(0.5, 0.5));
+        label.setAnchorPoint(0.5, 0.5);
     },
     title:function () {
         return "cc.LabelBMFont";
@@ -590,18 +590,18 @@ var BMFontTintTest = AtlasDemo.extend({
         label.setColor(cc.c3b(0, 0, 255));
         this.addChild(label);
         label.setPosition(cc.p(s.width / 2, s.height / 4));
-        label.setAnchorPoint(cc.p(0.5, 0.5));
+        label.setAnchorPoint(0.5, 0.5);
 
         label = cc.LabelBMFont.create("Red", s_resprefix + "fonts/bitmapFontTest5.fnt");
         this.addChild(label);
         label.setPosition(cc.p(s.width / 2, 2 * s.height / 4));
-        label.setAnchorPoint(cc.p(0.5, 0.5));
+        label.setAnchorPoint(0.5, 0.5);
         label.setColor(cc.c3b(255, 0, 0));
 
         label = cc.LabelBMFont.create("G", s_resprefix + "fonts/bitmapFontTest5.fnt");
         this.addChild(label);
         label.setPosition(cc.p(s.width / 2, 3 * s.height / 4));
-        label.setAnchorPoint(cc.p(0.5, 0.5));
+        label.setAnchorPoint(0.5, 0.5);
         label.setColor(cc.c3b(0, 255, 0));
         label.setString("Green");
     },
@@ -655,7 +655,7 @@ var BMFontSpeedTest = AtlasDemo.extend({
 
             var p = cc.p(Math.random() * s.width, Math.random() * s.height);
             label.setPosition(p);
-            label.setAnchorPoint(cc.p(0.5, 0.5));
+            label.setAnchorPoint(0.5, 0.5);
         }
     },
     title:function () {
@@ -678,7 +678,7 @@ var BMFontMultiLineTest = AtlasDemo.extend({
 
         // Left
         var label1 = cc.LabelBMFont.create("Multi line\nLeft", s_resprefix + "fonts/bitmapFontTest3.fnt");
-        label1.setAnchorPoint(cc.p(0, 0));
+        label1.setAnchorPoint(0, 0);
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
 
         s = label1.getContentSize();
@@ -687,7 +687,7 @@ var BMFontMultiLineTest = AtlasDemo.extend({
 
         // Center
         var label2 = cc.LabelBMFont.create("Multi line\nCenter", s_resprefix + "fonts/bitmapFontTest3.fnt");
-        label2.setAnchorPoint(cc.p(0.5, 0.5));
+        label2.setAnchorPoint(0.5, 0.5);
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
 
         s = label2.getContentSize();
@@ -695,7 +695,7 @@ var BMFontMultiLineTest = AtlasDemo.extend({
 
         // right
         var label3 = cc.LabelBMFont.create("Multi line\nRight\nThree lines Three", s_resprefix + "fonts/bitmapFontTest3.fnt");
-        label3.setAnchorPoint(cc.p(1, 1));
+        label3.setAnchorPoint(1, 1);
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
 
         s = label3.getContentSize();
@@ -752,7 +752,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
 
         // Left
         var label1 = cc.LabelBMFont.create("Multi line\n\nAligned to the left", s_resprefix + "fonts/bitmapFontTest3.fnt");
-        label1.setAnchorPoint(cc.p(0, 0));
+        label1.setAnchorPoint(0, 0);
         label1.setAlignment(cc.TEXT_ALIGNMENT_LEFT);
         label1.setWidth(400);
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
@@ -762,7 +762,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
 
         // Center
         var label2 = cc.LabelBMFont.create("Error\n\nSome error message", s_resprefix + "fonts/bitmapFontTest3.fnt");
-        label2.setAnchorPoint(cc.p(0.5, 0.5));
+        label2.setAnchorPoint(0.5, 0.5);
         label2.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
         label2.setWidth(290);
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
@@ -771,7 +771,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
 
         // right
         var label3 = cc.LabelBMFont.create("Multi line\n\nAligned to the right", s_resprefix + "fonts/bitmapFontTest3.fnt");
-        label3.setAnchorPoint(cc.p(1, 1));
+        label3.setAnchorPoint(1, 1);
         label3.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
         label3.setWidth(400);
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
@@ -1016,7 +1016,7 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
 
         // create the label using the definition
         this._labelShadow = cc.LabelTTF.createWithFontDefinition("Shadow Only", fontDefRedShadow);
-        this._labelShadow.setAnchorPoint(cc.p(0, 0));
+        this._labelShadow.setAnchorPoint(0, 0);
         this._labelShadow.setPosition(cc.p(posX, posY_5));
 
         // font definition
@@ -1032,7 +1032,7 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
         fontDefBlueStroke.strokeColor = yellowColor;
 
         this._labelStroke = cc.LabelTTF.createWithFontDefinition("Stroke Only", fontDefBlueStroke);
-        this._labelStroke.setAnchorPoint(cc.p(0, 0));
+        this._labelStroke.setAnchorPoint(0, 0);
         this._labelStroke.setPosition(cc.p(posX, posY_5 * 2));
 
         // font definition
@@ -1051,7 +1051,7 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
         fontDefRedStrokeShadow.shadowOffset = cc.size(-12,12);   //shadowOffset;
 
         this._labelStrokeShadow = cc.LabelTTF.createWithFontDefinition("Stroke + Shadow\n New Line", fontDefRedStrokeShadow);
-        this._labelStrokeShadow.setAnchorPoint(cc.p(0, 0));
+        this._labelStrokeShadow.setAnchorPoint(0, 0);
         this._labelStrokeShadow.setPosition(cc.p(posX, posY_5 * 3));
 
         // add all the labels
@@ -1079,7 +1079,7 @@ var LabelTTFTest = AtlasDemo.extend({
         var s = director.getWinSize();
 
         var colorLayer = cc.LayerColor.create(cc.c4b(100, 100, 100, 255), blockSize.width, blockSize.height);
-        colorLayer.setAnchorPoint(cc.p(0, 0));
+        colorLayer.setAnchorPoint(0, 0);
         colorLayer.setPosition(cc.p((s.width - blockSize.width) / 2, (s.height - blockSize.height) / 2));
 
         this.addChild(colorLayer);
@@ -1117,7 +1117,7 @@ var LabelTTFTest = AtlasDemo.extend({
 
         this._label = cc.LabelTTF.create(this.getCurrentAlignment(), "Arial", 32, blockSize, this._horizAlign, this._vertAlign);
 
-        this._label.setAnchorPoint(cc.p(0, 0));
+        this._label.setAnchorPoint(0, 0);
         this._label.setPosition(cc.p((s.width - blockSize.width) / 2, (s.height - blockSize.height) / 2));
 
         this.addChild(this._label);
@@ -1355,7 +1355,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
 
         var arrowsWidth = (ArrowsMax - ArrowsMin) * size.width;
         this.arrowsBarShouldRetain.setScaleX(arrowsWidth / this.arrowsBarShouldRetain.getContentSize().width);
-        this.arrowsBarShouldRetain.setAnchorPoint(cc.p(0, 0.5));
+        this.arrowsBarShouldRetain.setAnchorPoint(0, 0.5);
         this.arrowsBarShouldRetain.setPosition(cc.p(ArrowsMin * size.width, this.labelShouldRetain.getPosition().y));
 
         this.arrowsShouldRetain.setPosition(this.arrowsBarShouldRetain.getPosition());
@@ -1600,17 +1600,17 @@ var LabelTTFAlignment = AtlasDemo.extend({
         var s = director.getWinSize();
         var ttf0 = cc.LabelTTF.create("Alignment 0\nnew line", "Arial", 12, cc.size(256, 32), cc.TEXT_ALIGNMENT_LEFT);
         ttf0.setPosition(cc.p(s.width / 2, (s.height / 6) * 2));
-        ttf0.setAnchorPoint(cc.p(0.5, 0.5));
+        ttf0.setAnchorPoint(0.5, 0.5);
         this.addChild(ttf0);
 
         var ttf1 = cc.LabelTTF.create("Alignment 1\nnew line", "Arial", 12, cc.size(256, 32), cc.TEXT_ALIGNMENT_CENTER);
         ttf1.setPosition(cc.p(s.width / 2, (s.height / 6) * 3));
-        ttf1.setAnchorPoint(cc.p(0.5, 0.5));
+        ttf1.setAnchorPoint(0.5, 0.5);
         this.addChild(ttf1);
 
         var ttf2 = cc.LabelTTF.create("Alignment 2\nnew line", "Arial", 12, cc.size(256, 32), cc.TEXT_ALIGNMENT_RIGHT);
         ttf2.setPosition(cc.p(s.width / 2, (s.height / 6) * 4));
-        ttf2.setAnchorPoint(cc.p(0.5, 0.5));
+        ttf2.setAnchorPoint(0.5, 0.5);
         this.addChild(ttf2);
     },
     title:function () {
