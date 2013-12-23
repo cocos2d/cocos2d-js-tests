@@ -443,7 +443,7 @@ var testNames = [
     },
     {
         title:"Spine Test",
-        platforms: PLATFORM_ALL,
+        platforms: PLATFORM_JSB,
         testScene:function () {
             return new SpineTestScene();
         }
