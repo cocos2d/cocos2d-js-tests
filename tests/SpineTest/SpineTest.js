@@ -48,9 +48,9 @@ SpineTest = BaseTestLayer.extend({
         // No JS binding for spine-c in this version. So, only file loading is supported.
         spineboy = cc.SkeletonAnimation.createWithFile('res/skeletons/spineboy.json', 'res/skeletons/spineboy.atlas');
         spineboy.setPosition(cc.p(size.width / 2, size.height / 2 - 150));
-        spineboy.setAnimation('walk', true, 0);
-        spineboy.setMix('walk', 'jump', 0.2, 0);
-        spineboy.setMix('jump', 'walk', 0.4, 0);
+        spineboy.setAnimation(0, 'walk', true);
+        spineboy.setMix('walk', 'jump', 0.2);
+        spineboy.setMix('jump', 'walk', 0.4);
         this.addChild(spineboy, 4);
     },
     onBackCallback:function (sender) {
@@ -59,7 +59,7 @@ SpineTest = BaseTestLayer.extend({
     },
     onNextCallback:function (sender) {
         touchcount++;
-        spineboy.setAnimation(['walk', 'jump'][touchcount % 2], true, 0);
+        spineboy.setAnimation(0, ['walk', 'jump'][touchcount % 2], true);
     },
     subtitle:function () {
         return "Spine test";
