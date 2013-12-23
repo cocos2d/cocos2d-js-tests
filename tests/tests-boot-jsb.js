@@ -51,6 +51,7 @@ var tests_files = [
     'RotateWorldTest/RotateWorldTest.js',
     'SceneTest/SceneTest.js',
     'SchedulerTest/SchedulerTest.js',
+    'SpineTest/SpineTest.js',
     'SpriteTest/SpriteTest.js',
     'ExtensionsTest/EditBoxTest/EditBoxTest.js',
     'ExtensionsTest/S9SpriteTest/S9SpriteTest.js',
