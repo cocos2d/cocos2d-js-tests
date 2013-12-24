@@ -86,9 +86,9 @@ PresentationBaseLayer.prototype.onEnter = function() {
 		this.sublabel = cc.LabelTTF.create(subStr, "Thonburi", subfontSize);
 		this.addChild(this.sublabel, 90);
 		if( isMain )
-			this.sublabel.setPosition( cc.p(winSize.width / 2, winSize.height*3/8 ));
+			this.sublabel.setPosition(winSize.width / 2, winSize.height*3/8);
 		else
-			this.sublabel.setPosition( cc.p(winSize.width / 2, winSize.height*4/5 ));
+			this.sublabel.setPosition(winSize.width / 2, winSize.height*4/5);
 	} else
 		this.sublabel = null;
 
@@ -351,7 +351,7 @@ ChipmunkPage.prototype.initMenu = function() {
 	var menuItem = cc.MenuItemFont.create('Toggle Physics Debug', this.onTogglePhysicsDebug, this);
 	var menu = cc.Menu.create( menuItem );
 	this.addChild( menu, 99 );
-	menu.setPosition( cc.p( winSize.width-80, winSize.height-100) );
+	menu.setPosition(winSize.width-80, winSize.height-100);
 };
 
 // init physics
@@ -460,12 +460,12 @@ var ParticlesPage = function() {
 	var sun = cc.ParticleSun.create();
 	// sun.setTexture(tex);
 	this.addChild( sun );
-	sun.setPosition( cc.p( winSize.width/4, winSize.height/2) );
+	sun.setPosition(winSize.width/4, winSize.height/2);
 
 	var meteor = cc.ParticleMeteor.create();
 	// meteor.setTexture(tex);
 	this.addChild( meteor );
-	meteor.setPosition( cc.p( winSize.width*3/4, winSize.height/2) );
+	meteor.setPosition(winSize.width*3/4, winSize.height/2);
 
 	var flower = cc.ParticleSystem.create("res/Particles/Flower.plist");
 	this.addChild( flower );

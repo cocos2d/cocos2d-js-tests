@@ -91,14 +91,14 @@ var ExtensionsMainLayer = cc.Layer.extend({
         var winSize = cc.Director.getInstance().getWinSize();
 
         var pMenu = cc.Menu.create();
-        pMenu.setPosition(cc.p(0, 0));
+        pMenu.setPosition(0, 0);
         cc.MenuItemFont.setFontName("Arial");
         cc.MenuItemFont.setFontSize(24);
         for (var i = 0; i < extensionsTestItemNames.length; ++i) {
             var selItem = extensionsTestItemNames[i];
             var pItem = cc.MenuItemFont.create(selItem.itemTitle,
                 this.menuCallback, this);
-            pItem.setPosition(cc.p(winSize.width / 2, winSize.height - (i + 1) * LINE_SPACE));
+            pItem.setPosition(winSize.width / 2, winSize.height - (i + 1) * LINE_SPACE);
             pMenu.addChild(pItem, ITEM_TAG_BASIC + i);
         }
         this.addChild(pMenu);

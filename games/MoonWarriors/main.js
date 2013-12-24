@@ -78,6 +78,7 @@ var s_ptBottomRight = cc.PointZero();
 var s_ptBottom = cc.PointZero();
 var s_ptLeft = cc.PointZero();
 var s_ptTopLeft = cc.PointZero();
+var s_ptBottomLeft = cc.PointZero();
 
 var VisibleRect = {
     rect:function () {
@@ -136,7 +137,7 @@ var VisibleRect = {
         return s_ptBottom;
     },
     bottomLeft:function () {
-        return this.rect().origin;
+        return s_ptBottomLeft;
     },
     left:function () {
         if (s_ptLeft.x == 0) {

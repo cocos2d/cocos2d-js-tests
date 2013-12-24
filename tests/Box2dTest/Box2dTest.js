@@ -95,7 +95,7 @@ Box2DTestLayer = cc.Layer.extend({
         var label = cc.LabelTTF.create("Tap screen", "Marker Felt", 32);
         this.addChild(label, 0);
         label.setColor(cc.c3b(0, 0, 255));
-        label.setPosition(cc.p(screenSize.width / 2, screenSize.height - 50));
+        label.setPosition(screenSize.width / 2, screenSize.height - 50);
 
         this.scheduleUpdate();
     },
@@ -111,7 +111,7 @@ Box2DTestLayer = cc.Layer.extend({
         var sprite = cc.Sprite.createWithTexture(batch.getTexture(), cc.rect(32 * idx, 32 * idy, 32, 32));
         batch.addChild(sprite);
 
-        sprite.setPosition(cc.p(p.x, p.y));
+        sprite.setPosition(p.x, p.y);
 
         // Define the dynamic body.
         //Set up a 1m squared box in the physics world
@@ -156,7 +156,7 @@ Box2DTestLayer = cc.Layer.extend({
             if (b.GetUserData() != null) {
                 //Synchronize the AtlasSprites position and rotation with the corresponding body
                 var myActor = b.GetUserData();
-                myActor.setPosition(cc.p(b.GetPosition().x * PTM_RATIO, b.GetPosition().y * PTM_RATIO));
+                myActor.setPosition(b.GetPosition().x * PTM_RATIO, b.GetPosition().y * PTM_RATIO);
                 myActor.setRotation(-1 * cc.RADIANS_TO_DEGREES(b.GetAngle()));
                 //console.log(b.GetAngle());
             }

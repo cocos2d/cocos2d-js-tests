@@ -36,10 +36,10 @@ var Ball = cc.Sprite.extend({
         this.setPosition(cc.pAdd(this.getPosition(), cc.pMult(this._velocity, delta)));
         var winSize = cc.Director.getInstance().getWinSize();
         if (this.getPosition().x > winSize.width - this.radius()) {
-            this.setPosition(cc.p(winSize.width - this.radius(), this.getPosition().y));
+            this.setPosition(winSize.width - this.radius(), this.getPosition().y);
             this._velocity.x *= -1;
         } else if (this.getPosition().x < this.radius()) {
-            this.setPosition(cc.p(this.radius(), this.getPosition().y));
+            this.setPosition(this.radius(), this.getPosition().y);
             this._velocity.x *= -1;
         }
     },
@@ -60,11 +60,11 @@ var Ball = cc.Sprite.extend({
             var hit = false;
             var angleOffset = 0.0;
             if ((this.getPositionY() > midY) && (this.getPositionY() <= (highY + this.radius()))) {
-                this.setPosition(cc.p(this.getPosition().x, highY + this.radius()));
+                this.setPosition(this.getPosition().x, highY + this.radius());
                 hit = true;
                 angleOffset = Math.PI / 2;
             } else if (this.getPosition().y < midY && this.getPosition().y >= lowY - this.radius()) {
-                this.setPosition(cc.p(this.getPosition().x, lowY - this.radius()));
+                this.setPosition(this.getPosition().x, lowY - this.radius());
                 hit = true;
                 angleOffset = -Math.PI / 2;
             }

@@ -100,7 +100,7 @@ var LayerTest1 = LayerTest.extend({
         var layer = cc.LayerColor.create(cc.c4b(255, 0, 0, 128), 200, 200);
 
         layer.ignoreAnchorPointForPosition(false);
-        layer.setPosition(cc.p(s.width / 2, s.height / 2));
+        layer.setPosition(s.width / 2, s.height / 2);
         this.addChild(layer, 1, cc.TAG_LAYER);
     },
     title:function () {
@@ -296,12 +296,12 @@ var LayerTest2 = LayerTest.extend({
 
         var s = director.getWinSize();
         var layer1 = cc.LayerColor.create(cc.c4b(255, 255, 0, 80), 100, 300);
-        layer1.setPosition(cc.p(s.width / 3, s.height / 2));
+        layer1.setPosition(s.width / 3, s.height / 2);
         layer1.ignoreAnchorPointForPosition(false);
         this.addChild(layer1, 1, LAYERTEST2_LAYER1_TAG);
 
         var layer2 = cc.LayerColor.create(cc.c4b(0, 0, 255, 255), 100, 300);
-        layer2.setPosition(cc.p((s.width / 3) * 2, s.height / 2));
+        layer2.setPosition((s.width / 3) * 2, s.height / 2);
         layer2.ignoreAnchorPointForPosition(false);
         this.addChild(layer2, 2, LAYERTEST2_LAYER2_TAG);
 
@@ -382,13 +382,13 @@ var LayerTestBlend = LayerTest.extend({
         this.addChild(sister2);
         this.addChild(layer1, 100, cc.TAG_LAYER);
 
-        sister1.setPosition(cc.p(winSize.width/3, winSize.height / 2));
-        sister2.setPosition(cc.p(winSize.width/3 * 2, winSize.height / 2));
+        sister1.setPosition(winSize.width/3, winSize.height / 2);
+        sister2.setPosition(winSize.width/3 * 2, winSize.height / 2);
 
         if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild(label);
-            label.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+            label.setPosition(winSize.width / 2, winSize.height / 2);
         }
 
         this.schedule(this.onNewBlend, 1.0);
@@ -440,7 +440,7 @@ var LayerGradient = LayerTest.extend({
 
          var menu = cc.Menu.create(item);
          this.addChild(menu);
-         menu.setPosition(cc.p(winSize.width / 2, 100) );
+         menu.setPosition(winSize.width / 2, 100);
     },
 
     updateGradient:function(pos) {

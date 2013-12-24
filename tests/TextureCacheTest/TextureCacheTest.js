@@ -37,8 +37,8 @@ var TextureCacheTest = cc.Layer.extend({
         this._labelLoading = cc.LabelTTF.create("loading...", "Arial", 15);
         this._labelPercent = cc.LabelTTF.create("%0", "Arial", 15);
 
-        this._labelLoading.setPosition(cc.p(size.width / 2, size.height / 2 - 20));
-        this._labelPercent.setPosition(cc.p(size.width / 2, size.height / 2 + 20));
+        this._labelLoading.setPosition(size.width / 2, size.height / 2 - 20);
+        this._labelPercent.setPosition(size.width / 2, size.height / 2 + 20);
 
         this.addChild(this._labelLoading);
         this.addChild(this._labelPercent);
@@ -70,7 +70,7 @@ var TextureCacheTest = cc.Layer.extend({
 
         // create sprites
         var bg = cc.Sprite.create("res/Images/HelloWorld.png");
-        bg.setPosition(cc.p(size.width / 2, size.height / 2));
+        bg.setPosition(size.width / 2, size.height / 2);
         //bg.setScale(1.7);
 
         var s1 = cc.Sprite.create("res/Images/grossini.png");
@@ -95,23 +95,23 @@ var TextureCacheTest = cc.Layer.extend({
         var s18 = cc.Sprite.create("res/Images/background3.png");
         var s19 = cc.Sprite.create("res/Images/blocks.png");
 
-        s1.setPosition(cc.p(50, 50));
-        s2.setPosition(cc.p(60, 50));
-        s3.setPosition(cc.p(70, 50));
-        s4.setPosition(cc.p(80, 50));
-        s5.setPosition(cc.p(90, 50));
-        s6.setPosition(cc.p(100, 50));
+        s1.setPosition(50, 50);
+        s2.setPosition(60, 50);
+        s3.setPosition(70, 50);
+        s4.setPosition(80, 50);
+        s5.setPosition(90, 50);
+        s6.setPosition(100, 50);
 
-        s7.setPosition(cc.p(50, 180));
-        s8.setPosition(cc.p(60, 180));
-        s9.setPosition(cc.p(70, 180));
-        s10.setPosition(cc.p(80, 180));
-        s11.setPosition(cc.p(90, 180));
-        s12.setPosition(cc.p(100, 180));
+        s7.setPosition(50, 180);
+        s8.setPosition(60, 180);
+        s9.setPosition(70, 180);
+        s10.setPosition(80, 180);
+        s11.setPosition(90, 180);
+        s12.setPosition(100, 180);
 
-        s13.setPosition(cc.p(50, 270));
-        s14.setPosition(cc.p(60, 270));
-        s15.setPosition(cc.p(70, 270));
+        s13.setPosition(50, 270);
+        s14.setPosition(60, 270);
+        s15.setPosition(70, 270);
 
         this.addChild(bg);
 

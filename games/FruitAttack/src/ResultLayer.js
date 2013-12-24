@@ -30,10 +30,10 @@ var ResultLayer = cc.Layer.extend({
                 this.menuCallBack,
                 this);
             itemRestart.setTag(eGameResultMenuTag.Restart);
-            itemRestart.setPosition( cc.p(160, 160) );
+            itemRestart.setPosition(160, 160);
 
             var resultMenu = cc.Menu.create(itemRestart);
-            resultMenu.setPosition( cc.p(0,0) );
+            resultMenu.setPosition(0,0);
             this.addChild(resultMenu);
 
             bRet = true;
@@ -74,13 +74,13 @@ var ResultLayer = cc.Layer.extend({
 
         switch(starIndex){
             case 0:
-                this.mStarSprites[starIndex].setPosition(cc.p(60,245));
+                this.mStarSprites[starIndex].setPosition(60,245);
                 break;
             case 1:
-                this.mStarSprites[starIndex].setPosition(cc.p(160,265));
+                this.mStarSprites[starIndex].setPosition(160,265);
                 break;
             case 2:
-                this.mStarSprites[starIndex].setPosition(cc.p(260,245));
+                this.mStarSprites[starIndex].setPosition(260,245);
                 break;
         }
         this.addChild(this.mStarSprites[starIndex]);

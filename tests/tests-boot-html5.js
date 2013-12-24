@@ -59,6 +59,7 @@
             'ProgressActionsTest/ProgressActionsTest.js',
             'LayerTest/LayerTest.js',
             'SceneTest/SceneTest.js',
+            'SpineTest/SpineTest.js',
             'SpriteTest/SpriteTest.js',
             'TextureCacheTest/TextureCacheTest.js',
             'CocosDenshionTest/CocosDenshionTest.js',
@@ -173,7 +174,7 @@
             s.src = c.SingleEngineFile;
         }
         else if (c.engineDir && !c.SingleEngineFile) {
-            s.src = c.engineDir + 'platform/jsloader.js';
+            s.src = c.engineDir + 'jsloader.js';
         }
         else {
             alert('You must specify either the single engine file OR the engine directory in "cocos2d.js"');
