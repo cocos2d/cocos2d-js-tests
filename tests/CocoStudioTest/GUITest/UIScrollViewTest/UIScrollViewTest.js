@@ -37,7 +37,7 @@ var UIScrollViewTest_Vertical = UIScene.extend({
             // Create the scrollview
             var scrollView = ccs.UIScrollView.create();
             scrollView.setDirection(ccs.ScrollViewDir.vertical);
-            scrollView.setTouchEnable(true);
+            scrollView.setTouchEnabled(true);
             scrollView.setSize(cc.size(280, 150));
 
             var backgroundSize = background.getContentSize();
@@ -56,24 +56,24 @@ var UIScrollViewTest_Vertical = UIScene.extend({
             scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
 
             var button = ccs.UIButton.create();
-            button.setTouchEnable(true);
+            button.setTouchEnabled(true);
             button.loadTextures("res/cocosgui/animationbuttonnormal.png", "res/cocosgui/animationbuttonpressed.png", "");
             button.setPosition(cc.p(innerWidth / 2, scrollView.getInnerContainerSize().height - button.getSize().height / 2));
             scrollView.addChild(button);
 
             var textButton = ccs.UITextButton.create();
-            textButton.setTouchEnable(true);
+            textButton.setTouchEnabled(true);
             textButton.loadTextures("res/cocosgui/backtotopnormal.png", "res/cocosgui/backtotoppressed.png", "");
             textButton.setTitleText("Text Button");
-            textButton.setPosition(cc.p(innerWidth / 2, button.getRelativeBottomPos() - button.getSize().height));
+            textButton.setPosition(cc.p(innerWidth / 2, button.getBottomInParent() - button.getSize().height));
             scrollView.addChild(textButton);
 
             var button_scale9 = ccs.UIButton.create();
-            button_scale9.setTouchEnable(true);
+            button_scale9.setTouchEnabled(true);
             button_scale9.setScale9Enabled(true);
             button_scale9.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
             button_scale9.setSize(cc.size(100, button_scale9.getContentSize().height));
-            button_scale9.setPosition(cc.p(innerWidth / 2, textButton.getRelativeBottomPos() - textButton.getSize().height));
+            button_scale9.setPosition(cc.p(innerWidth / 2, textButton.getBottomInParent() - textButton.getSize().height));
             scrollView.addChild(button_scale9);
 
             imageView.setPosition(cc.p(innerWidth / 2, imageView.getSize().height / 2));
@@ -100,7 +100,7 @@ var UIScrollViewTest_Horizontal = UIScene.extend({
             // Create the scrollview
             var scrollView = ccs.UIScrollView.create();
             scrollView.setDirection(ccs.ScrollViewDir.horizontal);
-            scrollView.setTouchEnable(true);
+            scrollView.setTouchEnabled(true);
             scrollView.setSize(cc.size(280, 150));
             var scrollViewRect = scrollView.getSize();
             scrollView.setInnerContainerSize(cc.size(scrollViewRect.width,scrollViewRect.height));
@@ -121,28 +121,28 @@ var UIScrollViewTest_Horizontal = UIScene.extend({
             scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
 
             var button = ccs.UIButton.create();
-            button.setTouchEnable(true);
+            button.setTouchEnabled(true);
             button.loadTextures("res/cocosgui/animationbuttonnormal.png", "res/cocosgui/animationbuttonpressed.png", "");
             button.setPosition(cc.p(button.getSize().width / 2, scrollView.getInnerContainerSize().height - button.getSize().height / 2));
             scrollView.addChild(button);
 
             var textButton = ccs.UITextButton.create();
-            textButton.setTouchEnable(true);
+            textButton.setTouchEnabled(true);
             textButton.loadTextures("res/cocosgui/backtotopnormal.png", "res/cocosgui/backtotoppressed.png", "");
             textButton.setTitleText("Text Button");
-            textButton.setPosition(cc.p(button.getRelativeRightPos() + button.getSize().width / 2, button.getRelativeBottomPos() - button.getSize().height));
+            textButton.setPosition(cc.p(button.getRightInParent() + button.getSize().width / 2, button.getBottomInParent() - button.getSize().height));
             scrollView.addChild(textButton);
 
             var button_scale9 = ccs.UIButton.create();
-            button_scale9.setTouchEnable(true);
+            button_scale9.setTouchEnabled(true);
             button_scale9.setScale9Enabled(true);
             button_scale9.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
             button_scale9.setSize(cc.size(100, button_scale9.getContentSize().height));
-            button_scale9.setPosition(cc.p(textButton.getRelativeRightPos() + textButton.getSize().width / 2, textButton.getRelativeBottomPos() - textButton.getSize().height));
+            button_scale9.setPosition(cc.p(textButton.getRightInParent() + textButton.getSize().width / 2, textButton.getBottomInParent() - textButton.getSize().height));
             scrollView.addChild(button_scale9);
 
             var pos = cc.p(innerWidth - imageView.getSize().width / 2,
-                button_scale9.getRelativeBottomPos() - button_scale9.getSize().height / 2);
+                button_scale9.getBottomInParent() - button_scale9.getSize().height / 2);
             imageView.setPosition(pos);
             scrollView.addChild(imageView);
 

@@ -48,20 +48,20 @@ var UIPanelTestBase = UIScene.extend({
             this._uiLayer.addWidget(this.layout);
 
             this.button = ccs.UIButton.create();
-            this.button.setTouchEnable(true);
+            this.button.setTouchEnabled(true);
             this.button.loadTextures("res/cocosgui/animationbuttonnormal.png", "res/cocosgui/animationbuttonpressed.png", "");
             this.button.setPosition(cc.p(this.button.getSize().width / 2, layoutRect.height - this.button.getSize().height / 2));
             this.layout.addChild(this.button);
 
             this.textButton = ccs.UITextButton.create();
-            this.textButton.setTouchEnable(true);
+            this.textButton.setTouchEnabled(true);
             this.textButton.loadTextures("res/cocosgui/backtotopnormal.png", "res/cocosgui/backtotoppressed.png", "");
             this.textButton.setTitleText("Text Button");
             this.textButton.setPosition(cc.p(layoutRect.width / 2, layoutRect.height / 2));
             this.layout.addChild(this.textButton);
 
             this.button_scale9 = ccs.UIButton.create();
-            this.button_scale9.setTouchEnable(true);
+            this.button_scale9.setTouchEnabled(true);
             this.button_scale9.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
             this.button_scale9.setScale9Enabled(true);
             this.button_scale9.setSize(cc.size(100, this.button_scale9.getContentSize().height));

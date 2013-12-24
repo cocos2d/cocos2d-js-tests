@@ -36,7 +36,7 @@ var UIPageViewTest = UIScene.extend({
 
             // Create the page view
             var pageView = ccs.UIPageView.create();
-            pageView.setTouchEnable(true);
+            pageView.setTouchEnabled(true);
             pageView.setSize(cc.size(240, 130));
             var backgroundSize = background.getContentSize();
             pageView.setPosition(cc.p((widgetSize.width - backgroundSize.width) / 2 +
@@ -50,7 +50,7 @@ var UIPageViewTest = UIScene.extend({
                 var layoutRect = layout.getSize();
 
                 var imageView = ccs.UIImageView.create();
-                imageView.setTouchEnable(true);
+                imageView.setTouchEnabled(true);
                 imageView.setScale9Enabled(true);
                 imageView.loadTexture("res/cocosgui/scrollviewbg.png");
                 imageView.setSize(cc.size(240, 130));

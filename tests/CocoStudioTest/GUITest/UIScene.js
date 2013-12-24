@@ -77,7 +77,7 @@ UIScene = cc.Layer.extend({
             uiLabel.setFontName("Marker Felt");
             uiLabel.setFontSize(30);
             uiLabel.setColor(cc.c3b(159, 168, 176));
-            uiLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 - uiLabel.getRect().height * 1.75));
+            uiLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 - uiLabel.getSize().height * 1.75));
             this._uiLayer.addWidget(uiLabel);
             this._bottomDisplayLabel = uiLabel;
 

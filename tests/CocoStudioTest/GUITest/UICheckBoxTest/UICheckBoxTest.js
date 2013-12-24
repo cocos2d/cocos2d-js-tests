@@ -32,7 +32,7 @@ var UICheckBoxTest = UIScene.extend({
             var widgetSize = this._widget.getSize();
             // Create the checkbox
             var checkBox = ccs.UICheckBox.create();
-            checkBox.setTouchEnable(true);
+            checkBox.setTouchEnabled(true);
             checkBox.loadTextures("res/cocosgui/check_box_normal.png",
                 "res/cocosgui/check_box_normal_press.png",
                 "res/cocosgui/check_box_active.png",
