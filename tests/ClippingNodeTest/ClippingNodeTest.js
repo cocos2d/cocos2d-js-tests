@@ -663,12 +663,11 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
 var arrayOfClippingNodeTest = [
     ScrollViewDemo,
     ShapeTest,
-    SpriteTest,
-    HoleDemo
+    SpriteTest
 ];
+
 if (sys.platform === 'browser' && ("opengl" in sys.capabilities)) {
     arrayOfClippingNodeTest.push(
-    HoleDemo,
     RawStencilBufferTest,
     RawStencilBufferTest2,
     RawStencilBufferTest3,
@@ -683,6 +682,8 @@ if ( sys.platform !== 'browser'){
         SpriteNoAlphaTest,
         SpriteInvertedTest,
         NestedTest);
+} else {
+    arrayOfClippingNodeTest.push(HoleDemo);
 }
 
 var nextClippingNodeTest = function () {
