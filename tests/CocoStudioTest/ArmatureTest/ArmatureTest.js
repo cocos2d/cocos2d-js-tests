@@ -225,7 +225,7 @@ var TestDirectLoading = ArmatureTestLayer.extend({
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_bear_json);
 
         var armature = ccs.Armature.create("bear");
-        armature.getAnimation().playByIndex(0);
+        armature.getAnimation().playWithIndex(0);
         armature.setAnchorPoint(0.5, 0.5);
         armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.addChild(armature);
@@ -246,7 +246,7 @@ var TestCSWithSkeleton = ArmatureTestLayer.extend({
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
 
         var armature = ccs.Armature.create("Cowboy");
-        armature.getAnimation().playByIndex(0);
+        armature.getAnimation().playWithIndex(0);
         armature.setScale(0.2);
         armature.setAnchorPoint(0.5, 0.5);
         armature.setPosition(winSize.width / 2, winSize.height / 2);
@@ -267,7 +267,7 @@ var TestDragonBones20 = ArmatureTestLayer.extend({
         this._super();
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Dragon_png, s_Dragon_plist, s_Dragon_xml);
         var armature = ccs.Armature.create("Dragon");
-        armature.getAnimation().playByIndex(0);
+        armature.getAnimation().playWithIndex(0);
         armature.getAnimation().setSpeedScale(0.4);
         armature.setScale(0.6);
         armature.setAnchorPoint(0.5, 0.5);
@@ -326,7 +326,7 @@ var TestPerformance = ArmatureTestLayer.extend({
             this.armatureCount++;
             var armature = new ccs.Armature();
             armature.init("Knight_f/Knight");
-            armature.getAnimation().playByIndex(0);
+            armature.getAnimation().playWithIndex(0);
             armature.setPosition(50 + this.armatureCount * 2, 150);
             armature.setScale(0.6);
             this.addArmatureToParent(armature);
@@ -381,21 +381,21 @@ var TestChangeZorder = ArmatureTestLayer.extend({
         var armatureDataManager = ccs.ArmatureDataManager.getInstance();
         armatureDataManager.addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
         armature = ccs.Armature.create("Knight_f/Knight");
-        armature.getAnimation().playByIndex(0);
+        armature.getAnimation().playWithIndex(0);
         armature.setPosition(winSize.width / 2, winSize.height / 2 - 100);
         armature.setScale(0.6);
         this.addChild(armature, 0, 0);
 
         armatureDataManager.addArmatureFileInfo(s_Cowboy_json);
         armature = ccs.Armature.create("Cowboy");
-        armature.getAnimation().playByIndex(0);
+        armature.getAnimation().playWithIndex(0);
         armature.setScale(0.24);
         armature.setPosition(winSize.width / 2, winSize.height / 2 - 100);
         this.addChild(armature, 1, 1);
 
         armatureDataManager.addArmatureFileInfo(s_Dragon_png, s_Dragon_plist, s_Dragon_xml);
         armature = ccs.Armature.create("Dragon");
-        armature.getAnimation().playByIndex(0);
+        armature.getAnimation().playWithIndex(0);
         armature.setPosition(winSize.width / 2, winSize.height / 2 - 100);
         armature.setScale(0.6);
         this.addChild(armature, 2, 2);
@@ -519,7 +519,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
 
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_robot_png, s_robot_plist, s_robot_xml);
         this.armature = ccs.Armature.create("robot");
-        this.armature.getAnimation().playByIndex(4);
+        this.armature.getAnimation().playWithIndex(4);
         this.armature.setPosition(cc.VisibleRect.center());
         this.armature.setScale(0.48);
         this.armature.getAnimation().setSpeedScale(0.5);
@@ -554,7 +554,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
     onTouchesEnded:function (touch, event) {
         ++this.animationID;
         this.animationID = this.animationID % this.armature.getAnimation().getMovementCount();
-        this.armature.getAnimation().playByIndex(this.animationID,10);
+        this.armature.getAnimation().playWithIndex(this.animationID,10);
         return false;
     }
 
@@ -577,7 +577,7 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
         armatureDataManager.addArmatureFileInfo(s_weapon_png, s_weapon_plist, s_weapon_xml);
 
         this.armature = ccs.Armature.create("Knight_f/Knight");
-        this.armature.getAnimation().playByIndex(0);
+        this.armature.getAnimation().playWithIndex(0);
         this.armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.armature.setScale(1.2);
         this.addChild(this.armature);
@@ -863,7 +863,7 @@ var TestBoundingBox = ArmatureTestLayer.extend({
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
 
         this.armature = ccs.Armature.create("Cowboy");
-        this.armature.getAnimation().playByIndex(0);
+        this.armature.getAnimation().playWithIndex(0);
         this.armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.armature.setScale(0.2);
         this.addChild(this.armature);
@@ -890,7 +890,7 @@ var TestAnchorPoint = ArmatureTestLayer.extend({
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
         for (var i = 0; i < 5; i++) {
             var armature = ccs.Armature.create("Cowboy");
-            armature.getAnimation().playByIndex(0);
+            armature.getAnimation().playWithIndex(0);
             armature.setPosition(winSize.width / 2, winSize.height / 2);
             armature.setScale(0.2);
             this.addChild(armature, 0, i);
@@ -920,7 +920,7 @@ var TestArmatureNesting = ArmatureTestLayer.extend({
         this.setTouchEnabled(true);
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_cyborg_png, s_cyborg_plist, s_cyborg_xml);
         this.armature = ccs.Armature.create("cyborg");
-        this.armature.getAnimation().playByIndex(1);
+        this.armature.getAnimation().playWithIndex(1);
         this.armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.armature.setScale(1.2);
         this.armature.getAnimation().setSpeedScale(0.4);
@@ -933,8 +933,8 @@ var TestArmatureNesting = ArmatureTestLayer.extend({
     onTouchesEnded:function (touch, event) {
         ++this.weaponIndex;
         this.weaponIndex = this.weaponIndex % 4;
-        this.armature.getBone("armInside").getChildArmature().getAnimation().playByIndex(this.weaponIndex);
-        this.armature.getBone("armOutside").getChildArmature().getAnimation().playByIndex(this.weaponIndex);
+        this.armature.getBone("armInside").getChildArmature().getAnimation().playWithIndex(this.weaponIndex);
+        this.armature.getBone("armOutside").getChildArmature().getAnimation().playWithIndex(this.weaponIndex);
     }
 });
 
@@ -954,7 +954,7 @@ var Hero = ccs.Armature.extend({
 
     changeMount: function (armature) {
         if (armature == null) {
-            this.playByIndex(0);
+            this.playWithIndex(0);
             //Remove hero from display list
             this._mount.getBone("hero").removeDisplay(0);
             this._mount.stopAllActions();
@@ -980,16 +980,16 @@ var Hero = ccs.Armature.extend({
 
             this.setPosition(0, 0);
             //Change animation
-            this.playByIndex(1);
+            this.playWithIndex(1);
             this.setScale(1);
         }
 
     },
 
-    playByIndex: function (index) {
-        this.getAnimation().playByIndex(index);
+    playWithIndex: function (index) {
+        this.getAnimation().playWithIndex(index);
         if (this._mount) {
-            this._mount.getAnimation().playByIndex(index);
+            this._mount.getAnimation().playWithIndex(index);
         }
     },
     setLayer:function(layer){
@@ -1035,7 +1035,7 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
         //Create a hero
         var hero = Hero.create("hero");
         hero.setLayer(this);
-        hero.playByIndex(0);
+        hero.playWithIndex(0);
         hero.setPosition(cc.VisibleRect.left().x + 20, cc.VisibleRect.left().y);
         this.addChild(hero);
         this._hero = hero;
@@ -1088,7 +1088,7 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
     },
     createMount: function (name, position) {
         var armature = ccs.Armature.create(name);
-        armature.getAnimation().playByIndex(0);
+        armature.getAnimation().playWithIndex(0);
         armature.setPosition(position);
         this.addChild(armature);
         return armature;
@@ -1105,7 +1105,7 @@ var TestPlaySeveralMovement = ArmatureTestLayer.extend({
         this._super();
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
         var armature = ccs.Armature.create("Cowboy");
-        armature.getAnimation().play(["Walk", "FireMax", "Fire"],1);
+        armature.getAnimation().playWithNames(["Walk", "FireMax", "Fire"],10,true);
         armature.setScale(0.2);
         armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.addChild(armature);
@@ -1129,7 +1129,7 @@ var TestChangeAnimationInternal = ArmatureTestLayer.extend({
         this.setTouchEnabled(true);
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
         var armature = ccs.Armature.create("Cowboy");
-        armature.getAnimation().playByIndex(0);
+        armature.getAnimation().playWithIndex(0);
         armature.setScale(0.2);
         armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.addChild(armature);
@@ -1168,7 +1168,7 @@ var TestEasing = ArmatureTestLayer.extend({
         this.setTouchEnabled(true);
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_testEasing_json);
         var armature = ccs.Armature.create("testEasing");
-        armature.getAnimation().playByIndex(0);
+        armature.getAnimation().playWithIndex(0);
         armature.setScale(0.8);
         armature.setPosition(winSize.width / 2, winSize.height / 2);
         this.addChild(armature);
@@ -1184,7 +1184,7 @@ var TestEasing = ArmatureTestLayer.extend({
     onTouchesBegan: function (touch, event) {
         this.animationID++;
         this.animationID = this.animationID % this.armature.getAnimation().getMovementCount();
-        this.armature.getAnimation().playByIndex(this.animationID);
+        this.armature.getAnimation().playWithIndex(this.animationID);
 
         this.updateSubTitle();
         return false;
