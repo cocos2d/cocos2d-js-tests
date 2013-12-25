@@ -24,6 +24,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+var sp = sp || {};
+
 SpineTestScene = TestScene.extend({
 
     runThisTest:function () {
@@ -46,7 +48,7 @@ SpineTest = BaseTestLayer.extend({
         // Make Spine's Animated skeleton Node
         // You need 'json + atlas + image' resource files to make it.
         // No JS binding for spine-c in this version. So, only file loading is supported.
-        spineboy = cc.SkeletonAnimation.createWithFile('res/skeletons/spineboy.json', 'res/skeletons/spineboy.atlas');
+        spineboy = sp.SkeletonAnimation.createWithFile('res/skeletons/spineboy.json', 'res/skeletons/spineboy.atlas');
         spineboy.setPosition(cc.p(size.width / 2, size.height / 2 - 150));
         spineboy.setAnimation(0, 'walk', true);
         spineboy.setMix('walk', 'jump', 0.2);
