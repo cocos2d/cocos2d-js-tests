@@ -283,6 +283,14 @@ var HoleDemo = BaseClippingNodeTest.extend({
         target.setAnchorPoint(0,0);
         target.setScale(3);
 
+        var size = target.getContentSize();
+        var scale = target.getScale();
+        var stencil = cc.DrawNode.create();
+        var rectangle = [cc.p(0, 0),cc.p(size.width*scale, 0),
+            cc.p(size.width*scale, size.height*scale),
+            cc.p(0, size.height*scale)];
+        stencil.drawPoly(rectangle, cc.c4f(1, 0, 0, 1), 0, cc.c4f(1, 1, 1, 0));
+
         this._outerClipper = cc.ClippingNode.create();
         this._outerClipper.retain();
         var transform = cc.AffineTransformMakeIdentity();
@@ -293,7 +301,7 @@ var HoleDemo = BaseClippingNodeTest.extend({
         this._outerClipper.setPosition(cc.pMult(cc.pFromSize(this.getContentSize()), 0.5));
         this._outerClipper.runAction(cc.RepeatForever.create(cc.RotateBy.create(1, 45)));
 
-        this._outerClipper.setStencil(target);
+        this._outerClipper.setStencil(stencil);
 
         var holesClipper = cc.ClippingNode.create();
         holesClipper.setInverted(true);
@@ -657,9 +665,9 @@ var arrayOfClippingNodeTest = [
     ShapeTest,
     SpriteTest
 ];
+
 if (sys.platform === 'browser' && ("opengl" in sys.capabilities)) {
     arrayOfClippingNodeTest.push(
-    HoleDemo,
     RawStencilBufferTest,
     RawStencilBufferTest2,
     RawStencilBufferTest3,
@@ -674,6 +682,8 @@ if ( sys.platform !== 'browser'){
         SpriteNoAlphaTest,
         SpriteInvertedTest,
         NestedTest);
+} else {
+    arrayOfClippingNodeTest.push(HoleDemo);
 }
 
 var nextClippingNodeTest = function () {

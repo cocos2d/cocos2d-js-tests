@@ -2,11 +2,11 @@ var SettingsLayer = cc.Layer.extend({
     init:function () {
         var bRet = false;
         if (this._super()) {
-            var sp = cc.Sprite.create(s_loading);
+            var sp = cc.Sprite.create(res.loading_png);
             sp.setAnchorPoint(0,0);
             this.addChild(sp, 0, 1);
 
-            var cacheImage = cc.TextureCache.getInstance().addImage(s_menuTitle);
+            var cacheImage = cc.TextureCache.getInstance().addImage(res.menuTitle_png);
             var title = cc.Sprite.createWithTexture(cacheImage, cc.rect(0, 0, 134, 34));
             title.setPosition(winSize.width / 2, winSize.height - 120);
             this.addChild(title);
@@ -66,7 +66,7 @@ var SettingsLayer = cc.Layer.extend({
         MW.SOUND = !MW.SOUND;
         var audioEngine = cc.AudioEngine.getInstance();
         if(MW.SOUND){
-            audioEngine.playMusic(s_mainMainMusic_mp3);
+            audioEngine.playMusic(res.mainMainMusic_mp3);
         }
         else{
             audioEngine.stopMusic();
