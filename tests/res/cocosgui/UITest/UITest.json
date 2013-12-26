@@ -343,7 +343,7 @@
           "capInsetsX": 0,
           "capInsetsY": 0,
           "clipAble": false,
-          "colorType": 1,
+          "colorType": 0,
           "vectorX": 0,
           "vectorY": -0.5
         }
