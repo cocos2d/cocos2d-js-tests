@@ -34,8 +34,8 @@ var GameLayer = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
 
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_textureOpaquePack_plist);
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_b01_plist);
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(res.textureOpaquePack_plist);
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(res.b01_plist);
 
             // reset global values
             MW.CONTAINER.ENEMIES = [];
@@ -53,13 +53,13 @@ var GameLayer = cc.Layer.extend({
             this._state = STATE_PLAYING;
 
             // OpaqueBatch
-            var texOpaque = cc.TextureCache.getInstance().addImage(s_textureOpaquePack);
+            var texOpaque = cc.TextureCache.getInstance().addImage(res.textureOpaquePack_png);
             this._texOpaqueBatch = cc.SpriteBatchNode.createWithTexture(texOpaque);
             this._texOpaqueBatch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._texOpaqueBatch);
 
             // TransparentBatch
-            var texTransparent = cc.TextureCache.getInstance().addImage(s_textureTransparentPack);
+            var texTransparent = cc.TextureCache.getInstance().addImage(res.textureTransparentPack_png);
             this._texTransparentBatch = cc.SpriteBatchNode.createWithTexture(texTransparent);
             this.addChild(this._texTransparentBatch);
 
@@ -69,7 +69,7 @@ var GameLayer = cc.Layer.extend({
             this.screenRect = cc.rect(0, 0, winSize.width, winSize.height + 10);
 
             // score
-            this.lbScore = cc.LabelBMFont.create("Score: 0", s_arial14_fnt);
+            this.lbScore = cc.LabelBMFont.create("Score: 0", res.arial_14_fnt);
             this.lbScore.setAnchorPoint(1, 0);
             this.lbScore.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
             this.addChild(this.lbScore, 1000);
@@ -92,8 +92,8 @@ var GameLayer = cc.Layer.extend({
             this._texTransparentBatch.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
 
             // explosion batch node
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_explosion_plist);
-            var explosionTexture = cc.TextureCache.getInstance().addImage(s_explosion);
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(res.explosion_plist);
+            var explosionTexture = cc.TextureCache.getInstance().addImage(res.explosion_png);
             this._explosions = cc.SpriteBatchNode.createWithTexture(explosionTexture);
             this._explosions.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._explosions);
@@ -117,7 +117,7 @@ var GameLayer = cc.Layer.extend({
             this.schedule(this.scoreCounter, 1);
 
             if (MW.SOUND) {
-                cc.AudioEngine.getInstance().playMusic(s_bgMusic_mp3, true);
+                cc.AudioEngine.getInstance().playMusic(res.bgMusic_mp3, true);
             }
 
             bRet = true;
