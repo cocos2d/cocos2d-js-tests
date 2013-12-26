@@ -1,93 +1,80 @@
-var dirImg = "res/";
-var dirMusic = "res/Music/";
-
-//image
-var s_loading = dirImg + "loading.png";
-var s_menu = dirImg + "menu.png";
-var s_logo = dirImg + "logo.png";
-var s_b01 = dirImg + "b01.png";
-var s_b01_plist = dirImg + "b01.plist";
-var s_cocos2dhtml5 = dirImg + "cocos2d-html5.png";
-var s_gameOver = dirImg + "gameOver.png";
-var s_menuTitle = dirImg + "menuTitle.png";
-var s_flare = dirImg + "flare.jpg";
-var s_explosion = dirImg + "explosion.png";
-var s_arial14 = dirImg + "arial-14.png";
-var s_arial14_fnt = dirImg + "arial-14.fnt";
-var s_textureOpaquePack = dirImg + "textureOpaquePack.png";
-var s_textureTransparentPack = dirImg + "textureTransparentPack.png";
-
-//music
-var s_bgMusic_mp3 = dirMusic + "bgMusic.mp3";
-var s_mainMainMusic_mp3 = dirMusic + "mainMainMusic.mp3";
-
-//effect
-var s_buttonEffect_mp3 = dirMusic + "buttonEffet.mp3";
-var s_explodeEffect_mp3 = dirMusic + "explodeEffect.mp3";
-var s_fireEffect_mp3 = dirMusic + "fireEffect.mp3";
-var s_shipDestroyEffect_mp3 = dirMusic + "shipDestroyEffect.mp3";
-
-var s_bgMusic_ogg = dirMusic + "bgMusic.ogg";
-var s_mainMainMusic_ogg = dirMusic + "mainMainMusic.ogg";
-
-//effect
-var s_buttonEffect_ogg = dirMusic + "buttonEffet.ogg";
-var s_explodeEffect_ogg = dirMusic + "explodeEffect.ogg";
-var s_fireEffect_ogg = dirMusic + "fireEffect.ogg";
-var s_shipDestroyEffect_ogg = dirMusic + "shipDestroyEffect.ogg";
-
-//tmx
-var s_level01 = dirImg + "level01.tmx";
-
-//plist
-var s_explosion_plist = dirImg + "explosion.plist";
-var s_textureOpaquePack_plist = dirImg + "textureOpaquePack.plist";
-var s_textureTransparentPack_plist = dirImg + "textureTransparentPack.plist";
+var res = {
+    bgMusic_mp3 : 'res/Music/bgMusic.mp3',
+    bgMusic_ogg : 'res/Music/bgMusic.ogg',
+    buttonEffet_mp3 : 'res/Music/buttonEffet.mp3',
+    buttonEffet_ogg : 'res/Music/buttonEffet.ogg',
+    explodeEffect_mp3 : 'res/Music/explodeEffect.mp3',
+    explodeEffect_ogg : 'res/Music/explodeEffect.ogg',
+    fireEffect_mp3 : 'res/Music/fireEffect.mp3',         //unused
+    fireEffect_ogg : 'res/Music/fireEffect.ogg',         //unused
+    mainMainMusic_mp3 : 'res/Music/mainMainMusic.mp3',
+    mainMainMusic_ogg : 'res/Music/mainMainMusic.ogg',
+    shipDestroyEffect_mp3 : 'res/Music/shipDestroyEffect.mp3',
+    shipDestroyEffect_ogg : 'res/Music/shipDestroyEffect.ogg',
+    arial_14_fnt : 'res/arial-14.fnt',
+    arial_14_png : 'res/arial-14.png',
+    b01_plist : 'res/b01.plist',
+    b01_png : 'res/b01.png',
+    cocos2d_html5_png : 'res/cocos2d-html5.png',
+    explode_plist : 'res/explode.plist',              //unused
+    explosion_plist : 'res/explosion.plist',
+    explosion_png : 'res/explosion.png',
+    flare_jpg : 'res/flare.jpg',
+    gameOver_png : 'res/gameOver.png',
+    level01_tmx : 'res/level01.tmx',
+    loading_png : 'res/loading.png',
+    logo_png : 'res/logo.png',
+    menu_png : 'res/menu.png',
+    menuTitle_png : 'res/menuTitle.png',
+    textureOpaquePack_plist : 'res/textureOpaquePack.plist',
+    textureOpaquePack_png : 'res/textureOpaquePack.png',
+    textureTransparentPack_plist : 'res/textureTransparentPack.plist',
+    textureTransparentPack_png : 'res/textureTransparentPack.png'
+};
 
 var g_mainmenu = [
-    {src:s_loading},
-    {src:s_flare},
-    {src:s_menu},
-    {src:s_logo},
-    {src:s_flare},
-	{src:s_b01},
-    {src:s_b01_plist},
-    {src:s_mainMainMusic_mp3},
-    {src:s_mainMainMusic_ogg},
-    {src:s_menuTitle},
-    {src:s_textureTransparentPack_plist},
-    {src:s_textureTransparentPack}
+    {src:res.loading_png},
+    {src:res.flare_jpg},
+    {src:res.menu_png},
+    {src:res.logo_png},
+	{src:res.b01_png},
+    {src:res.b01_plist},
+    {src:res.mainMainMusic_mp3},
+    {src:res.mainMainMusic_ogg},
+    {src:res.menuTitle_png},
+    {src:res.textureTransparentPack_plist},
+    {src:res.textureTransparentPack_png}
 ];
 
 var g_maingame = [
     //image
-    {src:s_cocos2dhtml5},
-    {src:s_gameOver},
-    {src:s_arial14},
-    {src:s_explosion},
-    {src:s_textureOpaquePack},
+    {src:res.cocos2d_html5_png},
+    {src:res.gameOver_png},
+    {src:res.arial_14_png},
+    {src:res.explosion_png},
+    {src:res.textureOpaquePack_png},
 
     //tmx
-   // {src:s_level01},
+    //{src:res.level01_tmx},
 
     //plist
-    {src:s_explosion_plist},
-    {src:s_textureOpaquePack_plist},
+    {src:res.explosion_plist},
+    {src:res.textureOpaquePack_plist},
 
     //music
-    {src:s_bgMusic_mp3},
-    {src:s_bgMusic_ogg},
+    {src:res.bgMusic_mp3},
+    {src:res.bgMusic_ogg},
 
     //effect
-    {src:s_buttonEffect_mp3},
-    {src:s_explodeEffect_mp3},
-    {src:s_fireEffect_mp3},
-    {src:s_shipDestroyEffect_mp3},
-    {src:s_buttonEffect_ogg},
-    {src:s_explodeEffect_ogg},
-    {src:s_fireEffect_ogg},
-    {src:s_shipDestroyEffect_ogg},
+    {src:res.buttonEffet_mp3},
+    {src:res.explodeEffect_mp3},
+    {src:res.fireEffect_mp3},
+    {src:res.shipDestroyEffect_mp3},
+    {src:res.buttonEffet_ogg},
+    {src:res.explodeEffect_ogg},
+    {src:res.fireEffect_ogg},
+    {src:res.shipDestroyEffect_ogg},
 
     // FNT
-    {src:s_arial14_fnt}
+    {src:res.arial_14_fnt}
 ];
