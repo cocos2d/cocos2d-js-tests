@@ -33,7 +33,7 @@
         showFPS:true,
         loadExtension:true,
         frameRate:60,
-        renderMode:0,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
+        renderMode:1,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
         tag:'gameCanvas', //the dom element to run cocos2d on
         engineDir:'../../cocos2d/',
         //SingleEngineFile:'../../lib/Cocos2d-html5-v2.2.1.min.js',
@@ -132,16 +132,14 @@
             'CocoStudioTest/GUITest/UILabelAtlasTest/UILabelAtlasTest.js',
             'CocoStudioTest/GUITest/UILabelBMFontTest/UILabelBMFontTest.js',
             'CocoStudioTest/GUITest/UILabelTest/UILabelTest.js',
+            'CocoStudioTest/GUITest/UILayoutTest/UILayoutTest.js',
             'CocoStudioTest/GUITest/UIListViewTest/UIListViewTest.js',
             'CocoStudioTest/GUITest/UILoadingBarTest/UILoadingBarTest.js',
             'CocoStudioTest/GUITest/UINodeContainerTest/UINodeContainerTest.js',
             'CocoStudioTest/GUITest/UIPageViewTest/UIPageViewTest.js',
-            'CocoStudioTest/GUITest/UIPanelTest/UIPanelTest.js',
             'CocoStudioTest/GUITest/UISceneManager.js',
             'CocoStudioTest/GUITest/UIScrollViewTest/UIScrollViewTest.js',
             'CocoStudioTest/GUITest/UISliderTest/UISliderTest.js',
-            'CocoStudioTest/GUITest/UITextAreaTest/UITextAreaTest.js',
-            'CocoStudioTest/GUITest/UITextButtonTest/UITextButtonTest.js',
             'CocoStudioTest/GUITest/UITextFieldTest/UITextFieldTest.js',
             'CocoStudioTest/SceneTest/SceneEditorTest.js',
             'CocoStudioTest/CocoStudioTest.js',

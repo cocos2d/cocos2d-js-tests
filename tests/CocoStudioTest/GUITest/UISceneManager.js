@@ -42,15 +42,9 @@ var s_testArray = [
         }
     },
     {
-        title: "UITextButtonTest",
+        title: "UIButtonTest_Title",
         func: function () {
-            return new UITextButtonTest();
-        }
-    },
-    {
-        title: "UITextButtonTest_Scale9",
-        func: function () {
-            return new UITextButtonTest_Scale9();
+            return new UIButtonTest_Title();
         }
     },
     {
@@ -66,7 +60,7 @@ var s_testArray = [
         }
     },
     {
-        title: "UIButtonTest",
+        title: "UISliderTest_Scale9",
         func: function () {
             return new UISliderTest_Scale9();
         }
@@ -120,9 +114,9 @@ var s_testArray = [
         }
     },
     {
-        title: "UITextAreaTest",
+        title: "UILabelTest_LineWrap",
         func: function () {
-            return new UITextAreaTest();
+            return new UILabelTest_LineWrap();
         }
     },
     {
@@ -150,42 +144,44 @@ var s_testArray = [
         }
     },
     {
-        title: "UIPanelTest",
+        title: "UILayoutTest",
         func: function () {
-            return new UIPanelTest();
+            return new UILayoutTest();
         }
     },
-    {         title: "UIPanelTest_Color", func: function () {
-        return new UIPanelTest_Color();
+    {
+        title: "UILayoutTest_Color",
+        func: function () {
+            return new UILayoutTest_Color();
+        }
+    },
+    {
+        title: "UILayoutTest_Gradient", func: function () {
+        return new UILayoutTest_Gradient();
     }
     },
     {
-        title: "UIPanelTest_Gradient", func: function () {
-        return new UIPanelTest_Gradient();
-    }
-    },
-    {
-        title: "UIPanelTest_BackGroundImage",
+        title: "UILayoutTest_BackGroundImage",
         func: function () {
-            return new UIPanelTest_BackGroundImage();
+            return new UILayoutTest_BackGroundImage();
         }
     },
     {
-        title: "UIPanelTest_BackGroundImage_Scale9",
+        title: "UILayoutTest_BackGroundImage_Scale9",
         func: function () {
-            return new UIPanelTest_BackGroundImage_Scale9();
+            return new UILayoutTest_BackGroundImage_Scale9();
         }
     },
     {
-        title: "UIPanelTest_Layout_Linear_Vertical",
+        title: "UILayoutTest_Layout_Linear_Vertical",
         func: function () {
-            return new UIPanelTest_Layout_Linear_Vertical();
+            return new UILayoutTest_Layout_Linear_Vertical();
         }
     },
     {
-        title: "UIPanelTest_Layout_Linear_Horizontal",
+        title: "UILayoutTest_Layout_Linear_Horizontal",
         func: function () {
-            return new UIPanelTest_Layout_Linear_Horizontal();
+            return new UILayoutTest_Layout_Linear_Horizontal();
         }
     },
     {
@@ -198,6 +194,24 @@ var s_testArray = [
         title: "UIScrollViewTest_Horizontal",
         func: function () {
             return new UIScrollViewTest_Horizontal();
+        }
+    },
+    {
+        title: "UIScrollViewTest_Both",
+        func: function () {
+            return new UIScrollViewTest_Both();
+        }
+    },
+    {
+        title: "UIScrollViewTest_ScrollToPercentBothDirection",
+        func: function () {
+            return new UIScrollViewTest_ScrollToPercentBothDirection();
+        }
+    },
+    {
+        title: "UIScrollViewTest_ScrollToPercentBothDirection_Bounce",
+        func: function () {
+            return new UIScrollViewTest_ScrollToPercentBothDirection_Bounce();
         }
     },
     {
@@ -219,9 +233,9 @@ var s_testArray = [
         }
     },
     {
-        title: "UINodeContainerTest",
+        title: "UIWidgetAddNodeTest",
         func: function () {
-            return new UINodeContainerTest();
+            return new UIWidgetAddNodeTest();
         }
     }
 ];

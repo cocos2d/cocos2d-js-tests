@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var UINodeContainerTest = UIScene.extend({
+var UIWidgetAddNodeTest = UIScene.extend({
     init: function () {
         if (this._super()) {
             var widgetSize = this._widget.getSize();
@@ -31,7 +31,7 @@ var UINodeContainerTest = UIScene.extend({
             this._bottomDisplayLabel.setText("NodeContainer");
 
             // Create the ui node container
-            var nodeContainer = ccs.UINodeContainer.create();
+            var nodeContainer = ccs.Widget.create();
             nodeContainer.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2));
             this._uiLayer.addWidget(nodeContainer);
 

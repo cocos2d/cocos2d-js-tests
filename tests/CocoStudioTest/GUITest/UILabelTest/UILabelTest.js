@@ -32,12 +32,61 @@ var UILabelTest = UIScene.extend({
 
             var widgetSize = this._widget.getSize();
             // Create the label
-            var label = ccs.UILabel.create();
+            var label = ccs.Label.create();
             label.setText("Label");
             label.setFontName("AmericanTypewriter");
             label.setFontSize(30);
             label.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + label.getSize().height / 4));
             this._uiLayer.addWidget(label);
+
+            return true;
+        }
+        return false;
+    }
+});
+
+var UILabelTest_LineWrap = UIScene.extend({
+    init: function () {
+        if (this._super()) {
+            var widgetSize = this._widget.getSize();
+            //init text
+            this._topDisplayLabel.setText("");
+            this._bottomDisplayLabel.setText("Label line wrap");
+
+            // Create the text area
+            var textArea = ccs.Label.create();
+            textArea.setTextAreaSize(cc.size(280, 150));
+            textArea.setTextHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+            textArea.setText("Label can line wrap");
+            textArea.setFontName("AmericanTypewriter");
+            textArea.setFontSize(32);
+            textArea.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - textArea.getSize().height / 8));
+            this._uiLayer.addWidget(textArea);
+
+            return true;
+        }
+        return false;
+    }
+});
+
+
+var UILabelTest_TTF = UIScene.extend({
+    init: function () {
+        if (this._super()) {
+            var widgetSize = this._widget.getSize();
+            //init text
+            this._topDisplayLabel.setText("");
+            this._bottomDisplayLabel.setText("Label set TTF font");
+
+            // Create the text area
+            var textArea = ccs.Label.create();
+            textArea.setTextAreaSize(cc.size(280, 150));
+            textArea.setTextHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+            textArea.setText("Label TTF");
+            textArea.setFontName("AmericanTypewriter");
+            textArea.setFontSize(32);
+            textArea.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - textArea.getSize().height / 8));
+            this._uiLayer.addWidget(textArea);
 
             return true;
         }

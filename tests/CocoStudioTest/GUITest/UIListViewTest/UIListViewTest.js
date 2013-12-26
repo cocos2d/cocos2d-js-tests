@@ -35,7 +35,7 @@ var UIListViewTest_Vertical = UIScene.extend({
             }
 
             // Create the list view
-            var listView = ccs.UIListView.create();
+            var listView = ccs.ListView.create();
             // set list view ex direction
             listView.setDirection(ccs.ScrollViewDir.vertical);
             listView.setTouchEnabled(true);
@@ -52,12 +52,12 @@ var UIListViewTest_Vertical = UIScene.extend({
 
 
             // create model
-            var default_button = ccs.UIButton.create();
+            var default_button = ccs.Button.create();
             default_button.setName("TextButton");
             default_button.setTouchEnabled(true);
             default_button.loadTextures("res/cocosgui/backtotoppressed.png", "res/cocosgui/backtotopnormal.png", "");
 
-            var default_item = ccs.UILayout.create();
+            var default_item = ccs.Layout.create();
             default_item.setTouchEnabled(true);
             default_item.setSize(default_button.getSize());
             default_button.setPosition(cc.p(default_item.getSize().width / 2, default_item.getSize().height / 2));
@@ -78,14 +78,14 @@ var UIListViewTest_Vertical = UIScene.extend({
 
             // add custom item
             for (var i = 0; i < count / 4; ++i) {
-                var custom_button = ccs.UIButton.create();
+                var custom_button = ccs.Button.create();
                 custom_button.setName("TextButton");
                 custom_button.setTouchEnabled(true);
                 custom_button.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
                 custom_button.setScale9Enabled(true);
                 custom_button.setSize(default_button.getSize());
 
-                var custom_item = ccs.UILayout.create();
+                var custom_item = ccs.Layout.create();
                 custom_item.setSize(custom_button.getSize());
                 custom_button.setPosition(cc.p(custom_item.getSize().width / 2, custom_item.getSize().height / 2));
                 custom_item.addChild(custom_button);
@@ -96,14 +96,14 @@ var UIListViewTest_Vertical = UIScene.extend({
             var items = listView.getItems();
             var items_count = items.length;
             for (var i = 0; i < count / 4; ++i) {
-                var custom_button = ccs.UIButton.create();
+                var custom_button = ccs.Button.create();
                 custom_button.setName("TextButton");
                 custom_button.setTouchEnabled(true);
                 custom_button.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
                 custom_button.setScale9Enabled(true);
                 custom_button.setSize(default_button.getSize());
 
-                var custom_item = ccs.UILayout.create();
+                var custom_item = ccs.Layout.create();
                 custom_item.setSize(custom_button.getSize());
                 custom_button.setPosition(cc.p(custom_item.getSize().width / 2, custom_item.getSize().height / 2));
                 custom_item.addChild(custom_button);
@@ -173,7 +173,7 @@ var UIListViewTest_Horizontal = UIScene.extend({
 
 
             // Create the list view
-            var listView = ccs.UIListView.create();
+            var listView = ccs.ListView.create();
             // set list view ex direction
             listView.setDirection(ccs.ScrollViewDir.horizontal);
             listView.setTouchEnabled(true);
@@ -190,12 +190,12 @@ var UIListViewTest_Horizontal = UIScene.extend({
 
 
             // create model
-            var default_button = ccs.UIButton.create();
+            var default_button = ccs.Button.create();
             default_button.setName("TextButton");
             default_button.setTouchEnabled(true);
             default_button.loadTextures("res/cocosgui/backtotoppressed.png", "res/cocosgui/backtotopnormal.png", "");
 
-            var default_item = ccs.UILayout.create();
+            var default_item = ccs.Layout.create();
             default_item.setTouchEnabled(true);
             default_item.setSize(default_button.getSize());
             default_button.setPosition(cc.p(default_item.getSize().width / 2, default_item.getSize().height / 2));
@@ -216,14 +216,14 @@ var UIListViewTest_Horizontal = UIScene.extend({
 
             // add custom item
             for (var i = 0; i < count / 4; ++i) {
-                var custom_button = ccs.UIButton.create();
+                var custom_button = ccs.Button.create();
                 custom_button.setName("TextButton");
                 custom_button.setTouchEnabled(true);
                 custom_button.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
                 custom_button.setScale9Enabled(true);
                 custom_button.setSize(default_button.getSize());
 
-                var custom_item = ccs.UILayout.create();
+                var custom_item = ccs.Layout.create();
                 custom_item.setSize(custom_button.getSize());
                 custom_button.setPosition(cc.p(custom_item.getSize().width / 2, custom_item.getSize().height / 2));
                 custom_item.addChild(custom_button);
@@ -234,14 +234,14 @@ var UIListViewTest_Horizontal = UIScene.extend({
             var items = listView.getItems();
             var items_count = items.length;
             for (var i = 0; i < count / 4; ++i) {
-                var custom_button = ccs.UIButton.create();
+                var custom_button = ccs.Button.create();
                 custom_button.setName("TextButton");
                 custom_button.setTouchEnabled(true);
                 custom_button.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
                 custom_button.setScale9Enabled(true);
                 custom_button.setSize(default_button.getSize());
 
-                var custom_item = ccs.UILayout.create();
+                var custom_item = ccs.Layout.create();
                 custom_item.setSize(custom_button.getSize());
                 custom_button.setPosition(cc.p(custom_item.getSize().width / 2, custom_item.getSize().height / 2));
                 custom_item.addChild(custom_button);
