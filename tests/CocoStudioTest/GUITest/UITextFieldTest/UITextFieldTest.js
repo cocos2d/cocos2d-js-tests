@@ -31,8 +31,8 @@ var UITextFieldTest = UIScene.extend({
             this._bottomDisplayLabel.setText("TextField");
 
             // Create the textfield
-            var textField = ccs.UITextField.create();
-            textField.setTouchEnable(true);
+            var textField = ccs.TextField.create();
+            textField.setTouchEnabled(true);
             textField.setFontName("Marker Felt");
             textField.setFontSize(30);
             textField.setPlaceHolder("input words here");
@@ -81,10 +81,10 @@ var UITextFieldTest_MaxLength = UIScene.extend({
             this._bottomDisplayLabel.setText("TextField max length");
 
             // Create the textfield
-            var textField = ccs.UITextField.create();
+            var textField = ccs.TextField.create();
             textField.setMaxLengthEnabled(true);
             textField.setMaxLength(3);
-            textField.setTouchEnable(true);
+            textField.setTouchEnabled(true);
             textField.setFontName("Marker Felt");
             textField.setFontSize(30);
             textField.setPlaceHolder("input words here");
@@ -131,10 +131,10 @@ var UITextFieldTest_Password = UIScene.extend({
             this._bottomDisplayLabel.setText("TextField max length");
 
             // Create the textfield
-            var textField = ccs.UITextField.create();
+            var textField = ccs.TextField.create();
             textField.setPasswordEnabled(true);
             textField.setPasswordStyleText("*");
-            textField.setTouchEnable(true);
+            textField.setTouchEnabled(true);
             textField.setFontName("Marker Felt");
             textField.setFontSize(30);
             textField.setPlaceHolder("input password here");

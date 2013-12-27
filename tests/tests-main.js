@@ -129,7 +129,7 @@ var TestController = cc.LayerGradient.extend({
             }
         }
 
-        this._itemMenu.setContentSize(cc.size(winSize.width, (testNames.length + 1) * LINE_SPACE));
+        this._itemMenu.setContentSize(winSize.width, (testNames.length + 1) * LINE_SPACE);
         this._itemMenu.setPosition(curPos);
         this.addChild(this._itemMenu);
         this.addChild(menu, 1);
@@ -240,7 +240,7 @@ var testNames = [
     },
     {
         title:"ClippingNode Test",
-        platforms: PLATFORM_JSB_AND_WEBGL,
+        platforms: PLATFORM_ALL,
         testScene:function () {
             return new ClippingNodeTestScene();
         }
@@ -439,6 +439,13 @@ var testNames = [
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new SchedulerTestScene();
+        }
+    },
+    {
+        title:"Spine Test",
+        platforms: PLATFORM_JSB,
+        testScene:function () {
+            return new SpineTestScene();
         }
     },
     {

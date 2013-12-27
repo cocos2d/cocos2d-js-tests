@@ -42,7 +42,7 @@ GameScene.prototype.onDidLoadFromCCB = function()
     // Center the level on Screen
     gLevelOffsetX = (gWinSize.width-CD_LEVEL_WIDTH*gScaleFactor)/2;
 
-    level.setPosition(cc.p(gLevelOffsetX,0));
+    level.setPosition(gLevelOffsetX,0);
 
     this.rootNode.addChild(level);
 };

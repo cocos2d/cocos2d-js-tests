@@ -181,7 +181,7 @@ var GameLayer = cc.LayerGradient.extend({
         var menu = cc.Menu.create(item1, item2);
         menu.alignItemsVertically();
         this.addChild(menu, Z_DEBUG_MENU);
-        menu.setPosition(cc.p(winSize.width - (50 * sizeRatio), winSize.height - (80 * sizeRatio)));
+        menu.setPosition(winSize.width - (50 * sizeRatio), winSize.height - (80 * sizeRatio));
 
         var animCache = cc.AnimationCache.getInstance();
         animCache.addAnimations(s_coinsAnimation);
@@ -211,10 +211,10 @@ var GameLayer = cc.LayerGradient.extend({
             var backLayer = cc.Layer.create();
             backLayer.addChild(background1, Z_MOUNTAINS);
             backLayer.addChild(background2, Z_MOUNTAINS+1);
-            background2.setPosition(cc.p(1024, 0));
+            background2.setPosition(1024, 0);
             scroll.addChild(backLayer, Z_MOUNTAINS, cc._p(0.2, 0.2), cc._p(0, -150));
-            background1.setAnchorPoint(cc._p(0,0));
-            background2.setAnchorPoint(cc._p(0,0));
+            background1.setAnchorPoint(0,0);
+            background2.setAnchorPoint(0,0);
         }
 
         // Terrain
@@ -224,7 +224,7 @@ var GameLayer = cc.LayerGradient.extend({
 
         // Smoke
         this._carSmoke = cc.ParticleSystem.create(s_carSmoke);
-        this._carSmoke.setPosition(cc.p(0,0));
+        this._carSmoke.setPosition(0,0);
         this.addChild(this._carSmoke, Z_SMOKE);
         this._carSmoke.setPositionType(cc.PARTICLE_TYPE_FREE);
 
@@ -250,8 +250,8 @@ var GameLayer = cc.LayerGradient.extend({
         this._timeLabel = hud.getChildByTag(TIME_LABEL_TAG);
 
         // bug in cocosbuilder
-        this._scoreLabel.setAnchorPoint(cc._p(1, 0.5));
-        this._timeLabel.setAnchorPoint(cc._p(0, 0.5));
+        this._scoreLabel.setAnchorPoint(1, 0.5);
+        this._timeLabel.setAnchorPoint(0, 0.5);
 
         // update with score
         this._scoreLabel.setString( this._game_state.score.toString() );
@@ -679,7 +679,7 @@ var GameLayer = cc.LayerGradient.extend({
         var sprite = cc.PhysicsSprite.createWithSpriteFrameName("Chassis.png");
         var anchor = cp.v.add( sprite.getAnchorPointInPoints(), COG_ADJUSTMENT );
         var cs = sprite.getContentSize();
-        sprite.setAnchorPoint( cc.p(anchor.x / cs.width, anchor.y/cs.height) );
+        sprite.setAnchorPoint(anchor.x / cs.width, anchor.y/cs.height);
 
         // XXX: Space Patrol uses a nice poly for the chassis.
         // XXX: Add something similar here, instead of a boxed chassis
@@ -1216,6 +1216,6 @@ var WaterMelonScene = cc.Scene.extend({
         var menu = new BootLayer();
         //var menu = new OptionsLayer();
         this.addChild(menu);
-        this.setPosition(cc.p(0, 0));
+        this.setPosition(0, 0);
     }
 });

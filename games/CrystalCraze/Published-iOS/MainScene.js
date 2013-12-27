@@ -95,10 +95,10 @@ MainScene.prototype.onUpdate = function()
 
 		var speed = 2*scale*kGemSize/40;
 
-		sprt.setPosition(cc.p(x,y));
+		sprt.setPosition(x,y);
 		sprt.setScale(scale);
 
-		//p.setPosition(cc.p(x,y));
+		//p.setPosition(x,y);
 		//p.setScale(scale);
 		//p.setAutoRemoveOnFinish(true);
 

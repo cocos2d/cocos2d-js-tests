@@ -33,7 +33,7 @@ var ProjectileController = ccs.ComController.extend({
 
     onEnter: function () {
         var winSize = cc.Director.getInstance().getWinSize();
-        this._owner.setPosition(cc.p(30, winSize.height / 2));
+        this._owner.setPosition(30, winSize.height / 2);
         this._owner.setTag(3);
         var com = this._owner.getParent().getComponent("SceneController");
         com.getProjectiles().push(this._owner);

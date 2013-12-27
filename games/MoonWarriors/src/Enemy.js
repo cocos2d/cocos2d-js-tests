@@ -51,7 +51,7 @@ var Enemy = cc.Sprite.extend({
         a.setPosition(this.getPosition());
         SparkEffect.getOrCreateSparkEffect(this.getPosition());
         if (MW.SOUND) {
-            cc.AudioEngine.getInstance().playEffect(s_explodeEffect_mp3);
+            cc.AudioEngine.getInstance().playEffect(res.explodeEffect_mp3);
         }
         this.setVisible(false);
         this.active = false;

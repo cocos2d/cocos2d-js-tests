@@ -35,8 +35,8 @@ var UIPageViewTest = UIScene.extend({
             var background = this._uiLayer.getWidgetByName("background_Panel");
 
             // Create the page view
-            var pageView = ccs.UIPageView.create();
-            pageView.setTouchEnable(true);
+            var pageView = ccs.PageView.create();
+            pageView.setTouchEnabled(true);
             pageView.setSize(cc.size(240, 130));
             var backgroundSize = background.getContentSize();
             pageView.setPosition(cc.p((widgetSize.width - backgroundSize.width) / 2 +
@@ -45,19 +45,19 @@ var UIPageViewTest = UIScene.extend({
                     (backgroundSize.height - pageView.getSize().height) / 2));
 
             for (var i = 0; i < 3; ++i) {
-                var layout = ccs.UILayout.create();
+                var layout = ccs.Layout.create();
                 layout.setSize(cc.size(240, 130));
                 var layoutRect = layout.getSize();
 
-                var imageView = ccs.UIImageView.create();
-                imageView.setTouchEnable(true);
+                var imageView = ccs.ImageView.create();
+                imageView.setTouchEnabled(true);
                 imageView.setScale9Enabled(true);
                 imageView.loadTexture("res/cocosgui/scrollviewbg.png");
                 imageView.setSize(cc.size(240, 130));
                 imageView.setPosition(cc.p(layoutRect.width / 2, layoutRect.height / 2));
                 layout.addChild(imageView);
 
-                var label = ccs.UILabel.create();
+                var label = ccs.Label.create();
                 label.setText("page" + (i + 1));
                 label.setFontName("Marker Felt");
                 label.setFontSize(30);
@@ -68,7 +68,7 @@ var UIPageViewTest = UIScene.extend({
                 pageView.addPage(layout);
             }
             pageView.addEventListenerPageView(this.pageViewEvent, this);
-            var a = ccs.UILayout.create();
+            var a = ccs.Layout.create();
             this._uiLayer.addWidget(pageView);
 
             return true;

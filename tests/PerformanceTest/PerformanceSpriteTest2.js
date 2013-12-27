@@ -98,12 +98,12 @@ var PerformanceTestBase = cc.Layer.extend({
 
         var label = cc.LabelTTF.create(this._title, "Arial", 28);
         this.addChild(label, 1);
-        label.setPosition(cc.p(winSize.width / 2, winSize.height - 50));
+        label.setPosition(winSize.width / 2, winSize.height - 50);
 
         if (this._subtitle !== "") {
             var l = cc.LabelTTF.create(this._subtitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
+            l.setPosition(winSize.width / 2, winSize.height - 80);
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);

@@ -83,19 +83,19 @@ var BasicTest = BaseClippingNodeTest.extend({
 
         var stencil = this.stencil();
         stencil.setTag(TAG_STENCILNODE);
-        stencil.setPosition(cc.p(50, 50));
+        stencil.setPosition(50, 50);
 
         var clipper = this.clipper();
         clipper.setTag(TAG_CLIPPERNODE);
-        clipper.setAnchorPoint(cc.p(0.5, 0.5));
-        clipper.setPosition(cc.p(winSize.width / 2 - 50, winSize.height / 2 - 50));
+        clipper.setAnchorPoint(0.5, 0.5);
+        clipper.setPosition(winSize.width / 2 - 50, winSize.height / 2 - 50);
         clipper.setStencil(stencil);
         this.addChild(clipper);
 
         var content = this.content();
-        content.setPosition(cc.p(50, 50));
+        content.setPosition(50, 50);
         clipper.addChild(content);
-        //content.setPosition(cc.p(400, 225));
+        //content.setPosition(400, 225);
         //this.addChild(content);
     },
 
@@ -252,17 +252,17 @@ var NestedTest = BaseClippingNodeTest.extend({
             var size = 225 - i * (225 / (depth * 2));
 
             var clipper = cc.ClippingNode.create();
-            clipper.setContentSize(cc.size(size, size));
-            clipper.setAnchorPoint(cc.p(0.5, 0.5));
-            clipper.setPosition(cc.p(parent.getContentSize().width / 2, parent.getContentSize().height / 2));
+            clipper.setContentSize(size, size);
+            clipper.setAnchorPoint(0.5, 0.5);
+            clipper.setPosition(parent.getContentSize().width / 2, parent.getContentSize().height / 2);
             clipper.setAlphaThreshold(0.05);
             clipper.runAction(cc.RepeatForever.create(cc.RotateBy.create((i % 3) ? 1.33 : 1.66, (i % 2) ? 90 : -90)));
             parent.addChild(clipper);
 
             var stencil = cc.Sprite.create(s_pathGrossini);
             stencil.setScale(2.5 - (i * (2.5 / depth)));
-            stencil.setAnchorPoint(cc.p(0.5, 0.5));
-            stencil.setPosition(cc.p(clipper.getContentSize().width / 2, clipper.getContentSize().height / 2));
+            stencil.setAnchorPoint(0.5, 0.5);
+            stencil.setPosition(clipper.getContentSize().width / 2, clipper.getContentSize().height / 2);
             stencil.setVisible(false);
             stencil.runAction(cc.Sequence.create(cc.DelayTime.create(i), cc.Show.create()));
             clipper.setStencil(stencil);
@@ -280,8 +280,16 @@ var HoleDemo = BaseClippingNodeTest.extend({
 
     setup:function () {
         var target = cc.Sprite.create(s_pathBlock);
-        target.setAnchorPoint(cc.POINT_ZERO);
+        target.setAnchorPoint(0,0);
         target.setScale(3);
+
+        var size = target.getContentSize();
+        var scale = target.getScale();
+        var stencil = cc.DrawNode.create();
+        var rectangle = [cc.p(0, 0),cc.p(size.width*scale, 0),
+            cc.p(size.width*scale, size.height*scale),
+            cc.p(0, size.height*scale)];
+        stencil.drawPoly(rectangle, cc.c4f(1, 0, 0, 1), 0, cc.c4f(1, 1, 1, 0));
 
         this._outerClipper = cc.ClippingNode.create();
         this._outerClipper.retain();
@@ -289,11 +297,11 @@ var HoleDemo = BaseClippingNodeTest.extend({
         transform = cc.AffineTransformScale(transform, target.getScale(), target.getScale());
 
         this._outerClipper.setContentSize(cc.SizeApplyAffineTransform(target.getContentSize(), transform));
-        this._outerClipper.setAnchorPoint(cc.p(0.5, 0.5));
+        this._outerClipper.setAnchorPoint(0.5, 0.5);
         this._outerClipper.setPosition(cc.pMult(cc.pFromSize(this.getContentSize()), 0.5));
         this._outerClipper.runAction(cc.RepeatForever.create(cc.RotateBy.create(1, 45)));
 
-        this._outerClipper.setStencil(target);
+        this._outerClipper.setStencil(stencil);
 
         var holesClipper = cc.ClippingNode.create();
         holesClipper.setInverted(true);
@@ -371,9 +379,9 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
     setup:function () {
         var clipper = cc.ClippingNode.create();
         clipper.setTag(TAG_CLIPPERNODE);
-        clipper.setContentSize(cc.size(200, 200));
-        clipper.setAnchorPoint(cc.p(0.5, 0.5));
-        clipper.setPosition(cc.p(this.getContentSize().width / 2, this.getContentSize().height / 2));
+        clipper.setContentSize(200, 200);
+        clipper.setAnchorPoint(0.5, 0.5);
+        clipper.setPosition(this.getContentSize().width / 2, this.getContentSize().height / 2);
         clipper.runAction(cc.RepeatForever.create(cc.RotateBy.create(1, 45)));
         this.addChild(clipper);
 
@@ -388,8 +396,8 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
 
         var content = cc.Sprite.create(s_back2);
         content.setTag(TAG_CONTENTNODE);
-        content.setAnchorPoint(cc.p(0.5, 0.5));
-        content.setPosition(cc.p(clipper.getContentSize().width / 2, clipper.getContentSize().height / 2));
+        content.setAnchorPoint(0.5, 0.5);
+        content.setPosition(clipper.getContentSize().width / 2, clipper.getContentSize().height / 2);
         clipper.addChild(content);
 
         this._scrolling = false;
@@ -654,24 +662,28 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
 
 var arrayOfClippingNodeTest = [
     ScrollViewDemo,
-    HoleDemo,
     ShapeTest,
-    ShapeInvertedTest,
+    SpriteTest
+];
+
+if (sys.platform === 'browser' && ("opengl" in sys.capabilities)) {
+    arrayOfClippingNodeTest.push(
     RawStencilBufferTest,
     RawStencilBufferTest2,
     RawStencilBufferTest3,
     RawStencilBufferTest4,
     RawStencilBufferTest5,
-    RawStencilBufferTest6
-];
-
+    RawStencilBufferTest6);
+}
 if ( sys.platform !== 'browser'){
     //These tests don't support to HTML5
     arrayOfClippingNodeTest.push(
-        SpriteTest,
+        ShapeInvertedTest,
         SpriteNoAlphaTest,
         SpriteInvertedTest,
         NestedTest);
+} else {
+    arrayOfClippingNodeTest.push(HoleDemo);
 }
 
 var nextClippingNodeTest = function () {

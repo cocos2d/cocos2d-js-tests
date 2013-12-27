@@ -33,29 +33,29 @@ var ControlSliderTest = ControlScene.extend({
             // Add a label in which the slider value will be displayed
             this._displayValueLabel = cc.LabelTTF.create("Move the slider thumb!\nThe lower slider is restricted.", "Marker Felt", 32);
             this._displayValueLabel.retain();
-            this._displayValueLabel.setAnchorPoint(cc.p(0.5, -1.0));
-            this._displayValueLabel.setPosition(cc.p(screenSize.width / 1.7, screenSize.height / 2.0));
+            this._displayValueLabel.setAnchorPoint(0.5, -1.0);
+            this._displayValueLabel.setPosition(screenSize.width / 1.7, screenSize.height / 2.0);
             this.addChild(this._displayValueLabel);
 
             // Add the slider
             var slider = cc.ControlSlider.create("res/extensions/sliderTrack.png", "res/extensions/sliderProgress.png", "res/extensions/sliderThumb.png");
-            slider.setAnchorPoint(cc.p(0.5, 1.0));
+            slider.setAnchorPoint(0.5, 1.0);
             slider.setMinimumValue(0.0); // Sets the min value of range
             slider.setMaximumValue(5.0); // Sets the max value of range
-            slider.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0 + 16));
+            slider.setPosition(screenSize.width / 2.0, screenSize.height / 2.0 + 16);
             slider.setTag(1);
 
             // When the value of the slider will change, the given selector will be call
             slider.addTargetWithActionForControlEvents(this, this.valueChanged, cc.CONTROL_EVENT_VALUECHANGED);
 
             var restrictSlider = cc.ControlSlider.create("res/extensions/sliderTrack.png", "res/extensions/sliderProgress.png", "res/extensions/sliderThumb.png");
-            restrictSlider.setAnchorPoint(cc.p(0.5, 1.0));
+            restrictSlider.setAnchorPoint(0.5, 1.0);
             restrictSlider.setMinimumValue(0.0); // Sets the min value of range
             restrictSlider.setMaximumValue(5.0); // Sets the max value of range
             restrictSlider.setMaximumAllowedValue(4.0);
             restrictSlider.setMinimumAllowedValue(1.5);
             restrictSlider.setValue(3.0);
-            restrictSlider.setPosition(cc.p(screenSize.width / 2.0, screenSize.height / 2.0 - 24));
+            restrictSlider.setPosition(screenSize.width / 2.0, screenSize.height / 2.0 - 24);
             restrictSlider.setTag(2);
 
             //same with restricted

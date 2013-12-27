@@ -36,7 +36,7 @@
         renderMode:0,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
         tag:'gameCanvas', //the dom element to run cocos2d on
         engineDir:'../../cocos2d/',
-        //SingleEngineFile:'../../lib/Cocos2d-html5-v2.2.1.min.js',
+        //SingleEngineFile:'../../lib/Cocos2d-html5-v2.2.2.min.js',
         appFiles:[//'src/AppDelegate.js',
 
             // base class
@@ -59,6 +59,7 @@
             'ProgressActionsTest/ProgressActionsTest.js',
             'LayerTest/LayerTest.js',
             'SceneTest/SceneTest.js',
+            'SpineTest/SpineTest.js',
             'SpriteTest/SpriteTest.js',
             'TextureCacheTest/TextureCacheTest.js',
             'CocosDenshionTest/CocosDenshionTest.js',
@@ -131,16 +132,14 @@
             'CocoStudioTest/GUITest/UILabelAtlasTest/UILabelAtlasTest.js',
             'CocoStudioTest/GUITest/UILabelBMFontTest/UILabelBMFontTest.js',
             'CocoStudioTest/GUITest/UILabelTest/UILabelTest.js',
+            'CocoStudioTest/GUITest/UILayoutTest/UILayoutTest.js',
             'CocoStudioTest/GUITest/UIListViewTest/UIListViewTest.js',
             'CocoStudioTest/GUITest/UILoadingBarTest/UILoadingBarTest.js',
             'CocoStudioTest/GUITest/UINodeContainerTest/UINodeContainerTest.js',
             'CocoStudioTest/GUITest/UIPageViewTest/UIPageViewTest.js',
-            'CocoStudioTest/GUITest/UIPanelTest/UIPanelTest.js',
             'CocoStudioTest/GUITest/UISceneManager.js',
             'CocoStudioTest/GUITest/UIScrollViewTest/UIScrollViewTest.js',
             'CocoStudioTest/GUITest/UISliderTest/UISliderTest.js',
-            'CocoStudioTest/GUITest/UITextAreaTest/UITextAreaTest.js',
-            'CocoStudioTest/GUITest/UITextButtonTest/UITextButtonTest.js',
             'CocoStudioTest/GUITest/UITextFieldTest/UITextFieldTest.js',
             'CocoStudioTest/SceneTest/SceneEditorTest.js',
             'CocoStudioTest/CocoStudioTest.js',
@@ -173,7 +172,7 @@
             s.src = c.SingleEngineFile;
         }
         else if (c.engineDir && !c.SingleEngineFile) {
-            s.src = c.engineDir + 'platform/jsloader.js';
+            s.src = c.engineDir + 'jsloader.js';
         }
         else {
             alert('You must specify either the single engine file OR the engine directory in "cocos2d.js"');

@@ -6,30 +6,30 @@ var SysMenu = cc.Layer.extend({
     init:function () {
         var bRet = false;
         if (this._super()) {
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_textureTransparentPack_plist);
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(res.textureTransparentPack_plist);
 
             winSize = cc.Director.getInstance().getWinSize();
-            var sp = cc.Sprite.create(s_loading);
-            sp.setAnchorPoint(cc.p(0,0));
+            var sp = cc.Sprite.create(res.loading_png);
+            sp.setAnchorPoint(0,0);
             this.addChild(sp, 0, 1);
 
-            var logo = cc.Sprite.create(s_logo);
-            logo.setAnchorPoint(cc.p(0, 0));
+            var logo = cc.Sprite.create(res.logo_png);
+            logo.setAnchorPoint(0, 0);
             logo.setPosition(0, 250);
             this.addChild(logo, 10, 1);
 
-            var newGameNormal = cc.Sprite.create(s_menu, cc.rect(0, 0, 126, 33));
-            var newGameSelected = cc.Sprite.create(s_menu, cc.rect(0, 33, 126, 33));
-            var newGameDisabled = cc.Sprite.create(s_menu, cc.rect(0, 33 * 2, 126, 33));
+            var newGameNormal = cc.Sprite.create(res.menu_png, cc.rect(0, 0, 126, 33));
+            var newGameSelected = cc.Sprite.create(res.menu_png, cc.rect(0, 33, 126, 33));
+            var newGameDisabled = cc.Sprite.create(res.menu_png, cc.rect(0, 33 * 2, 126, 33));
 
-            var gameSettingsNormal = cc.Sprite.create(s_menu, cc.rect(126, 0, 126, 33));
-            var gameSettingsSelected = cc.Sprite.create(s_menu, cc.rect(126, 33, 126, 33));
-            var gameSettingsDisabled = cc.Sprite.create(s_menu, cc.rect(126, 33 * 2, 126, 33));
+            var gameSettingsNormal = cc.Sprite.create(res.menu_png, cc.rect(126, 0, 126, 33));
+            var gameSettingsSelected = cc.Sprite.create(res.menu_png, cc.rect(126, 33, 126, 33));
+            var gameSettingsDisabled = cc.Sprite.create(res.menu_png, cc.rect(126, 33 * 2, 126, 33));
 
-            var aboutNormal = cc.Sprite.create(s_menu, cc.rect(252, 0, 126, 33));
-            var aboutSelected = cc.Sprite.create(s_menu, cc.rect(252, 33, 126, 33));
-            var aboutDisabled = cc.Sprite.create(s_menu, cc.rect(252, 33 * 2, 126, 33));
-            var flare = cc.Sprite.create(s_flare);
+            var aboutNormal = cc.Sprite.create(res.menu_png, cc.rect(252, 0, 126, 33));
+            var aboutSelected = cc.Sprite.create(res.menu_png, cc.rect(252, 33, 126, 33));
+            var aboutDisabled = cc.Sprite.create(res.menu_png, cc.rect(252, 33 * 2, 126, 33));
+            var flare = cc.Sprite.create(res.flare_jpg);
             this.addChild(flare);
             flare.setVisible(false);
             var newGame = cc.MenuItemSprite.create(newGameNormal, newGameSelected, newGameDisabled, function () {
@@ -54,7 +54,7 @@ var SysMenu = cc.Layer.extend({
 
             if (MW.SOUND) {
                 cc.AudioEngine.getInstance().setMusicVolume(0.7);
-                cc.AudioEngine.getInstance().playMusic(s_mainMainMusic_mp3, true);
+                cc.AudioEngine.getInstance().playMusic(res.mainMainMusic_mp3, true);
             }
 
             bRet = true;
@@ -93,7 +93,7 @@ var SysMenu = cc.Layer.extend({
     },
     onButtonEffect:function(){
         if (MW.SOUND) {
-            var s = cc.AudioEngine.getInstance().playEffect(s_buttonEffect_mp3);
+            var s = cc.AudioEngine.getInstance().playEffect(res.buttonEffet_mp3);
         }
     }
 });

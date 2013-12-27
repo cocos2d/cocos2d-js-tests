@@ -5,23 +5,23 @@ var GameOver = cc.Layer.extend({
     init:function () {
         var bRet = false;
         if (this._super()) {
-            var sp = cc.Sprite.create(s_loading);
-            sp.setAnchorPoint( cc.p(0,0) );
+            var sp = cc.Sprite.create(res.loading_png);
+            sp.setAnchorPoint(0,0);
             this.addChild(sp, 0, 1);
 
-            var logo = cc.Sprite.create(s_gameOver);
-            logo.setAnchorPoint(cc.p(0,0));
+            var logo = cc.Sprite.create(res.gameOver_png);
+            logo.setAnchorPoint(0,0);
             logo.setPosition(0,300);
             this.addChild(logo,10,1);
 
-            var playAgainNormal = cc.Sprite.create(s_menu, cc.rect(378, 0, 126, 33));
-            var playAgainSelected = cc.Sprite.create(s_menu, cc.rect(378, 33, 126, 33));
-            var playAgainDisabled = cc.Sprite.create(s_menu, cc.rect(378, 33 * 2, 126, 33));
+            var playAgainNormal = cc.Sprite.create(res.menu_png, cc.rect(378, 0, 126, 33));
+            var playAgainSelected = cc.Sprite.create(res.menu_png, cc.rect(378, 33, 126, 33));
+            var playAgainDisabled = cc.Sprite.create(res.menu_png, cc.rect(378, 33 * 2, 126, 33));
 
-            var cocos2dhtml5 = cc.Sprite.create(s_cocos2dhtml5);
+            var cocos2dhtml5 = cc.Sprite.create(res.cocos2d_html5_png);
             cocos2dhtml5.setPosition(160,150);
             this.addChild(cocos2dhtml5,10);
-            var flare = cc.Sprite.create(s_flare);
+            var flare = cc.Sprite.create(res.flare_jpg);
             this.addChild(flare);
             flare.setVisible(false);
             var playAgain = cc.MenuItemSprite.create(playAgainNormal, playAgainSelected, playAgainDisabled, function(){
@@ -52,7 +52,7 @@ var GameOver = cc.Layer.extend({
 
 
             if(MW.SOUND){
-                cc.AudioEngine.getInstance().playMusic(s_mainMainMusic_mp3);
+                cc.AudioEngine.getInstance().playMusic(res.mainMainMusic_mp3);
             }
 
             bRet = true;

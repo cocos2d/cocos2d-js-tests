@@ -74,7 +74,7 @@ var UILoadingBarTest = UIScene.extend({
 var UILoadingBarTest_Left = UILoadingBarTest.extend({
     createLoadingBar: function () {
         var widgetSize = this._widget.getSize();
-        var loadingBar = ccs.UILoadingBar.create();
+        var loadingBar = ccs.LoadingBar.create();
         loadingBar.setName("LoadingBar");
         loadingBar.loadTexture("res/cocosgui/sliderProgress.png");
         loadingBar.setPercent(0);
@@ -86,7 +86,7 @@ var UILoadingBarTest_Left = UILoadingBarTest.extend({
 var UILoadingBarTest_Right = UILoadingBarTest.extend({
     createLoadingBar: function () {
         var widgetSize = this._widget.getSize();
-        var loadingBar = ccs.UILoadingBar.create();
+        var loadingBar = ccs.LoadingBar.create();
         loadingBar.setName("LoadingBar");
         loadingBar.loadTexture("res/cocosgui/sliderProgress.png");
         loadingBar.setDirection(ccs.LoadingBarType.right);
@@ -99,7 +99,7 @@ var UILoadingBarTest_Right = UILoadingBarTest.extend({
 var UILoadingBarTest_Left_Scale9 = UILoadingBarTest.extend({
     createLoadingBar: function () {
         var widgetSize = this._widget.getSize();
-        var loadingBar = ccs.UILoadingBar.create();
+        var loadingBar = ccs.LoadingBar.create();
         loadingBar.setName("LoadingBar");
         loadingBar.loadTexture("res/cocosgui/slider_bar_active_9patch.png");
         loadingBar.setScale9Enabled(true);
@@ -114,7 +114,7 @@ var UILoadingBarTest_Left_Scale9 = UILoadingBarTest.extend({
 var UILoadingBarTest_Right_Scale9 = UILoadingBarTest.extend({
     createLoadingBar: function () {
         var widgetSize = this._widget.getSize();
-        var loadingBar = ccs.UILoadingBar.create();
+        var loadingBar = ccs.LoadingBar.create();
         loadingBar.setName("LoadingBar");
         loadingBar.loadTexture("res/cocosgui/slider_bar_active_9patch.png");
         loadingBar.setScale9Enabled(true);
