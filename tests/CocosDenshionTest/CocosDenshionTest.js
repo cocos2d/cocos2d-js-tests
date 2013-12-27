@@ -36,11 +36,10 @@ var MENU_INDEX = {
     EFFECT_ONE:10
 };
 
-var getMenuItemImage = function(normal, select, selector, target){
-        var t_normal = cc.Sprite.createWithSpriteFrameName(normal);
-        var t_select = cc.Sprite.createWithSpriteFrameName(select);
-        var t_item = cc.MenuItemSprite.create(t_normal, t_select, selector, target);
-        return t_item;
+var getMenuItemImage = function (normal, select, selector, target) {
+    var t_normal = cc.Sprite.createWithSpriteFrameName(normal);
+    var t_select = cc.Sprite.createWithSpriteFrameName(select);
+    return cc.MenuItemSprite.create(t_normal, t_select, selector, target);
 };
 
 CocosDenshionTest = cc.LayerGradient.extend({
