@@ -498,7 +498,7 @@ Display.prototype.registerEvents = function(){
             var mdEvent = document.createEvent("MouseEvents");
             var pageOffsetY = document.body.scrollTop;
             var diffWidth = (parseInt(touchPanel.style.width) - cc.canvas.width)/2;
-            var diffHeight = (parseInt(touchPanel.style.height) - cc.canvas.height);
+            var diffHeight = (parseInt(touchPanel.style.height) - cc.canvas.height)/2;
             var x = ((e.offsetX))+ bcr.left - diffWidth;
             var y = ((e.offsetY))+bcr.top - (touchPanel.clientHeight - bcr.height)+pageOffsetY + diffHeight;
             mdEvent.initMouseEvent("mousedown",false,false,cc.canvas,null, x, y, x, y, false,false,false,false,1,cc.canvas);
@@ -516,8 +516,7 @@ Display.prototype.registerEvents = function(){
             var mdEvent = document.createEvent("MouseEvents");
             var pageOffsetY = document.body.scrollTop;
             var diffWidth = (parseInt(touchPanel.style.width) - cc.canvas.width)/2;
-            var diffHeight = (parseInt(touchPanel.style.height) - cc.canvas.height);
-            console.log(diffWidth, diffHeight);
+            var diffHeight = (parseInt(touchPanel.style.height) - cc.canvas.height)/2;
             var x = ((e.offsetX)) + bcr.left - diffWidth;
             var y = ((e.offsetY)) + bcr.top - (touchPanel.clientHeight - bcr.height) + pageOffsetY + diffHeight;
             mdEvent.initMouseEvent("mouseup", false, false, cc.canvas, null, x, y, x, y, false, false, false, false, 1, cc.canvas);
@@ -535,7 +534,7 @@ Display.prototype.registerEvents = function(){
             var mdEvent = document.createEvent("MouseEvents");
             var pageOffsetY = document.body.scrollTop;
             var diffWidth = (parseInt(touchPanel.style.width) - cc.canvas.width)/2;
-            var diffHeight = (parseInt(touchPanel.style.height) - cc.canvas.height);
+            var diffHeight = (parseInt(touchPanel.style.height) - cc.canvas.height)/2;
             var x = ((e.offsetX )) + bcr.left - diffWidth;
             var y = ((e.offsetY)) + bcr.top - (touchPanel.clientHeight - bcr.height) + pageOffsetY + diffHeight;
             mdEvent.initMouseEvent("mousemove", true, false, cc.canvas, null, x, y, x, y, false, false, false, false, 0, cc.canvas);
