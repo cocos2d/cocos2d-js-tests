@@ -40,7 +40,7 @@ var XHRTestScene = TestScene.extend({
 });
 
 var XHRTestLayer = cc.Layer.extend({
-
+    _lineCount: 0,
     init:function () {
         if (!this._super()) {
             return false;
@@ -69,20 +69,15 @@ var XHRTestLayer = cc.Layer.extend({
     },
 
     sendGetRequest: function() {
-
         var that = this;
         var xhr = new XMLHttpRequest();
         var statusGetLabel = cc.LabelTTF.create("Status:", "Thonburi", 18);
         this.addChild(statusGetLabel, 1);
         statusGetLabel.setPosition(winSize.width / 2, winSize.height - 100);
-
         statusGetLabel.setString("Status: Send Get Request to httpbin.org");
-
         xhr.open("GET", "http://httpbin.org/get");
 
-        var that = this;
         xhr.onreadystatechange = function() {
-
             var httpStatus = xhr.statusText;
             var response = xhr.responseText.substring(0,50) + "...";
             var responseLabel = cc.LabelTTF.create("GET Response (50 chars): \n" + response, "Thonburi", 16);
@@ -90,16 +85,14 @@ var XHRTestLayer = cc.Layer.extend({
             responseLabel.setAnchorPoint(0,1);
             responseLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
 
-            responseLabel.setPosition(winSize.width/6, winSize.height/2);
+            responseLabel.setPosition(winSize.width/6, winSize.height/2 - that._lineCount * 35);
             statusGetLabel.setString("Status: Got GET response! " + httpStatus);
-
-        }
-
+            that._lineCount ++;
+        };
         xhr.send();
     },
 
     sendPostRequest: function() {
-
         var that = this;
         var xhr = new XMLHttpRequest();
         var statusPostLabel = cc.LabelTTF.create("Status:", "Thonburi", 18);
@@ -110,21 +103,18 @@ var XHRTestLayer = cc.Layer.extend({
 
         xhr.open("POST", "http://httpbin.org/post");
         xhr.onreadystatechange = function() {
-
             var httpStatus = xhr.statusText;
             var response = xhr.responseText.substring(0,50) + "...";
             var responseLabel = cc.LabelTTF.create("POST Response (50 chars):  \n" + response, "Thonburi", 16);
             that.addChild(responseLabel, 1);
-            responseLabel.setAnchorPoint(0.5,1);
+            responseLabel.setAnchorPoint(0,1);
             responseLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
 
-            responseLabel.setPosition(winSize.width/4*3, winSize.height/2);
+            responseLabel.setPosition(winSize.width/6, winSize.height/2 - that._lineCount * 35);
             statusPostLabel.setString("Status: Got POST response! " + httpStatus);
-
-        }
-
+            that._lineCount ++;
+        };
         xhr.send("test=ok");
-
     },
 
     toExtensionsMainLayer:function (sender) {
@@ -136,7 +126,6 @@ var XHRTestLayer = cc.Layer.extend({
     },
     scrollViewDidZoom:function (view) {
     }
-
 });
 
 XHRTestLayer.create = function () {
