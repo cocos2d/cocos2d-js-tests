@@ -33,7 +33,7 @@ Box2DTestLayer = cc.Layer.extend({
     ctor:function () {
         this._super();
 
-        this.setMouseEnabled(true);
+        this.setTouchEnabled(true);
         //setAccelerometerEnabled( true );
 
         var b2Vec2 = Box2D.Common.Math.b2Vec2
@@ -163,10 +163,10 @@ Box2DTestLayer = cc.Layer.extend({
         }
 
     },
-    onMouseUp:function (event) {
+    onTouchesEnded:function(touches){
         //Add a new body/atlas sprite at the touched location
-
-        var location = event.getLocation();
+        var touch = touches[0];
+        var location = touch.getLocation();
         //location = cc.Director.getInstance().convertToGL(location);
         this.addNewSpriteWithCoords(location);
     }
