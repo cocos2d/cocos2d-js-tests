@@ -36,11 +36,10 @@ var MENU_INDEX = {
     EFFECT_ONE:10
 };
 
-var getMenuItemImage = function(normal, select, selector, target){
-        var t_normal = cc.Sprite.createWithSpriteFrameName(normal);
-        var t_select = cc.Sprite.createWithSpriteFrameName(select);
-        var t_item = cc.MenuItemSprite.create(t_normal, t_select, selector, target);
-        return t_item;
+var getMenuItemImage = function (normal, select, selector, target) {
+    var t_normal = cc.Sprite.createWithSpriteFrameName(normal);
+    var t_select = cc.Sprite.createWithSpriteFrameName(select);
+    return cc.MenuItemSprite.create(t_normal, t_select, selector, target);
 };
 
 CocosDenshionTest = cc.LayerGradient.extend({
@@ -77,6 +76,8 @@ CocosDenshionTest = cc.LayerGradient.extend({
         var sX = winSize.width/desSize.width;
         var sY = winSize.height/desSize.height;
         this._scale = sX?sY:sX<sY;
+
+        cc.log("scale: "+this._scale);
 
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_cocosDenshion_plist, s_cocosDenshion_png);
 
@@ -182,12 +183,12 @@ CocosDenshionTest = cc.LayerGradient.extend({
         this._musicPart.addChild(btn_bk);
 
         var oneItems = [
-            "btn_left", "play", "w_play",
-            "btn_mid", "pause", "w_pause",
-            "btn_mid", "stop", "w_stop",
-            "btn_mid", "rewind", "w_rewind",
-            "btn_mid", "resume", "w_resume",
-            "btn_right", "playing", "w_playing"
+            "btn_left", "play", "play",
+            "btn_mid", "pause", "pause",
+            "btn_mid", "stop", "stop",
+            "btn_mid", "rewind", "rewind",
+            "btn_mid", "resume", "resume",
+            "btn_right", "playing", "playing"
         ];
         var x = winSize.width*0.187;
         var y = winSize.height*0.45;
@@ -241,12 +242,12 @@ CocosDenshionTest = cc.LayerGradient.extend({
         btn_bk.setScale(this._scale);
         this._effectPart.addChild(btn_bk);
         var oneItems = [
-            "btn_eff_left", "play", "w_play",
-            "btn_eff_mid", "pause", "w_pause",
-            "btn_eff_mid", "stop", "w_stop",
-            "btn_eff_mid", "loop", "w_loop",
-            "btn_eff_mid", "resume", "w_resume",
-            "btn_eff_right", "unload", "w_unload"
+            "btn_eff_left", "play", "play",
+            "btn_eff_mid", "pause", "pause",
+            "btn_eff_mid", "stop", "stop",
+            "btn_eff_mid", "loop", "loop",
+            "btn_eff_mid", "resume", "resume",
+            "btn_eff_right", "unload", "unload"
         ];
         var x = winSize.width*0.193;
         var y = winSize.height*0.461;
@@ -268,9 +269,9 @@ CocosDenshionTest = cc.LayerGradient.extend({
         }
 
         var twoItems = [
-            "btn_long", "w_pauseall",
-            "btn_long", "w_stopall",
-            "btn_long", "w_resumeall"
+            "btn_long", "pauseall",
+            "btn_long", "stopall",
+            "btn_long", "resumeall"
         ];
         //bottom.
         x = winSize.width*0.245;
@@ -536,6 +537,7 @@ var Button = cc.Node.extend({
     _up:null,
     _down1:null,
     _up1:null,
+    _upImg:null,
     _light0:null,
     _light1:null,
     _bk:null,
@@ -592,18 +594,26 @@ var Button = cc.Node.extend({
             this._bk.setPosition(0, -_s.height/2);
         }
 
-        this._down1 = cc.Sprite.createWithSpriteFrameName((text+"_0.png"));
-        bNode.addChild(this._down1);
-        this._up1 = cc.Sprite.createWithSpriteFrameName((text+"_1.png"));
-        bNode.addChild(this._up1);
-        this._up1.setVisible(false);
+        //this._down1 = cc.Sprite.createWithSpriteFrameName((text+"_0.png"));
+        this._up1 = cc.LabelTTF.create(text, "Thonburi", 17);
+        this._up1.setFontFillColor(cc.c3b(255, 255, 255));
+        this.addChild(this._up1);
+        this._down1 = cc.LabelTTF.create(text, "Thonburi", 17);
+        this._down1.setFontFillColor(cc.c3b(21, 21, 21));
+        this.addChild(this._down1);
+        this._upImg = cc.Sprite.createWithSpriteFrameName("w_"+text+"_1.png");
+        bNode.addChild(this._upImg);
+        this._upImg.setVisible(false);
+        //this._up1.setVisible(false);
         if (this._noneName) {
-            this._down1.setPositionY(-1);
-            this._up1.setPositionY(-1);
+            this._down1.setPositionY(1);
+            this._up1.setPositionY(0);
+            this._upImg.setPositionY(-1);
         }
         else{
-            this._down1.setPositionY(-_s.height*0.8);
-            this._up1.setPositionY(-_s.height*0.8);
+            this._down1.setPositionY(-_s.height*0.8+3);
+            this._up1.setPositionY(-_s.height*0.8+2);
+            this._upImg.setPositionY(-_s.height*0.8);
         }
 
         this._selected = true;
@@ -632,9 +642,10 @@ var Button = cc.Node.extend({
             }
         }
         this._bk.setVisible(!selected);
-        this._up1.setVisible(selected);
+        this._up1.setVisible(!selected);
         this._down1.setVisible(!selected);
-        if (this.selected) {
+        this._upImg.setVisible(selected);
+        if (selected) {
             this._menuItem.selected();
         }
         else{
