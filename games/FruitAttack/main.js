@@ -42,8 +42,8 @@ var cocos2dApp = cc.Application.extend({
         }
         // initialize director
         var director = cc.Director.getInstance();
-        cc.EGLView.getInstance()._adjustSizeToBrowser();
         cc.EGLView.getInstance().setDesignResolutionSize(320,480,cc.RESOLUTION_POLICY.SHOW_ALL);
+        cc.EGLView.getInstance()._resizeWithBrowserSize(true);
 
         director.setDisplayStats(this.config['showFPS']);
 
