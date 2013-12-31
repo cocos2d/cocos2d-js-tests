@@ -153,12 +153,7 @@ var SceneTestLayer3 = cc.LayerColor.extend({
     ctor:function () {
         this._super();
         this.init( cc.c4b(0,128,255,255) );
-
-        if( 'touches' in sys.capabilities )
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities )
-            this.setMouseEnabled(true);
-
+        
         var label = cc.LabelTTF.create("Touch to popScene", "Arial", 28);
         this.addChild(label);
         var s = director.getWinSize();
@@ -171,6 +166,13 @@ var SceneTestLayer3 = cc.LayerColor.extend({
         var rotate = cc.RotateBy.create(2, 360);
         var repeat = cc.RepeatForever.create(rotate);
         sprite.runAction(repeat);
+    },
+    
+    onEnterTransitionDidFinish: function () {
+        if ('touches' in sys.capabilities)
+            this.setTouchEnabled(true);
+        else if ('mouse' in sys.capabilities)
+            this.setMouseEnabled(true);
     },
 
     testDealloc:function (dt) {
