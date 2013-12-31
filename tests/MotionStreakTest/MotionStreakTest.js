@@ -146,7 +146,7 @@ var MotionStreakTest1 = MotionStreakTest.extend({
     },
 
     onUpdate:function (delta) {
-        this._streak.setPosition(this._target.convertToWorldSpace(cc.p(0, 0)));
+        this._streak.setPosition(this._target.convertToWorldSpace(cc.p(this._target.getContentSize().width/2, 0)));
     },
 
     title:function () {
