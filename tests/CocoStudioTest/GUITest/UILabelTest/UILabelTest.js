@@ -32,12 +32,12 @@ var UILabelTest = UIScene.extend({
 
             var widgetSize = this._widget.getSize();
             // Create the label
-            var label = ccs.Label.create();
+            var label = ccui.Text.create();
             label.setText("Label");
             label.setFontName("AmericanTypewriter");
             label.setFontSize(30);
             label.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + label.getSize().height / 4));
-            this._uiLayer.addWidget(label);
+            this._uiLayer.addChild(label);
 
             return true;
         }
@@ -54,14 +54,14 @@ var UILabelTest_LineWrap = UIScene.extend({
             this._bottomDisplayLabel.setText("Label line wrap");
 
             // Create the text area
-            var textArea = ccs.Label.create();
+            var textArea = ccui.Text.create();
             textArea.setTextAreaSize(cc.size(280, 150));
             textArea.setTextHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
             textArea.setText("Label can line wrap");
             textArea.setFontName("AmericanTypewriter");
             textArea.setFontSize(32);
             textArea.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - textArea.getSize().height / 8));
-            this._uiLayer.addWidget(textArea);
+            this._uiLayer.addChild(textArea);
 
             return true;
         }
@@ -79,14 +79,14 @@ var UILabelTest_TTF = UIScene.extend({
             this._bottomDisplayLabel.setText("Label set TTF font");
 
             // Create the text area
-            var textArea = ccs.Label.create();
+            var textArea = ccui.Text.create();
             textArea.setTextAreaSize(cc.size(280, 150));
             textArea.setTextHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
             textArea.setText("Label TTF");
             textArea.setFontName("AmericanTypewriter");
             textArea.setFontSize(32);
             textArea.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - textArea.getSize().height / 8));
-            this._uiLayer.addWidget(textArea);
+            this._uiLayer.addChild(textArea);
 
             return true;
         }

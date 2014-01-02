@@ -51,7 +51,7 @@ var UILoadingBarTest = UIScene.extend({
             this._count = 0;
         }
 
-        var loadingBar = this._uiLayer.getWidgetByName("LoadingBar");
+        var loadingBar = this._uiLayer.getChildByTag(0);
         loadingBar.setPercent(this._count);
     },
 
@@ -74,55 +74,59 @@ var UILoadingBarTest = UIScene.extend({
 var UILoadingBarTest_Left = UILoadingBarTest.extend({
     createLoadingBar: function () {
         var widgetSize = this._widget.getSize();
-        var loadingBar = ccs.LoadingBar.create();
+        var loadingBar = ccui.LoadingBar.create();
         loadingBar.setName("LoadingBar");
+        loadingBar.setTag(0);
         loadingBar.loadTexture("res/cocosgui/sliderProgress.png");
         loadingBar.setPercent(0);
         loadingBar.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + loadingBar.getSize().height / 4));
-        this._uiLayer.addWidget(loadingBar);
+        this._uiLayer.addChild(loadingBar);
     }
 });
 
 var UILoadingBarTest_Right = UILoadingBarTest.extend({
     createLoadingBar: function () {
         var widgetSize = this._widget.getSize();
-        var loadingBar = ccs.LoadingBar.create();
+        var loadingBar = ccui.LoadingBar.create();
         loadingBar.setName("LoadingBar");
+        loadingBar.setTag(0);
         loadingBar.loadTexture("res/cocosgui/sliderProgress.png");
-        loadingBar.setDirection(ccs.LoadingBarType.right);
+        loadingBar.setDirection(ccui.LoadingBarType.right);
         loadingBar.setPercent(0);
         loadingBar.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + loadingBar.getSize().height / 4));
-        this._uiLayer.addWidget(loadingBar);
+        this._uiLayer.addChild(loadingBar);
     }
 });
 
 var UILoadingBarTest_Left_Scale9 = UILoadingBarTest.extend({
     createLoadingBar: function () {
         var widgetSize = this._widget.getSize();
-        var loadingBar = ccs.LoadingBar.create();
+        var loadingBar = ccui.LoadingBar.create();
         loadingBar.setName("LoadingBar");
+        loadingBar.setTag(0);
         loadingBar.loadTexture("res/cocosgui/slider_bar_active_9patch.png");
         loadingBar.setScale9Enabled(true);
         loadingBar.setCapInsets(cc.rect(0, 0, 0, 0));
         loadingBar.setSize(cc.size(300, 30));
         loadingBar.setPercent(0);
         loadingBar.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + loadingBar.getSize().height / 4));
-        this._uiLayer.addWidget(loadingBar);
+        this._uiLayer.addChild(loadingBar);
     }
 });
 
 var UILoadingBarTest_Right_Scale9 = UILoadingBarTest.extend({
     createLoadingBar: function () {
         var widgetSize = this._widget.getSize();
-        var loadingBar = ccs.LoadingBar.create();
+        var loadingBar = ccui.LoadingBar.create();
         loadingBar.setName("LoadingBar");
+        loadingBar.setTag(0);
         loadingBar.loadTexture("res/cocosgui/slider_bar_active_9patch.png");
         loadingBar.setScale9Enabled(true);
         loadingBar.setCapInsets(cc.rect(0, 0, 0, 0));
         loadingBar.setSize(cc.size(300, 30));
-        loadingBar.setDirection(ccs.LoadingBarType.right);
+        loadingBar.setDirection(ccui.LoadingBarType.right);
         loadingBar.setPercent(0);
         loadingBar.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + loadingBar.getSize().height / 4));
-        this._uiLayer.addWidget(loadingBar);
+        this._uiLayer.addChild(loadingBar);
     }
 });

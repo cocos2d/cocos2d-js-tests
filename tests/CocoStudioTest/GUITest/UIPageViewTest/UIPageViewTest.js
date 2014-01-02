@@ -32,10 +32,11 @@ var UIPageViewTest = UIScene.extend({
             this._bottomDisplayLabel.setText("PageView");
             this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getSize().height * 3));
 
-            var background = this._uiLayer.getWidgetByName("background_Panel");
+            var root = this._uiLayer.getChildByTag(81);
+            var background = root.getChildByName("background_Panel");
 
             // Create the page view
-            var pageView = ccs.PageView.create();
+            var pageView = ccui.PageView.create();
             pageView.setTouchEnabled(true);
             pageView.setSize(cc.size(240, 130));
             var backgroundSize = background.getContentSize();
@@ -45,11 +46,11 @@ var UIPageViewTest = UIScene.extend({
                     (backgroundSize.height - pageView.getSize().height) / 2));
 
             for (var i = 0; i < 3; ++i) {
-                var layout = ccs.Layout.create();
+                var layout = ccui.Layout.create();
                 layout.setSize(cc.size(240, 130));
                 var layoutRect = layout.getSize();
 
-                var imageView = ccs.ImageView.create();
+                var imageView = ccui.ImageView.create();
                 imageView.setTouchEnabled(true);
                 imageView.setScale9Enabled(true);
                 imageView.loadTexture("res/cocosgui/scrollviewbg.png");
@@ -57,7 +58,7 @@ var UIPageViewTest = UIScene.extend({
                 imageView.setPosition(cc.p(layoutRect.width / 2, layoutRect.height / 2));
                 layout.addChild(imageView);
 
-                var label = ccs.Label.create();
+                var label = ccui.Text.create();
                 label.setText("page" + (i + 1));
                 label.setFontName("Marker Felt");
                 label.setFontSize(30);
@@ -68,8 +69,8 @@ var UIPageViewTest = UIScene.extend({
                 pageView.addPage(layout);
             }
             pageView.addEventListenerPageView(this.pageViewEvent, this);
-            var a = ccs.Layout.create();
-            this._uiLayer.addWidget(pageView);
+            var a = ccui.Layout.create();
+            this._uiLayer.addChild(pageView);
 
             return true;
         }
@@ -78,7 +79,7 @@ var UIPageViewTest = UIScene.extend({
 
     pageViewEvent: function (sender, type) {
         switch (type) {
-            case ccs.PageViewEventType.turning:
+            case ccui.PageViewEventType.turning:
                 var pageView = sender;
                 this._topDisplayLabel.setText("page = " + (pageView.getCurPageIndex() + 1));
                 break;

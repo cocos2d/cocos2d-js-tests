@@ -31,12 +31,12 @@ var UIButtonTest = UIScene.extend({
 
             var widgetSize = this._widget.getSize();
             // Create the button
-            var button = ccs.Button.create();
+            var button = ccui.Button.create();
             button.setTouchEnabled(true);
             button.loadTextures("res/cocosgui/animationbuttonnormal.png", "res/cocosgui/animationbuttonpressed.png", "");
             button.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
             button.addTouchEventListener(this.touchEvent ,this);
-            this._uiLayer.addWidget(button);
+            this._uiLayer.addChild(button);
 
             return true;
         }
@@ -45,19 +45,19 @@ var UIButtonTest = UIScene.extend({
 
     touchEvent: function (sender, type) {
         switch (type) {
-            case ccs.TouchEventType.began:
+            case ccui.TouchEventType.began:
                 this._topDisplayLabel.setText("Touch Down");
                 break;
 
-            case ccs.TouchEventType.moved:
+            case ccui.TouchEventType.moved:
                 this._topDisplayLabel.setText("Touch Move");
                 break;
 
-            case ccs.TouchEventType.ended:
+            case ccui.TouchEventType.ended:
                 this._topDisplayLabel.setText("Touch Up");
                 break;
 
-            case ccs.TouchEventType.canceled:
+            case ccui.TouchEventType.canceled:
                 this._topDisplayLabel.setText("Touch Cancelled");
                 break;
 
@@ -75,14 +75,14 @@ var UIButtonTest_Scale9 = UIScene.extend({
 
             var widgetSize = this._widget.getSize();
             // Create the button
-            var button = ccs.Button.create();
+            var button = ccui.Button.create();
             button.setTouchEnabled(true);
             button.setScale9Enabled(true);
             button.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
             button.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
             button.setSize(cc.size(150, button.getContentSize().height * 1.5));
             button.addTouchEventListener(this.touchEvent ,this);
-            this._uiLayer.addWidget(button);
+            this._uiLayer.addChild(button);
 
             return true;
         }
@@ -91,16 +91,16 @@ var UIButtonTest_Scale9 = UIScene.extend({
 
     touchEvent: function (sender, type) {
         switch (type) {
-            case ccs.TouchEventType.began:
+            case ccui.TouchEventType.began:
                 this._topDisplayLabel.setText("Touch Down");
                 break;
-            case ccs.TouchEventType.moved:
+            case ccui.TouchEventType.moved:
                 this._topDisplayLabel.setText("Touch Move");
                 break;
-            case ccs.TouchEventType.ended:
+            case ccui.TouchEventType.ended:
                 this._topDisplayLabel.setText("Touch Up");
                 break;
-            case ccs.TouchEventType.canceled:
+            case ccui.TouchEventType.canceled:
                 this._topDisplayLabel.setText("Touch Cancelled");
                 break;
 
@@ -119,13 +119,13 @@ var UIButtonTest_PressedAction = UIScene.extend({
 
             var widgetSize = this._widget.getSize();
             // Create the button
-            var button = ccs.Button.create();
+            var button = ccui.Button.create();
             button.setTouchEnabled(true);
             button.setPressedActionEnabled(true);
             button.loadTextures("res/cocosgui/animationbuttonnormal.png", "res/cocosgui/animationbuttonpressed.png", "");
             button.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2));
             button.addTouchEventListener(this.touchEvent ,this);
-            this._uiLayer.addWidget(button);
+            this._uiLayer.addChild(button);
             return true;
         }
         return false;
@@ -133,16 +133,16 @@ var UIButtonTest_PressedAction = UIScene.extend({
 
     touchEvent: function (sender, type) {
         switch (type) {
-            case ccs.TouchEventType.began:
+            case ccui.TouchEventType.began:
                 this._topDisplayLabel.setText("Touch Down");
                 break;
-            case ccs.TouchEventType.moved:
+            case ccui.TouchEventType.moved:
                 this._topDisplayLabel.setText("Touch Move");
                 break;
-            case ccs.TouchEventType.ended:
+            case ccui.TouchEventType.ended:
                 this._topDisplayLabel.setText("Touch Up");
                 break;
-            case ccs.TouchEventType.canceled:
+            case ccui.TouchEventType.canceled:
                 this._topDisplayLabel.setText("Touch Cancelled");
                 break;
             default:
@@ -160,13 +160,13 @@ var UIButtonTest_Title = UIScene.extend({
             this._bottomDisplayLabel.setText("Button with title");
 
             // Create the text button
-            var textButton = ccs.Button.create();
+            var textButton = ccui.Button.create();
             textButton.setTouchEnabled(true);
             textButton.loadTextures("res/cocosgui/backtotopnormal.png", "res/cocosgui/backtotoppressed.png", "");
             textButton.setTitleText("Title Button");
             textButton.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
             textButton.addTouchEventListener(this.touchEvent ,this);
-            this._uiLayer.addWidget(textButton);
+            this._uiLayer.addChild(textButton);
 
             return true;
         }
@@ -175,16 +175,16 @@ var UIButtonTest_Title = UIScene.extend({
 
     touchEvent: function (sender, type) {
         switch (type) {
-            case ccs.TouchEventType.began:
+            case ccui.TouchEventType.began:
                 this._topDisplayLabel.setText("Touch Down");
                 break;
-            case ccs.TouchEventType.moved:
+            case ccui.TouchEventType.moved:
                 this._topDisplayLabel.setText("Touch Move");
                 break;
-            case ccs.TouchEventType.ended:
+            case ccui.TouchEventType.ended:
                 this._topDisplayLabel.setText("Touch Up");
                 break;
-            case ccs.TouchEventType.canceled:
+            case ccui.TouchEventType.canceled:
                 this._topDisplayLabel.setText("Touch Cancelled");
                 break;
             default:
