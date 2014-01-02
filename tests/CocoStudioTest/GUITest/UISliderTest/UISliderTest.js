@@ -31,14 +31,14 @@ var UISliderTest = UIScene.extend({
             this._bottomDisplayLabel.setText("Slider");
 
             // Create the slider
-            var slider = ccs.Slider.create();
+            var slider = ccui.Slider.create();
             slider.setTouchEnabled(true);
             slider.loadBarTexture("res/cocosgui/sliderTrack.png");
             slider.loadSlidBallTextures("res/cocosgui/sliderThumb.png", "res/cocosgui/sliderThumb.png", "");
             slider.loadProgressBarTexture("res/cocosgui/sliderProgress.png");
             slider.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
             slider.addEventListenerSlider(this.sliderEvent, this);
-            this._uiLayer.addWidget(slider);
+            this._uiLayer.addChild(slider);
 
             return true;
         }
@@ -47,7 +47,7 @@ var UISliderTest = UIScene.extend({
 
     sliderEvent: function (sender, type) {
         switch (type) {
-            case ccs.SliderEventType.percent_changed:
+            case ccui.SliderEventType.percent_changed:
                 var slider = sender;
                 var percent = slider.getPercent();
                 this._topDisplayLabel.setText("Percent " + percent.toFixed(0));
@@ -67,7 +67,7 @@ var UISliderTest_Scale9 = UIScene.extend({
             this._bottomDisplayLabel.setText("Slider scale9 render");
 
             // Create the slider
-            var slider = ccs.Slider.create();
+            var slider = ccui.Slider.create();
             slider.setTouchEnabled(true);
             slider.loadBarTexture("res/cocosgui/sliderTrack2.png");
             slider.loadSlidBallTextures("res/cocosgui/sliderThumb.png", "res/cocosgui/sliderThumb.png", "");
@@ -77,7 +77,7 @@ var UISliderTest_Scale9 = UIScene.extend({
             slider.setSize(cc.size(250, 10));
             slider.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
             slider.addEventListenerSlider(this.sliderEvent, this);
-            this._uiLayer.addWidget(slider);
+            this._uiLayer.addChild(slider);
 
             return true;
         }
@@ -86,7 +86,7 @@ var UISliderTest_Scale9 = UIScene.extend({
 
     sliderEvent: function (sender, type) {
         switch (type) {
-            case ccs.SliderEventType.percent_changed:
+            case ccui.SliderEventType.percent_changed:
                 var slider = sender;
                 var percent = slider.getPercent();
                 this._topDisplayLabel.setText("Percent " + percent.toFixed(0));

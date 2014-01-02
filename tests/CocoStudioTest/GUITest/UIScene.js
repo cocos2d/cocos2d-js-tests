@@ -35,50 +35,51 @@ UIScene = cc.Layer.extend({
     },
     init: function () {
         if (this._super()) {
-            this._uiLayer = ccs.UILayer.create();
-            this._uiLayer.scheduleUpdate();
+            this._uiLayer = cc.Layer.create();
             this.addChild(this._uiLayer);
 
             this._widget = ccs.GUIReader.getInstance().widgetFromJsonFile("res/cocosgui/UITest/UITest.json");
-            this._uiLayer.addWidget(this._widget);
+            this._uiLayer.addChild(this._widget);
 
-            this._sceneTitle = this._uiLayer.getWidgetByName("UItest");
+            var root = this._uiLayer.getChildByTag(81);
 
-            var back_label = this._uiLayer.getWidgetByName("back");
+            this._sceneTitle = root.getChildByName("UItest");
+
+            var back_label = root.getChildByName("back");
             back_label.addTouchEventListener(this.toExtensionsMainLayer, this);
 
-            var left_button = this._uiLayer.getWidgetByName("left_Button");
+            var left_button = root.getChildByName("left_Button");
             left_button.addTouchEventListener(this.previousCallback ,this);
 
-            var middle_button = this._uiLayer.getWidgetByName("middle_Button");
+            var middle_button = root.getChildByName("middle_Button");
             middle_button.addTouchEventListener(this.restartCallback ,this);
 
-            var right_button = this._uiLayer.getWidgetByName("right_Button");
+            var right_button = root.getChildByName("right_Button");
             right_button.addTouchEventListener(this.nextCallback ,this);
 
             var winSize = cc.Director.getInstance().getWinSize();
-            var scale = winSize.height / 320;
+            var scale = 1.0;//winSize.height / 320;
             this._uiLayer.setAnchorPoint(0,0);
             this._uiLayer.setScale(scale);
             this._uiLayer.setPosition(cc.p((winSize.width - 480 * scale) / 2, (winSize.height - 320 * scale) / 2));
 
             var widgetSize = this._widget.getSize();
-            var eventLabel = ccs.Label.create();
+            var eventLabel = ccui.Text.create();
             eventLabel.setText("");
             eventLabel.setFontName("Marker Felt");
             eventLabel.setFontSize(32);
             eventLabel.setAnchorPoint(0.5, -1);
-            eventLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
-            this._uiLayer.addWidget(eventLabel);
+            eventLabel.setPosition(widgetSize.width / 2.0, widgetSize.height / 2.0);
+            this._uiLayer.addChild(eventLabel);
             this._topDisplayLabel = eventLabel;
 
-            var uiLabel = ccs.Label.create();
-            uiLabel.setText("");
+            var uiLabel = ccui.Text.create();
+            uiLabel.setText("TEST");
             uiLabel.setFontName("Marker Felt");
             uiLabel.setFontSize(30);
             uiLabel.setColor(cc.c3b(159, 168, 176));
-            uiLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 - uiLabel.getSize().height * 1.75));
-            this._uiLayer.addWidget(uiLabel);
+            uiLabel.setPosition(widgetSize.width / 2.0, widgetSize.height / 2.0 - uiLabel.getSize().height * 1.75);
+            this._uiLayer.addChild(uiLabel);
             this._bottomDisplayLabel = uiLabel;
 
             return true;
@@ -89,35 +90,29 @@ UIScene = cc.Layer.extend({
         this._sceneTitle.setText(title);
     },
     toExtensionsMainLayer: function (sender, type) {
-        if (type == ccs.TouchEventType.ended) {
-            UISceneManager.purge();
-            ccs.ActionManager.purge();
-            ccs.SceneReader.getInstance().purge();
+        if (type == ccui.TouchEventType.ended) {
+            UISceneManager.destroyInstance();
+            ccs.ActionManager.destroyInstance();
+            ccs.SceneReader.destroyInstance();
             var scene = new CocoStudioTestScene();
             scene.runThisTest();
         }
     },
 
     previousCallback: function (sender, type) {
-        if (type == ccs.TouchEventType.ended) {
-            this._uiLayer.unscheduleUpdate();
-            this._uiLayer.removeFromParent();
+        if (type == ccui.TouchEventType.ended) {
             cc.Director.getInstance().replaceScene(UISceneManager.getInstance().previousUIScene());
         }
     },
 
     restartCallback: function (sender, type) {
-        if (type == ccs.TouchEventType.ended) {
-            this._uiLayer.unscheduleUpdate();
-            this._uiLayer.removeFromParent();
+        if (type == ccui.TouchEventType.ended) {
             cc.Director.getInstance().replaceScene(UISceneManager.getInstance().currentUIScene());
         }
     },
 
     nextCallback: function (sender, type) {
-        if (type == ccs.TouchEventType.ended) {
-            this._uiLayer.unscheduleUpdate();
-            this._uiLayer.removeFromParent();
+        if (type == ccui.TouchEventType.ended) {
             cc.Director.getInstance().replaceScene(UISceneManager.getInstance().nextUIScene());
         }
     }

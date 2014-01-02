@@ -32,11 +32,11 @@ var UILabelAtlasTest = UIScene.extend({
 
             var widgetSize = this._widget.getSize();
             // Create the label atlas
-            var labelAtlas = ccs.LabelAtlas.create();
+            var labelAtlas = ccui.TextAtlas.create();
             labelAtlas.setProperty("1234567890", "res/cocosgui/labelatlas.png", 17, 22, "0");
             labelAtlas.setPosition(cc.p((widgetSize.width) / 2, widgetSize.height / 2.0));
 
-            this._uiLayer.addWidget(labelAtlas);
+            this._uiLayer.addChild(labelAtlas);
             return true;
         }
         return false;

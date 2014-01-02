@@ -273,7 +273,7 @@ UISceneManager.getInstance = function () {
     }
     return this._instance;
 };
-UISceneManager.purge = function () {
+UISceneManager.destroyInstance = function () {
     this._instance = null;
 };
 
