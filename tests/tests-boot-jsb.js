@@ -104,7 +104,6 @@ var tests_files = [
     'CocoStudioTest/SceneTest/TriggerCode/Cons.js',
     'CocoStudioTest/SceneTest/TriggerCode/EventDef.js',
     'CocoStudioTest/SceneTest/SceneEditorTest.js',
-    'CocoStudioTest/SceneTest/SceneEditorTest.js',
     'CocoStudioTest/CocoStudioTest.js',
     'XHRTest/XHRTest.js',
     'TileMapTest/TileMapTest.js',
