@@ -531,7 +531,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
         p2.setTotalParticles(30);
         var bone = ccs.Bone.create("p1");
         bone.addDisplay(p1, 0);
-        bone.changeDisplayByIndex(0, true);
+        bone.changeDisplayWithIndex(0, true);
         bone.setIgnoreMovementBoneData(true);
         bone.setZOrder(100);
         bone.setScale(1.2);
@@ -539,7 +539,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
 
         bone = ccs.Bone.create("p2");
         bone.addDisplay(p2, 0);
-        bone.changeDisplayByIndex(0, true);
+        bone.changeDisplayWithIndex(0, true);
         bone.setIgnoreMovementBoneData(true);
         bone.setZOrder(100);
         bone.setScale(1.2);
@@ -604,7 +604,7 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
     onTouchesEnded:function (touch, event) {
         ++this.displayIndex;
         this.displayIndex = (this.displayIndex) % 8;
-        this.armature.getBone("weapon").changeDisplayByIndex(this.displayIndex, true);
+        this.armature.getBone("weapon").changeDisplayWithIndex(this.displayIndex, true);
         return false;
     }
 });
@@ -968,14 +968,14 @@ var Hero = ccs.Armature.extend({
         else {
             this._mount = armature;
             //Remove from layer
-            this.removeFromParentAndCleanup(false);
+            this.removeFromParent(false);
 
             //Get the hero bone
             var bone = armature.getBone("hero");
             //Add hero as a display to this bone
             bone.addDisplay(this, 0);
             //Change this bone's display
-            bone.changeDisplayByIndex(0, true);
+            bone.changeDisplayWithIndex(0, true);
             bone.setIgnoreMovementBoneData(true);
 
             this.setPosition(0, 0);
