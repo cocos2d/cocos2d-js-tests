@@ -4,8 +4,13 @@ var TimeElapsed = ccs.BaseTriggerCondition.extend({
     _scheduler: null,
     _success: false,
     ctor: function () {
+        this._totalTime = 0;
+        this._tmpTime = 0;
+        this._scheduler = null;
+        this._success = false;
         this._scheduler = cc.Director.getInstance().getScheduler();
     },
+    
     init: function () {
         this._scheduler.scheduleCallbackForTarget(this, this.update);
         return true;
@@ -45,6 +50,15 @@ var ArmatureActionState = ccs.BaseTriggerCondition.extend({
     _aniName: "",
     _comName: "",
     _armature: null,
+    ctor: function () {
+        this._tag = -1;
+        this._state = -1;
+        this._success = false;
+        this._aniName = "";
+        this._comName = "";
+        this._armature = null;
+    },
+    
     init: function () {
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
         if (!node) return false;
@@ -101,6 +115,9 @@ var NodeInRect = ccs.BaseTriggerCondition.extend({
     _origin: null,
     _size: null,
     ctor: function () {
+        this._tag = -1;
+        this._origin = null;
+        this._size = null;
         this._origin = cc.p(0, 0);
         this._size = cc.p(0, 0);
     },
@@ -160,7 +177,11 @@ var NodeInRect = ccs.BaseTriggerCondition.extend({
 var NodeVisible = ccs.BaseTriggerCondition.extend({
     _tag: -1,
     _visible: false,
-
+    cotr: function () {
+        this._tag = -1;
+        this._visible = false;
+    },
+    
     init: function () {
         return true;
     },
