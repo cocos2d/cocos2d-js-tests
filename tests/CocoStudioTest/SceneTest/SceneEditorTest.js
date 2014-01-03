@@ -361,7 +361,7 @@ var AttributeComponentTest = SceneEditorTestLayer.extend({
         this.addChild(node);
 
         var comAttribute = node.getChildByTag(10015).getComponent("CCComAttribute");
-        var jsonPath = cc.FileUtils.getInstance().fullPathForFilename(comAttribute.getJsonName());
+        var jsonPath = cc.FileUtils.getInstance().fullPathForFilename(comAttribute.getFile());
         var data = cc.FileUtils.getInstance().getStringFromFile(jsonPath);
         var jsonDict = JSON.parse(data);
         var playerName = jsonDict["name"];

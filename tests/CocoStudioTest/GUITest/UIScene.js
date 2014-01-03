@@ -36,7 +36,6 @@ UIScene = cc.Layer.extend({
     init: function () {
         if (this._super()) {
             this._uiLayer = ccs.UILayer.create();
-            this._uiLayer.scheduleUpdate();
             this.addChild(this._uiLayer);
 
             this._widget = ccs.GUIReader.getInstance().widgetFromJsonFile("res/cocosgui/UITest/UITest.json");
