@@ -47,7 +47,7 @@ var UIListViewTest_Vertical = UIScene.extend({
                 (backgroundSize.width - listView.getSize().width) / 2,
                 (widgetSize.height - backgroundSize.height) / 2 +
                     (backgroundSize.height - listView.getSize().height) / 2));
-            listView.addEventListenerScrollView(this.selectedItemEvent, this);
+            listView.addEventListenerListView(this.selectedItemEvent, this);
             this._uiLayer.addWidget(listView);
 
 
@@ -185,7 +185,7 @@ var UIListViewTest_Horizontal = UIScene.extend({
                 (backgroundSize.width - listView.getSize().width) / 2,
                 (widgetSize.height - backgroundSize.height) / 2 +
                     (backgroundSize.height - listView.getSize().height) / 2));
-            listView.addEventListenerScrollView(this.selectedItemEvent, this);
+            listView.addEventListenerListView(this.selectedItemEvent, this);
             this._uiLayer.addWidget(listView);
 
 

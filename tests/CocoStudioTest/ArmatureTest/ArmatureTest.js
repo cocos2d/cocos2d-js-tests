@@ -511,9 +511,12 @@ var TestFrameEvent = ArmatureTestLayer.extend({
 var TestParticleDisplay = ArmatureTestLayer.extend({
     animationID:0,
     armature:null,
-    onEnter:function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter:function () {
+        this._super();
 
         this.animationID = 0;
 
@@ -568,9 +571,12 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
 var TestUseMutiplePicture = ArmatureTestLayer.extend({
     displayIndex:0,
     armature:null,
-    onEnter:function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter:function () {
+        this._super();
         this.displayIndex = 0;
         var armatureDataManager = ccs.ArmatureDataManager.getInstance();
         armatureDataManager.addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
@@ -915,9 +921,12 @@ var TestAnchorPoint = ArmatureTestLayer.extend({
 var TestArmatureNesting = ArmatureTestLayer.extend({
     armature:null,
     weaponIndex:0,
-    onEnter:function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter:function () {
+        this._super();
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_cyborg_png, s_cyborg_plist, s_cyborg_xml);
         this.armature = ccs.Armature.create("cyborg");
         this.armature.getAnimation().playWithIndex(1);
@@ -1021,9 +1030,13 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
     _horse2: null,
     _bear: null,
     _touchedMenu: false,
-    onEnter: function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter: function () {
+        this._super();
+
         this._touchedMenu = false;
         var label = cc.LabelTTF.create("Change Mount", "Arial", 20);
         var menuItem = cc.MenuItemLabel.create(label, this.changeMountCallback, this);
@@ -1124,9 +1137,13 @@ var TestPlaySeveralMovement = ArmatureTestLayer.extend({
 //
 //------------------------------------------------------------------
 var TestChangeAnimationInternal = ArmatureTestLayer.extend({
-    onEnter:function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter:function () {
+        this._super();
+
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
         var armature = ccs.Armature.create("Cowboy");
         armature.getAnimation().playWithIndex(0);
@@ -1163,9 +1180,13 @@ var TestChangeAnimationInternal = ArmatureTestLayer.extend({
 var TestEasing = ArmatureTestLayer.extend({
     animationID: 0,
     armature: null,
-    onEnter: function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter: function () {
+        this._super();
+
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_testEasing_json);
         var armature = ccs.Armature.create("testEasing");
         armature.getAnimation().playWithIndex(0);
