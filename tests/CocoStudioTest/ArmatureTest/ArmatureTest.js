@@ -148,15 +148,6 @@ var ArmatureTestLayer = BaseTestLayer.extend({
         var s = new ArmatureTestScene();
         s.addChild(backArmatureTest());
         director.replaceScene(s);
-    },
-
-    // automation
-    numberOfPendingTests:function () {
-        return ( (arrayOfSpriteTest.length - 1) - spriteTestIdx );
-    },
-
-    getTestNumber:function () {
-        return spriteTestIdx;
     }
 });
 

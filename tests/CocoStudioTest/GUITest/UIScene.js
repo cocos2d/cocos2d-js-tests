@@ -92,7 +92,7 @@ UIScene = cc.Layer.extend({
         if (type == ccs.TouchEventType.ended) {
             UISceneManager.purge();
             ccs.ActionManager.purge();
-            ccs.SceneReader.getInstance().purge();
+            ccs.SceneReader.purge();
             var scene = new CocoStudioTestScene();
             scene.runThisTest();
         }
