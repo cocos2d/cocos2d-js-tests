@@ -430,5 +430,8 @@ var TriggerTest = SceneEditorTestLayer.extend({
 
     gameLogic: function () {
         this.sendEvent(TRIGGEREVENT_UPDATESCENE);
+    },
+    title: function () {
+        return "Trigger Test";
     }
 });
