@@ -42,7 +42,7 @@ var SceneController = ccs.ComController.extend({
         this._targets = [];
         this._projectiles = [];
         this._owner.getComponent("Audio").playBackgroundMusic("res/Sound/background-music-aac.wav", true);
-        this._owner.getComponent("ComAttribute").setInt("KillCount", 0);
+        this._owner.getComponent("CCComAttribute").setInt("KillCount", 0);
     },
 
     onExit: function () {
@@ -81,9 +81,9 @@ var SceneController = ccs.ComController.extend({
     },
 
     increaseKillCount: function () {
-        var projectilesDestroyed = this._owner.getComponent("ComAttribute").getInt("KillCount");
-        var p = this._owner.getComponent("ComAttribute");
-        p.setInt("KillCount", ++projectilesDestroyed);
+        var comAttribute = this._owner.getComponent("CCComAttribute");
+        var projectilesDestroyed = comAttribute.getInt("KillCount");
+        comAttribute.setInt("KillCount", ++projectilesDestroyed);
         if (projectilesDestroyed >= 5) {
             var gameOverScene = GameOverScene.create();
             gameOverScene.getLayer().getLabel().setString("You Win!");

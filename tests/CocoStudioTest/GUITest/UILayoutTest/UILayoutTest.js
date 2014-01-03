@@ -169,8 +169,6 @@ var UILayoutTest_Layout_Linear_Vertical = UILayoutTestBase.extend({
         this.button_scale9.setLayoutParameter(lp3);
         lp3.setGravity(ccs.LinearGravity.centerHorizontal);
         lp3.setMargin(new ccs.Margin(0, 10, 0, 10));
-
-        this.layout.doLayout();
     }
 });
 var UILayoutTest_Layout_Linear_Horizontal = UILayoutTestBase.extend({
@@ -199,8 +197,6 @@ var UILayoutTest_Layout_Linear_Horizontal = UILayoutTestBase.extend({
         this.button_scale9.setLayoutParameter(lp3);
         lp3.setGravity(ccs.LinearGravity.centerVertical);
         lp3.setMargin(new ccs.Margin(0, 10, 0, 10));
-
-        this.layout.doLayout();
     }
 });
 
@@ -228,7 +224,5 @@ var UILayoutTest_Layout_Relative = UILayoutTestBase.extend({
         var lp3 = ccs.RelativeLayoutParameter.create();
         this.button_scale9.setLayoutParameter(lp3);
         lp3.setGravity(ccs.RelativeAlign.alignParentRightCenterVertical);
-
-        this.layout.doLayout();
     }
 });
