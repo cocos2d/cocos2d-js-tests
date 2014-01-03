@@ -299,7 +299,7 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
         var label2 = cc.LabelBMFont.create("Test", s_resprefix + "fonts/bitmapFontTest2.fnt");
         // testing anchors
         label2.setAnchorPoint(0.5, 0.5);
-        label2.setColor( cc.RED );
+        label2.setColor( cc.red() );
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
         label2.runAction(repeat.clone());
 
@@ -1648,19 +1648,19 @@ var BMFontColorParentChild = AtlasDemo.extend({
         this.label = cc.LabelBMFont.create("YRGB", s_resprefix + "fonts/konqa32.fnt");
         this.addChild(this.label);
         this.label.setPosition(winSize.width / 2, winSize.height / 2);
-        this.label.setColor( cc.YELLOW );
+        this.label.setColor( cc.yellow() );
 
         // R
         var letter = this.label.getChildByTag(1);
-        letter.setColor( cc.RED );
+        letter.setColor( cc.red() );
 
         // G
         letter = this.label.getChildByTag(2);
-        letter.setColor( cc.GREEN );
+        letter.setColor( cc.green() );
 
         // B
         letter = this.label.getChildByTag(3);
-        letter.setColor( cc.BLUE );
+        letter.setColor( cc.blue() );
 
         this.scheduleUpdate();
 
