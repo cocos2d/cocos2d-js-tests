@@ -36,7 +36,6 @@ UIScene = cc.Layer.extend({
     init: function () {
         if (this._super()) {
             this._uiLayer = ccs.UILayer.create();
-            this._uiLayer.scheduleUpdate();
             this.addChild(this._uiLayer);
 
             this._widget = ccs.GUIReader.getInstance().widgetFromJsonFile("res/cocosgui/UITest/UITest.json");
@@ -92,7 +91,7 @@ UIScene = cc.Layer.extend({
         if (type == ccs.TouchEventType.ended) {
             UISceneManager.purge();
             ccs.ActionManager.purge();
-            ccs.SceneReader.getInstance().purge();
+            ccs.SceneReader.purge();
             var scene = new CocoStudioTestScene();
             scene.runThisTest();
         }
