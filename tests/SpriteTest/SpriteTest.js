@@ -510,7 +510,7 @@ var SpriteZOrder = SpriteTestDemo.extend({
         this.addChild(sprite, -1, TAG_SPRITE1);
         sprite.setPosition(winSize.width / 2, winSize.height / 2 - 20);
         sprite.setScaleX(10);
-        sprite.setColor(cc.RED);
+        sprite.setColor(cc.red());
 
         this.schedule(this.reorderSprite, 1);
     },
@@ -576,7 +576,7 @@ var SpriteBatchNodeZOrder = SpriteTestDemo.extend({
         batch.addChild(sprite, -1, TAG_SPRITE1);
         sprite.setPosition(winSize.width / 2, winSize.height / 2 - 20);
         sprite.setScaleX(10);
-        sprite.setColor(cc.RED);
+        sprite.setColor(cc.red());
         this.schedule(this.reorderSprite, 1);
     },
     reorderSprite:function (dt) {
@@ -3903,7 +3903,7 @@ var SpriteNilTexture = SpriteTestDemo.extend({
         // TEST: If no texture is given, then Opacity + Color should work.
         var sprite = cc.Sprite.create();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
-        // sprite.setColor(cc.RED);
+        // sprite.setColor(cc.red());
         sprite.setColor(cc.c3b(255, 0, 0));
         sprite.setOpacity(128);
         sprite.setPosition(3 * winSize.width / 4, winSize.height / 2);
@@ -3911,7 +3911,7 @@ var SpriteNilTexture = SpriteTestDemo.extend({
 
         sprite = cc.Sprite.create();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
-        //sprite.setColor(cc.BLUE);
+        //sprite.setColor(cc.blue());
         sprite.setColor(cc.c3b(0, 0, 255));
         sprite.setOpacity(128);
         sprite.setPosition(winSize.width / 4, winSize.height / 2);
