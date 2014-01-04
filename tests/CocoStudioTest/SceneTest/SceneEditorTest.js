@@ -118,10 +118,10 @@ var SceneEditorTestLayer = BaseTestLayer.extend({
         director.replaceScene(s);
     },
     onExit: function () {
-        ccs.ArmatureDataManager.purge();
-        ccs.SceneReader.purge();
-        ccs.ActionManager.purge();
-        ccs.GUIReader.purge();
+        ccs.ArmatureDataManager.destroyInstance();
+        ccs.SceneReader.destroyInstance();
+        ccs.ActionManager.destroyInstance();
+        ccs.GUIReader.destroyInstance();
         this._super();
     },
     initSize:function(node){
@@ -218,8 +218,7 @@ var UIComponentTest = SceneEditorTestLayer.extend({
         this._super();
         this._node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/UIComponentTest/UIComponentTest.json");
         this.addChild(this._node);
-        var uiLayer = this._node.getChildByTag(10025).getComponent("GUIComponent").getNode();
-        var widget = uiLayer.getWidgetByName("Panel_154");
+        var widget = this._node.getChildByTag(10025).getComponent("GUIComponent").getNode();
         var button = widget.getChildByName("Button_156");
         button.addTouchEventListener(this.touchEvent, this);
 
@@ -227,7 +226,7 @@ var UIComponentTest = SceneEditorTestLayer.extend({
     },
     touchEvent: function (sender, type) {
         switch (type) {
-            case ccs.TouchEventType.began:
+            case ccui.TouchEventType.began:
                 var blowFish = this._node.getChildByTag(10010).getComponent("CCArmature").getNode();
                 blowFish.runAction(cc.MoveBy.create(10, cc.p(-1000, 0)));
 
@@ -361,19 +360,10 @@ var AttributeComponentTest = SceneEditorTestLayer.extend({
         this.addChild(node);
 
         var comAttribute = node.getChildByTag(10015).getComponent("CCComAttribute");
-        var jsonPath = cc.FileUtils.getInstance().fullPathForFilename(comAttribute.getFile());
-        var data = cc.FileUtils.getInstance().getStringFromFile(jsonPath);
-        var jsonDict = JSON.parse(data);
-        var playerName = jsonDict["name"];
-        var maxHP = jsonDict["maxHP"];
-        var maxMP = jsonDict["maxMP"];
 
-        comAttribute.setCString("Name", playerName);
-        comAttribute.setFloat("MaxHP", maxHP);
-        comAttribute.setFloat("MaxMP", maxMP);
-        cc.log("Name:" + comAttribute.getCString("Name"));
-        cc.log("MaxHP:" + comAttribute.getFloat("MaxHP"));
-        cc.log("MaxMP:" + comAttribute.getFloat("MaxMP"));
+        cc.log("Name:" + comAttribute.getString("name"));
+        cc.log("MaxHP:" + comAttribute.getFloat("maxHP"));
+        cc.log("MaxMP:" + comAttribute.getFloat("maxMP"));
 
         this.initSize(node);
     },

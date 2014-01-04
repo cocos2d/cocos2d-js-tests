@@ -35,7 +35,7 @@ var ArmatureTestScene = TestScene.extend({
     },
     onMainMenuCallback:function(){
         this.removeAllChildren();
-        ccs.ArmatureDataManager.purge();
+        ccs.ArmatureDataManager.destroyInstance();
         var scene = new CocoStudioTestScene();
         scene.runThisTest();
     },
