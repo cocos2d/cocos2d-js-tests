@@ -3,7 +3,7 @@ var HitEffect = cc.Sprite.extend({
     ctor:function () {
         this._super();
 
-        this.initWithSpriteFrameName("hit.png");
+        this.setSpriteFrame("hit.png");
         this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
     },
     reset:function (pos, rotation, scale) {

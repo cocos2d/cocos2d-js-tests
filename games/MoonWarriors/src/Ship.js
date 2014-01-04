@@ -17,7 +17,7 @@ var Ship = cc.Sprite.extend({
         this._super();
 
         //init life
-        this.initWithSpriteFrameName("ship01.png");
+        this.setSpriteFrame("ship01.png");
         this.setTag(this.zOrder);
         this.setPosition(this.appearPosition);
 
