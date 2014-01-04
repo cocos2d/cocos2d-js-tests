@@ -49,7 +49,7 @@ var cocoStudioTestItemNames = [
     {
         itemTitle:"CocoStudioSceneTest",
         testScene:function () {
-            runSceneEditorTestLayer();
+            runSceneEditorTest();
         }
     }
 ];

@@ -32,7 +32,7 @@ var UIListViewTest_Vertical = UIScene.extend({
 
             this._array = [];
             for (var i = 0; i < 20; ++i) {
-                this._array.push("listviewex_item_" + i);
+                this._array.push("item_" + i);
             }
 
             // Create the list view
@@ -121,9 +121,6 @@ var UIListViewTest_Vertical = UIScene.extend({
                 button.setTitleText(this._array[index]);
             }
 
-            // refresh all items layout
-//        listViewEx.refreshView();
-
             // remove last item
             listView.removeLastItem();
 
@@ -131,14 +128,8 @@ var UIListViewTest_Vertical = UIScene.extend({
             items_count = items.length;
             listView.removeItem(items_count - 1);
 
-            // refresh all items layout
-//        listViewEx.refreshView();
-
             // set all items layout gravity
             listView.setGravity(ccui.ListViewGravity.centerVertical);
-
-            // set items margin
-//        listViewEx.setItemsMargin(2);
 
             return true;
         }
@@ -170,7 +161,7 @@ var UIListViewTest_Horizontal = UIScene.extend({
             // create list view ex data
             this._array = [];
             for (var i = 0; i < 20; ++i) {
-                this._array.push("listviewex_item_" + i);
+                this._array.push("item_" + i);
             }
 
 
@@ -260,18 +251,12 @@ var UIListViewTest_Horizontal = UIScene.extend({
                 button.setTitleText(this._array[index]);
             }
 
-            // refresh all items layout
-//        listViewEx.refreshView();
-
             // remove last item
             listView.removeLastItem();
 
             // remove item by index
             items_count = items.length;
             listView.removeItem(items_count - 1);
-
-            // refresh all items layout
-//        listViewEx.refreshView();
 
             // set all items layout gravity
             listView.setGravity(ccui.ListViewGravity.centerVertical);

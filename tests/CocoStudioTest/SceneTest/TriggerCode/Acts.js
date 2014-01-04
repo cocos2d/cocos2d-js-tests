@@ -2,6 +2,12 @@ var PlayMusic = ccs.BaseTriggerAction.extend({
     _tag: -1,
     _comName: "",
     _type: -1,
+    ctor: function () {
+        this._tag = -1;
+        this._comName = "";
+        this._type = -1;
+    },
+
     init: function () {
         return true;
     },
@@ -48,6 +54,12 @@ var TMoveTo = ccs.BaseTriggerAction.extend({
     _tag: -1,
     _duration: 0,
     _pos: cc.p(0, 0),
+    ctor: function () {
+        this._tag = -1;
+        this._duration = 0;
+        this._pos = cc.p(0, 0);
+    },
+
     init: function () {
         return true;
     },
@@ -56,7 +68,7 @@ var TMoveTo = ccs.BaseTriggerAction.extend({
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
         if (!node)
             return;
-        var actionTo = cc.MoveTo.create(this._duration, this._pos);
+        var actionTo = cc.MoveTo.create(this._duration, cc.p(this._pos.x, this._pos.y));
         node.runAction(actionTo);
     },
 
@@ -85,6 +97,8 @@ var TMoveTo = ccs.BaseTriggerAction.extend({
     },
 
     removeAll: function () {
+        var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
+        node.getActionManager().removeAllActions();
     }
 });
 
@@ -93,6 +107,13 @@ var TMoveBy = ccs.BaseTriggerAction.extend({
     _duration: 0,
     _pos: cc.p(0, 0),
     _reverse: false,
+    ctor: function () {
+        this._tag = -1;
+        this._duration = 0;
+        this._pos = cc.p(0, 0);
+        this._reverse = false;
+    },
+
     init: function () {
         return true;
     },
@@ -101,7 +122,7 @@ var TMoveBy = ccs.BaseTriggerAction.extend({
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
         if (!node)
             return;
-        var moveBy = cc.MoveBy.create(this._duration, this._pos);
+        var moveBy = cc.MoveBy.create(this._duration, cc.p(this._pos.x, this._pos.y));
         if (this._reverse) {
             var actionByBack = moveBy.reverse();
             node.runAction(cc.Sequence.create(moveBy, actionByBack));
@@ -139,7 +160,8 @@ var TMoveBy = ccs.BaseTriggerAction.extend({
     },
 
     removeAll: function () {
-        cc.log("TMoveBy::removeAll");
+        var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
+        node.getActionManager().removeAllActions();
     }
 });
 
@@ -147,6 +169,12 @@ var TRotateTo = ccs.BaseTriggerAction.extend({
     _tag: -1,
     _duration: 0,
     _deltaAngle: 0,
+    ctor: function () {
+        this._tag = -1;
+        this._duration = 0;
+        this._deltaAngle = 0;
+    },
+
     init: function () {
         return true;
     },
@@ -180,7 +208,8 @@ var TRotateTo = ccs.BaseTriggerAction.extend({
     },
 
     removeAll: function () {
-
+        var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
+        node.getActionManager().removeAllActions();
     }
 });
 
@@ -189,6 +218,13 @@ var TRotateBy = ccs.BaseTriggerAction.extend({
     _duration: 0,
     _deltaAngle: 0,
     _reverse: false,
+    ctor:function(){
+        this._tag = -1;
+        this._duration = 0;
+        this._deltaAngle = 0;
+        this._reverse = false;
+    },
+
     init: function () {
         return true;
     },
@@ -232,6 +268,8 @@ var TRotateBy = ccs.BaseTriggerAction.extend({
     },
 
     removeAll: function () {
+        var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
+        node.getActionManager().removeAllActions();
     }
 });
 
@@ -240,6 +278,13 @@ var TScaleTo = ccs.BaseTriggerAction.extend({
     _duration: 0,
     _scaleX: 0,
     _scaleY: 0,
+    ctor: function () {
+        this._tag = -1;
+        this._duration = 0;
+        this._scaleX = 0;
+        this._scaleY = 0;
+    },
+
     init: function () {
         return true;
     },
@@ -277,6 +322,8 @@ var TScaleTo = ccs.BaseTriggerAction.extend({
     },
 
     removeAll: function () {
+        var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
+        node.getActionManager().removeAllActions();
     }
 });
 
@@ -286,6 +333,14 @@ var TScaleBy = ccs.BaseTriggerAction.extend({
     _scaleX: 0,
     _scaleY: 0,
     _reverse: false,
+    ctor: function () {
+        this._tag = -1;
+        this._duration = 0;
+        this._scaleX = 0;
+        this._scaleY = 0;
+        this._reverse = false;
+    },
+    
     init: function () {
         return true;
     },
@@ -329,6 +384,8 @@ var TScaleBy = ccs.BaseTriggerAction.extend({
     },
 
     removeAll: function () {
+        var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
+        node.getActionManager().removeAllActions();
     }
 });
 
@@ -337,6 +394,13 @@ var TSkewTo = ccs.BaseTriggerAction.extend({
     _duration: 0,
     _skewX: 0,
     _skewY: 0,
+    ctor: function () {
+        this._tag = -1;
+        this._duration = 0;
+        this._skewX = 0;
+        this._skewY = 0;
+    },
+    
     init: function () {
         return true;
     },
@@ -374,6 +438,8 @@ var TSkewTo = ccs.BaseTriggerAction.extend({
     },
 
     removeAll: function () {
+        var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
+        node.getActionManager().removeAllActions();
     }
 });
 
@@ -383,6 +449,14 @@ var TSkewBy = ccs.BaseTriggerAction.extend({
     _skewX: 0,
     _skewY: 0,
     _reverse: false,
+    ctor: function () {
+        this._tag = -1;
+        this._duration = 0;
+        this._skewX = 0;
+        this._skewY = 0;
+        this._reverse = false;
+    },
+    
     init: function () {
         return true;
     },
@@ -426,12 +500,19 @@ var TSkewBy = ccs.BaseTriggerAction.extend({
     },
 
     removeAll: function () {
+        var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
+        node.getActionManager().removeAllActions();
     }
 });
 
 var TriggerState = ccs.BaseTriggerAction.extend({
     _id: -1,
     _state: 0,
+    ctor: function () {
+        this._id = -1;
+        this._state = 0;
+    },
+
     init: function () {
         return true;
     },
@@ -476,6 +557,12 @@ var ArmaturePlayAction = ccs.BaseTriggerAction.extend({
     _tag: -1,
     _comName: 0,
     _aniName: "",
+    ctor: function () {
+        this._tag = -1;
+        this._comName = 0;
+        this._aniName = "";
+    },
+    
     init: function () {
         return true;
     },
