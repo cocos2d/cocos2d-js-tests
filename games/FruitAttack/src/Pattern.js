@@ -54,10 +54,10 @@ var PatternSprite = cc.Sprite.extend({
             }
 
             if (this.m_eExtraAttr == ePatternExtraAttr.Stone)
-                this.initWithSpriteFrameName("pattern_mark_petrifaction.png");
+                this.setSpriteFrame("pattern_mark_petrifaction.png");
             else  {
                 var str = "cocos"+("00"+ type).slice(-2)+".png";
-                this.initWithSpriteFrameName(str);
+                this.setSpriteFrame(str);
             }
 
             if (this.m_extraTypeSpr != null){
