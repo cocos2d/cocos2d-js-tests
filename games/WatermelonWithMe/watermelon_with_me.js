@@ -1101,7 +1101,7 @@ var AboutLayerController = function () {
 
 AboutLayerController.prototype.onDidLoadFromCCB = function () {
     var back = cc.MenuItemFont.create("Back", this.onBack, this);
-    back.setColor(cc.BLACK);
+    back.setColor(cc.black());
     var menu = cc.Menu.create(back);
     this.rootNode.addChild(menu);
     menu.zOrder = 100;

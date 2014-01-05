@@ -35,7 +35,7 @@ var ArmatureTestScene = TestScene.extend({
     },
     onMainMenuCallback:function(){
         this.removeAllChildren();
-        ccs.ArmatureDataManager.purge();
+        ccs.ArmatureDataManager.destroyInstance();
         var scene = new CocoStudioTestScene();
         scene.runThisTest();
     },
@@ -148,15 +148,6 @@ var ArmatureTestLayer = BaseTestLayer.extend({
         var s = new ArmatureTestScene();
         s.addChild(backArmatureTest());
         director.replaceScene(s);
-    },
-
-    // automation
-    numberOfPendingTests:function () {
-        return ( (arrayOfSpriteTest.length - 1) - spriteTestIdx );
-    },
-
-    getTestNumber:function () {
-        return spriteTestIdx;
     }
 });
 
@@ -511,9 +502,12 @@ var TestFrameEvent = ArmatureTestLayer.extend({
 var TestParticleDisplay = ArmatureTestLayer.extend({
     animationID:0,
     armature:null,
-    onEnter:function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter:function () {
+        this._super();
 
         this.animationID = 0;
 
@@ -531,7 +525,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
         p2.setTotalParticles(30);
         var bone = ccs.Bone.create("p1");
         bone.addDisplay(p1, 0);
-        bone.changeDisplayByIndex(0, true);
+        bone.changeDisplayWithIndex(0, true);
         bone.setIgnoreMovementBoneData(true);
         bone.setZOrder(100);
         bone.setScale(1.2);
@@ -539,7 +533,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
 
         bone = ccs.Bone.create("p2");
         bone.addDisplay(p2, 0);
-        bone.changeDisplayByIndex(0, true);
+        bone.changeDisplayWithIndex(0, true);
         bone.setIgnoreMovementBoneData(true);
         bone.setZOrder(100);
         bone.setScale(1.2);
@@ -568,9 +562,12 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
 var TestUseMutiplePicture = ArmatureTestLayer.extend({
     displayIndex:0,
     armature:null,
-    onEnter:function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter:function () {
+        this._super();
         this.displayIndex = 0;
         var armatureDataManager = ccs.ArmatureDataManager.getInstance();
         armatureDataManager.addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
@@ -604,7 +601,7 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
     onTouchesEnded:function (touch, event) {
         ++this.displayIndex;
         this.displayIndex = (this.displayIndex) % 8;
-        this.armature.getBone("weapon").changeDisplayByIndex(this.displayIndex, true);
+        this.armature.getBone("weapon").changeDisplayWithIndex(this.displayIndex, true);
         return false;
     }
 });
@@ -915,9 +912,12 @@ var TestAnchorPoint = ArmatureTestLayer.extend({
 var TestArmatureNesting = ArmatureTestLayer.extend({
     armature:null,
     weaponIndex:0,
-    onEnter:function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter:function () {
+        this._super();
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_cyborg_png, s_cyborg_plist, s_cyborg_xml);
         this.armature = ccs.Armature.create("cyborg");
         this.armature.getAnimation().playWithIndex(1);
@@ -968,14 +968,14 @@ var Hero = ccs.Armature.extend({
         else {
             this._mount = armature;
             //Remove from layer
-            this.removeFromParentAndCleanup(false);
+            this.removeFromParent(false);
 
             //Get the hero bone
             var bone = armature.getBone("hero");
             //Add hero as a display to this bone
             bone.addDisplay(this, 0);
             //Change this bone's display
-            bone.changeDisplayByIndex(0, true);
+            bone.changeDisplayWithIndex(0, true);
             bone.setIgnoreMovementBoneData(true);
 
             this.setPosition(0, 0);
@@ -1021,9 +1021,13 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
     _horse2: null,
     _bear: null,
     _touchedMenu: false,
-    onEnter: function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter: function () {
+        this._super();
+
         this._touchedMenu = false;
         var label = cc.LabelTTF.create("Change Mount", "Arial", 20);
         var menuItem = cc.MenuItemLabel.create(label, this.changeMountCallback, this);
@@ -1124,9 +1128,13 @@ var TestPlaySeveralMovement = ArmatureTestLayer.extend({
 //
 //------------------------------------------------------------------
 var TestChangeAnimationInternal = ArmatureTestLayer.extend({
-    onEnter:function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter:function () {
+        this._super();
+
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
         var armature = ccs.Armature.create("Cowboy");
         armature.getAnimation().playWithIndex(0);
@@ -1163,9 +1171,13 @@ var TestChangeAnimationInternal = ArmatureTestLayer.extend({
 var TestEasing = ArmatureTestLayer.extend({
     animationID: 0,
     armature: null,
-    onEnter: function () {
+    ctor:function(){
         this._super();
         this.setTouchEnabled(true);
+    },
+    onEnter: function () {
+        this._super();
+
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_testEasing_json);
         var armature = ccs.Armature.create("testEasing");
         armature.getAnimation().playWithIndex(0);
