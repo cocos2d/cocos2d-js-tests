@@ -201,11 +201,6 @@ var s_extensions_buttonHighlighted = "res/extensions/buttonHighlighted.png";
 var s_extensions_ribbon = "res/extensions/ribbon.png";
 var s_image_icon = "res/Images/Icon.png";
 
-//cocosDenshion
-var s_cocosDenshion_plist = "res/cocosDenshion/cocosDenshion.plist";
-var s_cocosDenshion_png = "res/cocosDenshion/cocosDenshion.png";
-var s_cocosDenshion_bg = "res/cocosDenshion/background_0.png";
-
 var g_resources = [
     //global
     {src:s_grossini_dance_atlas},
@@ -396,9 +391,6 @@ var g_cocosdeshion = [
     {src:"res/Sound/effect2.mp3"},
     {src:"res/Sound/background.ogg"},
     {src:"res/Sound/effect2.ogg"},
-    {src:s_cocosDenshion_plist},
-    {src:s_cocosDenshion_png},
-    {src:s_cocosDenshion_bg}
 ];
 
 var g_parallax = [
@@ -804,22 +796,22 @@ var g_cocoStudio = [
     {src:"res/scenetest/EffectComponentTest/CowBoy/Cowboy0.png"},
     {src:"res/scenetest/EffectComponentTest/EffectComponentTest.json"},
     {src:"res/scenetest/EffectComponentTest/pew-pew-lei.wav"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/fishes/blowFish/Blowfish.ExportJson"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/fishes/blowFish/Blowfish0.plist"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/fishes/blowFish/Blowfish0.png"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/fishes/Butterflyfish/Butterflyfish.ExportJson"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/fishes/Butterflyfish/Butterflyfish0.plist"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/fishes/Butterflyfish/Butterflyfish0.png"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/FishJoy2.json"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/Images/startMenuBG.png"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/Misc/music_logo.mp3"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/Misc/music_logo.wav"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/Particles/qipao01.plist"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/Particles/qipao01.png"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/startMenu/Fish_UI/starMenuButton01.png"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/startMenu/Fish_UI/starMenuButton02.png"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/startMenu/Fish_UI/ui_logo_001-hd.png"},
-    {src:"res/scenetest/loadSceneEdtiorFileTest/startMenu/startMenu_1.json"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/fishes/blowFish/Blowfish.ExportJson"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/fishes/blowFish/Blowfish0.plist"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/fishes/blowFish/Blowfish0.png"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/fishes/Butterflyfish/Butterflyfish.ExportJson"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/fishes/Butterflyfish/Butterflyfish0.plist"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/fishes/Butterflyfish/Butterflyfish0.png"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/FishJoy2.json"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/Images/startMenuBG.png"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/Misc/music_logo.mp3"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/Misc/music_logo.wav"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/Particles/qipao01.plist"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/Particles/qipao01.png"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/startMenu/Fish_UI/starMenuButton01.png"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/startMenu/Fish_UI/starMenuButton02.png"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/startMenu/Fish_UI/ui_logo_001-hd.png"},
+    {src:"res/scenetest/LoadSceneEdtiorFileTest/startMenu/startMenu_1.json"},
     {src:"res/scenetest/ParticleComponentTest/ParticleComponentTest.json"},
     {src:"res/scenetest/ParticleComponentTest/SmallSun.plist"},
     {src:"res/scenetest/ParticleComponentTest/Upsidedown.plist"},
