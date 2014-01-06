@@ -361,19 +361,9 @@ var AttributeComponentTest = SceneEditorTestLayer.extend({
         this.addChild(node);
 
         var comAttribute = node.getChildByTag(10015).getComponent("CCComAttribute");
-        var jsonPath = cc.FileUtils.getInstance().fullPathForFilename(comAttribute.getFile());
-        var data = cc.FileUtils.getInstance().getStringFromFile(jsonPath);
-        var jsonDict = JSON.parse(data);
-        var playerName = jsonDict["name"];
-        var maxHP = jsonDict["maxHP"];
-        var maxMP = jsonDict["maxMP"];
-
-        comAttribute.setCString("Name", playerName);
-        comAttribute.setFloat("MaxHP", maxHP);
-        comAttribute.setFloat("MaxMP", maxMP);
-        cc.log("Name:" + comAttribute.getCString("Name"));
-        cc.log("MaxHP:" + comAttribute.getFloat("MaxHP"));
-        cc.log("MaxMP:" + comAttribute.getFloat("MaxMP"));
+        cc.log("name:" + comAttribute.getCString("name"));
+        cc.log("maxHP:" + comAttribute.getFloat("maxHP"));
+        cc.log("maxMP:" + comAttribute.getFloat("maxMP"));
 
         this.initSize(node);
     },
