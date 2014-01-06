@@ -43,7 +43,7 @@ var SceneEditorScene = TestScene.extend({
 });
 var sceneEditorArr = [
     function () {
-        return new loadSceneEdtiorFileTest();
+        return new LoadSceneEdtiorFileTest();
     },
     function () {
         return new SpriteComponentTest();
@@ -141,13 +141,13 @@ var runSceneEditorTest = function () {
 
 //------------------------------------------------------------------
 //
-// loadSceneEdtiorFileTest
+// LoadSceneEdtiorFileTest
 //
 //------------------------------------------------------------------
-var loadSceneEdtiorFileTest = SceneEditorTestLayer.extend({
+var LoadSceneEdtiorFileTest = SceneEditorTestLayer.extend({
     onEnter: function () {
         this._super();
-        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/loadSceneEdtiorFileTest/FishJoy2.json");
+        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/LoadSceneEdtiorFileTest/FishJoy2.json");
         this.addChild(node);
         ccs.ActionManager.getInstance().playActionByName("startMenu_1.json", "Animation1");
         this.initSize(node);
@@ -361,19 +361,9 @@ var AttributeComponentTest = SceneEditorTestLayer.extend({
         this.addChild(node);
 
         var comAttribute = node.getChildByTag(10015).getComponent("CCComAttribute");
-        var jsonPath = cc.FileUtils.getInstance().fullPathForFilename(comAttribute.getFile());
-        var data = cc.FileUtils.getInstance().getStringFromFile(jsonPath);
-        var jsonDict = JSON.parse(data);
-        var playerName = jsonDict["name"];
-        var maxHP = jsonDict["maxHP"];
-        var maxMP = jsonDict["maxMP"];
-
-        comAttribute.setCString("Name", playerName);
-        comAttribute.setFloat("MaxHP", maxHP);
-        comAttribute.setFloat("MaxMP", maxMP);
-        cc.log("Name:" + comAttribute.getCString("Name"));
-        cc.log("MaxHP:" + comAttribute.getFloat("MaxHP"));
-        cc.log("MaxMP:" + comAttribute.getFloat("MaxMP"));
+        cc.log("name:" + comAttribute.getCString("name"));
+        cc.log("maxHP:" + comAttribute.getFloat("maxHP"));
+        cc.log("maxMP:" + comAttribute.getFloat("maxMP"));
 
         this.initSize(node);
     },
