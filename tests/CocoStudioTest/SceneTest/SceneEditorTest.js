@@ -43,7 +43,7 @@ var SceneEditorScene = TestScene.extend({
 });
 var sceneEditorArr = [
     function () {
-        return new loadSceneEdtiorFileTest();
+        return new LoadSceneEdtiorFileTest();
     },
     function () {
         return new SpriteComponentTest();
@@ -141,13 +141,13 @@ var runSceneEditorTest = function () {
 
 //------------------------------------------------------------------
 //
-// loadSceneEdtiorFileTest
+// LoadSceneEdtiorFileTest
 //
 //------------------------------------------------------------------
-var loadSceneEdtiorFileTest = SceneEditorTestLayer.extend({
+var LoadSceneEdtiorFileTest = SceneEditorTestLayer.extend({
     onEnter: function () {
         this._super();
-        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/loadSceneEdtiorFileTest/FishJoy2.json");
+        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/LoadSceneEdtiorFileTest/FishJoy2.json");
         this.addChild(node);
         ccs.ActionManager.getInstance().playActionByName("startMenu_1.json", "Animation1");
         this.initSize(node);
@@ -360,10 +360,9 @@ var AttributeComponentTest = SceneEditorTestLayer.extend({
         this.addChild(node);
 
         var comAttribute = node.getChildByTag(10015).getComponent("CCComAttribute");
-
-        cc.log("Name:" + comAttribute.getString("name"));
-        cc.log("MaxHP:" + comAttribute.getFloat("maxHP"));
-        cc.log("MaxMP:" + comAttribute.getFloat("maxMP"));
+        cc.log("name:" + comAttribute.getString("name"));
+        cc.log("maxHP:" + comAttribute.getFloat("maxHP"));
+        cc.log("maxMP:" + comAttribute.getFloat("maxMP"));
 
         this.initSize(node);
     },
