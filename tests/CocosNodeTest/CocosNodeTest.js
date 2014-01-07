@@ -518,9 +518,9 @@ var CameraZoomTest = TestNodeDemo.extend({
         this.addChild(sprite, 0);
         sprite.setPosition(winSize.width / 4, winSize.height / 2);
         if ("opengl" in sys.capabilities) {
-            var cam = sprite.getCamera();
-            cam.setEye(0, 0, 415 / 2);
-            cam.setCenter(0, 0, 0);
+            //var cam = sprite.getCamera();
+            //cam.setEye(0, 0, 415 / 2);
+            //cam.setCenter(0, 0, 0);
         }
 
         // CENTER
@@ -550,12 +550,12 @@ var CameraZoomTest = TestNodeDemo.extend({
 
         this._z += dt * 100;
         var sprite = this.getChildByTag(20);
-        var cam = sprite.getCamera();
-        cam.setEye(0, 0, this._z);
+        //var cam = sprite.getCamera();
+        //cam.setEye(0, 0, this._z);
 
         sprite = this.getChildByTag(40);
-        cam = sprite.getCamera();
-        cam.setEye(0, 0, -this._z);
+        //cam = sprite.getCamera();
+        //cam.setEye(0, 0, -this._z);
     },
     onEnter:function () {
         this._super();
