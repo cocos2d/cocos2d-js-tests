@@ -28,9 +28,9 @@ var EffectsAdvancedTest = EffectsAdvancedTest || {};
 
 EffectsAdvancedTest.TAG_TEXTLAYER = 1;
 
-EffectsAdvancedTest.TAG_SPRITE1 = 1;
+EffectsAdvancedTest.TARGET1 = 1;
 
-EffectsAdvancedTest.TAG_SPRITE2 = 2;
+EffectsAdvancedTest.TARGET2 = 2;
 
 EffectsAdvancedTest.TAG_BACKGROUND = 1;
 
@@ -58,23 +58,30 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
 
 
         // back gradient
-        var gradient = cc.LayerGradient.create(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
+        var gradient = cc.NodeGrid.create();
+        gradient.setAnchorPoint(cc.p(0.5,0.5));
         this.addChild(gradient,0, EffectsAdvancedTest.TAG_BACKGROUND);
 
         var bg = cc.Sprite.create(s_back3);
         //this.addChild(bg, 0, EffectsAdvancedTest.TAG_BACKGROUND);
         gradient.addChild(bg);
         bg.setPosition(winSize.width / 2, winSize.height / 2);
-
+        
+        var target1 = cc.NodeGrid.create();
+        target1.setAnchorPoint(cc.p(0.5,0.5));
         var grossini = cc.Sprite.create(s_pathSister2);
-        gradient.addChild(grossini, 1, EffectsAdvancedTest.TAG_SPRITE1);
+        target1.addChild(grossini);
+        gradient.addChild(target1, 1, EffectsAdvancedTest.TARGET1);
         grossini.setPosition(winSize.width / 3, winSize.height / 2);
         var sc = cc.ScaleBy.create(2, 5);
         var sc_back = sc.reverse();
-        grossini.runAction(cc.RepeatForever.create(cc.Sequence.create(sc, sc_back)));
-
+        target1.runAction(cc.RepeatForever.create(cc.Sequence.create(sc, sc_back)));
+        
+        var target2 = cc.NodeGrid.create();
+        target2.setAnchorPoint(cc.p(0.5,0.5));
         var tamara = cc.Sprite.create(s_pathSister1);
-        gradient.addChild(tamara, 1, EffectsAdvancedTest.TAG_SPRITE2);
+        target2.addChild(tamara);
+        gradient.addChild(target2, 1, EffectsAdvancedTest.TARGET2);
         tamara.setPosition(winSize.width * 2 / 3, winSize.height / 2);
         var sc2 = cc.ScaleBy.create(2, 5);
         var sc2_back = sc2.reverse();
@@ -205,8 +212,8 @@ var Effect3 = EffectAdvanceTextLayer.extend({
         this._super();
 
         var bg = this.getChildByTag(EffectsAdvancedTest.TAG_BACKGROUND);
-        var target1 = bg.getChildByTag(EffectsAdvancedTest.TAG_SPRITE1);
-        var target2 = bg.getChildByTag(EffectsAdvancedTest.TAG_SPRITE2);
+        var target1 = bg.getChildByTag(EffectsAdvancedTest.TARGET1);
+        var target2 = bg.getChildByTag(EffectsAdvancedTest.TARGET2);
 
         var waves = cc.Waves.create(5, cc.size(15, 10), 5, 20, true, false);
         var shaky = cc.Shaky3D.create(5, cc.size(15, 10), 4, false);
@@ -273,7 +280,8 @@ var Effect4 = EffectAdvanceTextLayer.extend({
         this.addChild(target);
 
         director.getActionManager().addAction(seq, target, false);
-        this.runAction(cc.Sequence.create(lens, cc.CallFunc.create(
+        var bg = this.getChildByTag(EffectsAdvancedTest.TAG_BACKGROUND);
+        bg.runAction(cc.Sequence.create(lens, cc.CallFunc.create(
             function(sender) {
                 sender.removeChild(target, true);
             }
@@ -330,14 +338,16 @@ var Issue631 = EffectAdvanceTextLayer.extend({
         layer.addChild(sprite, 10);
 
         // foreground
+        var layer2BaseGrid = cc.NodeGrid.create();
         var layer2 = cc.LayerColor.create(cc.c4b(0, 255, 0, 255));
         var fog = cc.Sprite.create(s_pathFog);
 
         fog.setBlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
         layer2.addChild(fog, 1);
-        this.addChild(layer2, 1);
+        layer2BaseGrid.addChild(layer2);
+        this.addChild(layer2BaseGrid, 1);
 
-        layer2.runAction(cc.RepeatForever.create(effect));
+        layer2BaseGrid.runAction(cc.RepeatForever.create(effect));
     }
 });
 

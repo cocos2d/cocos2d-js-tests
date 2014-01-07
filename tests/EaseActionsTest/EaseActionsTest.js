@@ -633,8 +633,7 @@ var SchedulerTest = EaseSpriteDemo.extend({
         this._tamara.runAction(cc.Speed.create(action2, 1.5));
         this._kathia.runAction(cc.Speed.create(action3, 1.0));
 
-        var emitter = new cc.ParticleFireworks();
-        emitter.initWithTotalParticles(250);
+        var emitter = cc.ParticleFireworks.createWithTotalParticles(250);
         emitter.setTexture(cc.TextureCache.getInstance().addImage("res/Images/fire.png"));
         this.addChild(emitter);
     },

@@ -3947,7 +3947,7 @@ var MySprite1 = cc.Sprite.extend({
 MySprite1.spriteWithSpriteFrameName = function (spriteFrameName) {
     var pFrame = spriteFrameCache.getSpriteFrame(spriteFrameName);
     var sprite = new MySprite1();
-    sprite.initWithSpriteFrame(pFrame);
+    sprite.setSpriteFrame(pFrame);
 
     return sprite;
 };
@@ -4581,7 +4581,7 @@ var AnimationCacheFile = SpriteTestDemo.extend({
         frameCache.addSpriteFrames(s_grossini_bluePlist);
 
         // Purge previously loaded animation
-        cc.AnimationCache.purgeSharedAnimationCache();
+        cc.AnimationCache.destroyInstance();
         var animCache = cc.AnimationCache.getInstance();
 
         // Add an animation to the Cache

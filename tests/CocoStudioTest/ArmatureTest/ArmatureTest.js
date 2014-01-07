@@ -459,17 +459,19 @@ var FRAME_EVENT_ACTION_TAG = 10000;
 var TestFrameEvent = ArmatureTestLayer.extend({
     onEnter: function () {
         this._super();
+        this._gridNode = cc.NodeGrid.create();
         var armature = ccs.Armature.create("HeroAnimation");
         armature.getAnimation().play("attack");
         armature.getAnimation().setSpeedScale(0.5);
         armature.setPosition(cc.VisibleRect.center().x - 50, cc.VisibleRect.center().y - 100);
-        this.addChild(armature);
+        this._gridNode.addChild(armature);
         /*
          * Set armature's frame event callback function
          * To disconnect this event, just setFrameEventCallFunc(NULL, NULL);
          */
         armature.getAnimation().setFrameEventCallFunc(this.onFrameEvent, this);
-
+        
+        this.addChild(this._gridNode);
         this.schedule(this.checkAction);
     },
     title: function () {
@@ -477,19 +479,19 @@ var TestFrameEvent = ArmatureTestLayer.extend({
     },
     onFrameEvent: function (bone, evt, originFrameIndex, currentFrameIndex) {
         cc.log("(" + bone.getName() + ") emit a frame event (" + evt + ") at frame index (" + currentFrameIndex + ").");
-        if (!this.getActionByTag(FRAME_EVENT_ACTION_TAG) || this.getActionByTag(FRAME_EVENT_ACTION_TAG).isDone()) {
+        if (!this._gridNode.getActionByTag(FRAME_EVENT_ACTION_TAG) || this._gridNode.getActionByTag(FRAME_EVENT_ACTION_TAG).isDone()) {
             if ("opengl" in sys.capabilities) {
-                this.stopAllActions();
+                this._gridNode.stopAllActions();
                 var action = cc.ShatteredTiles3D.create(0.2, cc.size(16, 12), 5, false);
                 action.setTag(FRAME_EVENT_ACTION_TAG);
-                this.runAction(action);
+                this._gridNode.runAction(action);
             }
         }
     },
     checkAction: function (dt) {
         if ("opengl" in sys.capabilities) {
-            if (this.getNumberOfRunningActions() == 0 && this.getGrid() != null)
-                this.setGrid(null);
+            if (this._gridNode.getNumberOfRunningActions() == 0 && this._gridNode.getGrid() != null)
+                this._gridNode.setGrid(null);
         }
     }
 });

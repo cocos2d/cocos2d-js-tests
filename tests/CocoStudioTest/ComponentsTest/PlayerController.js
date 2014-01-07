@@ -24,7 +24,6 @@
 
 var PlayerController = ccs.ComController.extend({
     ctor: function () {
-        this._super();
         this._name = "PlayerController";
     },
 
