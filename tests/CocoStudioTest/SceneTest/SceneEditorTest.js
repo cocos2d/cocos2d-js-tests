@@ -388,7 +388,7 @@ var TriggerTest = SceneEditorTestLayer.extend({
         this.addChild(node);
         ccs.ActionManager.getInstance().playActionByName("startMenu_1.json", "Animation1");
 
-        this.schedule(this.gameLogic, this);
+        this.schedule(this.gameLogic);
         this.setTouchEnabled(true);
         ccs.sendEvent(TRIGGEREVENT_ENTERSCENE);
 
@@ -418,7 +418,7 @@ var TriggerTest = SceneEditorTestLayer.extend({
     },
 
     gameLogic: function () {
-        this.sendEvent(TRIGGEREVENT_UPDATESCENE);
+        ccs.sendEvent(TRIGGEREVENT_UPDATESCENE);
     },
     title: function () {
         return "Trigger Test";
