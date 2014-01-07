@@ -519,7 +519,7 @@ var TriggerState = ccs.BaseTriggerAction.extend({
 
     done: function () {
         var obj = ccs.TriggerMng.getInstance().getTriggerObj(this._id);
-        if (!obj) {
+        if (obj) {
             if (this._state == 0) {
                 obj.setEnable(false);
             }
