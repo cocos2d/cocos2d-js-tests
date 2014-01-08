@@ -813,11 +813,19 @@ var TestCalculatedVertex = ArmatureTestLayer.extend({
         var dict = this.armature2.getBoneDic();
         for (var key in dict) {
             var bone = dict[key];
-            var bodyList = bone.getColliderBodyList();
+            var detector = bone.getColliderDetector();
+            if (!detector)
+                continue;
+
+            var bodyList = detector.getColliderBodyList();
+
             for (var i = 0; i < bodyList.length; i++) {
                 var body = bodyList[i];
                 var vertexList = body.getCalculatedVertexList();
-                var minx =  miny = maxx =  maxy = 0;
+                var minx = 0;
+                var miny = 0;
+                var maxx = 0;
+                var maxy = 0;
                 for (var j = 0; j < vertexList.length; j++) {
                     var vertex = vertexList[j];
                     if (j == 0) {
