@@ -298,7 +298,7 @@ var g_touches = [
 ];
 
 var g_fileUtils = [
-    {src:"FileUtils/lookup-html5.plist"},
+    {src:"FileTest/lookup-html5.plist"},
 	{src:s_grossini_familyPlist}
 ];
 
