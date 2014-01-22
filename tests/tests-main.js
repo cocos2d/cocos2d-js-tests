@@ -314,11 +314,11 @@ var testNames = [
     },
     //"ExtensionsTest",
     {
-        title:"FileUtils Test",
+        title:"File Test",
         resource:g_fileUtils,
         platforms: PLATFORM_ALL,
         testScene:function () {
-            return new FileUtilsTestScene();
+            return new FileTestScene();
         }
     },
     {
