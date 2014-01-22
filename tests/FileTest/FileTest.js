@@ -77,11 +77,11 @@ var FilenameLookupTest = FileTestBase.extend({
 
 		var t = sys.platform;
 		if( t == 'mobile')  {
-			cc.FileUtils.getInstance().loadFilenameLookup('FileUtils/lookup-mobile.plist');
+			cc.FileUtils.getInstance().loadFilenameLookup('FileTest/lookup-mobile.plist');
 		} else if( t == 'desktop' ) {
-			cc.FileUtils.getInstance().loadFilenameLookup('FileUtils/lookup-desktop.plist');
+			cc.FileUtils.getInstance().loadFilenameLookup('FileTest/lookup-desktop.plist');
 		} else {
-			cc.FileUtils.getInstance().loadFilenameLookup('FileUtils/lookup-html5.plist');
+			cc.FileUtils.getInstance().loadFilenameLookup('FileTest/lookup-html5.plist');
 		}
 
 		var sprite = cc.Sprite.create("grossini.bmp");
@@ -181,7 +181,7 @@ var SAXParserTest = FileTestBase.extend({
 		var result = parser.parse(s_grossini_familyPlist);
 
 		var ok = JSON.stringify(this._expectResult) == JSON.stringify(result);
-		this._label = cc.LabelTTF.create(ok ? "SUCCESS" : "FAIL");
+		this._label = cc.LabelTTF.create(ok ? "SUCCESS" : "FAIL", "Arial", 30);
 		var winsize = cc.Director.getInstance().getWinSize();
 		this._label.setPosition(winsize.width/2, winsize.height/2);
 		this.addChild(this._label);
