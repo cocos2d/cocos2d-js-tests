@@ -27,7 +27,7 @@ var tests_files = [
     'EffectsAdvancedTest/EffectsAdvancedTest.js',
     'MotionStreakTest/MotionStreakTest.js',
     'EventTest/EventTest.js',
-    'FileUtils/FileUtilsTest.js',
+    'FileTest/FileTest.js',
     'FontTest/FontTest.js',
     'IntervalTest/IntervalTest.js',
     'LabelTest/LabelTest.js',
