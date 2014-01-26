@@ -34,10 +34,12 @@ var SceneController = ccs.ComController.extend({
         this._projectiles = [];
     },
     init: function () {
+        this._super();
         return true;
     },
 
     onEnter: function () {
+        this._super();
         this._addTargetTime = 1;
         this._targets = [];
         this._projectiles = [];
@@ -46,7 +48,7 @@ var SceneController = ccs.ComController.extend({
     },
 
     onExit: function () {
-
+        this._super();
     },
 
     update: function (dt) {

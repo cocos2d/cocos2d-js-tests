@@ -28,6 +28,7 @@ var EnemyController = ccs.ComController.extend({
         this._name = "EnemyController";
     },
     init: function () {
+        this._super();
         return true;
     },
 
