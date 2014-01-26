@@ -4708,10 +4708,10 @@ var TextureColorCacheIssue = SpriteTestDemo.extend({
         spriteFrameCache.addSpriteFrames(s_tcc_issue_1_plist, s_tcc_issue_1);
         spriteFrameCache.addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
 
-        var grossini = cc.Sprite.createWithSpriteFrameName('grossini_dance_01.png');
+        var grossini = cc.Sprite.createWithSpriteFrameName('tcc_grossini_dance_01.png');
         grossini.setPosition(winSize.width / 3, winSize.height / 2);
 
-        var sister = cc.Sprite.createWithSpriteFrameName('grossinis_sister1.png');
+        var sister = cc.Sprite.createWithSpriteFrameName('tcc_grossinis_sister1.png');
         sister.setPosition(winSize.width / 3 * 2, winSize.height / 2);
 
         this.addChild(grossini);
@@ -4753,10 +4753,10 @@ var TextureColorCacheIssue2 = SpriteTestDemo.extend({
         spriteFrameCache.addSpriteFrames(s_tcc_issue_1_plist, s_tcc_issue_1);
         spriteFrameCache.addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
 
-        var grossini = cc.Sprite.createWithSpriteFrameName('grossini_dance_01.png');
+        var grossini = cc.Sprite.createWithSpriteFrameName('tcc_grossini_dance_01.png');
         grossini.setPosition(winSize.width / 3, winSize.height / 2);
 
-        var sister = cc.Sprite.createWithSpriteFrameName('grossinis_sister1.png');
+        var sister = cc.Sprite.createWithSpriteFrameName('tcc_grossinis_sister1.png');
         sister.setPosition(winSize.width / 3 * 2, winSize.height / 2);
 
         this.addChild(grossini);
