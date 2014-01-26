@@ -32,6 +32,7 @@ var ProjectileController = ccs.ComController.extend({
     },
 
     onEnter: function () {
+        this._super();
         var winSize = cc.Director.getInstance().getWinSize();
         this._owner.setPosition(30, winSize.height / 2);
         this._owner.setTag(3);
@@ -40,6 +41,7 @@ var ProjectileController = ccs.ComController.extend({
     },
 
     onExit: function () {
+        this._super();
     },
 
     update: function (dt) {
