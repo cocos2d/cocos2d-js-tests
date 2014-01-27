@@ -963,6 +963,7 @@ var Hero = ccs.Armature.extend({
     },
 
     changeMount: function (armature) {
+        this.retain();
         if (armature == null) {
             this.playWithIndex(0);
             //Remove hero from display list
@@ -993,7 +994,7 @@ var Hero = ccs.Armature.extend({
             this.playWithIndex(1);
             this.setScale(1);
         }
-
+        this.release();
     },
 
     playWithIndex: function (index) {
