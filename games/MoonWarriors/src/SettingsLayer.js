@@ -3,12 +3,13 @@ var SettingsLayer = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
             var sp = cc.Sprite.create(res.loading_png);
-            sp.setAnchorPoint(0,0);
+            sp.anchor = cc.p(0, 0);
             this.addChild(sp, 0, 1);
 
             var cacheImage = cc.TextureCache.getInstance().addImage(res.menuTitle_png);
             var title = cc.Sprite.createWithTexture(cacheImage, cc.rect(0, 0, 134, 34));
-            title.setPosition(winSize.width / 2, winSize.height - 120);
+            title.x = winSize.width / 2
+	        title.y = winSize.height - 120;
             this.addChild(title);
 
 
@@ -44,13 +45,13 @@ var SettingsLayer = cc.Layer.extend({
             cc.MenuItemFont.setFontSize(26);
             var label = cc.LabelTTF.create("Go back", "Arial", 20);
             var back = cc.MenuItemLabel.create(label, this.onBackCallback);
-            back.setScale(0.8);
+            back.scale = 0.8;
 
             var menu = cc.Menu.create(title1, title2, item1, item2, back);
             menu.alignItemsInColumns(2, 2, 1);
             this.addChild(menu);
 
-            back.setPositionY(back.getPositionY() - 50);
+            back.y -= 50;
 
             bRet = true;
         }

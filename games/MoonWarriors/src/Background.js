@@ -3,10 +3,10 @@ var BackSky = cc.Sprite.extend({
     ctor:function () {
         this._super();
         this.initWithSpriteFrameName("bg01.png");
-        this.setAnchorPoint(0, 0);
+        this.anchor = cc.p(0, 0);
     },
     destroy:function () {
-        this.setVisible(false);
+        this.visible = false;
         this.active = false;
     }
 });
@@ -23,7 +23,7 @@ BackSky.getOrCreate = function () {
     for (var j = 0; j < MW.CONTAINER.BACKSKYS.length; j++) {
         selChild = MW.CONTAINER.BACKSKYS[j];
         if (selChild.active == false) {
-            selChild.setVisible(true);
+            selChild.visible = true;
             selChild.active = true;
             return selChild;
         }
@@ -37,7 +37,7 @@ BackSky.preSet = function () {
     var background = null;
     for (var i = 0; i < 2; i++) {
         background = BackSky.create();
-        background.setVisible(false);
+        background.visible = false;
         background.active = false;
     }
 };
@@ -54,10 +54,10 @@ var BackTileMap = cc.Sprite.extend({
     ctor:function (frameName) {
         this._super();
         this.initWithSpriteFrameName(frameName);
-        this.setAnchorPoint(0.5, 0);
+        this.anchor = cc.p(0.5, 0);
     },
     destroy:function () {
-        this.setVisible(false);
+        this.visible = false;
         this.active = false;
     }
 });
@@ -74,7 +74,7 @@ BackTileMap.getOrCreate = function () {
     for (var j = 0; j < MW.CONTAINER.BACKTILEMAPS.length; j++) {
         selChild = MW.CONTAINER.BACKTILEMAPS[j];
         if (selChild.active == false) {
-            selChild.setVisible(true);
+            selChild.visible = true;
             selChild.active = true;
             return selChild;
         }
@@ -88,7 +88,7 @@ BackTileMap.preSet = function () {
     var backTileMap = null;
     for (var i = 0; i < BackTileMapLvl1.length; i++) {
         backTileMap = BackTileMap.create(BackTileMapLvl1[i]);
-        backTileMap.setVisible(false);
+        backTileMap.visible = false;
         backTileMap.active = false;
     }
 };
