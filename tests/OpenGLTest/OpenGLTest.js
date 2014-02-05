@@ -1202,7 +1202,6 @@ var GLGetUniformTest = OpenGLTestLayer.extend({
 // Flow control
 //
 var arrayOfOpenGLTest = [
-    TexImage2DTest,
     ShaderRetroEffect,
     ShaderMonjoriTest,
     ShaderMandelbrotTest,
