@@ -44,6 +44,7 @@
 
             'tests_resources-html5.js',
             'tests-main.js',
+            '../external/socket.io/socket.io.js',
 
             'TouchesTest/Ball.js',
             'TouchesTest/Paddle.js',
@@ -118,6 +119,7 @@
             'ExtensionsTest/EditBoxTest/EditBoxTest.js',
             'ExtensionsTest/S9SpriteTest/S9SpriteTest.js',
             'ExtensionsTest/NetworkTest/WebSocketTest.js',
+            'ExtensionsTest/NetworkTest/SocketIOTest.js',
             'CocoStudioTest/ArmatureTest/ArmatureTest.js',
             'CocoStudioTest/ComponentsTest/ComponentsTestScene.js',
             'CocoStudioTest/ComponentsTest/EnemyController.js',
