@@ -960,7 +960,7 @@ var TexImage2DTest = OpenGLTestLayer.extend({
                 this.shader.setUniformsForBuiltins();
 
                 gl.bindTexture(gl.TEXTURE_2D, this.my_texture);
-                cc.glEnableVertexAttribs( cc.VERTEX_ATTRIB_FLAG_TEXCOORDS | cc.VERTEX_ATTRIB_FLAG_POSITION);
+                cc.glEnableVertexAttribs( cc.VERTEX_ATTRIB_FLAG_TEX_COORDS | cc.VERTEX_ATTRIB_FLAG_POSITION);
 
                 // Draw fullscreen Square
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexPositionBuffer);
