@@ -57,7 +57,7 @@
                 <file name="EventTest/EventTest.js"/>
                 <file name="EffectsTest/EffectsTest.js"/>
                 <file name="EffectsAdvancedTest/EffectsAdvancedTest.js"/>
-                <file name="FileUtils/FileUtilsTest.js"/>
+                <file name="FileTest/FileTest.js"/>
                 <file name="MotionStreakTest/MotionStreakTest.js"/>
                 <file name="RenderTextureTest/RenderTextureTest.js"/>
                 <file name="UnitTest/UnitTest.js"/>
@@ -383,7 +383,7 @@
                 <file name="EventTest/EventTest.js"/>
                 <file name="EffectsTest/EffectsTest.js"/>
                 <file name="EffectsAdvancedTest/EffectsAdvancedTest.js"/>
-                <file name="FileUtils/FileUtilsTest.js"/>
+                <file name="FileTest/FileTest.js"/>
                 <file name="MotionStreakTest/MotionStreakTest.js"/>
                 <file name="RenderTextureTest/RenderTextureTest.js"/>
                 <file name="UnitTest/UnitTest.js"/>

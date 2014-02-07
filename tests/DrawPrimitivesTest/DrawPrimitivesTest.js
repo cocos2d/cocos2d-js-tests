@@ -170,6 +170,70 @@ var DrawOldAPITest = DrawTestDemo.extend({
 
 //------------------------------------------------------------------
 //
+// Testing cc.DrawNode API 2
+//
+//------------------------------------------------------------------
+var DrawNewAPITest2 = DrawTestDemo.extend({
+    _title: "cc.DrawNode",
+    _subtitle: "Testing cc.DrawNode API 2",
+    ctor: function () {
+        this._super();
+        var draw = cc.DrawNode.create();
+        this.addChild(draw, 10);
+        var winSize = cc.Director.getInstance().getWinSize();
+        var centerPos = cc.p(winSize.width / 2, winSize.height / 2);
+        //drawSegment
+        draw.drawSegment(cc.p(0, 0), cc.p(winSize.width, winSize.height), 1, cc.c4f(1, 1, 1, 1));
+        draw.drawSegment(cc.p(0, winSize.height), cc.p(winSize.width, 0), 5, cc.c4f(1, 0, 0, 1));
+
+        //drawDot
+        draw.drawDot(cc.p(winSize.width / 2, winSize.height / 2), 40, cc.c4f(0, 0, 1, 0.5));
+        var points = [cc.p(60, 60), cc.p(70, 70), cc.p(60, 70), cc.p(70, 60)];
+        for (var i = 0; i < points.length; i++) {
+            var p = points[i];
+            draw.drawDot(p, 4, cc.c4f(0, 1, 1, 1));
+        }
+        //drawCircle
+        draw.drawCircle(cc.p(winSize.width / 2, winSize.height / 2), 100, 0, 10, false, 6, cc.c4f(0, 1, 0, 1));
+        draw.drawCircle(cc.p(winSize.width / 2, winSize.height / 2), 50, cc.DEGREES_TO_RADIANS(90), 50, true, 2, cc.c4f(0, 1, 1, 1));
+
+        //draw poly
+        //not fill
+        var vertices = [cc.p(0, 0), cc.p(50, 50), cc.p(100, 50), cc.p(100, 100), cc.p(50, 100) ];
+        draw.drawPoly(vertices, null, 5, cc.c4f(1, 1, 0, 1));
+        var vertices2 = [cc.p(30, 130), cc.p(30, 230), cc.p(50, 200)];
+        draw.drawPoly(vertices2, null, 2, cc.c4f(1, 0, 1, 1));
+        //fill
+        var vertices3 = [cc.p(60, 130), cc.p(60, 230), cc.p(80, 200)];
+        draw.drawPoly(vertices3, cc.c4f(0, 1, 1, 0.2), 2, cc.c4f(1, 0, 1, 1));
+
+        //draw rect
+        //not fill
+        draw.drawRect(cc.p(120, 120), cc.p(200, 200), null, 2, cc.c4f(1, 0, 1, 1));
+        //fill
+        draw.drawRect(cc.p(120, 220), cc.p(200, 300), cc.c4f(0, 1, 1, 0.2), 2, cc.c4f(1, 0, 1, 1));
+
+        // draw quad bezier path
+        draw.drawQuadBezier(cc.p(0, winSize.height), cc.p(centerPos.x, centerPos.y), cc.p(winSize.width, winSize.height), 50, 2, cc.c4f(1, 0, 1, 1));
+
+        // draw cubic bezier path
+        draw.drawCubicBezier(cc.p(winSize.width / 2, winSize.height / 2), cc.p(winSize.width / 2 + 30, winSize.height / 2 + 50),
+            cc.p(winSize.width / 2 + 60, winSize.height / 2 - 50), cc.p(winSize.width, winSize.height / 2), 100, 2, cc.c4f(1, 0, 1, 1));
+
+        //draw cardinal spline
+        var vertices4 = [
+            cc.p(centerPos.x - 130, centerPos.y - 130),
+            cc.p(centerPos.x - 130, centerPos.y + 130),
+            cc.p(centerPos.x + 130, centerPos.y + 130),
+            cc.p(centerPos.x + 130, centerPos.y - 130),
+            cc.p(centerPos.x - 130, centerPos.y - 130)
+        ];
+        draw.drawCardinalSpline(vertices4, 0.5, 100, 2, cc.c4f(1, 1, 1, 1));
+    }
+});
+
+//------------------------------------------------------------------
+//
 // Draw New API Test
 //
 //------------------------------------------------------------------
@@ -181,8 +245,7 @@ var DrawNewAPITest = DrawTestDemo.extend({
         this._super();
 
         var draw = cc.DrawNode.create();
-        this.addChild( draw, 10 );
-
+        this.addChild(draw, 10);
         //
         // Circles
         //
@@ -202,9 +265,9 @@ var DrawNewAPITest = DrawTestDemo.extend({
         var h=50;
         var star = [
             cc.p(o+w,o-h), cc.p(o+w*2, o),                  // lower spike
-            cc.p(o + w*2 + h, o+w ), cc.p(o + w*2, o+w*2),  // right spike
+            cc.p(o + w*2 + h, o+w ), cc.p(o + w*2, o+w*2)/*,  // right spike
             cc.p(o +w, o+w*2+h), cc.p(o,o+w*2),             // top spike
-            cc.p(o -h, o+w), cc.p(o,o)                     // left spike
+            cc.p(o -h, o+w), cc.p(o,o)                     // left spike*/
         ];
         draw.drawPoly(star, cc.c4f(1,0,0,0.5), 1, cc.c4f(0,0,1,1) );
 
@@ -250,7 +313,12 @@ var arrayOfDrawTest = [
 ];
 
 if( sys.platform === 'browser' ) {
-    arrayOfDrawTest.push( DrawOldAPITest );
+    if( 'opengl' in sys.capabilities ){
+        arrayOfDrawTest.push( DrawOldAPITest );
+    }else{
+        arrayOfDrawTest.push( DrawNewAPITest2 );
+        arrayOfDrawTest.push( DrawOldAPITest );
+    }
 }
 
 var nextDrawTest = function () {
