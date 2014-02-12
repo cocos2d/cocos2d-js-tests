@@ -256,7 +256,7 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
             var fshader = this.compileShader(fsh, 'fragment');
             var vshader = this.compileShader(vsh, 'vertex');
 
-            var shaderProgram = this.shaderProgram = gl.createProgram();
+            var shaderProgram = this.shader = gl.createProgram();
 
             gl.attachShader(shaderProgram, vshader);
             gl.attachShader(shaderProgram, fshader);
@@ -290,29 +290,29 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
                 var mvMatrix = [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1];
                 this.mvMatrix = mvMatrix = new Float32Array(mvMatrix);
 
-                gl.useProgram(this.shaderProgram);
-                gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.pMatrix);
-                gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
+                gl.useProgram(this.shader);
+                gl.uniformMatrix4fv(this.shader.pMatrixUniform, false, this.pMatrix);
+                gl.uniformMatrix4fv(this.shader.mvMatrixUniform, false, this.mvMatrix);
 
-                gl.enableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
-                gl.enableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
+                gl.enableVertexAttribArray(this.shader.vertexPositionAttribute);
+                gl.enableVertexAttribArray(this.shader.vertexColorAttribute);
 
                 // Draw fullscreen Square
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexPositionBuffer);
-                gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+                gl.vertexAttribPointer(this.shader.vertexPositionAttribute, this.squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexColorBuffer);
-                gl.vertexAttribPointer(this.shaderProgram.vertexColorAttribute, this.squareVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+                gl.vertexAttribPointer(this.shader.vertexColorAttribute, this.squareVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
                 this.setMatrixUniforms();
                 gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.squareVertexPositionBuffer.numItems);
 
                 // Draw fullscreen Triangle
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.triangleVertexPositionBuffer);
-                gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.triangleVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+                gl.vertexAttribPointer(this.shader.vertexPositionAttribute, this.triangleVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.triangleVertexColorBuffer);
-                gl.vertexAttribPointer(this.shaderProgram.vertexColorAttribute, this.triangleVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+                gl.vertexAttribPointer(this.shader.vertexColorAttribute, this.triangleVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
                 gl.drawArrays(gl.TRIANGLES, 0, this.triangleVertexPositionBuffer.numItems);
 
@@ -324,8 +324,8 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
     },
 
     setMatrixUniforms:function() {
-        gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.pMatrix);
-        gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
+        gl.uniformMatrix4fv(this.shader.pMatrixUniform, false, this.pMatrix);
+        gl.uniformMatrix4fv(this.shader.mvMatrixUniform, false, this.mvMatrix);
     },
 
     initBuffers:function() {
