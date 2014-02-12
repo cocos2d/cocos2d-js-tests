@@ -192,7 +192,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._scrollNode = scroll;
 
         // coin only needed to obtain the texture for the Batch Node
-        var coin = cc.Sprite.createWithSpriteFrameName("coin01.png");
+        var coin = cc.Sprite.create("frame#coin01.png");
         this._batch = cc.SpriteBatchNode.createWithTexture(coin.getTexture(), 100);    //cc.Node.create();
         scroll.addChild(this._batch, Z_SPRITES, cc._p(1, 1), cc.p(0,0));
 

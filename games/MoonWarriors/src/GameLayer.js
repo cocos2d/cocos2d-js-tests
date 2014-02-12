@@ -76,7 +76,7 @@ var GameLayer = cc.Layer.extend({
             this.lbScore.setPosition(winSize.width - 5, winSize.height - 30);
 
             // ship life
-            var life = cc.Sprite.createWithSpriteFrameName("ship01.png");
+            var life = cc.Sprite.create("frame#ship01.png");
             life.setScale(0.6);
             life.setPosition(30, 460);
             this._texTransparentBatch.addChild(life, 1, 5);

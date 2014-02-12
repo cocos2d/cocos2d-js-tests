@@ -277,15 +277,15 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_circle_plist);
         this.mgr = cc.SpriteBatchNode.create(s_circle_png, 9);
         this.addChild(this.mgr);
-        this.sp1 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp2 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp3 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp4 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp5 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp6 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp7 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp8 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp9 = cc.Sprite.createWithSpriteFrameName("circle.png");
+        this.sp1 = cc.Sprite.create("circle.png");
+        this.sp2 = cc.Sprite.create("circle.png");
+        this.sp3 = cc.Sprite.create("circle.png");
+        this.sp4 = cc.Sprite.create("circle.png");
+        this.sp5 = cc.Sprite.create("circle.png");
+        this.sp6 = cc.Sprite.create("circle.png");
+        this.sp7 = cc.Sprite.create("circle.png");
+        this.sp8 = cc.Sprite.create("circle.png");
+        this.sp9 = cc.Sprite.create("circle.png");
 
         this.mgr.addChild(this.sp1, 9);
         this.mgr.addChild(this.sp2, 8);
@@ -372,7 +372,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         this.visit();
         texture.end();
 
-        var sprite = cc.Sprite.createWithTexture(texture.getSprite().getTexture());
+        var sprite = cc.Sprite.create(texture.getSprite().getTexture());
 
         sprite.setPosition(winSize.width/2, winSize.width/2);
         sprite.setOpacity(182);

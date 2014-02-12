@@ -782,7 +782,7 @@ var TestCalculatedVertex = ArmatureTestLayer.extend({
         this.armature2.setPosition(winSize.width - 160, winSize.height / 2);
         this.addChild(this.armature2);
 
-        this.bullet = cc.Sprite.createWithSpriteFrameName("25.png");
+        this.bullet = cc.Sprite.create("frame#25.png");
         this.addChild(this.bullet);
 
         this.scheduleUpdate();

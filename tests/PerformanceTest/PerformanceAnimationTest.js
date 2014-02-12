@@ -173,7 +173,7 @@ var CharacterView = cc.Node.extend({
         var i = 0;
         rightData = new Array(10);
         for (i = 0; i < 10; i++) {
-            var right = cc.Sprite.createWithSpriteFrameName("crystals/4.png");
+            var right = cc.Sprite.create("frame#crystals/4.png");
             right.setPosition(50, i * 10 - 40);
             right.setRotation(-90);
             right.setScale(1);
@@ -187,7 +187,7 @@ var CharacterView = cc.Node.extend({
         }
 
         for(i=0; i<10; i++){
-            var head = cc.Sprite.createWithSpriteFrameName("crystals/1.png");
+            var head = cc.Sprite.create("frame#crystals/1.png");
             head.setPosition(i * 5, 50);
             this.addChild(head);
             head.setScale(1.5);
@@ -198,7 +198,7 @@ var CharacterView = cc.Node.extend({
 
         leftData = new Array(10);
         for(i=0; i<10; i++){
-            var left = cc.Sprite.createWithSpriteFrameName("crystals/2.png");
+            var left = cc.Sprite.create("frame#crystals/2.png");
             left.setPosition(10, i * 5 - 20);
             left.setRotation(90);
             this.addChild(left);
