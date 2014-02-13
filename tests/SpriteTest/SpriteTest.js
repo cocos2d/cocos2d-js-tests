@@ -2821,12 +2821,12 @@ var SpriteAnimationSplit = SpriteTestDemo.extend({
         var texture = cc.TextureCache.getInstance().addImage(s_dragon_animation);
 
         // manually add frames to the frame cache
-        var frame0 = cc.SpriteFrame.createWithTexture(texture, cc.rect(132 * 0, 132 * 0, 132, 132));
-        var frame1 = cc.SpriteFrame.createWithTexture(texture, cc.rect(132 * 1, 132 * 0, 132, 132));
-        var frame2 = cc.SpriteFrame.createWithTexture(texture, cc.rect(132 * 2, 132 * 0, 132, 132));
-        var frame3 = cc.SpriteFrame.createWithTexture(texture, cc.rect(132 * 3, 132 * 0, 132, 132));
-        var frame4 = cc.SpriteFrame.createWithTexture(texture, cc.rect(132 * 0, 132 * 1, 132, 132));
-        var frame5 = cc.SpriteFrame.createWithTexture(texture, cc.rect(132 * 1, 132 * 1, 132, 132));
+        var frame0 = cc.SpriteFrame.create(texture, cc.rect(132 * 0, 132 * 0, 132, 132));
+        var frame1 = cc.SpriteFrame.create(texture, cc.rect(132 * 1, 132 * 0, 132, 132));
+        var frame2 = cc.SpriteFrame.create(texture, cc.rect(132 * 2, 132 * 0, 132, 132));
+        var frame3 = cc.SpriteFrame.create(texture, cc.rect(132 * 3, 132 * 0, 132, 132));
+        var frame4 = cc.SpriteFrame.create(texture, cc.rect(132 * 0, 132 * 1, 132, 132));
+        var frame5 = cc.SpriteFrame.create(texture, cc.rect(132 * 1, 132 * 1, 132, 132));
 
         //
         // Animation using Sprite BatchNode
