@@ -171,7 +171,7 @@ var ParticleMainScene = cc.Scene.extend({
         //var texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
         //cc.TextureCache.getInstance().removeTexture(texture);
 
-        var particleSystem = cc.ParticleSystem.createWithTotalParticles(this._quantityParticles);
+        var particleSystem = cc.ParticleSystem.create(this._quantityParticles);
 
         switch (this._subtestNumber) {
             case 1:
