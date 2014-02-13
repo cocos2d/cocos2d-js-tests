@@ -655,7 +655,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createWheel : function( pos ) {
-        var sprite = cc.PhysicsSprite.createWithSpriteFrameName("Wheel.png");
+        var sprite = cc.PhysicsSprite.create("frame#Wheel.png");
         var radius = 0.95 * sprite.getContentSize().width / 2;
 
         var body = new cp.Body(WHEEL_MASS, cp.momentForCircle(WHEEL_MASS, 0, radius, cp.vzero ) );
@@ -676,7 +676,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createChassis : function(pos) {
-        var sprite = cc.PhysicsSprite.createWithSpriteFrameName("Chassis.png");
+        var sprite = cc.PhysicsSprite.create("frame#Chassis.png");
         var anchor = cp.v.add( sprite.getAnchorPointInPoints(), COG_ADJUSTMENT );
         var cs = sprite.getContentSize();
         sprite.setAnchorPoint(anchor.x / cs.width, anchor.y/cs.height);
@@ -723,7 +723,7 @@ var GameLayer = cc.LayerGradient.extend({
     createCarFruits : function(pos) {
         // create some fruits
         for(var i=0; i < 4;i++) {
-            var sprite = cc.PhysicsSprite.createWithSpriteFrameName("watermelon.png");
+            var sprite = cc.PhysicsSprite.create("frame#watermelon.png");
             var radius = 0.95 * sprite.getContentSize().width / 2 * 0.85;
             sprite.setScale(0.85);
 
@@ -743,7 +743,7 @@ var GameLayer = cc.LayerGradient.extend({
 
     createCoin: function( pos ) {
         // coins are static bodies and sensors
-        var sprite = cc.PhysicsSprite.createWithSpriteFrameName("coin01.png");
+        var sprite = cc.PhysicsSprite.create("frame#coin01.png");
         var radius = 0.95 * sprite.getContentSize().width / 2;
 
         var body = new cp.StaticBody();
@@ -773,7 +773,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createFinish:function( pos ) {
-        var sprite = cc.PhysicsSprite.createWithSpriteFrameName("farmers-market.png");
+        var sprite = cc.PhysicsSprite.create("frame#farmers-market.png");
         var cs = sprite.getContentSize();
         var body = new cp.StaticBody();
         sprite.setBody( body );
