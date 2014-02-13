@@ -1221,7 +1221,7 @@ var ParticleBatchTest = ParticleDemo.extend({
         emitter2.setPosition(winSize.width / 2, winSize.height / 2);
         emitter3.setPosition(winSize.width / 4, winSize.height / 4);
 
-        var batch = cc.ParticleBatchNode.createWithTexture(emitter1.getTexture());
+        var batch = cc.ParticleBatchNode.create(emitter1.getTexture());
 
         batch.addChild(emitter1);
         batch.addChild(emitter2);
