@@ -54,13 +54,13 @@ var GameLayer = cc.Layer.extend({
 
             // OpaqueBatch
             var texOpaque = cc.TextureCache.getInstance().addImage(res.textureOpaquePack_png);
-            this._texOpaqueBatch = cc.SpriteBatchNode.createWithTexture(texOpaque);
+            this._texOpaqueBatch = cc.SpriteBatchNode.create(texOpaque);
             this._texOpaqueBatch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._texOpaqueBatch);
 
             // TransparentBatch
             var texTransparent = cc.TextureCache.getInstance().addImage(res.textureTransparentPack_png);
-            this._texTransparentBatch = cc.SpriteBatchNode.createWithTexture(texTransparent);
+            this._texTransparentBatch = cc.SpriteBatchNode.create(texTransparent);
             this.addChild(this._texTransparentBatch);
 
             winSize = cc.Director.getInstance().getWinSize();
@@ -94,7 +94,7 @@ var GameLayer = cc.Layer.extend({
             // explosion batch node
             cc.SpriteFrameCache.getInstance().addSpriteFrames(res.explosion_plist);
             var explosionTexture = cc.TextureCache.getInstance().addImage(res.explosion_png);
-            this._explosions = cc.SpriteBatchNode.createWithTexture(explosionTexture);
+            this._explosions = cc.SpriteBatchNode.create(explosionTexture);
             this._explosions.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._explosions);
             Explosion.sharedExplosion();
