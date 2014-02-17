@@ -1507,7 +1507,7 @@ var TMXOrthoFromXMLTest = TileDemo.extend({
         var resources = s_resprefix + "TileMaps";
         var filePath = s_resprefix + "TileMaps/orthogonal-test1.tmx";
         var xmlStr = cc.FileUtils.getInstance().getStringFromFile(filePath);
-        var map = cc.TMXTiledMap.createWithXML(xmlStr, resources);
+        var map = cc.TMXTiledMap.create(xmlStr, resources);
         this.addChild(map, 0, TAG_TILE_MAP);
 
         var s = map.getContentSize();
