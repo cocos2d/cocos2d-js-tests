@@ -996,7 +996,7 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
         var blueColor = cc.c3b(0, 0, 255);
 
         // shadow offset
-        var shadowOffset = cc.size(12, -12);
+        var shadowOffset = cc.p(12, -12);
 
         // positioning stuff
         var posX = s.width / 2 - (blockSize.width / 2);
@@ -1048,7 +1048,7 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
         fontDefRedStrokeShadow.strokeColor = redColor;
         // shadow
         fontDefRedStrokeShadow.shadowEnabled = true;
-        fontDefRedStrokeShadow.shadowOffset = cc.size(-12,12);   //shadowOffset;
+        fontDefRedStrokeShadow.shadowOffset = cc.p(-12,12);   //shadowOffset;
 
         this._labelStrokeShadow = cc.LabelTTF.createWithFontDefinition("Stroke + Shadow\n New Line", fontDefRedStrokeShadow);
         this._labelStrokeShadow.setAnchorPoint(0, 0);
