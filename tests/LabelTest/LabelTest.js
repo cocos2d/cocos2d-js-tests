@@ -754,7 +754,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         var label1 = cc.LabelBMFont.create("Multi line\n\nAligned to the left", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label1.setAnchorPoint(0, 0);
         label1.setAlignment(cc.TEXT_ALIGNMENT_LEFT);
-        label1.setWidth(400);
+        label1.setBoundingWidth(400);
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
         s = label1.getContentSize();
         cc.log("content size:" + s.width + "," + s.height);
@@ -764,7 +764,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         var label2 = cc.LabelBMFont.create("Error\n\nSome error message", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label2.setAnchorPoint(0.5, 0.5);
         label2.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
-        label2.setWidth(290);
+        label2.setBoundingWidth(290);
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
         s = label2.getContentSize();
         cc.log("content size:" + s.width + "," + s.height);
@@ -773,7 +773,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         var label3 = cc.LabelBMFont.create("Multi line\n\nAligned to the right", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label3.setAnchorPoint(1, 1);
         label3.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
-        label3.setWidth(400);
+        label3.setBoundingWidth(400);
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
 
         s = label3.getContentSize();
@@ -1442,7 +1442,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
 
         var labelWidth = Math.abs(this.arrowsShouldRetain.getPosition().x - this.labelShouldRetain.getPosition().x) * 2;
 
-        this.labelShouldRetain.setWidth(labelWidth);
+        this.labelShouldRetain.setBoundingWidth(labelWidth);
     },
 
     onMouseDown:function (touch) {
@@ -1460,7 +1460,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
             this.arrowsShouldRetain.getPosition().y);
 
         var labelWidth = Math.abs(this.arrowsShouldRetain.getPosition().x - this.labelShouldRetain.getPosition().x) * 2;
-        this.labelShouldRetain.setWidth(labelWidth);
+        this.labelShouldRetain.setBoundingWidth(labelWidth);
     },
     onMouseUp:function (touch) {
         //this.snapArrowsToEdge();
