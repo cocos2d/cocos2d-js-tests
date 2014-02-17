@@ -67,19 +67,19 @@ var SpriteTestDemo = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new SpriteTestScene();
         s.addChild(restartSpriteTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onNextCallback:function (sender) {
         var s = new SpriteTestScene();
         s.addChild(nextSpriteTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onBackCallback:function (sender) {
         var s = new SpriteTestScene();
         s.addChild(previousSpriteTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     // automation
@@ -4832,7 +4832,7 @@ var SpriteTestScene = TestScene.extend({
         var layer = nextSpriteTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

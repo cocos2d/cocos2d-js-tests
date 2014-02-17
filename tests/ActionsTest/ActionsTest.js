@@ -38,7 +38,7 @@ var ActionsTestScene = TestScene.extend({
     runThisTest:function () {
         actionsTestIdx = -1;
         this.addChild(nextActionsTest());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 
@@ -115,17 +115,17 @@ var ActionsDemo = BaseTestLayer.extend({
     onBackCallback:function (sender) {
         var s = new ActionsTestScene();
         s.addChild(previousActionsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onRestartCallback:function (sender) {
         var s = new ActionsTestScene();
         s.addChild(restartActionsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new ActionsTestScene();
         s.addChild(nextActionsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     numberOfPendingTests:function() {
         return ( (arrayOfActionsTest.length-1) - actionsTestIdx );

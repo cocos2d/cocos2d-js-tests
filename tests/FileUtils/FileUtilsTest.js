@@ -41,17 +41,17 @@ var FileUtilsBase = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new FileUtilsTestScene();
         s.addChild(restartFileUtilsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new FileUtilsTestScene();
         s.addChild(nextFileUtilsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new FileUtilsTestScene();
         s.addChild(previousFileUtilsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     // automation
@@ -122,7 +122,7 @@ var FileUtilsTestScene = TestScene.extend({
         var layer = nextFileUtilsTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

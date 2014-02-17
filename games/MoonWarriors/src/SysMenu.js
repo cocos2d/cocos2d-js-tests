@@ -67,20 +67,20 @@ var SysMenu = cc.Layer.extend({
             var scene = cc.Scene.create();
             scene.addChild(GameLayer.create());
             scene.addChild(GameControlMenu.create());
-            cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+            cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
         }, this);
     },
     onSettings:function (pSender) {
         this.onButtonEffect();
         var scene = cc.Scene.create();
         scene.addChild(SettingsLayer.create());
-        cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
     },
     onAbout:function (pSender) {
         this.onButtonEffect();
         var scene = cc.Scene.create();
         scene.addChild(AboutLayer.create());
-        cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
     },
     update:function () {
         if (this._ship.getPosition().y > 480) {

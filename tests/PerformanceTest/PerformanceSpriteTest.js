@@ -273,7 +273,7 @@ var SpriteMenuLayer = PerformBasicLayer.extend({
 
         if (scene) {
             scene.initWithSubTest(subTest, nodes);
-            cc.Director.getInstance().replaceScene(scene);
+            cc.Director.getInstance().runScene(scene);
         }
     }
 });
@@ -584,5 +584,5 @@ function runSpriteTest() {
 
     var scene = new SpritePerformTest1;
     scene.initWithSubTest(1, 50);
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 }

@@ -45,7 +45,7 @@ var LabelTestScene = TestScene.extend({
     runThisTest:function () {
         labelTestIdx = -1;
         this.addChild(nextLabelTest());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 
@@ -60,19 +60,19 @@ var AtlasDemo = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new LabelTestScene();
         s.addChild(restartLabelTest());
-        director.replaceScene(s);
+        director.runScene(s);
 
     },
     onNextCallback:function (sender) {
         var s = new LabelTestScene();
         s.addChild(nextLabelTest());
-        director.replaceScene(s);
+        director.runScene(s);
 
     },
     onBackCallback:function (sender) {
         var s = new LabelTestScene();
         s.addChild(previousLabelTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     // automation

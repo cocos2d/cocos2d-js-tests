@@ -988,7 +988,7 @@ GameScene.prototype.onAnimationComplete = function()
 	if (gIsGameOver)
 	{
 		var scene = cc.BuilderReader.loadAsScene("MainScene.ccbi");
-		cc.Director.getInstance().replaceScene(scene);
+		cc.Director.getInstance().runScene(scene);
     }
 };
 

@@ -73,7 +73,7 @@ MainScene.prototype.onAnimationComplete = function()
 	if (this.menuSelection == kMenuSelectionPlay)
 	{
 		var scene = cc.BuilderReader.loadAsScene("GameScene.ccbi");
-		cc.Director.getInstance().replaceScene(scene);
+		cc.Director.getInstance().runScene(scene);
 		gAudioEngine.stopMusic();
     }
 };

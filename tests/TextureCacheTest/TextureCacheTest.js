@@ -146,6 +146,6 @@ var TextureCacheTestScene = TestScene.extend({
     runThisTest:function () {
         var layer = new TextureCacheTest();
         this.addChild(layer);
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     }
 });

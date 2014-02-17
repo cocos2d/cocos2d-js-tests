@@ -246,5 +246,5 @@ var runWebSocketTest = function () {
     var pScene = cc.Scene.create();
     var pLayer = WebSocketTestLayer.create();
     pScene.addChild(pLayer);
-    cc.Director.getInstance().replaceScene(pScene);
+    cc.Director.getInstance().runScene(pScene);
 };

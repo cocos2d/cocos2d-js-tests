@@ -98,21 +98,21 @@ ChipmunkBaseLayer.prototype.onRestartCallback = function (sender) {
 	this.onCleanup();
     var s = new ChipmunkTestScene();
     s.addChild(restartChipmunkTest());
-    director.replaceScene(s);
+    director.runScene(s);
 };
 
 ChipmunkBaseLayer.prototype.onNextCallback = function (sender) {
 	this.onCleanup();
     var s = new ChipmunkTestScene();
     s.addChild(nextChipmunkTest());
-    director.replaceScene(s);
+    director.runScene(s);
 };
 
 ChipmunkBaseLayer.prototype.onBackCallback = function (sender) {
 	this.onCleanup();
     var s = new ChipmunkTestScene();
     s.addChild(previousChipmunkTest());
-    director.replaceScene(s);
+    director.runScene(s);
 };
 
 // automation
@@ -1455,7 +1455,7 @@ ChipmunkTestScene.prototype.runThisTest = function () {
     chipmunkTestSceneIdx = -1;
     var layer = nextChipmunkTest();
     this.addChild(layer);
-    director.replaceScene(this);
+    director.runScene(this);
 };
 
 //

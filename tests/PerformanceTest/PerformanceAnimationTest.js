@@ -41,7 +41,7 @@ var AnimationMenuLayer = PerformBasicLayer.extend({
         s_nAnimationCurCase = this._curCase;
 
         if (scene) {
-            cc.Director.getInstance().replaceScene(scene);
+            cc.Director.getInstance().runScene(scene);
         }
     },
 
@@ -226,5 +226,5 @@ AnimationTest.scene = function () {
 function runAnimationTest() {
     s_nAnimationCurCase = 0;
     var scene = AnimationTest.scene();
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 }

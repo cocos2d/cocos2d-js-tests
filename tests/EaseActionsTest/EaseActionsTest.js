@@ -37,7 +37,7 @@ var EaseActionsTestScene = TestScene.extend({
     runThisTest:function () {
         easeActionsTestIdx = -1;
         this.addChild(nextEaseActionsTest());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 
@@ -77,17 +77,17 @@ var EaseSpriteDemo = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new EaseActionsTestScene();//cc.Scene.create();
         s.addChild(restartEaseActionsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new EaseActionsTestScene();//cc.Scene.create();
         s.addChild(nextEaseActionsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new EaseActionsTestScene();//cc.Scene.create();
         s.addChild(previousEaseActionsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     positionForTwo:function () {
         this.twoSprites = true;

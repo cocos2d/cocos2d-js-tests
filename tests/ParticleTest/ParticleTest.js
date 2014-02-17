@@ -32,7 +32,7 @@ var ParticleTestScene = TestScene.extend({
         particleSceneIdx = -1;
 
         this.addChild(nextParticleAction());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 
@@ -313,12 +313,12 @@ var ParticleDemo = BaseTestLayer.extend({
     onNextCallback:function (sender) {
         var s = new ParticleTestScene();
         s.addChild(nextParticleAction());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new ParticleTestScene();
         s.addChild(backParticleAction());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     toggleCallback:function (sender) {
         if (this._emitter.getPositionType() == cc.PARTICLE_TYPE_GROUPED)

@@ -217,7 +217,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
             var scene = cc.Scene.create();
             var layer = new TestController();
             scene.addChild(layer);
-            director.replaceScene(scene);
+            director.runScene(scene);
         } else
             try {
                 this.onNextCallback(this);

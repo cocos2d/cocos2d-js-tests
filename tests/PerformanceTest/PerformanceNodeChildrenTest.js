@@ -57,7 +57,7 @@ var NodeChildrenMenuLayer = PerformBasicLayer.extend({
 
         if (scene) {
             scene.initWithQuantityOfNodes(nodes);
-            cc.Director.getInstance().replaceScene(scene);
+            cc.Director.getInstance().runScene(scene);
         }
     }
 });
@@ -514,5 +514,5 @@ var ReorderSpriteSheet = AddRemoveSpriteSheet.extend({
 function runNodeChildrenTest() {
     var scene = new IterateSpriteSheetCArray();
     scene.initWithQuantityOfNodes(NODES_INCREASE);
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 }

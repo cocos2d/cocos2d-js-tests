@@ -40,18 +40,18 @@ var EffecstsBaseLayer = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new EffectsTestScene();
         s.addChild(restartEffectsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new EffectsTestScene();
         s.addChild(nextEffectsTest());
-        //director.replaceScene(cc.TransitionZoomFlipX.create(5, s));
-        director.replaceScene(s);
+        //director.runScene(cc.TransitionZoomFlipX.create(5, s));
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new EffectsTestScene();
         s.addChild(previousEffectsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onEnter:function () {
        this._super();
@@ -423,7 +423,7 @@ var EffectsTestScene = TestScene.extend({
         var layer = nextEffectsTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

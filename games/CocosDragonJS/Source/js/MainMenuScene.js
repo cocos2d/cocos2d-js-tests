@@ -73,7 +73,7 @@ MainMenuScene.prototype.onDidLoadFromCCB = function () {
 
 MainMenuScene.prototype.onPressedPlay = function () {
     var scene = cc.BuilderReader.loadAsScene("GameScene.ccbi");
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 };
 
 MainMenuScene.prototype.onPressedMusic = function () {

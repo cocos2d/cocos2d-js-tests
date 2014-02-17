@@ -60,7 +60,7 @@ var SettingsLayer = cc.Layer.extend({
     onBackCallback:function (pSender) {
         var scene = cc.Scene.create();
         scene.addChild(SysMenu.create());
-        cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
     },
     onSoundControl:function(){
         MW.SOUND = !MW.SOUND;

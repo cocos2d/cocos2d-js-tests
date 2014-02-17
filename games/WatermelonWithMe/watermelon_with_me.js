@@ -276,7 +276,7 @@ var GameLayer = cc.LayerGradient.extend({
         // reset scores / time
         var layer = new GameLayer( new GameState(this._game_state.level));
         scene.addChild(layer);
-        director.replaceScene(cc.TransitionFade.create(0.5, scene));
+        director.runScene(cc.TransitionFade.create(0.5, scene));
         this._game_state.state = STATE_PAUSE;
     },
 
@@ -293,13 +293,13 @@ var GameLayer = cc.LayerGradient.extend({
         this._game_state.time = 0;
         var layer = new GameLayer(this._game_state);
         scene.addChild(layer);
-        director.replaceScene(cc.TransitionFade.create(0.5, scene));
+        director.runScene(cc.TransitionFade.create(0.5, scene));
         this._game_state.state = STATE_PAUSE;
     },
 
     onMainMenu:function (sender) {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-        director.replaceScene(cc.TransitionFade.create(0.5, scene));
+        director.runScene(cc.TransitionFade.create(0.5, scene));
     },
 
     onToggleDebug:function (sender) {
@@ -941,7 +941,7 @@ var BootLayer = cc.Layer.extend({
 
     onEnter:function () {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-        director.replaceScene( scene );
+        director.runScene( scene );
     }
 });
 //
@@ -970,26 +970,26 @@ MenuLayerController.prototype.onPlay = function () {
     var scene = cc.Scene.create();
     var layer = new GameLayer( new GameState() );
     scene.addChild(layer);
-    director.replaceScene(cc.TransitionFade.create(0.5, scene));
+    director.runScene(cc.TransitionFade.create(0.5, scene));
 };
 
 MenuLayerController.prototype.onOptions = function () {
     var scene = cc.Scene.create();
     var layer = new OptionsLayer();
     scene.addChild(layer);
-    director.replaceScene(cc.TransitionFlipY.create(0.5, scene));
+    director.runScene(cc.TransitionFlipY.create(0.5, scene));
 };
 
 MenuLayerController.prototype.onScores = function () {
     var scene = cc.Scene.create();
     var layer = new ScoresLayer();
     scene.addChild(layer);
-    director.replaceScene( cc.TransitionFade.create(0.5, scene));
+    director.runScene( cc.TransitionFade.create(0.5, scene));
 };
 
 MenuLayerController.prototype.onAbout = function () {
     var scene = cc.BuilderReader.loadAsScene(s_About);
-    director.replaceScene(cc.TransitionZoomFlipY.create(0.5, scene));
+    director.runScene(cc.TransitionZoomFlipY.create(0.5, scene));
 };
 
 
@@ -1022,7 +1022,7 @@ var OptionsLayer = cc.LayerGradient.extend({
 
     onBack:function (sender) {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-        director.replaceScene( cc.TransitionFade.create(0.5, scene));
+        director.runScene( cc.TransitionFade.create(0.5, scene));
     },
 
     onMusicToggle:function (sender) {
@@ -1088,7 +1088,7 @@ var ScoresLayer = cc.LayerGradient.extend({
 
     onBack:function (sender) {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-        director.replaceScene( cc.TransitionFade.create(0.5, scene));
+        director.runScene( cc.TransitionFade.create(0.5, scene));
     }
 
 });
@@ -1111,7 +1111,7 @@ AboutLayerController.prototype.onDidLoadFromCCB = function () {
 
 AboutLayerController.prototype.onBack = function () {
     var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-    director.replaceScene(cc.TransitionFade.create(0.5, scene));
+    director.runScene(cc.TransitionFade.create(0.5, scene));
 };
 
 
@@ -1185,9 +1185,9 @@ if (sys.platform !== "browser") {
 
         var runningScene = director.getRunningScene();
         if (runningScene === null)
-            director.runWithScene(scene);
+            director.runScene(scene);
         else
-            director.replaceScene(cc.TransitionFade.create(0.5, scene));
+            director.runScene(cc.TransitionFade.create(0.5, scene));
     }
 
     run();

@@ -52,17 +52,17 @@ var ActionManagerTest = BaseTestLayer.extend({
     onBackCallback:function (sender) {
         var s = new ActionManagerTestScene();
         s.addChild(previousActionMgrTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onRestartCallback:function (sender) {
         var s = new ActionManagerTestScene();
         s.addChild(restartActionMgrTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new ActionManagerTestScene();
         s.addChild(nextActionMgrTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     // automation
     numberOfPendingTests:function() {
@@ -359,7 +359,7 @@ var ActionManagerTestScene = TestScene.extend({
     runThisTest:function () {
         ActionMgrTestIdx = -1;
         this.addChild(nextActionMgrTest());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

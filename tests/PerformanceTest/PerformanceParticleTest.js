@@ -62,7 +62,7 @@ var ParticleMenuLayer = PerformBasicLayer.extend({
         s_nParCurIdx = this._curCase;
         if (newScene) {
             newScene.initWithSubTest(subTest, parNum);
-            cc.Director.getInstance().replaceScene(newScene);
+            cc.Director.getInstance().runScene(newScene);
         }
     }
 });
@@ -513,5 +513,5 @@ var ParticlePerformTest4 = ParticleMainScene.extend({
 function runParticleTest() {
     var scene = new ParticlePerformTest1;
     scene.initWithSubTest(1, PARTICLE_NODES_INCREASE);
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 }

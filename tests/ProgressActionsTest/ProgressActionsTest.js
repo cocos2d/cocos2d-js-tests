@@ -38,19 +38,19 @@ var SpriteDemo = BaseTestLayer.extend({
     onBackCallback:function (sender) {
         var scene = new ProgressActionsTestScene();
         scene.addChild(previousProgressTest());
-        director.replaceScene(scene);
+        director.runScene(scene);
     },
 
     onRestartCallback:function (sender) {
         var scene = new ProgressActionsTestScene();
         scene.addChild(restartProgressTest());
-        director.replaceScene(scene);
+        director.runScene(scene);
     },
 
     onNextCallback:function (sender) {
         var scene = new ProgressActionsTestScene();
         scene.addChild(nextProgressTest());
-        director.replaceScene(scene);
+        director.runScene(scene);
     },
     // automation
     numberOfPendingTests:function() {
@@ -339,7 +339,7 @@ var ProgressActionsTestScene = TestScene.extend({
     runThisTest:function () {
         ProgressTestSceneIdx = -1;
         this.addChild(nextProgressTest());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

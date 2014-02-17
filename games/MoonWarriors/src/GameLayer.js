@@ -311,7 +311,7 @@ var GameLayer = cc.Layer.extend({
     onGameOver:function () {
         var scene = cc.Scene.create();
         scene.addChild(GameOver.create());
-        cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
     }
 });
 

@@ -44,17 +44,17 @@ var BaseClippingNodeTest = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new ClippingNodeTestScene();
         s.addChild(restartClippingNodeTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new ClippingNodeTestScene();
         s.addChild(nextClippingNodeTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new ClippingNodeTestScene();
         s.addChild(previousClippingNodeTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     // automation
     numberOfPendingTests:function() {
@@ -708,6 +708,6 @@ var ClippingNodeTestScene = TestScene.extend({
         clippingNodeTestSceneIdx = -1;
         var layer = nextClippingNodeTest();
         this.addChild(layer);
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     }
 });

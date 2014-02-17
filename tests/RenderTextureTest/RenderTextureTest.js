@@ -46,17 +46,17 @@ var RenderTextureBaseLayer = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new RenderTextureTestScene();
         s.addChild(restartRenderTextureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new RenderTextureTestScene();
         s.addChild(nextRenderTextureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new RenderTextureTestScene();
         s.addChild(previousRenderTextureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     // automation
@@ -601,7 +601,7 @@ var RenderTextureTestScene = TestScene.extend({
         var layer = nextRenderTextureTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

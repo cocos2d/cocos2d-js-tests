@@ -45,17 +45,17 @@ var TestNodeDemo = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new NodeTestScene();
         s.addChild(restartNodeTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new NodeTestScene();
         s.addChild(nextNodeTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new NodeTestScene();
         s.addChild(previousNodeTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     // automation
     numberOfPendingTests:function () {
@@ -904,7 +904,7 @@ var NodeTestScene = TestScene.extend({
         var layer = nextNodeTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

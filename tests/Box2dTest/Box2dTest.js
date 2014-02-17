@@ -179,6 +179,6 @@ Box2DTestScene = TestScene.extend({
         var layer = new Box2DTestLayer();
         this.addChild(layer);
 
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     }
 });

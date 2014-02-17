@@ -31,7 +31,7 @@ var ArmatureTestScene = TestScene.extend({
     runThisTest:function () {
         armatureSceneIdx = -1;
         this.addChild(nextArmatureTest());
-        director.replaceScene(this);
+        director.runScene(this);
     },
     onMainMenuCallback:function(){
         this.removeAllChildren();
@@ -135,19 +135,19 @@ var ArmatureTestLayer = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new ArmatureTestScene();
         s.addChild(restartArmatureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onNextCallback:function (sender) {
         var s = new ArmatureTestScene();
         s.addChild(nextArmatureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onBackCallback:function (sender) {
         var s = new ArmatureTestScene();
         s.addChild(backArmatureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     }
 });
 

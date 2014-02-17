@@ -33,7 +33,7 @@ var LayerTestScene = TestScene.extend({
     runThisTest:function () {
         layerTestSceneIdx = -1;
         this.addChild(nextLayerTest());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 
@@ -56,19 +56,19 @@ var LayerTest = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new LayerTestScene();
         s.addChild(restartLayerTest());
-        director.replaceScene(s);
+        director.runScene(s);
 
     },
     onNextCallback:function (sender) {
         var s = new LayerTestScene();
         s.addChild(nextLayerTest());
-        director.replaceScene(s);
+        director.runScene(s);
 
     },
     onBackCallback:function (sender) {
         var s = new LayerTestScene();
         s.addChild(previousLayerTest());
-        director.replaceScene(s);
+        director.runScene(s);
 
     },
     // automation

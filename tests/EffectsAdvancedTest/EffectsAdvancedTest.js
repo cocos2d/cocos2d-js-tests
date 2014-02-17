@@ -117,19 +117,19 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
     restartCallback:function (sender) {
         var scene = new EffectAdvanceScene();
         scene.addChild(restartEffectAdvanceAction());
-        cc.Director.getInstance().replaceScene(scene);
+        cc.Director.getInstance().runScene(scene);
     },
 
     nextCallback:function (sender) {
         var scene = new EffectAdvanceScene();
         scene.addChild(nextEffectAdvanceAction());
-        cc.Director.getInstance().replaceScene(scene);
+        cc.Director.getInstance().runScene(scene);
     },
 
     backCallback:function (sender) {
         var scene = new EffectAdvanceScene();
         scene.addChild(backEffectAdvanceAction());
-        cc.Director.getInstance().replaceScene(scene);
+        cc.Director.getInstance().runScene(scene);
     }
 });
 
@@ -372,7 +372,7 @@ var EffectAdvanceScene = TestScene.extend({
         sceneIndex = -1;
         var pLayer = nextEffectAdvanceAction();
         this.addChild(pLayer);
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     }
 });
 
