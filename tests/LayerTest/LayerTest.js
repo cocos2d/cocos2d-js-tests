@@ -311,13 +311,13 @@ var LayerTest2 = LayerTest.extend({
         var actionFade = cc.FadeOut.create(2.0);
         var actionFadeBack = actionFade.reverse();
 
-        if(autoTestEnabled) {
-	    var seq1 = cc.Sequence.create(actionTint, cc.DelayTime.create(0.25), actionTintBack);
-	    var seq2 = cc.Sequence.create(actionFade, cc.DelayTime.create(0.25), actionFadeBack);
-	} else {
-	    var seq1 = cc.Sequence.create(actionTint, actionTintBack);
-	    var seq2 = cc.Sequence.create(actionFade, actionFadeBack);
-	}
+        if (autoTestEnabled) {
+            var seq1 = cc.Sequence.create(actionTint, cc.DelayTime.create(0.25), actionTintBack);
+            var seq2 = cc.Sequence.create(actionFade, cc.DelayTime.create(0.25), actionFadeBack);
+        } else {
+            var seq1 = cc.Sequence.create(actionTint, actionTintBack);
+            var seq2 = cc.Sequence.create(actionFade, actionFadeBack);
+        }
 
         layer1.runAction(seq1);
         layer2.runAction(seq2);
@@ -333,32 +333,29 @@ var LayerTest2 = LayerTest.extend({
     testDuration: 2.1,
     tintTest: {"r": 0, "g": 128, "b": 60},
     getExpectedResult:function() {
-        
-        var s = director.getWinSize();
         var ret = {"tint": "yes", "opacity": 0};
         return JSON.stringify(ret);
     },
 
     getCurrentResult:function() {
-
         var abs = function (a) {
-	    return (a > 0) ? a: a*-1;
-	};
+            return (a > 0) ? a : a * -1;
+        };
 
-	var inColorRange = function (pix1, pix2) {
-	    // Color on iOS comes as 0,128,128 and on web as 0,128,0
-	    if(abs(pix1.r - pix2.r) < 50 && abs(pix1.g - pix2.g) < 50 && 
-	       abs(pix1.b - pix2.b) < 90) {
-		return true;
-	    }
-	    return false;
-	};
-    var s = director.getWinSize();
-	var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).getColor();
-	var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).getOpacity();
+        var inColorRange = function (pix1, pix2) {
+            // Color on iOS comes as 0,128,128 and on web as 0,128,0
+            if (abs(pix1.r - pix2.r) < 50 && abs(pix1.g - pix2.g) < 50 &&
+                abs(pix1.b - pix2.b) < 90) {
+                return true;
+            }
+            return false;
+        };
+        var s = director.getWinSize();
+        var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).getColor();
+        var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).getOpacity();
         var ret = {"tint": inColorRange(tint, this.tintTest) ? "yes" : "no",
-		   "opacity": op};
-	
+            "opacity": op};
+
         return JSON.stringify(ret);
     }
 });

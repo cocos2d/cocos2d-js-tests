@@ -84,6 +84,7 @@
             'LabelTest/LabelTest.js',
             'CurrentLanguageTest/CurrentLanguageTest.js',
             'TextInputTest/TextInputTest.js',
+            'NewEventDispatcherTest/NewEventDispatcherTest.js',
             'EventTest/EventTest.js',
             'UnitTest/UnitTest.js',
             'SysTest/SysTest.js',

@@ -302,6 +302,9 @@ var TMXOrthoTest4 = TileDemo.extend({
         var layer = map.getLayer("Layer 0");
         var s = layer.getLayerSize();
 
+        this.tx = s.width - 10;
+        this.ty = s.height - 1;
+
         var sprite;
         sprite = layer.getTileAt(cc.p(0, 0));
         sprite.setScale(2);
@@ -315,8 +318,7 @@ var TMXOrthoTest4 = TileDemo.extend({
         sprite = layer.getTileAt(cc.p(s.width - 1, s.height - 1));
         sprite.setScale(2);
 
-        this.scheduleOnce(this.onRemoveSprite, 2);
-
+        this.schedule(this.onRemoveSprite, 0.2);
     },
     onRemoveSprite:function (dt) {
         var map = this.getChildByTag(TAG_TILE_MAP);
@@ -349,6 +351,7 @@ var TMXOrthoTest4 = TileDemo.extend({
         return JSON.stringify(ret);
     }
 });
+
 
 //------------------------------------------------------------------
 //
