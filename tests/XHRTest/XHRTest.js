@@ -32,7 +32,7 @@ var XHRTestScene = TestScene.extend({
         this.addChild(xhrLayer);
     },
     runThisTest:function () {
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     },
     MainMenuCallback:function (sender) {
         this._super(sender);
@@ -140,5 +140,5 @@ var runXHRTest = function () {
     var pScene = cc.Scene.create();
     var pLayer = XHRTestLayer.create();
     pScene.addChild(pLayer);
-    cc.Director.getInstance().replaceScene(pScene);
+    cc.Director.getInstance().runScene(pScene);
 };

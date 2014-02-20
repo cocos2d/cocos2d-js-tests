@@ -31,7 +31,7 @@ var ArmatureTestScene = TestScene.extend({
     runThisTest:function () {
         armatureSceneIdx = -1;
         this.addChild(nextArmatureTest());
-        director.replaceScene(this);
+        director.runScene(this);
     },
     onMainMenuCallback:function(){
         this.removeAllChildren();
@@ -135,19 +135,19 @@ var ArmatureTestLayer = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new ArmatureTestScene();
         s.addChild(restartArmatureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onNextCallback:function (sender) {
         var s = new ArmatureTestScene();
         s.addChild(nextArmatureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onBackCallback:function (sender) {
         var s = new ArmatureTestScene();
         s.addChild(backArmatureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     }
 });
 
@@ -646,7 +646,7 @@ var TestColliderDetector = ArmatureTestLayer.extend({
         this.armature2.setPosition(winSize.width - 160, winSize.height / 2);
         this.addChild(this.armature2);
 
-        this.bullet = cc.PhysicsSprite.createWithSpriteFrameName("25.png");
+        this.bullet = cc.PhysicsSprite.create("frame#25.png");
         this.addChild(this.bullet);
 
         this.initWorld();
@@ -782,7 +782,7 @@ var TestCalculatedVertex = ArmatureTestLayer.extend({
         this.armature2.setPosition(winSize.width - 160, winSize.height / 2);
         this.addChild(this.armature2);
 
-        this.bullet = cc.Sprite.createWithSpriteFrameName("25.png");
+        this.bullet = cc.Sprite.create("frame#25.png");
         this.addChild(this.bullet);
 
         this.scheduleUpdate();

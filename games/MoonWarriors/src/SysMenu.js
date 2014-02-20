@@ -51,7 +51,7 @@ var SysMenu = cc.Layer.extend({
 	        menu.y = winSize.height / 2 - 80;
             this.schedule(this.update, 0.1);
 
-            this._ship = cc.Sprite.createWithSpriteFrameName("ship01.png");
+            this._ship = cc.Sprite.create("frame#ship01.png");
             this.addChild(this._ship, 0, 4);
             this._ship.x = Math.random() * winSize.width;
 	        this._ship.y = 0;
@@ -72,20 +72,20 @@ var SysMenu = cc.Layer.extend({
             var scene = cc.Scene.create();
             scene.addChild(GameLayer.create());
             scene.addChild(GameControlMenu.create());
-            cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+            cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
         }, this);
     },
     onSettings:function (pSender) {
         this.onButtonEffect();
         var scene = cc.Scene.create();
         scene.addChild(SettingsLayer.create());
-        cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
     },
     onAbout:function (pSender) {
         this.onButtonEffect();
         var scene = cc.Scene.create();
         scene.addChild(AboutLayer.create());
-        cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
     },
     update:function () {
         if (this._ship.y > 480) {

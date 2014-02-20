@@ -51,17 +51,17 @@ var TextInputTest = cc.Layer.extend({
     restartCallback:function (sender) {
         var scene = new TextInputTestScene();
         scene.addChild(restartTextInputTest());
-        cc.Director.getInstance().replaceScene(scene);
+        cc.Director.getInstance().runScene(scene);
     },
     nextCallback:function (sender) {
         var scene = new TextInputTestScene();
         scene.addChild(nextTextInputTest());
-        cc.Director.getInstance().replaceScene(scene);
+        cc.Director.getInstance().runScene(scene);
     },
     backCallback:function (sender) {
         var scene = new TextInputTestScene();
         scene.addChild(previousTextInputTest());
-        cc.Director.getInstance().replaceScene(scene);
+        cc.Director.getInstance().runScene(scene);
     },
 
     title:function () {
@@ -384,7 +384,7 @@ var TextInputTestScene = TestScene.extend({
         var layer = nextTextInputTest();
 
         this.addChild(layer);
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     }
 });
 

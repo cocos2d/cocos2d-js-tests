@@ -62,7 +62,7 @@ var TestScene = cc.Scene.extend({
         var layer = new TestController();
         scene.addChild(layer);
         var transition = cc.TransitionProgressRadialCCW.create(0.5,scene);
-        director.replaceScene(transition);
+        director.runScene(transition);
     },
 
     runThisTest:function () {

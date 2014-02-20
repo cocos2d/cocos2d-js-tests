@@ -54,13 +54,13 @@ var GameLayer = cc.Layer.extend({
 
             // OpaqueBatch
             var texOpaque = cc.TextureCache.getInstance().addImage(res.textureOpaquePack_png);
-            this._texOpaqueBatch = cc.SpriteBatchNode.createWithTexture(texOpaque);
+            this._texOpaqueBatch = cc.SpriteBatchNode.create(texOpaque);
             this._texOpaqueBatch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._texOpaqueBatch);
 
             // TransparentBatch
             var texTransparent = cc.TextureCache.getInstance().addImage(res.textureTransparentPack_png);
-            this._texTransparentBatch = cc.SpriteBatchNode.createWithTexture(texTransparent);
+            this._texTransparentBatch = cc.SpriteBatchNode.create(texTransparent);
             this.addChild(this._texTransparentBatch);
 
             winSize = cc.Director.getInstance().getWinSize();
@@ -79,7 +79,7 @@ var GameLayer = cc.Layer.extend({
             this.addChild(this.lbScore, 1000);
 
             // ship life
-            var life = cc.Sprite.createWithSpriteFrameName("ship01.png");
+            var life = cc.Sprite.create("frame#ship01.png");
             life.attr({
 	            scale: 0.6,
 	            x: 30,
@@ -101,7 +101,7 @@ var GameLayer = cc.Layer.extend({
             // explosion batch node
             cc.SpriteFrameCache.getInstance().addSpriteFrames(res.explosion_plist);
             var explosionTexture = cc.TextureCache.getInstance().addImage(res.explosion_png);
-            this._explosions = cc.SpriteBatchNode.createWithTexture(explosionTexture);
+            this._explosions = cc.SpriteBatchNode.create(explosionTexture);
             this._explosions.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._explosions);
             Explosion.sharedExplosion();
@@ -165,7 +165,7 @@ var GameLayer = cc.Layer.extend({
             var delta = event.getDelta();
             var curPos = this._ship.getPosition();
             curPos = cc.pAdd(curPos, delta);
-            curPos = cc.pClamp(curPos, cc.POINT_ZERO, cc.p(winSize.width, winSize.height));
+            curPos = cc.pClamp(curPos, cc.p(0, 0), cc.p(winSize.width, winSize.height));
             this._ship.x = curPos.x;
 	        this._ship.y = curPos.y;
 	        curPos = null;
@@ -320,7 +320,7 @@ var GameLayer = cc.Layer.extend({
     onGameOver:function () {
         var scene = cc.Scene.create();
         scene.addChild(GameOver.create());
-        cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
     }
 });
 

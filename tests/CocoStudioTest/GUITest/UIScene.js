@@ -101,7 +101,7 @@ UIScene = cc.Layer.extend({
         if (type == ccs.TouchEventType.ended) {
             this._uiLayer.unscheduleUpdate();
             this._uiLayer.removeFromParent();
-            cc.Director.getInstance().replaceScene(UISceneManager.getInstance().previousUIScene());
+            cc.Director.getInstance().runScene(UISceneManager.getInstance().previousUIScene());
         }
     },
 
@@ -109,7 +109,7 @@ UIScene = cc.Layer.extend({
         if (type == ccs.TouchEventType.ended) {
             this._uiLayer.unscheduleUpdate();
             this._uiLayer.removeFromParent();
-            cc.Director.getInstance().replaceScene(UISceneManager.getInstance().currentUIScene());
+            cc.Director.getInstance().runScene(UISceneManager.getInstance().currentUIScene());
         }
     },
 
@@ -117,7 +117,7 @@ UIScene = cc.Layer.extend({
         if (type == ccs.TouchEventType.ended) {
             this._uiLayer.unscheduleUpdate();
             this._uiLayer.removeFromParent();
-            cc.Director.getInstance().replaceScene(UISceneManager.getInstance().nextUIScene());
+            cc.Director.getInstance().runScene(UISceneManager.getInstance().nextUIScene());
         }
     }
 });

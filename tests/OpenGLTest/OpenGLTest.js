@@ -32,7 +32,7 @@ var OpenGLTestScene = TestScene.extend({
     runThisTest:function () {
         OpenGLTestIdx = -1;
         this.addChild(nextOpenGLTest());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 
@@ -66,17 +66,17 @@ var OpenGLTestLayer = BaseTestLayer.extend({
     onBackCallback:function (sender) {
         var s = new OpenGLTestScene();
         s.addChild(previousOpenGLTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onRestartCallback:function (sender) {
         var s = new OpenGLTestScene();
         s.addChild(restartOpenGLTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new OpenGLTestScene();
         s.addChild(nextOpenGLTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     // automation

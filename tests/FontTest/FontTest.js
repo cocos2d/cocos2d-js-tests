@@ -80,7 +80,7 @@ FontTestScene = TestScene.extend({
         var layer = FontTest.create();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

@@ -84,13 +84,13 @@ var ControlScene = cc.Layer.extend({
     },
 
     previousCallback:function(sender){
-        cc.Director.getInstance().replaceScene(ControlSceneManager.getInstance().previousControlScene());
+        cc.Director.getInstance().runScene(ControlSceneManager.getInstance().previousControlScene());
     },
     restartCallback:function(sender){
-        cc.Director.getInstance().replaceScene(ControlSceneManager.getInstance().currentControlScene());
+        cc.Director.getInstance().runScene(ControlSceneManager.getInstance().currentControlScene());
     },
     nextCallback:function(sender){
-        cc.Director.getInstance().replaceScene(ControlSceneManager.getInstance().nextControlScene());
+        cc.Director.getInstance().runScene(ControlSceneManager.getInstance().nextControlScene());
     }
 });
 

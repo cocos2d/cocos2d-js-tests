@@ -75,7 +75,7 @@ var VirtualMachineTestMenuLayer = PerformBasicLayer.extend({
 
         if (scene) {
             scene.initWithQuantityOfNodes(nodes);
-            cc.Director.getInstance().replaceScene(scene);
+            cc.Director.getInstance().runScene(scene);
         }
     }
 });
@@ -540,5 +540,5 @@ var ClonedSpritesTestScene2 = ClonedSpritesTestScene1.extend({
 function runVirtualMachineTest() {
     var scene = new SpritesWithManyPropertiesTestScene1();
     scene.initWithQuantityOfNodes(VM_NODES_INCREASE);
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 }

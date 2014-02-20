@@ -49,7 +49,7 @@ var TouchesMainScene = PerformBasicLayer.extend({
             var scene = cc.Scene.create();
             scene.addChild(layer);
 
-            cc.Director.getInstance().replaceScene(scene);
+            cc.Director.getInstance().runScene(scene);
         }
     },
     onEnter:function () {
@@ -153,5 +153,5 @@ function runTouchesTest() {
     var scene = cc.Scene.create();
     var layer = new TouchesPerformTest1(true, 2, s_nTouchCurCase);
     scene.addChild(layer);
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 }

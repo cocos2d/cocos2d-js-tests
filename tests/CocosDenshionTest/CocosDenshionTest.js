@@ -220,7 +220,7 @@ var CocosDenshionTestScene = TestScene.extend({
         audioEngine = cc.AudioEngine.getInstance();
         var layer = new CocosDenshionTest();
         this.addChild(layer);
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

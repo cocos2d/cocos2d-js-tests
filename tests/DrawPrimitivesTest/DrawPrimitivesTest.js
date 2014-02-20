@@ -42,17 +42,17 @@ var DrawTestDemo = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new DrawPrimitivesTestScene();
         s.addChild(restartDrawTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new DrawPrimitivesTestScene();
         s.addChild(nextDrawTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new DrawPrimitivesTestScene();
         s.addChild(previousDrawTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     // automation
     numberOfPendingTests:function() {
@@ -300,7 +300,7 @@ var DrawPrimitivesTestScene = TestScene.extend({
         var layer = nextDrawTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

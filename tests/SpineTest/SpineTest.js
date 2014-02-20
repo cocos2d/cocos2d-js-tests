@@ -26,13 +26,20 @@
 
 var sp = sp || {};
 
+var ANIMATION_TYPE = {
+    ANIMATION_START:      0,
+    ANIMATION_END:        1,
+    ANIMATION_COMPLETE:   2,
+    ANIMATION_EVENT:      3
+};
+
 SpineTestScene = TestScene.extend({
 
     runThisTest:function () {
         var layer = SpineTest.create();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 
@@ -53,6 +60,7 @@ SpineTest = BaseTestLayer.extend({
         spineboy.setAnimation(0, 'walk', true);
         spineboy.setMix('walk', 'jump', 0.2);
         spineboy.setMix('jump', 'walk', 0.4);
+        spineboy.setAnimationListener(this, this.animationStateEvent);
         this.addChild(spineboy, 4);
     },
     onBackCallback:function (sender) {
@@ -70,6 +78,29 @@ SpineTest = BaseTestLayer.extend({
         return "Spine test";
     },
 
+    animationStateEvent: function(obj, trackIndex, type, event, loopCount) {
+        var entry = spineboy.getCurrent();
+        var animationName = (entry && entry.animation) ? entry.animation.name : 0;
+
+        switch(type)
+        {
+            case ANIMATION_TYPE.ANIMATION_START:
+                cc.log(trackIndex + " start: " + animationName);
+                break;
+            case ANIMATION_TYPE.ANIMATION_END:
+                cc.log(trackIndex + " end:" + animationName);
+                break;
+            case ANIMATION_TYPE.ANIMATION_EVENT:
+                cc.log(trackIndex + " event: " + animationName);
+                break;
+            case ANIMATION_TYPE.ANIMATION_COMPLETE:
+                cc.log(trackIndex + " complete: " + animationName + "," + loopCount);
+                break;
+            default :
+                break;
+        }
+    },
+    
     // automation
     numberOfPendingTests:function() {
         return 1;
