@@ -44,17 +44,17 @@ var BaseClippingNodeTest = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new ClippingNodeTestScene();
         s.addChild(restartClippingNodeTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new ClippingNodeTestScene();
         s.addChild(nextClippingNodeTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new ClippingNodeTestScene();
         s.addChild(previousClippingNodeTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     // automation
     numberOfPendingTests:function() {
@@ -494,7 +494,7 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
             this.setupStencilForClippingOnPlane(i);
             //cc.CHECK_GL_ERROR_DEBUG();
 
-            cc.drawingUtil.drawSolidRect(cc.POINT_ZERO, stencilPoint, cc.c4f(1, 1, 1, 1));
+            cc.drawingUtil.drawSolidRect(cc.p(0, 0), stencilPoint, cc.c4f(1, 1, 1, 1));
 
             cc.kmGLPushMatrix();
             this.transform();
@@ -504,7 +504,7 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
             this.setupStencilForDrawingOnPlane(i);
             //cc.CHECK_GL_ERROR_DEBUG();
 
-            cc.drawingUtil.drawSolidRect(cc.POINT_ZERO, winPoint, _planeColor[i]);
+            cc.drawingUtil.drawSolidRect(cc.p(0, 0), winPoint, _planeColor[i]);
 
             cc.kmGLPushMatrix();
             this.transform();
@@ -636,7 +636,7 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
         gl.stencilMask(planeMask);
         gl.stencilFunc(gl.NEVER, 0, planeMask);
         gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
-        cc.drawingUtil.drawSolidRect(cc.POINT_ZERO, cc.pFromSize(cc.Director.getInstance().getWinSize()), cc.c4f(1, 1, 1, 1));
+        cc.drawingUtil.drawSolidRect(cc.p(0, 0), cc.pFromSize(cc.Director.getInstance().getWinSize()), cc.c4f(1, 1, 1, 1));
         gl.stencilFunc(gl.NEVER, planeMask, planeMask);
         gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
         gl.disable(gl.DEPTH_TEST);
@@ -708,6 +708,6 @@ var ClippingNodeTestScene = TestScene.extend({
         clippingNodeTestSceneIdx = -1;
         var layer = nextClippingNodeTest();
         this.addChild(layer);
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     }
 });

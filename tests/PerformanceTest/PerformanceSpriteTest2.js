@@ -124,17 +124,17 @@ var PerformanceTestBase = cc.Layer.extend({
     onRestartCallback:function (sender) {
         var s = new PerformanceSpriteTestScene();
         s.addChild(restartPerformanceSpriteTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new PerformanceSpriteTestScene();
         s.addChild(nextPerformanceSpriteTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new PerformanceSpriteTestScene();
         s.addChild(previousPerformanceSpriteTest());
-        director.replaceScene(s);
+        director.runScene(s);
     }
 });
 
@@ -270,7 +270,7 @@ var PerformanceSpriteTestScene = TestScene.extend({
         var layer = nextPerformanceSpriteTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

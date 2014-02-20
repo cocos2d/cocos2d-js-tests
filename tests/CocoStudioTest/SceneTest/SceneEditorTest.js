@@ -31,7 +31,7 @@ var SceneEditorScene = TestScene.extend({
     runThisTest: function () {
         sceneTestIdx = -1;
         this.addChild(nextSceneEditorTest());
-        director.replaceScene(this);
+        director.runScene(this);
     },
     onMainMenuCallback: function () {
         var scene = new CocoStudioTestScene();
@@ -103,19 +103,19 @@ var SceneEditorTestLayer = BaseTestLayer.extend({
     onRestartCallback: function (sender) {
         var s = new SceneEditorScene();
         s.addChild(restartSceneEditorTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onNextCallback: function (sender) {
         var s = new SceneEditorScene();
         s.addChild(nextSceneEditorTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onBackCallback: function (sender) {
         var s = new SceneEditorScene();
         s.addChild(backSceneEditorTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onExit: function () {
         ccs.ArmatureDataManager.purge();

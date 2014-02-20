@@ -70,6 +70,6 @@ var CurrentLanguageTestScene = TestScene.extend({
         var layer = new CurrentLanguageTest();
         this.addChild(layer);
 
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     }
 });

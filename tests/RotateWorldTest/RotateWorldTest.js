@@ -29,7 +29,7 @@ var RotateWorldTestScene = TestScene.extend({
         var layer = RotateWorldMainLayer.create();
         this.addChild(layer);
         this.runAction(cc.RotateBy.create(4, -360));
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

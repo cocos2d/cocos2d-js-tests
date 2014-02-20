@@ -79,17 +79,17 @@ var S9SpriteTestDemo = cc.LayerGradient.extend({
     onRestartCallback:function (sender) {
         var s = new S9SpriteTestScene();
         s.addChild(restartS9SpriteTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new S9SpriteTestScene();
         s.addChild(nextS9SpriteTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new S9SpriteTestScene();
         s.addChild(previousS9SpriteTest());
-        director.replaceScene(s);
+        director.runScene(s);
     }
 });
 
@@ -490,7 +490,7 @@ var S9SpriteTestScene = TestScene.extend({
         var layer = nextS9SpriteTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

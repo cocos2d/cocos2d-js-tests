@@ -37,17 +37,17 @@ var UnitTestBase = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new UnitTestScene();
         s.addChild(restartUnitTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new UnitTestScene();
         s.addChild(nextUnitTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new UnitTestScene();
         s.addChild(previousUnitTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     // automation
@@ -250,7 +250,7 @@ var UnitTestScene = TestScene.extend({
         var layer = nextUnitTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

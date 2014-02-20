@@ -126,5 +126,5 @@ var runTableViewTest = function () {
     var pScene = cc.Scene.create();
     var pLayer = TableViewTestLayer.create();
     pScene.addChild(pLayer);
-    cc.Director.getInstance().replaceScene(pScene);
+    cc.Director.getInstance().runScene(pScene);
 };

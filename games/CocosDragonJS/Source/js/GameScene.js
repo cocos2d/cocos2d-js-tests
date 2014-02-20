@@ -65,11 +65,11 @@ GameScene.prototype.getScore = function()
 GameScene.prototype.handleGameOver = function()
 {
     var scene = cc.BuilderReader.loadAsScene("MainMenuScene.ccbi");
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 };
 
 GameScene.prototype.handleLevelComplete = function()
 {
     var scene = cc.BuilderReader.loadAsScene("MainMenuScene.ccbi");
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 };

@@ -144,6 +144,6 @@ IntervalTestScene = TestScene.extend({
     runThisTest:function () {
         var layer = new IntervalLayer();
         this.addChild(layer);
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
