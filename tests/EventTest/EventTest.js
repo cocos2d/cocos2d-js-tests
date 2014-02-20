@@ -40,17 +40,17 @@ var EventTest = cc.Layer.extend({
     restartCallback:function (sender) {
         var s = new EventTestScene();
         s.addChild(restartEventsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     nextCallback:function (sender) {
         var s = new EventTestScene();
         s.addChild(nextEventsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     backCallback:function (sender) {
         var s = new EventTestScene();
         s.addChild(previousEventsTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     title:function () {
@@ -383,7 +383,7 @@ var EventTestScene = TestScene.extend({
         // menu.addKeyboardNotificationLayer( layer );
 
         this.addChild(layer);
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

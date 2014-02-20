@@ -561,6 +561,6 @@ var MenuTestScene = TestScene.extend({
         var layer = cc.LayerMultiplex.create(layer1, layer2, layer3, layer4, layer5,layer6, layer7);
         this.addChild(layer, 0);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });

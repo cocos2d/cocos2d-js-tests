@@ -169,13 +169,13 @@ function removeConnectedGems(x, y)
 			{
 				gBoard[idx] = kBoardTypePup0;
 
-				var sprt = cc.Sprite.createWithSpriteFrameName("crystals/bomb.png");
+				var sprt = cc.Sprite.create("crystals/bomb.png");
 				sprt.setPosition(gemX*kGemSize, gemY*kGemSize);
 				sprt.setAnchorPoint(0,0);
 				sprt.setOpacity(0);
 				sprt.runAction(cc.FadeIn.create(0.4));
 
-				var sprtGlow = cc.Sprite.createWithSpriteFrameName("crystals/bomb-hi.png");
+				var sprtGlow = cc.Sprite.create("crystals/bomb-hi.png");
 				sprtGlow.setAnchorPoint(0,0);
 				sprtGlow.setOpacity(0);
 				sprtGlow.runAction(cc.RepeatForever.create(cc.Sequence.create(cc.FadeIn.create(0.4),cc.FadeOut.create(0.4))));
@@ -187,7 +187,7 @@ function removeConnectedGems(x, y)
 			else if (idxPup != -1)
 			{
 				// Animate effect for power-up
-				var sprtLight = cc.Sprite.createWithSpriteFrameName("crystals/bomb-light.png");
+				var sprtLight = cc.Sprite.create("crystals/bomb-light.png");
 				sprtLight.setPosition(gemX*kGemSize+kGemSize/2, gemY*kGemSize+kGemSize/2);
 				sprtLight.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 				gEffectsLayer.addChild(sprtLight);
@@ -271,7 +271,7 @@ function activatePowerUp(x, y)
 		var center = cc.p(x*kGemSize+kGemSize/2, y*kGemSize+kGemSize/2);
 
 		// Horizontal
-		var sprtH0 = cc.Sprite.createWithSpriteFrameName("crystals/bomb-explo.png");
+		var sprtH0 = cc.Sprite.create("crystals/bomb-explo.png");
 		sprtH0.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 		sprtH0.setPosition(center);
 		sprtH0.setScaleX(5);
@@ -280,7 +280,7 @@ function activatePowerUp(x, y)
 		gEffectsLayer.addChild(sprtH0);
 
 		// Vertical
-		var sprtV0 = cc.Sprite.createWithSpriteFrameName("crystals/bomb-explo.png");
+		var sprtV0 = cc.Sprite.create("crystals/bomb-explo.png");
 		sprtV0.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 		sprtV0.setPosition(center);
 		sprtV0.setScaleY(5);
@@ -289,7 +289,7 @@ function activatePowerUp(x, y)
 		gEffectsLayer.addChild(sprtV0);
 
 		// Horizontal
-		var sprtH1 = cc.Sprite.createWithSpriteFrameName("crystals/bomb-explo-inner.png");
+		var sprtH1 = cc.Sprite.create("crystals/bomb-explo-inner.png");
 		sprtH1.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 		sprtH1.setPosition(center);
 		sprtH1.setScaleX(0.5);
@@ -298,7 +298,7 @@ function activatePowerUp(x, y)
 		gEffectsLayer.addChild(sprtH1);
 
 		// Vertical
-		var sprtV1 = cc.Sprite.createWithSpriteFrameName("crystals/bomb-explo-inner.png");
+		var sprtV1 = cc.Sprite.create("crystals/bomb-explo-inner.png");
 		sprtV1.setRotation(90);
 		sprtV1.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 		sprtV1.setPosition(center);
@@ -387,7 +387,7 @@ function setGemType(x, y, newType)
 	// Remove old gem and insert a new one
 	gGameLayer.removeChild(gBoardSprites[idx], true);
 
-	var gemSprite = cc.Sprite.createWithSpriteFrameName("crystals/"+newType+".png");
+	var gemSprite = cc.Sprite.create("crystals/"+newType+".png");
 	gemSprite.setPosition(x * kGemSize, y * kGemSize);
 	gemSprite.setAnchorPoint(0,0);
 
@@ -524,7 +524,7 @@ function displayHint()
 		var actionSeq = cc.Sequence.create(actionFadeIn, actionFadeOut);
 		var action = cc.RepeatForever.create(actionSeq);
 
-		var hintSprite = cc.Sprite.createWithSpriteFrameName("crystals/hint.png");
+		var hintSprite = cc.Sprite.create("crystals/hint.png");
 		hintSprite.setOpacity(0);
 		hintSprite.setPosition(x*kGemSize, y*kGemSize);
 		hintSprite.setAnchorPoint(0, 0);
@@ -551,7 +551,7 @@ function setupShimmer()
 
 	for (var i = 0; i < 2; i++)
 	{
-		var sprt = cc.Sprite.createWithSpriteFrameName("gamescene/shimmer/bg-shimmer-"+i+".png");
+		var sprt = cc.Sprite.create("gamescene/shimmer/bg-shimmer-"+i+".png");
 
 		var seqRot = null;
 		var seqMov = null;
@@ -627,7 +627,7 @@ function updateSparkle()
 
 	if (gemSprite.getChildren().length > 0) return;
 
-	sprite = cc.Sprite.createWithSpriteFrameName("crystals/sparkle.png");
+	sprite = cc.Sprite.create("crystals/sparkle.png");
 	sprite.runAction(cc.RepeatForever.create(cc.RotateBy.create(3, 360)));
 
 	sprite.setOpacity(0);
@@ -848,7 +848,7 @@ GameScene.prototype.onUpdate = function(dt)
 			{
 				// A gem should be added to this column!
 				var gemType = Math.floor(Math.random()*5);
-				var gemSprite = cc.Sprite.createWithSpriteFrameName("crystals/"+gemType+".png");
+				var gemSprite = cc.Sprite.create("crystals/"+gemType+".png");
 				gemSprite.setPosition(x * kGemSize, kBoardHeight * kGemSize);
 				gemSprite.setAnchorPoint(0,0);
 
@@ -988,7 +988,7 @@ GameScene.prototype.onAnimationComplete = function()
 	if (gIsGameOver)
 	{
 		var scene = cc.BuilderReader.loadAsScene("MainScene.ccbi");
-		cc.Director.getInstance().replaceScene(scene);
+		cc.Director.getInstance().runScene(scene);
     }
 };
 

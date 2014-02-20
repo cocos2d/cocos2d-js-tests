@@ -36,9 +36,9 @@ var spark = function (ccpoint, parent, scale, duration) {
     scale = scale || 0.3;
     duration = duration || 0.5;
 
-    var one = cc.Sprite.createWithSpriteFrameName("explode1.png");
-    var two = cc.Sprite.createWithSpriteFrameName("explode2.png");
-    var three = cc.Sprite.createWithSpriteFrameName("explode3.png");
+    var one = cc.Sprite.create("frame#explode1.png");
+    var two = cc.Sprite.create("frame#explode2.png");
+    var three = cc.Sprite.create("frame#explode3.png");
 
     one.setPosition(ccpoint);
     two.setPosition(ccpoint);

@@ -84,6 +84,6 @@ var CocoStudioTestScene = TestScene.extend({
     runThisTest:function () {
         var pLayer = new CocoStudioMainLayer();
         this.addChild(pLayer);
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     }
 });

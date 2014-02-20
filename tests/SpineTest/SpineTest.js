@@ -39,7 +39,7 @@ SpineTestScene = TestScene.extend({
         var layer = SpineTest.create();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

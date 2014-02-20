@@ -32,7 +32,7 @@ var ParticleTestScene = TestScene.extend({
         particleSceneIdx = -1;
 
         this.addChild(nextParticleAction());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 
@@ -313,12 +313,12 @@ var ParticleDemo = BaseTestLayer.extend({
     onNextCallback:function (sender) {
         var s = new ParticleTestScene();
         s.addChild(nextParticleAction());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new ParticleTestScene();
         s.addChild(backParticleAction());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     toggleCallback:function (sender) {
         if (this._emitter.getPositionType() == cc.PARTICLE_TYPE_GROUPED)
@@ -482,7 +482,7 @@ var DemoBigFlower = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = cc.ParticleSystem.createWithTotalParticles(50);
+        this._emitter = cc.ParticleSystem.create(50);
 
         this._background.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars1));
@@ -559,7 +559,7 @@ var DemoRotFlower = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = cc.ParticleSystem.createWithTotalParticles(("opengl" in sys.capabilities) ? 300 : 150);
+        this._emitter = cc.ParticleSystem.create(("opengl" in sys.capabilities) ? 300 : 150);
 
         this._background.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars2));
@@ -768,7 +768,7 @@ var DemoModernArt = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = cc.ParticleSystem.createWithTotalParticles(("opengl" in sys.capabilities) ? 1000 : 200);
+        this._emitter = cc.ParticleSystem.create(("opengl" in sys.capabilities) ? 1000 : 200);
 
         this._background.addChild(this._emitter, 10);
 
@@ -943,7 +943,7 @@ var RadiusMode1 = ParticleDemo.extend({
         this.removeChild(this._background, true);
         this._background = null;
 
-        this._emitter = cc.ParticleSystem.createWithTotalParticles(100);
+        this._emitter = cc.ParticleSystem.create(100);
         this.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_starsGrayscale));
 
@@ -1020,7 +1020,7 @@ var RadiusMode2 = ParticleDemo.extend({
         this.removeChild(this._background, true);
         this._background = null;
 
-        this._emitter = cc.ParticleSystem.createWithTotalParticles(100);
+        this._emitter = cc.ParticleSystem.create(100);
         this.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_starsGrayscale));
 
@@ -1097,7 +1097,7 @@ var Issue704 = ParticleDemo.extend({
         this.removeChild(this._background, true);
         this._background = null;
 
-        this._emitter = cc.ParticleSystem.createWithTotalParticles(100);
+        this._emitter = cc.ParticleSystem.create(100);
         this.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
         if (this._emitter.setShapeType)
@@ -1221,7 +1221,7 @@ var ParticleBatchTest = ParticleDemo.extend({
         emitter2.setPosition(winSize.width / 2, winSize.height / 2);
         emitter3.setPosition(winSize.width / 4, winSize.height / 4);
 
-        var batch = cc.ParticleBatchNode.createWithTexture(emitter1.getTexture());
+        var batch = cc.ParticleBatchNode.create(emitter1.getTexture());
 
         batch.addChild(emitter1);
         batch.addChild(emitter2);

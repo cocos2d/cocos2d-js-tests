@@ -99,7 +99,7 @@ var ResultLayer = cc.Layer.extend({
                     nextScene.addChild(nextLayer);
                     var matrixLayer = cc.Director.getInstance().getRunningScene().getChildByTag(111);
                     matrixLayer.clearMsgListener();
-                    cc.Director.getInstance().replaceScene(cc.TransitionSlideInT.create(0.4, nextScene));
+                    cc.Director.getInstance().runScene(cc.TransitionSlideInT.create(0.4, nextScene));
                     break;
             }
         }

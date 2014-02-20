@@ -187,7 +187,7 @@ var PerformanceTestScene = TestScene.extend({
     runThisTest:function () {
         var layer = new PerformanceMainLayer();
         this.addChild(layer);
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     }
 });
 

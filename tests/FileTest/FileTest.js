@@ -41,17 +41,17 @@ var FileTestBase = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new FileTestScene();
         s.addChild(restartFileTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new FileTestScene();
         s.addChild(nextFileTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new FileTestScene();
         s.addChild(previousFileTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     // automation
@@ -122,7 +122,7 @@ var FileTestScene = TestScene.extend({
         var layer = nextFileTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

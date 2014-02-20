@@ -67,5 +67,5 @@ ComponentsTestLayer.scene = function(){
 };
 var runComponentsTestLayer = function () {
     var scene = ComponentsTestLayer.scene();
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 };

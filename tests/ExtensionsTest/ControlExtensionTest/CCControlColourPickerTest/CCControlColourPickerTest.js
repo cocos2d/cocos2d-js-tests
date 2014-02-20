@@ -76,7 +76,7 @@ var ControlColourPickerTest = ControlScene.extend({
     },
     colourValueChanged:function (sender, controlEvent) {
         // Change value of label.
-        this._colorLabel.setString(cc.convertColor3BtoHexString(sender.getColor()).toUpperCase());
+        this._colorLabel.setString(cc.colorToHex(sender.getColor()).toUpperCase());
     }
 });
 ControlColourPickerTest.create = function (sceneTitle) {

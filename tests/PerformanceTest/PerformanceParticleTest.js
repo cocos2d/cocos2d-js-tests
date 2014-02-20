@@ -62,7 +62,7 @@ var ParticleMenuLayer = PerformBasicLayer.extend({
         s_nParCurIdx = this._curCase;
         if (newScene) {
             newScene.initWithSubTest(subTest, parNum);
-            cc.Director.getInstance().replaceScene(newScene);
+            cc.Director.getInstance().runScene(newScene);
         }
     }
 });
@@ -171,7 +171,7 @@ var ParticleMainScene = cc.Scene.extend({
         //var texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
         //cc.TextureCache.getInstance().removeTexture(texture);
 
-        var particleSystem = cc.ParticleSystem.createWithTotalParticles(this._quantityParticles);
+        var particleSystem = cc.ParticleSystem.create(this._quantityParticles);
 
         switch (this._subtestNumber) {
             case 1:
@@ -513,5 +513,5 @@ var ParticlePerformTest4 = ParticleMainScene.extend({
 function runParticleTest() {
     var scene = new ParticlePerformTest1;
     scene.initWithSubTest(1, PARTICLE_NODES_INCREASE);
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 }

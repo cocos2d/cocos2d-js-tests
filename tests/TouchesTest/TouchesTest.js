@@ -35,7 +35,7 @@ var TouchesTestScene = TestScene.extend({
         this.addChild(pongLayer);
     },
     runThisTest:function () {
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     },
     MainMenuCallback:function (sender) {
         this._super(sender);

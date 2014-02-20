@@ -179,7 +179,7 @@ var TransitionsTestScene = TestScene.extend({
     runThisTest:function () {
         var layer = new TestLayer1();
         this.addChild(layer);
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 
@@ -222,7 +222,7 @@ var TransitionBase = BaseTestLayer.extend({
         var scene = arrayOfTransitionsTest[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
 
         if (scene)
-            director.replaceScene(scene);
+            director.runScene(scene);
     },
     onNextCallback:function (sender) {
         transitionsIdx++;
@@ -235,7 +235,7 @@ var TransitionBase = BaseTestLayer.extend({
 
         var scene = arrayOfTransitionsTest[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
         if (scene)
-            director.replaceScene(scene);
+            director.runScene(scene);
     },
     onBackCallback:function (sender) {
         transitionsIdx--;
@@ -248,7 +248,7 @@ var TransitionBase = BaseTestLayer.extend({
 
         var scene = arrayOfTransitionsTest[transitionsIdx].transitionFunc(TRANSITION_DURATION, s);
         if (scene)
-            director.replaceScene(scene);
+            director.runScene(scene);
     },
 
     step:function (dt) {

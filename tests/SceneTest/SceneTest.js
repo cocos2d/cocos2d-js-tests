@@ -27,8 +27,8 @@
 var MID_PUSHSCENE = 100;
 var MID_PUSHSCENETRAN = 101;
 var MID_QUIT = 102;
-var MID_REPLACESCENE = 103;
-var MID_REPLACESCENETRAN = 104;
+var MID_runScene = 103;
+var MID_runSceneTRAN = 104;
 var MID_GOBACK = 105;
 
 var SceneTestLayer1 = cc.Layer.extend({
@@ -103,8 +103,8 @@ var SceneTestLayer2 = cc.Layer.extend({
 
         var s = director.getWinSize();
 
-        var item1 = cc.MenuItemFont.create("replaceScene", this.onReplaceScene, this);
-        var item2 = cc.MenuItemFont.create("replaceScene w/transition", this.onReplaceSceneTran, this);
+        var item1 = cc.MenuItemFont.create("runScene", this.onrunScene, this);
+        var item2 = cc.MenuItemFont.create("runScene w/transition", this.onrunSceneTran, this);
         var item3 = cc.MenuItemFont.create("Go Back", this.onGoBack, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
@@ -130,19 +130,19 @@ var SceneTestLayer2 = cc.Layer.extend({
         director.popScene();
     },
 
-    onReplaceScene:function (sender) {
+    onrunScene:function (sender) {
         var scene = new SceneTestScene();
         var layer = new SceneTestLayer3();
         scene.addChild(layer, 0);
-        director.replaceScene(scene);
+        director.runScene(scene);
 
     },
 
-    onReplaceSceneTran:function (sender) {
+    onrunSceneTran:function (sender) {
         var scene = new SceneTestScene();
         var layer = new SceneTestLayer3();
         scene.addChild(layer, 0);
-        director.replaceScene(cc.TransitionSlideInT.create(2, scene));
+        director.runScene(cc.TransitionSlideInT.create(2, scene));
     }
 
     //CREATE_NODE(SceneTestLayer2);
@@ -195,7 +195,7 @@ SceneTestScene = TestScene.extend({
         var layer = new SceneTestLayer1();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
 
     }
 });
