@@ -2004,7 +2004,7 @@ var ActionStackableMove = ActionsDemo.extend({
         this._grossini.setPosition(40, winSize.height / 2);
 
         // shake
-        var move = cc.MoveBy.create(0.2, cc._p(0,50));
+        var move = cc.MoveBy.create(0.2, cc.p(0,50));
         var move_back = move.reverse();
         var delay = cc.DelayTime.create(0.25);
         var move_seq = cc.Sequence.create( move, move_back );
@@ -2012,7 +2012,7 @@ var ActionStackableMove = ActionsDemo.extend({
         this._grossini.runAction( move_rep );
 
         // move
-        var action = cc.MoveBy.create(2, cc._p(winSize.width - 80, 0));
+        var action = cc.MoveBy.create(2, cc.p(winSize.width - 80, 0));
         var back = action.reverse();
         var seq = cc.Sequence.create(action, back);
         var repeat = cc.RepeatForever.create(seq);
@@ -2062,14 +2062,14 @@ var ActionStackableJump = ActionsDemo.extend({
         this._grossini.setPosition(40, winSize.height / 2);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
+        var move = cc.MoveBy.create(0.05, cc.p(8, 8));
         var move_back = move.reverse();
         var move_seq = cc.Sequence.create(move, move_back);
         var move_rep = cc.RepeatForever.create(move_seq);
         this._grossini.runAction(move_rep);
 
         // jump
-        var action = cc.JumpBy.create(2, cc._p(winSize.width - 80, 0), 90, 5);
+        var action = cc.JumpBy.create(2, cc.p(winSize.width - 80, 0), 90, 5);
         var back = action.reverse();
         var seq = cc.Sequence.create(action, back);
         var repeat = cc.RepeatForever.create(seq);
@@ -2098,7 +2098,7 @@ var ActionStackableBezier = ActionsDemo.extend({
         this._grossini.setPosition(40, winSize.height / 2);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
+        var move = cc.MoveBy.create(0.05, cc.p(8, 8));
         var move_back = move.reverse();
         var move_seq = cc.Sequence.create(move, move_back);
         var move_rep = cc.RepeatForever.create(move_seq);
@@ -2137,7 +2137,7 @@ var ActionStackableCatmullRom = ActionsDemo.extend({
         this._grossini.setPosition(40, 40);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
+        var move = cc.MoveBy.create(0.05, cc.p(8, 8));
         var move_back = move.reverse();
         var move_seq = cc.Sequence.create(move, move_back);
         var move_rep = cc.RepeatForever.create(move_seq);
@@ -2182,7 +2182,7 @@ var ActionStackableCardinalSpline = ActionsDemo.extend({
         this._grossini.setPosition(40, 40);
 
         // shake
-        var move = cc.MoveBy.create(0.05, cc._p(8, 8));
+        var move = cc.MoveBy.create(0.05, cc.p(8, 8));
         var move_back = move.reverse();
         var move_seq = cc.Sequence.create(move, move_back);
         var move_rep = cc.RepeatForever.create(move_seq);

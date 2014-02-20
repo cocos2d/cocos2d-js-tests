@@ -54,7 +54,7 @@ var ChipmunkBaseLayer = function() {
     item.setFontSize(24);
     var menu = cc.Menu.create( item );
     this.addChild( menu );
-    menu.setPosition( cc._p( winSize.width-100, winSize.height-90 )  );
+    menu.setPosition( cc.p( winSize.width-100, winSize.height-90 )  );
 
     // Create the initial space
 	this.space = new cp.Space();

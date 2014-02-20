@@ -87,7 +87,7 @@
             'EventTest/EventTest.js',
             'UnitTest/UnitTest.js',
             'SysTest/SysTest.js',
-            'FileUtils/FileUtilsTest.js',
+            'FileTest/FileTest.js',
             'EffectsTest/EffectsTest.js',
             'EffectsAdvancedTest/EffectsAdvancedTest.js',
             'MotionStreakTest/MotionStreakTest.js',

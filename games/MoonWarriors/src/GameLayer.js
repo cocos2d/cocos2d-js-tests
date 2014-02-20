@@ -158,7 +158,7 @@ var GameLayer = cc.Layer.extend({
             var delta = event.getDelta();
             var curPos = this._ship.getPosition();
             curPos = cc.pAdd(curPos, delta);
-            curPos = cc.pClamp(curPos, cc.POINT_ZERO, cc.p(winSize.width, winSize.height));
+            curPos = cc.pClamp(curPos, cc.p(0, 0), cc.p(winSize.width, winSize.height));
             this._ship.setPosition(curPos);
         }
     },

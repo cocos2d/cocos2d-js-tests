@@ -67,15 +67,15 @@ var EffecstsBaseLayer = BaseTestLayer.extend({
 
         // back image
         var bg = cc.Sprite.create(s_back3);
-        bg.setPosition( cc._p( winSize.width/2, winSize.height/2) );
+        bg.setPosition( cc.p( winSize.width/2, winSize.height/2) );
         node.addChild( bg );
 
         var sister1 = cc.Sprite.create(s_pathSister1);
-        sister1.setPosition( cc._p( winSize.width/3, winSize.height/2 ) );
+        sister1.setPosition( cc.p( winSize.width/3, winSize.height/2 ) );
         node.addChild( sister1, 1 );
 
         var sister2 = cc.Sprite.create(s_pathSister2);
-        sister2.setPosition( cc._p( winSize.width*2/3, winSize.height/2 ) );
+        sister2.setPosition( cc.p( winSize.width*2/3, winSize.height/2 ) );
         node.addChild( sister2, 1 );
 
         var sc = cc.ScaleBy.create(2, 5);
@@ -89,7 +89,7 @@ var EffecstsBaseLayer = BaseTestLayer.extend({
 
     getEffect:function(duration) {
         // override me
-        return cc.MoveBy.create(2, cc._p(10,10) );
+        return cc.MoveBy.create(2, cc.p(10,10) );
     },
 
     // automation
@@ -170,7 +170,7 @@ var Lens3DTest = EffecstsBaseLayer.extend({
         return "a = cc.Lens3D.create(duration, gridSize, position, radius)";
     },
     getEffect:function(duration) {
-        return cc.Lens3D.create( duration, cc.size(15,10), cc._p(winSize.width/2, winSize.height/2), 240);
+        return cc.Lens3D.create( duration, cc.size(15,10), cc.p(winSize.width/2, winSize.height/2), 240);
     }
 });
 
@@ -182,7 +182,7 @@ var Ripple3DTest = EffecstsBaseLayer.extend({
         return "a = cc.Ripple3D.create(duration, gridSize, position, radius, waves, amplitude)";
     },
     getEffect:function(duration) {
-        return cc.Ripple3D.create( duration, cc.size(32,24), cc._p(winSize.width/2, winSize.height/2), 240, 4, 160);
+        return cc.Ripple3D.create( duration, cc.size(32,24), cc.p(winSize.width/2, winSize.height/2), 240, 4, 160);
     }
 });
 

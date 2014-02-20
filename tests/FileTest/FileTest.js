@@ -23,14 +23,14 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var fileUtilsTestSceneIdx = -1;
+var FileTestSceneIdx = -1;
 
 //------------------------------------------------------------------
 //
-// FileUtilsBase
+// FileTestBase
 //
 //------------------------------------------------------------------
-var FileUtilsBase = BaseTestLayer.extend({
+var FileTestBase = BaseTestLayer.extend({
     _title:"",
     _subtitle:"",
 
@@ -39,27 +39,27 @@ var FileUtilsBase = BaseTestLayer.extend({
     },
 
     onRestartCallback:function (sender) {
-        var s = new FileUtilsTestScene();
-        s.addChild(restartFileUtilsTest());
+        var s = new FileTestScene();
+        s.addChild(restartFileTest());
         director.runScene(s);
     },
     onNextCallback:function (sender) {
-        var s = new FileUtilsTestScene();
-        s.addChild(nextFileUtilsTest());
+        var s = new FileTestScene();
+        s.addChild(nextFileTest());
         director.runScene(s);
     },
     onBackCallback:function (sender) {
-        var s = new FileUtilsTestScene();
-        s.addChild(previousFileUtilsTest());
+        var s = new FileTestScene();
+        s.addChild(previousFileTest());
         director.runScene(s);
     },
 
     // automation
     numberOfPendingTests:function() {
-        return ( (arrayOfFileUtilsTest.length-1) - fileUtilsTestSceneIdx );
+        return ( (arrayOfFileTest.length-1) - FileTestSceneIdx );
     },
     getTestNumber:function() {
-        return fileUtilsTestSceneIdx;
+        return FileTestSceneIdx;
     }
 });
 
@@ -68,7 +68,7 @@ var FileUtilsBase = BaseTestLayer.extend({
 // FilenameLookupTest
 //
 //------------------------------------------------------------------
-var FilenameLookupTest = FileUtilsBase.extend({
+var FilenameLookupTest = FileTestBase.extend({
     _title:"Testing FilenameLookup ",
     _subtitle:"You should see a grossini on the screen",
 
@@ -77,11 +77,11 @@ var FilenameLookupTest = FileUtilsBase.extend({
 
         var t = sys.platform;
         if( t == 'mobile')  {
-            cc.FileUtils.getInstance().loadFilenameLookup('FileUtils/lookup-mobile.plist');
+            cc.FileUtils.getInstance().loadFilenameLookup('FileTest/lookup-mobile.plist');
         } else if( t == 'desktop' ) {
-            cc.FileUtils.getInstance().loadFilenameLookup('FileUtils/lookup-desktop.plist');
+            cc.FileUtils.getInstance().loadFilenameLookup('FileTest/lookup-desktop.plist');
         } else {
-            cc.FileUtils.getInstance().loadFilenameLookup('FileUtils/lookup-html5.plist');
+            cc.FileUtils.getInstance().loadFilenameLookup('FileTest/lookup-html5.plist');
         }
 
         var sprite = cc.Sprite.create("grossini.bmp");
@@ -116,39 +116,124 @@ var FilenameLookupTest = FileUtilsBase.extend({
     }
 });
 
-var FileUtilsTestScene = TestScene.extend({
+var FileTestScene = TestScene.extend({
     runThisTest:function () {
-        fileUtilsTestSceneIdx = -1;
-        var layer = nextFileUtilsTest();
+        FileTestSceneIdx = -1;
+        var layer = nextFileTest();
         this.addChild(layer);
 
         director.runScene(this);
     }
 });
 
+
+//------------------------------------------------------------------
+//
+// SAXParser Test
+//
+//------------------------------------------------------------------
+var SAXParserTest = FileTestBase.extend({
+	_title:"Testing SAXParser",
+	_expectResult: {
+		texture: {
+			width: 256,
+			height: 128
+		},
+		frames: {
+			"grossini.png": {
+				x: 103,
+				y: 1,
+				width: 51,
+				height: 109,
+				offsetX: 0,
+				offsetY: -1,
+				originalWidth: 85,
+				originalHeight: 121
+			},
+			"grossinis_sister1.png": {
+				x: 55,
+				y: 1,
+				width: 47,
+				height: 112,
+				offsetX: -0.5,
+				offsetY: -11.5,
+				originalWidth: 52,
+				originalHeight: 139
+			},
+			"grossinis_sister2.png": {
+				x: 1,
+				y: 1,
+				width: 53,
+				height: 126,
+				offsetX: -0.5,
+				offsetY: -2,
+				originalWidth: 56,
+				originalHeight: 138
+			}
+		}
+	},
+	_label: null,
+
+	ctor:function () {
+		this._super();
+
+		var parser = cc.SAXParser.getInstance();
+		var result = parser.parse(s_grossini_familyPlist);
+
+		var ok = JSON.stringify(this._expectResult) == JSON.stringify(result);
+		this._label = cc.LabelTTF.create(ok ? "SUCCESS" : "FAIL");
+		var winsize = cc.Director.getInstance().getWinSize();
+		this._label.setPosition(winsize.width/2, winsize.height/2);
+		this.addChild(this._label);
+	},
+
+	//
+	// only for automation
+	//
+	getExpectedResult:function() {
+		return JSON.stringify(this._expectResult);
+	},
+	getCurrentResult:function() {
+		var parser = cc.SAXParser.getInstance();
+		var result = parser.parse(s_grossini_familyPlist);
+		return JSON.stringify(result);
+	}
+});
+
+var FileTestScene = TestScene.extend({
+	runThisTest:function () {
+		fileTestSceneIdx = -1;
+		var layer = nextFileTest();
+		this.addChild(layer);
+
+		director.replaceScene(this);
+	}
+});
+
+
 //
 // Flow control
 //
 
-var arrayOfFileUtilsTest = [
-
-    FilenameLookupTest
+var arrayOfFileTest = [
+    FilenameLookupTest,
+	SAXParserTest
 ];
 
-var nextFileUtilsTest = function () {
-    fileUtilsTestSceneIdx++;
-    fileUtilsTestSceneIdx = fileUtilsTestSceneIdx % arrayOfFileUtilsTest.length;
+var nextFileTest = function () {
+	fileTestSceneIdx++;
+	fileTestSceneIdx = fileTestSceneIdx % arrayOfFileTest.length;
 
-    return new arrayOfFileUtilsTest[fileUtilsTestSceneIdx]();
+    return new arrayOfFileTest[fileTestSceneIdx]();
 };
-var previousFileUtilsTest = function () {
-    fileUtilsTestSceneIdx--;
-    if (fileUtilsTestSceneIdx < 0)
-        fileUtilsTestSceneIdx += arrayOfFileUtilsTest.length;
+var previousFileTest = function () {
+    fileTestSceneIdx--;
+    if (fileTestSceneIdx < 0)
+        fileTestSceneIdx += arrayOfFileTest.length;
 
-    return new arrayOfFileUtilsTest[fileUtilsTestSceneIdx]();
+    return new arrayOfFileTest[fileTestSceneIdx]();
 };
-var restartFileUtilsTest = function () {
-    return new arrayOfFileUtilsTest[fileUtilsTestSceneIdx]();
+var restartFileTest = function () {
+    return new arrayOfFileTest[fileTestSceneIdx]();
 };
 

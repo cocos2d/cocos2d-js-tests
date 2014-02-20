@@ -194,14 +194,14 @@ var GameLayer = cc.LayerGradient.extend({
         // coin only needed to obtain the texture for the Batch Node
         var coin = cc.Sprite.create("frame#coin01.png");
         this._batch = cc.SpriteBatchNode.create(coin.getTexture(), 100);    //cc.Node.create();
-        scroll.addChild(this._batch, Z_SPRITES, cc._p(1, 1), cc.p(0,0));
+        scroll.addChild(this._batch, Z_SPRITES, cc.p(1, 1), cc.p(0,0));
 
         if( 'opengl' in sys.capabilities) {
             // Since JSB runs on top of OpenGL (cocos2d-iphone or cocos2d-x), you can use
             // OpenGL commands, and your code will run faster (but it is not compatible with cocos2d-html5... yet)
             var background = cc.Sprite.create(s_parallax, cc.rect(0,0,4096,512) );
-            scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
-            background.setAnchorPoint( cc._p(0,0) );
+            scroll.addChild(background, Z_MOUNTAINS , cc.p(0.2, 0.2), cc.p(0,-150));
+            background.setAnchorPoint( cc.p(0,0) );
             background.getTexture().setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE);
         } else {
             // This code runs on both HTML5 and JSB
@@ -212,14 +212,14 @@ var GameLayer = cc.LayerGradient.extend({
             backLayer.addChild(background1, Z_MOUNTAINS);
             backLayer.addChild(background2, Z_MOUNTAINS+1);
             background2.setPosition(1024, 0);
-            scroll.addChild(backLayer, Z_MOUNTAINS, cc._p(0.2, 0.2), cc._p(0, -150));
+            scroll.addChild(backLayer, Z_MOUNTAINS, cc.p(0.2, 0.2), cc.p(0, -150));
             background1.setAnchorPoint(0,0);
             background2.setAnchorPoint(0,0);
         }
 
         // Terrain
         this._terrain = cc.DrawNode.create();
-        scroll.addChild(this._terrain, Z_TERRAIN, cc._p(1, 1), cc.p(0,0));
+        scroll.addChild(this._terrain, Z_TERRAIN, cc.p(1, 1), cc.p(0,0));
         this._terrain.setVisible(true);
 
         // Smoke
@@ -425,7 +425,7 @@ var GameLayer = cc.LayerGradient.extend({
 
         // sync smoke with car
         if( this._carSprite ) {
-            var p = this._carSprite.convertToWorldSpace( cc.POINT_ZERO );
+            var p = this._carSprite.convertToWorldSpace( cc.p(0, 0) );
             this._carSmoke.setPosition( p );
         }
 
@@ -466,7 +466,7 @@ var GameLayer = cc.LayerGradient.extend({
         var coins = level['coins'];
         for (i = 0; i < coins.length; i++) {
             var coin = coins[i];
-            this.createCoin(cc._p(coin.x, coin.y));
+            this.createCoin(cc.p(coin.x, coin.y));
         }
 
         // car
@@ -486,7 +486,7 @@ var GameLayer = cc.LayerGradient.extend({
             var line = lines[i];
             if (i > 0) {
                 this.createSegment(cp.v(p.x, p.y), cp.v(p.x + line.x, p.y + line.y));
-                this._terrain.drawSegment(cc._p(p.x, p.y), cc._p(p.x + line.x, p.y + line.y), 5, cc.c4f(0.43, 0.39, 0.34, 1));
+                this._terrain.drawSegment(cc.p(p.x, p.y), cc.p(p.x + line.x, p.y + line.y), 5, cc.c4f(0.43, 0.39, 0.34, 1));
             }
 
             p = {x:p.x + line.x, y:p.y + line.y};
@@ -552,7 +552,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._debugNode = cc.PhysicsDebugNode.create(this._space);
         this._debugNode.setVisible(false);
         // Parallax ratio and offset
-        this._scrollNode.addChild(this._debugNode, Z_DEBUG_PHYSICS, cc._p(1, 1), cc.p(0,0));
+        this._scrollNode.addChild(this._debugNode, Z_DEBUG_PHYSICS, cc.p(1, 1), cc.p(0,0));
     },
 
     setThrottle:function (throttle) {
