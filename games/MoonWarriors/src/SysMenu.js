@@ -10,7 +10,8 @@ var SysMenu = cc.Layer.extend({
 
             winSize = cc.Director.getInstance().getWinSize();
             var sp = cc.Sprite.create(res.loading_png);
-            sp.anchor = cc.p(0, 0);
+            sp.anchorX = 0;
+	        sp.anchorY = 0;
             this.addChild(sp, 0, 1);
 
             var logo = cc.Sprite.create(res.logo_png);
