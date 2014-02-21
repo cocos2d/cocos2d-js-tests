@@ -275,7 +275,7 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
         this._super();
 
         var origin = director.getVisibleOrigin();
-        var size = director.getVisibleSize();
+        var size = director.getVisibleSize(), selfPointer = this;
 
         var sprite1 = cc.Sprite.create("res/Images/CyanSquare.png");
         sprite1.setPosition(origin.x + size.width/2, origin.y + size.height/2);
@@ -317,11 +317,11 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
         var toggleItem = cc.MenuItemToggle.create(cc.MenuItemFont.create("Enabled"), cc.MenuItemFont.create("Disabled"),
             function (sender) {
                 if (enable) {
-                    this._eventDispatcher.removeEventListener(listener1);
+                    selfPointer._eventDispatcher.removeEventListener(listener1);
                     statusLabel.setString("The sprite could not be touched!");
                     enable = false;
                 } else {
-                    this._eventDispatcher.addEventListenerWithSceneGraphPriority(listener1, sprite1);
+                    selfPointer._eventDispatcher.addEventListenerWithSceneGraphPriority(listener1, sprite1);
                     statusLabel.setString("The sprite could be touched!");
                     enable = true;
                 }
@@ -331,7 +331,7 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
         var menu = cc.Menu.create(toggleItem);
         menu.setPosition(0, 0);
         menu.setAnchorPoint(0, 0);
-        this.addChild(menu, -1);
+        this.addChild(menu, 1);
     },
 
     title:function(){
@@ -617,13 +617,12 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             selfPointer._eventDispatcher.addEventListenerWithFixedPriority(listener, -1);
             selfPointer._eventDispatcher.removeEventListener(listener);
         });
-
         var vCenter = cc.VisibleRect.center();
         item1.setPosition(vCenter.x, vCenter.y + 80);
 
         var addNextButton = function(){
             var next = cc.MenuItemFont.create("Please Click Me To Reset!", function(sender){
-                selfPointer.restartCallback();
+                selfPointer.onRestartCallback();
             });
             next.setPosition(vCenter.x, vCenter.y - 40);
 
@@ -640,7 +639,7 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
                 return true;
             };
             selfPointer._eventDispatcher.addEventListenerWithFixedPriority(listener, -1);
-            selfPointer._eventDispatcher.removeEventListeners(EventListener.Type.TOUCH_ONE_BY_ONE);
+            selfPointer._eventDispatcher.removeEventListeners(cc.EventListener.Type.TOUCH_ONE_BY_ONE);
             addNextButton();
         }, this);
         item2.setPosition(vCenter.x, vCenter.y + 40);
@@ -655,7 +654,6 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             selfPointer._eventDispatcher.removeAllEventListeners();
             addNextButton();
         }, this);
-
         item3.setPosition(cc.VisibleRect.center());
 
         var menu = cc.Menu.create(item1, item2, item3);
