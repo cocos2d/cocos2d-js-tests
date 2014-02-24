@@ -84,50 +84,50 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
         sprite2.addChild(sprite3, 1);
 
         // Make sprite1 touchable
-        var listener1 = cc.EventListenerTouchOneByOne.create();
-        listener1.setSwallowTouches(true);
+        var listener1 = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function (touch, event) {
+                var target = event.getCurrentTarget();
 
-        listener1.onTouchBegan = function(touch, event){
-            var target = event.getCurrentTarget();
+                var locationInNode = target.convertToNodeSpace(touch.getLocation());
+                var s = target.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
 
-            var locationInNode = target.convertToNodeSpace(touch.getLocation());
-            var s = target.getContentSize();
-            var rect = cc.rect(0, 0, s.width, s.height);
-
-            if(cc.rectContainsPoint(rect, locationInNode)) {
-                cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
-                target.setOpacity(180);
-                return true;
+                if (cc.rectContainsPoint(rect, locationInNode)) {
+                    cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
+                    target.opacity = 180;
+                    return true;
+                }
+                return false;
+            },
+            onTouchMoved: function (touch, event) {
+                var target = event.getCurrentTarget();
+                var delta = touch.getDelta();
+                target.x += delta.x;
+                target.y += delta.y;
+            },
+            onTouchEnded: function (touch, event) {
+                var target = event.getCurrentTarget();
+                cc.log("sprite onTouchesEnded.. ");
+                target.setOpacity(255);
+                if (target == sprite2) {
+                    sprite1.setLocalZOrder(100);
+                } else if (target == sprite1) {
+                    sprite1.setLocalZOrder(0);
+                }
             }
-            return false;
-        };
+        });
 
-        listener1.onTouchMoved = function(touch, event){
-            var target = event.getCurrentTarget();
-            var delta = touch.getDelta();
-            target.setPosition(target.getPositionX() + delta.x, target.getPositionY() + delta.y);
-        };
-
-        listener1.onTouchEnded = function(touch, event){
-            var target = event.getCurrentTarget();
-            cc.log("sprite onTouchesEnded.. ");
-            target.setOpacity(255);
-            if (target == sprite2){
-                sprite1.setLocalZOrder(100);
-            } else if(target == sprite1) {
-                sprite1.setLocalZOrder(0);
-            }
-        };
-
-        this._eventDispatcher.addEventListenerWithSceneGraphPriority(listener1, sprite1);
-        this._eventDispatcher.addEventListenerWithSceneGraphPriority(listener1.clone(), sprite2);
-        this._eventDispatcher.addEventListenerWithSceneGraphPriority(listener1.clone(), sprite3);
+        cc.eventManager.addListener(listener1, sprite1);
+        cc.eventManager.addListener(listener1.clone(), sprite2);
+        cc.eventManager.addListener(listener1.clone(), sprite3);
         var selfPointer = this;
 
         var removeAllTouchItem = cc.MenuItemFont.create("Remove All Touch Listeners", function(senderItem){
             senderItem.setString("Only Next item could be clicked");
 
-            selfPointer._eventDispatcher.removeEventListeners(cc.EventListener.Type.TOUCH_ONE_BY_ONE);
+            cc.eventManager.removeListeners(cc.EventListener.TOUCH_ONE_BY_ONE);
 
             var nextItem = cc.MenuItemFont.create("Next", function(sender){
                 selfPointer.onNextCallback();
@@ -184,38 +184,38 @@ var TouchableSpriteWithFixedPriority = cc.Sprite.extend({
     onEnter:function(){
         this._super();
 
-        var listener = cc.EventListenerTouchOneByOne.create();
-        listener.setSwallowTouches(true);
         var selfPointer = this;
-        listener.onTouchBegan = function(touch, event){
-            var locationInNode = selfPointer.convertToNodeSpace(touch.getLocation());
-            var s = selfPointer.getContentSize();
-            var rect = cc.rect(0, 0, s.width, s.height);
+        var listener = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function (touch, event) {
+                var locationInNode = selfPointer.convertToNodeSpace(touch.getLocation());
+                var s = selfPointer.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
 
-            if (cc.rectContainsPoint(rect, locationInNode)) {
-                selfPointer.setColor(cc.red());
-                return true;
+                if (cc.rectContainsPoint(rect, locationInNode)) {
+                    selfPointer.setColor(cc.red());
+                    return true;
+                }
+                return false;
+            },
+            onTouchMoved: function (touch, event) {
+                //this.setPosition(this.getPosition() + touch.getDelta());
+            },
+            onTouchEnded: function (touch, event) {
+                selfPointer.setColor(cc.white());
             }
-            return false;
-        };
-
-        listener.onTouchMoved = function(touch, event){
-            //this.setPosition(this.getPosition() + touch.getDelta());
-        };
-
-        listener.onTouchEnded = function(touch, event){
-            selfPointer.setColor(cc.white());
-        };
+        });
 
         if (this._useNodePriority)
-            this._eventDispatcher.addEventListenerWithSceneGraphPriority(listener, this);
+            cc.eventManager.addListener(listener, this);
         else
-            this._eventDispatcher.addEventListenerWithFixedPriority(listener, this._fixedPriority);
+            cc.eventManager.addListener(listener, this._fixedPriority);
         this._listener = listener;
     },
 
     onExit: function(){
-        this._eventDispatcher.removeEventListener(this._listener);
+        cc.eventManager.removeListener(this._listener);
         this._super();
     }
 });
@@ -235,8 +235,6 @@ var FixedPriorityTest =  EventDispatcherTestDemo.extend({
         var size = director.getVisibleSize();
 
         var sprite1 = TouchableSpriteWithFixedPriority.create();
-        //TODO re-implement setTexture of cc.Sprite
-        //sprite1.setTexture("res/Images/CyanSquare.png");
         sprite1.initWithFile("res/Images/CyanSquare.png");
         sprite1.setPriority(30);
         sprite1.setPosition(origin.x +size.width/2 - 80, origin.y - size.height/2 + 40);
@@ -275,37 +273,34 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
         this._super();
 
         var origin = director.getVisibleOrigin();
-        var size = director.getVisibleSize(), selfPointer = this;
+        var size = director.getVisibleSize();
 
         var sprite1 = cc.Sprite.create("res/Images/CyanSquare.png");
         sprite1.setPosition(origin.x + size.width/2, origin.y + size.height/2);
         this.addChild(sprite1, 10);
 
         // Make sprite1 touchable
-        var listener1 = cc.EventListenerTouchOneByOne.create();
-        listener1.setSwallowTouches(true);
+        var listener1 = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function (touch, event) {
+                var locationInNode = sprite1.convertToNodeSpace(touch.getLocation());
+                var s = sprite1.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
+
+                if (cc.rectContainsPoint(rect, locationInNode)) {
+                    sprite1.setColor(cc.red());
+                    return true;
+                }
+                return false;
+            },
+            onTouchEnded: function (touch, event) {
+                sprite1.setColor(cc.white());
+            }
+        });
         this.setUserObject(listener1);
 
-        // TODO
-        //std.shared_ptr<bool> firstClick(new bool(true));
-
-        listener1.onTouchBegan = function(touch, event){
-            var locationInNode = sprite1.convertToNodeSpace(touch.getLocation());
-            var s = sprite1.getContentSize();
-            var rect = cc.rect(0, 0, s.width, s.height);
-
-            if (cc.rectContainsPoint(rect, locationInNode)) {
-                sprite1.setColor(cc.red());
-                return true;
-            }
-            return false;
-        };
-
-        listener1.onTouchEnded = function(touch, event){
-            sprite1.setColor(cc.white());
-        };
-
-        this._eventDispatcher.addEventListenerWithSceneGraphPriority(listener1, sprite1);
+        cc.eventManager.addListener(listener1, sprite1);
 
         var statusLabel = cc.LabelTTF.create("The sprite could be touched!", "", 20);
         statusLabel.setPosition(origin.x + size.width/2, origin.y + size.height-90 );
@@ -317,11 +312,11 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
         var toggleItem = cc.MenuItemToggle.create(cc.MenuItemFont.create("Enabled"), cc.MenuItemFont.create("Disabled"),
             function (sender) {
                 if (enable) {
-                    selfPointer._eventDispatcher.removeEventListener(listener1);
+                    cc.eventManager.removeListener(listener1);
                     statusLabel.setString("The sprite could not be touched!");
                     enable = false;
                 } else {
-                    selfPointer._eventDispatcher.addEventListenerWithSceneGraphPriority(listener1, sprite1);
+                    cc.eventManager.addListener(listener1, sprite1);
                     statusLabel.setString("The sprite could be touched!");
                     enable = true;
                 }
@@ -366,16 +361,23 @@ var CustomEventTest =  EventDispatcherTestDemo.extend({
         statusLabel.setPosition(origin.x + size.width / 2, origin.y + size.height - 90);
         this.addChild(statusLabel);
 
-        this._listener1 = cc.EventListenerCustom.create("game_custom_event1", function(event){
+        /* this._listener1 = cc.EventListenerCustom.create("game_custom_event1", function(event){
             statusLabel.setString("Custom event 1 received, " + event.getUserData() + " times");
+        });*/
+        this._listener1 = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: "game_custom_event1",
+            callback: function(event){
+                statusLabel.setString("Custom event 1 received, " + event.getUserData() + " times");
+            }
         });
 
-        this._eventDispatcher.addEventListenerWithFixedPriority(this._listener1, 1);
+        cc.eventManager.addListener(this._listener1, 1);
         var sendItem = cc.MenuItemFont.create("Send Custom Event 1", function(sender){
             ++selfPointer._item1Count;
             var event = new cc.EventCustom("game_custom_event1");
             event.setUserData(selfPointer._item1Count.toString());
-            selfPointer._eventDispatcher.dispatchEvent(event);
+            cc.eventManager.dispatchEvent(event);
         });
         sendItem.setPosition(origin.x + size.width/2, origin.y + size.height/2);
 
@@ -383,16 +385,20 @@ var CustomEventTest =  EventDispatcherTestDemo.extend({
         statusLabel2.setPosition(origin.x + size.width/2, origin.y + size.height-120);
         this.addChild(statusLabel2);
 
-        this._listener2 = cc.EventListenerCustom.create("game_custom_event2", function(event){
-            statusLabel2.setString("Custom event 2 received, " + event.getUserData() + " times");
+        this._listener2 = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: "game_custom_event2",
+            callback: function(event){
+                statusLabel2.setString("Custom event 2 received, " + event.getUserData() + " times");
+            }
         });
 
-        this._eventDispatcher.addEventListenerWithFixedPriority(this._listener2, 1);
+        cc.eventManager.addListener(this._listener2, 1);
         var sendItem2 = cc.MenuItemFont.create("Send Custom Event 2", function(sender){
             ++selfPointer._item2Count;
             var event = new cc.EventCustom("game_custom_event2");
             event.setUserData(selfPointer._item2Count.toString());
-            selfPointer._eventDispatcher.dispatchEvent(event);
+            cc.eventManager.dispatchEvent(event);
         });
         sendItem2.setPosition(origin.x + size.width/2, origin.x + size.height/2 - 40);
 
@@ -403,8 +409,8 @@ var CustomEventTest =  EventDispatcherTestDemo.extend({
     },
 
     onExit:function(){
-        this._eventDispatcher.removeEventListener(this._listener1);
-        this._eventDispatcher.removeEventListener(this._listener2);
+        cc.eventManager.removeListener(this._listener1);
+        cc.eventManager.removeListener(this._listener2);
         this._super();
     },
 
@@ -445,7 +451,7 @@ var LabelKeyboardEventTest =  EventDispatcherTestDemo.extend({
             label.setString("Key " + keyCode.toString() + " was released!");
         };
 
-        this._eventDispatcher.addEventListenerWithSceneGraphPriority(listener, statusLabel);
+        cc.eventManager.addListener(listener, statusLabel);
     },
 
     title:function(){
@@ -489,7 +495,7 @@ var SpriteAccelerationEventTest =  EventDispatcherTestDemo.extend({
             sprite.setPosition(nowX, nowY);
         });
 
-        this._eventDispatcher.addEventListenerWithSceneGraphPriority(listener, sprite);
+        cc.eventManager.addListener(listener, sprite);
     },
 
     onExit:function(){
@@ -536,37 +542,36 @@ var RemoveAndRetainNodeTest =  EventDispatcherTestDemo.extend({
         this.addChild(this._sprite, 10);
 
         // Make sprite1 touchable
-        var listener1 = cc.EventListenerTouchOneByOne.create();
-        listener1.setSwallowTouches(true);
+        var listener1 = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function (touch, event) {
+                var target = event.getCurrentTarget();
 
-        listener1.onTouchBegan = function(touch, event){
-            var target = event.getCurrentTarget();
+                var locationInNode = target.convertToNodeSpace(touch.getLocation());
+                var s = target.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
 
-            var locationInNode = target.convertToNodeSpace(touch.getLocation());
-            var s = target.getContentSize();
-            var rect = cc.rect(0, 0, s.width, s.height);
-
-            if (cc.rectContainsPoint(rect, locationInNode)) {
-                cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
-                target.setOpacity(180);
-                return true;
+                if (cc.rectContainsPoint(rect, locationInNode)) {
+                    cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
+                    target.opacity = 180;
+                    return true;
+                }
+                return false;
+            },
+            onTouchMoved: function (touch, event) {
+                var target = event.getCurrentTarget();
+                var delta = touch.getDelta();
+                target.x += delta.x;
+                target.y += delta.y;
+            },
+            onTouchEnded: function (touch, event) {
+                var target = event.getCurrentTarget();
+                cc.log("sprite onTouchesEnded.. ");
+                target.opacity = 255;
             }
-            return false;
-        };
-
-        listener1.onTouchMoved = function(touch, event){
-            var target = event.getCurrentTarget();
-            var delta = touch.getDelta();
-            target.setPosition(target.getPositionX() + delta.x, target.getPositionY() + delta.y);
-        };
-
-        listener1.onTouchEnded = function(touch, event){
-            var target = event.getCurrentTarget();
-            cc.log("sprite onTouchesEnded.. ");
-            target.setOpacity(255);
-        };
-
-        this._eventDispatcher.addEventListenerWithSceneGraphPriority(listener1, this._sprite);
+        });
+        cc.eventManager.addListener(listener1, this._sprite);
 
         this.runAction(cc.Sequence.create(cc.DelayTime.create(5.0),
             cc.CallFunc.create(function () {
@@ -578,6 +583,8 @@ var RemoveAndRetainNodeTest =  EventDispatcherTestDemo.extend({
             cc.CallFunc.create(function () {
                 this._spriteSaved = false;
                 this.addChild(this._sprite);
+                if(sys.platform == 'browser')
+                    cc.eventManager.addListener(listener1, this._sprite);
                 this._sprite.release();
             }, this)
         ));
@@ -614,8 +621,8 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
                 cc.Assert(false, "Should not come here!");
                 return true;
             };
-            selfPointer._eventDispatcher.addEventListenerWithFixedPriority(listener, -1);
-            selfPointer._eventDispatcher.removeEventListener(listener);
+            cc.eventManager.addListener(listener, -1);
+            cc.eventManager.removeListener(listener);
         });
         var vCenter = cc.VisibleRect.center();
         item1.setPosition(vCenter.x, vCenter.y + 80);
@@ -638,8 +645,8 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
                 cc.Assert("Should not come here!");
                 return true;
             };
-            selfPointer._eventDispatcher.addEventListenerWithFixedPriority(listener, -1);
-            selfPointer._eventDispatcher.removeEventListeners(cc.EventListener.Type.TOUCH_ONE_BY_ONE);
+            cc.eventManager.addListener(listener, -1);
+            cc.eventManager.removeListeners(cc.EventListener.TOUCH_ONE_BY_ONE);
             addNextButton();
         }, this);
         item2.setPosition(vCenter.x, vCenter.y + 40);
@@ -650,8 +657,8 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
                 cc.Assert(false, "Should not come here!");
                 return true;
             };
-            selfPointer._eventDispatcher.addEventListenerWithFixedPriority(listener, -1);
-            selfPointer._eventDispatcher.removeAllEventListeners();
+            cc.eventManager.addListener(listener, -1);
+            cc.eventManager.removeAllListeners();
             addNextButton();
         }, this);
         item3.setPosition(cc.VisibleRect.center());
@@ -712,14 +719,14 @@ var DirectorEventTest =  EventDispatcherTestDemo.extend({
         this._label4.setPosition(80,s.height/2 - 60);
         this.addChild(this._label4);
 
-        var dispatcher = director.getEventDispatcher();
+        var dispatcher = cc.eventManager;
 
-        this._event1 = dispatcher.addCustomEventListener(cc.Director.EVENT_AFTER_UPDATE, this.onEvent1.bind(this));
-        this._event2 = dispatcher.addCustomEventListener(cc.Director.EVENT_AFTER_VISIT, this.onEvent2.bind(this));
-        this._event3 = dispatcher.addCustomEventListener(cc.Director.EVENT_AFTER_DRAW, function(event) {
+        this._event1 = dispatcher.addCustomListener(cc.Director.EVENT_AFTER_UPDATE, this.onEvent1.bind(this));
+        this._event2 = dispatcher.addCustomListener(cc.Director.EVENT_AFTER_VISIT, this.onEvent2.bind(this));
+        this._event3 = dispatcher.addCustomListener(cc.Director.EVENT_AFTER_DRAW, function(event) {
             selfPointer._label3.setString("Draw: " + selfPointer._count3++);
         }, this);
-        this._event4 = dispatcher.addCustomEventListener(cc.Director.EVENT_PROJECTION_CHANGED, function(event) {
+        this._event4 = dispatcher.addCustomListener(cc.Director.EVENT_PROJECTION_CHANGED, function(event) {
             selfPointer._label4.setString("Projection: " + selfPointer._count4++);
         }, this);
 
@@ -734,11 +741,11 @@ var DirectorEventTest =  EventDispatcherTestDemo.extend({
     onExit:function(){
         this._super();
 
-        var dispatcher = director.getEventDispatcher();
-        dispatcher.removeEventListener(this._event1);
-        dispatcher.removeEventListener(this._event2);
-        dispatcher.removeEventListener(this._event3);
-        dispatcher.removeEventListener(this._event4);
+        var eventManager = cc.eventManager;
+        eventManager.removeListener(this._event1);
+        eventManager.removeListener(this._event2);
+        eventManager.removeListener(this._event3);
+        eventManager.removeListener(this._event4);
 
         this._event1.release();
         this._event2.release();
