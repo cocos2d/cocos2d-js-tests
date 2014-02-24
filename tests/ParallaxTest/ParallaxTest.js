@@ -40,19 +40,19 @@ ParallaxDemo = BaseTestLayer.extend({
     onBackCallback:function (sender) {
         var s = new ParallaxTestScene();
         s.addChild(previousParallaxTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onRestartCallback:function (sender) {
         var s = new ParallaxTestScene();
         s.addChild(restartParallaxTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onNextCallback:function (sender) {
         var s = new ParallaxTestScene();
         s.addChild(nextParallaxTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     // automation
     numberOfPendingTests:function() {
@@ -226,7 +226,7 @@ ParallaxTestScene = TestScene.extend({
     runThisTest:function () {
         parallaxTestSceneIdx = -1;
         this.addChild(nextParallaxTest());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

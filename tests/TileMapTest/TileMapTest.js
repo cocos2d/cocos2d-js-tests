@@ -50,17 +50,17 @@ var TileDemo = BaseTestLayer.extend({
         var s = new TileMapTestScene();
         s.addChild(restartTileMapTest());
 
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new TileMapTestScene();
         s.addChild(nextTileMapTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new TileMapTestScene();
         s.addChild(previousTileMapTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onTouchesMoved:function (touches, event) {
@@ -1510,7 +1510,7 @@ var TMXOrthoFromXMLTest = TileDemo.extend({
         var resources = s_resprefix + "TileMaps";
         var filePath = s_resprefix + "TileMaps/orthogonal-test1.tmx";
         var xmlStr = cc.FileUtils.getInstance().getStringFromFile(filePath);
-        var map = cc.TMXTiledMap.createWithXML(xmlStr, resources);
+        var map = cc.TMXTiledMap.create(xmlStr, resources);
         this.addChild(map, 0, TAG_TILE_MAP);
 
         var s = map.getContentSize();
@@ -1759,7 +1759,7 @@ var TileMapTestScene = TestScene.extend({
         // but TransitionTest may setDepthTest(false), we should revert it here
         cc.Director.getInstance().setDepthTest(true);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

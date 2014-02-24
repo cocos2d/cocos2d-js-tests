@@ -30,7 +30,7 @@ var ClickAndMoveTestScene = TestScene.extend({
         var layer = new MainLayer();
 
         this.addChild(layer);
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

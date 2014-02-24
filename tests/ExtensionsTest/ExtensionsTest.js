@@ -45,7 +45,7 @@ var extensionsTestItemNames = [
         testScene:function () {
             var pManager = ControlSceneManager.getInstance();
             var pScene = pManager.currentControlScene();
-            cc.Director.getInstance().replaceScene(pScene);
+            cc.Director.getInstance().runScene(pScene);
         }
     },
     {
@@ -114,6 +114,6 @@ var ExtensionsTestScene = TestScene.extend({
     runThisTest:function () {
         var pLayer = new ExtensionsMainLayer();
         this.addChild(pLayer);
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     }
 });

@@ -101,7 +101,7 @@ var Ship = cc.Sprite.extend({
         return cc.rect(p.x - a.width / 2, p.y - a.height / 2, a.width, a.height / 2);
     },
     initBornSprite:function () {
-        this.bornSprite = cc.Sprite.createWithSpriteFrameName("ship03.png");
+        this.bornSprite = cc.Sprite.create("frame#ship03.png");
         this.bornSprite.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
         this.bornSprite.setPosition(this.getContentSize().width / 2, 12);
         this.bornSprite.setVisible(false);

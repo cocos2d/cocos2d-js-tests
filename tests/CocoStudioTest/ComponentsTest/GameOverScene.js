@@ -44,7 +44,7 @@ var GameOverLayer = cc.LayerColor.extend({
         return false;
     },
     gameOverDone: function () {
-        cc.Director.getInstance().replaceScene(ComponentsTestLayer.scene());
+        cc.Director.getInstance().runScene(ComponentsTestLayer.scene());
     },
     getLabel: function () {
         return this._label;

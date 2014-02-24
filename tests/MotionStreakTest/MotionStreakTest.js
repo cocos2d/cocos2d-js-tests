@@ -81,19 +81,19 @@ var MotionStreakTest = cc.Layer.extend({
     restartCallback:function (sender) {
         var scene = new MotionStreakTestScene();
         scene.addChild(restartMotionAction());
-        cc.Director.getInstance().replaceScene(scene);
+        cc.Director.getInstance().runScene(scene);
     },
 
     nextCallback:function (sender) {
         var scene = new MotionStreakTestScene();
         scene.addChild(nextMotionAction());
-        cc.Director.getInstance().replaceScene(scene);
+        cc.Director.getInstance().runScene(scene);
     },
 
     backCallback:function (sender) {
         var scene = new MotionStreakTestScene;
         scene.addChild(backMotionAction());
-        cc.Director.getInstance().replaceScene(scene);
+        cc.Director.getInstance().runScene(scene);
     },
 
     modeCallback:function (sender) {
@@ -244,7 +244,7 @@ var MotionStreakTestScene = TestScene.extend({
         sceneIdx = -1;
         var pLayer = nextMotionAction();
         this.addChild(pLayer);
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     }
 });
 

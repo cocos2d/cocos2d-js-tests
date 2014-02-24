@@ -54,7 +54,7 @@ var ChipmunkBaseLayer = function() {
     item.setFontSize(24);
     var menu = cc.Menu.create( item );
     this.addChild( menu );
-    menu.setPosition( cc._p( winSize.width-100, winSize.height-90 )  );
+    menu.setPosition( cc.p( winSize.width-100, winSize.height-90 )  );
 
     // Create the initial space
 	this.space = new cp.Space();
@@ -98,21 +98,21 @@ ChipmunkBaseLayer.prototype.onRestartCallback = function (sender) {
 	this.onCleanup();
     var s = new ChipmunkTestScene();
     s.addChild(restartChipmunkTest());
-    director.replaceScene(s);
+    director.runScene(s);
 };
 
 ChipmunkBaseLayer.prototype.onNextCallback = function (sender) {
 	this.onCleanup();
     var s = new ChipmunkTestScene();
     s.addChild(nextChipmunkTest());
-    director.replaceScene(s);
+    director.runScene(s);
 };
 
 ChipmunkBaseLayer.prototype.onBackCallback = function (sender) {
 	this.onCleanup();
     var s = new ChipmunkTestScene();
     s.addChild(previousChipmunkTest());
-    director.replaceScene(s);
+    director.runScene(s);
 };
 
 // automation
@@ -1455,7 +1455,7 @@ ChipmunkTestScene.prototype.runThisTest = function () {
     chipmunkTestSceneIdx = -1;
     var layer = nextChipmunkTest();
     this.addChild(layer);
-    director.replaceScene(this);
+    director.runScene(this);
 };
 
 //

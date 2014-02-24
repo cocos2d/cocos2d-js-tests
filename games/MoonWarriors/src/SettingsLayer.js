@@ -7,7 +7,7 @@ var SettingsLayer = cc.Layer.extend({
             this.addChild(sp, 0, 1);
 
             var cacheImage = cc.TextureCache.getInstance().addImage(res.menuTitle_png);
-            var title = cc.Sprite.createWithTexture(cacheImage, cc.rect(0, 0, 134, 34));
+            var title = cc.Sprite.create(cacheImage, cc.rect(0, 0, 134, 34));
             title.setPosition(winSize.width / 2, winSize.height - 120);
             this.addChild(title);
 
@@ -60,7 +60,7 @@ var SettingsLayer = cc.Layer.extend({
     onBackCallback:function (pSender) {
         var scene = cc.Scene.create();
         scene.addChild(SysMenu.create());
-        cc.Director.getInstance().replaceScene(cc.TransitionFade.create(1.2, scene));
+        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
     },
     onSoundControl:function(){
         MW.SOUND = !MW.SOUND;

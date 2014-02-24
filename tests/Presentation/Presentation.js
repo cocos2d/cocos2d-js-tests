@@ -143,19 +143,19 @@ PresentationBaseLayer.prototype.createImage = function( file ) {
 PresentationBaseLayer.prototype.onRestartCallback = function (sender) {
     var s = new PresentationScene();
     s.addChild(restartPresentationSlide());
-    director.replaceScene(s);
+    director.runScene(s);
 };
 
 PresentationBaseLayer.prototype.onNextCallback = function (sender) {
     var s = new PresentationScene();
     s.addChild(nextPresentationSlide());
-    director.replaceScene(s);
+    director.runScene(s);
 };
 
 PresentationBaseLayer.prototype.onBackCallback = function (sender) {
     var s = new PresentationScene();
     s.addChild(previousPresentationSlide());
-    director.replaceScene(s);
+    director.runScene(s);
 };
 
 // automation
@@ -700,7 +700,7 @@ PresentationScene.prototype.runThisTest = function () {
     centerPos = cc.p(winSize.width/2, winSize.height/2);
     var layer = nextPresentationSlide();
     this.addChild(layer);
-    director.replaceScene(this);
+    director.runScene(this);
 };
 
 //
