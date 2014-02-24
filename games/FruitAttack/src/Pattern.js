@@ -62,7 +62,8 @@ var PatternSprite = cc.Sprite.extend({
 
             if (this.m_extraTypeSpr != null){
                 var size = this.getContentSize();
-                this.m_extraTypeSpr.setPosition(size.width/2,size.height/2);
+                this.m_extraTypeSpr.x = size.width/2;
+	            this.m_extraTypeSpr.y = size.height/2;
                 this.addChild(this.m_extraTypeSpr);
             }
             bRet = true;
@@ -73,7 +74,8 @@ var PatternSprite = cc.Sprite.extend({
         this.g_ePatternStatus = ePatternStatus.Destroy;
 
         var effectSprite = cc.Sprite.create("frame#pattern_destroy_00.png");
-        effectSprite.setPosition(22.5,22.5);
+        effectSprite.x = 22.5;
+	    effectSprite.y = 22.5;
         this.addChild(effectSprite);
         var animation = cc.Animation.create(frams,0.025);
         effectSprite.runAction(cc.Animate.create(animation));
@@ -84,7 +86,8 @@ var PatternSprite = cc.Sprite.extend({
     explodePattern:function(frams){
         this.g_ePatternStatus = ePatternStatus.Explode;
         var effectSprite = cc.Sprite.create("frame#pattern_explode_00.png");
-        effectSprite.setPosition(22.5,22.5);
+        effectSprite.x = 22.5;
+	    effectSprite.y = 22.5;
         this.addChild(effectSprite);
         var animation = cc.Animation.create(frams,0.025);
         effectSprite.runAction(cc.Animate.create(animation));
@@ -122,8 +125,8 @@ var PatternSprite = cc.Sprite.extend({
     containsTouchLocation:function (touch) {
         var getPoint = touch.getLocation();
 
-        var lx = 0 | (getPoint.x -  this.getPosition().x);//this.getPositionX();
-        var ly = 0 | (getPoint.y -  this.getPosition().y);//this.getPositionY();
+        var lx = 0 | (getPoint.x -  this.x);//this.getPositionX();
+        var ly = 0 | (getPoint.y -  this.y);//this.getPositionY();
         if(lx>-22.5 && lx<22.5 && ly>-22.5 && ly<22.5)
             return true;
         return false;
@@ -143,8 +146,8 @@ var PatternSprite = cc.Sprite.extend({
     onTouchMoved:function (touch, event) {
         if (this.m_bHandleTouch && this.g_ePatternStatus===ePatternStatus.Normal){
             var getPoint = touch.getLocation();
-            var lx = getPoint.x -  this.getPositionX();
-            var ly = getPoint.y -  this.getPositionY();
+            var lx = getPoint.x -  this.x;
+            var ly = getPoint.y -  this.y;
             if (lx > 45)
             {
                 this.m_bHandleTouch = false;
