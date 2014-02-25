@@ -143,10 +143,20 @@ var TestController = cc.LayerGradient.extend({
 
         // 'browser' can use touches or mouse.
         // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        if( 'touches' in sys.capabilities )
-            this.setTouchEnabled(true);
-        else if( 'mouse' in sys.capabilities )
-            this.setMouseEnabled(true);
+       //if( 'touches' in sys.capabilities )
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesMoved: function (touches, event) {
+                var target = event.getCurrentTarget();
+                var delta = touches[0].getDelta();
+                target.moveMenu(delta);
+                return true;
+            }
+        }, this);
+        //else if( 'mouse' in sys.capabilities )
+        //    this.setMouseEnabled(true);
+
+
     },
     onEnter:function(){
         this._super();
@@ -154,7 +164,7 @@ var TestController = cc.LayerGradient.extend({
     },
     onMenuCallback:function (sender) {
         TestController.YOffset = this._itemMenu.y;
-        var idx = sender.getZOrder() - 10000;
+        var idx = sender.getLocalZOrder() - 10000;
         // get the userdata, it's the index of the menu item clicked
         // create the test scene and run it
 
@@ -174,12 +184,6 @@ var TestController = cc.LayerGradient.extend({
     },
     onToggleAutoTest:function() {
         autoTestEnabled = !autoTestEnabled;
-    },
-
-    onTouchesMoved:function (touches, event) {
-        var delta = touches[0].getDelta();
-        this.moveMenu(delta);
-        return true;
     },
 
     onMouseDragged : function( event ) {
@@ -205,6 +209,14 @@ var TestController = cc.LayerGradient.extend({
 });
 TestController.YOffset = 0;
 var testNames = [
+    {
+        title:"New EventDispatcher Test",
+        resource:g_eventDispatcher,
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new EventDispatcherTestScene();
+        }
+    },
     {
         title:"ActionManager Test",
         platforms: PLATFORM_ALL,
@@ -369,6 +381,14 @@ var testNames = [
         platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new MotionStreakTestScene();
+        }
+    },
+    {
+        title:"New EventDispatcher Test",
+        resource:g_eventDispatcher,
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new EventDispatcherTestScene();
         }
     },
     {

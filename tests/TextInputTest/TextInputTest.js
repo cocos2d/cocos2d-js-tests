@@ -117,10 +117,13 @@ var KeyboardNotificationLayer = TextInputTest.extend({
     ctor:function () {
         this._super();
 
-        if( 'touches' in sys.capabilities )
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities )
-            this.setMouseEnabled(true);
+        //if( 'touches' in sys.capabilities ){
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesEnded: this.onTouchesEnded
+            }, this);
+        //} else if ('mouse' in sys.capabilities )
+        //    this.setMouseEnabled(true);
     },
 
     subtitle:function () {
@@ -158,7 +161,8 @@ var KeyboardNotificationLayer = TextInputTest.extend({
     },
 
     onTouchesEnded:function (touches, event) {
-        if (!this._trackNode)
+        var target = event.getCurrentTarget();
+        if (!target._trackNode)
             return;
 
         // grab first touch
@@ -175,9 +179,10 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         cc.log("KeyboardNotificationLayer:TrackNode at(origin:" + rect.x + "," + rect.y
             + ", size:" + rect.width + "," + rect.height + ")");
 
-        this.onClickTrackNode(cc.rectContainsPoint(rect, point));
+        target.onClickTrackNode(cc.rectContainsPoint(rect, point));
         cc.log("----------------------------------");
     },
+
     onMouseUp:function (event) {
         if (!this._trackNode)
             return;

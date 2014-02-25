@@ -155,7 +155,7 @@ var SceneTestLayer3 = cc.LayerColor.extend({
     ctor:function () {
         this._super();
         this.init( cc.c4b(0,128,255,255) );
-        
+
         var label = cc.LabelTTF.create("Touch to popScene", "Arial", 28);
         this.addChild(label);
         var s = director.getWinSize();
@@ -174,19 +174,21 @@ var SceneTestLayer3 = cc.LayerColor.extend({
     },
     
     onEnterTransitionDidFinish: function () {
-        if ('touches' in sys.capabilities)
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);
+        //if ('touches' in sys.capabilities){
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesEnded: function(touches, event){
+                    director.popScene();
+                }
+            }, this);
+        //} else if ('mouse' in sys.capabilities)
+        //    this.setMouseEnabled(true);
     },
 
     testDealloc:function (dt) {
 
     },
 
-    onTouchesEnded:function (touches, event) {
-        director.popScene();
-    },
     onMouseUp:function(event) {
         director.popScene();
     }

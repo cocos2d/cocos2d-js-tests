@@ -101,24 +101,28 @@ var TouchesMainScene = PerformBasicLayer.extend({
 var TouchesPerformTest1 = TouchesMainScene.extend({
     onEnter:function () {
         this._super();
-        this.setTouchEnabled(true);
-        this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
+
+        var _this = this;
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan:function (touch, event) {
+                _this._numberOfTouchesB++;
+                return true;
+            },
+            onTouchMoved:function (touch, event) {
+                _this._numberOfTouchesM++;
+            },
+            onTouchEnded:function (touch, event) {
+                _this._numberOfTouchesE++;
+            },
+            onTouchCancelled:function (touch, event) {
+                _this._numberOfTouchesC++;
+            }
+        }, this);
     },
     title:function () {
         return "Targeted touches";
-    },
-    onTouchBegan:function (touch, event) {
-        this._numberOfTouchesB++;
-        return true;
-    },
-    onTouchMoved:function (touch, event) {
-        this._numberOfTouchesM++;
-    },
-    onTouchEnded:function (touch, event) {
-        this._numberOfTouchesE++;
-    },
-    onTouchCancelled:function (touch, event) {
-        this._numberOfTouchesC++;
     }
 });
 
@@ -130,23 +134,25 @@ var TouchesPerformTest1 = TouchesMainScene.extend({
 var TouchesPerformTest2 = TouchesMainScene.extend({
     onEnter:function () {
         this._super();
-        this.setTouchEnabled(true);
-        this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
+        var _this = this;
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesBegan:function (touches, event) {
+                _this._numberOfTouchesB += touches.length;
+            },
+            onTouchesMoved:function (touches, event) {
+                _this._numberOfTouchesM += touches.length;
+            },
+            onTouchesEnded:function (touches, event) {
+                _this._numberOfTouchesE += touches.length;
+            },
+            onTouchesCancelled:function (touches, event) {
+                _this._numberOfTouchesC += touches.length;
+            }
+        }, this);
     },
     title:function () {
         return "Standard touches";
-    },
-    onTouchesBegan:function (touches, event) {
-        this._numberOfTouchesB += touches.length;
-    },
-    onTouchesMoved:function (touches, event) {
-        this._numberOfTouchesM += touches.length;
-    },
-    onTouchesEnded:function (touches, event) {
-        this._numberOfTouchesE += touches.length;
-    },
-    onTouchesCancelled:function (touches, event) {
-        this._numberOfTouchesC += touches.length;
     }
 });
 

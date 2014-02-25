@@ -105,8 +105,14 @@ var TouchOneByOneTest = EventTest.extend({
         this.unused_sprites = [];
 
         if( 'touches' in sys.capabilities ) {
-            this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
-            this.setTouchEnabled(true);
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: true,
+                onTouchBegan: this.onTouchBegan,
+                onTouchMoved: this.onTouchMoved,
+                onTouchEnded: this.onTouchEnded,
+                onTouchCancelled: this.onTouchCancelled
+            }, this);
         } else {
             cc.log("TOUCH-ONE-BY-ONE test is not supported on desktop");
         }
@@ -149,7 +155,7 @@ var TouchOneByOneTest = EventTest.extend({
         var id = touch.getId();
         cc.log("onTouchBegan at: " + pos.x + " " + pos.y + " Id:" + id );
         if( pos.x < winSize.width/2) {
-            this.new_id(id,pos);
+            event.getCurrentTarget().new_id(id,pos);
             return true;
         }
         return false;
@@ -158,19 +164,19 @@ var TouchOneByOneTest = EventTest.extend({
         var pos = touch.getLocation();
         var id = touch.getId();
         cc.log("onTouchMoved at: " + pos.x + " " + pos.y + " Id:" + id );
-        this.update_id(id,pos);
+        event.getCurrentTarget().update_id(id,pos);
     },
     onTouchEnded:function(touch, event) {
         var pos = touch.getLocation();
         var id = touch.getId();
         cc.log("onTouchEnded at: " + pos.x + " " + pos.y + " Id:" + id );
-        this.release_id(id,pos);
+        event.getCurrentTarget().release_id(id,pos);
     },
     onTouchCancelled:function(touch, event) {
         var pos = touch.getLocation();
         var id = touch.getId();
         cc.log("onTouchCancelled at: " + pos.x + " " + pos.y + " Id:" + id );
-        this.update_id(id,pos);
+        event.getCurrentTarget().update_id(id,pos);
     }
 });
 
@@ -188,8 +194,13 @@ var TouchAllAtOnce = EventTest.extend({
 
         if( 'touches' in sys.capabilities ) {
             // this is the default behavior. No need to set it explicitly.
-            this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
-            this.setTouchEnabled(true);
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesBegan: this.onTouchesBegan,
+                onTouchesMoved: this.onTouchesMoved,
+                onTouchesEnded: this.onTouchesEnded,
+                onTouchesCancelled: this.onTouchesCancelled
+            }, this);
         } else {
             cc.log("TOUCHES not supported");
         }
@@ -228,39 +239,43 @@ var TouchAllAtOnce = EventTest.extend({
     },
 
     onTouchesBegan:function(touches, event) {
+        var target = event.getCurrentTarget();
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
             var id = touch.getId();
             cc.log("Touch #" + i + ". onTouchesBegan at: " + pos.x + " " + pos.y + " Id:" + id);
-            this.new_id(id,pos);
+            target.new_id(id,pos);
         }
     },
     onTouchesMoved:function(touches, event) {
+        var target = event.getCurrentTarget();
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
             var id = touch.getId();
             cc.log("Touch #" + i + ". onTouchesMoved at: " + pos.x + " " + pos.y + " Id:" + id);
-            this.update_id(id, pos);
+            target.update_id(id, pos);
         }
     },
     onTouchesEnded:function(touches, event) {
+        var target = event.getCurrentTarget();
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
             var id = touch.getId();
             cc.log("Touch #" + i + ". onTouchesEnded at: " + pos.x + " " + pos.y + " Id:" + id);
-            this.release_id(id);
+            target.release_id(id);
         }
     },
     onTouchesCancelled:function(touches, event) {
+        var target = event.getCurrentTarget();
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
             var id = touch.getId();
             cc.log("Touch #" + i + ". onTouchesCancelled at: " + pos.x + " " + pos.y + " Id:" + id);
-            this.release_id(id);
+            target.release_id(id);
         }
     }
 });
@@ -329,11 +344,12 @@ var MouseTest = EventTest.extend({
         sprite.setScale(1);
         sprite.setColor( cc.c3b(Math.random()*200+55, Math.random()*200+55, Math.random()*200+55) );
 
-        if( 'mouse' in sys.capabilities ) {
+        /*if( 'mouse' in sys.capabilities ) {
+            //TODO
             this.setMouseEnabled(true);
         } else {
             cc.log("MOUSE Not supported");
-        }
+        }*/
     },
     subtitle:function () {
         return "Mouse test. Move mouse and see console";

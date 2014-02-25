@@ -91,10 +91,16 @@ var LayerTest1 = LayerTest.extend({
     onEnter:function () {
         this._super();
 
-        if( 'touches' in sys.capabilities )
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities )
-            this.setMouseEnabled(true);
+
+        //if( 'touches' in sys.capabilities )
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesMoved:function (touches, event) {
+                event.getCurrentTarget().updateSize(touches[0].getLocation());
+            }
+        }, this);
+        //else if ('mouse' in sys.capabilities )
+        //    this.setMouseEnabled(true);
 
         var s = director.getWinSize();
         var layer = cc.LayerColor.create(cc.c4b(255, 0, 0, 128), 200, 200);
@@ -121,9 +127,7 @@ var LayerTest1 = LayerTest.extend({
         this.updateSize(location);
         return true;
     },
-    onTouchesMoved:function (touches, event) {
-        this.updateSize( touches[0].getLocation() );
-    },
+
     
 
     //
@@ -318,13 +322,13 @@ var LayerTest2 = LayerTest.extend({
         var actionFade = cc.FadeOut.create(2.0);
         var actionFadeBack = actionFade.reverse();
 
-        if(autoTestEnabled) {
-	    var seq1 = cc.Sequence.create(actionTint, cc.DelayTime.create(0.25), actionTintBack);
-	    var seq2 = cc.Sequence.create(actionFade, cc.DelayTime.create(0.25), actionFadeBack);
-	} else {
-	    var seq1 = cc.Sequence.create(actionTint, actionTintBack);
-	    var seq2 = cc.Sequence.create(actionFade, actionFadeBack);
-	}
+        if (autoTestEnabled) {
+            var seq1 = cc.Sequence.create(actionTint, cc.DelayTime.create(0.25), actionTintBack);
+            var seq2 = cc.Sequence.create(actionFade, cc.DelayTime.create(0.25), actionFadeBack);
+        } else {
+            var seq1 = cc.Sequence.create(actionTint, actionTintBack);
+            var seq2 = cc.Sequence.create(actionFade, actionFadeBack);
+        }
 
         layer1.runAction(seq1);
         layer2.runAction(seq2);
@@ -340,32 +344,29 @@ var LayerTest2 = LayerTest.extend({
     testDuration: 2.1,
     tintTest: {"r": 0, "g": 128, "b": 60},
     getExpectedResult:function() {
-        
-        var s = director.getWinSize();
         var ret = {"tint": "yes", "opacity": 0};
         return JSON.stringify(ret);
     },
 
     getCurrentResult:function() {
-
         var abs = function (a) {
-	    return (a > 0) ? a: a*-1;
-	};
+            return (a > 0) ? a : a * -1;
+        };
 
-	var inColorRange = function (pix1, pix2) {
-	    // Color on iOS comes as 0,128,128 and on web as 0,128,0
-	    if(abs(pix1.r - pix2.r) < 50 && abs(pix1.g - pix2.g) < 50 && 
-	       abs(pix1.b - pix2.b) < 90) {
-		return true;
-	    }
-	    return false;
-	};
-    var s = director.getWinSize();
-	var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).getColor();
-	var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).getOpacity();
+        var inColorRange = function (pix1, pix2) {
+            // Color on iOS comes as 0,128,128 and on web as 0,128,0
+            if (abs(pix1.r - pix2.r) < 50 && abs(pix1.g - pix2.g) < 50 &&
+                abs(pix1.b - pix2.b) < 90) {
+                return true;
+            }
+            return false;
+        };
+        var s = director.getWinSize();
+        var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).getColor();
+        var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).getOpacity();
         var ret = {"tint": inColorRange(tint, this.tintTest) ? "yes" : "no",
-		   "opacity": op};
-	
+            "opacity": op};
+
         return JSON.stringify(ret);
     }
 });
@@ -438,10 +439,25 @@ var LayerGradient = LayerTest.extend({
         var layer1 = cc.LayerGradient.create(cc.c4b(255, 0, 0, 255), cc.c4b(0, 255, 0, 255), cc.p(0.9, 0.9));
         this.addChild(layer1, 0, cc.TAG_LAYER);
 
-        if( 'touches' in sys.capabilities )
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities )
-            this.setMouseEnabled(true);
+        //if( 'touches' in sys.capabilities ){
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesBegan:function(touches, event){
+                    var target = event.getCurrentTarget();
+                    target._isPressed = true;
+                    target.updateGradient(touches[0].getLocation());
+                },
+                onTouchesMoved:function (touches, event) {
+                    var target = event.getCurrentTarget();
+                    if(target._isPressed)
+                        target.updateGradient(touches[0].getLocation());
+                },
+                onTouchesEnded:function(touches,event){
+                    event.getCurrentTarget()._isPressed = false;
+                }
+            }, this);
+        //} else if ('mouse' in sys.capabilities )
+        //    this.setMouseEnabled(true);
 
         var label1 = cc.LabelTTF.create("Compressed Interpolation: Enabled", "Marker Felt", 26);
         var label2 = cc.LabelTTF.create("Compressed Interpolation: Disabled", "Marker Felt", 26);
@@ -461,20 +477,6 @@ var LayerGradient = LayerTest.extend({
 
         var gradient = this.getChildByTag(1);
         gradient.setVector(diff);
-    },
-    onTouchesBegan:function(touches, event){
-        this._isPressed = true;
-        var start = touches[0].getLocation();
-        this.updateGradient(start);
-    },
-    onTouchesMoved:function (touches, event) {
-        if(this._isPressed) {
-            var start = touches[0].getLocation();
-            this.updateGradient(start);
-        }
-    },
-    onTouchesEnded:function(touches,event){
-        this._isPressed = false;
     },
 
     onMouseDragged : function( event ) {

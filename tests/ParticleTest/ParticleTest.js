@@ -182,10 +182,26 @@ var ParticleDemo = BaseTestLayer.extend({
 
         this._emitter = null;
 
-        if ('touches' in sys.capabilities)
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);
+        //if ('touches' in sys.capabilities){
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesBegan:function (touches, event) {
+/*                    var target = ;
+                    target._isPressed = true;*/
+                    event.getCurrentTarget()._moveToTouchPoint(touches);
+                },
+                onTouchesMoved:function (touches, event) {
+/*                    if (!this._isPressed)
+                        return;*/
+                    event.getCurrentTarget()._moveToTouchPoint(touches);
+                }
+                /*,
+                onTouchesEnded:function (touches, event) {
+                    event.getCurrentTarget()._isPressed = false;
+                }*/
+            }, this);
+        //} else if ('mouse' in sys.capabilities)
+        //    this.setMouseEnabled(true);
 
         var s = director.getWinSize();
 
@@ -338,18 +354,6 @@ var ParticleDemo = BaseTestLayer.extend({
             this._emitter.setPositionType(cc.PARTICLE_TYPE_GROUPED);
     },
 
-
-    onTouchesBegan:function (touches, event) {
-        this._isPressed = true;
-        this._moveToTouchPoint(touches);
-    },
-
-    onTouchesMoved:function (touches, event) {
-        if (!this._isPressed)
-            return;
-        this._moveToTouchPoint(touches);
-    },
-
     _moveToTouchPoint:function (touches) {
         if (touches.length > 0) {
             var location = touches[0].getLocation();
@@ -360,10 +364,6 @@ var ParticleDemo = BaseTestLayer.extend({
             this._emitter.x = location.x - pos.x;
 	        this._emitter.y = location.y - pos.y;
         }
-    },
-
-    onTouchesEnded:function (touches, event) {
-        this._isPressed = false;
     },
 
     onMouseDragged:function (event) {
