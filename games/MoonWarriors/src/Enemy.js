@@ -65,7 +65,8 @@ var Enemy = cc.Sprite.extend({
     shoot:function () {
         var x = this.x, y = this.y;
         var b = Bullet.getOrCreateBullet(this.bulletSpeed, "W2.png", this.attackMode, 3000, MW.UNIT_TAG.ENMEY_BULLET);
-        b.setPosition(x, y - this.height * 0.2);
+        b.x = x;
+	    b.y = y - this.height * 0.2;
     },
     hurt:function () {
         this._hurtColorLife = 2;

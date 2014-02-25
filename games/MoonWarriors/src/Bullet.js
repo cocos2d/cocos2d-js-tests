@@ -18,10 +18,10 @@ var Bullet = cc.Sprite.extend({
         this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
     },
     update:function (dt) {
-        var p = this.getPosition();
-        this.x = p.x - this.xVelocity * dt;
-	    this.y = p.y - this.yVelocity * dt;
-        if (p.x < 0 || p.x > g_sharedGameLayer.screenRect.width || p.y < 0 || p.y > g_sharedGameLayer.screenRect.height || this.HP <= 0) {
+        var x = this.x, y = this.y;
+        this.x = x - this.xVelocity * dt;
+	    this.y = y - this.yVelocity * dt;
+        if (x < 0 || x > g_sharedGameLayer.screenRect.width || y < 0 || y > g_sharedGameLayer.screenRect.height || this.HP <= 0) {
             this.destroy();
         }
     },

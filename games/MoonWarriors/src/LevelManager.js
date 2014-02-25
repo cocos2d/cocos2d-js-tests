@@ -65,7 +65,7 @@ var LevelManager = cc.Class.extend({
         var a1=0;
         switch (addEnemy.moveType) {
             case MW.ENEMY_MOVE_TYPE.ATTACK:
-                offset = this._gameLayer._ship.getPosition();
+                offset = cc.p(this._gameLayer._ship.x, this._gameLayer._ship.y);
                 tmpAction = cc.MoveTo.create(1, offset);
                 break;
             case MW.ENEMY_MOVE_TYPE.VERTICAL:

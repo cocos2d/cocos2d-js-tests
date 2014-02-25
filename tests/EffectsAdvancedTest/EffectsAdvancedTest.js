@@ -64,24 +64,28 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
         var bg = cc.Sprite.create(s_back3);
         //this.addChild(bg, 0, EffectsAdvancedTest.TAG_BACKGROUND);
         gradient.addChild(bg);
-        bg.setPosition(winSize.width / 2, winSize.height / 2);
+        bg.x = winSize.width / 2;
+        bg.y = winSize.height / 2;
 
         var grossini = cc.Sprite.create(s_pathSister2);
         gradient.addChild(grossini, 1, EffectsAdvancedTest.TAG_SPRITE1);
-        grossini.setPosition(winSize.width / 3, winSize.height / 2);
+        grossini.x = winSize.width / 3;
+        grossini.y = winSize.height / 2;
         var sc = cc.ScaleBy.create(2, 5);
         var sc_back = sc.reverse();
         grossini.runAction(cc.RepeatForever.create(cc.Sequence.create(sc, sc_back)));
 
         var tamara = cc.Sprite.create(s_pathSister1);
         gradient.addChild(tamara, 1, EffectsAdvancedTest.TAG_SPRITE2);
-        tamara.setPosition(winSize.width * 2 / 3, winSize.height / 2);
+        tamara.x = winSize.width * 2 / 3;
+        tamara.y = winSize.height / 2;
         var sc2 = cc.ScaleBy.create(2, 5);
         var sc2_back = sc2.reverse();
         tamara.runAction(cc.RepeatForever.create(cc.Sequence.create(sc2, sc2_back)));
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 28);
-        label.setPosition(cc.VisibleRect.center().x, cc.VisibleRect.top().y - 80);
+        label.x = cc.VisibleRect.center().x;
+        label.y = cc.VisibleRect.top().y - 80;
         this.addChild(label);
         label.setTag(EffectsAdvancedTest.TAG_LABEL);
 
@@ -89,7 +93,8 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
         if (strSubtitle != "") {
             var subtitleLabel = cc.LabelTTF.create(strSubtitle, "Arial", 16);
             this.addChild(subtitleLabel, 101);
-            subtitleLabel.setPosition(cc.VisibleRect.center().x, cc.VisibleRect.top().y - 80);
+            subtitleLabel.x = cc.VisibleRect.center().x;
+            subtitleLabel.y = cc.VisibleRect.top().y - 80;
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
@@ -98,10 +103,15 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(0, 0);
-        item1.setPosition(cc.VisibleRect.center().x - item2.getContentSize().width * 2, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2);
-        item2.setPosition(cc.VisibleRect.center().x, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2);
-        item3.setPosition(cc.VisibleRect.center().x + item2.getContentSize().width * 2, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2);
+        menu.x = 0;
+        menu.y = 0;
+	    var centerx = cc.VisibleRect.center().x, bottomy = cc.VisibleRect.bottom().y;
+        item1.x = centerx - item2.width * 2;
+        item1.y = bottomy + item2.height / 2;
+        item2.x = centerx;
+        item2.y = bottomy + item2.height / 2;
+        item3.x = centerx + item2.width * 2;
+        item3.y = bottomy + item2.height / 2;
 
         this.addChild(menu, 1);
     },
@@ -229,7 +239,8 @@ var Lens3DTarget = cc.Node.extend({
     },
 
     update: function(dt) {
-        this._lens3D.setPosition(this.getPosition());
+        this._lens3D.x = this.x;
+	    this._lens3D.y = this.y;
     },
 
     onEnter: function() {
@@ -326,7 +337,8 @@ var Issue631 = EffectAdvanceTextLayer.extend({
         var layer = cc.LayerColor.create(cc.c4b(255, 0, 0, 255));
         this.addChild(layer, -10);
         var sprite = cc.Sprite.create(s_pathGrossini);
-        sprite.setPosition(50, 80);
+        sprite.x = 50;
+        sprite.y = 80;
         layer.addChild(sprite, 10);
 
         // foreground

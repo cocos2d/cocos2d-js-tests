@@ -36,7 +36,8 @@ var UISliderTest = UIScene.extend({
             slider.loadBarTexture("res/cocosgui/sliderTrack.png");
             slider.loadSlidBallTextures("res/cocosgui/sliderThumb.png", "res/cocosgui/sliderThumb.png", "");
             slider.loadProgressBarTexture("res/cocosgui/sliderProgress.png");
-            slider.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
+            slider.x = widgetSize.width / 2.0;
+            slider.y = widgetSize.height / 2.0;
             slider.addEventListenerSlider(this.sliderEvent, this);
             this._uiLayer.addWidget(slider);
 
@@ -75,7 +76,8 @@ var UISliderTest_Scale9 = UIScene.extend({
             slider.setScale9Enabled(true);
             slider.setCapInsets(cc.rect(0, 0, 0, 0));
             slider.setSize(cc.size(250, 10));
-            slider.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
+            slider.x = widgetSize.width / 2.0;
+            slider.y = widgetSize.height / 2.0;
             slider.addEventListenerSlider(this.sliderEvent, this);
             this._uiLayer.addWidget(slider);
 

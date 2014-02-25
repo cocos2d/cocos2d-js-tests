@@ -56,9 +56,12 @@ var SpriteLayer = cc.Layer.extend({
         spriteSister1.setScale(1.5);
         spriteSister2.setScale(1.5);
 
-        sprite.setPosition(x / 2, y / 2);
-        spriteSister1.setPosition(40, y / 2);
-        spriteSister2.setPosition(x - 40, y / 2);
+        sprite.x = x / 2;
+        sprite.y = y / 2;
+        spriteSister1.x = 40;
+        spriteSister1.y = y / 2;
+        spriteSister2.x = x - 40;
+        spriteSister2.y = y / 2;
 
         var rot = cc.RotateBy.create(16, -3600);
 
@@ -106,7 +109,8 @@ var TestLayer = cc.Layer.extend({
         //	NSLog( s );
         var label = cc.LabelTTF.create("cocos2d", "Tahoma", 64);
 
-        label.setPosition(x / 2, y / 2);
+        label.x = x / 2;
+        label.y = y / 2;
 
         this.addChild(label);
     }
@@ -136,18 +140,22 @@ var RotateWorldMainLayer = cc.Layer.extend({
         var white = cc.LayerColor.create(cc.c4b(255, 255, 255, 255));
 
         blue.setScale(0.5);
-        blue.setPosition(-x / 4, -y / 4);
+        blue.x = -x / 4;
+        blue.y = -y / 4;
         blue.addChild(SpriteLayer.create());
 
         red.setScale(0.5);
-        red.setPosition(x / 4, -y / 4);
+        red.x = x / 4;
+        red.y = -y / 4;
 
         green.setScale(0.5);
-        green.setPosition(-x / 4, y / 4);
+        green.x = -x / 4;
+        green.y = y / 4;
         green.addChild(TestLayer.create());
 
         white.setScale(0.5);
-        white.setPosition(x / 4, y / 4);
+        white.x = x / 4;
+        white.y = y / 4;
 
         this.addChild(blue, -1);
         this.addChild(white);

@@ -70,10 +70,14 @@ PresentationBaseLayer.prototype.onEnter = function() {
 
 	var isMain = this.isMainTitle;
 
-	if( isMain === true )
-		this.label.setPosition( centerPos );
-	else
-		this.label.setPosition( winSize.width / 2, winSize.height*11/12 );
+	if( isMain === true ) {
+		this.label.x = centerPos.x;
+		this.label.y = centerPos.y;
+	}
+	else {
+		this.label.x = winSize.width / 2;
+		this.label.y = winSize.height*11/12 ;
+	}
 
 	var subStr = this._subtitle;
 	if (subStr !== "") {
@@ -85,10 +89,14 @@ PresentationBaseLayer.prototype.onEnter = function() {
 
 		this.sublabel = cc.LabelTTF.create(subStr, "Thonburi", subfontSize);
 		this.addChild(this.sublabel, 90);
-		if( isMain )
-			this.sublabel.setPosition(winSize.width / 2, winSize.height*3/8);
-		else
-			this.sublabel.setPosition(winSize.width / 2, winSize.height*4/5);
+		if( isMain ) {
+			this.sublabel.x = winSize.width / 2;
+			this.sublabel.y = winSize.height*3/8;
+		}
+		else {
+			this.sublabel.x = winSize.width / 2;
+			this.sublabel.y = winSize.height*4/5;
+		}
 	} else
 		this.sublabel = null;
 
@@ -127,13 +135,15 @@ PresentationBaseLayer.prototype.createBulletList = function () {
 
 	var fontSize = winSize.height*0.07;
 	var bullets = cc.LabelTTF.create( str, "Gill Sans", fontSize );
-	bullets.setPosition( centerPos );
+	bullets.x = centerPos.x;
+	bullets.y = centerPos.y;
 	this.addChild( bullets, 80 );
 };
 
 PresentationBaseLayer.prototype.createImage = function( file ) {
 	var sprite = cc.Sprite.create( file );
-	sprite.setPosition( centerPos );
+	sprite.x = centerPos.x;
+	sprite.y = centerPos.y;
 	this.addChild( sprite, 70 );
 
 	return sprite;
@@ -351,7 +361,8 @@ ChipmunkPage.prototype.initMenu = function() {
 	var menuItem = cc.MenuItemFont.create('Toggle Physics Debug', this.onTogglePhysicsDebug, this);
 	var menu = cc.Menu.create( menuItem );
 	this.addChild( menu, 99 );
-	menu.setPosition(winSize.width-80, winSize.height-100);
+	menu.x = winSize.width-80;
+	menu.y = winSize.height-100;
 };
 
 // init physics
@@ -455,21 +466,25 @@ var ParticlesPage = function() {
 	var firework = cc.ParticleFireworks.create();
 	// firework.setTexture(tex);
 	this.addChild( firework );
-	firework.setPosition( centerPos );
+	firework.x = centerPos.x;
+	firework.y = centerPos.y;
 
 	var sun = cc.ParticleSun.create();
 	// sun.setTexture(tex);
 	this.addChild( sun );
-	sun.setPosition(winSize.width/4, winSize.height/2);
+	sun.x = winSize.width/4;
+	sun.y = winSize.height/2;
 
 	var meteor = cc.ParticleMeteor.create();
 	// meteor.setTexture(tex);
 	this.addChild( meteor );
-	meteor.setPosition(winSize.width*3/4, winSize.height/2);
+	meteor.x = winSize.width*3/4;
+	meteor.y = winSize.height/2;
 
 	var flower = cc.ParticleSystem.create("res/Particles/Flower.plist");
 	this.addChild( flower );
-	flower.setPosition( centerPos );
+	flower.x = centerPos.x;
+	flower.y = centerPos.y;
 
 	this.particle = firework;
 
@@ -479,7 +494,9 @@ var ParticlesPage = function() {
         this.setMouseEnabled(true);
 
 	this.onMouseDown = function( event ) {
-		this.particle.setPosition( event.getLocation() );
+		var pos = event.getLocation();
+		this.particle.x = pos.x;
+		this.particle.y = pos.y;
 	};
 
 	this.onMouseDragged = function( event ) {
@@ -489,7 +506,9 @@ var ParticlesPage = function() {
 	this.onTouchesEnded = function( touches, event ) {
 		var l = touches.length;
 		for( var i=0; i < l; i++) {
-			this.particle.setPosition( touches[i].getLocation() );
+			var pos = touches[i].getLocation();
+			this.particle.x = pos.x;
+			this.particle.y = pos.y;
 		}
 	};
 

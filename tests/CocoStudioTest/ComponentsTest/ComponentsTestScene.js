@@ -41,14 +41,17 @@ var ComponentsTestLayer = cc.LayerColor.extend({
         var root = cc.Node.create();
         var winSize = cc.Director.getInstance().getWinSize();
         var player = cc.Sprite.create("res/components/Player.png", cc.rect(0, 0, 27, 40));
-        player.setPosition(30, winSize.height / 2);
+        player.x = 30;
+        player.y = winSize.height / 2;
         root.addChild(player, 1, 1);
 
         var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
         itemBack.setColor(cc.c3b(0, 0, 0));
-        itemBack.setPosition(cc.VisibleRect.bottomRight().x - 50, cc.VisibleRect.bottomRight().y + 25);
+        itemBack.x = cc.VisibleRect.bottomRight().x - 50;
+        itemBack.y = cc.VisibleRect.bottomRight().y + 25;
         var menuBack = cc.Menu.create(itemBack);
-        menuBack.setPosition(0, 0);
+        menuBack.x = 0;
+        menuBack.y = 0;
         this.addChild(menuBack);
         return root;
     },

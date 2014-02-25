@@ -30,10 +30,12 @@ var ResultLayer = cc.Layer.extend({
                 this.menuCallBack,
                 this);
             itemRestart.setTag(eGameResultMenuTag.Restart);
-            itemRestart.setPosition(160, 160);
+            itemRestart.x = 160;
+	        itemRestart.y = 160;
 
             var resultMenu = cc.Menu.create(itemRestart);
-            resultMenu.setPosition(0,0);
+            resultMenu.x = 0;
+	        resultMenu.y = 0;
             this.addChild(resultMenu);
 
             bRet = true;
@@ -69,18 +71,21 @@ var ResultLayer = cc.Layer.extend({
             cc.log("GameResult Error");
     },
     showStar:function(starIndex){
-        this.mStarSprites[starIndex] = cc.Sprite.create("resultLayer/star.png");
-        this.mStarSprites[starIndex].setScale(0.1);
+        var sprite = this.mStarSprites[starIndex] = cc.Sprite.create("resultLayer/star.png");
+	    sprite.scale = 0.1;
 
         switch(starIndex){
             case 0:
-                this.mStarSprites[starIndex].setPosition(60,245);
+	            sprite.x = 60;
+	            sprite.y = 245;
                 break;
             case 1:
-                this.mStarSprites[starIndex].setPosition(160,265);
+                sprite.x = 160;
+	            sprite.y = 265;
                 break;
             case 2:
-                this.mStarSprites[starIndex].setPosition(260,245);
+                sprite.x = 260;
+	            sprite.y = 245;
                 break;
         }
         this.addChild(this.mStarSprites[starIndex]);

@@ -47,13 +47,15 @@ var MotionStreakTest = cc.Layer.extend({
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 32);
         this.addChild(label, 0, TAG_LABEL);
-        label.setPosition(winSize.width / 2, winSize.height - 50);
+        label.x = winSize.width / 2;
+        label.y = winSize.height - 50;
 
         var subTitle = this.subtitle();
         if (subTitle.length > 0) {
             var l = cc.LabelTTF.create(subTitle, "Arial", 16);
             this.addChild(l, 1);
-            l.setPosition(winSize.width / 2, winSize.height - 80);
+            l.x = winSize.width / 2;
+            l.y = winSize.height - 80;
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
@@ -62,10 +64,14 @@ var MotionStreakTest = cc.Layer.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(0, 0);
-        item1.setPosition(cc.VisibleRect.center().x - item2.getContentSize().width * 2, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2);
-        item2.setPosition(cc.VisibleRect.center().x, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2);
-        item3.setPosition(cc.VisibleRect.center().x + item2.getContentSize().width * 2, cc.VisibleRect.bottom().y + item2.getContentSize().height / 2);
+        menu.x = 0;
+        menu.y = 0;
+        item1.x = cc.VisibleRect.center().x - item2.width * 2;
+        item1.y = cc.VisibleRect.bottom().y + item2.height / 2;
+        item2.x = cc.VisibleRect.center().x;
+        item2.y = cc.VisibleRect.bottom().y + item2.height / 2;
+        item3.x = cc.VisibleRect.center().x + item2.width * 2;
+        item3.y = cc.VisibleRect.bottom().y + item2.height / 2;
 
         this.addChild(menu, 1);
 
@@ -75,7 +81,8 @@ var MotionStreakTest = cc.Layer.extend({
         var menuMode = cc.Menu.create(itemMode);
         this.addChild(menuMode);
 
-        menuMode.setPosition(winSize.width / 2, winSize.height / 4);
+        menuMode.x = winSize.width / 2;
+        menuMode.y = winSize.height / 4;
     },
 
     restartCallback:function (sender) {
@@ -113,12 +120,14 @@ var MotionStreakTest1 = MotionStreakTest.extend({
         // the root object just rotates around
         this._root = cc.Sprite.create(s_pathR1);
         this.addChild(this._root, 1);
-        this._root.setPosition(winSize.width / 2, winSize.height / 2);
+        this._root.x = winSize.width / 2;
+        this._root.y = winSize.height / 2;
 
         // the target object is offset from root, and the streak is moved to follow it
         this._target = cc.Sprite.create(s_pathR1);
         this._root.addChild(this._target);
-        this._target.setPosition(winSize.width / 4, 0);
+        this._target.x = winSize.width / 4;
+        this._target.y = 0;
 
         // create the streak object and add it to the scene
         this._streak = cc.MotionStreak.create(2, 3, 32, cc.green(), s_streak);
@@ -146,7 +155,9 @@ var MotionStreakTest1 = MotionStreakTest.extend({
     },
 
     onUpdate:function (delta) {
-        this._streak.setPosition(this._target.convertToWorldSpace(cc.p(this._target.getContentSize().width/2, 0)));
+	    var pos = this._target.convertToWorldSpace(cc.p(this._target.getContentSize().width/2, 0));
+        this._streak.x = pos.x;
+        this._streak.y = pos.y;
     },
 
     title:function () {
@@ -166,7 +177,8 @@ var MotionStreakTest2 = MotionStreakTest.extend({
         // create the streak object and add it to the scene
         this._streak = cc.MotionStreak.create(3, 3, 64, cc.white(), s_streak);
         this.addChild(this._streak);
-        this._streak.setPosition(winSize.width / 2, winSize.height / 2);
+        this._streak.x = winSize.width / 2;
+        this._streak.y = winSize.height / 2;
     },
 
     onTouchesMoved:function (touches, event) {
@@ -175,7 +187,8 @@ var MotionStreakTest2 = MotionStreakTest.extend({
 
         var touch = touches[0];
         var touchLocation = touch.getLocation();
-        this._streak.setPosition(touchLocation);
+        this._streak.x = touchLocation.x;
+	    this._streak.y = touchLocation.y;
     },
 
     title:function () {
@@ -211,8 +224,8 @@ var Issue1358 = MotionStreakTest.extend({
 
     update:function (dt) {
         this._angle += 1.0;
-        this._streak.setPosition(this._center.x + Math.cos(this._angle / 180 * Math.PI) * this._radius,
-            this._center.y + Math.sin(this._angle / 180 * Math.PI) * this._radius);
+        this._streak.x = this._center.x + Math.cos(this._angle / 180 * Math.PI) * this._radius;
+        this._streak.y = this._center.y + Math.sin(this._angle / 180 * Math.PI) * this._radius;
     }
 });
 

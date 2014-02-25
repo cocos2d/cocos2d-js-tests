@@ -104,10 +104,14 @@ FontTest = BaseTestLayer.extend({
         var center = cc.LabelTTF.create("alignment center", pFont, 32, cc.size(winSize.width, 50), cc.TEXT_ALIGNMENT_CENTER);
         var right = cc.LabelTTF.create("alignment right", pFont, 32, cc.size(winSize.width, 50), cc.TEXT_ALIGNMENT_RIGHT);
 
-        top.setPosition(winSize.width / 2, winSize.height * 3 / 4);
-        left.setPosition(winSize.width / 2, winSize.height / 2);
-        center.setPosition(winSize.width / 2, winSize.height * 3 / 8);
-        right.setPosition(winSize.width / 2, winSize.height / 4);
+        top.x = winSize.width / 2;
+        top.y = winSize.height * 3 / 4;
+        left.x = winSize.width / 2;
+        left.y = winSize.height / 2;
+        center.x = winSize.width / 2;
+        center.y = winSize.height * 3 / 8;
+        right.x = winSize.width / 2;
+        right.y = winSize.height / 4;
 
         this.addChild(left, 0, TAG_LABEL1);
         this.addChild(right, 0, TAG_LABEL2);

@@ -67,9 +67,13 @@ var EaseSpriteDemo = BaseTestLayer.extend({
         this.addChild(this._kathia, 2);
         this.addChild(this._tamara, 1);
 
-        this._grossini.setPosition(60, winSize.height / 5);
-        this._kathia.setPosition(60, winSize.height / 2);
-        this._tamara.setPosition(60, winSize.height * 4 / 5);
+        this._grossini.x = 60;
+
+        this._grossini.y = winSize.height / 5;
+        this._kathia.x = 60;
+        this._kathia.y = winSize.height / 2;
+        this._tamara.x = 60;
+        this._tamara.y = winSize.height * 4 / 5;
 
         this.twoSprites = false;
     },
@@ -91,8 +95,10 @@ var EaseSpriteDemo = BaseTestLayer.extend({
     },
     positionForTwo:function () {
         this.twoSprites = true;
-        this._grossini.setPosition(60, winSize.height / 5);
-        this._tamara.setPosition(60, winSize.height * 4 / 5);
+        this._grossini.x = 60;
+	    this._grossini.y = winSize.height / 5;
+        this._tamara.x = 60;
+	    this._tamara.y = winSize.height * 4 / 5;
         this._kathia.setVisible(false);
     },
 
@@ -122,9 +128,9 @@ var EaseSpriteDemo = BaseTestLayer.extend({
     getCurrentResult:function() {
         var ret;
         if( this.twoSprites)
-            ret = [ this._grossini.getPosition().x, this._tamara.getPosition().x];
+            ret = [ this._grossini.x, this._tamara.x];
         else
-            ret = [ this._grossini.getPosition().x, this._tamara.getPosition().x, this._kathia.getPosition().x ];
+            ret = [ this._grossini.x, this._tamara.x, this._kathia.x ];
         return JSON.stringify(ret);
     }
 
@@ -188,7 +194,7 @@ var SpriteEase = EaseSpriteDemo.extend({
     },
 
     getCurrentResult:function() {
-        var ret = [ this._grossini.getPosition().x, this._tamara.getPosition().x, this._kathia.getPosition().x ];
+        var ret = [ this._grossini.x, this._tamara.x, this._kathia.x ];
         return JSON.stringify(ret);
     }
 
