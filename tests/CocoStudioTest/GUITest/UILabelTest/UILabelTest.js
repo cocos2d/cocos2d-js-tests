@@ -30,13 +30,13 @@ var UILabelTest = UIScene.extend({
             this._topDisplayLabel.setText("");
             this._bottomDisplayLabel.setText("Label");
 
-            var widgetSize = this._widget.getSize();
             // Create the label
             var label = ccs.Label.create();
             label.setText("Label");
             label.setFontName("AmericanTypewriter");
             label.setFontSize(30);
-            label.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + label.getSize().height / 4));
+            label.x = this._widget.width / 2;
+	        label.y = this._widget.height / 2 + label.height / 4;
             this._uiLayer.addWidget(label);
 
             return true;
@@ -60,7 +60,8 @@ var UILabelTest_LineWrap = UIScene.extend({
             textArea.setText("Label can line wrap");
             textArea.setFontName("AmericanTypewriter");
             textArea.setFontSize(32);
-            textArea.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - textArea.getSize().height / 8));
+            textArea.x = this._widget.width / 2;
+	        textArea.y = this._widget.height / 2 - textArea.height / 8;
             this._uiLayer.addWidget(textArea);
 
             return true;
@@ -73,7 +74,6 @@ var UILabelTest_LineWrap = UIScene.extend({
 var UILabelTest_TTF = UIScene.extend({
     init: function () {
         if (this._super()) {
-            var widgetSize = this._widget.getSize();
             //init text
             this._topDisplayLabel.setText("");
             this._bottomDisplayLabel.setText("Label set TTF font");
@@ -85,7 +85,8 @@ var UILabelTest_TTF = UIScene.extend({
             textArea.setText("Label TTF");
             textArea.setFontName("AmericanTypewriter");
             textArea.setFontSize(32);
-            textArea.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - textArea.getSize().height / 8));
+            textArea.x = this._widget.width / 2;
+	        textArea.y = this._widget.height / 2 - textArea.height / 8;
             this._uiLayer.addWidget(textArea);
 
             return true;

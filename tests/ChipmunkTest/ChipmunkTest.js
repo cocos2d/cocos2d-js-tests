@@ -54,7 +54,8 @@ var ChipmunkBaseLayer = function() {
     item.setFontSize(24);
     var menu = cc.Menu.create( item );
     this.addChild( menu );
-    menu.setPosition( cc.p( winSize.width-100, winSize.height-90 )  );
+    menu.x = winSize.width-100;
+    menu.y = winSize.height-90;
 
     // Create the initial space
 	this.space = new cp.Space();
@@ -328,7 +329,8 @@ var ChipmunkCollisionTest = function() {
 		if( ! this.messageDisplayed ) {
 			var label = cc.LabelBMFont.create("Collision Detected", s_bitmapFontTest5_fnt);
 			this.addChild( label );
-			label.setPosition( winSize.width/2, winSize.height/2 );
+			label.x = winSize.width/2;
+			label.y = winSize.height/2 ;
 			this.messageDisplayed = true;
 		}
 		cc.log('collision begin');
@@ -454,7 +456,8 @@ var ChipmunkCollisionTestB = function() {
 		if( ! this.messageDisplayed ) {
 			var label = cc.LabelBMFont.create("Collision Detected", s_bitmapFontTest5_fnt);
 			this.addChild( label );
-			label.setPosition( winSize.width/2, winSize.height/2 );
+			label.x = winSize.width/2;
+			label.y = winSize.height/2 ;
 			this.messageDisplayed = true;
 		}
 		cc.log('collision begin');

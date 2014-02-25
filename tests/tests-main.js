@@ -52,8 +52,10 @@ var TestScene = cc.Scene.extend({
         var menuItem = cc.MenuItemLabel.create(label, this.onMainMenuCallback, this);
 
         var menu = cc.Menu.create(menuItem);
-        menu.setPosition(0,0);
-        menuItem.setPosition(winSize.width - 50, 25);
+        menu.x = 0;
+	    menu.y = 0;
+        menuItem.x = winSize.width - 50;
+	    menuItem.y = 25;
 
         this.addChild(menu, 1);
     },
@@ -91,7 +93,8 @@ var TestController = cc.LayerGradient.extend({
 
         // add close menu
         var closeItem = cc.MenuItemImage.create(s_pathClose, s_pathClose, this.onCloseCallback, this);
-        closeItem.setPosition(winSize.width - 30, winSize.height - 30);
+        closeItem.x = winSize.width - 30;
+	    closeItem.y = winSize.height - 30;
 
         var subItem1 = cc.MenuItemFont.create("Automated Test: Off");
         subItem1.setFontSize(18);
@@ -100,13 +103,15 @@ var TestController = cc.LayerGradient.extend({
 
         var toggleAutoTestItem = cc.MenuItemToggle.create(subItem1, subItem2);
         toggleAutoTestItem.setCallback(this.onToggleAutoTest, this);
-        toggleAutoTestItem.setPosition(winSize.width-90, 20);
+        toggleAutoTestItem.x = winSize.width-90;
+	    toggleAutoTestItem.y = 20;
         if( autoTestEnabled )
             toggleAutoTestItem.setSelectedIndex(1);
 
 
         var menu = cc.Menu.create(closeItem, toggleAutoTestItem);//pmenu is just a holder for the close button
-        menu.setPosition(0,0);
+        menu.x = 0;
+	    menu.y = 0;
 
         // add menu items for tests
         this._itemMenu = cc.Menu.create();//item menu is where all the label goes, and the one gets scrolled
@@ -115,7 +120,8 @@ var TestController = cc.LayerGradient.extend({
             var label = cc.LabelTTF.create(testNames[i].title, "Arial", 24);
             var menuItem = cc.MenuItemLabel.create(label, this.onMenuCallback, this);
             this._itemMenu.addChild(menuItem, i + 10000);
-            menuItem.setPosition(winSize.width / 2, (winSize.height - (i + 1) * LINE_SPACE));
+            menuItem.x = winSize.width / 2;
+	        menuItem.y = (winSize.height - (i + 1) * LINE_SPACE);
 
             // enable disable
             if ( sys.platform == 'browser') {
@@ -130,7 +136,8 @@ var TestController = cc.LayerGradient.extend({
         }
 
         this._itemMenu.setContentSize(winSize.width, (testNames.length + 1) * LINE_SPACE);
-        this._itemMenu.setPosition(curPos);
+        this._itemMenu.x = curPos.x;
+	    this._itemMenu.y = curPos.y;
         this.addChild(this._itemMenu);
         this.addChild(menu, 1);
 
@@ -143,11 +150,10 @@ var TestController = cc.LayerGradient.extend({
     },
     onEnter:function(){
         this._super();
-        var pos = this._itemMenu.getPosition();
-        this._itemMenu.setPosition(pos.x, TestController.YOffset);
+	    this._itemMenu.y = TestController.YOffset;
     },
     onMenuCallback:function (sender) {
-        TestController.YOffset = this._itemMenu.getPosition().y;
+        TestController.YOffset = this._itemMenu.y;
         var idx = sender.getZOrder() - 10000;
         // get the userdata, it's the index of the menu item clicked
         // create the test scene and run it
@@ -187,16 +193,14 @@ var TestController = cc.LayerGradient.extend({
         return true;
     },
     moveMenu:function(delta) {
-        var current = this._itemMenu.getPosition();
-
-        var newY = current.y + delta.y;
+        var newY = this._itemMenu.y + delta.y;
         if (newY < 0 )
             newY = 0;
 
         if( newY > ((testNames.length + 1) * LINE_SPACE - winSize.height))
             newY = ((testNames.length + 1) * LINE_SPACE - winSize.height);
 
-        this._itemMenu.setPosition(current.x, newY);
+	    this._itemMenu.y = newY;
     }
 });
 TestController.YOffset = 0;
