@@ -136,12 +136,20 @@ var TestController = cc.LayerGradient.extend({
 
         // 'browser' can use touches or mouse.
         // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-/*        if( 'touches' in sys.capabilities )
-            this.setTouchEnabled(true);
-        else if( 'mouse' in sys.capabilities )
-            this.setMouseEnabled(true);*/
+       //if( 'touches' in sys.capabilities )
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesMoved: function (touches, event) {
+                var target = event.getCurrentTarget();
+                var delta = touches[0].getDelta();
+                target.moveMenu(delta);
+                return true;
+            }
+        }, this);
+        //else if( 'mouse' in sys.capabilities )
+        //    this.setMouseEnabled(true);
 
-        this.setTouchEnabled(true);
+
     },
     onEnter:function(){
         this._super();
@@ -170,12 +178,6 @@ var TestController = cc.LayerGradient.extend({
     },
     onToggleAutoTest:function() {
         autoTestEnabled = !autoTestEnabled;
-    },
-
-    onTouchesMoved:function (touches, event) {
-        var delta = touches[0].getDelta();
-        this.moveMenu(delta);
-        return true;
     },
 
     onMouseDragged : function( event ) {

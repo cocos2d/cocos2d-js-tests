@@ -754,7 +754,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         var label1 = cc.LabelBMFont.create("Multi line\n\nAligned to the left", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label1.setAnchorPoint(0, 0);
         label1.setAlignment(cc.TEXT_ALIGNMENT_LEFT);
-        label1.setWidth(400);
+        label1.boundingWidth = 400;
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
         s = label1.getContentSize();
         cc.log("content size:" + s.width + "," + s.height);
@@ -764,7 +764,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         var label2 = cc.LabelBMFont.create("Error\n\nSome error message", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label2.setAnchorPoint(0.5, 0.5);
         label2.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
-        label2.setWidth(290);
+        label2.boundingWidth = 290;
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
         s = label2.getContentSize();
         cc.log("content size:" + s.width + "," + s.height);
@@ -773,7 +773,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         var label3 = cc.LabelBMFont.create("Multi line\n\nAligned to the right", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label3.setAnchorPoint(1, 1);
         label3.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
-        label3.setWidth(400);
+        label3.boundingWidth = 400;
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
 
         s = label3.getContentSize();
@@ -1308,10 +1308,21 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
 
-        if ('touches' in sys.capabilities)
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesBegan: this.onTouchesBegan.bind(this),
+            onTouchesMoved: this.onTouchesMoved.bind(this),
+            onTouchesEnded: this.onTouchesEnded.bind(this)
+        }, this);
+/*        if ('touches' in sys.capabilities){
+            cc.eventManager.addListener(cc.EventListener.create({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesBegan: this.onTouchesBegan.bind(this),
+                onTouchesMoved: this.onTouchesMoved.bind(this),
+                onTouchesEnded: this.onTouchesEnded.bind(this)
+            }), this);
+        } else if ('mouse' in sys.capabilities)
+            this.setMouseEnabled(true);*/
 
         // ask director the the window size
         var size = director.getWinSize();
@@ -1428,7 +1439,6 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         }
     },
     onTouchesEnded:function () {
-        //this.snapArrowsToEdge();
         this.arrowsBarShouldRetain.setVisible(false);
     },
     onTouchesMoved:function (touches) {
@@ -1440,9 +1450,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         this.arrowsShouldRetain.setPosition(Math.max(Math.min(location.x, ArrowsMax * winSize.width), ArrowsMin * winSize.width),
             this.arrowsShouldRetain.getPosition().y);
 
-        var labelWidth = Math.abs(this.arrowsShouldRetain.getPosition().x - this.labelShouldRetain.getPosition().x) * 2;
-
-        this.labelShouldRetain.setWidth(labelWidth);
+        this.labelShouldRetain.boundingWidth = Math.abs(this.arrowsShouldRetain.getPosition().x - this.labelShouldRetain.getPosition().x) * 2;
     },
 
     onMouseDown:function (touch) {
@@ -1459,8 +1467,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         this.arrowsShouldRetain.setPosition(Math.max(Math.min(location.x, ArrowsMax * winSize.width), ArrowsMin * winSize.width),
             this.arrowsShouldRetain.getPosition().y);
 
-        var labelWidth = Math.abs(this.arrowsShouldRetain.getPosition().x - this.labelShouldRetain.getPosition().x) * 2;
-        this.labelShouldRetain.setWidth(labelWidth);
+        this.labelShouldRetain.boundingWidth = Math.abs(this.arrowsShouldRetain.getPosition().x - this.labelShouldRetain.getPosition().x) * 2;
     },
     onMouseUp:function (touch) {
         //this.snapArrowsToEdge();

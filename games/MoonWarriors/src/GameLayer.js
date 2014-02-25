@@ -101,16 +101,21 @@ var GameLayer = cc.Layer.extend({
 
             // accept touch now!
 
-            if (sys.capabilities.hasOwnProperty('keyboard'))
+/*            if (sys.capabilities.hasOwnProperty('keyboard'))
                 this.setKeyboardEnabled(true);
 
             if (sys.capabilities.hasOwnProperty('mouse'))
-            /*if ('mouse' in sys.capabilities)*/
-                this.setMouseEnabled(true);
+            *//*if ('mouse' in sys.capabilities)*//*
+                this.setMouseEnabled(true);*/
 
-            if (sys.capabilities.hasOwnProperty('touches'))
-            /*if ('touches' in sys.capabilities)*/
-                this.setTouchEnabled(true);
+            if (sys.capabilities.hasOwnProperty('touches')){
+                cc.eventManager.addListener({
+                    event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                    onTouchesMoved:function (touches, event) {
+                        event.getCurrentTarget().processEvent(touches[0]);
+                    }
+                }, this);
+            }
 
             // schedule
             this.scheduleUpdate();
@@ -121,7 +126,6 @@ var GameLayer = cc.Layer.extend({
             }
 
             bRet = true;
-
             g_sharedGameLayer = this;
 
             //pre set
@@ -145,17 +149,13 @@ var GameLayer = cc.Layer.extend({
         }
     },
 
-    onTouchesMoved:function (touches, event) {
-        this.processEvent(touches[0]);
-    },
-
     onMouseDragged:function (event) {
         this.processEvent(event);
     },
 
-    processEvent:function (event) {
+    processEvent:function (touch) {
         if (this._state == STATE_PLAYING) {
-            var delta = event.getDelta();
+            var delta = touch.getDelta();
             var curPos = this._ship.getPosition();
             curPos = cc.pAdd(curPos, delta);
             curPos = cc.pClamp(curPos, cc.p(0, 0), cc.p(winSize.width, winSize.height));

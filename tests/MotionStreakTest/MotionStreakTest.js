@@ -160,22 +160,23 @@ var MotionStreakTest2 = MotionStreakTest.extend({
 
     onEnter:function () {
         this._super();
-        this.setTouchEnabled(true);
 
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesMoved:function (touches, event) {
+                if (touches.length == 0)
+                    return;
+
+                var touch = touches[0];
+                var touchLocation = touch.getLocation();
+                event.getCurrentTarget()._streak.setPosition(touchLocation);
+            }
+        }, this);
         var winSize = cc.Director.getInstance().getWinSize();
         // create the streak object and add it to the scene
         this._streak = cc.MotionStreak.create(3, 3, 64, cc.white(), s_streak);
         this.addChild(this._streak);
         this._streak.setPosition(winSize.width / 2, winSize.height / 2);
-    },
-
-    onTouchesMoved:function (touches, event) {
-        if (touches.length == 0)
-            return;
-
-        var touch = touches[0];
-        var touchLocation = touch.getLocation();
-        this._streak.setPosition(touchLocation);
     },
 
     title:function () {

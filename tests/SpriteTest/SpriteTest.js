@@ -106,10 +106,22 @@ var Sprite1 = SpriteTestDemo.extend({
 
         this.addNewSpriteWithCoords(cc.p(winSize.width / 2, winSize.height / 2));
 
-        if ('touches' in sys.capabilities)
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);
+        //if ('touches' in sys.capabilities) {
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesEnded: function(touches, event){
+                    for (var it = 0; it < touches.length; it++) {
+                        var touch = touches[it];
+                        if (!touch)
+                            break;
+
+                        var location = touch.getLocation();
+                        event.getCurrentTarget().addNewSpriteWithCoords(location);
+                    }
+                }
+            }, this);
+        //} else if ('mouse' in sys.capabilities)
+        //    this.setMouseEnabled(true);
     },
 
     addNewSpriteWithCoords:function (p) {
@@ -139,18 +151,6 @@ var Sprite1 = SpriteTestDemo.extend({
 
         sprite.runAction(cc.RepeatForever.create(seq));
         this.testSprite = sprite;
-    },
-    onTouchesEnded:function (touches, event) {
-        for (var it = 0; it < touches.length; it++) {
-            var touch = touches[it];
-
-            if (!touch)
-                break;
-
-            var location = touch.getLocation();
-            //location = director.convertToGL(location);
-            this.addNewSpriteWithCoords(location);
-        }
     },
 
     onMouseDown:function (event) {
@@ -195,10 +195,22 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
 
     ctor:function () {
         this._super();
-        if ('touches' in sys.capabilities)
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);
+        //if ('touches' in sys.capabilities) {
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesEnded: function (touches, event) {
+                    for (var it = 0; it < touches.length; it++) {
+                        var touch = touches[it];
+                        if (!touch)
+                            break;
+
+                        var location = touch.getLocation();
+                        event.getCurrentTarget().addNewSpriteWithCoords(location);
+                    }
+                }
+            }, this);
+        // else if ('mouse' in sys.capabilities)
+        //    this.setMouseEnabled(true);
 
         var batchNode = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 50);
         this.addChild(batchNode, 0, TAG_SPRITE_BATCH_NODE);
@@ -237,18 +249,7 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
         sprite.runAction(cc.RepeatForever.create(seq));
         this.testSprite = sprite;
     },
-    onTouchesEnded:function (touches, event) {
-        for (var it = 0; it < touches.length; it++) {
-            var touch = touches[it];
 
-            if (!touch)
-                break;
-
-            var location = touch.getLocation();
-            //location = director.convertToGL(location);
-            this.addNewSpriteWithCoords(location);
-        }
-    },
     onMouseDown:function (event) {
         var location = event.getLocation();
         this.addNewSpriteWithCoords(location);
@@ -1557,10 +1558,15 @@ var SpriteNewTexture = SpriteTestDemo.extend({
     ctor:function () {
         this._super();
 
-        if ('touches' in sys.capabilities)
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);
+        //if ('touches' in sys.capabilities){
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesEnded:function (touches, event) {
+                    event.getCurrentTarget().onChangeTexture();
+                }
+            }, this);
+        //} else if ('mouse' in sys.capabilities)
+        //    this.setMouseEnabled(true);
 
         var node = cc.Node.create();
         this.addChild(node, 0, TAG_SPRITE_BATCH_NODE);
@@ -1574,6 +1580,7 @@ var SpriteNewTexture = SpriteTestDemo.extend({
             this.addNewSprite();
         }
     },
+
     addNewSprite:function () {
         var p = cc.p(Math.random() * winSize.width, Math.random() * winSize.height);
 
@@ -1610,10 +1617,7 @@ var SpriteNewTexture = SpriteTestDemo.extend({
 
     onChangeTexture:function () {
         var node = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
-
-        var children = node.getChildren();
-        var sprite;
-        var i;
+        var children = node.getChildren(), sprite, i;
 
         if (this._usingTexture1) {                         //-. win32 : Let's it make just simple sentence
             for (i = 0; i < children.length; i++) {
@@ -1633,9 +1637,7 @@ var SpriteNewTexture = SpriteTestDemo.extend({
             this._usingTexture1 = true;
         }
     },
-    onTouchesEnded:function (touches, event) {
-        this.onChangeTexture();
-    },
+
     onMouseDown:function (event) {
         this.onChangeTexture();
         return true;
@@ -1677,10 +1679,15 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
 
     ctor:function () {
         this._super();
-        if ('touches' in sys.capabilities)
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);
+        //if ('touches' in sys.capabilities){
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesEnded:function (touches, event) {
+                    event.getCurrentTarget().onChangeTexture();
+                }
+            }, this);
+        //} else if ('mouse' in sys.capabilities)
+        //   this.setMouseEnabled(true);
 
         var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 50);
         this.addChild(batch, 0, TAG_SPRITE_BATCH_NODE);
@@ -1734,9 +1741,7 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
         else
             batch.setTexture(this._texture1);
     },
-    onTouchesEnded:function (touches, event) {
-        this.onChangeTexture();
-    },
+
     onMouseDown:function (event) {
         this.onChangeTexture();
         return true;

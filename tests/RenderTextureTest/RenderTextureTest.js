@@ -83,10 +83,15 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     onEnter:function () {
         this._super();
 
-        if ('touches' in sys.capabilities)
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);
+        //if ('touches' in sys.capabilities){
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesMoved:function (touches, event) {
+                    event.getCurrentTarget().drawInLocation(touches[0].getLocation());
+                }
+            }, this);
+        //} else if ('mouse' in sys.capabilities)
+        //    this.setMouseEnabled(true);
 
         this._brush = cc.Sprite.create(s_fire);
         this._brush.retain();
@@ -159,16 +164,6 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
         this._lastLocation = location;
     },
 
-    onTouchesBegan:function (touches, event) {
-        this._lastLocation = touches[0].getLocation();
-        return true;
-    },
-
-    onTouchesMoved:function (touches, event) {
-        this.drawInLocation(touches[0].getLocation());
-        return true;
-    },
-
     onMouseDown:function (event) {
         this._lastLocation = event.getLocation();
         return true;
@@ -176,7 +171,6 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
 
     onMouseDragged:function (event) {
         this.drawInLocation(event.getLocation());
-        return true;
     },
 
     subtitle:function () {
@@ -256,7 +250,14 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
 
     ctor:function () {
         this._super();
-        this.setTouchEnabled(true);
+
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesBegan: this.onTouchesBegan.bind(this),
+            onTouchesEnded: this.onTouchesEnded.bind(this),
+            onTouchesMoved: this.onTouchesMoved.bind(this)
+        }, this);
+
         var size = cc.Director.getInstance().getWinSize();
         var label = cc.LabelTTF.create("vertexZ = 50", "Marker Felt", 64);
         label.setPosition(size.width / 2, size.height * 0.25);

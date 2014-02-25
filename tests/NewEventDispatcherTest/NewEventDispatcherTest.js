@@ -40,19 +40,19 @@ var EventDispatcherTestDemo = BaseTestLayer.extend({
     onBackCallback:function (sender) {
         var s = new EventDispatcherTestScene();
         s.addChild(previousDispatcherTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onRestartCallback:function (sender) {
         var s = new EventDispatcherTestScene();
         s.addChild(restartDispatcherTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onNextCallback:function (sender) {
         var s = new EventDispatcherTestScene();
         s.addChild(nextDispatcherTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     // automation
     numberOfPendingTests:function() {
@@ -788,7 +788,7 @@ var EventDispatcherTestScene = TestScene.extend({
     runThisTest:function () {
         eventDispatcherSceneIdx = -1;
         this.addChild(nextDispatcherTest());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 
