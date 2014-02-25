@@ -33,8 +33,15 @@ Box2DTestLayer = cc.Layer.extend({
     ctor:function () {
         this._super();
 
-        this.setTouchEnabled(true);
-        //setAccelerometerEnabled( true );
+        cc.eventManager.addListener(cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesEnded: function(touches, event){
+                //Add a new body/atlas sprite at the touched location
+                var touch = touches[0];
+                var location = touch.getLocation();
+                event.getCurrentTarget().addNewSpriteWithCoords(location);
+            }
+        }), this);
 
         var b2Vec2 = Box2D.Common.Math.b2Vec2
             , b2BodyDef = Box2D.Dynamics.b2BodyDef
@@ -162,15 +169,7 @@ Box2DTestLayer = cc.Layer.extend({
             }
         }
 
-    },
-    onTouchesEnded:function(touches){
-        //Add a new body/atlas sprite at the touched location
-        var touch = touches[0];
-        var location = touch.getLocation();
-        //location = cc.Director.getInstance().convertToGL(location);
-        this.addNewSpriteWithCoords(location);
     }
-
     //CREATE_NODE(Box2DTestLayer);
 });
 

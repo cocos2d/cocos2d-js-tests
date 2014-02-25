@@ -34,10 +34,20 @@ var TileDemo = BaseTestLayer.extend({
     ctor:function () {
         this._super();
 
-        if ('touches' in sys.capabilities)
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);
+        //if ('touches' in sys.capabilities){
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesMoved: function (touches, event) {
+                    var touch = touches[0];
+                    var delta = touch.getDelta();
+
+                    var node = event.getCurrentTarget().getChildByTag(TAG_TILE_MAP);
+                    var diff = cc.pAdd(delta, node.getPosition());
+                    node.setPosition(diff);
+                }
+            }, this);
+        //} else if ('mouse' in sys.capabilities)
+        //    this.setMouseEnabled(true);
     },
     title:function () {
         return "No title";
@@ -63,14 +73,6 @@ var TileDemo = BaseTestLayer.extend({
         director.runScene(s);
     },
 
-    onTouchesMoved:function (touches, event) {
-        var touch = touches[0];
-        var delta = touch.getDelta();
-
-        var node = this.getChildByTag(TAG_TILE_MAP);
-        var diff = cc.pAdd(delta, node.getPosition());
-        node.setPosition(diff);
-    },
     onMouseDragged:function (event) {
         var delta = event.getDelta();
         var node = this.getChildByTag(TAG_TILE_MAP);
@@ -302,6 +304,9 @@ var TMXOrthoTest4 = TileDemo.extend({
         var layer = map.getLayer("Layer 0");
         var s = layer.getLayerSize();
 
+        this.tx = s.width - 10;
+        this.ty = s.height - 1;
+
         var sprite;
         sprite = layer.getTileAt(cc.p(0, 0));
         sprite.setScale(2);
@@ -315,8 +320,7 @@ var TMXOrthoTest4 = TileDemo.extend({
         sprite = layer.getTileAt(cc.p(s.width - 1, s.height - 1));
         sprite.setScale(2);
 
-        this.scheduleOnce(this.onRemoveSprite, 2);
-
+        this.schedule(this.onRemoveSprite, 0.2);
     },
     onRemoveSprite:function (dt) {
         var map = this.getChildByTag(TAG_TILE_MAP);
@@ -349,6 +353,7 @@ var TMXOrthoTest4 = TileDemo.extend({
         return JSON.stringify(ret);
     }
 });
+
 
 //------------------------------------------------------------------
 //

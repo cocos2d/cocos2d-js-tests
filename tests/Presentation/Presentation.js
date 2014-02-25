@@ -397,7 +397,6 @@ ChipmunkPage.prototype.createPhysicsSprite = function( pos ) {
 };
 
 ChipmunkPage.prototype.onEnter = function () {
-
 	PresentationBaseLayer.prototype.onEnter.call(this);
 
 	for(var i=0; i<20; i++) {
@@ -406,10 +405,19 @@ ChipmunkPage.prototype.onEnter = function () {
 		this.addSprite( cp.v(x, y) );
 	}
 
-    if( 'touches' in sys.capabilities )
-        this.setTouchEnabled(true);
-    else if ('mouse' in sys.capabilities )
-        this.setMouseEnabled(true);
+    //if( 'touches' in sys.capabilities ){
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesEnded: function (touches, event) {
+                var target = event.getCurrentTarget();
+                var l = touches.length;
+                for (var i = 0; i < l; i++) {
+                    target.addSprite(touches[i].getLocation());
+                }
+            }
+        }, this);
+    //} else if ('mouse' in sys.capabilities )
+    //    this.setMouseEnabled(true);
 };
 
 ChipmunkPage.prototype.onExitTransitionDidStart = function () {
@@ -429,13 +437,6 @@ ChipmunkPage.prototype.update = function( delta ) {
 ChipmunkPage.prototype.onMouseDown = function( event ) {
 	for( var i=0; i<10; i++)
 		this.addSprite( event.getLocation() );
-};
-
-ChipmunkPage.prototype.onTouchesEnded = function( touches, event ) {
-	var l = touches.length;
-	for( var i=0; i < l; i++) {
-		this.addSprite( touches[i].getLocation() );
-	}
 };
 
 //------------------------------------------------------------------
@@ -473,10 +474,18 @@ var ParticlesPage = function() {
 
 	this.particle = firework;
 
-    if( 'touches' in sys.capabilities )
-        this.setTouchEnabled(true);
-    else if ('mouse' in sys.capabilities )
-        this.setMouseEnabled(true);
+    if( 'touches' in sys.capabilities ){
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesMoved: function(touches, event){
+                event.getCurrentTarget().particle.setPosition(touches[0].getLocation());
+            },
+            onTouchesEnded: function(touches, event){
+                event.getCurrentTarget().particle.setPosition(touches[0].getLocation());
+            }
+        }, this);
+    //} else if ('mouse' in sys.capabilities )
+    //    this.setMouseEnabled(true);
 
 	this.onMouseDown = function( event ) {
 		this.particle.setPosition( event.getLocation() );
@@ -484,17 +493,6 @@ var ParticlesPage = function() {
 
 	this.onMouseDragged = function( event ) {
 		return this.onMouseDown( event );
-	};
-
-	this.onTouchesEnded = function( touches, event ) {
-		var l = touches.length;
-		for( var i=0; i < l; i++) {
-			this.particle.setPosition( touches[i].getLocation() );
-		}
-	};
-
-	this.onTouchesMoved = function( touches, event ) {
-		return this.onTouchesEnded( touches, event );
 	};
 
 	this.onExitTransitionDidStart = function () {

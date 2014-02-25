@@ -40,9 +40,13 @@ var MenuLayerMainMenu = cc.Layer.extend({
     ctor:function () {
         this._super();
 
-        this.setTouchEnabled(true);
-        this.setTouchPriority(cc.MENU_HANDLER_PRIORITY + 1);
-        this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan:function () {
+                return true;
+            }
+        }, this);
 
         // Font Item
         var spriteNormal = cc.Sprite.create(s_menuItem, cc.rect(0,23*2,115,23));
@@ -117,10 +121,6 @@ var MenuLayerMainMenu = cc.Layer.extend({
         this._disabledItem.setEnabled( false );
         this.addChild(menu);
         menu.setPosition(winSize.width/2, winSize.height/2);
-    },
-
-    onTouchBegan:function () {
-        return true;
     },
 
     onMenuCallback:function (sender) {
@@ -482,16 +482,16 @@ var MenuBugsTest = cc.Layer.extend({
 
     onIssue1410MenuCallback:function(sender){
         var menu = sender.getParent();
-        menu.setTouchEnabled(false);
-        menu.setTouchEnabled(true);
+        menu.setEnable(false);
+        menu.setEnable(true);
 
         cc.log("NO CRASHES");
     },
 
     onIssue1410v2MenuCallback:function(sender){
         var menu = sender.getParent();
-        menu.setTouchEnabled(true);
-        menu.setTouchEnabled(false);
+        menu.setEnable(true);
+        menu.setEnable(false);
 
         cc.log("NO CRASHES. AND MENU SHOULD STOP WORKING");
     },
@@ -503,7 +503,6 @@ var MenuBugsTest = cc.Layer.extend({
 
 var RemoveMenuItemWhenMove = cc.Layer.extend({
     _item:null,
-
     ctor: function(){
         this._super();
 
@@ -522,25 +521,20 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
         menu.alignItemsVertically();
 
         menu.setPosition(s.width/2, s.height/2);
-    },
-
-    onEnter: function(){
-        this._super();
-        cc.registerTargetedDelegate(-129, false, this);
-    },
-
-    onExit: function() {
-        cc.unregisterTouchDelegate(this);
-        this._super();
-    },
-    onTouchBegan:function(touch, event){
-        return true;
-    },
-    onTouchMoved: function(touch, event){
-        if (this._item){
-            this._item.removeFromParent(true);
-            this._item = null;
-        }
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan:function(touch, event){
+                return true;
+            },
+            onTouchMoved: function(touch, event){
+                var target = event.getCurrentTarget();
+                if (target._item){
+                    target._item.removeFromParent(true);
+                    target._item = null;
+                }
+            }
+        }, this);
     },
 
     goBack:function(sender){

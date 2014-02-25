@@ -318,12 +318,21 @@ var HoleDemo = BaseClippingNodeTest.extend({
         this._holesStencil.retain();
 
         holesClipper.setStencil(this._holesStencil);
-
         this._outerClipper.addChild(holesClipper);
-
         this.addChild(this._outerClipper);
 
-        this.setTouchEnabled(true);
+        cc.eventManager.addListener(cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesBegan:function (touches, event) {
+                var target = event.getCurrentTarget();
+                var touch = touches[0];
+                var point = target._outerClipper.convertToNodeSpace(touch.getLocation());
+                var rect = cc.rect(0, 0, target._outerClipper.getContentSize().width, target._outerClipper.getContentSize().height);
+                if (!cc.rectContainsPoint(rect,point))
+                    return;
+                target.pokeHoleAtPoint(point);
+            }
+        }), this);
     },
 
     title:function () {
@@ -352,15 +361,6 @@ var HoleDemo = BaseClippingNodeTest.extend({
 
         this._holesStencil.addChild(holeStencil);
         this._outerClipper.runAction(cc.Sequence.create(cc.ScaleBy.create(0.05, 0.95), cc.ScaleTo.create(0.125, 1)));
-    },
-
-    onTouchesBegan:function (touches, event) {
-        var touch = touches[0];
-        var point = this._outerClipper.convertToNodeSpace(touch.getLocation());
-        var rect = cc.rect(0, 0, this._outerClipper.getContentSize().width, this._outerClipper.getContentSize().height);
-        if (!cc.rectContainsPoint(rect,point))
-            return;
-        this.pokeHoleAtPoint(point);
     }
 });
 
@@ -401,39 +401,40 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
         clipper.addChild(content);
 
         this._scrolling = false;
-        this.setTouchEnabled(true);
-    },
+        cc.eventManager.addListener(cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesBegan: function (touches, event) {
+                if (!touches || touches.length == 0)
+                    return;
 
-    onTouchesBegan:function (touches, event) {
-        if(!touches || touches.length == 0)
-            return;
+                var touch = touches[0];
+                var clipper = this.getChildByTag(TAG_CLIPPERNODE);
+                var point = clipper.convertToNodeSpace(touch.getLocation());
+                var rect = cc.rect(0, 0, clipper.getContentSize().width, clipper.getContentSize().height);
+                this._scrolling = cc.rectContainsPoint(rect, point);
+                this._lastPoint = point;
+            },
 
-        var touch =  touches[0];
-        var clipper = this.getChildByTag(TAG_CLIPPERNODE);
-        var point = clipper.convertToNodeSpace(touch.getLocation());
-        var rect = cc.rect(0, 0, clipper.getContentSize().width, clipper.getContentSize().height);
-        this._scrolling = cc.rectContainsPoint(rect,point);
-        this._lastPoint = point;
-    },
+            onTouchesMoved: function (touches, event) {
+                if (!this._scrolling)
+                    return;
 
-    onTouchesMoved:function (touches, event) {
-        if (!this._scrolling)
-            return;
+                if (!touches || touches.length == 0)
+                    return;
+                var touch = touches[0];
+                var clipper = this.getChildByTag(TAG_CLIPPERNODE);
+                var point = clipper.convertToNodeSpace(touch.getLocation());
+                var diff = cc.pSub(point, this._lastPoint);
+                var content = clipper.getChildByTag(TAG_CONTENTNODE);
+                content.setPosition(cc.pAdd(content.getPosition(), diff));
+                this._lastPoint = point;
+            },
 
-        if(!touches || touches.length == 0)
-            return;
-        var touch =  touches[0];
-        var clipper = this.getChildByTag(TAG_CLIPPERNODE);
-        var point = clipper.convertToNodeSpace(touch.getLocation());
-        var diff = cc.pSub(point, this._lastPoint);
-        var content = clipper.getChildByTag(TAG_CONTENTNODE);
-        content.setPosition(cc.pAdd(content.getPosition(), diff));
-        this._lastPoint = point;
-    },
-
-    onTouchesEnded:function (touches, event) {
-        if (!this._scrolling) return;
-        this._scrolling = false;
+            onTouchesEnded: function (touches, event) {
+                if (!this._scrolling) return;
+                this._scrolling = false;
+            }
+        }), this);
     }
 });
 
