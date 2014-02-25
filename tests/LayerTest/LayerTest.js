@@ -100,7 +100,8 @@ var LayerTest1 = LayerTest.extend({
         var layer = cc.LayerColor.create(cc.c4b(255, 0, 0, 128), 200, 200);
 
         layer.ignoreAnchorPointForPosition(false);
-        layer.setPosition(s.width / 2, s.height / 2);
+        layer.x = s.width / 2;
+        layer.y = s.height / 2;
         this.addChild(layer, 1, cc.TAG_LAYER);
     },
     title:function () {
@@ -158,7 +159,8 @@ var IgnoreAnchorpointTest1 = LayerTest.extend({
         var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
         layer2.ignoreAnchorPointForPosition(true);
         layer1.addChild(layer2);
-        layer1.setPosition(ws.width / 2, ws.height / 2);
+        layer1.x = ws.width / 2;
+        layer1.y = ws.height / 2;
         this.addChild(layer1);
     },
     title:function () {
@@ -204,7 +206,8 @@ var IgnoreAnchorpointTest2 = LayerTest.extend({
         var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
         layer2.ignoreAnchorPointForPosition(false);
         layer1.addChild(layer2);
-        layer1.setPosition(ws.width / 2, ws.height / 2);
+        layer1.x = ws.width / 2;
+        layer1.y = ws.height / 2;
         this.addChild(layer1);
     },
     title:function () {
@@ -251,7 +254,8 @@ var IgnoreAnchorpointTest3 = LayerTest.extend({
         var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
         layer2.ignoreAnchorPointForPosition(false);
         layer1.addChild(layer2);
-        layer1.setPosition(ws.width / 2, ws.height / 2);
+        layer1.x = ws.width / 2;
+        layer1.y = ws.height / 2;
         this.addChild(layer1);
     },
     title:function () {
@@ -272,7 +276,8 @@ var IgnoreAnchorpointTest4 = LayerTest.extend({
         var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
         layer2.ignoreAnchorPointForPosition(true);
         layer1.addChild(layer2);
-        layer1.setPosition(ws.width / 2, ws.height / 2);
+        layer1.x = ws.width / 2;
+        layer1.y = ws.height / 2;
         this.addChild(layer1);
     },
     title:function () {
@@ -296,12 +301,14 @@ var LayerTest2 = LayerTest.extend({
 
         var s = director.getWinSize();
         var layer1 = cc.LayerColor.create(cc.c4b(255, 255, 0, 80), 100, 300);
-        layer1.setPosition(s.width / 3, s.height / 2);
+        layer1.x = s.width / 3;
+        layer1.y = s.height / 2;
         layer1.ignoreAnchorPointForPosition(false);
         this.addChild(layer1, 1, LAYERTEST2_LAYER1_TAG);
 
         var layer2 = cc.LayerColor.create(cc.c4b(0, 0, 255, 255), 100, 300);
-        layer2.setPosition((s.width / 3) * 2, s.height / 2);
+        layer2.x = (s.width / 3) * 2;
+        layer2.y = s.height / 2;
         layer2.ignoreAnchorPointForPosition(false);
         this.addChild(layer2, 2, LAYERTEST2_LAYER2_TAG);
 
@@ -382,13 +389,17 @@ var LayerTestBlend = LayerTest.extend({
         this.addChild(sister2);
         this.addChild(layer1, 100, cc.TAG_LAYER);
 
-        sister1.setPosition(winSize.width/3, winSize.height / 2);
-        sister2.setPosition(winSize.width/3 * 2, winSize.height / 2);
+        sister1.x = winSize.width/3;
+
+        sister1.y = winSize.height / 2;
+        sister2.x = winSize.width/3 * 2;
+        sister2.y = winSize.height / 2;
 
         if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild(label);
-            label.setPosition(winSize.width / 2, winSize.height / 2);
+            label.x = winSize.width / 2;
+            label.y = winSize.height / 2;
         }
 
         this.schedule(this.onNewBlend, 1.0);
@@ -440,7 +451,8 @@ var LayerGradient = LayerTest.extend({
 
          var menu = cc.Menu.create(item);
          this.addChild(menu);
-         menu.setPosition(winSize.width / 2, 100);
+         menu.x = winSize.width / 2;
+         menu.y = 100;
     },
 
     updateGradient:function(pos) {
