@@ -31,7 +31,8 @@ var ControlPotentiometerTest = ControlScene.extend({
             var screenSize = cc.Director.getInstance().getWinSize();
 
             var layer = cc.Node.create();
-            layer.setPosition(screenSize.width / 2, screenSize.height / 2);
+            layer.x = screenSize.width / 2;
+            layer.y = screenSize.height / 2;
             this.addChild(layer, 1);
 
             var layer_width = 0;
@@ -39,21 +40,24 @@ var ControlPotentiometerTest = ControlScene.extend({
             // Add the black background for the text
             var background = cc.Scale9Sprite.create("res/extensions/buttonBackground.png");
             background.setContentSize(80, 50);
-            background.setPosition(layer_width + background.getContentSize().width / 2.0, 0);
+            background.x = layer_width + background.width / 2.0;
+            background.y = 0;
             layer.addChild(background);
 
             layer_width += background.getContentSize().width;
 
             this._displayValueLabel = cc.LabelTTF.create("", "HelveticaNeue-Bold", 30);
 
-            this._displayValueLabel.setPosition(background.getPosition());
+            this._displayValueLabel.x = background.x;
+            this._displayValueLabel.y = background.y;
             layer.addChild(this._displayValueLabel);
 
             // Add the slider
             var potentiometer = cc.ControlPotentiometer.create("res/extensions/potentiometerTrack.png"
                 , "res/extensions/potentiometerProgress.png"
                 , "res/extensions/potentiometerButton.png");
-            potentiometer.setPosition(layer_width + 10 + potentiometer.getContentSize().width / 2, 0);
+            potentiometer.x = layer_width + 10 + potentiometer.width / 2;
+            potentiometer.y = 0;
 
             // When the value of the slider will change, the given selector will be call
             potentiometer.addTargetWithActionForControlEvents(this, this.valueChanged, cc.CONTROL_EVENT_VALUECHANGED);

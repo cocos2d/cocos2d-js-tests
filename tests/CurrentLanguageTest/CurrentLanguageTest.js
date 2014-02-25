@@ -31,10 +31,12 @@ var CurrentLanguageTest = cc.Layer.extend({
         var s = cc.Director.getInstance().getWinSize();
         var label = cc.LabelTTF.create("Current language Test", "Arial", 28);
         this.addChild(label, 0);
-        label.setPosition(s.width / 2, s.height - 50);
+        label.x = s.width / 2;
+	    label.y = s.height - 50;
 
         var labelLanguage = cc.LabelTTF.create("", "Arial", 20);
-        labelLanguage.setPosition(s.width / 2, s.height / 2);
+        labelLanguage.x = s.width / 2;
+	    labelLanguage.y = s.height / 2;
 
         var currentLanguageType = cc.Application.getCurrentLanguage();
         switch (currentLanguageType) {
