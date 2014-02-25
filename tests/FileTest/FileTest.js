@@ -208,7 +208,7 @@ var FileTestScene = TestScene.extend({
 		var layer = nextFileTest();
 		this.addChild(layer);
 
-		director.replaceScene(this);
+		director.runScene(this);
 	}
 });
 
