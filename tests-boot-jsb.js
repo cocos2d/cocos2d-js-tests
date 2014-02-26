@@ -77,6 +77,7 @@ var tests_files = [
     'ExtensionsTest/CocosBuilderTest/TimelineCallbackTest/TimelineCallbackTestLayer.js',
     'ExtensionsTest/TableViewTest/TableViewTestScene.js',
     'ExtensionsTest/NetworkTest/WebSocketTest.js',
+    'ExtensionsTest/NetworkTest/SocketIOTest.js',
     'CocoStudioTest/ArmatureTest/ArmatureTest.js',
     'CocoStudioTest/ComponentsTest/ComponentsTestScene.js',
     'CocoStudioTest/ComponentsTest/EnemyController.js',
