@@ -88,7 +88,8 @@ var BasicTest = BaseClippingNodeTest.extend({
 
         var clipper = this.clipper();
         clipper.setTag(TAG_CLIPPERNODE);
-        clipper.setAnchorPoint(0.5, 0.5);
+        clipper.anchorX = 0.5;
+        clipper.anchorY = 0.5;
         clipper.x = winSize.width / 2 - 50;
         clipper.y = winSize.height / 2 - 50;
         clipper.setStencil(stencil);
@@ -258,7 +259,8 @@ var NestedTest = BaseClippingNodeTest.extend({
             var clipper = cc.ClippingNode.create();
             clipper.width = size;
 	        clipper.height = size;
-            clipper.setAnchorPoint(0.5, 0.5);
+            clipper.anchorX = 0.5;
+            clipper.anchorY = 0.5;
             clipper.x = parent.width / 2;
             clipper.y = parent.height / 2;
             clipper.setAlphaThreshold(0.05);
@@ -267,7 +269,8 @@ var NestedTest = BaseClippingNodeTest.extend({
 
             var stencil = cc.Sprite.create(s_pathGrossini);
             stencil.setScale(2.5 - (i * (2.5 / depth)));
-            stencil.setAnchorPoint(0.5, 0.5);
+            stencil.anchorX = 0.5;
+            stencil.anchorY = 0.5;
             stencil.x = clipper.width / 2;
             stencil.y = clipper.height / 2;
             stencil.setVisible(false);
@@ -287,7 +290,8 @@ var HoleDemo = BaseClippingNodeTest.extend({
 
     setup:function () {
         var target = cc.Sprite.create(s_pathBlock);
-        target.setAnchorPoint(0,0);
+        target.anchorX = 0;
+        target.anchorY = 0;
         target.setScale(3);
 
         var scale = target.getScale();
@@ -305,7 +309,8 @@ var HoleDemo = BaseClippingNodeTest.extend({
 	    var ocsize = cc.SizeApplyAffineTransform(cc.size(target.width, target.height), transform);
         this._outerClipper.width = ocsize.width;
 	    this._outerClipper.height = ocsize.height;
-        this._outerClipper.setAnchorPoint(0.5, 0.5);
+        this._outerClipper.anchorX = 0.5;
+        this._outerClipper.anchorY = 0.5;
         this._outerClipper.x = this.width * 0.5;
 	    this._outerClipper.y = this.height * 0.5;
         this._outerClipper.runAction(cc.RepeatForever.create(cc.RotateBy.create(1, 45)));
@@ -392,7 +397,8 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
         clipper.setTag(TAG_CLIPPERNODE);
         clipper.width = 200;
 	    clipper.height = 200;
-        clipper.setAnchorPoint(0.5, 0.5);
+        clipper.anchorX = 0.5;
+        clipper.anchorY = 0.5;
         clipper.x = this.width / 2;
         clipper.y = this.height / 2;
         clipper.runAction(cc.RepeatForever.create(cc.RotateBy.create(1, 45)));
@@ -409,7 +415,8 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
 
         var content = cc.Sprite.create(s_back2);
         content.setTag(TAG_CONTENTNODE);
-        content.setAnchorPoint(0.5, 0.5);
+        content.anchorX = 0.5;
+        content.anchorY = 0.5;
         content.x = clipper.width / 2;
 	    content.y = clipper.height / 2;
         clipper.addChild(content);
@@ -484,7 +491,8 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
             cc.log("Stencil must be enabled for the current CCGLView.");
 
         this._sprite = cc.Sprite.create(s_pathGrossini);
-        this._sprite.setAnchorPoint(  cc.p(0.5, 0) );
+        this._sprite.anchorX = 0.5;
+        this._sprite.anchorY = 0 ;
         this._sprite.setScale( 2.5 );
         cc.Director.getInstance().setAlphaBlending(true);
     },

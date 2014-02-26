@@ -398,7 +398,8 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         if (!texture)
             return;
 
-        texture.setAnchorPoint(0, 0);
+        texture.anchorX = 0;
+	    texture.anchorY = 0;
         texture.begin();
         this.visit();
         texture.end();

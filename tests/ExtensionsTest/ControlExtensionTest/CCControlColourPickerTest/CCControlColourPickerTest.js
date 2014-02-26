@@ -72,7 +72,8 @@ var ControlColourPickerTest = ControlScene.extend({
             // Set the layer size
             layer.width = layer_width;
 	        layer.height = 0;
-            layer.setAnchorPoint(0.5, 0.5);
+            layer.anchorX = 0.5;
+	        layer.anchorY = 0.5;
 
             // Update the color text
             this.colourValueChanged(colourPicker, cc.CONTROL_EVENT_VALUECHANGED);

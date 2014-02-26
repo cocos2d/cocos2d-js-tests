@@ -52,7 +52,8 @@ var PatternMatrix = cc.Layer.extend({
             this.setTag(111);
 
             var bgSprite = cc.Sprite.create("res/background.jpg");
-            bgSprite.setAnchorPoint(0,0);
+            bgSprite.anchorX = 0;
+	        bgSprite.anchorY = 0;
             this.addChild(bgSprite);
 
             this.initProgressWithGameMode();

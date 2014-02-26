@@ -102,7 +102,8 @@ var TileMapTest = TileDemo.extend({
 
         this.addChild(map, 0, TAG_TILE_MAP);
 
-        map.setAnchorPoint(0, 0.5);
+        map.anchorX = 0;
+        map.anchorY = 0.5;
 
         var scale = cc.ScaleBy.create(4, 0.8);
         var scaleBack = scale.reverse();
@@ -132,7 +133,8 @@ var TileMapEditTest = TileDemo.extend({
 
         this.addChild(map, 0, TAG_TILE_MAP);
 
-        map.setAnchorPoint(0, 0);
+        map.anchorX = 0;
+        map.anchorY = 0;
         map.x = -20;
         map.y = -200;
 
@@ -260,7 +262,8 @@ var TMXOrthoTest3 = TileDemo.extend({
         this.addChild(map, 0, TAG_TILE_MAP);
 
         map.setScale(0.2);
-        map.setAnchorPoint(0.5, 0.5);
+        map.anchorX = 0.5;
+        map.anchorY = 0.5;
     },
     title:function () {
         return "TMX anchorPoint test";
@@ -296,7 +299,8 @@ var TMXOrthoTest4 = TileDemo.extend({
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/orthogonal-test4.tmx");
         this.addChild(map, 0, TAG_TILE_MAP);
 
-        map.setAnchorPoint(0, 0);
+        map.anchorX = 0;
+        map.anchorY = 0;
 
         var layer = map.getLayer("Layer 0");
         var s = layer.getLayerSize();
@@ -376,10 +380,14 @@ var TMXReadWriteTest = TileDemo.extend({
         var tile2 = layer.getTileAt(cc.p(3, 62));//cc.p(1,62));
         var tile3 = layer.getTileAt(cc.p(2, 62));
 
-        tile0.setAnchorPoint(0.5, 0.5);
-        tile1.setAnchorPoint(0.5, 0.5);
-        tile2.setAnchorPoint(0.5, 0.5);
-        tile3.setAnchorPoint(0.5, 0.5);
+        tile0.anchorX = 0.5;
+        tile0.anchorY = 0.5;
+        tile1.anchorX = 0.5;
+        tile1.anchorY = 0.5;
+        tile2.anchorX = 0.5;
+        tile2.anchorY = 0.5;
+        tile3.anchorX = 0.5;
+        tile3.anchorY = 0.5;
 
         var move = cc.MoveBy.create(0.5, cc.p(0, 160));
         var rotate = cc.RotateBy.create(2, 360);
@@ -563,7 +571,8 @@ var TMXIsoTest1 = TileDemo.extend({
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/iso-test1.tmx");
         this.addChild(map, 0, TAG_TILE_MAP);
 
-        map.setAnchorPoint(0.5, 0.5);
+        map.anchorX = 0.5;
+        map.anchorY = 0.5;
     },
     title:function () {
         return "TMX Isometric test + anchorPoint";
@@ -766,7 +775,8 @@ var TMXOrthoObjectsTest = TileDemo.extend({
     },
     onEnter:function () {
         this._super();
-        this.setAnchorPoint(0, 0);
+        this.anchorX = 0;
+        this.anchorY = 0;
     },
     draw:function () {
         var map = this.getChildByTag(TAG_TILE_MAP);
@@ -854,7 +864,8 @@ var TMXIsoObjectsTest = TileDemo.extend({
 
     onEnter:function () {
         this._super();
-        this.setAnchorPoint(0, 0);
+        this.anchorX = 0;
+        this.anchorY = 0;
     },
 
     title:function () {
@@ -977,7 +988,8 @@ var TMXIsoZorder = TileDemo.extend({
         var mapWidth = map.getMapSize().width * map.getTileSize().width;
         this.tamara.x = mapWidth / 2;
         this.tamara.y = 0;
-        this.tamara.setAnchorPoint(0.5, 0);
+        this.tamara.anchorX = 0.5;
+        this.tamara.anchorY = 0;
 
         var move = cc.MoveBy.create(5, cc.pMult(cc.p(300, 250), 0.75));
         var back = move.reverse();
@@ -1039,7 +1051,8 @@ var TMXOrthoZorder = TileDemo.extend({
 
         this.tamara = cc.Sprite.create(s_pathSister1);
         map.addChild(this.tamara, map.getChildren().length, TAG_TILE_MAP);
-        this.tamara.setAnchorPoint(0.5, 0);
+        this.tamara.anchorX = 0.5;
+        this.tamara.anchorY = 0;
 
         var move = cc.MoveBy.create(5, cc.pMult(cc.p(400, 450), 0.58));
         var back = move.reverse();
@@ -1546,7 +1559,8 @@ var TMXBug987 = TileDemo.extend({
                 node.getTexture().setAntiAliasTexParameters();
         }
 
-        map.setAnchorPoint(0, 0);
+        map.anchorX = 0;
+        map.anchorY = 0;
         var layer = map.getLayer("Tile Layer 1");
         layer.setTileGID(3, cc.p(2, 2));
     },

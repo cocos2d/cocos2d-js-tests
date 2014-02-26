@@ -97,7 +97,8 @@ var CCNodeTest2 = TestNodeDemo.extend({
         var action2 = cc.RepeatForever.create(cc.Sequence.create(
             a1.clone(), a2.clone(), delay.clone(), a2.reverse()));
 
-        sp2.setAnchorPoint(0, 0);
+        sp2.anchorX = 0;
+        sp2.anchorY = 0;
 
         sp1.runAction(action1);
         sp2.runAction(action2);
@@ -421,7 +422,8 @@ var NodeToWorld = TestNodeDemo.extend({
         this._super();
         var back = cc.Sprite.create(s_back3);
         this.addChild(back, 5);
-        back.setAnchorPoint(0, 0);
+        back.anchorX = 0;
+        back.anchorY = 0;
 
         var item = cc.MenuItemImage.create(s_playNormal, s_playSelect, this.onClicked);
         var menu = cc.Menu.create(item);
@@ -736,13 +738,16 @@ var ConvertToNode = TestNodeDemo.extend({
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(0, 0);
+                    sprite.anchorX = 0;
+                    sprite.anchorY = 0;
                     break;
                 case 1:
-                    sprite.setAnchorPoint(0.5, 0.5);
+                    sprite.anchorX = 0.5;
+                    sprite.anchorY = 0.5;
                     break;
                 case 2:
-                    sprite.setAnchorPoint(1, 1);
+                    sprite.anchorX = 1;
+                    sprite.anchorY = 1;
                     break;
             }
 
