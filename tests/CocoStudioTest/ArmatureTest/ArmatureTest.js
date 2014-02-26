@@ -409,7 +409,7 @@ var TestChangeZorder = ArmatureTestLayer.extend({
     },
     changeZorder:function (dt) {
         var node = this.getChildByTag(this.currentTag);
-        node.setZOrder(Math.random() * 3);
+        node.zIndex = Math.random() * 3;
         this.currentTag++;
         this.currentTag = this.currentTag % 3;
     }
@@ -543,7 +543,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
         bone.addDisplay(p1, 0);
         bone.changeDisplayWithIndex(0, true);
         bone.setIgnoreMovementBoneData(true);
-        bone.setZOrder(100);
+        bone.zIndex = 100;
         bone.setScale(1.2);
         this.armature.addBone(bone, "bady-a3");
 
@@ -551,7 +551,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
         bone.addDisplay(p2, 0);
         bone.changeDisplayWithIndex(0, true);
         bone.setIgnoreMovementBoneData(true);
-        bone.setZOrder(100);
+        bone.zIndex = 100;
         bone.setScale(1.2);
         this.armature.addBone(bone, "bady-a30");
     },

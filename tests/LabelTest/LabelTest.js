@@ -478,9 +478,9 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
 
     getCurrentResult:function() {
 
-        var s = this.labelObj.getChildByTag(0).getScale();
-        var r = this.labelObj.getChildByTag(0).getRotation();
-        var o = this.labelObj.getChildByTag(12).getOpacity();
+        var s = this.labelObj.getChildByTag(0).scale;
+        var r = this.labelObj.getChildByTag(0).rotation;
+        var o = this.labelObj.getChildByTag(12).opacity;
         var ret = {"rotate": r, "scale": s, "opacity": o};
 
         return JSON.stringify(ret);

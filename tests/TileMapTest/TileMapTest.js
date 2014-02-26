@@ -1159,7 +1159,7 @@ var TMXIsoVertexZ = TileDemo.extend({
         // tile height is 64x32
         // map size: 30x30
         var z = -( (this.tamara.y + 32) / 16);
-        this.tamara.setVertexZ(z);
+        this.tamara.vertexZ = z;
     },
     //
     // Automation
@@ -1193,7 +1193,7 @@ var TMXOrthoVertexZ = TileDemo.extend({
         // can use any cc.Sprite and it will work OK.
         var layer = map.getLayer("trees");
         this.tamara = layer.getTileAt(cc.p(0, 11));
-        this.log("vertexZ: " + this.tamara.getVertexZ());
+        this.log("vertexZ: " + this.tamara.vertexZ);
 
         var move = cc.MoveBy.create(5, cc.pMult(cc.p(400, 450), 0.55));
         var back = move.reverse();
@@ -1235,7 +1235,7 @@ var TMXOrthoVertexZ = TileDemo.extend({
     repositionSprite:function (dt) {
         // tile height is 101x81
         // map size: 12x12
-        this.tamara.setVertexZ(-((this.tamara.y + 81) / 81));
+        this.tamara.vertexZ = -(this.tamara.y + 81) / 81;
     },
     //
     // Automation

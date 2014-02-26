@@ -155,12 +155,13 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
 
                 var delta = i / distance;
 
-                locBrush.x = location.x + diffX * delta;
-
-                locBrush.y = location.y + diffY * delta;
-                locBrush.setRotation(Math.random() * 360);
-                locBrush.setScale(Math.random() * 2);
-                locBrush.setColor(cc.color(Math.random() * 255, 255, 255));
+                locBrush.attr({
+	                x: location.x + diffX * delta,
+	                y: location.y + diffY * delta,
+	                rotation: Math.random() * 360,
+	                scale: Math.random() * 2,
+	                color: cc.color(Math.random() * 255, 255, 255)
+                });
                 locBrush.visit();
             }
             this._target.end();
@@ -283,9 +284,9 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         label3.y = size.height * 0.75;
         this.addChild(label3);
 
-        label.setVertexZ(50);
-        label2.setVertexZ(0);
-        label3.setVertexZ(-50);
+        label.vertexZ = 50;
+        label2.vertexZ = 0;
+        label3.vertexZ = -50;
 
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_circle_plist);
         this.mgr = cc.SpriteBatchNode.create(s_circle_png, 9);
@@ -310,15 +311,15 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         this.mgr.addChild(this.sp8, 2);
         this.mgr.addChild(this.sp9, 1);
 
-        this.sp1.setVertexZ(400);
-        this.sp2.setVertexZ(300);
-        this.sp3.setVertexZ(200);
-        this.sp4.setVertexZ(100);
-        this.sp5.setVertexZ(0);
-        this.sp6.setVertexZ(-100);
-        this.sp7.setVertexZ(-200);
-        this.sp8.setVertexZ(-300);
-        this.sp9.setVertexZ(-400);
+        this.sp1.vertexZ = 400;
+        this.sp2.vertexZ = 300;
+        this.sp3.vertexZ = 200;
+        this.sp4.vertexZ = 100;
+        this.sp5.vertexZ = 0;
+        this.sp6.vertexZ = -100;
+        this.sp7.vertexZ = -200;
+        this.sp8.vertexZ = -300;
+        this.sp9.vertexZ = -400;
 
         this.sp9.setScale(2);
         this.sp9.setColor(cc.color.yellow);

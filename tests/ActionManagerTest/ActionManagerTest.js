@@ -344,14 +344,14 @@ var ResumeTest = ActionManagerTest.extend({
         this.scheduleOnce(this.checkControl2, 5.5);
     },
     checkControl1:function(dt) {
-        this.control1ScaleX    = this._grossini.getScaleX();
-        this.control1ScaleY    = this._grossini.getScaleY();
-        this.control1Rotation  = this._grossini.getRotation();
+        this.control1ScaleX    = this._grossini.scaleX;
+        this.control1ScaleY    = this._grossini.scaleY;
+        this.control1Rotation  = this._grossini.rotation;
     },
     checkControl2:function(dt) {
-        this.control2ScaleX    = this._grossini.getScaleX();
-        this.control2ScaleY    = this._grossini.getScaleY();
-        this.control2Rotation  = this._grossini.getRotation();
+        this.control2ScaleX    = this._grossini.scaleX;
+        this.control2ScaleY    = this._grossini.scaleY;
+        this.control2Rotation  = this._grossini.rotation;
     },
     getExpectedResult:function() {
         var ret = [ {"Rot":0 }, {"sX":1, "sY":1}, {"Rot":360 }, {"sX":2, "sY":2} ];

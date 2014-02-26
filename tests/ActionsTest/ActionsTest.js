@@ -158,27 +158,30 @@ var ActionsDemo = BaseTestLayer.extend({
 //------------------------------------------------------------------
 var ActionManual = ActionsDemo.extend({
     _code:"sprite.x = 10; sprite.y = 20;\n" +
-        "sprite.setRotation( 90 );\n" +
-        "sprite.setScale( 2 );",
+        "sprite.rotation = 90;\n" +
+        "sprite.scale = 2;",
 
     onEnter:function () {
         this._super();
 
-        this._tamara.setScaleX(2.5);
-        //window.tam = this._tamara;
-        this._tamara.setScaleY(-1.0);
-        this._tamara.x = 100;
-		this._tamara.y = 70;
-        this._tamara.setOpacity(128);
+        this._tamara.attr({
+	        x: 100,
+	        y: 70,
+	        opacity: 128,
+	        scaleX: 2.5,
+	        scaleY: -1.0
+        });
 
-        this._grossini.setRotation(120);
-        this._grossini.x = winSize.width / 2;
-		this._grossini.y = winSize.height / 2;
-        this._grossini.setColor(cc.color(255, 0, 0));
+	    this._grossini.attr({
+		    x: winSize.width / 2,
+		    y: winSize.height / 2,
+		    rotation: 120,
+		    color: cc.color(255, 0, 0)
+	    });
 
         this._kathia.x = winSize.width - 100;
 		this._kathia.y = winSize.height / 2;
-        this._kathia.setColor(cc.color(0, 0, 255));
+        this._kathia.color = cc.color(0, 0, 255);
     },
 
     title:function () {
@@ -199,16 +202,16 @@ var ActionManual = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getScaleX() );
+        ret.push( this._tamara.scaleX );
         ret.push( cc.p(this._tamara.x, this._tamara.y) );
-        ret.push( this._tamara.getOpacity() );
+        ret.push( this._tamara.opacity );
 
-        ret.push( this._grossini.getRotation() );
+        ret.push( this._grossini.rotation );
         ret.push( cc.p(this._grossini.x, this._grossini.y) );
-        ret.push( this._grossini.getColor() );
+        ret.push( this._grossini.color );
 
         ret.push( cc.p(this._kathia.x, this._kathia.y) );
-        ret.push( this._kathia.getColor() );
+        ret.push( this._kathia.color );
 
         return JSON.stringify(ret);
     }
@@ -351,9 +354,9 @@ var ActionRotate = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getRotation() );
-        ret.push( this._grossini.getRotation() );
-        ret.push( this._kathia.getRotation() );
+        ret.push( this._tamara.rotation );
+        ret.push( this._grossini.rotation );
+        ret.push( this._kathia.rotation );
 
         return JSON.stringify(ret);
     }
@@ -402,14 +405,14 @@ var ActionRotateXY = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getRotationX().toFixed(2) );
-        ret.push( this._tamara.getRotationY().toFixed(2) );
+        ret.push( this._tamara.rotationX.toFixed(2) );
+        ret.push( this._tamara.rotationY.toFixed(2) );
 
-        ret.push( this._grossini.getRotationX() );
-        ret.push( this._grossini.getRotationY() );
+        ret.push( this._grossini.rotationX );
+        ret.push( this._grossini.rotationY );
 
-        ret.push( this._kathia.getRotationX() );
-        ret.push( this._kathia.getRotationY() );
+        ret.push( this._kathia.rotationX );
+        ret.push( this._kathia.rotationY );
 
         return JSON.stringify(ret);
     }
@@ -454,14 +457,14 @@ var ActionSkew = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getSkewX().toFixed(2) );
-        ret.push( this._tamara.getSkewY().toFixed(2) );
+        ret.push( this._tamara.skewX.toFixed(2) );
+        ret.push( this._tamara.skewY.toFixed(2) );
 
-        ret.push( this._grossini.getSkewX() );
-        ret.push( this._grossini.getSkewX() );
+        ret.push( this._grossini.skewX );
+        ret.push( this._grossini.skewY );
 
-        ret.push( this._kathia.getSkewX() );
-        ret.push( this._kathia.getSkewY() );
+        ret.push( this._kathia.skewX );
+        ret.push( this._kathia.skewY );
 
         return JSON.stringify(ret);
     }
@@ -533,11 +536,11 @@ var ActionSkewRotateScale = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this.box.getSkewX() );
-        ret.push( this.box.getSkewY() );
-        ret.push( this.box.getRotation() );
-        ret.push( this.box.getScaleX().toFixed(2) );
-        ret.push( this.box.getScaleY().toFixed(2) );
+        ret.push( this.box.skewX );
+        ret.push( this.box.skewY );
+        ret.push( this.box.rotation );
+        ret.push( this.box.scaleX.toFixed(2) );
+        ret.push( this.box.scaleY.toFixed(2) );
 
         return JSON.stringify(ret);
     }
@@ -1017,7 +1020,7 @@ var ActionSequence = ActionsDemo.extend({
     getCurrentResult:function() {
         var ret = [];
         ret.push( cc.p(this._grossini.x, this._grossini.y) );
-        ret.push( this._grossini.getRotation() );
+        ret.push( this._grossini.rotation );
         return JSON.stringify(ret);
     }
 });
@@ -1292,7 +1295,7 @@ var ActionSpawn = ActionsDemo.extend({
     getCurrentResult:function() {
         var ret = [];
         ret.push( cc.p(this._grossini.x, this._grossini.y) );
-        ret.push( this._grossini.getRotation() );
+        ret.push( this._grossini.rotation );
         return JSON.stringify(ret);
     }
 });
@@ -1332,7 +1335,7 @@ var ActionRepeatForever = ActionsDemo.extend({
     },
     getCurrentResult:function() {
         var ret = [];
-        var r = this._grossini.getRotation();
+        var r = this._grossini.rotation;
         var expected = 900;
         var error = 15;
         ret.push( r < expected+error && r > expected-error );
@@ -1375,8 +1378,8 @@ var ActionRotateToRepeat = ActionsDemo.extend({
     },
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._kathia.getRotation() );
-        var r = this._tamara.getRotation();
+        ret.push( this._kathia.rotation );
+        var r = this._tamara.rotation;
         var expected = 90;
         var error = 15;
         ret.push( r < expected+error && r > expected-error );
@@ -2473,7 +2476,7 @@ var Issue1327 = ActionsDemo.extend({
         spr.runAction(actF);
     },
     onLogSprRotation:function (pSender) {
-        cc.log(pSender.getRotation());
+        cc.log(pSender.rotation);
     },
     title:function () {
         return "Issue 1327";

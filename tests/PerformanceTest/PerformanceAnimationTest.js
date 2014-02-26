@@ -181,8 +181,8 @@ var CharacterView = cc.Node.extend({
             var right = cc.Sprite.create("frame#crystals/4.png");
             right.x = 50;
             right.y = i * 10 - 40;
-            right.setRotation(-90);
-            right.setScale(1);
+            right.rotation = -90;
+            right.scale = 1;
             this.addChild(right);
             // var scaleStep = cc.ScaleBy.create(0.5, -0.8);
             // right.runAction(cc.RepeatForever.create(scaleStep));
@@ -197,8 +197,8 @@ var CharacterView = cc.Node.extend({
             head.x = i * 5;
             head.y = 50;
             this.addChild(head);
-            head.setScale(1.5);
-            head.setRotation(350);
+            head.scale = 1.5;
+            head.rotation = 350;
             var rotateToA = cc.RotateBy.create(0.01, 5);
             head.runAction(cc.RepeatForever.create(rotateToA));
         }
@@ -208,7 +208,7 @@ var CharacterView = cc.Node.extend({
             var left = cc.Sprite.create("frame#crystals/2.png");
             left.x = 10;
             left.y = i * 5 - 20;
-            left.setRotation(90);
+            left.rotation = 90;
             this.addChild(left);
             //var moveStep = cc.MoveBy.create(0.01, cc.p(-5,0));
         //  left.runAction(moveStep);

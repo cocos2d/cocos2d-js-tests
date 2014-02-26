@@ -544,7 +544,7 @@ var SpriteZOrder = SpriteTestDemo.extend({
     },
     reorderSprite:function (dt) {
         var sprite = this.getChildByTag(TAG_SPRITE1);
-        var z = sprite.getZOrder();
+        var z = sprite.zIndex;
         if (z < -1)
             this._dir = 1;
         if (z > 10)
@@ -613,7 +613,7 @@ var SpriteBatchNodeZOrder = SpriteTestDemo.extend({
     reorderSprite:function (dt) {
         var batch = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
         var sprite = batch.getChildByTag(TAG_SPRITE1);
-        var z = sprite.getZOrder();
+        var z = sprite.zIndex;
         if (z < -1)
             this._dir = 1;
         if (z > 10)
@@ -894,7 +894,7 @@ var SpriteBatchNodeReorderIssue767 = SpriteTestDemo.extend({
 
         var newZLeft = 1;
 
-        if (left.getZOrder() === 1)
+        if (left.zIndex === 1)
             newZLeft = -1;
 
         father.reorderChild(left, newZLeft);
@@ -985,7 +985,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
                 sprite = cc.Sprite.create(s_grossini_dance_atlas, cc.rect(0, 121, 85, 121));
                 sprite.x = (i + 1) * step;
                 sprite.y = winSize.height / 2;
-                sprite.setVertexZ(10 + i * 40);
+                sprite.vertexZ = 10 + i * 40;
                 sprite.setShaderProgram(alphaTestShader);
                 node.addChild(sprite, 0);
             }
@@ -994,7 +994,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
                 sprite = cc.Sprite.create(s_grossini_dance_atlas, cc.rect(85, 0, 85, 121));
                 sprite.x = (i + 1) * step;
                 sprite.y = winSize.height / 2;
-                sprite.setVertexZ(10 + (10 - i) * 40);
+                sprite.vertexZ = 10 + (10 - i) * 40;
                 sprite.setShaderProgram(alphaTestShader);
                 node.addChild(sprite, 0);
             }
@@ -1015,11 +1015,11 @@ var SpriteZVertex = SpriteTestDemo.extend({
 
             // Avoid Z-fighting with menu and title
             var menu = this.getChildByTag(BASE_TEST_MENU_TAG);
-            menu.setVertexZ(1);
+            menu.vertexZ = 1;
             var title = this.getChildByTag(BASE_TEST_TITLE_TAG);
-            title.setVertexZ(1);
+            title.vertexZ = 1;
             var subtitle = this.getChildByTag(BASE_TEST_SUBTITLE_TAG);
-            subtitle.setVertexZ(1);
+            subtitle.vertexZ = 1;
         }
     },
     onExit:function () {
@@ -1106,7 +1106,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
                 sprite = cc.Sprite.create(batch.getTexture(), cc.rect(0, 121, 85, 121));
                 sprite.x = (i + 1) * step;
                 sprite.y = winSize.height / 2;
-                sprite.setVertexZ(10 + i * 40);
+                sprite.vertexZ = 10 + i * 40;
                 batch.addChild(sprite, 0);
 
             }
@@ -1115,7 +1115,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
                 sprite = cc.Sprite.create(batch.getTexture(), cc.rect(85, 0, 85, 121));
                 sprite.x = (i + 1) * step;
                 sprite.y = winSize.height / 2;
-                sprite.setVertexZ(10 + (10 - i) * 40);
+                sprite.vertexZ = 10 + (10 - i) * 40;
                 batch.addChild(sprite, 0);
             }
 
@@ -1136,11 +1136,11 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
 
             // Avoid Z-fighting with menu and title
             var menu = this.getChildByTag(BASE_TEST_MENU_TAG);
-            menu.setVertexZ(1);
+            menu.vertexZ = 1;
             var title = this.getChildByTag(BASE_TEST_TITLE_TAG);
-            title.setVertexZ(1);
+            title.vertexZ = 1;
             var subtitle = this.getChildByTag(BASE_TEST_SUBTITLE_TAG);
-            subtitle.setVertexZ(1);
+            subtitle.vertexZ = 1;
 
         }
     },
@@ -4436,7 +4436,7 @@ var NodeSort = SpriteTestDemo.extend({
         var nodeChildren = this._node.getChildren();
         for (i = 0; i < nodeChildren.length; i++) {
             child = nodeChildren[i];
-            cc.log("tag:" + child.getTag() + "  z: " + child.getZOrder());
+            cc.log("tag:" + child.getTag() + "  z: " + child.zIndex);
         }
 
         //z-4
@@ -4448,7 +4448,7 @@ var NodeSort = SpriteTestDemo.extend({
         for (i = 0; i < nodeChildren.length; i++) {
             child = nodeChildren[i];
             cc.log("tag:" + child.getTag() + "  z: " +
-                child.getZOrder());
+                child.zIndex);
             this.testOrders.push(child.getTag());
         }
     },

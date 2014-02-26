@@ -106,7 +106,7 @@ var ExtensionsMainLayer = cc.Layer.extend({
     },
 
     menuCallback:function (sender) {
-        var nIndex = sender.getZOrder() - ITEM_TAG_BASIC;
+        var nIndex = sender.zIndex - ITEM_TAG_BASIC;
         extensionsTestItemNames[nIndex].testScene();
     }
 });

@@ -389,11 +389,11 @@ var SpritesUndergoneDifferentOperationsTestScene1 = VirtualMachineTestMainScene.
         return fn([], array, []);
     })([
         function() { this.getChildren(); }, // appends ._children
-        function() { this.setTag(cc.NODE_TAG_INVALID); }, // appends ._tag
+        function() { this.tag = cc.NODE_TAG_INVALID; }, // appends ._tag
         function() { this.setParent(null); }, // appends ._parent
-        function() { this.setZOrder(0); }, // appends ._zOrder
-        function() { this.setRotation(0); }, // appends ._rotationX/Y
-        function() { this.setVisible(true); }, // appends ._visible
+        function() { this.zIndex = 0; }, // appends ._zOrder
+        function() { this.rotation = 0; }, // appends ._rotationX/Y
+        function() { this.visible = true; }, // appends ._visible
         function() { this.onEnter(); } // appends ._running
     ]),
     updateQuantityOfNodes:function () {

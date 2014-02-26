@@ -463,8 +463,8 @@ function performanceRotationScale(sprite) {
     var size = cc.Director.getInstance().getWinSize();
     sprite.x = parseInt(Math.random() * size.width);
     sprite.y = parseInt(Math.random() * size.height);
-    sprite.setRotation(Math.random() * 360);
-    sprite.setScale(Math.random() * 2);
+    sprite.rotation = Math.random() * 360;
+    sprite.scale = Math.random() * 2;
 }
 
 function performancePosition(sprite) {
@@ -495,7 +495,7 @@ function performanceScale(sprite) {
     var size = cc.Director.getInstance().getWinSize();
     sprite.x = parseInt(Math.random() * size.width);
     sprite.y = parseInt(Math.random() * size.height);
-    sprite.setScale(Math.random() * 100 / 50);
+    sprite.scale = Math.random() * 100 / 50;
 }
 
 

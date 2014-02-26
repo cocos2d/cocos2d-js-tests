@@ -363,18 +363,22 @@ var HoleDemo = BaseClippingNodeTest.extend({
         var rotation = Math.random() * 360;
 
         var hole = cc.Sprite.create(s_hole_effect_png);
-        hole.x = point.x;
-	    hole.y = point.y;
-        hole.setRotation(rotation);
-        hole.setScale(scale);
+        hole.attr({
+	        x: point.x,
+	        y: point.y,
+	        rotation: rotation,
+	        scale: scale
+        });
 
         this._holes.addChild(hole);
 
         var holeStencil = cc.Sprite.create(s_hole_stencil_png);
-        holeStencil.x = point.x;
-	    holeStencil.y = point.y;
-        holeStencil.setRotation(rotation);
-        holeStencil.setScale(scale);
+        holeStencil.attr({
+	        x: point.x,
+	        y: point.y,
+	        rotation: rotation,
+	        scale: scale
+        });
 
         this._holesStencil.addChild(holeStencil);
         this._outerClipper.runAction(cc.Sequence.create(cc.ScaleBy.create(0.05, 0.95), cc.ScaleTo.create(0.125, 1)));
