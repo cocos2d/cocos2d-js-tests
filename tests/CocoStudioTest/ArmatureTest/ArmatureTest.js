@@ -126,7 +126,7 @@ var restartArmatureTest = function () {
 var ArmatureTestLayer = BaseTestLayer.extend({
     ctor:function () {
         if (arguments.length === 0) {
-            this._super(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
+            this._super(cc.color(0, 0, 0, 255), cc.color(98, 99, 117, 255));
         } else {
             this._super.apply(this, arguments);
         }
@@ -286,9 +286,9 @@ var TestPerformance = ArmatureTestLayer.extend({
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
         cc.MenuItemFont.setFontSize(65);
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
-        decrease.setColor(cc.c3b(0, 200, 20));
+        decrease.setColor(cc.color(0, 200, 20));
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
-        increase.setColor(cc.c3b(0, 200, 20));
+        increase.setColor(cc.color(0, 200, 20));
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
@@ -892,7 +892,7 @@ var TestBoundingBox = ArmatureTestLayer.extend({
     },
     draw:function () {
         var rect =  this.armature.boundingBox();
-        cc.drawingUtil.setDrawColor4B(100, 100, 100, 255);
+        cc.drawingUtil.setDrawColor(100, 100, 100, 255);
         cc.drawingUtil.setLineWidth(1);
         cc.drawingUtil.drawRect(cc.p(rect.x, rect.y), cc.p(cc.rectGetMaxX(rect), cc.rectGetMaxY(rect)));
     }

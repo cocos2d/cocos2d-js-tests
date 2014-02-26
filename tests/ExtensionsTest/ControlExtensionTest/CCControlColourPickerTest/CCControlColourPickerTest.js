@@ -39,7 +39,7 @@ var ControlColourPickerTest = ControlScene.extend({
 
             // Create the colour picker
             var colourPicker = cc.ControlColourPicker.create();
-            colourPicker.setColor(cc.c3b(37, 46, 252));
+            colourPicker.setColor(cc.color(37, 46, 252));
             colourPicker.x = colourPicker.width / 2;
             colourPicker.y = 0;
 

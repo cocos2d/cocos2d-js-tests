@@ -49,7 +49,7 @@ var ActionsDemo = BaseTestLayer.extend({
     _code:null,
 
     ctor:function () {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255) );
 
         this._grossini = cc.Sprite.create(s_pathGrossini);
         this._tamara = cc.Sprite.create(s_pathSister1);
@@ -174,11 +174,11 @@ var ActionManual = ActionsDemo.extend({
         this._grossini.setRotation(120);
         this._grossini.x = winSize.width / 2;
 		this._grossini.y = winSize.height / 2;
-        this._grossini.setColor(cc.c3b(255, 0, 0));
+        this._grossini.setColor(cc.color(255, 0, 0));
 
         this._kathia.x = winSize.width - 100;
 		this._kathia.y = winSize.height / 2;
-        this._kathia.setColor(cc.c3b(0, 0, 255));
+        this._kathia.setColor(cc.color(0, 0, 255));
     },
 
     title:function () {
@@ -474,21 +474,21 @@ var ActionSkewRotateScale = ActionsDemo.extend({
         this.centerSprites(0);
 
         var boxSize = cc.size(100.0, 100.0);
-        var box = cc.LayerColor.create(cc.c4b(255, 255, 0, 255));
+        var box = cc.LayerColor.create(cc.color(255, 255, 0, 255));
         box.setAnchorPoint(0, 0);
         box.x = (winSize.width - boxSize.width) / 2;
 		box.y = (winSize.height - boxSize.height) / 2;
         box.setContentSize(boxSize);
 
         var markrside = 10.0;
-        var uL = cc.LayerColor.create(cc.c4b(255, 0, 0, 255));
+        var uL = cc.LayerColor.create(cc.color(255, 0, 0, 255));
         box.addChild(uL);
         uL.setContentSize(markrside, markrside);
         uL.x = 0;
 		uL.y = boxSize.height - markrside;
         uL.setAnchorPoint(0, 0);
 
-        var uR = cc.LayerColor.create(cc.c4b(0, 0, 255, 255));
+        var uR = cc.LayerColor.create(cc.color(0, 0, 255, 255));
         box.addChild(uR);
         uR.setContentSize(markrside, markrside);
         uR.x = boxSize.width - markrside;

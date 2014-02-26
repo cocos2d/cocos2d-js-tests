@@ -24,7 +24,7 @@
 
 var ComponentsTestLayer = cc.LayerColor.extend({
     init: function () {
-        if (cc.LayerColor.prototype.init.call(this, cc.c4b(255, 255, 255, 255))) {
+        if (cc.LayerColor.prototype.init.call(this, cc.color(255, 255, 255, 255))) {
             var root = this.createGameScene();
             this.addChild(root, 0, 1);
             root.getChildByTag(1).addComponent(ccs.ComAudio.create());
@@ -46,7 +46,7 @@ var ComponentsTestLayer = cc.LayerColor.extend({
         root.addChild(player, 1, 1);
 
         var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
-        itemBack.setColor(cc.c3b(0, 0, 0));
+        itemBack.setColor(cc.color(0, 0, 0));
         itemBack.x = cc.VisibleRect.bottomRight().x - 50;
         itemBack.y = cc.VisibleRect.bottomRight().y + 25;
         var menuBack = cc.Menu.create(itemBack);

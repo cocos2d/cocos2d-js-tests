@@ -94,7 +94,7 @@ var restartSceneEditorTest = function () {
 var SceneEditorTestLayer = BaseTestLayer.extend({
     ctor: function () {
         if (arguments.length === 0) {
-            this._super(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
+            this._super(cc.color(0, 0, 0, 255), cc.color(98, 99, 117, 255));
         } else {
             this._super.apply(this, arguments);
         }

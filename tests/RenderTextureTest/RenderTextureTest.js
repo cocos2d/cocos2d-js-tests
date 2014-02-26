@@ -27,7 +27,7 @@ var sceneRenderTextureIdx = -1;
 
 var RenderTextureBaseLayer = BaseTestLayer.extend({
     ctor:function () {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255) );
     },
 
     title:function () {
@@ -96,7 +96,7 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
         this._brush = cc.Sprite.create(s_fire);
         this._brush.retain();
 
-        this._brush.setColor(cc.red());
+        this._brush.setColor(cc.color.red);
         this._brush.setOpacity(20);
 
         var save = cc.MenuItemFont.create("Save", this.saveCB, this);
@@ -160,7 +160,7 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
                 locBrush.y = location.y + diffY * delta;
                 locBrush.setRotation(Math.random() * 360);
                 locBrush.setScale(Math.random() * 2);
-                locBrush.setColor(cc.c3b(Math.random() * 255, 255, 255));
+                locBrush.setColor(cc.color(Math.random() * 255, 255, 255));
                 locBrush.visit();
             }
             this._target.end();
@@ -198,7 +198,7 @@ var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
          *  B1: non-premulti sprite
          *  B2: non-premulti render
          */
-        var background = cc.LayerColor.create(cc.c4b(200, 200, 200, 255));
+        var background = cc.LayerColor.create(cc.color(200, 200, 200, 255));
         this.addChild(background);
 
         var spr_premulti = cc.Sprite.create(s_fire);
@@ -321,7 +321,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         this.sp9.setVertexZ(-400);
 
         this.sp9.setScale(2);
-        this.sp9.setColor(cc.yellow());
+        this.sp9.setColor(cc.color.yellow);
     },
 
     onTouchesBegan:function (touches, event) {
@@ -410,7 +410,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         sprite.setOpacity(182);
         sprite.setFlippedY(1);
         this.addChild(sprite, 999999);
-        sprite.setColor(cc.green());
+        sprite.setColor(cc.color.green);
 
         sprite.runAction(cc.Sequence.create(cc.FadeTo.create(2, 0), cc.Hide.create()));
     }
@@ -489,7 +489,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
          *  B1: non-premulti sprite
          *  B2: non-premulti render
          */
-        var background = cc.LayerColor.create(cc.c4b(40, 40, 40, 255));
+        var background = cc.LayerColor.create(cc.color(40, 40, 40, 255));
         this.addChild(background);
 
         var winSize = cc.Director.getInstance().getWinSize();
@@ -521,7 +521,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
         /* add the sprites to the render texture */
         renderTexture.addChild(this._sprite1);
         renderTexture.addChild(this._sprite2);
-        renderTexture.setClearColor(cc.c4f(0, 0, 0, 0));
+        renderTexture.setClearColor(cc.color(0, 0, 0, 0));
         renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
 
         /* add the render texture to the scene */
@@ -565,7 +565,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
             this._renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
         else {
             this._renderTexture.setClearFlags(0);
-            this._renderTexture.setClearColor(cc.c4f(Math.random(), Math.random(), Math.random(), 1));
+            this._renderTexture.setClearColor(cc.color(Math.random()*255, Math.random()*255, Math.random()*255, 255));
         }
     }
 });

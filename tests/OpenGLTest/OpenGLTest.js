@@ -54,7 +54,7 @@ var OpenGLTestLayer = BaseTestLayer.extend({
     _code:null,
 
     ctor:function() {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255) );
     },
 
     title:function () {
@@ -103,10 +103,10 @@ var GLReadPixelsTest = OpenGLTestLayer.extend({
             var x = winSize.width;
             var y = winSize.height;
 
-            var blue = cc.LayerColor.create(cc.c4b(0, 0, 255, 255));
-            var red = cc.LayerColor.create(cc.c4b(255, 0, 0, 255));
-            var green = cc.LayerColor.create(cc.c4b(0, 255, 0, 255));
-            var white = cc.LayerColor.create(cc.c4b(255, 255, 255, 255));
+            var blue = cc.LayerColor.create(cc.color(0, 0, 255, 255));
+            var red = cc.LayerColor.create(cc.color(255, 0, 0, 255));
+            var green = cc.LayerColor.create(cc.color(0, 255, 0, 255));
+            var white = cc.LayerColor.create(cc.color(255, 255, 255, 255));
 
             blue.setScale(0.5);
             blue.x = -x / 4;
@@ -187,7 +187,7 @@ var GLClearTest = OpenGLTestLayer.extend({
 
         if( 'opengl' in sys.capabilities ) {
 
-            var blue = cc.LayerColor.create(cc.c4b(0, 0, 255, 255));
+            var blue = cc.LayerColor.create(cc.color(0, 0, 255, 255));
             this.addChild( blue, 1 );
 
             var node = new cc.GLNode();

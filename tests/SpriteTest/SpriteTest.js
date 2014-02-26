@@ -58,7 +58,7 @@ var SpriteTestDemo = BaseTestLayer.extend({
 
     ctor:function () {
         if (arguments.length === 0) {
-            this._super(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
+            this._super(cc.color(0, 0, 0, 255), cc.color(98, 99, 117, 255));
         } else {
             this._super.apply(this, arguments);
         }
@@ -538,7 +538,7 @@ var SpriteZOrder = SpriteTestDemo.extend({
         sprite.x = winSize.width / 2;
         sprite.y = winSize.height / 2 - 20;
         sprite.setScaleX(10);
-        sprite.setColor(cc.red());
+        sprite.setColor(cc.color.red);
 
         this.schedule(this.reorderSprite, 1);
     },
@@ -607,7 +607,7 @@ var SpriteBatchNodeZOrder = SpriteTestDemo.extend({
         sprite.x = winSize.width / 2;
         sprite.y = winSize.height / 2 - 20;
         sprite.setScaleX(10);
-        sprite.setColor(cc.red());
+        sprite.setColor(cc.color.red);
         this.schedule(this.reorderSprite, 1);
     },
     reorderSprite:function (dt) {
@@ -938,7 +938,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
     _subtitle:"Scene should rotate",
 
     ctor:function () {
-        this._super(cc.c4b(255, 0, 0, 80), cc.c4b(255, 98, 117, 20));
+        this._super(cc.color(255, 0, 0, 80), cc.color(255, 98, 117, 20));
 
 
         if ("opengl" in sys.capabilities) {
@@ -1058,7 +1058,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
     _subtitle:"Scene should rotate",
 
     ctor:function () {
-        this._super(cc.c4b(255, 0, 0, 80), cc.c4b(255, 98, 117, 20));
+        this._super(cc.color(255, 0, 0, 80), cc.color(255, 98, 117, 20));
 
         if ("opengl" in sys.capabilities) {
 
@@ -4106,8 +4106,8 @@ var SpriteNilTexture = SpriteTestDemo.extend({
         // TEST: If no texture is given, then Opacity + Color should work.
         var sprite = cc.Sprite.create();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
-        // sprite.setColor(cc.red());
-        sprite.setColor(cc.c3b(255, 0, 0));
+        // sprite.setColor(cc.color.red);
+        sprite.setColor(cc.color(255, 0, 0));
         sprite.setOpacity(128);
         sprite.x = 3 * winSize.width / 4;
         sprite.y = winSize.height / 2;
@@ -4115,8 +4115,8 @@ var SpriteNilTexture = SpriteTestDemo.extend({
 
         sprite = cc.Sprite.create();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
-        //sprite.setColor(cc.blue());
-        sprite.setColor(cc.c3b(0, 0, 255));
+        //sprite.setColor(cc.color.blue);
+        sprite.setColor(cc.color(0, 0, 255));
         sprite.setOpacity(128);
         sprite.x = winSize.width / 4;
         sprite.y = winSize.height / 2;
@@ -4897,9 +4897,9 @@ var SpriteBatchBug1217 = SpriteTestDemo.extend({
         var s2 = cc.Sprite.create(bn.getTexture(), cc.rect(0, 0, 57, 57));
         var s3 = cc.Sprite.create(bn.getTexture(), cc.rect(0, 0, 57, 57));
 
-        s1.setColor(cc.c3b(255, 0, 0));
-        s2.setColor(cc.c3b(0, 255, 0));
-        s3.setColor(cc.c3b(0, 0, 255));
+        s1.setColor(cc.color(255, 0, 0));
+        s2.setColor(cc.color(0, 255, 0));
+        s3.setColor(cc.color(0, 0, 255));
 
         s1.x = 20;
 
@@ -4963,8 +4963,8 @@ var TextureColorCacheIssue = SpriteTestDemo.extend({
         this.addChild(grossini);
         this.addChild(sister);
 
-        grossini.setColor(cc.c3b(1, 255, 1));
-        sister.setColor(cc.c3b(1, 1, 255));
+        grossini.setColor(cc.color(1, 255, 1));
+        sister.setColor(cc.color(1, 1, 255));
     },
     onExit:function () {
         spriteFrameCache.removeSpriteFramesFromFile(s_tcc_issue_1_plist);
@@ -5011,11 +5011,11 @@ var TextureColorCacheIssue2 = SpriteTestDemo.extend({
         this.addChild(sister);
 
 //        for (var i = 0; i < 10; ++i) {
-//            sister.setColor(cc.c3b(128, 128, 128 + i));
-//            grossini.setColor(cc.c3b(128, 128, 128 + i));
+//            sister.setColor(cc.color(128, 128, 128 + i));
+//            grossini.setColor(cc.color(128, 128, 128 + i));
 //        }
-        grossini.setColor(cc.c3b(255, 255, 0));
-        sister.setColor(cc.c3b(255, 0, 255));
+        grossini.setColor(cc.color(255, 255, 0));
+        sister.setColor(cc.color(255, 0, 255));
     },
     onExit:function () {
         spriteFrameCache.removeSpriteFramesFromFile(s_tcc_issue_1_plist);

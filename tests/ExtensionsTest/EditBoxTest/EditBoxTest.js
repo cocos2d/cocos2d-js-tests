@@ -40,7 +40,7 @@ var EditBoxTestLayer = cc.Layer.extend({
         this._box1.setText("EditBoxs");
         this._box1.x = 220;
         this._box1.y = 50;
-        this._box1.setFontColor(cc.c3b(251, 250, 0));
+        this._box1.setFontColor(cc.color(251, 250, 0));
         this._box1.setDelegate(this);
         this.addChild(this._box1);
 
@@ -49,7 +49,7 @@ var EditBoxTestLayer = cc.Layer.extend({
         this._box2.x = 220;
         this._box2.y = 190;
         this._box2.setInputFlag(cc.EDITBOX_INPUT_FLAG_PASSWORD);
-        this._box2.setFontColor(cc.c3b(255, 250, 0));
+        this._box2.setFontColor(cc.color(255, 250, 0));
         this._box2.setDelegate(this);
         this.addChild(this._box2);
 
@@ -57,17 +57,17 @@ var EditBoxTestLayer = cc.Layer.extend({
         this._box3.setText("Image");
         this._box3.x = 220;
         this._box3.y = 250;
-        this._box3.setFontColor(cc.c3b(15, 250, 245));
+        this._box3.setFontColor(cc.color(15, 250, 245));
         this._box3.setDelegate(this);
         this.addChild(this._box3);
 
         this._box4 = cc.EditBox.create(cc.size(180, 40), cc.Scale9Sprite.create("res/extensions/yellow_edit.png"));
-        this._box4.setPlaceholderFontColor(cc.c3b(255, 0, 0));
+        this._box4.setPlaceholderFontColor(cc.color(255, 0, 0));
         this._box4.setPlaceHolder("Tooltip:");
         this._box4.x = 220;
         this._box4.y = 140;
         this._box4.setDelegate(this);
-        this._box4.setFontColor(cc.c3b(5, 4, 10));
+        this._box4.setFontColor(cc.color(5, 4, 10));
         this._box4.setMaxLength(10);
         this.addChild(this._box4);
 
