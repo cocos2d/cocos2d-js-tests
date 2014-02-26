@@ -52,17 +52,17 @@ var ActionManagerTest = BaseTestLayer.extend({
     onBackCallback:function (sender) {
         var s = new ActionManagerTestScene();
         s.addChild(previousActionMgrTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onRestartCallback:function (sender) {
         var s = new ActionManagerTestScene();
         s.addChild(restartActionMgrTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new ActionManagerTestScene();
         s.addChild(nextActionMgrTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     // automation
     numberOfPendingTests:function() {
@@ -87,7 +87,8 @@ var CrashTest = ActionManagerTest.extend({
         this._super();
 
         var child = cc.Sprite.create(s_pathGrossini);
-        child.setPosition(200, 200);
+        child.x = 200;
+	    child.y = 200;
         this.addChild(child, 1);
 
         //Sum of all action's duration is 1.5 second.
@@ -136,7 +137,8 @@ var LogicTest = ActionManagerTest.extend({
 
         var grossini = cc.Sprite.create(s_pathGrossini);
         this.addChild(grossini, 0, 2);
-        grossini.setPosition(200, 200);
+        grossini.x = 200;
+	    grossini.y = 200;
 
         grossini.runAction(cc.Sequence.create(
             cc.MoveBy.create(1, cc.p(150, 0)),
@@ -192,14 +194,16 @@ var PauseTest = ActionManagerTest.extend({
         var s = director.getWinSize();
         var l = cc.LabelTTF.create("After 3 seconds grossini should move", "Thonburi", 16);
         this.addChild(l);
-        l.setPosition(s.width / 2, 245);
+        l.x = s.width / 2;
+	    l.y = 245;
 
         //
         // Also, this test MUST be done, after [super onEnter]
         //
         var grossini = cc.Sprite.create(s_pathGrossini);
         this.addChild(grossini, 0, TAG_GROSSINI);
-        grossini.setPosition(200, 200);
+        grossini.x = 200;
+	    grossini.y = 200;
 
 
         var action = cc.MoveBy.create(1, cc.p(150, 0));
@@ -229,10 +233,10 @@ var PauseTest = ActionManagerTest.extend({
     //
     testDuration:5.5,
     checkControl1:function(dt) {
-        this.control1 = this._grossini.getPosition();
+        this.control1 = cc.p(this._grossini.x, this._grossini.y);
     },
     checkControl2:function(dt) {
-        this.control2 = this._grossini.getPosition();
+        this.control2 = cc.p(this._grossini.x, this._grossini.y);
     },
     getExpectedResult:function() {
         var ret = [ {"x":200, "y":200}, {"x":350, "y":200} ];
@@ -259,7 +263,8 @@ var RemoveTest = ActionManagerTest.extend({
         var s = director.getWinSize();
         var l = cc.LabelTTF.create("Should not crash", "Thonburi", 16);
         this.addChild(l);
-        l.setPosition(s.width / 2, 245);
+        l.x = s.width / 2;
+	    l.y = 245;
 
         var move = cc.MoveBy.create(2, cc.p(200, 0));
         var callback = cc.CallFunc.create(this.stopAction, this);
@@ -267,7 +272,8 @@ var RemoveTest = ActionManagerTest.extend({
         sequence.setTag(TAG_SEQUENCE);
 
         var child = cc.Sprite.create(s_pathGrossini);
-        child.setPosition(200, 200);
+        child.x = 200;
+	    child.y = 200;
 
         this.addChild(child, 1, TAG_GROSSINI);
         child.runAction(sequence);
@@ -305,12 +311,14 @@ var ResumeTest = ActionManagerTest.extend({
         var s = director.getWinSize();
         var l = cc.LabelTTF.create("Grossini only rotate/scale in 3 seconds", "Thonburi", 16);
         this.addChild(l);
-        l.setPosition(s.width / 2, 245);
+        l.x = s.width / 2;
+	    l.y = 245;
 
         var grossini = cc.Sprite.create(s_pathGrossini);
         this._grossini = grossini;
         this.addChild(grossini, 0, TAG_GROSSINI);
-        grossini.setPosition(s.width / 2, s.height / 2);
+        grossini.x = s.width / 2;
+	    grossini.y = s.height / 2;
 
         grossini.runAction(cc.ScaleBy.create(2, 2));
 
@@ -359,7 +367,7 @@ var ActionManagerTestScene = TestScene.extend({
     runThisTest:function () {
         ActionMgrTestIdx = -1;
         this.addChild(nextActionMgrTest());
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

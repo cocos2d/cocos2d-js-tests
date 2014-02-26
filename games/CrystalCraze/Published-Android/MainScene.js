@@ -73,7 +73,7 @@ MainScene.prototype.onAnimationComplete = function()
 	if (this.menuSelection == kMenuSelectionPlay)
 	{
 		var scene = cc.BuilderReader.loadAsScene("GameScene.ccbi");
-		cc.Director.getInstance().replaceScene(scene);
+		cc.Director.getInstance().runScene(scene);
 		gAudioEngine.stopMusic();
     }
 };
@@ -85,7 +85,7 @@ MainScene.prototype.onUpdate = function()
 	if (Math.random() < 0.02)
 	{
 		var type = Math.floor(Math.random()*5);
-		var sprt = cc.Sprite.createWithSpriteFrameName("crystals/"+type+".png");
+		var sprt = cc.Sprite.create("frame#crystals/"+type+".png");
 		//var sprt = cc.Sprite.create("crystals/"+type+".png");
 		//var p = cc.ParticleSystem.create("particles/falling-gem.plist");
 

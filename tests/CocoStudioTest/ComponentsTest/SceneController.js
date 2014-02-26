@@ -72,7 +72,7 @@ var SceneController = ccs.ComController.extend({
             cc.ArrayRemoveObject(this._targets, sprite);
             var gameOverScene = GameOverScene.create();
             gameOverScene.getLayer().getLabel().setString("You Lose!");
-            cc.Director.getInstance().replaceScene(gameOverScene);
+            cc.Director.getInstance().runScene(gameOverScene);
         }
         else if (sprite.getTag() == 3) {
             cc.ArrayRemoveObject(this._projectiles, sprite);
@@ -87,7 +87,7 @@ var SceneController = ccs.ComController.extend({
         if (projectilesDestroyed >= 5) {
             var gameOverScene = GameOverScene.create();
             gameOverScene.getLayer().getLabel().setString("You Win!");
-            cc.Director.getInstance().replaceScene(gameOverScene);
+            cc.Director.getInstance().runScene(gameOverScene);
         }
     },
     getProjectiles: function () {

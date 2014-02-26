@@ -41,7 +41,7 @@ var TextureMenuLayer = PerformBasicLayer.extend({
         s_nTexCurCase = this._curCase;
 
         if (scene) {
-            cc.Director.getInstance().replaceScene(scene);
+            cc.Director.getInstance().runScene(scene);
         }
     },
 
@@ -53,15 +53,17 @@ var TextureMenuLayer = PerformBasicLayer.extend({
         // Title
         var label = cc.LabelTTF.create(this.title(), "Arial", 40);
         this.addChild(label, 1);
-        label.setPosition(s.width / 2, s.height - 32);
-        label.setColor(cc.c3b(255, 255, 40));
+        label.x = s.width / 2;
+        label.y = s.height - 32;
+        label.setColor(cc.color(255, 255, 40));
 
         // Subtitle
         var strSubTitle = this.subtitle();
         if (strSubTitle.length) {
             var l = cc.LabelTTF.create(strSubTitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(s.width / 2, s.height - 80);
+            l.x = s.width / 2;
+            l.y = s.height - 80;
         }
 
         this.performTests();
@@ -172,7 +174,7 @@ TextureTest.scene = function () {
 function runTextureTest() {
     s_nTexCurCase = 0;
     var scene = TextureTest.scene();
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 }
 
 function calculateDeltaTime(lastUpdate) {

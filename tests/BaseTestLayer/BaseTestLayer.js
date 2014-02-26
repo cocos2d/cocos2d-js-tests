@@ -44,8 +44,8 @@ var BaseTestLayer = cc.LayerGradient.extend({
         this._super();
 
         // default gradient colors
-        var a = cc.c4b(98,99,117,255);
-        var b = cc.c4b(0,0,0,255);
+        var a = cc.color(98,99,117,255);
+        var b = cc.color(0,0,0,255);
 
         if( arguments.length >= 1 )
             a = colorA;
@@ -54,8 +54,8 @@ var BaseTestLayer = cc.LayerGradient.extend({
 
         // for automation, no gradient. helps for grabbing the screen if needed
         if( autoTestEnabled ) {
-            a = cc.c4b(0,0,0,255);
-            b = cc.c4b(0,0,0,255);
+            a = cc.color(0,0,0,255);
+            b = cc.color(0,0,0,255);
         }
 
         this.init( a, b );
@@ -109,13 +109,15 @@ var BaseTestLayer = cc.LayerGradient.extend({
         var t = this.getTitle();
         var label = cc.LabelTTF.create(t, "Arial", 28);
         this.addChild(label, 100, BASE_TEST_TITLE_TAG);
-        label.setPosition(winSize.width / 2, winSize.height - 50);
+        label.x = winSize.width / 2;
+        label.y = winSize.height - 50;
 
         var st = this.getSubtitle();
         if (st) {
             var l = cc.LabelTTF.create(st.toString(), "Thonburi", 16);
             this.addChild(l, 101, BASE_TEST_SUBTITLE_TAG);
-            l.setPosition(winSize.width / 2, winSize.height - 80);
+            l.x = winSize.width / 2;
+            l.y = winSize.height - 80;
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.onBackCallback, this);
@@ -128,11 +130,15 @@ var BaseTestLayer = cc.LayerGradient.extend({
 
         var menu = cc.Menu.create(item1, item2, item3);
 
-        menu.setPosition(0,0);
+        menu.x = 0;
+        menu.y = 0;
         var cs = item2.getContentSize();
-        item1.setPosition( winSize.width/2 - cs.width*2, cs.height/2 );
-        item2.setPosition( winSize.width/2, cs.height/2 );
-        item3.setPosition( winSize.width/2 + cs.width*2, cs.height/2 );
+        item1.x =  winSize.width/2 - cs.width*2;
+        item1.y = cs.height/2 ;
+        item2.x =  winSize.width/2;
+        item2.y = cs.height/2 ;
+        item3.x =  winSize.width/2 + cs.width*2;
+        item3.y = cs.height/2 ;
 
         this.addChild(menu, 102, BASE_TEST_MENU_TAG);
     },
@@ -217,7 +223,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
             var scene = cc.Scene.create();
             var layer = new TestController();
             scene.addChild(layer);
-            director.replaceScene(scene);
+            director.runScene(scene);
         } else
             try {
                 this.onNextCallback(this);

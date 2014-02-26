@@ -129,7 +129,7 @@ var NodeInRect = ccs.BaseTriggerCondition.extend({
 
     detect: function () {
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
-        if (node && Math.abs(node.getPositionX() - this._origin.x) <= this._size.width && Math.abs(node.getPositionY() - this._origin.y) <= this._size.height) {
+        if (node && Math.abs(node.x - this._origin.x) <= this._size.width && Math.abs(node.y - this._origin.y) <= this._size.height) {
             return true;
         }
         return false;

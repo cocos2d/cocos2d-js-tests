@@ -31,7 +31,7 @@ var SceneEditorScene = TestScene.extend({
     runThisTest: function () {
         sceneTestIdx = -1;
         this.addChild(nextSceneEditorTest());
-        director.replaceScene(this);
+        director.runScene(this);
     },
     onMainMenuCallback: function () {
         var scene = new CocoStudioTestScene();
@@ -94,7 +94,7 @@ var restartSceneEditorTest = function () {
 var SceneEditorTestLayer = BaseTestLayer.extend({
     ctor: function () {
         if (arguments.length === 0) {
-            this._super(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
+            this._super(cc.color(0, 0, 0, 255), cc.color(98, 99, 117, 255));
         } else {
             this._super.apply(this, arguments);
         }
@@ -103,19 +103,19 @@ var SceneEditorTestLayer = BaseTestLayer.extend({
     onRestartCallback: function (sender) {
         var s = new SceneEditorScene();
         s.addChild(restartSceneEditorTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onNextCallback: function (sender) {
         var s = new SceneEditorScene();
         s.addChild(nextSceneEditorTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     onBackCallback: function (sender) {
         var s = new SceneEditorScene();
         s.addChild(backSceneEditorTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onExit: function () {
         ccs.ArmatureDataManager.purge();
@@ -128,7 +128,8 @@ var SceneEditorTestLayer = BaseTestLayer.extend({
         var winSize = cc.Director.getInstance().getWinSize();
         var scale = winSize.height / 320;
         node.setScale(scale);
-        node.setPosition(cc.p((winSize.width - 480 * scale) / 2, (winSize.height - 320 * scale) / 2));
+        node.x = (winSize.width - 480 * scale) / 2;
+	    node.y = (winSize.height - 320 * scale) / 2;
     }
 });
 

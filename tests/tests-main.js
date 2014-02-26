@@ -52,8 +52,10 @@ var TestScene = cc.Scene.extend({
         var menuItem = cc.MenuItemLabel.create(label, this.onMainMenuCallback, this);
 
         var menu = cc.Menu.create(menuItem);
-        menu.setPosition(0,0);
-        menuItem.setPosition(winSize.width - 50, 25);
+        menu.x = 0;
+	    menu.y = 0;
+        menuItem.x = winSize.width - 50;
+	    menuItem.y = 25;
 
         this.addChild(menu, 1);
     },
@@ -62,7 +64,7 @@ var TestScene = cc.Scene.extend({
         var layer = new TestController();
         scene.addChild(layer);
         var transition = cc.TransitionProgressRadialCCW.create(0.5,scene);
-        director.replaceScene(transition);
+        director.runScene(transition);
     },
 
     runThisTest:function () {
@@ -82,8 +84,8 @@ var TestController = cc.LayerGradient.extend({
 
     ctor:function() {
         this._super();
-        // this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255), cc.p(-1,-1));
-        this.init( cc.c4b(0,0,0,255), cc.c4b(0x46,0x82,0xB4,255));
+        // this.init( cc.color(0,0,0,255), cc.color(98,99,117,255), cc.p(-1,-1));
+        this.init( cc.color(0,0,0,255), cc.color(0x46,0x82,0xB4,255));
 
         // globals
         director = cc.Director.getInstance();
@@ -91,7 +93,8 @@ var TestController = cc.LayerGradient.extend({
 
         // add close menu
         var closeItem = cc.MenuItemImage.create(s_pathClose, s_pathClose, this.onCloseCallback, this);
-        closeItem.setPosition(winSize.width - 30, winSize.height - 30);
+        closeItem.x = winSize.width - 30;
+	    closeItem.y = winSize.height - 30;
 
         var subItem1 = cc.MenuItemFont.create("Automated Test: Off");
         subItem1.setFontSize(18);
@@ -100,13 +103,15 @@ var TestController = cc.LayerGradient.extend({
 
         var toggleAutoTestItem = cc.MenuItemToggle.create(subItem1, subItem2);
         toggleAutoTestItem.setCallback(this.onToggleAutoTest, this);
-        toggleAutoTestItem.setPosition(winSize.width-90, 20);
+        toggleAutoTestItem.x = winSize.width-90;
+	    toggleAutoTestItem.y = 20;
         if( autoTestEnabled )
             toggleAutoTestItem.setSelectedIndex(1);
 
 
         var menu = cc.Menu.create(closeItem, toggleAutoTestItem);//pmenu is just a holder for the close button
-        menu.setPosition(0,0);
+        menu.x = 0;
+	    menu.y = 0;
 
         // add menu items for tests
         this._itemMenu = cc.Menu.create();//item menu is where all the label goes, and the one gets scrolled
@@ -115,7 +120,8 @@ var TestController = cc.LayerGradient.extend({
             var label = cc.LabelTTF.create(testNames[i].title, "Arial", 24);
             var menuItem = cc.MenuItemLabel.create(label, this.onMenuCallback, this);
             this._itemMenu.addChild(menuItem, i + 10000);
-            menuItem.setPosition(winSize.width / 2, (winSize.height - (i + 1) * LINE_SPACE));
+            menuItem.x = winSize.width / 2;
+	        menuItem.y = (winSize.height - (i + 1) * LINE_SPACE);
 
             // enable disable
             if ( sys.platform == 'browser') {
@@ -130,25 +136,35 @@ var TestController = cc.LayerGradient.extend({
         }
 
         this._itemMenu.setContentSize(winSize.width, (testNames.length + 1) * LINE_SPACE);
-        this._itemMenu.setPosition(curPos);
+        this._itemMenu.x = curPos.x;
+	    this._itemMenu.y = curPos.y;
         this.addChild(this._itemMenu);
         this.addChild(menu, 1);
 
         // 'browser' can use touches or mouse.
         // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        if( 'touches' in sys.capabilities )
-            this.setTouchEnabled(true);
-        else if( 'mouse' in sys.capabilities )
-            this.setMouseEnabled(true);
+       //if( 'touches' in sys.capabilities )
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesMoved: function (touches, event) {
+                var target = event.getCurrentTarget();
+                var delta = touches[0].getDelta();
+                target.moveMenu(delta);
+                return true;
+            }
+        }, this);
+        //else if( 'mouse' in sys.capabilities )
+        //    this.setMouseEnabled(true);
+
+
     },
     onEnter:function(){
         this._super();
-        var pos = this._itemMenu.getPosition();
-        this._itemMenu.setPosition(pos.x, TestController.YOffset);
+	    this._itemMenu.y = TestController.YOffset;
     },
     onMenuCallback:function (sender) {
-        TestController.YOffset = this._itemMenu.getPosition().y;
-        var idx = sender.getZOrder() - 10000;
+        TestController.YOffset = this._itemMenu.y;
+        var idx = sender.getLocalZOrder() - 10000;
         // get the userdata, it's the index of the menu item clicked
         // create the test scene and run it
 
@@ -170,12 +186,6 @@ var TestController = cc.LayerGradient.extend({
         autoTestEnabled = !autoTestEnabled;
     },
 
-    onTouchesMoved:function (touches, event) {
-        var delta = touches[0].getDelta();
-        this.moveMenu(delta);
-        return true;
-    },
-
     onMouseDragged : function( event ) {
         var delta = event.getDelta();
         this.moveMenu(delta);
@@ -187,20 +197,26 @@ var TestController = cc.LayerGradient.extend({
         return true;
     },
     moveMenu:function(delta) {
-        var current = this._itemMenu.getPosition();
-
-        var newY = current.y + delta.y;
+        var newY = this._itemMenu.y + delta.y;
         if (newY < 0 )
             newY = 0;
 
         if( newY > ((testNames.length + 1) * LINE_SPACE - winSize.height))
             newY = ((testNames.length + 1) * LINE_SPACE - winSize.height);
 
-        this._itemMenu.setPosition(current.x, newY);
+	    this._itemMenu.y = newY;
     }
 });
 TestController.YOffset = 0;
 var testNames = [
+    {
+        title:"New EventDispatcher Test",
+        resource:g_eventDispatcher,
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new EventDispatcherTestScene();
+        }
+    },
     {
         title:"ActionManager Test",
         platforms: PLATFORM_ALL,
@@ -365,6 +381,14 @@ var testNames = [
         platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new MotionStreakTestScene();
+        }
+    },
+    {
+        title:"New EventDispatcher Test",
+        resource:g_eventDispatcher,
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new EventDispatcherTestScene();
         }
     },
     {

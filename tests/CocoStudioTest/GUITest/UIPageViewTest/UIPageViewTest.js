@@ -28,9 +28,11 @@ var UIPageViewTest = UIScene.extend({
             var widgetSize = this._widget.getSize();
             //init text
             this._topDisplayLabel.setText("Move by horizontal direction");
-            this._topDisplayLabel.setPosition(cc.p(widgetSize.width / 2.0,  widgetSize.height / 2.0 + this._topDisplayLabel.getContentSize().height * 1.5));
+            this._topDisplayLabel.x = widgetSize.width / 2.0;
+            this._topDisplayLabel.y = widgetSize.height / 2.0 + this._topDisplayLabel.height * 1.5;
             this._bottomDisplayLabel.setText("PageView");
-            this._bottomDisplayLabel.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 - this._bottomDisplayLabel.getSize().height * 3));
+            this._bottomDisplayLabel.x = widgetSize.width / 2;
+            this._bottomDisplayLabel.y = widgetSize.height / 2 - this._bottomDisplayLabel.height * 3;
 
             var background = this._uiLayer.getWidgetByName("background_Panel");
 
@@ -39,10 +41,8 @@ var UIPageViewTest = UIScene.extend({
             pageView.setTouchEnabled(true);
             pageView.setSize(cc.size(240, 130));
             var backgroundSize = background.getContentSize();
-            pageView.setPosition(cc.p((widgetSize.width - backgroundSize.width) / 2 +
-                (backgroundSize.width - pageView.getSize().width) / 2,
-                (widgetSize.height - backgroundSize.height) / 2 +
-                    (backgroundSize.height - pageView.getSize().height) / 2));
+            pageView.x = (widgetSize.width - backgroundSize.width) / 2 + (backgroundSize.width - pageView.width) / 2;
+            pageView.y = (widgetSize.height - backgroundSize.height) / 2 + (backgroundSize.height - pageView.height) / 2;
 
             for (var i = 0; i < 3; ++i) {
                 var layout = ccs.Layout.create();
@@ -54,15 +54,17 @@ var UIPageViewTest = UIScene.extend({
                 imageView.setScale9Enabled(true);
                 imageView.loadTexture("res/cocosgui/scrollviewbg.png");
                 imageView.setSize(cc.size(240, 130));
-                imageView.setPosition(cc.p(layoutRect.width / 2, layoutRect.height / 2));
+                imageView.x = layoutRect.width / 2;
+                imageView.y = layoutRect.height / 2;
                 layout.addChild(imageView);
 
                 var label = ccs.Label.create();
                 label.setText("page" + (i + 1));
                 label.setFontName("Marker Felt");
                 label.setFontSize(30);
-                label.setColor(cc.c3b(192, 192, 192));
-                label.setPosition(cc.p(layoutRect.width / 2, layoutRect.height / 2));
+                label.setColor(cc.color(192, 192, 192));
+                label.x = layoutRect.width / 2;
+                label.y = layoutRect.height / 2;
                 layout.addChild(label);
 
                 pageView.addPage(layout);

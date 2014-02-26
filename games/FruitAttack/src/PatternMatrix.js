@@ -59,18 +59,21 @@ var PatternMatrix = cc.Layer.extend({
             this.initLabels();
 
             this.PatternBg = cc.RenderTexture.create(320, 480);
-            this.PatternBg.setPosition(160, 240);
+            this.PatternBg.x = 160;
+	        this.PatternBg.y = 240;
             this.addChild(this.PatternBg);
 
             this.mPatternBatchNode = cc.SpriteBatchNode.create("res/baseResource.png",MATRIX_ROW_MAX*MATRIX_COL_MAX*2);
             this.addChild(this.mPatternBatchNode,1);
 
-            this.mCheckMarkSpr = cc.Sprite.createWithSpriteFrameName("pattern_selected.png");
-            this.mCheckMarkSpr.setPosition(-100.0,-100.0);
+            this.mCheckMarkSpr = cc.Sprite.create("frame#pattern_selected.png");
+            this.mCheckMarkSpr.x = -100;
+	        this.mCheckMarkSpr.x = -100;
             this.addChild(this.mCheckMarkSpr,1);
 
-            this.mPromptMarkSpr = cc.Sprite.createWithSpriteFrameName("pattern_selected.png");
-            this.mPromptMarkSpr.setPosition(-100.0,-100.0);
+            this.mPromptMarkSpr = cc.Sprite.create("frame#pattern_selected.png");
+            this.mPromptMarkSpr.x = -100;
+	        this.mPromptMarkSpr.y = -100;
             this.addChild(this.mPromptMarkSpr,1);
 
             this.mPromptMarkSpr.runAction(cc.RepeatForever.create( cc.Sequence.create(cc.FadeIn.create(1.0),cc.FadeOut.create(1.0)) ));
@@ -118,7 +121,8 @@ var PatternMatrix = cc.Layer.extend({
             for ( col = 0; col < this.m_nMatrixCol; col++)
             {
                 this.mPatternsPos[row][col] = cc.p(baseX + col*space, baseY+ row*space);
-                patternBg.setPosition(this.mPatternsPos[row][col]);
+                patternBg.x = this.mPatternsPos[row][col].x;
+	            patternBg.y = this.mPatternsPos[row][col].y;
                 patternBg.visit();
             }
         }
@@ -150,19 +154,27 @@ var PatternMatrix = cc.Layer.extend({
 
         var patternType = 0|(temp % this.mPatternTypeMax);
 
-        this.mPatternsSpr[row][col] = new PatternSprite(patternType, attr);
-        this.mPatternsSpr[row][col].setAnchorPoint(0.5,0.5);
-        this.mPatternsSpr[row][col].m_nRowIndex = row;
-        this.mPatternsSpr[row][col].m_nColIndex = col;
-        this.mPatternsSpr[row][col].setPosition(this.mPatternsPos[row][col].x,this.mPatternsPos[row][col].y+400.0);
-        this.mPatternsSpr[row][col].moveTo(gPatternsFallTime,this.mPatternsPos[row][col]);
+        var patternsSpr = this.mPatternsSpr[row][col] = new PatternSprite(patternType, attr);
+	    patternsSpr.attr({
+		    x: this.mPatternsPos[row][col].x,
+		    y: this.mPatternsPos[row][col].y+400,
+		    anchorX: 0.5,
+		    anchorY: 0.5,
+		    /** @expose */
+		    m_nRowIndex: row,
+		    /** @expose */
+		    m_nColIndex: col
+	    });
+	    patternsSpr.moveTo(gPatternsFallTime,this.mPatternsPos[row][col]);
 
         this.mPatternBatchNode.addChild(this.mPatternsSpr[row][col]);
     },
     initProgressWithGameMode:function(){
         this.mProgressBgSpr = cc.Sprite.create("res/ProgressBarBack.png");
-        this.mProgressBgSpr.setAnchorPoint(0.0,0.5);
-        this.mProgressBgSpr.setPosition(32,20);
+        this.mProgressBgSpr.anchorX = 0.0;
+	    this.mProgressBgSpr.anchorY = 0.5;
+        this.mProgressBgSpr.x = 32;
+	    this.mProgressBgSpr.y = 20;
         this.addChild(this.mProgressBgSpr);
 
         this.mProgressSpr = cc.Sprite.create("res/ProgressBarFront.png");
@@ -180,14 +192,17 @@ var PatternMatrix = cc.Layer.extend({
                 break;
             }
         }
-        this.mProgressSpr.setAnchorPoint(0.0,0.5);
-        this.mProgressSpr.setPosition(32,20);
+        this.mProgressSpr.anchorX = 0.0;
+	    this.mProgressSpr.anchorY = 0.5;
+        this.mProgressSpr.x = 32;
+	    this.mProgressSpr.y = 20;
         this.mProgressSpr.setTextureRect(this.mVisibleRect);
         this.addChild(this.mProgressSpr);
     },
     initLabels:function(){
         this.mScoreLabel = cc.LabelTTF.create("Score 0", "Courier", 20);
-        this.mScoreLabel.setPosition(150,450);
+        this.mScoreLabel.x = 150;
+	    this.mScoreLabel.y = 450;
 
         this.addChild(this.mScoreLabel);
     },
@@ -231,11 +246,14 @@ var PatternMatrix = cc.Layer.extend({
     onCheckPattern:function(pPattern){
         if ( pPattern != null){
             this.mPromptTimerTally = 0;
-            this.mPromptMarkSpr.setPosition(-1000.0,-1000.0);
+            this.mPromptMarkSpr.x = -1000;
+	        this.mPromptMarkSpr.y = -1000;
 
             if (this.mFirstCheckPattern === null){
                 this.mFirstCheckPattern = pPattern;
-                this.mCheckMarkSpr.setPosition(this.mPatternsPos[this.mFirstCheckPattern.m_nRowIndex][this.mFirstCheckPattern.m_nColIndex]);
+	            var pos = this.mPatternsPos[this.mFirstCheckPattern.m_nRowIndex][this.mFirstCheckPattern.m_nColIndex];
+                this.mCheckMarkSpr.x = pos.x;
+	            this.mCheckMarkSpr.y = pos.y;
             }
             else{
                 this.mSecondCheckPattern = pPattern;
@@ -266,7 +284,8 @@ var PatternMatrix = cc.Layer.extend({
                 }
 
                 if (isAdjacent){
-                    this.mCheckMarkSpr.setPosition(-1000.0,-1000.0);
+                    this.mCheckMarkSpr.x = -1000;
+	                this.mCheckMarkSpr.y = -1000;
 
                     this.swapTwoPattern(this.mFirstCheckPattern,this.mSecondCheckPattern,false);
                     this.mFirstCheckPattern = null;
@@ -274,7 +293,9 @@ var PatternMatrix = cc.Layer.extend({
                 }
                 else
                 {
-                    this.mCheckMarkSpr.setPosition(this.mPatternsPos[this.mSecondCheckPattern.m_nRowIndex][this.mSecondCheckPattern.m_nColIndex]);
+	                var pos = this.mPatternsPos[this.mSecondCheckPattern.m_nRowIndex][this.mSecondCheckPattern.m_nColIndex];
+                    this.mCheckMarkSpr.x = pos.x;
+	                this.mCheckMarkSpr.y = pos.y;
 
                     this.mFirstCheckPattern = this.mSecondCheckPattern;
                     this.mSecondCheckPattern = null;
@@ -288,14 +309,16 @@ var PatternMatrix = cc.Layer.extend({
             var pFirstCheckPattern = pPattern;
             if (this.mFirstCheckPattern === pFirstCheckPattern){
                 this.mFirstCheckPattern = null;
-                this.mCheckMarkSpr.setPosition(-1000.0,-1000.0);
+	            this.mCheckMarkSpr.x = -1000;
+	            this.mCheckMarkSpr.y = -1000;
             }
 
             if(pFirstCheckPattern.g_ePatternStatus != ePatternStatus.Normal)
                 return;
 
             this.mPromptTimerTally = 0;
-            this.mPromptMarkSpr.setPosition(-1000.0,-1000.0);
+            this.mPromptMarkSpr.x = -1000;
+	        this.mPromptMarkSpr.y = -1000;
 
             var pSecondCheckPattern = null;
             switch(pFirstCheckPattern.m_eSwapDirection){
@@ -324,7 +347,8 @@ var PatternMatrix = cc.Layer.extend({
             if (pSecondCheckPattern && pSecondCheckPattern.g_ePatternStatus==ePatternStatus.Normal){
                 if (this.mFirstCheckPattern == pSecondCheckPattern){
                     this.mFirstCheckPattern = null;
-                    this.mCheckMarkSpr.setPosition(-1000.0,-1000.0);
+                    this.mCheckMarkSpr.x = -1000;
+	                this.mCheckMarkSpr.y = -1000;
                 }
                 this.swapTwoPattern(pFirstCheckPattern,pSecondCheckPattern,false);
             }
@@ -476,7 +500,8 @@ var PatternMatrix = cc.Layer.extend({
                         }
 
                         if(this.mPatternsSpr[notnull_r][col] == this.mFirstCheckPattern){
-                            this.mCheckMarkSpr.setPosition(-100.0,-100.0);
+                            this.mCheckMarkSpr.x = -100;
+	                        this.mCheckMarkSpr.y = -100;
                             this.mFirstCheckPattern = null;
                         }
 
@@ -571,7 +596,8 @@ var PatternMatrix = cc.Layer.extend({
             if (bRet){
                 this.mPromptTimerTally = 0;
                 this.isHasSolution();
-                this.mPromptMarkSpr.setPosition(this.mPromptPattern.getPosition());
+                this.mPromptMarkSpr.x = this.mPromptPattern.x;
+	            this.mPromptMarkSpr.y = this.mPromptPattern.y;
                 this.mPromptPattern = null;
             }
         }

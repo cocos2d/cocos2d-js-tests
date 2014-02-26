@@ -14,7 +14,7 @@ function main()
 	var director = cc.Director.getInstance();
     var scene = cc.BuilderReader.loadAsScene("MainScene");
     var runningScene = director.getRunningScene();
-    if (runningScene === null) director.runWithScene(scene);
-    else director.replaceScene(scene);
+    if (runningScene === null) director.runScene(scene);
+    else director.runScene(scene);
 }
 main();

@@ -8,11 +8,13 @@ var WelcomeLayer = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
             var bgSprite = cc.Sprite.create("res/background.jpg");
-            bgSprite.setPosition(160,240);
+            bgSprite.x = 160;
+	        bgSprite.y = 240;
             this.addChild(bgSprite);
 
             var logoSprite = cc.Sprite.create("res/logo.png");
-            logoSprite.setPosition(160,320);
+            logoSprite.x = 160;
+	        logoSprite.y = 320;
             this.addChild(logoSprite);
 
             var itemStartGame = cc.MenuItemImage.create(
@@ -21,10 +23,12 @@ var WelcomeLayer = cc.Layer.extend({
                 this.menuCallBack,
                 this
             );
-            itemStartGame.setPosition(160, 160);
+            itemStartGame.x = 160;
+	        itemStartGame.y = 160;
 
             var menu = cc.Menu.create(itemStartGame);
-            menu.setPosition(0,0);
+            menu.x = 0;
+	        menu.y = 0;
             this.addChild(menu);
 
             bRet = true;
@@ -38,7 +42,7 @@ var WelcomeLayer = cc.Layer.extend({
         var nextScene = cc.Scene.create();
         var nextLayer = new PatternMatrix;
         nextScene.addChild(nextLayer);
-        cc.Director.getInstance().replaceScene(cc.TransitionSlideInT.create(0.4, nextScene));
+        cc.Director.getInstance().runScene(cc.TransitionSlideInT.create(0.4, nextScene));
     }
 });
 

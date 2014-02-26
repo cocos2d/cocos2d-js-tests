@@ -43,21 +43,21 @@ var SchedulerTestLayer = BaseTestLayer.extend({
         var layer = previousSchedulerTest();
 
         scene.addChild(layer);
-        director.replaceScene(scene);
+        director.runScene(scene);
     },
     onNextCallback:function (sender) {
         var scene = new SchedulerTestScene();
         var layer = nextSchedulerTest();
 
         scene.addChild(layer);
-        director.replaceScene(scene);
+        director.runScene(scene);
     },
     onRestartCallback:function (sender) {
         var scene = new SchedulerTestScene();
         var layer = restartSchedulerTest();
 
         scene.addChild(layer);
-        director.replaceScene(scene);
+        director.runScene(scene);
     },
     // automation
     numberOfPendingTests:function() {
@@ -460,7 +460,7 @@ var SchedulerTestScene = TestScene.extend({
         var layer = nextSchedulerTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

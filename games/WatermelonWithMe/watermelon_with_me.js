@@ -165,7 +165,7 @@ var GameLayer = cc.LayerGradient.extend({
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_coinsPlist);
         this._super(); // if you extend CC object, and write your own constructor, you should always call parent's constructor
 
-        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
+        this.init(cc.color(0, 0, 0, 255), cc.color(255, 255, 255, 255));
         this.setPosition(0, 0);
 
         this.scheduleUpdate();
@@ -192,16 +192,16 @@ var GameLayer = cc.LayerGradient.extend({
         this._scrollNode = scroll;
 
         // coin only needed to obtain the texture for the Batch Node
-        var coin = cc.Sprite.createWithSpriteFrameName("coin01.png");
-        this._batch = cc.SpriteBatchNode.createWithTexture(coin.getTexture(), 100);    //cc.Node.create();
-        scroll.addChild(this._batch, Z_SPRITES, cc._p(1, 1), cc.p(0,0));
+        var coin = cc.Sprite.create("frame#coin01.png");
+        this._batch = cc.SpriteBatchNode.create(coin.getTexture(), 100);    //cc.Node.create();
+        scroll.addChild(this._batch, Z_SPRITES, cc.p(1, 1), cc.p(0,0));
 
         if( 'opengl' in sys.capabilities) {
             // Since JSB runs on top of OpenGL (cocos2d-iphone or cocos2d-x), you can use
             // OpenGL commands, and your code will run faster (but it is not compatible with cocos2d-html5... yet)
             var background = cc.Sprite.create(s_parallax, cc.rect(0,0,4096,512) );
-            scroll.addChild(background, Z_MOUNTAINS , cc._p(0.2, 0.2), cc._p(0,-150));
-            background.setAnchorPoint( cc._p(0,0) );
+            scroll.addChild(background, Z_MOUNTAINS , cc.p(0.2, 0.2), cc.p(0,-150));
+            background.setAnchorPoint( cc.p(0,0) );
             background.getTexture().setTexParameters(gl.LINEAR, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE);
         } else {
             // This code runs on both HTML5 and JSB
@@ -212,14 +212,14 @@ var GameLayer = cc.LayerGradient.extend({
             backLayer.addChild(background1, Z_MOUNTAINS);
             backLayer.addChild(background2, Z_MOUNTAINS+1);
             background2.setPosition(1024, 0);
-            scroll.addChild(backLayer, Z_MOUNTAINS, cc._p(0.2, 0.2), cc._p(0, -150));
+            scroll.addChild(backLayer, Z_MOUNTAINS, cc.p(0.2, 0.2), cc.p(0, -150));
             background1.setAnchorPoint(0,0);
             background2.setAnchorPoint(0,0);
         }
 
         // Terrain
         this._terrain = cc.DrawNode.create();
-        scroll.addChild(this._terrain, Z_TERRAIN, cc._p(1, 1), cc.p(0,0));
+        scroll.addChild(this._terrain, Z_TERRAIN, cc.p(1, 1), cc.p(0,0));
         this._terrain.setVisible(true);
 
         // Smoke
@@ -276,7 +276,7 @@ var GameLayer = cc.LayerGradient.extend({
         // reset scores / time
         var layer = new GameLayer( new GameState(this._game_state.level));
         scene.addChild(layer);
-        director.replaceScene(cc.TransitionFade.create(0.5, scene));
+        director.runScene(cc.TransitionFade.create(0.5, scene));
         this._game_state.state = STATE_PAUSE;
     },
 
@@ -293,13 +293,13 @@ var GameLayer = cc.LayerGradient.extend({
         this._game_state.time = 0;
         var layer = new GameLayer(this._game_state);
         scene.addChild(layer);
-        director.replaceScene(cc.TransitionFade.create(0.5, scene));
+        director.runScene(cc.TransitionFade.create(0.5, scene));
         this._game_state.state = STATE_PAUSE;
     },
 
     onMainMenu:function (sender) {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-        director.replaceScene(cc.TransitionFade.create(0.5, scene));
+        director.runScene(cc.TransitionFade.create(0.5, scene));
     },
 
     onToggleDebug:function (sender) {
@@ -318,12 +318,14 @@ var GameLayer = cc.LayerGradient.extend({
         return true;
     },
     onTouchesBegan:function (touches, event) {
-        if (this._game_state.state == STATE_PLAYING)
-            this.setThrottle(1);
+        var target = event.getCurrentTarget();
+        if (target._game_state.state == STATE_PLAYING)
+            target.setThrottle(1);
     },
     onTouchesEnded:function (touches, event) {
-        if (this._game_state.state == STATE_PLAYING)
-            this.setThrottle(0);
+        var target = event.getCurrentTarget();
+        if (target._game_state.state == STATE_PLAYING)
+            target.setThrottle(0);
     },
 
     onEnterTransitionDidFinish:function () {
@@ -425,7 +427,7 @@ var GameLayer = cc.LayerGradient.extend({
 
         // sync smoke with car
         if( this._carSprite ) {
-            var p = this._carSprite.convertToWorldSpace( cc.POINT_ZERO );
+            var p = this._carSprite.convertToWorldSpace( cc.p(0, 0) );
             this._carSmoke.setPosition( p );
         }
 
@@ -466,7 +468,7 @@ var GameLayer = cc.LayerGradient.extend({
         var coins = level['coins'];
         for (i = 0; i < coins.length; i++) {
             var coin = coins[i];
-            this.createCoin(cc._p(coin.x, coin.y));
+            this.createCoin(cc.p(coin.x, coin.y));
         }
 
         // car
@@ -486,7 +488,7 @@ var GameLayer = cc.LayerGradient.extend({
             var line = lines[i];
             if (i > 0) {
                 this.createSegment(cp.v(p.x, p.y), cp.v(p.x + line.x, p.y + line.y));
-                this._terrain.drawSegment(cc._p(p.x, p.y), cc._p(p.x + line.x, p.y + line.y), 5, cc.c4f(0.43, 0.39, 0.34, 1));
+                this._terrain.drawSegment(cc.p(p.x, p.y), cc.p(p.x + line.x, p.y + line.y), 5, cc.color(110, 99, 86, 255));
             }
 
             p = {x:p.x + line.x, y:p.y + line.y};
@@ -505,7 +507,7 @@ var GameLayer = cc.LayerGradient.extend({
         // XXX: Bug in CCDrawNode: No tesselation, so "fill" is disabled
         // XXX: CCDrawNode#drawPoly is super expensive... using drawSegment instead
         // poly, fill color, border width, border color
-        //this._terrain.drawPoly( poly, cc.c4f(0,0,0,0 ), 1, cc.c4f(0.82,0.41,0.04,1) );
+        //this._terrain.drawPoly( poly, cc.color(0,0,0,0 ), 1, cc.color(209,104,10,255) );
 
         var rect = cc.rect(x, y - 50, width, height + 200);
         var a = cc.Follow.create(this._carSprite, rect);
@@ -552,7 +554,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._debugNode = cc.PhysicsDebugNode.create(this._space);
         this._debugNode.setVisible(false);
         // Parallax ratio and offset
-        this._scrollNode.addChild(this._debugNode, Z_DEBUG_PHYSICS, cc._p(1, 1), cc.p(0,0));
+        this._scrollNode.addChild(this._debugNode, Z_DEBUG_PHYSICS, cc.p(1, 1), cc.p(0,0));
     },
 
     setThrottle:function (throttle) {
@@ -655,7 +657,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createWheel : function( pos ) {
-        var sprite = cc.PhysicsSprite.createWithSpriteFrameName("Wheel.png");
+        var sprite = cc.PhysicsSprite.create("frame#Wheel.png");
         var radius = 0.95 * sprite.getContentSize().width / 2;
 
         var body = new cp.Body(WHEEL_MASS, cp.momentForCircle(WHEEL_MASS, 0, radius, cp.vzero ) );
@@ -676,7 +678,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createChassis : function(pos) {
-        var sprite = cc.PhysicsSprite.createWithSpriteFrameName("Chassis.png");
+        var sprite = cc.PhysicsSprite.create("frame#Chassis.png");
         var anchor = cp.v.add( sprite.getAnchorPointInPoints(), COG_ADJUSTMENT );
         var cs = sprite.getContentSize();
         sprite.setAnchorPoint(anchor.x / cs.width, anchor.y/cs.height);
@@ -723,7 +725,7 @@ var GameLayer = cc.LayerGradient.extend({
     createCarFruits : function(pos) {
         // create some fruits
         for(var i=0; i < 4;i++) {
-            var sprite = cc.PhysicsSprite.createWithSpriteFrameName("watermelon.png");
+            var sprite = cc.PhysicsSprite.create("frame#watermelon.png");
             var radius = 0.95 * sprite.getContentSize().width / 2 * 0.85;
             sprite.setScale(0.85);
 
@@ -743,7 +745,7 @@ var GameLayer = cc.LayerGradient.extend({
 
     createCoin: function( pos ) {
         // coins are static bodies and sensors
-        var sprite = cc.PhysicsSprite.createWithSpriteFrameName("coin01.png");
+        var sprite = cc.PhysicsSprite.create("frame#coin01.png");
         var radius = 0.95 * sprite.getContentSize().width / 2;
 
         var body = new cp.StaticBody();
@@ -773,7 +775,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createFinish:function( pos ) {
-        var sprite = cc.PhysicsSprite.createWithSpriteFrameName("farmers-market.png");
+        var sprite = cc.PhysicsSprite.create("frame#farmers-market.png");
         var cs = sprite.getContentSize();
         var body = new cp.StaticBody();
         sprite.setBody( body );
@@ -900,10 +902,14 @@ var GameLayer = cc.LayerGradient.extend({
     // Helpers
     //
     enableEvents:function (enabled) {
-        if( 'touches' in sys.capabilities )
-            this.setTouchEnabled(true);
-        else if( 'mouse' in sys.capabilities )
-            this.setMouseEnabled(true);
+        //if( 'touches' in sys.capabilities )
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesBegan: this.onTouchesBegan,
+                onTouchesEnded: this.onTouchesEnded
+            }, this);
+        //else if( 'mouse' in sys.capabilities )
+        //    this.setMouseEnabled(true);
     },
 
     enableCollisionEvents:function (enabled) {
@@ -941,7 +947,7 @@ var BootLayer = cc.Layer.extend({
 
     onEnter:function () {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-        director.replaceScene( scene );
+        director.runScene( scene );
     }
 });
 //
@@ -970,26 +976,26 @@ MenuLayerController.prototype.onPlay = function () {
     var scene = cc.Scene.create();
     var layer = new GameLayer( new GameState() );
     scene.addChild(layer);
-    director.replaceScene(cc.TransitionFade.create(0.5, scene));
+    director.runScene(cc.TransitionFade.create(0.5, scene));
 };
 
 MenuLayerController.prototype.onOptions = function () {
     var scene = cc.Scene.create();
     var layer = new OptionsLayer();
     scene.addChild(layer);
-    director.replaceScene(cc.TransitionFlipY.create(0.5, scene));
+    director.runScene(cc.TransitionFlipY.create(0.5, scene));
 };
 
 MenuLayerController.prototype.onScores = function () {
     var scene = cc.Scene.create();
     var layer = new ScoresLayer();
     scene.addChild(layer);
-    director.replaceScene( cc.TransitionFade.create(0.5, scene));
+    director.runScene( cc.TransitionFade.create(0.5, scene));
 };
 
 MenuLayerController.prototype.onAbout = function () {
     var scene = cc.BuilderReader.loadAsScene(s_About);
-    director.replaceScene(cc.TransitionZoomFlipY.create(0.5, scene));
+    director.runScene(cc.TransitionZoomFlipY.create(0.5, scene));
 };
 
 
@@ -1001,7 +1007,7 @@ var OptionsLayer = cc.LayerGradient.extend({
     ctor:function () {
         this._super();
 
-        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
+        this.init(cc.color(0, 0, 0, 255), cc.color(255, 255, 255, 255));
 
         var label1 = cc.LabelBMFont.create("MUSIC ON", s_Konqa32FNT);
         var item1 = cc.MenuItemLabel.create(label1);
@@ -1022,7 +1028,7 @@ var OptionsLayer = cc.LayerGradient.extend({
 
     onBack:function (sender) {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-        director.replaceScene( cc.TransitionFade.create(0.5, scene));
+        director.runScene( cc.TransitionFade.create(0.5, scene));
     },
 
     onMusicToggle:function (sender) {
@@ -1043,7 +1049,7 @@ var ScoresLayer = cc.LayerGradient.extend({
     ctor:function () {
         this._super();
 
-        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
+        this.init(cc.color(0, 0, 0, 255), cc.color(255, 255, 255, 255));
 
         var label = cc.LabelBMFont.create("HI SCORES", s_Gas40FNT);
         this.addChild( label );
@@ -1088,7 +1094,7 @@ var ScoresLayer = cc.LayerGradient.extend({
 
     onBack:function (sender) {
         var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-        director.replaceScene( cc.TransitionFade.create(0.5, scene));
+        director.runScene( cc.TransitionFade.create(0.5, scene));
     }
 
 });
@@ -1101,7 +1107,7 @@ var AboutLayerController = function () {
 
 AboutLayerController.prototype.onDidLoadFromCCB = function () {
     var back = cc.MenuItemFont.create("Back", this.onBack, this);
-    back.setColor(cc.black());
+    back.setColor(cc.color.black);
     var menu = cc.Menu.create(back);
     this.rootNode.addChild(menu);
     menu.zOrder = 100;
@@ -1111,7 +1117,7 @@ AboutLayerController.prototype.onDidLoadFromCCB = function () {
 
 AboutLayerController.prototype.onBack = function () {
     var scene = cc.BuilderReader.loadAsScene(s_MainMenu);
-    director.replaceScene(cc.TransitionFade.create(0.5, scene));
+    director.runScene(cc.TransitionFade.create(0.5, scene));
 };
 
 
@@ -1185,9 +1191,9 @@ if (sys.platform !== "browser") {
 
         var runningScene = director.getRunningScene();
         if (runningScene === null)
-            director.runWithScene(scene);
+            director.runScene(scene);
         else
-            director.replaceScene(cc.TransitionFade.create(0.5, scene));
+            director.runScene(cc.TransitionFade.create(0.5, scene));
     }
 
     run();

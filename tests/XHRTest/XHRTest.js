@@ -32,7 +32,7 @@ var XHRTestScene = TestScene.extend({
         this.addChild(xhrLayer);
     },
     runThisTest:function () {
-        cc.Director.getInstance().replaceScene(this);
+        cc.Director.getInstance().runScene(this);
     },
     MainMenuCallback:function (sender) {
         this._super(sender);
@@ -50,9 +50,11 @@ var XHRTestLayer = cc.Layer.extend({
 
         // Back Menu
         var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
-        itemBack.setPosition(winSize.width - 50, 25);
+        itemBack.x = winSize.width - 50;
+        itemBack.y = 25;
         var menuBack = cc.Menu.create(itemBack);
-        menuBack.setPosition(0,0);
+        menuBack.x = 0;
+        menuBack.y = 0;
         this.addChild(menuBack);
 
         return true;
@@ -62,7 +64,8 @@ var XHRTestLayer = cc.Layer.extend({
         this._super();
         var l = cc.LabelTTF.create("Get infos via XHR", "Thonburi", 16);
         this.addChild(l, 1);
-        l.setPosition(winSize.width / 2, winSize.height - 60);
+        l.x = winSize.width / 2;
+        l.y = winSize.height - 60;
 
         this.sendGetRequest();
         this.sendPostRequest();
@@ -73,7 +76,8 @@ var XHRTestLayer = cc.Layer.extend({
         var xhr = new XMLHttpRequest();
         var statusGetLabel = cc.LabelTTF.create("Status:", "Thonburi", 18);
         this.addChild(statusGetLabel, 1);
-        statusGetLabel.setPosition(winSize.width / 2, winSize.height - 100);
+        statusGetLabel.x = winSize.width / 2;
+        statusGetLabel.y = winSize.height - 100;
         statusGetLabel.setString("Status: Send Get Request to httpbin.org");
         xhr.open("GET", "http://httpbin.org/get");
 
@@ -85,7 +89,9 @@ var XHRTestLayer = cc.Layer.extend({
             responseLabel.setAnchorPoint(0,1);
             responseLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
 
-            responseLabel.setPosition(winSize.width/6, winSize.height/2 - that._lineCount * 35);
+            responseLabel.x = winSize.width/6;
+
+            responseLabel.y = winSize.height/2 - that._lineCount * 35;
             statusGetLabel.setString("Status: Got GET response! " + httpStatus);
             that._lineCount ++;
         };
@@ -98,7 +104,9 @@ var XHRTestLayer = cc.Layer.extend({
         var statusPostLabel = cc.LabelTTF.create("Status:", "Thonburi", 18);
         this.addChild(statusPostLabel, 1);
 
-        statusPostLabel.setPosition(winSize.width / 2, winSize.height - 140);
+        statusPostLabel.x = winSize.width / 2;
+
+        statusPostLabel.y = winSize.height - 140;
         statusPostLabel.setString("Status: Send Post Request to httpbin.org");
 
         xhr.open("POST", "http://httpbin.org/post");
@@ -110,7 +118,9 @@ var XHRTestLayer = cc.Layer.extend({
             responseLabel.setAnchorPoint(0,1);
             responseLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
 
-            responseLabel.setPosition(winSize.width/6, winSize.height/2 - that._lineCount * 35);
+            responseLabel.x = winSize.width/6;
+
+            responseLabel.y = winSize.height/2 - that._lineCount * 35;
             statusPostLabel.setString("Status: Got POST response! " + httpStatus);
             that._lineCount ++;
         };
@@ -140,5 +150,5 @@ var runXHRTest = function () {
     var pScene = cc.Scene.create();
     var pLayer = XHRTestLayer.create();
     pScene.addChild(pLayer);
-    cc.Director.getInstance().replaceScene(pScene);
+    cc.Director.getInstance().runScene(pScene);
 };
