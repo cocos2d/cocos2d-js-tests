@@ -58,7 +58,7 @@ var SpriteTestDemo = BaseTestLayer.extend({
 
     ctor:function () {
         if (arguments.length === 0) {
-            this._super(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
+            this._super(cc.color(0, 0, 0, 255), cc.color(98, 99, 117, 255));
         } else {
             this._super.apply(this, arguments);
         }
@@ -510,7 +510,7 @@ var SpriteZOrder = SpriteTestDemo.extend({
         this.addChild(sprite, -1, TAG_SPRITE1);
         sprite.setPosition(winSize.width / 2, winSize.height / 2 - 20);
         sprite.setScaleX(10);
-        sprite.setColor(cc.red());
+        sprite.setColor(cc.color.red);
 
         this.schedule(this.reorderSprite, 1);
     },
@@ -576,7 +576,7 @@ var SpriteBatchNodeZOrder = SpriteTestDemo.extend({
         batch.addChild(sprite, -1, TAG_SPRITE1);
         sprite.setPosition(winSize.width / 2, winSize.height / 2 - 20);
         sprite.setScaleX(10);
-        sprite.setColor(cc.red());
+        sprite.setColor(cc.color.red);
         this.schedule(this.reorderSprite, 1);
     },
     reorderSprite:function (dt) {
@@ -896,7 +896,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
     _subtitle:"Scene should rotate",
 
     ctor:function () {
-        this._super(cc.c4b(255, 0, 0, 80), cc.c4b(255, 98, 117, 20));
+        this._super(cc.color(255, 0, 0, 80), cc.color(255, 98, 117, 20));
 
 
         if ("opengl" in sys.capabilities) {
@@ -1012,7 +1012,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
     _subtitle:"Scene should rotate",
 
     ctor:function () {
-        this._super(cc.c4b(255, 0, 0, 80), cc.c4b(255, 98, 117, 20));
+        this._super(cc.color(255, 0, 0, 80), cc.color(255, 98, 117, 20));
 
         if ("opengl" in sys.capabilities) {
 
@@ -3903,7 +3903,7 @@ var SpriteNilTexture = SpriteTestDemo.extend({
         // TEST: If no texture is given, then Opacity + Color should work.
         var sprite = cc.Sprite.create();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
-        // sprite.setColor(cc.red());
+        // sprite.setColor(cc.color.red);
         sprite.setColor(cc.c3b(255, 0, 0));
         sprite.setOpacity(128);
         sprite.setPosition(3 * winSize.width / 4, winSize.height / 2);
@@ -3911,7 +3911,7 @@ var SpriteNilTexture = SpriteTestDemo.extend({
 
         sprite = cc.Sprite.create();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
-        //sprite.setColor(cc.blue());
+        //sprite.setColor(cc.color.blue);
         sprite.setColor(cc.c3b(0, 0, 255));
         sprite.setOpacity(128);
         sprite.setPosition(winSize.width / 4, winSize.height / 2);

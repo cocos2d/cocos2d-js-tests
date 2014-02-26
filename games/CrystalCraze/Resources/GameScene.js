@@ -662,7 +662,7 @@ function updatePowerPlay()
 		if( 'opengl' in sys.capabilities ) {
 
 			var contentSize = gGameLayer.getContentSize();
-			gPowerPlayLayer = cc.LayerColor.create(cc.c4b(85, 0, 70, 0), contentSize.width, contentSize.height);
+			gPowerPlayLayer = cc.LayerColor.create(cc.color(85, 0, 70, 0), contentSize.width, contentSize.height);
 
 			var action = cc.Sequence.create(cc.FadeIn.create(0.25), cc.FadeOut.create(0.25));
 			gPowerPlayLayer.runAction(cc.RepeatForever.create(action));

@@ -165,7 +165,7 @@ var GameLayer = cc.LayerGradient.extend({
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_coinsPlist);
         this._super(); // if you extend CC object, and write your own constructor, you should always call parent's constructor
 
-        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
+        this.init(cc.color(0, 0, 0, 255), cc.color(255, 255, 255, 255));
         this.setPosition(0, 0);
 
         this.scheduleUpdate();
@@ -486,7 +486,7 @@ var GameLayer = cc.LayerGradient.extend({
             var line = lines[i];
             if (i > 0) {
                 this.createSegment(cp.v(p.x, p.y), cp.v(p.x + line.x, p.y + line.y));
-                this._terrain.drawSegment(cc.p(p.x, p.y), cc.p(p.x + line.x, p.y + line.y), 5, cc.c4f(0.43, 0.39, 0.34, 1));
+                this._terrain.drawSegment(cc.p(p.x, p.y), cc.p(p.x + line.x, p.y + line.y), 5, cc.color(110, 99, 86, 255));
             }
 
             p = {x:p.x + line.x, y:p.y + line.y};
@@ -505,7 +505,7 @@ var GameLayer = cc.LayerGradient.extend({
         // XXX: Bug in CCDrawNode: No tesselation, so "fill" is disabled
         // XXX: CCDrawNode#drawPoly is super expensive... using drawSegment instead
         // poly, fill color, border width, border color
-        //this._terrain.drawPoly( poly, cc.c4f(0,0,0,0 ), 1, cc.c4f(0.82,0.41,0.04,1) );
+        //this._terrain.drawPoly( poly, cc.color(0,0,0,0 ), 1, cc.color(209,104,10,255) );
 
         var rect = cc.rect(x, y - 50, width, height + 200);
         var a = cc.Follow.create(this._carSprite, rect);
@@ -1001,7 +1001,7 @@ var OptionsLayer = cc.LayerGradient.extend({
     ctor:function () {
         this._super();
 
-        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
+        this.init(cc.color(0, 0, 0, 255), cc.color(255, 255, 255, 255));
 
         var label1 = cc.LabelBMFont.create("MUSIC ON", s_Konqa32FNT);
         var item1 = cc.MenuItemLabel.create(label1);
@@ -1043,7 +1043,7 @@ var ScoresLayer = cc.LayerGradient.extend({
     ctor:function () {
         this._super();
 
-        this.init(cc.c4b(0, 0, 0, 255), cc.c4b(255, 255, 255, 255));
+        this.init(cc.color(0, 0, 0, 255), cc.color(255, 255, 255, 255));
 
         var label = cc.LabelBMFont.create("HI SCORES", s_Gas40FNT);
         this.addChild( label );
@@ -1101,7 +1101,7 @@ var AboutLayerController = function () {
 
 AboutLayerController.prototype.onDidLoadFromCCB = function () {
     var back = cc.MenuItemFont.create("Back", this.onBack, this);
-    back.setColor(cc.black());
+    back.setColor(cc.color.black);
     var menu = cc.Menu.create(back);
     this.rootNode.addChild(menu);
     menu.zOrder = 100;

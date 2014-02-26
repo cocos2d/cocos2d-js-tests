@@ -30,7 +30,7 @@ var parallaxTestSceneIdx = -1;
 ParallaxDemo = BaseTestLayer.extend({
     _atlas:null,
     ctor:function() {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(160,32,32,255));
+        this._super(cc.color(0,0,0,255), cc.color(160,32,32,255));
     },
 
     title:function () {

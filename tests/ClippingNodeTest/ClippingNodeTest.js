@@ -37,7 +37,7 @@ var BaseClippingNodeTest = BaseTestLayer.extend({
     _subtitle:"",
 
     ctor:function() {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255));
         this.setup();
     },
 
@@ -112,7 +112,7 @@ var BasicTest = BaseClippingNodeTest.extend({
         var shape = cc.DrawNode.create();
         var triangle = [cc.p(-100, -100),cc.p(100, -100), cc.p(0, 100)];
 
-        var green = cc.c4f(0, 1, 0, 1);
+        var green = cc.color(0, 255, 0, 255);
         shape.drawPoly(triangle, green, 3, green);
         return shape;
     },
@@ -289,7 +289,7 @@ var HoleDemo = BaseClippingNodeTest.extend({
         var rectangle = [cc.p(0, 0),cc.p(size.width*scale, 0),
             cc.p(size.width*scale, size.height*scale),
             cc.p(0, size.height*scale)];
-        stencil.drawPoly(rectangle, cc.c4f(1, 0, 0, 1), 0, cc.c4f(1, 1, 1, 0));
+        stencil.drawPoly(rectangle, cc.color(255, 0, 0, 255), 0, cc.color(255, 255, 255, 0));
 
         this._outerClipper = cc.ClippingNode.create();
         this._outerClipper.retain();
@@ -390,7 +390,7 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
             cc.p(clipper.getContentSize().width, clipper.getContentSize().height),
             cc.p(0, clipper.getContentSize().height)];
 
-        var white = cc.c4f(1, 1, 1, 1);
+        var white = cc.color(255, 255, 255, 255);
         stencil.drawPoly(rectangle, white, 1, white);
         clipper.setStencil(stencil);
 
@@ -442,14 +442,14 @@ var _alphaThreshold = 0.05;
 var _PLANE_COUNT = 8;
 
 var _planeColor = [
-    cc.c4f(0, 0, 0, 0.65),
-    cc.c4f(0.7, 0, 0, 0.6),
-    cc.c4f(0, 0.7, 0, 0.55),
-    cc.c4f(0, 0, 0.7, 0.5),
-    cc.c4f(0.7, 0.7, 0, 0.45),
-    cc.c4f(0, 0.7, 0.7, 0.4),
-    cc.c4f(0.7, 0, 0.7, 0.35),
-    cc.c4f(0.7, 0.7, 0.7, 0.3)
+    cc.color(0, 0, 0, 166),
+    cc.color(179, 0, 0, 153),
+    cc.color(0, 179, 0, 140),
+    cc.color(0, 0, 179, 128),
+    cc.color(179, 179, 0, 115),
+    cc.color(0, 179, 179, 102),
+    cc.color(179, 0, 179, 89),
+    cc.color(179, 179, 179, 77)
 ];
 
 var RawStencilBufferTest = BaseClippingNodeTest.extend({
@@ -494,7 +494,7 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
             this.setupStencilForClippingOnPlane(i);
             //cc.CHECK_GL_ERROR_DEBUG();
 
-            cc.drawingUtil.drawSolidRect(cc.p(0, 0), stencilPoint, cc.c4f(1, 1, 1, 1));
+            cc.drawingUtil.drawSolidRect(cc.p(0, 0), stencilPoint, cc.color(255, 255, 255, 255));
 
             cc.kmGLPushMatrix();
             this.transform();
@@ -636,7 +636,7 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
         gl.stencilMask(planeMask);
         gl.stencilFunc(gl.NEVER, 0, planeMask);
         gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
-        cc.drawingUtil.drawSolidRect(cc.p(0, 0), cc.pFromSize(cc.Director.getInstance().getWinSize()), cc.c4f(1, 1, 1, 1));
+        cc.drawingUtil.drawSolidRect(cc.p(0, 0), cc.pFromSize(cc.Director.getInstance().getWinSize()), cc.color(255, 255, 255, 255));
         gl.stencilFunc(gl.NEVER, planeMask, planeMask);
         gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
         gl.disable(gl.DEPTH_TEST);

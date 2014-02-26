@@ -278,7 +278,7 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
     time:0,
     ctor:function () {
         this._super();
-        var col = cc.LayerColor.create(cc.c4b(128, 128, 128, 255));
+        var col = cc.LayerColor.create(cc.color(128, 128, 128, 255));
         this.addChild(col, -10);
 
         var label1 = cc.LabelBMFont.create("Test", s_resprefix + "fonts/bitmapFontTest2.fnt");
@@ -299,7 +299,7 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
         var label2 = cc.LabelBMFont.create("Test", s_resprefix + "fonts/bitmapFontTest2.fnt");
         // testing anchors
         label2.setAnchorPoint(0.5, 0.5);
-        label2.setColor( cc.red() );
+        label2.setColor( cc.color.red );
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
         label2.runAction(repeat.clone());
 
@@ -930,7 +930,7 @@ var BMFontGlyphDesignerTest = AtlasDemo.extend({
         this._super();
         var s = director.getWinSize();
 
-        var layer = cc.LayerColor.create(cc.c4b(128, 128, 128, 255));
+        var layer = cc.LayerColor.create(cc.color(128, 128, 128, 255));
         this.addChild(layer, -10);
 
         // cc.LabelBMFont
@@ -1078,7 +1078,7 @@ var LabelTTFTest = AtlasDemo.extend({
         var blockSize = cc.size(200, 160);
         var s = director.getWinSize();
 
-        var colorLayer = cc.LayerColor.create(cc.c4b(100, 100, 100, 255), blockSize.width, blockSize.height);
+        var colorLayer = cc.LayerColor.create(cc.color(100, 100, 100, 255), blockSize.width, blockSize.height);
         colorLayer.setAnchorPoint(0, 0);
         colorLayer.setPosition((s.width - blockSize.width) / 2, (s.height - blockSize.height) / 2);
 
@@ -1479,7 +1479,7 @@ var LabelTTFA8Test = AtlasDemo.extend({
         this._super();
         var s = director.getWinSize();
 
-        var layer = cc.LayerColor.create(cc.c4b(128, 128, 128, 255));
+        var layer = cc.LayerColor.create(cc.color(128, 128, 128, 255));
         this.addChild(layer, -10);
 
         // cc.LabelBMFont
@@ -1648,19 +1648,19 @@ var BMFontColorParentChild = AtlasDemo.extend({
         this.label = cc.LabelBMFont.create("YRGB", s_resprefix + "fonts/konqa32.fnt");
         this.addChild(this.label);
         this.label.setPosition(winSize.width / 2, winSize.height / 2);
-        this.label.setColor( cc.yellow() );
+        this.label.setColor( cc.color.yellow );
 
         // R
         var letter = this.label.getChildByTag(1);
-        letter.setColor( cc.red() );
+        letter.setColor( cc.color.red );
 
         // G
         letter = this.label.getChildByTag(2);
-        letter.setColor( cc.green() );
+        letter.setColor( cc.color.green );
 
         // B
         letter = this.label.getChildByTag(3);
-        letter.setColor( cc.blue() );
+        letter.setColor( cc.color.blue );
 
         this.scheduleUpdate();
 

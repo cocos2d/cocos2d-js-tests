@@ -41,7 +41,7 @@ var PresentationBaseLayer = function() {
 	// Only subclasses of a native classes MUST call __associateObjectWithNative
 	// Failure to do so, it will crash.
 	//
-	var parent = BaseTestLayer.call(this, cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+	var parent = BaseTestLayer.call(this, cc.color(0,0,0,255), cc.color(98,99,117,255));
 
 	this._title =  "No title";
 	this._subtitle = "No Subtitle";

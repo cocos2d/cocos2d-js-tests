@@ -103,8 +103,8 @@ var SceneTestLayer2 = cc.Layer.extend({
 
         var s = director.getWinSize();
 
-        var item1 = cc.MenuItemFont.create("runScene", this.onrunScene, this);
-        var item2 = cc.MenuItemFont.create("runScene w/transition", this.onrunSceneTran, this);
+        var item1 = cc.MenuItemFont.create("runScene", this.runScene, this);
+        var item2 = cc.MenuItemFont.create("runScene w/transition", this.runSceneTran, this);
         var item3 = cc.MenuItemFont.create("Go Back", this.onGoBack, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
@@ -130,7 +130,7 @@ var SceneTestLayer2 = cc.Layer.extend({
         director.popScene();
     },
 
-    onrunScene:function (sender) {
+    runScene:function (sender) {
         var scene = new SceneTestScene();
         var layer = new SceneTestLayer3();
         scene.addChild(layer, 0);
@@ -138,7 +138,7 @@ var SceneTestLayer2 = cc.Layer.extend({
 
     },
 
-    onrunSceneTran:function (sender) {
+    runSceneTran:function (sender) {
         var scene = new SceneTestScene();
         var layer = new SceneTestLayer3();
         scene.addChild(layer, 0);
@@ -152,7 +152,7 @@ var SceneTestLayer3 = cc.LayerColor.extend({
     
     ctor:function () {
         this._super();
-        this.init( cc.c4b(0,128,255,255) );
+        this.init( cc.color(0,128,255,255) );
         
         var label = cc.LabelTTF.create("Touch to popScene", "Arial", 28);
         this.addChild(label);

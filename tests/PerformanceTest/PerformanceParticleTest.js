@@ -286,16 +286,16 @@ var ParticlePerformTest1 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(26, 26, 26, 51);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(26, 26, 26, 51);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -353,16 +353,16 @@ var ParticlePerformTest2 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(26, 26, 26, 51);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(26, 26, 26, 51);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -420,16 +420,16 @@ var ParticlePerformTest3 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(26, 26, 26, 51);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(26, 26, 26, 51);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -487,16 +487,16 @@ var ParticlePerformTest4 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(26, 26, 26, 51);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(26, 26, 26, 51);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels

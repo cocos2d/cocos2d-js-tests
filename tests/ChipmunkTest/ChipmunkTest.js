@@ -44,7 +44,7 @@ var ChipmunkBaseLayer = function() {
 	// Only subclasses of a native classes MUST call cc.associateWithNative
 	// Failure to do so, it will crash.
 	//
-	var parent = BaseTestLayer.call(this, cc.c4b(0,0,0,255), cc.c4b(98*0.5,99*0.5,117*0.5,255) );
+	var parent = BaseTestLayer.call(this, cc.color(0,0,0,255), cc.color(98*0.5,99*0.5,117*0.5,255) );
 
 	this._title =  "No title";
 	this._subtitle = "No Subtitle";

@@ -36,7 +36,7 @@ var DrawTestDemo = BaseTestLayer.extend({
     _subtitle:"",
 
     ctor:function() {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255));
     },
 
     onRestartCallback:function (sender) {
@@ -183,42 +183,42 @@ var DrawNewAPITest2 = DrawTestDemo.extend({
         var winSize = cc.Director.getInstance().getWinSize();
         var centerPos = cc.p(winSize.width / 2, winSize.height / 2);
         //drawSegment
-        draw.drawSegment(cc.p(0, 0), cc.p(winSize.width, winSize.height), 1, cc.c4f(1, 1, 1, 1));
-        draw.drawSegment(cc.p(0, winSize.height), cc.p(winSize.width, 0), 5, cc.c4f(1, 0, 0, 1));
+        draw.drawSegment(cc.p(0, 0), cc.p(winSize.width, winSize.height), 1, cc.color(255, 255, 255, 255));
+        draw.drawSegment(cc.p(0, winSize.height), cc.p(winSize.width, 0), 5, cc.color(255, 0, 0, 255));
 
         //drawDot
-        draw.drawDot(cc.p(winSize.width / 2, winSize.height / 2), 40, cc.c4f(0, 0, 1, 0.5));
+        draw.drawDot(cc.p(winSize.width / 2, winSize.height / 2), 40, cc.color(0, 0, 255, 128));
         var points = [cc.p(60, 60), cc.p(70, 70), cc.p(60, 70), cc.p(70, 60)];
         for (var i = 0; i < points.length; i++) {
             var p = points[i];
-            draw.drawDot(p, 4, cc.c4f(0, 1, 1, 1));
+            draw.drawDot(p, 4, cc.color(0, 255, 255, 255));
         }
         //drawCircle
-        draw.drawCircle(cc.p(winSize.width / 2, winSize.height / 2), 100, 0, 10, false, 6, cc.c4f(0, 1, 0, 1));
-        draw.drawCircle(cc.p(winSize.width / 2, winSize.height / 2), 50, cc.DEGREES_TO_RADIANS(90), 50, true, 2, cc.c4f(0, 1, 1, 1));
+        draw.drawCircle(cc.p(winSize.width / 2, winSize.height / 2), 100, 0, 10, false, 6, cc.color(0, 255, 0, 255));
+        draw.drawCircle(cc.p(winSize.width / 2, winSize.height / 2), 50, cc.DEGREES_TO_RADIANS(90), 50, true, 2, cc.color(0, 255, 255, 255));
 
         //draw poly
         //not fill
         var vertices = [cc.p(0, 0), cc.p(50, 50), cc.p(100, 50), cc.p(100, 100), cc.p(50, 100) ];
-        draw.drawPoly(vertices, null, 5, cc.c4f(1, 1, 0, 1));
+        draw.drawPoly(vertices, null, 5, cc.color(255, 255, 0, 255));
         var vertices2 = [cc.p(30, 130), cc.p(30, 230), cc.p(50, 200)];
-        draw.drawPoly(vertices2, null, 2, cc.c4f(1, 0, 1, 1));
+        draw.drawPoly(vertices2, null, 2, cc.color(255, 0, 255, 255));
         //fill
         var vertices3 = [cc.p(60, 130), cc.p(60, 230), cc.p(80, 200)];
-        draw.drawPoly(vertices3, cc.c4f(0, 1, 1, 0.2), 2, cc.c4f(1, 0, 1, 1));
+        draw.drawPoly(vertices3, cc.color(0, 255, 255, 50), 2, cc.color(255, 0, 255, 255));
 
         //draw rect
         //not fill
-        draw.drawRect(cc.p(120, 120), cc.p(200, 200), null, 2, cc.c4f(1, 0, 1, 1));
+        draw.drawRect(cc.p(120, 120), cc.p(200, 200), null, 2, cc.color(255, 0, 255, 255));
         //fill
-        draw.drawRect(cc.p(120, 220), cc.p(200, 300), cc.c4f(0, 1, 1, 0.2), 2, cc.c4f(1, 0, 1, 1));
+        draw.drawRect(cc.p(120, 220), cc.p(200, 300), cc.color(0, 255, 255, 50), 2, cc.color(255, 0, 255, 255));
 
         // draw quad bezier path
-        draw.drawQuadBezier(cc.p(0, winSize.height), cc.p(centerPos.x, centerPos.y), cc.p(winSize.width, winSize.height), 50, 2, cc.c4f(1, 0, 1, 1));
+        draw.drawQuadBezier(cc.p(0, winSize.height), cc.p(centerPos.x, centerPos.y), cc.p(winSize.width, winSize.height), 50, 2, cc.color(255, 0, 255, 255));
 
         // draw cubic bezier path
         draw.drawCubicBezier(cc.p(winSize.width / 2, winSize.height / 2), cc.p(winSize.width / 2 + 30, winSize.height / 2 + 50),
-            cc.p(winSize.width / 2 + 60, winSize.height / 2 - 50), cc.p(winSize.width, winSize.height / 2), 100, 2, cc.c4f(1, 0, 1, 1));
+            cc.p(winSize.width / 2 + 60, winSize.height / 2 - 50), cc.p(winSize.width, winSize.height / 2), 100, 2, cc.color(255, 0, 255, 255));
 
         //draw cardinal spline
         var vertices4 = [
@@ -228,7 +228,7 @@ var DrawNewAPITest2 = DrawTestDemo.extend({
             cc.p(centerPos.x + 130, centerPos.y - 130),
             cc.p(centerPos.x - 130, centerPos.y - 130)
         ];
-        draw.drawCardinalSpline(vertices4, 0.5, 100, 2, cc.c4f(1, 1, 1, 1));
+        draw.drawCardinalSpline(vertices4, 0.5, 100, 2, cc.color(255, 255, 255, 255));
     }
 });
 
@@ -250,14 +250,14 @@ var DrawNewAPITest = DrawTestDemo.extend({
         // Circles
         //
         for( var i=0; i < 10; i++) {
-            draw.drawDot( cc.p(winSize.width/2, winSize.height/2), 10*(10-i), cc.c4f( Math.random(), Math.random(), Math.random(), 1) );
+            draw.drawDot( cc.p(winSize.width/2, winSize.height/2), 10*(10-i), cc.color( Math.random()*255, Math.random()*255, Math.random()*255, 255) );
         }
 
         //
         // Polygons
         //
         var points = [ cc.p(winSize.height/4,0), cc.p(winSize.width,winSize.height/5), cc.p(winSize.width/3*2,winSize.height) ];
-        draw.drawPoly(points, cc.c4f(1,0,0,0.5), 4, cc.c4f(0,0,1,1) );
+        draw.drawPoly(points, cc.color(255,0,0,128), 4, cc.color(0,0,255,255) );
 
         // star poly (triggers bugs)
         var o=80;
@@ -269,7 +269,7 @@ var DrawNewAPITest = DrawTestDemo.extend({
             cc.p(o +w, o+w*2+h), cc.p(o,o+w*2),             // top spike
             cc.p(o -h, o+w), cc.p(o,o)                     // left spike*/
         ];
-        draw.drawPoly(star, cc.c4f(1,0,0,0.5), 1, cc.c4f(0,0,1,1) );
+        draw.drawPoly(star, cc.color(255,0,0,128), 1, cc.color(0,0,255,255) );
 
         // star poly (doesn't trigger bug... order is important un tesselation is supported.
         o=180;
@@ -281,13 +281,13 @@ var DrawNewAPITest = DrawTestDemo.extend({
             cc.p(o +w, o+w*2+h), cc.p(o,o+w*2),             // top spike
             cc.p(o -h, o+w)                                 // left spike
         ];
-        draw.drawPoly(star, cc.c4f(1,0,0,0.5), 1, cc.c4f(0,0,1,1) );
+        draw.drawPoly(star, cc.color(255,0,0,128), 1, cc.color(0,0,255,255) );
 
         //
         // Segments
         //
-        draw.drawSegment( cc.p(20,winSize.height), cc.p(20,winSize.height/2), 10, cc.c4f(0, 1, 0, 1) );
-        draw.drawSegment( cc.p(10,winSize.height/2), cc.p(winSize.width/2, winSize.height/2), 40, cc.c4f(1, 0, 1, 0.5) );
+        draw.drawSegment( cc.p(20,winSize.height), cc.p(20,winSize.height/2), 10, cc.color(0, 255, 0, 255) );
+        draw.drawSegment( cc.p(10,winSize.height/2), cc.p(winSize.width/2, winSize.height/2), 40, cc.color(255, 0, 255, 128) );
     }
 });
 

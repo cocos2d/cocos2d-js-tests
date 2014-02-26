@@ -35,7 +35,7 @@ var FileTestBase = BaseTestLayer.extend({
     _subtitle:"",
 
     ctor:function() {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255));
     },
 
     onRestartCallback:function (sender) {

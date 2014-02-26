@@ -121,7 +121,7 @@ var MotionStreakTest1 = MotionStreakTest.extend({
         this._target.setPosition(winSize.width / 4, 0);
 
         // create the streak object and add it to the scene
-        this._streak = cc.MotionStreak.create(2, 3, 32, cc.green(), s_streak);
+        this._streak = cc.MotionStreak.create(2, 3, 32, cc.color.green, s_streak);
         this.addChild(this._streak);
         // schedule an update on each frame so we can syncronize the streak with the target
         this.schedule(this.onUpdate);
@@ -164,7 +164,7 @@ var MotionStreakTest2 = MotionStreakTest.extend({
 
         var winSize = cc.Director.getInstance().getWinSize();
         // create the streak object and add it to the scene
-        this._streak = cc.MotionStreak.create(3, 3, 64, cc.white(), s_streak);
+        this._streak = cc.MotionStreak.create(3, 3, 64, cc.color.white, s_streak);
         this.addChild(this._streak);
         this._streak.setPosition(winSize.width / 2, winSize.height / 2);
     },

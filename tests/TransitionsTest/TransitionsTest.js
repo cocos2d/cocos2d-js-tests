@@ -284,8 +284,8 @@ var TransitionBase = BaseTestLayer.extend({
 });
 var TestLayer1 = TransitionBase.extend({
     backgroundImage:s_back1,
-    colorA:cc.c4b(0,0,0,255),
-    colorB:cc.c4b(160,99,117,255),
+    colorA:cc.color(0,0,0,255),
+    colorB:cc.color(160,99,117,255),
     sceneName:"Scene 1",
     createNextScene:function() {
         return new TestLayer2();
@@ -294,8 +294,8 @@ var TestLayer1 = TransitionBase.extend({
 
 var TestLayer2 = TransitionBase.extend({
     backgroundImage:s_back2,
-    colorA:cc.c4b(0,0,0,255),
-    colorB:cc.c4b(99,160,117,255),
+    colorA:cc.color(0,0,0,255),
+    colorB:cc.color(99,160,117,255),
     sceneName:"Scene 2",
     createNextScene:function() {
         return new TestLayer1();

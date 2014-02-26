@@ -25,7 +25,7 @@
 var GameOverLayer = cc.LayerColor.extend({
     _label: null,
     init: function () {
-        if (this._super(cc.c4b(255, 255, 255, 255))) {
+        if (this._super(cc.color(255, 255, 255, 255))) {
             var winSize = cc.Director.getInstance().getWinSize();
             this._label = cc.LabelTTF.create("", "Artial", 32);
             this._label.retain();

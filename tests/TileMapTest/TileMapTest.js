@@ -149,14 +149,14 @@ var TileMapEditTest = TileDemo.extend({
         var tilemap = this.getChildByTag(TAG_TILE_MAP);
 
         // NEW since v0.7
-        var c = tilemap.getTileAt(cc.g(13, 21));
+        var c = tilemap.getTileAt(cc.p(13, 21));
         c.r++;
         c.r %= 50;
         if (c.r == 0)
             c.r = 1;
 
         // NEW since v0.7
-        tilemap.setTile(c, cc.g(13, 21));
+        tilemap.setTile(c, cc.p(13, 21));
     }
 });
 
@@ -477,7 +477,7 @@ var TMXReadWriteTest = TileDemo.extend({
 var TMXHexTest = TileDemo.extend({
     ctor:function () {
         this._super();
-        var color = cc.LayerColor.create(cc.c4b(64, 64, 64, 255));
+        var color = cc.LayerColor.create(cc.color(64, 64, 64, 255));
         this.addChild(color, -1);
 
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/hexa-test.tmx");
@@ -513,7 +513,7 @@ var TMXHexTest = TileDemo.extend({
 var TMXIsoTest = TileDemo.extend({
     ctor:function () {
         this._super();
-        var color = cc.LayerColor.create(cc.c4b(64, 64, 64, 255));
+        var color = cc.LayerColor.create(cc.color(64, 64, 64, 255));
         this.addChild(color, -1);
 
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/iso-test.tmx");
@@ -557,7 +557,7 @@ var TMXIsoTest = TileDemo.extend({
 var TMXIsoTest1 = TileDemo.extend({
     ctor:function () {
         this._super();
-        var color = cc.LayerColor.create(cc.c4b(64, 64, 64, 255));
+        var color = cc.LayerColor.create(cc.color(64, 64, 64, 255));
         this.addChild(color, -1);
 
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/iso-test1.tmx");
@@ -600,7 +600,7 @@ var TMXIsoTest1 = TileDemo.extend({
 var TMXIsoTest2 = TileDemo.extend({
     ctor:function () {
         this._super();
-        var color = cc.LayerColor.create(cc.c4b(64, 64, 64, 255));
+        var color = cc.LayerColor.create(cc.color(64, 64, 64, 255));
         this.addChild(color, -1);
 
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/iso-test2.tmx");
@@ -647,7 +647,7 @@ var TMXIsoTest2 = TileDemo.extend({
 var TMXUncompressedTest = TileDemo.extend({
     ctor:function () {
         this._super();
-        var color = cc.LayerColor.create(cc.c4b(64, 64, 64, 255));
+        var color = cc.LayerColor.create(cc.color(64, 64, 64, 255));
         this.addChild(color, -1);
 
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/iso-test2-uncompressed.tmx");
