@@ -182,10 +182,26 @@ var ParticleDemo = BaseTestLayer.extend({
 
         this._emitter = null;
 
-        if ('touches' in sys.capabilities)
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);
+        //if ('touches' in sys.capabilities){
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesBegan:function (touches, event) {
+/*                    var target = ;
+                    target._isPressed = true;*/
+                    event.getCurrentTarget()._moveToTouchPoint(touches);
+                },
+                onTouchesMoved:function (touches, event) {
+/*                    if (!this._isPressed)
+                        return;*/
+                    event.getCurrentTarget()._moveToTouchPoint(touches);
+                }
+                /*,
+                onTouchesEnded:function (touches, event) {
+                    event.getCurrentTarget()._isPressed = false;
+                }*/
+            }, this);
+        //} else if ('mouse' in sys.capabilities)
+        //    this.setMouseEnabled(true);
 
         var s = director.getWinSize();
 
@@ -209,7 +225,8 @@ var ParticleDemo = BaseTestLayer.extend({
                 selfPoint._freeMovementButton.setVisible(false);
                 selfPoint._groupMovementButton.setVisible(false);
             });
-        this._freeMovementButton.setPosition(10, 150);
+        this._freeMovementButton.x = 10;
+        this._freeMovementButton.y = 150;
         this._freeMovementButton.setAnchorPoint(0, 0);
 
         this._relativeMovementButton = cc.MenuItemSprite.create(relativeBtnNormal, relativeBtnSelected, relativeBtnDisabled,
@@ -220,7 +237,8 @@ var ParticleDemo = BaseTestLayer.extend({
                 selfPoint._groupMovementButton.setVisible(true);
             });
         this._relativeMovementButton.setVisible(false);
-        this._relativeMovementButton.setPosition(10, 150);
+        this._relativeMovementButton.x = 10;
+        this._relativeMovementButton.y = 150;
         this._relativeMovementButton.setAnchorPoint(0, 0);
 
         this._groupMovementButton = cc.MenuItemSprite.create(groupBtnNormal, groupBtnSelected, groupBtnDisabled,
@@ -231,7 +249,8 @@ var ParticleDemo = BaseTestLayer.extend({
                 selfPoint._groupMovementButton.setVisible(false);
             });
         this._groupMovementButton.setVisible(false);
-        this._groupMovementButton.setPosition(10, 150);
+        this._groupMovementButton.x = 10;
+        this._groupMovementButton.y = 150;
         this._groupMovementButton.setAnchorPoint(0, 0);
 
         var spriteNormal = cc.Sprite.create(s_shapeModeMenuItem, cc.rect(0, 23 * 2, 115, 23));
@@ -245,7 +264,8 @@ var ParticleDemo = BaseTestLayer.extend({
                 selfPoint._textureModeButton.setVisible(true);
                 selfPoint._shapeModeButton.setVisible(false);
             });
-        this._shapeModeButton.setPosition(10, 100);
+        this._shapeModeButton.x = 10;
+        this._shapeModeButton.y = 100;
         this._shapeModeButton.setAnchorPoint(0, 0);
 
         if ('opengl' in sys.capabilities ) {
@@ -265,24 +285,29 @@ var ParticleDemo = BaseTestLayer.extend({
                 selfPoint._shapeModeButton.setVisible(true);
             });
         this._textureModeButton.setVisible(false);
-        this._textureModeButton.setPosition(10, 100);
+        this._textureModeButton.x = 10;
+        this._textureModeButton.y = 100;
         this._textureModeButton.setAnchorPoint(0, 0);
 
         var menu = cc.Menu.create( this._shapeModeButton, this._textureModeButton,
             this._freeMovementButton, this._relativeMovementButton, this._groupMovementButton);
 
-        menu.setPosition(0, 0);
+        menu.x = 0;
+
+        menu.y = 0;
 
         this.addChild(menu, 100);
         //TODO
         var labelAtlas = cc.LabelAtlas.create("0123456789", s_fpsImages, 16, 24, '.');
         this.addChild(labelAtlas, 100, TAG_LABEL_ATLAS);
-        labelAtlas.setPosition(s.width - 66, 50);
+        labelAtlas.x = s.width - 66;
+        labelAtlas.y = 50;
 
         // moving background
         this._background = cc.Sprite.create(s_back3);
         this.addChild(this._background, 5);
-        this._background.setPosition(s.width / 2, s.height - 180);
+        this._background.x = s.width / 2;
+        this._background.y = s.height - 180;
 
         var move = cc.MoveBy.create(4, cc.p(300, 0));
         var move_back = move.reverse();
@@ -329,18 +354,6 @@ var ParticleDemo = BaseTestLayer.extend({
             this._emitter.setPositionType(cc.PARTICLE_TYPE_GROUPED);
     },
 
-
-    onTouchesBegan:function (touches, event) {
-        this._isPressed = true;
-        this._moveToTouchPoint(touches);
-    },
-
-    onTouchesMoved:function (touches, event) {
-        if (!this._isPressed)
-            return;
-        this._moveToTouchPoint(touches);
-    },
-
     _moveToTouchPoint:function (touches) {
         if (touches.length > 0) {
             var location = touches[0].getLocation();
@@ -348,12 +361,9 @@ var ParticleDemo = BaseTestLayer.extend({
             if (this._background) {
                 pos = this._background.convertToWorldSpace(cc.p(0, 0));
             }
-            this._emitter.setPosition(cc.pSub(location, pos));
+            this._emitter.x = location.x - pos.x;
+	        this._emitter.y = location.y - pos.y;
         }
-    },
-
-    onTouchesEnded:function (touches, event) {
-        this._isPressed = false;
     },
 
     onMouseDragged:function (event) {
@@ -362,7 +372,8 @@ var ParticleDemo = BaseTestLayer.extend({
         if (this._background) {
             pos = this._background.convertToWorldSpace(cc.p(0, 0));
         }
-        this._emitter.setPosition(cc.pSub(location, pos));
+        this._emitter.x = location.x - pos.x;
+	    this._emitter.y = location.y - pos.y;
         return true;
     },
     update:function (dt) {
@@ -374,7 +385,8 @@ var ParticleDemo = BaseTestLayer.extend({
     setEmitterPosition:function () {
         var sourcePos = this._emitter.getSourcePosition();
         if (sourcePos.x === 0 && sourcePos.y === 0)
-            this._emitter.setPosition(200, 70);
+            this._emitter.x = 200;
+            this._emitter.y = 70;
     },
     // automation
     numberOfPendingTests:function() {
@@ -511,7 +523,8 @@ var DemoBigFlower = ParticleDemo.extend({
         this._emitter.setTangentialAccelVar(0);
 
         // emitter position
-        this._emitter.setPosition(160, 240);
+        this._emitter.x = 160;
+        this._emitter.y = 240;
         this._emitter.setPosVar(cc.p(0, 0));
 
         // life of particles
@@ -589,7 +602,8 @@ var DemoRotFlower = ParticleDemo.extend({
         this._emitter.setTangentialAccelVar(0);
 
         // emitter position
-        this._emitter.setPosition(160, 240);
+        this._emitter.x = 160;
+        this._emitter.y = 240;
         this._emitter.setPosVar(cc.p(0, 0));
 
         // life of particles
@@ -883,7 +897,8 @@ var ParallaxParticle = ParticleDemo.extend({
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
 
         p1.addChild(this._emitter, 10);
-        this._emitter.setPosition(250, 200);
+        this._emitter.x = 250;
+        this._emitter.y = 200;
 
         var par = cc.ParticleSun.create();
         p2.addChild(par, 10);
@@ -927,7 +942,8 @@ var DemoParticleFromFile = ParticleDemo.extend({
     setEmitterPosition:function () {
         var sourcePos = this._emitter.getSourcePosition();
         if (sourcePos.x === 0 && sourcePos.y === 0)
-            this._emitter.setPosition(director.getWinSize().width / 2, director.getWinSize().height / 2 - 50);
+            this._emitter.x = director.getWinSize().width / 2;
+            this._emitter.y = director.getWinSize().height / 2 - 50;
     },
 
     title:function () {
@@ -970,7 +986,8 @@ var RadiusMode1 = ParticleDemo.extend({
 
         // emitter position
         var size = director.getWinSize();
-        this._emitter.setPosition(size.width / 2, size.height / 2);
+        this._emitter.x = size.width / 2;
+        this._emitter.y = size.height / 2;
         this._emitter.setPosVar(cc.p(0, 0));
 
         // life of particles
@@ -1047,7 +1064,8 @@ var RadiusMode2 = ParticleDemo.extend({
 
         // emitter position
         var size = director.getWinSize();
-        this._emitter.setPosition(size.width / 2, size.height / 2);
+        this._emitter.x = size.width / 2;
+        this._emitter.y = size.height / 2;
         this._emitter.setPosVar(cc.p(0, 0));
 
         // life of particles
@@ -1125,7 +1143,8 @@ var Issue704 = ParticleDemo.extend({
 
         // emitter position
         var size = director.getWinSize();
-        this._emitter.setPosition(size.width / 2, size.height / 2);
+        this._emitter.x = size.width / 2;
+        this._emitter.y = size.height / 2;
         this._emitter.setPosVar(cc.p(0, 0));
 
         // life of particles
@@ -1188,7 +1207,8 @@ var Issue870 = ParticleDemo.extend({
         this._emitter = system;
         if (this._emitter.setDrawMode)
             this._emitter.setDrawMode(cc.PARTICLE_TEXTURE_MODE);
-        this._emitter.setPosition(director.getWinSize().width / 2, director.getWinSize().height / 2 - 50);
+        this._emitter.x = director.getWinSize().width / 2;
+        this._emitter.y = director.getWinSize().height / 2 - 50;
         this._index = 0;
         this.schedule(this.updateQuads, 2.0);
     },
@@ -1217,9 +1237,13 @@ var ParticleBatchTest = ParticleDemo.extend({
         var emitter3 = cc.ParticleSystem.create(s_resprefix + 'Particles/LavaFlow.plist');
         emitter3.setStartColor(cc.color(0, 0, 255, 255));
 
-        emitter1.setPosition(winSize.width / 1.25, winSize.height / 1.25);
-        emitter2.setPosition(winSize.width / 2, winSize.height / 2);
-        emitter3.setPosition(winSize.width / 4, winSize.height / 4);
+        emitter1.x = winSize.width / 1.25;
+
+        emitter1.y = winSize.height / 1.25;
+        emitter2.x = winSize.width / 2;
+        emitter2.y = winSize.height / 2;
+        emitter3.x = winSize.width / 4;
+        emitter3.y = winSize.height / 4;
 
         var batch = cc.ParticleBatchNode.create(emitter1.getTexture());
 
@@ -1248,7 +1272,8 @@ var ParticleResizeTest = ParticleDemo.extend({
         this._super();
 
         var emitter1 = cc.ParticleSystem.create( s_resprefix + 'Particles/LavaFlow.plist');
-        emitter1.setPosition( winSize.width/2, winSize.height/2);
+        emitter1.x = winSize.width/2;
+        emitter1.y = winSize.height/2;
         this.addChild(emitter1);
 
         this.schedule( this.onResizeParticle50, 2 );

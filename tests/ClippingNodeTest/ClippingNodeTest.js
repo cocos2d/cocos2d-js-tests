@@ -83,19 +83,23 @@ var BasicTest = BaseClippingNodeTest.extend({
 
         var stencil = this.stencil();
         stencil.setTag(TAG_STENCILNODE);
-        stencil.setPosition(50, 50);
+        stencil.x = 50;
+        stencil.y = 50;
 
         var clipper = this.clipper();
         clipper.setTag(TAG_CLIPPERNODE);
         clipper.setAnchorPoint(0.5, 0.5);
-        clipper.setPosition(winSize.width / 2 - 50, winSize.height / 2 - 50);
+        clipper.x = winSize.width / 2 - 50;
+        clipper.y = winSize.height / 2 - 50;
         clipper.setStencil(stencil);
         this.addChild(clipper);
 
         var content = this.content();
-        content.setPosition(50, 50);
+        content.x = 50;
+        content.y = 50;
         clipper.addChild(content);
-        //content.setPosition(400, 225);
+        //content.x = 400;
+        //content.y = 225;
         //this.addChild(content);
     },
 
@@ -254,7 +258,8 @@ var NestedTest = BaseClippingNodeTest.extend({
             var clipper = cc.ClippingNode.create();
             clipper.setContentSize(size, size);
             clipper.setAnchorPoint(0.5, 0.5);
-            clipper.setPosition(parent.getContentSize().width / 2, parent.getContentSize().height / 2);
+            clipper.x = parent.width / 2;
+            clipper.y = parent.height / 2;
             clipper.setAlphaThreshold(0.05);
             clipper.runAction(cc.RepeatForever.create(cc.RotateBy.create((i % 3) ? 1.33 : 1.66, (i % 2) ? 90 : -90)));
             parent.addChild(clipper);
@@ -262,7 +267,8 @@ var NestedTest = BaseClippingNodeTest.extend({
             var stencil = cc.Sprite.create(s_pathGrossini);
             stencil.setScale(2.5 - (i * (2.5 / depth)));
             stencil.setAnchorPoint(0.5, 0.5);
-            stencil.setPosition(clipper.getContentSize().width / 2, clipper.getContentSize().height / 2);
+            stencil.x = clipper.width / 2;
+            stencil.y = clipper.height / 2;
             stencil.setVisible(false);
             stencil.runAction(cc.Sequence.create(cc.DelayTime.create(i), cc.Show.create()));
             clipper.setStencil(stencil);
@@ -298,7 +304,8 @@ var HoleDemo = BaseClippingNodeTest.extend({
 
         this._outerClipper.setContentSize(cc.SizeApplyAffineTransform(target.getContentSize(), transform));
         this._outerClipper.setAnchorPoint(0.5, 0.5);
-        this._outerClipper.setPosition(cc.pMult(cc.pFromSize(this.getContentSize()), 0.5));
+        this._outerClipper.x = this.width * 0.5;
+	    this._outerClipper.y = this.height * 0.5;
         this._outerClipper.runAction(cc.RepeatForever.create(cc.RotateBy.create(1, 45)));
 
         this._outerClipper.setStencil(stencil);
@@ -318,12 +325,21 @@ var HoleDemo = BaseClippingNodeTest.extend({
         this._holesStencil.retain();
 
         holesClipper.setStencil(this._holesStencil);
-
         this._outerClipper.addChild(holesClipper);
-
         this.addChild(this._outerClipper);
 
-        this.setTouchEnabled(true);
+        cc.eventManager.addListener(cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesBegan:function (touches, event) {
+                var target = event.getCurrentTarget();
+                var touch = touches[0];
+                var point = target._outerClipper.convertToNodeSpace(touch.getLocation());
+                var rect = cc.rect(0, 0, target._outerClipper.getContentSize().width, target._outerClipper.getContentSize().height);
+                if (!cc.rectContainsPoint(rect,point))
+                    return;
+                target.pokeHoleAtPoint(point);
+            }
+        }), this);
     },
 
     title:function () {
@@ -339,28 +355,21 @@ var HoleDemo = BaseClippingNodeTest.extend({
         var rotation = Math.random() * 360;
 
         var hole = cc.Sprite.create(s_hole_effect_png);
-        hole.setPosition(point);
+        hole.x = point.x;
+	    hole.y = point.y;
         hole.setRotation(rotation);
         hole.setScale(scale);
 
         this._holes.addChild(hole);
 
         var holeStencil = cc.Sprite.create(s_hole_stencil_png);
-        holeStencil.setPosition(point);
+        holeStencil.x = point.x;
+	    holeStencil.y = point.y;
         holeStencil.setRotation(rotation);
         holeStencil.setScale(scale);
 
         this._holesStencil.addChild(holeStencil);
         this._outerClipper.runAction(cc.Sequence.create(cc.ScaleBy.create(0.05, 0.95), cc.ScaleTo.create(0.125, 1)));
-    },
-
-    onTouchesBegan:function (touches, event) {
-        var touch = touches[0];
-        var point = this._outerClipper.convertToNodeSpace(touch.getLocation());
-        var rect = cc.rect(0, 0, this._outerClipper.getContentSize().width, this._outerClipper.getContentSize().height);
-        if (!cc.rectContainsPoint(rect,point))
-            return;
-        this.pokeHoleAtPoint(point);
     }
 });
 
@@ -381,7 +390,8 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
         clipper.setTag(TAG_CLIPPERNODE);
         clipper.setContentSize(200, 200);
         clipper.setAnchorPoint(0.5, 0.5);
-        clipper.setPosition(this.getContentSize().width / 2, this.getContentSize().height / 2);
+        clipper.x = this.width / 2;
+        clipper.y = this.height / 2;
         clipper.runAction(cc.RepeatForever.create(cc.RotateBy.create(1, 45)));
         this.addChild(clipper);
 
@@ -397,43 +407,45 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
         var content = cc.Sprite.create(s_back2);
         content.setTag(TAG_CONTENTNODE);
         content.setAnchorPoint(0.5, 0.5);
-        content.setPosition(clipper.getContentSize().width / 2, clipper.getContentSize().height / 2);
+        content.x = clipper.width / 2;
+	    content.y = clipper.height / 2;
         clipper.addChild(content);
 
         this._scrolling = false;
-        this.setTouchEnabled(true);
-    },
+        cc.eventManager.addListener(cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesBegan: function (touches, event) {
+                if (!touches || touches.length == 0)
+                    return;
 
-    onTouchesBegan:function (touches, event) {
-        if(!touches || touches.length == 0)
-            return;
+                var touch = touches[0];
+                var clipper = this.getChildByTag(TAG_CLIPPERNODE);
+                var point = clipper.convertToNodeSpace(touch.getLocation());
+                var rect = cc.rect(0, 0, clipper.getContentSize().width, clipper.getContentSize().height);
+                this._scrolling = cc.rectContainsPoint(rect, point);
+                this._lastPoint = point;
+            },
 
-        var touch =  touches[0];
-        var clipper = this.getChildByTag(TAG_CLIPPERNODE);
-        var point = clipper.convertToNodeSpace(touch.getLocation());
-        var rect = cc.rect(0, 0, clipper.getContentSize().width, clipper.getContentSize().height);
-        this._scrolling = cc.rectContainsPoint(rect,point);
-        this._lastPoint = point;
-    },
+            onTouchesMoved: function (touches, event) {
+                if (!this._scrolling)
+                    return;
 
-    onTouchesMoved:function (touches, event) {
-        if (!this._scrolling)
-            return;
+                if (!touches || touches.length == 0)
+                    return;
+                var touch = touches[0];
+                var clipper = this.getChildByTag(TAG_CLIPPERNODE);
+                var point = clipper.convertToNodeSpace(touch.getLocation());
+                var diff = cc.pSub(point, this._lastPoint);
+                var content = clipper.getChildByTag(TAG_CONTENTNODE);
+                content.setPosition(cc.pAdd(content.getPosition(), diff));
+                this._lastPoint = point;
+            },
 
-        if(!touches || touches.length == 0)
-            return;
-        var touch =  touches[0];
-        var clipper = this.getChildByTag(TAG_CLIPPERNODE);
-        var point = clipper.convertToNodeSpace(touch.getLocation());
-        var diff = cc.pSub(point, this._lastPoint);
-        var content = clipper.getChildByTag(TAG_CONTENTNODE);
-        content.setPosition(cc.pAdd(content.getPosition(), diff));
-        this._lastPoint = point;
-    },
-
-    onTouchesEnded:function (touches, event) {
-        if (!this._scrolling) return;
-        this._scrolling = false;
+            onTouchesEnded: function (touches, event) {
+                if (!this._scrolling) return;
+                this._scrolling = false;
+            }
+        }), this);
     }
 });
 
@@ -486,10 +498,9 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
             var stencilPoint = cc.pMult(planeSize, _PLANE_COUNT - i);
             stencilPoint.x = winPoint.x;
 
-            var spritePoint = cc.pMult(planeSize, i);
-            spritePoint.x += planeSize.x / 2;
-            spritePoint.y = 0;
-            this._sprite.setPosition( spritePoint );
+            var x = planeSize.x / 2 + planeSize.x * i, y = 0;
+            this._sprite.x = x;
+	        this._sprite.y = y;
 
             this.setupStencilForClippingOnPlane(i);
             //cc.CHECK_GL_ERROR_DEBUG();

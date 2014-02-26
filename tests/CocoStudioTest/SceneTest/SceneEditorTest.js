@@ -128,7 +128,8 @@ var SceneEditorTestLayer = BaseTestLayer.extend({
         var winSize = cc.Director.getInstance().getWinSize();
         var scale = winSize.height / 320;
         node.setScale(scale);
-        node.setPosition(cc.p((winSize.width - 480 * scale) / 2, (winSize.height - 320 * scale) / 2));
+        node.x = (winSize.width - 480 * scale) / 2;
+	    node.y = (winSize.height - 320 * scale) / 2;
     }
 });
 

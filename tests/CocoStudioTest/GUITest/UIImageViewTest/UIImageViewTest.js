@@ -33,7 +33,8 @@ var UIImageViewTest = UIScene.extend({
             // Create the imageview
             var imageView = ccs.ImageView.create();
             imageView.loadTexture("res/cocosgui/ccicon.png");
-            imageView.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + imageView.getSize().height / 4));
+            imageView.x = widgetSize.width / 2;
+	        imageView.y = widgetSize.height / 2 + imageView.height / 4;
             this._uiLayer.addWidget(imageView);
 
             return true;
@@ -55,7 +56,8 @@ var UIImageViewTest_Scale9 = UIScene.extend({
             imageView.setScale9Enabled(true);
             imageView.loadTexture("res/cocosgui/buttonHighlighted.png");
             imageView.setSize(cc.size(200, 85));
-            imageView.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + imageView.getSize().height / 4));
+            imageView.x = widgetSize.width / 2;
+	        imageView.y = widgetSize.height / 2 + imageView.getSize().height / 4;
             this._uiLayer.addWidget(imageView);
 
             return true;

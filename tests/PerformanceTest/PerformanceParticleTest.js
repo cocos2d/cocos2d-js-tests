@@ -97,19 +97,22 @@ var ParticleMainScene = cc.Scene.extend({
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
-        menu.setPosition(s.width / 2, s.height / 2 + 15);
+        menu.x = s.width / 2;
+        menu.y = s.height / 2 + 15;
         this.addChild(menu, 1);
 
         var infoLabel = cc.LabelTTF.create("0 nodes", "Marker Felt", 30);
         infoLabel.setColor(cc.c3b(0, 200, 20));
-        infoLabel.setPosition(s.width / 2, s.height - 90);
+        infoLabel.x = s.width / 2;
+        infoLabel.y = s.height - 90;
         this.addChild(infoLabel, 1, TAG_INFO_LAYER);
 
         // particles on stage
         var labelAtlas = cc.LabelAtlas.create("0000", "res/Images/fps_images.png", 16, 24, '.');
         // var labelAtlas = cc.LabelTTF.create("0000", "Marker Felt", 30);
         this.addChild(labelAtlas, 0, TAG_LABEL_ATLAS);
-        labelAtlas.setPosition(s.width - 66, 50);
+        labelAtlas.x = s.width - 66;
+        labelAtlas.y = 50;
 
         // Next Prev Test
         var menu = new ParticleMenuLayer(true, 4, s_nParCurIdx);
@@ -132,12 +135,14 @@ var ParticleMainScene = cc.Scene.extend({
             }
         }
         subMenu.alignItemsHorizontally();
-        subMenu.setPosition(s.width / 2, 80);
+        subMenu.x = s.width / 2;
+        subMenu.y = 80;
         this.addChild(subMenu, 2);
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 40);
         this.addChild(label, 1);
-        label.setPosition(s.width / 2, s.height - 32);
+        label.x = s.width / 2;
+        label.y = s.height - 32;
         label.setColor(cc.c3b(255, 255, 40));
 
         this.updateQuantityLabel();
@@ -275,7 +280,8 @@ var ParticlePerformTest1 = ParticleMainScene.extend({
         particleSystem.setSpeedVar(50);
 
         // emitter position
-        particleSystem.setPosition(s.width / 2, 100);
+        particleSystem.x = s.width / 2;
+        particleSystem.y = 100;
         particleSystem.setPosVar(cc.p(s.width / 2, 0));
 
         // life of particles
@@ -342,7 +348,8 @@ var ParticlePerformTest2 = ParticleMainScene.extend({
         particleSystem.setSpeedVar(50);
 
         // emitter position
-        particleSystem.setPosition(s.width / 2, 100);
+        particleSystem.x = s.width / 2;
+        particleSystem.y = 100;
         particleSystem.setPosVar(cc.p(s.width / 2, 0));
 
         // life of particles
@@ -409,7 +416,8 @@ var ParticlePerformTest3 = ParticleMainScene.extend({
         particleSystem.setSpeedVar(50);
 
         // emitter position
-        particleSystem.setPosition(s.width / 2, 100);
+        particleSystem.x = s.width / 2;
+        particleSystem.y = 100;
         particleSystem.setPosVar(cc.p(s.width / 2, 0));
 
         // life of particles
@@ -476,7 +484,8 @@ var ParticlePerformTest4 = ParticleMainScene.extend({
         particleSystem.setSpeedVar(50);
 
         // emitter position
-        particleSystem.setPosition(s.width / 2, 100);
+        particleSystem.x = s.width / 2;
+	    particleSystem.y = 100;
         particleSystem.setPosVar(cc.p(s.width / 2, 0));
 
         // life of particles

@@ -43,10 +43,8 @@ var UIListViewTest_Vertical = UIScene.extend({
             listView.setBackGroundImage("res/cocosgui/green_edit.png");
             listView.setBackGroundImageScale9Enabled(true);
             listView.setSize(cc.size(240, 130));
-            listView.setPosition(cc.p((widgetSize.width - backgroundSize.width) / 2 +
-                (backgroundSize.width - listView.getSize().width) / 2,
-                (widgetSize.height - backgroundSize.height) / 2 +
-                    (backgroundSize.height - listView.getSize().height) / 2));
+            listView.x = (widgetSize.width - backgroundSize.width) / 2 + (backgroundSize.width - listView.width) / 2;
+            listView.y = (widgetSize.height - backgroundSize.height) / 2 + (backgroundSize.height - listView.height) / 2;
             listView.addEventListenerListView(this.selectedItemEvent, this);
             this._uiLayer.addWidget(listView);
 
@@ -60,7 +58,8 @@ var UIListViewTest_Vertical = UIScene.extend({
             var default_item = ccs.Layout.create();
             default_item.setTouchEnabled(true);
             default_item.setSize(default_button.getSize());
-            default_button.setPosition(cc.p(default_item.getSize().width / 2, default_item.getSize().height / 2));
+            default_button.x = default_item.width / 2;
+            default_button.y = default_item.height / 2;
             default_item.addChild(default_button);
 
             // set model
@@ -87,7 +86,8 @@ var UIListViewTest_Vertical = UIScene.extend({
 
                 var custom_item = ccs.Layout.create();
                 custom_item.setSize(custom_button.getSize());
-                custom_button.setPosition(cc.p(custom_item.getSize().width / 2, custom_item.getSize().height / 2));
+                custom_button.x = custom_item.width / 2;
+                custom_button.y = custom_item.height / 2;
                 custom_item.addChild(custom_button);
 
                 listView.pushBackCustomItem(custom_item);
@@ -105,7 +105,8 @@ var UIListViewTest_Vertical = UIScene.extend({
 
                 var custom_item = ccs.Layout.create();
                 custom_item.setSize(custom_button.getSize());
-                custom_button.setPosition(cc.p(custom_item.getSize().width / 2, custom_item.getSize().height / 2));
+                custom_button.x = custom_item.width / 2;
+                custom_button.y = custom_item.height / 2;
                 custom_item.addChild(custom_button);
 
                 listView.insertCustomItem(custom_item, items_count);
@@ -172,10 +173,8 @@ var UIListViewTest_Horizontal = UIScene.extend({
             listView.setBackGroundImage("res/cocosgui/green_edit.png");
             listView.setBackGroundImageScale9Enabled(true);
             listView.setSize(cc.size(240, 130));
-            listView.setPosition(cc.p((widgetSize.width - backgroundSize.width) / 2 +
-                (backgroundSize.width - listView.getSize().width) / 2,
-                (widgetSize.height - backgroundSize.height) / 2 +
-                    (backgroundSize.height - listView.getSize().height) / 2));
+            listView.x = (widgetSize.width - backgroundSize.width) / 2 + (backgroundSize.width - listView.width) / 2;
+            listView.y = (widgetSize.height - backgroundSize.height) / 2 + (backgroundSize.height - listView.height) / 2;
             listView.addEventListenerListView(this.selectedItemEvent, this);
             this._uiLayer.addWidget(listView);
 
@@ -189,7 +188,8 @@ var UIListViewTest_Horizontal = UIScene.extend({
             var default_item = ccs.Layout.create();
             default_item.setTouchEnabled(true);
             default_item.setSize(default_button.getSize());
-            default_button.setPosition(cc.p(default_item.getSize().width / 2, default_item.getSize().height / 2));
+            default_button.x = default_item.width / 2;
+            default_button.y = default_item.height / 2;
             default_item.addChild(default_button);
 
             // set model
@@ -216,7 +216,8 @@ var UIListViewTest_Horizontal = UIScene.extend({
 
                 var custom_item = ccs.Layout.create();
                 custom_item.setSize(custom_button.getSize());
-                custom_button.setPosition(cc.p(custom_item.getSize().width / 2, custom_item.getSize().height / 2));
+                custom_button.x = custom_item.width / 2;
+                custom_button.y = custom_item.height / 2;
                 custom_item.addChild(custom_button);
 
                 listView.pushBackCustomItem(custom_item);
@@ -234,7 +235,8 @@ var UIListViewTest_Horizontal = UIScene.extend({
 
                 var custom_item = ccs.Layout.create();
                 custom_item.setSize(custom_button.getSize());
-                custom_button.setPosition(cc.p(custom_item.getSize().width / 2, custom_item.getSize().height / 2));
+                custom_button.x = custom_item.width / 2;
+                custom_button.y = custom_item.height / 2;
                 custom_item.addChild(custom_button);
 
                 listView.insertCustomItem(custom_item, items_count);

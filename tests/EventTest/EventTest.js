@@ -64,13 +64,15 @@ var EventTest = cc.Layer.extend({
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 24);
         this.addChild(label);
-        label.setPosition(s.width / 2, s.height - 50);
+        label.x = s.width / 2;
+        label.y = s.height - 50;
 
         var subTitle = this.subtitle();
         if (subTitle && subTitle !== "") {
             var l = cc.LabelTTF.create(subTitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(s.width / 2, s.height - 80);
+            l.x = s.width / 2;
+            l.y = s.height - 80;
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
@@ -78,10 +80,14 @@ var EventTest = cc.Layer.extend({
         var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
-        menu.setPosition(0,0);
-        item1.setPosition(s.width / 2 - 100, 30);
-        item2.setPosition(s.width / 2, 30);
-        item3.setPosition(s.width / 2 + 100, 30);
+        menu.x = 0;
+        menu.y = 0;
+        item1.x = s.width / 2 - 100;
+        item1.y = 30;
+        item2.x = s.width / 2;
+        item2.y = 30;
+        item3.x = s.width / 2 + 100;
+        item3.y = 30;
 
         this.addChild(menu, 1);
     }
@@ -99,8 +105,14 @@ var TouchOneByOneTest = EventTest.extend({
         this.unused_sprites = [];
 
         if( 'touches' in sys.capabilities ) {
-            this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
-            this.setTouchEnabled(true);
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: true,
+                onTouchBegan: this.onTouchBegan,
+                onTouchMoved: this.onTouchMoved,
+                onTouchEnded: this.onTouchEnded,
+                onTouchCancelled: this.onTouchCancelled
+            }, this);
         } else {
             cc.log("TOUCH-ONE-BY-ONE test is not supported on desktop");
         }
@@ -108,7 +120,8 @@ var TouchOneByOneTest = EventTest.extend({
         for( var i=0; i < 5;i++) {
             var sprite = this.sprite = cc.Sprite.create(s_pathR2);
             this.addChild(sprite,i+10);
-            sprite.setPosition(0,0);
+            sprite.x = 0;
+            sprite.y = 0;
             sprite.setScale(1);
             sprite.setColor( cc.c3b( Math.random()*200+55, Math.random()*200+55, Math.random()*200+55 ) );
             this.unused_sprites.push(sprite);
@@ -121,17 +134,20 @@ var TouchOneByOneTest = EventTest.extend({
     new_id:function( id, pos) {
         var s = this.unused_sprites.pop();
         this.ids[ id ] = s;
-        s.setPosition( pos );
+        s.x = pos.x;
+        s.y = pos.y;
     },
     update_id:function(id, pos) {
         var s = this.ids[ id ];
-        s.setPosition( pos );
+        s.x = pos.x;
+        s.y = pos.y;
     },
     release_id:function(id, pos) {
         var s = this.ids[ id ];
         this.ids[ id ] = null;
         this.unused_sprites.push( s );
-        s.setPosition(0,0);
+        s.x = 0;
+        s.y = 0;
     },
 
     onTouchBegan:function(touch, event) {
@@ -139,7 +155,7 @@ var TouchOneByOneTest = EventTest.extend({
         var id = touch.getId();
         cc.log("onTouchBegan at: " + pos.x + " " + pos.y + " Id:" + id );
         if( pos.x < winSize.width/2) {
-            this.new_id(id,pos);
+            event.getCurrentTarget().new_id(id,pos);
             return true;
         }
         return false;
@@ -148,19 +164,19 @@ var TouchOneByOneTest = EventTest.extend({
         var pos = touch.getLocation();
         var id = touch.getId();
         cc.log("onTouchMoved at: " + pos.x + " " + pos.y + " Id:" + id );
-        this.update_id(id,pos);
+        event.getCurrentTarget().update_id(id,pos);
     },
     onTouchEnded:function(touch, event) {
         var pos = touch.getLocation();
         var id = touch.getId();
         cc.log("onTouchEnded at: " + pos.x + " " + pos.y + " Id:" + id );
-        this.release_id(id,pos);
+        event.getCurrentTarget().release_id(id,pos);
     },
     onTouchCancelled:function(touch, event) {
         var pos = touch.getLocation();
         var id = touch.getId();
         cc.log("onTouchCancelled at: " + pos.x + " " + pos.y + " Id:" + id );
-        this.update_id(id,pos);
+        event.getCurrentTarget().update_id(id,pos);
     }
 });
 
@@ -178,8 +194,13 @@ var TouchAllAtOnce = EventTest.extend({
 
         if( 'touches' in sys.capabilities ) {
             // this is the default behavior. No need to set it explicitly.
-            this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
-            this.setTouchEnabled(true);
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesBegan: this.onTouchesBegan,
+                onTouchesMoved: this.onTouchesMoved,
+                onTouchesEnded: this.onTouchesEnded,
+                onTouchesCancelled: this.onTouchesCancelled
+            }, this);
         } else {
             cc.log("TOUCHES not supported");
         }
@@ -187,7 +208,8 @@ var TouchAllAtOnce = EventTest.extend({
         for( var i=0; i < 5;i++) {
             var sprite = this.sprite = cc.Sprite.create(s_pathR2);
             this.addChild(sprite,i+10);
-            sprite.setPosition(0,0);
+            sprite.x = 0;
+            sprite.y = 0;
             sprite.setScale(1);
             sprite.setColor( cc.c3b( Math.random()*200+55, Math.random()*200+55, Math.random()*200+55 ) );
             this.unused_sprites.push(sprite);
@@ -200,53 +222,60 @@ var TouchAllAtOnce = EventTest.extend({
     new_id:function( id, pos) {
         var s = this.unused_sprites.pop();
         this.ids[ id ] = s;
-        s.setPosition( pos );
+        s.x = pos.x;
+        s.y = pos.y;
     },
     update_id:function(id, pos) {
         var s = this.ids[ id ];
-        s.setPosition( pos );
+        s.x = pos.x;
+        s.y = pos.y;
     },
     release_id:function(id, pos) {
         var s = this.ids[ id ];
         this.ids[ id ] = null;
         this.unused_sprites.push( s );
-        s.setPosition(0,0);
+        s.x = 0;
+        s.y = 0;
     },
 
     onTouchesBegan:function(touches, event) {
+        var target = event.getCurrentTarget();
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
             var id = touch.getId();
             cc.log("Touch #" + i + ". onTouchesBegan at: " + pos.x + " " + pos.y + " Id:" + id);
-            this.new_id(id,pos);
+            target.new_id(id,pos);
         }
     },
     onTouchesMoved:function(touches, event) {
+        var target = event.getCurrentTarget();
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
             var id = touch.getId();
             cc.log("Touch #" + i + ". onTouchesMoved at: " + pos.x + " " + pos.y + " Id:" + id);
-            this.update_id(id, pos);
+            target.update_id(id, pos);
         }
     },
     onTouchesEnded:function(touches, event) {
+        var target = event.getCurrentTarget();
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
             var id = touch.getId();
             cc.log("Touch #" + i + ". onTouchesEnded at: " + pos.x + " " + pos.y + " Id:" + id);
-            this.release_id(id);
+            target.release_id(id);
         }
     },
     onTouchesCancelled:function(touches, event) {
+        var target = event.getCurrentTarget();
         for (var i=0; i < touches.length;i++ ) {
             var touch = touches[i];
             var pos = touch.getLocation();
             var id = touch.getId();
             cc.log("Touch #" + i + ". onTouchesCancelled at: " + pos.x + " " + pos.y + " Id:" + id);
-            this.release_id(id);
+            target.release_id(id);
         }
     }
 });
@@ -267,7 +296,8 @@ var AccelerometerTest = EventTest.extend({
 
             var sprite = this.sprite = cc.Sprite.create(s_pathR2);
             this.addChild( sprite );
-            sprite.setPosition( winSize.width/2, winSize.height/2);
+            sprite.x = winSize.width/2;
+            sprite.y = winSize.height/2;
 
             // for low-pass filter
             this.prevX = 0;
@@ -294,7 +324,8 @@ var AccelerometerTest = EventTest.extend({
 
         this.prevX = x;
         this.prevY = y;
-        this.sprite.setPosition( x, y );
+        this.sprite.x = x;
+        this.sprite.y = y ;
     }
 });
 
@@ -308,15 +339,17 @@ var MouseTest = EventTest.extend({
         this._super();
         var sprite = this.sprite = cc.Sprite.create(s_pathR2);
         this.addChild(sprite);
-        sprite.setPosition(0,0);
+        sprite.x = 0;
+        sprite.y = 0;
         sprite.setScale(1);
         sprite.setColor( cc.c3b(Math.random()*200+55, Math.random()*200+55, Math.random()*200+55) );
 
-        if( 'mouse' in sys.capabilities ) {
+        /*if( 'mouse' in sys.capabilities ) {
+            //TODO
             this.setMouseEnabled(true);
         } else {
             cc.log("MOUSE Not supported");
-        }
+        }*/
     },
     subtitle:function () {
         return "Mouse test. Move mouse and see console";
@@ -324,21 +357,25 @@ var MouseTest = EventTest.extend({
     onMouseDown:function(event) {
         var pos = event.getLocation();
         cc.log("onMouseDown at: " + pos.x + " " + pos.y );
-        this.sprite.setPosition( pos );
+        this.sprite.x = pos.x;
+        this.sprite.y = pos.y;
     },
     onMouseDragged:function(event) {
         var pos = event.getLocation();
         cc.log("onMouseDragged at: " + pos.x + " " + pos.y );
-        this.sprite.setPosition( pos );
+        this.sprite.x = pos.x;
+        this.sprite.y = pos.y;
     },
     onMouseUp:function(event) {
         var pos = event.getLocation();
-        this.sprite.setPosition( pos );
+        this.sprite.x = pos.x;
+        this.sprite.y = pos.y;
         cc.log("onMouseUp at: " + pos.x + " " + pos.y );
     },
     onRightMouseDown:function(event){
         var pos = event.getLocation();
-        this.sprite.setPosition( pos );
+        this.sprite.x = pos.x;
+        this.sprite.y = pos.y;
         cc.log("onRightMouseDown at: " + pos.x + " " + pos.y );
     }
 });

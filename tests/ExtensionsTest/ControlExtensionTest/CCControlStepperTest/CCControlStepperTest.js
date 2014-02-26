@@ -30,25 +30,29 @@ var ControlStepperTest = ControlScene.extend({
             var screenSize = cc.Director.getInstance().getWinSize();
 
             var layer = cc.Node.create();
-            layer.setPosition(screenSize.width / 2, screenSize.height / 2);
+            layer.x = screenSize.width / 2;
+            layer.y = screenSize.height / 2;
             this.addChild(layer, 1);
             var layer_width = 0;
 
             // Add the black background for the text
             var background = cc.Scale9Sprite.create("res/extensions/buttonBackground.png");
             background.setContentSize(100, 50);
-            background.setPosition(layer_width + background.getContentSize().width / 2.0, 0);
+            background.x = layer_width + background.width / 2.0;
+            background.y = 0;
             layer.addChild(background);
 
             this._displayValueLabel = cc.LabelTTF.create("0", "HelveticaNeue-Bold", 30);
 
-            this._displayValueLabel.setPosition(background.getPosition());
+            this._displayValueLabel.x = background.x;
+            this._displayValueLabel.y = background.y;
             layer.addChild(this._displayValueLabel);
 
             layer_width += background.getContentSize().width;
 
             var stepper = this.makeControlStepper();
-            stepper.setPosition(layer_width + 10 + stepper.getContentSize().width / 2, 0);
+            stepper.x = layer_width + 10 + stepper.width / 2;
+            stepper.y = 0;
             stepper.addTargetWithActionForControlEvents(this, this.valueChanged, cc.CONTROL_EVENT_VALUECHANGED);
             layer.addChild(stepper);
 

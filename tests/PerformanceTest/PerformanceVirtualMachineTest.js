@@ -107,7 +107,8 @@ var VirtualMachineTestMainScene = cc.Scene.extend({
         // Title
         var label = cc.LabelTTF.create(this.title(), "Arial", 40);
         this.addChild(label, 1);
-        label.setPosition(s.width / 2, s.height - 32);
+        label.x = s.width / 2;
+        label.y = s.height - 32;
         label.setColor(cc.c3b(255, 255, 40));
 
         // Subtitle
@@ -115,7 +116,8 @@ var VirtualMachineTestMainScene = cc.Scene.extend({
         if (strSubTitle.length) {
             var l = cc.LabelTTF.create(strSubTitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(s.width / 2, s.height - 80);
+            l.x = s.width / 2;
+            l.y = s.height - 80;
         }
 
         this._lastRenderedCount = 0;
@@ -131,12 +133,14 @@ var VirtualMachineTestMainScene = cc.Scene.extend({
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
-        menu.setPosition(s.width / 2, s.height / 2 + 15);
+        menu.x = s.width / 2;
+        menu.y = s.height / 2 + 15;
         this.addChild(menu, 1);
 
         var infoLabel = cc.LabelTTF.create("0 nodes", "Marker Felt", 30);
         infoLabel.setColor(cc.c3b(0, 200, 20));
-        infoLabel.setPosition(s.width / 2, s.height / 2 - 15);
+        infoLabel.x = s.width / 2;
+        infoLabel.y = s.height / 2 - 15;
         this.addChild(infoLabel, 1, TAG_INFO_LAYER);
 
         var menu = new VirtualMachineTestMenuLayer(true, 3, s_nVMCurCase);
@@ -292,7 +296,8 @@ var SpritesWithManyPropertiesTestScene1 = VirtualMachineTestMainScene.extend({
                     new SpriteWithManyProperties(this._batchNode.getTexture(),
                                                  cc.rect(0, 0, 52, 139));
                 this._batchNode.addChild(sprite);
-                sprite.setPosition(Math.random() * s.width,Math.random() * s.height);
+                sprite.x = Math.random() * s.width;
+                sprite.y = Math.random() * s.height;
             }
         }
 
@@ -407,7 +412,8 @@ var SpritesUndergoneDifferentOperationsTestScene1 = VirtualMachineTestMainScene.
                     series[op].call(sprite);
 
                 this._batchNode.addChild(sprite);
-                sprite.setPosition(Math.random() * s.width,Math.random() * s.height);
+                sprite.x = Math.random() * s.width;
+                sprite.y = Math.random() * s.height;
             }
         }
 
@@ -482,7 +488,8 @@ var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
                 // to the scene directly.
                 this.addChild(sprite, -1); // zOrder has to be less than 0 or it
                                            // overlaps the menu.
-                sprite.setPosition(Math.random() * s.width, Math.random() * s.height);
+                sprite.x = Math.random() * s.width;
+                sprite.y = Math.random() * s.height;
             }
         }
 

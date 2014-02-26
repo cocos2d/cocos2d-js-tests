@@ -54,7 +54,8 @@ var ChipmunkBaseLayer = function() {
     item.setFontSize(24);
     var menu = cc.Menu.create( item );
     this.addChild( menu );
-    menu.setPosition( cc.p( winSize.width-100, winSize.height-90 )  );
+    menu.x = winSize.width-100;
+    menu.y = winSize.height-90;
 
     // Create the initial space
 	this.space = new cp.Space();
@@ -195,10 +196,18 @@ ChipmunkSprite.prototype.onEnter = function () {
 		this.addSprite( cp.v(winSize.width/2, winSize.height/2) );
 	}
 
-    if( 'touches' in sys.capabilities )
-        this.setTouchEnabled(true);
-    else if( 'mouse' in sys.capabilities )
-        this.setMouseEnabled(true);
+    //if( 'touches' in sys.capabilities ){
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesEnded: function(touches, event){
+                var l = touches.length, target = event.getCurrentTarget();
+                for( var i=0; i < l; i++) {
+                    target.addSprite( touches[i].getLocation() );
+                }
+            }
+        }, this);
+    //} else if( 'mouse' in sys.capabilities )
+    //    this.setMouseEnabled(true);
 };
 
 ChipmunkSprite.prototype.update = function( delta ) {
@@ -207,13 +216,6 @@ ChipmunkSprite.prototype.update = function( delta ) {
 
 ChipmunkSprite.prototype.onMouseDown = function( event ) {
 	this.addSprite( event.getLocation() );
-};
-
-ChipmunkSprite.prototype.onTouchesEnded = function( touches, event ) {
-	var l = touches.length;
-	for( var i=0; i < l; i++) {
-		this.addSprite( touches[i].getLocation() );
-	}
 };
 
 //------------------------------------------------------------------
@@ -328,7 +330,8 @@ var ChipmunkCollisionTest = function() {
 		if( ! this.messageDisplayed ) {
 			var label = cc.LabelBMFont.create("Collision Detected", s_bitmapFontTest5_fnt);
 			this.addChild( label );
-			label.setPosition( winSize.width/2, winSize.height/2 );
+			label.x = winSize.width/2;
+			label.y = winSize.height/2 ;
 			this.messageDisplayed = true;
 		}
 		cc.log('collision begin');
@@ -454,7 +457,8 @@ var ChipmunkCollisionTestB = function() {
 		if( ! this.messageDisplayed ) {
 			var label = cc.LabelBMFont.create("Collision Detected", s_bitmapFontTest5_fnt);
 			this.addChild( label );
-			label.setPosition( winSize.width/2, winSize.height/2 );
+			label.x = winSize.width/2;
+			label.y = winSize.height/2 ;
 			this.messageDisplayed = true;
 		}
 		cc.log('collision begin');

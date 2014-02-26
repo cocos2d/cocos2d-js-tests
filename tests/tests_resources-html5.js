@@ -391,7 +391,7 @@ var g_cocosdeshion = [
     {src:"res/Sound/background.mp3"},
     {src:"res/Sound/effect2.mp3"},
     {src:"res/Sound/background.ogg"},
-    {src:"res/Sound/effect2.ogg"},
+    {src:"res/Sound/effect2.ogg"}
 ];
 
 var g_parallax = [
@@ -399,6 +399,13 @@ var g_parallax = [
     {src:s_fixedOrthoTest2Png},
     {src:s_power},
     {src:s_back}
+];
+
+var g_eventDispatcher = [
+    {src:"res/Images/CyanSquare.png"},
+    {src:"res/Images/MagentaSquare.png"},
+    {src:"res/Images/YellowSquare.png"},
+    {src:"res/Images/ball.png"}
 ];
 
 var g_particle = [
