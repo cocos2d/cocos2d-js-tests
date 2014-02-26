@@ -109,16 +109,20 @@ var GLReadPixelsTest = OpenGLTestLayer.extend({
             var white = cc.LayerColor.create(cc.c4b(255, 255, 255, 255));
 
             blue.setScale(0.5);
-            blue.setPosition(-x / 4, -y / 4);
+            blue.x = -x / 4;
+            blue.y = -y / 4;
 
             red.setScale(0.5);
-            red.setPosition(x / 4, -y / 4);
+            red.x = x / 4;
+            red.y = -y / 4;
 
             green.setScale(0.5);
-            green.setPosition(-x / 4, y / 4);
+            green.x = -x / 4;
+            green.y = y / 4;
 
             white.setScale(0.5);
-            white.setPosition(x / 4, y / 4);
+            white.x = x / 4;
+            white.y = y / 4;
 
             this.addChild(blue,10);
             this.addChild(white,11);
@@ -193,7 +197,8 @@ var GLClearTest = OpenGLTestLayer.extend({
             };
 
             this.addChild( node, 10 );
-            node.setPosition( winSize.width/2, winSize.height/2 );
+            node.x = winSize.width/2;
+            node.y = winSize.height/2 ;
         }
     },
 
@@ -256,7 +261,7 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
             var fshader = this.compileShader(fsh, 'fragment');
             var vshader = this.compileShader(vsh, 'vertex');
 
-            var shaderProgram = this.shaderProgram = gl.createProgram();
+            var shaderProgram = this.shader = gl.createProgram();
 
             gl.attachShader(shaderProgram, vshader);
             gl.attachShader(shaderProgram, fshader);
@@ -290,29 +295,29 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
                 var mvMatrix = [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1];
                 this.mvMatrix = mvMatrix = new Float32Array(mvMatrix);
 
-                gl.useProgram(this.shaderProgram);
-                gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.pMatrix);
-                gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
+                gl.useProgram(this.shader);
+                gl.uniformMatrix4fv(this.shader.pMatrixUniform, false, this.pMatrix);
+                gl.uniformMatrix4fv(this.shader.mvMatrixUniform, false, this.mvMatrix);
 
-                gl.enableVertexAttribArray(this.shaderProgram.vertexPositionAttribute);
-                gl.enableVertexAttribArray(this.shaderProgram.vertexColorAttribute);
+                gl.enableVertexAttribArray(this.shader.vertexPositionAttribute);
+                gl.enableVertexAttribArray(this.shader.vertexColorAttribute);
 
                 // Draw fullscreen Square
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexPositionBuffer);
-                gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+                gl.vertexAttribPointer(this.shader.vertexPositionAttribute, this.squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.squareVertexColorBuffer);
-                gl.vertexAttribPointer(this.shaderProgram.vertexColorAttribute, this.squareVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+                gl.vertexAttribPointer(this.shader.vertexColorAttribute, this.squareVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
                 this.setMatrixUniforms();
                 gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.squareVertexPositionBuffer.numItems);
 
                 // Draw fullscreen Triangle
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.triangleVertexPositionBuffer);
-                gl.vertexAttribPointer(this.shaderProgram.vertexPositionAttribute, this.triangleVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+                gl.vertexAttribPointer(this.shader.vertexPositionAttribute, this.triangleVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.triangleVertexColorBuffer);
-                gl.vertexAttribPointer(this.shaderProgram.vertexColorAttribute, this.triangleVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
+                gl.vertexAttribPointer(this.shader.vertexColorAttribute, this.triangleVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
                 gl.drawArrays(gl.TRIANGLES, 0, this.triangleVertexPositionBuffer.numItems);
 
@@ -324,8 +329,8 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
     },
 
     setMatrixUniforms:function() {
-        gl.uniformMatrix4fv(this.shaderProgram.pMatrixUniform, false, this.pMatrix);
-        gl.uniformMatrix4fv(this.shaderProgram.mvMatrixUniform, false, this.mvMatrix);
+        gl.uniformMatrix4fv(this.shader.pMatrixUniform, false, this.pMatrix);
+        gl.uniformMatrix4fv(this.shader.mvMatrixUniform, false, this.mvMatrix);
     },
 
     initBuffers:function() {
@@ -623,7 +628,8 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
         if( 'opengl' in sys.capabilities ) {
             var shaderNode = new ShaderNode("res/Shaders/example_Heart.vsh", "res/Shaders/example_Heart.fsh");
             this.addChild(shaderNode,10);
-            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+            shaderNode.x = winSize.width/2;
+            shaderNode.y = winSize.height/2;
         }
     },
 
@@ -662,7 +668,8 @@ var ShaderMandelbrotTest = OpenGLTestLayer.extend({
         if( 'opengl' in sys.capabilities ) {
             var shaderNode = new ShaderNode("res/Shaders/example_Mandelbrot.vsh", "res/Shaders/example_Mandelbrot.fsh");
             this.addChild(shaderNode,10);
-            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+            shaderNode.x = winSize.width/2;
+            shaderNode.y = winSize.height/2;
         }
     },
 
@@ -696,7 +703,8 @@ var ShaderMonjoriTest = OpenGLTestLayer.extend({
         if( 'opengl' in sys.capabilities ) {
             var shaderNode = new ShaderNode("res/Shaders/example_Monjori.vsh", "res/Shaders/example_Monjori.fsh");
             this.addChild(shaderNode,10);
-            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+            shaderNode.x = winSize.width/2;
+            shaderNode.y = winSize.height/2;
         }
     },
 
@@ -730,7 +738,8 @@ var ShaderPlasmaTest = OpenGLTestLayer.extend({
         if( 'opengl' in sys.capabilities ) {
             var shaderNode = new ShaderNode("res/Shaders/example_Plasma.vsh", "res/Shaders/example_Plasma.fsh");
             this.addChild(shaderNode,10);
-            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+            shaderNode.x = winSize.width/2;
+            shaderNode.y = winSize.height/2;
         }
     },
     title:function () {
@@ -768,7 +777,8 @@ var ShaderFlowerTest = OpenGLTestLayer.extend({
 
             var shaderNode = new ShaderNode("res/Shaders/example_Flower.vsh", "res/Shaders/example_Flower.fsh");
             this.addChild(shaderNode,10);
-            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+            shaderNode.x = winSize.width/2;
+            shaderNode.y = winSize.height/2;
         }
     },
     title:function () {
@@ -806,7 +816,8 @@ var ShaderJuliaTest = OpenGLTestLayer.extend({
 
             var shaderNode = new ShaderNode("res/Shaders/example_Julia.vsh", "res/Shaders/example_Julia.fsh");
             this.addChild(shaderNode,10);
-            shaderNode.setPosition( winSize.width/2, winSize.height/2);
+            shaderNode.x = winSize.width/2;
+            shaderNode.y = winSize.height/2;
         }
     },
     title:function () {
@@ -849,7 +860,9 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
             var label = cc.LabelBMFont.create("RETRO EFFECT","res/fonts/west_england-64.fnt");
             label.setShaderProgram( program );
 
-            label.setPosition(winSize.width/2, winSize.height/2);
+            label.x = winSize.width/2;
+
+            label.y = winSize.height/2;
             this.addChild(label);
 
             this.scheduleUpdate();
@@ -864,8 +877,7 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
 
         for( var i in children ) {
             var sprite = children[i];
-            var oldPosition = sprite.getPosition();
-            sprite.setPosition( oldPosition.x, Math.sin( this.accum * 2 + i/2.0) * 20  );
+            sprite.y = Math.sin( this.accum * 2 + i/2.0) * 20;
 
             // add fabs() to prevent negative scaling
             var scaleY = ( Math.sin( this.accum * 2 + i/2.0 + 0.707) );
@@ -896,7 +908,8 @@ var GLGetActiveTest = OpenGLTestLayer.extend({
 
         if( 'opengl' in sys.capabilities ) {
             var sprite = this.sprite = cc.Sprite.create("res/Images/grossini.png");
-            sprite.setPosition( winSize.width/2, winSize.height/2);
+            sprite.x = winSize.width/2;
+            sprite.y = winSize.height/2;
             this.addChild( sprite );
 
             // after auto test
@@ -948,7 +961,8 @@ var TexImage2DTest = OpenGLTestLayer.extend({
             var glnode = cc.GLNode.create();
             this.addChild(glnode,10);
             this.glnode = glnode;
-            glnode.setPosition(winSize.width/2, winSize.height/2);
+            glnode.x = winSize.width/2;
+            glnode.y = winSize.height/2;
             glnode.setContentSize(128,128);
             glnode.setAnchorPoint(0.5,0.5);
 

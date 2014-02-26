@@ -10,9 +10,8 @@ var Explosion = cc.Sprite.extend({
         this.initWithSpriteFrame(pFrame);
         this.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
 
-        var cs = this.getContentSize();
-        this.tmpWidth = cs.width;
-        this.tmpHeight = cs.height;
+        this.tmpWidth = this.width;
+        this.tmpHeight = this.height;
         this.animation = cc.AnimationCache.getInstance().getAnimation("Explosion");
     },
     play:function(){
@@ -23,7 +22,7 @@ var Explosion = cc.Sprite.extend({
         ));
     },
     destroy:function () {
-        this.setVisible(false);
+        this.visible = false;
         this.active = false;
     }
 });
@@ -45,7 +44,7 @@ Explosion.getOrCreateExplosion = function () {
     for (var j = 0; j < MW.CONTAINER.EXPLOSIONS.length; j++) {
         var selChild = MW.CONTAINER.EXPLOSIONS[j];
         if (selChild.active == false) {
-            selChild.setVisible(true);
+            selChild.visible = true;
             selChild.active = true;
             selChild.play();
             return selChild;
@@ -66,7 +65,7 @@ Explosion.preSet = function () {
     var explosion = null;
     for (var i = 0; i < 6; i++) {
         explosion = Explosion.create();
-        explosion.setVisible(false);
+        explosion.visible = false;
         explosion.active = false;
     }
 };

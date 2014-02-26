@@ -64,13 +64,15 @@ var EventTest = cc.Layer.extend({
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 24);
         this.addChild(label);
-        label.setPosition(s.width / 2, s.height - 50);
+        label.x = s.width / 2;
+        label.y = s.height - 50;
 
         var subTitle = this.subtitle();
         if (subTitle && subTitle !== "") {
             var l = cc.LabelTTF.create(subTitle, "Thonburi", 16);
             this.addChild(l, 1);
-            l.setPosition(s.width / 2, s.height - 80);
+            l.x = s.width / 2;
+            l.y = s.height - 80;
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
@@ -78,10 +80,14 @@ var EventTest = cc.Layer.extend({
         var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.nextCallback, this);
 
         var menu = cc.Menu.create(item1, item2, item3);
-        menu.setPosition(0,0);
-        item1.setPosition(s.width / 2 - 100, 30);
-        item2.setPosition(s.width / 2, 30);
-        item3.setPosition(s.width / 2 + 100, 30);
+        menu.x = 0;
+        menu.y = 0;
+        item1.x = s.width / 2 - 100;
+        item1.y = 30;
+        item2.x = s.width / 2;
+        item2.y = 30;
+        item3.x = s.width / 2 + 100;
+        item3.y = 30;
 
         this.addChild(menu, 1);
     }
@@ -114,7 +120,8 @@ var TouchOneByOneTest = EventTest.extend({
         for( var i=0; i < 5;i++) {
             var sprite = this.sprite = cc.Sprite.create(s_pathR2);
             this.addChild(sprite,i+10);
-            sprite.setPosition(0,0);
+            sprite.x = 0;
+            sprite.y = 0;
             sprite.setScale(1);
             sprite.setColor( cc.c3b( Math.random()*200+55, Math.random()*200+55, Math.random()*200+55 ) );
             this.unused_sprites.push(sprite);
@@ -127,17 +134,20 @@ var TouchOneByOneTest = EventTest.extend({
     new_id:function( id, pos) {
         var s = this.unused_sprites.pop();
         this.ids[ id ] = s;
-        s.setPosition( pos );
+        s.x = pos.x;
+        s.y = pos.y;
     },
     update_id:function(id, pos) {
         var s = this.ids[ id ];
-        s.setPosition( pos );
+        s.x = pos.x;
+        s.y = pos.y;
     },
     release_id:function(id, pos) {
         var s = this.ids[ id ];
         this.ids[ id ] = null;
         this.unused_sprites.push( s );
-        s.setPosition(0,0);
+        s.x = 0;
+        s.y = 0;
     },
 
     onTouchBegan:function(touch, event) {
@@ -198,7 +208,8 @@ var TouchAllAtOnce = EventTest.extend({
         for( var i=0; i < 5;i++) {
             var sprite = this.sprite = cc.Sprite.create(s_pathR2);
             this.addChild(sprite,i+10);
-            sprite.setPosition(0,0);
+            sprite.x = 0;
+            sprite.y = 0;
             sprite.setScale(1);
             sprite.setColor( cc.c3b( Math.random()*200+55, Math.random()*200+55, Math.random()*200+55 ) );
             this.unused_sprites.push(sprite);
@@ -211,17 +222,20 @@ var TouchAllAtOnce = EventTest.extend({
     new_id:function( id, pos) {
         var s = this.unused_sprites.pop();
         this.ids[ id ] = s;
-        s.setPosition( pos );
+        s.x = pos.x;
+        s.y = pos.y;
     },
     update_id:function(id, pos) {
         var s = this.ids[ id ];
-        s.setPosition( pos );
+        s.x = pos.x;
+        s.y = pos.y;
     },
     release_id:function(id, pos) {
         var s = this.ids[ id ];
         this.ids[ id ] = null;
         this.unused_sprites.push( s );
-        s.setPosition(0,0);
+        s.x = 0;
+        s.y = 0;
     },
 
     onTouchesBegan:function(touches, event) {
@@ -282,7 +296,8 @@ var AccelerometerTest = EventTest.extend({
 
             var sprite = this.sprite = cc.Sprite.create(s_pathR2);
             this.addChild( sprite );
-            sprite.setPosition( winSize.width/2, winSize.height/2);
+            sprite.x = winSize.width/2;
+            sprite.y = winSize.height/2;
 
             // for low-pass filter
             this.prevX = 0;
@@ -309,7 +324,8 @@ var AccelerometerTest = EventTest.extend({
 
         this.prevX = x;
         this.prevY = y;
-        this.sprite.setPosition( x, y );
+        this.sprite.x = x;
+        this.sprite.y = y ;
     }
 });
 
@@ -323,7 +339,8 @@ var MouseTest = EventTest.extend({
         this._super();
         var sprite = this.sprite = cc.Sprite.create(s_pathR2);
         this.addChild(sprite);
-        sprite.setPosition(0,0);
+        sprite.x = 0;
+        sprite.y = 0;
         sprite.setScale(1);
         sprite.setColor( cc.c3b(Math.random()*200+55, Math.random()*200+55, Math.random()*200+55) );
 
@@ -340,21 +357,25 @@ var MouseTest = EventTest.extend({
     onMouseDown:function(event) {
         var pos = event.getLocation();
         cc.log("onMouseDown at: " + pos.x + " " + pos.y );
-        this.sprite.setPosition( pos );
+        this.sprite.x = pos.x;
+        this.sprite.y = pos.y;
     },
     onMouseDragged:function(event) {
         var pos = event.getLocation();
         cc.log("onMouseDragged at: " + pos.x + " " + pos.y );
-        this.sprite.setPosition( pos );
+        this.sprite.x = pos.x;
+        this.sprite.y = pos.y;
     },
     onMouseUp:function(event) {
         var pos = event.getLocation();
-        this.sprite.setPosition( pos );
+        this.sprite.x = pos.x;
+        this.sprite.y = pos.y;
         cc.log("onMouseUp at: " + pos.x + " " + pos.y );
     },
     onRightMouseDown:function(event){
         var pos = event.getLocation();
-        this.sprite.setPosition( pos );
+        this.sprite.x = pos.x;
+        this.sprite.y = pos.y;
         cc.log("onRightMouseDown at: " + pos.x + " " + pos.y );
     }
 });

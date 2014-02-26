@@ -161,11 +161,13 @@ var CocosDenshionTest = cc.LayerGradient.extend({
             var label = cc.LabelTTF.create(DenshionTests[i].title, "Arial", 24);
             var menuItem = cc.MenuItemLabel.create(label, this.onMenuCallback, this);
             this._itemMenu.addChild(menuItem, i + 10000);
-            menuItem.setPosition(winSize.width / 2, (winSize.height - (i + 1) * LINE_SPACE));
+            menuItem.x = winSize.width / 2;
+            menuItem.y = winSize.height - (i + 1) * LINE_SPACE;
         }
         this._testCount = i;
         this._itemMenu.setContentSize(winSize.width, (this._testCount + 1) * LINE_SPACE);
-        this._itemMenu.setPosition(0, 0);
+        this._itemMenu.x = 0;
+        this._itemMenu.y = 0;
         this.addChild(this._itemMenu);
 
         //if( 'touches' in sys.capabilities ) {
@@ -202,9 +204,7 @@ var CocosDenshionTest = cc.LayerGradient.extend({
     },
 
     moveMenu:function (delta) {
-        var current = this._itemMenu.getPosition();
-
-        var newY = current.y + delta.y;
+        var newY = this._itemMenu.y + delta.y;
 
         if (newY < 0)
             newY = 0;
@@ -212,7 +212,7 @@ var CocosDenshionTest = cc.LayerGradient.extend({
         if (newY > ((DenshionTests.length + 1) * LINE_SPACE - winSize.height))
             newY = ((DenshionTests.length + 1) * LINE_SPACE - winSize.height);
 
-        this._itemMenu.setPosition(current.x, newY);
+        this._itemMenu.y = newY;
     }
 });
 

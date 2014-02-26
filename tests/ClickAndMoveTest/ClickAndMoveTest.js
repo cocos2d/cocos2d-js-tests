@@ -61,7 +61,8 @@ var MainLayer = cc.Layer.extend({
         this.addChild(layer, -1);
 
         this.addChild(sprite, 0, TAG_SPRITE);
-        sprite.setPosition(20, 150);
+        sprite.x = 20;
+	    sprite.y = 150;
 
         sprite.runAction(cc.JumpTo.create(4, cc.p(300, 48), 100, 4));
 
@@ -75,9 +76,8 @@ var MainLayer = cc.Layer.extend({
         var sprite = this.getChildByTag(TAG_SPRITE);
         sprite.stopAllActions();
         sprite.runAction(cc.MoveTo.create(1, position));
-        var current = sprite.getPosition();
-        var o = position.x - current.x;
-        var a = position.y - current.y;
+        var o = position.x - sprite.x;
+        var a = position.y - sprite.y;
         var at = Math.atan(o / a) * 57.29577951;  // radians to degrees
 
         if (a < 0) {

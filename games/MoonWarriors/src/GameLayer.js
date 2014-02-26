@@ -70,20 +70,27 @@ var GameLayer = cc.Layer.extend({
 
             // score
             this.lbScore = cc.LabelBMFont.create("Score: 0", res.arial_14_fnt);
-            this.lbScore.setAnchorPoint(1, 0);
+            this.lbScore.attr({
+	            anchor: cc.p(1, 0),
+	            x: winSize.width - 5,
+	            y: winSize.height - 30
+            });
             this.lbScore.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
             this.addChild(this.lbScore, 1000);
-            this.lbScore.setPosition(winSize.width - 5, winSize.height - 30);
 
             // ship life
             var life = cc.Sprite.create("frame#ship01.png");
-            life.setScale(0.6);
-            life.setPosition(30, 460);
+            life.attr({
+	            scale: 0.6,
+	            x: 30,
+	            y: 460
+            });
             this._texTransparentBatch.addChild(life, 1, 5);
 
             // ship Life count
             this._lbLife = cc.LabelTTF.create("0", "Arial", 20);
-            this._lbLife.setPosition(60, 463);
+            this._lbLife.x = 60;
+	        this._lbLife.y = 463;
             this._lbLife.setColor(cc.c3b(255, 0, 0));
             this.addChild(this._lbLife, 1000);
 
@@ -155,11 +162,13 @@ var GameLayer = cc.Layer.extend({
 
     processEvent:function (touch) {
         if (this._state == STATE_PLAYING) {
-            var delta = touch.getDelta();
-            var curPos = this._ship.getPosition();
+            var delta = event.getDelta();
+            var curPos = cc.p(this._ship.x, this._ship.y);
             curPos = cc.pAdd(curPos, delta);
             curPos = cc.pClamp(curPos, cc.p(0, 0), cc.p(winSize.width, winSize.height));
-            this._ship.setPosition(curPos);
+            this._ship.x = curPos.x;
+	        this._ship.y = curPos.y;
+	        curPos = null;
         }
     },
 
@@ -250,18 +259,17 @@ var GameLayer = cc.Layer.extend({
         this.lbScore.setString("Score: " + this._tmpScore);
     },
     collide:function (a, b) {
-        var pos1 = a.getPosition();
-        var pos2 = b.getPosition();
-        if (Math.abs(pos1.x - pos2.x) > MAX_CONTAINT_WIDTH || Math.abs(pos1.y - pos2.y) > MAX_CONTAINT_HEIGHT)
+	    var ax = a.x, ay = a.y, bx = b.x, by = b.y;
+        if (Math.abs(ax - bx) > MAX_CONTAINT_WIDTH || Math.abs(ay - by) > MAX_CONTAINT_HEIGHT)
             return false;
 
-        var aRect = a.collideRect(pos1);
-        var bRect = b.collideRect(pos2);
+        var aRect = a.collideRect(ax, ay);
+        var bRect = b.collideRect(bx, by);
         return cc.rectIntersectsRect(aRect, bRect);
     },
     initBackground:function () {
         this._backSky = BackSky.getOrCreate();
-        this._backSkyHeight = this._backSky.getContentSize().height;
+        this._backSkyHeight = this._backSky.height;
 
         this.moveTileMap();
         this.schedule(this.moveTileMap, 5);
@@ -269,7 +277,8 @@ var GameLayer = cc.Layer.extend({
     moveTileMap:function () {
         var backTileMap = BackTileMap.getOrCreate();
         var ran = Math.random();
-        backTileMap.setPosition(ran * 320, winSize.height);
+        backTileMap.x = ran * 320;
+	    backTileMap.y = winSize.height;
         var move = cc.MoveBy.create(ran * 2 + 10, cc.p(0, -winSize.height-240));
         var fun =cc.CallFunc.create(function(){
             backTileMap.destroy();
@@ -281,7 +290,7 @@ var GameLayer = cc.Layer.extend({
         var movingDist = 16 * dt;       // background's moving rate is 16 pixel per second
 
         var locSkyHeight = this._backSkyHeight, locBackSky = this._backSky;
-        var currPosY = locBackSky.getPositionY() - movingDist;
+        var currPosY = locBackSky.y - movingDist;
         var locBackSkyRe = this._backSkyRe;
 
         if(locSkyHeight + currPosY <= winSize.height){
@@ -293,18 +302,18 @@ var GameLayer = cc.Layer.extend({
             //create a new background
             this._backSky = BackSky.getOrCreate();
             locBackSky = this._backSky;
-            locBackSky.setPositionY(currPosY + locSkyHeight - 2);
+            locBackSky.y = currPosY + locSkyHeight - 2;
         } else
-            locBackSky.setPositionY(currPosY);
+            locBackSky.y = currPosY;
 
         if(locBackSkyRe){
             //locBackSkyRe
-            currPosY = locBackSkyRe.getPositionY() - movingDist;
+            currPosY = locBackSkyRe.y - movingDist;
             if(currPosY + locSkyHeight < 0){
                 locBackSkyRe.destroy();
                 this._backSkyRe = null;
             } else
-                locBackSkyRe.setPositionY(currPosY);
+                locBackSkyRe.y = currPosY;
         }
     },
 

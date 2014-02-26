@@ -67,15 +67,18 @@ var EffecstsBaseLayer = BaseTestLayer.extend({
 
         // back image
         var bg = cc.Sprite.create(s_back3);
-        bg.setPosition( cc.p( winSize.width/2, winSize.height/2) );
+        bg.x = winSize.width/2;
+        bg.y = winSize.height/2;
         node.addChild( bg );
 
         var sister1 = cc.Sprite.create(s_pathSister1);
-        sister1.setPosition( cc.p( winSize.width/3, winSize.height/2 ) );
+        sister1.x = winSize.width/3;
+        sister1.y = winSize.height/2;
         node.addChild( sister1, 1 );
 
         var sister2 = cc.Sprite.create(s_pathSister2);
-        sister2.setPosition( cc.p( winSize.width*2/3, winSize.height/2 ) );
+        sister2.x = winSize.width*2/3;
+        sister2.y = winSize.height/2;
         node.addChild( sister2, 1 );
 
         var sc = cc.ScaleBy.create(2, 5);

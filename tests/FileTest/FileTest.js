@@ -86,7 +86,8 @@ var FilenameLookupTest = FileTestBase.extend({
 
         var sprite = cc.Sprite.create("grossini.bmp");
         this.addChild( sprite );
-        sprite.setPosition( winSize.width/2, winSize.height/2);
+        sprite.x = winSize.width/2;
+        sprite.y = winSize.height/2;
 
 
         //
@@ -183,7 +184,8 @@ var SAXParserTest = FileTestBase.extend({
 		var ok = JSON.stringify(this._expectResult) == JSON.stringify(result);
 		this._label = cc.LabelTTF.create(ok ? "SUCCESS" : "FAIL");
 		var winsize = cc.Director.getInstance().getWinSize();
-		this._label.setPosition(winsize.width/2, winsize.height/2);
+		this._label.x = winsize.width/2;
+		this._label.y = winsize.height/2;
 		this.addChild(this._label);
 	},
 
@@ -206,7 +208,7 @@ var FileTestScene = TestScene.extend({
 		var layer = nextFileTest();
 		this.addChild(layer);
 
-		director.replaceScene(this);
+		director.runScene(this);
 	}
 });
 

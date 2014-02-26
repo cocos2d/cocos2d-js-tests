@@ -34,14 +34,14 @@ var EnemyController = ccs.ComController.extend({
     onEnter: function () {
         // Determine where to spawn the target along the Y axis
         var winSize = cc.Director.getInstance().getWinSize();
-        var minY = this.getOwner().getContentSize().height / 2;
-        var rangeY = winSize.height - this.getOwner().getContentSize().height;
+        var minY = this.getOwner().height / 2;
+        var rangeY = winSize.height - this.getOwner().height;
         var actualY = (Math.random() * rangeY ) + minY;
 
         // Create the target slightly off-screen along the right edge,
         // and along a random position along the Y axis as calculated
-        this._owner.setPosition(
-            cc.p(winSize.width + (this.getOwner().getContentSize().width / 2), actualY));
+        this._owner.x = winSize.width + (this.getOwner().width / 2);
+	    this._owner.y = actualY;
 
 
         // Determine speed of the target

@@ -61,8 +61,8 @@ var Paddle = cc.Sprite.extend({
         var getPoint = touch.getLocation();
         var myRect = this.rect();
 
-        myRect.x += this.getPosition().x;
-        myRect.y += this.getPosition().y;
+        myRect.x += this.x;
+        myRect.y += this.y;
         return cc.rectContainsPoint(myRect, getPoint);//this.convertTouchToNodeSpaceAR(touch));
     },
 
@@ -87,7 +87,7 @@ var Paddle = cc.Sprite.extend({
         var touchPoint = touch.getLocation();
         //touchPoint = cc.Director.getInstance().convertToGL( touchPoint );
 
-        target.setPosition(touchPoint.x, target.getPosition().y);
+        target.x = touchPoint.x;
     },
     onTouchEnded:function (touch, event) {
         var target = event.getCurrentTarget();
