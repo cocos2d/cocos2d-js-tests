@@ -142,7 +142,8 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
             var menu2 = cc.Menu.create(nextItem);
             menu2.x = 0;
             menu2.y = 0;
-            menu2.setAnchorPoint(0, 0);
+            menu2.anchorX = 0;
+            menu2.anchorY = 0;
             selfPointer.addChild(menu2);
         });
 
@@ -153,7 +154,8 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
         var menu = cc.Menu.create(removeAllTouchItem);
         menu.x = 0;
         menu.y = 0;
-        menu.setAnchorPoint(0, 0);
+        menu.anchorX = 0;
+        menu.anchorY = 0;
         this.addChild(menu);
     },
 
@@ -338,7 +340,8 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
         var menu = cc.Menu.create(toggleItem);
         menu.x = 0;
         menu.y = 0;
-        menu.setAnchorPoint(0, 0);
+        menu.anchorX = 0;
+        menu.anchorY = 0;
         this.addChild(menu, 1);
     },
 
@@ -422,7 +425,8 @@ var CustomEventTest =  EventDispatcherTestDemo.extend({
         var menu = cc.Menu.create(sendItem, sendItem2);
         menu.x = 0;
         menu.y = 0;
-        menu.setAnchorPoint(0, 0);
+        menu.anchorX = 0;
+        menu.anchorY = 0;
         this.addChild(menu, 1);
     },
 
@@ -657,7 +661,8 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
 	        var bl = cc.VisibleRect.bottomLeft();
             menu.x = bl.x;
 	        menu.y = bl.y;
-            menu.setAnchorPoint(0,0);
+            menu.anchorX = 0;
+            menu.anchorY = 0;
             selfPointer.addChild(menu);
         };
 
@@ -691,7 +696,8 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
 	    var bl = cc.VisibleRect.bottomLeft();
         menu.x = bl.x;
 	    menu.y = bl.y;
-        menu.setAnchorPoint(0, 0);
+        menu.anchorX = 0;
+        menu.anchorY = 0;
         this.addChild(menu);
     },
 

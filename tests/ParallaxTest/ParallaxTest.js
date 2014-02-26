@@ -79,14 +79,16 @@ Parallax1 = ParallaxDemo.extend({
         // scale the image (optional)
         this._cocosimage.setScale(1.5);
         // change the transform anchor point to 0,0 (optional)
-        this._cocosimage.setAnchorPoint(0, 0);
+        this._cocosimage.anchorX = 0;
+        this._cocosimage.anchorY = 0;
 
         // Middle layer: a Tile map atlas
         //var tilemap = cc.TileMapAtlas.create(s_tilesPng, s_levelMapTga, 16, 16);
         this._tilemap = cc.TMXTiledMap.create(s_resprefix + "TileMaps/orthogonal-test2.tmx");
 
         // change the transform anchor to 0,0 (optional)
-        this._tilemap.setAnchorPoint(0, 0);
+        this._tilemap.anchorX = 0;
+        this._tilemap.anchorY = 0;
 
         // Anti Aliased images
         //tilemap.getTexture().setAntiAliasTexParameters();
@@ -96,7 +98,8 @@ Parallax1 = ParallaxDemo.extend({
         // scale the image (optional)
         //background.setScale(1.5);
         // change the transform anchor point (optional)
-        this._background.setAnchorPoint(0, 0);
+        this._background.anchorX = 0;
+        this._background.anchorY = 0;
 
         // create a void node, a parent node
         this._parentNode = cc.ParallaxNode.create();
@@ -178,14 +181,16 @@ Parallax2 = ParallaxDemo.extend({
         // scale the image (optional)
         cocosImage.setScale(1.5);
         // change the transform anchor point to 0,0 (optional)
-        cocosImage.setAnchorPoint(0, 0);
+        cocosImage.anchorX = 0;
+        cocosImage.anchorY = 0;
 
         // Middle layer: a Tile map atlas
         //var tilemap = cc.TileMapAtlas.create(s_tilesPng, s_levelMapTga, 16, 16);
         var tilemap = cc.TMXTiledMap.create(s_resprefix + "TileMaps/orthogonal-test2.tmx");
 
         // change the transform anchor to 0,0 (optional)
-        tilemap.setAnchorPoint(0, 0);
+        tilemap.anchorX = 0;
+        tilemap.anchorY = 0;
 
         // Anti Aliased images
         //tilemap.getTexture().setAntiAliasTexParameters();
@@ -195,7 +200,8 @@ Parallax2 = ParallaxDemo.extend({
         // scale the image (optional)
         //background.setScale(1.5);
         // change the transform anchor point (optional)
-        background.setAnchorPoint(0, 0);
+        background.anchorX = 0;
+        background.anchorY = 0;
 
         // create a void node, a parent node
         var voidNode = cc.ParallaxNode.create();

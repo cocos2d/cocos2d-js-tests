@@ -227,7 +227,8 @@ var ParticleDemo = BaseTestLayer.extend({
             });
         this._freeMovementButton.x = 10;
         this._freeMovementButton.y = 150;
-        this._freeMovementButton.setAnchorPoint(0, 0);
+        this._freeMovementButton.anchorX = 0;
+        this._freeMovementButton.anchorY = 0;
 
         this._relativeMovementButton = cc.MenuItemSprite.create(relativeBtnNormal, relativeBtnSelected, relativeBtnDisabled,
             function () {
@@ -239,7 +240,8 @@ var ParticleDemo = BaseTestLayer.extend({
         this._relativeMovementButton.setVisible(false);
         this._relativeMovementButton.x = 10;
         this._relativeMovementButton.y = 150;
-        this._relativeMovementButton.setAnchorPoint(0, 0);
+        this._relativeMovementButton.anchorX = 0;
+        this._relativeMovementButton.anchorY = 0;
 
         this._groupMovementButton = cc.MenuItemSprite.create(groupBtnNormal, groupBtnSelected, groupBtnDisabled,
             function () {
@@ -251,7 +253,8 @@ var ParticleDemo = BaseTestLayer.extend({
         this._groupMovementButton.setVisible(false);
         this._groupMovementButton.x = 10;
         this._groupMovementButton.y = 150;
-        this._groupMovementButton.setAnchorPoint(0, 0);
+        this._groupMovementButton.anchorX = 0;
+        this._groupMovementButton.anchorY = 0;
 
         var spriteNormal = cc.Sprite.create(s_shapeModeMenuItem, cc.rect(0, 23 * 2, 115, 23));
         var spriteSelected = cc.Sprite.create(s_shapeModeMenuItem, cc.rect(0, 23, 115, 23));
@@ -266,7 +269,8 @@ var ParticleDemo = BaseTestLayer.extend({
             });
         this._shapeModeButton.x = 10;
         this._shapeModeButton.y = 100;
-        this._shapeModeButton.setAnchorPoint(0, 0);
+        this._shapeModeButton.anchorX = 0;
+        this._shapeModeButton.anchorY = 0;
 
         if ('opengl' in sys.capabilities ) {
             // Shape type is not compatible with JSB
@@ -287,7 +291,8 @@ var ParticleDemo = BaseTestLayer.extend({
         this._textureModeButton.setVisible(false);
         this._textureModeButton.x = 10;
         this._textureModeButton.y = 100;
-        this._textureModeButton.setAnchorPoint(0, 0);
+        this._textureModeButton.anchorX = 0;
+        this._textureModeButton.anchorY = 0;
 
         var menu = cc.Menu.create( this._shapeModeButton, this._textureModeButton,
             this._freeMovementButton, this._relativeMovementButton, this._groupMovementButton);

@@ -66,7 +66,8 @@ var ControlButtonTest_HelloVariableSize = ControlScene.extend({
                 total_width += button.width;
             }
 
-            layer.setAnchorPoint(0.5, 0.5);
+            layer.anchorX = 0.5;
+            layer.anchorY = 0.5;
             layer.width = total_width;
             layer.height = height;
             layer.x = screenSize.width / 2.0;
@@ -124,7 +125,8 @@ var ControlButtonTest_Event = ControlScene.extend({
 
             // Add a label in which the button events will be displayed
             this.setDisplayValueLabel(cc.LabelTTF.create("No Event", "Marker Felt", 32));
-            this._displayValueLabel.setAnchorPoint(0.5, -1);
+            this._displayValueLabel.anchorX = 0.5;
+            this._displayValueLabel.anchorY = -1;
             this._displayValueLabel.x = screenSize.width / 2.0;
             this._displayValueLabel.y = screenSize.height / 2.0;
             this.addChild(this._displayValueLabel, 10);
@@ -136,7 +138,8 @@ var ControlButtonTest_Event = ControlScene.extend({
             controlButton.setBackgroundSpriteForState(backgroundHighlightedButton, cc.CONTROL_STATE_HIGHLIGHTED);
             controlButton.setTitleColorForState(cc.white(), cc.CONTROL_STATE_HIGHLIGHTED);
 
-            controlButton.setAnchorPoint(0.5, 1);
+            controlButton.anchorX = 0.5;
+            controlButton.anchorY = 1;
             controlButton.x = screenSize.width / 2.0;
             controlButton.y = screenSize.height / 2.0;
             this.addChild(controlButton, 1);
@@ -232,7 +235,8 @@ var ControlButtonTest_Styling = ControlScene.extend({
                 }
             }
 
-            layer.setAnchorPoint(0.5, 0.5);
+            layer.anchorX = 0.5;
+            layer.anchorY = 0.5;
             layer.width = max_w;
             layer.height = max_h;
             layer.x = screenSize.width / 2.0;

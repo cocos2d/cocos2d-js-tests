@@ -86,7 +86,8 @@ var XHRTestLayer = cc.Layer.extend({
             var response = xhr.responseText.substring(0,50) + "...";
             var responseLabel = cc.LabelTTF.create("GET Response (50 chars): \n" + response, "Thonburi", 16);
             that.addChild(responseLabel, 1);
-            responseLabel.setAnchorPoint(0,1);
+            responseLabel.anchorX = 0;
+	        responseLabel.anchorY = 1;
             responseLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
 
             responseLabel.x = winSize.width/6;
@@ -115,7 +116,8 @@ var XHRTestLayer = cc.Layer.extend({
             var response = xhr.responseText.substring(0,50) + "...";
             var responseLabel = cc.LabelTTF.create("POST Response (50 chars):  \n" + response, "Thonburi", 16);
             that.addChild(responseLabel, 1);
-            responseLabel.setAnchorPoint(0,1);
+            responseLabel.anchorX = 0;
+	        responseLabel.anchorY = 1;
             responseLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
 
             responseLabel.x = winSize.width/6;

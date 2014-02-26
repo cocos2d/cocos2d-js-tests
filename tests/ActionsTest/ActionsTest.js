@@ -475,7 +475,8 @@ var ActionSkewRotateScale = ActionsDemo.extend({
 
         var boxW = 100, boxH = 100;
         var box = cc.LayerColor.create(cc.c4b(255, 255, 0, 255));
-        box.setAnchorPoint(0, 0);
+        box.anchorX = 0;
+	    box.anchorY = 0;
         box.x = (winSize.width - boxW) / 2;
 		box.y = (winSize.height - boxH) / 2;
         box.width = boxW;
@@ -488,7 +489,8 @@ var ActionSkewRotateScale = ActionsDemo.extend({
         uL.height = markrside;
         uL.x = 0;
 		uL.y = boxH - markrside;
-        uL.setAnchorPoint(0, 0);
+	    uL.anchorX = 0;
+	    uL.anchorY = 0;
 
         var uR = cc.LayerColor.create(cc.c4b(0, 0, 255, 255));
         box.addChild(uR);
@@ -496,7 +498,8 @@ var ActionSkewRotateScale = ActionsDemo.extend({
         uR.height = markrside;
         uR.x = boxW - markrside;
 		uR.y = boxH - markrside;
-        uR.setAnchorPoint(0, 0);
+        uR.anchorX = 0;
+	    uR.anchorY = 0;
 
 
         this.addChild(box);
