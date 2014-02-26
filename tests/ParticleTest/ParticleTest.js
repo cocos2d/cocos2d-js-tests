@@ -177,7 +177,7 @@ var ParticleDemo = BaseTestLayer.extend({
     },
 
     ctor:function () {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255));
         this._isPressed = false;
 
         this._emitter = null;
@@ -543,16 +543,16 @@ var DemoBigFlower = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(25, 25, 25, 50);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(25, 25, 25, 50);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -621,16 +621,16 @@ var DemoRotFlower = ParticleDemo.extend({
         this._emitter.setEndSpin(0);
         this._emitter.setEndSpinVar(2000);
 
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(25, 25, 25, 50);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(25, 25, 25, 50);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -823,16 +823,16 @@ var DemoModernArt = ParticleDemo.extend({
         this._emitter.setEmissionRate(this._emitter.getTotalParticles() / this._emitter.getLife());
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(25, 25, 25, 50);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(25, 25, 25, 50);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -927,7 +927,7 @@ var DemoParticleFromFile = ParticleDemo.extend({
     },
     onEnter:function () {
         this._super();
-        this.setColor(cc.c3b(0, 0, 0));
+        this.setColor(cc.color(0, 0, 0));
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -960,7 +960,7 @@ var RadiusMode1 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.setColor(cc.c3b(0, 0, 0));
+        this.setColor(cc.color(0, 0, 0));
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -1006,16 +1006,16 @@ var RadiusMode1 = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(25, 25, 25, 50);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(25, 25, 25, 50);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -1038,7 +1038,7 @@ var RadiusMode2 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.setColor(cc.c3b(0, 0, 0));
+        this.setColor(cc.color(0, 0, 0));
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -1084,16 +1084,16 @@ var RadiusMode2 = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(25, 25, 25, 50);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(25, 25, 25, 50);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -1116,7 +1116,7 @@ var Issue704 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.setColor(cc.c3b(0, 0, 0));
+        this.setColor(cc.color(0, 0, 0));
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -1163,16 +1163,16 @@ var Issue704 = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(25, 25, 25, 50);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(25, 25, 25, 50);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -1202,7 +1202,7 @@ var Issue870 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.setColor(cc.c3b(0, 0, 0));
+        this.setColor(cc.color(0, 0, 0));
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -1236,11 +1236,11 @@ var ParticleBatchTest = ParticleDemo.extend({
         this._super();
 
         var emitter1 = cc.ParticleSystem.create(s_resprefix + 'Particles/LavaFlow.plist');
-        emitter1.setStartColor(cc.c4f(1, 0, 0, 1));
+        emitter1.setStartColor(cc.color(255, 0, 0, 255));
         var emitter2 = cc.ParticleSystem.create(s_resprefix + 'Particles/LavaFlow.plist');
-        emitter2.setStartColor(cc.c4f(0, 1, 0, 1));
+        emitter2.setStartColor(cc.color(0, 255, 0, 255));
         var emitter3 = cc.ParticleSystem.create(s_resprefix + 'Particles/LavaFlow.plist');
-        emitter3.setStartColor(cc.c4f(0, 0, 1, 1));
+        emitter3.setStartColor(cc.color(0, 0, 255, 255));
 
         emitter1.x = winSize.width / 1.25;
 

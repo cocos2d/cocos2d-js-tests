@@ -61,7 +61,7 @@ var UIPageViewTest = UIScene.extend({
                 label.setText("page" + (i + 1));
                 label.setFontName("Marker Felt");
                 label.setFontSize(30);
-                label.setColor(cc.c3b(192, 192, 192));
+                label.setColor(cc.color(192, 192, 192));
                 label.x = layoutRect.width / 2;
                 label.y = layoutRect.height / 2;
                 layout.addChild(label);

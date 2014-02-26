@@ -25,17 +25,17 @@
 var GameOverLayer = cc.LayerColor.extend({
     _label: null,
     init: function () {
-        if (this._super(cc.c4b(255, 255, 255, 255))) {
+        if (this._super(cc.color(255, 255, 255, 255))) {
             var winSize = cc.Director.getInstance().getWinSize();
             this._label = cc.LabelTTF.create("", "Artial", 32);
             this._label.retain();
-            this._label.setColor(cc.c3b(0, 0, 0));
+            this._label.setColor(cc.color(0, 0, 0));
             this._label.x = winSize.width / 2;
             this._label.y = winSize.height / 2;
             this.addChild(this._label);
             this.runAction(cc.Sequence.create(cc.DelayTime.create(3), cc.CallFunc.create(this.gameOverDone, this)));
             var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
-            itemBack.setColor(cc.c3b(0, 0, 0));
+            itemBack.setColor(cc.color(0, 0, 0));
             itemBack.x = cc.VisibleRect.bottomRight().x - 50;
             itemBack.y = cc.VisibleRect.bottomRight().y + 25;
             var menuBack = cc.Menu.create(itemBack);

@@ -58,7 +58,7 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
 
 
         // back gradient
-        var gradient = cc.LayerGradient.create(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
+        var gradient = cc.LayerGradient.create(cc.color(0, 0, 0, 255), cc.color(98, 99, 117, 255));
         this.addChild(gradient,0, EffectsAdvancedTest.TAG_BACKGROUND);
 
         var bg = cc.Sprite.create(s_back3);
@@ -334,7 +334,7 @@ var Issue631 = EffectAdvanceTextLayer.extend({
         this.removeChild(bg, true);
 
         // background
-        var layer = cc.LayerColor.create(cc.c4b(255, 0, 0, 255));
+        var layer = cc.LayerColor.create(cc.color(255, 0, 0, 255));
         this.addChild(layer, -10);
         var sprite = cc.Sprite.create(s_pathGrossini);
         sprite.x = 50;
@@ -342,7 +342,7 @@ var Issue631 = EffectAdvanceTextLayer.extend({
         layer.addChild(sprite, 10);
 
         // foreground
-        var layer2 = cc.LayerColor.create(cc.c4b(0, 255, 0, 255));
+        var layer2 = cc.LayerColor.create(cc.color(0, 255, 0, 255));
         var fog = cc.Sprite.create(s_pathFog);
 
         fog.setBlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
