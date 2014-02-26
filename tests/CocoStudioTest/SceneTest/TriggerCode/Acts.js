@@ -98,7 +98,7 @@ var TMoveTo = ccs.BaseTriggerAction.extend({
 
     removeAll: function () {
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
-        node.getActionManager().removeAllActions();
+        node.actionManager.removeAllActions();
     }
 });
 
@@ -161,7 +161,7 @@ var TMoveBy = ccs.BaseTriggerAction.extend({
 
     removeAll: function () {
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
-        node.getActionManager().removeAllActions();
+        node.actionManager.removeAllActions();
     }
 });
 
@@ -209,7 +209,7 @@ var TRotateTo = ccs.BaseTriggerAction.extend({
 
     removeAll: function () {
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
-        node.getActionManager().removeAllActions();
+        node.actionManager.removeAllActions();
     }
 });
 
@@ -269,7 +269,7 @@ var TRotateBy = ccs.BaseTriggerAction.extend({
 
     removeAll: function () {
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
-        node.getActionManager().removeAllActions();
+        node.actionManager.removeAllActions();
     }
 });
 
@@ -323,7 +323,7 @@ var TScaleTo = ccs.BaseTriggerAction.extend({
 
     removeAll: function () {
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
-        node.getActionManager().removeAllActions();
+        node.actionManager.removeAllActions();
     }
 });
 
@@ -385,7 +385,7 @@ var TScaleBy = ccs.BaseTriggerAction.extend({
 
     removeAll: function () {
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
-        node.getActionManager().removeAllActions();
+        node.actionManager.removeAllActions();
     }
 });
 
@@ -439,7 +439,7 @@ var TSkewTo = ccs.BaseTriggerAction.extend({
 
     removeAll: function () {
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
-        node.getActionManager().removeAllActions();
+        node.actionManager.removeAllActions();
     }
 });
 
@@ -501,7 +501,7 @@ var TSkewBy = ccs.BaseTriggerAction.extend({
 
     removeAll: function () {
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
-        node.getActionManager().removeAllActions();
+        node.actionManager.removeAllActions();
     }
 });
 

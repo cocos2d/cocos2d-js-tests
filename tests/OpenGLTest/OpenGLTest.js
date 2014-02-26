@@ -860,7 +860,7 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
             program.updateUniforms();
 
             var label = cc.LabelBMFont.create("RETRO EFFECT","res/fonts/west_england-64.fnt");
-            label.setShaderProgram( program );
+            label.shaderProgram = program;
 
             label.x = winSize.width/2;
 
@@ -941,7 +941,7 @@ var GLGetActiveTest = OpenGLTestLayer.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        var p = this.sprite.getShaderProgram().getProgram();
+        var p = this.sprite.shaderProgram.getProgram();
         ret.push( gl.getActiveAttrib( p, 0 ) );
         ret.push( gl.getActiveUniform( p, 0 ) );
         ret.push( gl.getAttachedShaders( p ) );

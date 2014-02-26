@@ -986,7 +986,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
                 sprite.x = (i + 1) * step;
                 sprite.y = winSize.height / 2;
                 sprite.vertexZ = 10 + i * 40;
-                sprite.setShaderProgram(alphaTestShader);
+                sprite.shaderProgram = alphaTestShader;
                 node.addChild(sprite, 0);
             }
 
@@ -995,7 +995,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
                 sprite.x = (i + 1) * step;
                 sprite.y = winSize.height / 2;
                 sprite.vertexZ = 10 + (10 - i) * 40;
-                sprite.setShaderProgram(alphaTestShader);
+                sprite.shaderProgram = alphaTestShader;
                 node.addChild(sprite, 0);
             }
 
@@ -1097,7 +1097,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
             batch.anchorY = 0.5;
             batch.x = winSize.width / 2;
             batch.y = winSize.height / 2;
-            batch.setShaderProgram(alphaTestShader);
+            batch.shaderProgram = alphaTestShader;
 
             this.addChild(batch, 0, TAG_SPRITE_BATCH_NODE);
             var sprite;

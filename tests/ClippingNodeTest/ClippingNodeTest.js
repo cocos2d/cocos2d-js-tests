@@ -619,7 +619,7 @@ var RawStencilBufferTest4 = RawStencilBufferTest.extend({
         var alphaValueLocation = gl.getUniformLocation(program.getProgram(),cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
-        this._sprite.setShaderProgram(program );
+        this._sprite.shaderProgram = program;
     },
 
     setupStencilForDrawingOnPlane:function (plane) {
@@ -643,7 +643,7 @@ var RawStencilBufferTest5 = RawStencilBufferTest.extend({
         var alphaValueLocation = gl.getUniformLocation(program.getProgram(), cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
-        this._sprite.setShaderProgram( program );
+        this._sprite.shaderProgram = program;
     },
 
     setupStencilForDrawingOnPlane:function (plane) {
@@ -679,7 +679,7 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
         var alphaValueLocation = gl.getUniformLocation(program.getProgram(), cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
-        this._sprite.setShaderProgram(program);
+        this._sprite.shaderProgram = program;
 
         gl.flush();
     },

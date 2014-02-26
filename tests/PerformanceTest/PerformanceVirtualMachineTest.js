@@ -389,7 +389,7 @@ var SpritesUndergoneDifferentOperationsTestScene1 = VirtualMachineTestMainScene.
         return fn([], array, []);
     })([
         function() { this.children; }, // appends ._children
-        function() { this.tag = cc.NODE_TAG_INVALID; }, // appends ._tag
+        function() { this.tag = cc.NODE_TAG_INVALID; }, // appends .tag
         function() { this.setParent(null); }, // appends ._parent
         function() { this.zIndex = 0; }, // appends ._zOrder
         function() { this.rotation = 0; }, // appends ._rotationX/Y

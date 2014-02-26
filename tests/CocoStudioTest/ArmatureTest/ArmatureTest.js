@@ -502,8 +502,8 @@ var TestFrameEvent = ArmatureTestLayer.extend({
     },
     checkAction: function (dt) {
         if ("opengl" in sys.capabilities) {
-            if (this.getNumberOfRunningActions() == 0 && this.getGrid() != null)
-                this.setGrid(null);
+            if (this.getNumberOfRunningActions() == 0 && this.grid != null)
+                this.grid = null;
         }
     }
 });
