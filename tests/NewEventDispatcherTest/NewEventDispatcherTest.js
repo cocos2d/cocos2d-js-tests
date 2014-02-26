@@ -112,11 +112,11 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
             onTouchEnded: function (touch, event) {
                 var target = event.getCurrentTarget();
                 cc.log("sprite onTouchesEnded.. ");
-                target.setOpacity(255);
+                target.opacity = 255;
                 if (target == sprite2) {
-                    sprite1.setLocalZOrder(100);
+                    sprite1.zIndex = 100;
                 } else if (target == sprite1) {
-                    sprite1.setLocalZOrder(0);
+                    sprite1.zIndex = 0;
                 }
             }
         });
@@ -201,7 +201,7 @@ var TouchableSpriteWithFixedPriority = cc.Sprite.extend({
                 var rect = cc.rect(0, 0, selfPointer.width, selfPointer.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    selfPointer.setColor(cc.red());
+                    selfPointer.color = cc.color.red;
                     return true;
                 }
                 return false;
@@ -212,7 +212,7 @@ var TouchableSpriteWithFixedPriority = cc.Sprite.extend({
 	            // this.y += delta.y;
             },
             onTouchEnded: function (touch, event) {
-                selfPointer.setColor(cc.white());
+                selfPointer.color = cc.color.white;
             }
         });
 
@@ -301,13 +301,13 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
                 var rect = cc.rect(0, 0, sprite1.width, sprite1.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    sprite1.setColor(cc.red());
+                    sprite1.color = cc.color.red;
                     return true;
                 }
                 return false;
             },
             onTouchEnded: function (touch, event) {
-                sprite1.setColor(cc.white());
+                sprite1.color = cc.color.white;
             }
         });
         this.setUserObject(listener1);

@@ -96,8 +96,8 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
         this._brush = cc.Sprite.create(s_fire);
         this._brush.retain();
 
-        this._brush.setColor(cc.color.red);
-        this._brush.setOpacity(20);
+        this._brush.color = cc.color.red;
+        this._brush.opacity = 20;
 
         var save = cc.MenuItemFont.create("Save", this.saveCB, this);
         var clear = cc.MenuItemFont.create("Clear", this.clearCB.bind(this)); // another way to pass 'this'
@@ -409,10 +409,10 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
 
         sprite.x = winSize.width/2;
         sprite.y = winSize.width/2;
-        sprite.setOpacity(182);
-        sprite.setFlippedY(1);
+        sprite.opacity = 182;
+        sprite.flippedY = 1;
         this.addChild(sprite, 999999);
-        sprite.setColor(cc.color.green);
+        sprite.color = cc.color.green;
 
         sprite.runAction(cc.Sequence.create(cc.FadeTo.create(2, 0), cc.Hide.create()));
     }

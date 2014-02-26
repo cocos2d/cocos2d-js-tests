@@ -62,7 +62,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
         var labelAtlas = cc.LabelAtlas.create("0123456789", s_fpsImages, 16, 24, '.');
         var item3 = cc.MenuItemLabel.create(labelAtlas, this.onMenuCallbackDisabled, this );
         item3.setDisabledColor( cc.color(32,32,64) );
-        item3.setColor( cc.color(200,200,255) );
+        item3.color = cc.color(200,200,255);
 
         // Font Item
         var item4 = cc.MenuItemFont.create("I toggle enable items", function(sender) {
@@ -242,11 +242,11 @@ var MenuLayer2 = cc.Layer.extend({
     },
     onMenuCallbackOpacity:function (sender) {
         var menu = sender.parent;
-        var opacity = menu.getOpacity();
+        var opacity = menu.opacity;
         if (opacity == 128)
-            menu.setOpacity(255);
+            menu.opacity = 255;
         else
-            menu.setOpacity(128);
+            menu.opacity = 128;
     },
     onMenuCallbackAlign:function (sender) {
         this._alignedH = !this._alignedH;
@@ -442,7 +442,7 @@ var MenuLayerPriorityTest = cc.Layer.extend({
         this._priority = true;
         cc.MenuItemFont.setFontSize(48);
         item1 = cc.MenuItemFont.create("Toggle priority", this.onTogglePriorityCallback, this);
-        item1.setColor(cc.color(0, 0, 255));
+        item1.color = cc.color(0, 0, 255);
         this._menu2.addChild(item1);
         this.addChild(this._menu2);
     },

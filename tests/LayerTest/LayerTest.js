@@ -362,8 +362,8 @@ var LayerTest2 = LayerTest.extend({
             return false;
         };
         var s = director.getWinSize();
-        var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).getColor();
-        var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).getOpacity();
+        var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).color;
+        var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).opacity;
         var ret = {"tint": inColorRange(tint, this.tintTest) ? "yes" : "no",
             "opacity": op};
 

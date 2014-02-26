@@ -308,7 +308,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
     onTextFieldDetachWithIME:function (sender) {
         if (this._action) {
             this._textField.stopAction(this._textFieldAction);
-            this._textField.setOpacity(255);
+            this._textField.opacity = 255;
             this._action = false;
         }
         return false;
@@ -328,7 +328,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
         var label = cc.LabelTTF.create(text, TEXT_INPUT_FONT_NAME, TEXT_INPUT_FONT_SIZE);
         this.addChild(label);
         var color = cc.color(226, 121, 7);
-        label.setColor(color);
+        label.color = color;
 
         // move the sprite from top to position
         var endX = sender.x, endY = sender.y;

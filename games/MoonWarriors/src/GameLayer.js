@@ -91,7 +91,7 @@ var GameLayer = cc.Layer.extend({
             this._lbLife = cc.LabelTTF.create("0", "Arial", 20);
             this._lbLife.x = 60;
 	        this._lbLife.y = 463;
-            this._lbLife.setColor(cc.color(255, 0, 0));
+            this._lbLife.color = cc.color(255, 0, 0);
             this.addChild(this._lbLife, 1000);
 
             // ship

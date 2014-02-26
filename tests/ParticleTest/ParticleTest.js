@@ -927,7 +927,7 @@ var DemoParticleFromFile = ParticleDemo.extend({
     },
     onEnter:function () {
         this._super();
-        this.setColor(cc.color(0, 0, 0));
+        this.color = cc.color(0, 0, 0);
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -960,7 +960,7 @@ var RadiusMode1 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.setColor(cc.color(0, 0, 0));
+        this.color = cc.color(0, 0, 0);
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -1038,7 +1038,7 @@ var RadiusMode2 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.setColor(cc.color(0, 0, 0));
+        this.color = cc.color(0, 0, 0);
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -1116,7 +1116,7 @@ var Issue704 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.setColor(cc.color(0, 0, 0));
+        this.color = cc.color(0, 0, 0);
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -1202,7 +1202,7 @@ var Issue870 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.setColor(cc.color(0, 0, 0));
+        this.color = cc.color(0, 0, 0);
         this.removeChild(this._background, true);
         this._background = null;
 

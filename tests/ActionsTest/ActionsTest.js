@@ -857,7 +857,7 @@ var ActionFade = ActionsDemo.extend({
         this._super();
         this.centerSprites(2);
         var delay = cc.DelayTime.create(0.25);
-        this._tamara.setOpacity(0);
+        this._tamara.opacity = 0;
         var action1 = cc.FadeIn.create(1.0);
         var action1Back = action1.reverse();
 
@@ -882,8 +882,8 @@ var ActionFade = ActionsDemo.extend({
     },
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getOpacity() );
-        ret.push( this._kathia.getOpacity());
+        ret.push( this._tamara.opacity );
+        ret.push( this._kathia.opacity);
         return JSON.stringify(ret);
     }
 
@@ -923,8 +923,8 @@ var ActionTint = ActionsDemo.extend({
     },
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getColor() );
-        ret.push( this._kathia.getColor());
+        ret.push( this._tamara.color );
+        ret.push( this._kathia.color );
         return JSON.stringify(ret);
     }
 
@@ -2557,7 +2557,7 @@ var Issue1446 = ActionsDemo.extend({
 
         label.x = winSize.width / 2;
 	    label.y = winSize.height / 2;
-        label.setOpacity(0);
+        label.opacity = 0;
 
         this.addChild(label);
 

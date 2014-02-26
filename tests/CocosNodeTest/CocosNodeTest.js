@@ -478,7 +478,7 @@ var CameraOrbitTest = TestNodeDemo.extend({
         this.addChild(p, 0);
         p.x = winSize.width / 2;
         p.y = winSize.height / 2;
-        p.setOpacity(128);
+        p.opacity = 128;
 
         // LEFT
         var sw = p.width, sh = p.height;
@@ -619,7 +619,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         this.addChild(sprite, 0);
         sprite.x = winSize.width / 5;
         sprite.y = winSize.height / 5;
-        sprite.setColor(cc.color.red);
+        sprite.color = cc.color.red;
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         var orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -629,7 +629,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         this.addChild(sprite, 0, 40);
         sprite.x = winSize.width / 5;
         sprite.y = winSize.height / 5 * 4;
-        sprite.setColor(cc.color.blue);
+        sprite.color = cc.color.blue;
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -639,7 +639,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         this.addChild(sprite, 0);
         sprite.x = winSize.width / 5 * 4;
         sprite.y = winSize.height / 5;
-        sprite.setColor(cc.color.yellow);
+        sprite.color = cc.color.yellow;
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -649,7 +649,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         this.addChild(sprite, 0, 40);
         sprite.x = winSize.width / 5 * 4;
         sprite.y = winSize.height / 5 * 4;
-        sprite.setColor(cc.color.green);
+        sprite.color = cc.color.green;
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -659,7 +659,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         this.addChild(sprite, 0, 40);
         sprite.x = winSize.width / 2;
         sprite.y = winSize.height / 2;
-        sprite.setColor(cc.color.white);
+        sprite.color = cc.color.white;
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));

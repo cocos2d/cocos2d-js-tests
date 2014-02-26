@@ -538,7 +538,7 @@ var SpriteZOrder = SpriteTestDemo.extend({
         sprite.x = winSize.width / 2;
         sprite.y = winSize.height / 2 - 20;
         sprite.scaleX = 10;
-        sprite.setColor(cc.color.red);
+        sprite.color = cc.color.red;
 
         this.schedule(this.reorderSprite, 1);
     },
@@ -607,7 +607,7 @@ var SpriteBatchNodeZOrder = SpriteTestDemo.extend({
         sprite.x = winSize.width / 2;
         sprite.y = winSize.height / 2 - 20;
         sprite.scaleX = 10;
-        sprite.setColor(cc.color.red);
+        sprite.color = cc.color.red;
         this.schedule(this.reorderSprite, 1);
     },
     reorderSprite:function (dt) {
@@ -787,7 +787,7 @@ var SpriteBatchNodeReorderIssue766 = SpriteTestDemo.extend({
 
         //children
         var spriteShadow = cc.Sprite.create(this._batchNode.getTexture(), cc.rect(0, 0, 64, 64));
-        spriteShadow.setOpacity(128);
+        spriteShadow.opacity = 128;
         sprite.addChild(spriteShadow, aZ, 3);
 
         var spriteTop = cc.Sprite.create(this._batchNode.getTexture(), cc.rect(64, 0, 64, 64));
@@ -4155,18 +4155,18 @@ var SpriteNilTexture = SpriteTestDemo.extend({
         // TEST: If no texture is given, then Opacity + Color should work.
         var sprite = cc.Sprite.create();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
-        // sprite.setColor(cc.color.red);
-        sprite.setColor(cc.color(255, 0, 0));
-        sprite.setOpacity(128);
+        // sprite.color = cc.color.red;
+        sprite.color = cc.color(255, 0, 0);
+        sprite.opacity = 128;
         sprite.x = 3 * winSize.width / 4;
         sprite.y = winSize.height / 2;
         this.addChild(sprite, 100);
 
         sprite = cc.Sprite.create();
         sprite.setTextureRect(cc.rect(0, 0, 300, 300));
-        //sprite.setColor(cc.color.blue);
-        sprite.setColor(cc.color(0, 0, 255));
-        sprite.setOpacity(128);
+        //sprite.color = cc.color.blue;
+        sprite.color = cc.color(0, 0, 255);
+        sprite.opacity = 128;
         sprite.x = winSize.width / 4;
         sprite.y = winSize.height / 2;
         this.addChild(sprite, 100);
@@ -4963,9 +4963,9 @@ var SpriteBatchBug1217 = SpriteTestDemo.extend({
         var s2 = cc.Sprite.create(bn.getTexture(), cc.rect(0, 0, 57, 57));
         var s3 = cc.Sprite.create(bn.getTexture(), cc.rect(0, 0, 57, 57));
 
-        s1.setColor(cc.color(255, 0, 0));
-        s2.setColor(cc.color(0, 255, 0));
-        s3.setColor(cc.color(0, 0, 255));
+        s1.color = cc.color(255, 0, 0);
+        s2.color = cc.color(0, 255, 0);
+        s3.color = cc.color(0, 0, 255);
 
         s1.x = 20;
 
@@ -5029,8 +5029,8 @@ var TextureColorCacheIssue = SpriteTestDemo.extend({
         this.addChild(grossini);
         this.addChild(sister);
 
-        grossini.setColor(cc.color(1, 255, 1));
-        sister.setColor(cc.color(1, 1, 255));
+        grossini.color = cc.color(1, 255, 1);
+        sister.color = cc.color(1, 1, 255);
     },
     onExit:function () {
         spriteFrameCache.removeSpriteFramesFromFile(s_tcc_issue_1_plist);
@@ -5077,11 +5077,11 @@ var TextureColorCacheIssue2 = SpriteTestDemo.extend({
         this.addChild(sister);
 
 //        for (var i = 0; i < 10; ++i) {
-//            sister.setColor(cc.color(128, 128, 128 + i));
-//            grossini.setColor(cc.color(128, 128, 128 + i));
+//            sister.color = cc.color(128, 128, 128 + i);
+//            grossini.color = cc.color(128, 128, 128 + i);
 //        }
-        grossini.setColor(cc.color(255, 255, 0));
-        sister.setColor(cc.color(255, 0, 255));
+        grossini.color = cc.color(255, 255, 0);
+        sister.color = cc.color(255, 0, 255);
     },
     onExit:function () {
         spriteFrameCache.removeSpriteFramesFromFile(s_tcc_issue_1_plist);

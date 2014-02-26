@@ -101,13 +101,13 @@ var LabelAtlasOpacityTest = AtlasDemo.extend({
         this.addChild(label1, 0, TAG_LABEL_SPRITE1);
         label1.x = 10;
         label1.y = 100;
-        label1.setOpacity(200);
+        label1.opacity = 200;
 
         var label2 = cc.LabelAtlas.create("0123456789", s_resprefix + "fonts/tuffy_bold_italic-charmap.plist");
         this.addChild(label2, 0, TAG_LABEL_SPRITE12);
         label2.x = 10;
         label2.y = 200;
-        label2.setOpacity(32);
+        label2.opacity = 32;
 
         this.schedule(this.step);
     },
@@ -144,7 +144,7 @@ var LabelAtlasOpacityTest = AtlasDemo.extend({
 
         for( var i in tags ) {
             var t = tags[i];
-            ret.push( this.getChildByTag(t).getOpacity() );
+            ret.push( this.getChildByTag(t).opacity );
         }
         return JSON.stringify(ret);
     }
@@ -163,13 +163,13 @@ var LabelAtlasOpacityColorTest = AtlasDemo.extend({
         this.addChild(label1, 0, TAG_LABEL_SPRITE1);
         label1.x = 10;
         label1.y = 100;
-        label1.setOpacity(200);
+        label1.opacity = 200;
 
         var label2 = cc.LabelAtlas.create("0123456789", s_resprefix + "fonts/tuffy_bold_italic-charmap.png", 48, 64, ' ');
         this.addChild(label2, 0, TAG_LABEL_SPRITE12);
         label2.x = 10;
         label2.y = 200;
-        label2.setColor(cc.color(255, 0, 0));
+        label2.color = cc.color(255, 0, 0);
 
         var fade = cc.FadeOut.create(1.0);
         var fade_in = fade.reverse();
@@ -215,8 +215,8 @@ var LabelAtlasOpacityColorTest = AtlasDemo.extend({
 
         for( var i in tags ) {
             var t = tags[i];
-            ret.push( this.getChildByTag(t).getOpacity() );
-            ret.push( this.getChildByTag(t).getColor() );
+            ret.push( this.getChildByTag(t).opacity );
+            ret.push( this.getChildByTag(t).color );
         }
         return JSON.stringify(ret);
     }
@@ -307,7 +307,7 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
         // testing anchors
         label2.anchorX = 0.5;
         label2.anchorY = 0.5;
-        label2.setColor( cc.color.red );
+        label2.color = cc.color.red ;
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
         label2.runAction(repeat.clone());
 
@@ -366,8 +366,8 @@ var BMFontOpacityColorAlignmentTest = AtlasDemo.extend({
 
         for( var i in tags ) {
             var t = tags[i];
-            ret.push( this.getChildByTag(t).getOpacity() );
-            ret.push( this.getChildByTag(t).getColor() );
+            ret.push( this.getChildByTag(t).opacity );
+            ret.push( this.getChildByTag(t).color );
         }
         return JSON.stringify(ret);
     }
@@ -610,7 +610,7 @@ var BMFontTintTest = AtlasDemo.extend({
 
         var label = null;
         label = cc.LabelBMFont.create("Blue", s_resprefix + "fonts/bitmapFontTest5.fnt");
-        label.setColor(cc.color(0, 0, 255));
+        label.color = cc.color(0, 0, 255);
         this.addChild(label);
         label.x = s.width / 2;
         label.y = s.height / 4;
@@ -623,7 +623,7 @@ var BMFontTintTest = AtlasDemo.extend({
         label.y = 2 * s.height / 4;
         label.anchorX = 0.5;
         label.anchorY = 0.5;
-        label.setColor(cc.color(255, 0, 0));
+        label.color = cc.color(255, 0, 0);
 
         label = cc.LabelBMFont.create("G", s_resprefix + "fonts/bitmapFontTest5.fnt");
         this.addChild(label);
@@ -631,7 +631,7 @@ var BMFontTintTest = AtlasDemo.extend({
         label.y = 3 * s.height / 4;
         label.anchorX = 0.5;
         label.anchorY = 0.5;
-        label.setColor(cc.color(0, 255, 0));
+        label.color = cc.color(0, 255, 0);
         label.setString("Green");
     },
     title:function () {
@@ -1390,7 +1390,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         var stringMenu = cc.Menu.create(longSentences, lineBreaks, mixed);
         stringMenu.alignItemsVertically();
 
-        longSentences.setColor(cc.color(255, 0, 0));
+        longSentences.color = cc.color(255, 0, 0);
         this.lastSentenceItem = longSentences;
         longSentences.tag = LongSentences;
         lineBreaks.tag = LineBreaks;
@@ -1404,7 +1404,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         var alignmentMenu = cc.Menu.create(left, center, right);
         alignmentMenu.alignItemsHorizontallyWithPadding(alignmentItemPadding);
 
-        center.setColor(cc.color(255, 0, 0));
+        center.color = cc.color(255, 0, 0);
         this.lastAlignmentItem = center;
         left.tag = LeftAlign;
         center.tag = CenterAlign;
@@ -1444,8 +1444,8 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         return "";
     },
     onStringChanged:function (sender) {
-        this.lastSentenceItem.setColor(cc.color(255, 255, 255));
-        sender.setColor(cc.color(255, 0, 0));
+        this.lastSentenceItem.color = cc.color(255, 255, 255);
+        sender.color = cc.color(255, 0, 0);
         this.lastSentenceItem = sender;
 
         switch (sender.tag) {
@@ -1467,8 +1467,8 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
     },
     onAlignmentChanged:function (sender) {
         var item = sender;
-        this.lastAlignmentItem.setColor(cc.color(255, 255, 255));
-        item.setColor(cc.color(255, 0, 0));
+        this.lastAlignmentItem.color = cc.color(255, 255, 255);
+        item.color = cc.color(255, 0, 0);
         this.lastAlignmentItem = item;
 
         switch (item.tag) {
@@ -1550,7 +1550,7 @@ var LabelTTFA8Test = AtlasDemo.extend({
         // cc.LabelBMFont
         var label1 = cc.LabelTTF.create("Testing A8 Format", "Arial", 48);
         this.addChild(label1);
-        label1.setColor(cc.color(255, 0, 0));
+        label1.color = cc.color(255, 0, 0);
         label1.x = s.width / 2;
         label1.y = s.height / 2;
 
@@ -1728,19 +1728,19 @@ var BMFontColorParentChild = AtlasDemo.extend({
         this.addChild(this.label);
         this.label.x = winSize.width / 2;
         this.label.y = winSize.height / 2;
-        this.label.setColor( cc.color.yellow );
+        this.label.color = cc.color.yellow;
 
         // R
         var letter = this.label.getChildByTag(1);
-        letter.setColor( cc.color.red );
+        letter.color = cc.color.red;
 
         // G
         letter = this.label.getChildByTag(2);
-        letter.setColor( cc.color.green );
+        letter.color = cc.color.green;
 
         // B
         letter = this.label.getChildByTag(3);
-        letter.setColor( cc.color.blue );
+        letter.color = cc.color.blue;
 
         this.scheduleUpdate();
 

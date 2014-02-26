@@ -205,12 +205,12 @@ var TransitionBase = BaseTestLayer.extend({
 
         var title = cc.LabelTTF.create(this.title(), "Thonburi", 32);
         this.addChild(title);
-        title.setColor(cc.color(255, 32, 32));
+        title.color = cc.color(255, 32, 32);
         title.x = x / 2;
         title.y = y - 100;
 
         var label = cc.LabelTTF.create(this.sceneName, "Marker Felt", 38);
-        label.setColor(cc.color(16, 16, 255));
+        label.color = cc.color(16, 16, 255);
         label.x = x / 2;
         label.y = y / 2;
         this.addChild(label);

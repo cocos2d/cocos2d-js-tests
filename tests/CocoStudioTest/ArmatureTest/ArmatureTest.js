@@ -289,9 +289,9 @@ var TestPerformance = ArmatureTestLayer.extend({
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
         cc.MenuItemFont.setFontSize(65);
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
-        decrease.setColor(cc.color(0, 200, 20));
+        decrease.color = cc.color(0, 200, 20);
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
-        increase.setColor(cc.color(0, 200, 20));
+        increase.color = cc.color(0, 200, 20);
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
@@ -1089,7 +1089,7 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
         //Create 3 mount
         this._horse = this.createMount("horse", cc.VisibleRect.center());
         this._horse2 = this.createMount("horse", cc.p(120, 200));
-        this._horse2.setOpacity(200);
+        this._horse2.opacity = 200;
         this._bear = this.createMount("bear", cc.p(300, 70));
     },
     title: function () {

@@ -39,7 +39,7 @@ var ControlColourPickerTest = ControlScene.extend({
 
             // Create the colour picker
             var colourPicker = cc.ControlColourPicker.create();
-            colourPicker.setColor(cc.color(37, 46, 252));
+            colourPicker.color = cc.color(37, 46, 252);
             colourPicker.x = colourPicker.width / 2;
             colourPicker.y = 0;
 
@@ -83,7 +83,7 @@ var ControlColourPickerTest = ControlScene.extend({
     },
     colourValueChanged:function (sender, controlEvent) {
         // Change value of label.
-        this._colorLabel.setString(cc.colorToHex(sender.getColor()).toUpperCase());
+        this._colorLabel.setString(cc.colorToHex(sender.color).toUpperCase());
     }
 });
 ControlColourPickerTest.create = function (sceneTitle) {

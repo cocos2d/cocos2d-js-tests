@@ -107,8 +107,8 @@ PresentationBaseLayer.prototype.onEnter = function() {
     var item3 = menu.getChildByTag(BASE_TEST_MENUITEM_NEXT_TAG);
 
 	[item1, item2, item3 ].forEach( function(item) {
-		item.getNormalImage().setOpacity(45);
-		item.getSelectedImage().setOpacity(45);
+		item.getNormalImage().opacity = 45;
+		item.getSelectedImage().opacity = 45;
 		} );
 
 	// remove "super" titles
