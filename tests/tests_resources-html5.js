@@ -439,24 +439,26 @@ var g_particle = [
 
 var g_fonts = [
     //@face-font for WebFonts
-    {fontName:"Thonburi",
-        src:[
-            {src:"res/fonts/Thonburi.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Thonburi.ttf",type:"truetype"}]},
-    //{src:"res/fonts/Schwarzwald_Regular.woff", type:"woff"},
-    //{src:"res/fonts/Schwarzwald Regular.svg",type:"svg"}]},
-    {fontName:"Schwarzwald Regular",
-        src:[
-            {src:"res/fonts/Schwarzwald_Regular.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Schwarzwald Regular.ttf",type:"truetype"}]},
-    {fontName:"ThonburiBold",
-        src:[
-            {src:"res/fonts/ThonburiBold.eot", type:"embedded-opentype"},
-            {src:"res/fonts/ThonburiBold.ttf",type:"truetype"}]},
-    {fontName:"Courier New",
-        src:[
-            {src:"res/fonts/Courier New.eot", type:"embedded-opentype"},
-            {src:"res/fonts/Courier New.ttf",type:"truetype"}]}
+    {
+        type:"font",
+        name:"Thonburi",
+        srcs:["res/fonts/Thonburi.eot", "res/fonts/Thonburi.ttf"]
+    },
+    {
+        type:"font",
+        name:"Schwarzwald Regular",
+        srcs:["res/fonts/Schwarzwald_Regular.eot", "res/fonts/Schwarzwald Regular.ttf"]
+    },
+    {
+        type:"font",
+        name:"ThonburiBold",
+        srcs:["res/fonts/ThonburiBold.eot", "res/fonts/ThonburiBold.ttf"]
+    },
+    {
+        type:"font",
+        name:"Courier New",
+        srcs:["res/fonts/Courier New.eot", "res/fonts/Courier New.ttf"]
+    }
 ];
 
 var g_extensions = [
@@ -749,7 +751,7 @@ var g_cocoStudio = [
     "res/cocosgui/Hello.png",
     "res/cocosgui/labelatlas.png",
     "res/cocosgui/loadingbar.png",
-    {fontName:"Marker Felt",src:[{src:"res/cocosgui/Marker Felt.ttf",type:"truetype"}]},
+    {type:"font", name:"Marker Felt", srcs:["res/cocosgui/Marker Felt.ttf"]},
     "res/cocosgui/scrollviewbg.png",
     "res/cocosgui/slidbar.png",
     "res/cocosgui/sliderballnormal.png",
