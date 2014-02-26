@@ -210,7 +210,7 @@ var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
         spr_nonpremulti.y = 16;
 
         /* A2 & B2 setup */
-        var rend = cc.RenderTexture.create(32, 64, cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+        var rend = cc.RenderTexture.create(32, 64, cc.Texture2D.PIXEL_FORMAT.RGBA8888);
         if (!rend)
             return;
         // It's possible to modify the RenderTexture blending function by

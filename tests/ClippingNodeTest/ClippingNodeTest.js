@@ -427,9 +427,10 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
             onTouchesBegan: function (touches, event) {
                 if (!touches || touches.length == 0)
                     return;
+	            var target = event.getCurrentTarget();
 
                 var touch = touches[0];
-                var clipper = this.getChildByTag(TAG_CLIPPERNODE);
+                var clipper = target.getChildByTag(TAG_CLIPPERNODE);
                 var point = clipper.convertToNodeSpace(touch.getLocation());
                 var rect = cc.rect(0, 0, clipper.width, clipper.height);
                 this._scrolling = cc.rectContainsPoint(rect, point);
@@ -439,11 +440,12 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
             onTouchesMoved: function (touches, event) {
                 if (!this._scrolling)
                     return;
+	            var target = event.getCurrentTarget();
 
                 if (!touches || touches.length == 0)
                     return;
                 var touch = touches[0];
-                var clipper = this.getChildByTag(TAG_CLIPPERNODE);
+                var clipper = target.getChildByTag(TAG_CLIPPERNODE);
                 var point = clipper.convertToNodeSpace(touch.getLocation());
                 var diff = cc.pSub(point, this._lastPoint);
                 var content = clipper.getChildByTag(TAG_CONTENTNODE);
@@ -728,8 +730,8 @@ var restartClippingNodeTest = function () {
 var ClippingNodeTestScene = TestScene.extend({
     runThisTest:function () {
         clippingNodeTestSceneIdx = -1;
-        var layer = nextClippingNodeTest();
-        this.addChild(layer);
         cc.Director.getInstance().runScene(this);
+	    var layer = nextClippingNodeTest();
+	    this.addChild(layer);
     }
 });

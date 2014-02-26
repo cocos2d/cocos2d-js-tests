@@ -1,14 +1,14 @@
 {
-    "debugMode" : 2,
-    "showFPS" : true,
-    "frameRate" : 60,
-    "id" : "gameCanvas",
-    "renderMode" : 1,
-    "engineDir":"../..//cocos2d",
+    "debugMode"     : 2,
+    "showFPS"       : true,
+    "frameRate"     : 60,
+    "id"            : "gameCanvas",
+    "renderMode"    : 0,
+    "engineDir"     : "../..//cocos2d",
 
-    "modules" : ["extensions", "pluginx", "box2d", "chipmunk"],
+    "modules"       : ["extensions", "pluginx", "box2d", "chipmunk"],
 
-    "jsList" : [
+    "jsList"        : [
         "BaseTestLayer/BaseTestLayer.js",
 
         "tests_resources-html5.js",
