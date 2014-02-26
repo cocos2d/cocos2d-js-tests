@@ -286,9 +286,9 @@ var TestPerformance = ArmatureTestLayer.extend({
         ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
         cc.MenuItemFont.setFontSize(65);
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
-        decrease.setColor(cc.c3b(0, 200, 20));
+        decrease.setColor(cc.color(0, 200, 20));
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
-        increase.setColor(cc.c3b(0, 200, 20));
+        increase.setColor(cc.color(0, 200, 20));
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();

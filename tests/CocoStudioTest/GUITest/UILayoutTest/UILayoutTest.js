@@ -101,7 +101,7 @@ var UILayoutTest_Color = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
         layout.setBackGroundColorType(ccs.LayoutBackGroundColorType.solid);
-        layout.setBackGroundColor(cc.c3b(128, 128, 128));
+        layout.setBackGroundColor(cc.color(128, 128, 128));
         layout.setSize(cc.size(280, 150));
         return layout;
     },
@@ -113,7 +113,7 @@ var UILayoutTest_Gradient = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
         layout.setBackGroundColorType(ccs.LayoutBackGroundColorType.gradient);
-        layout.setBackGroundColor(cc.c3b(64, 64, 64), cc.c3b(192, 192, 192));
+        layout.setBackGroundColor(cc.color(64, 64, 64), cc.color(192, 192, 192));
         layout.setSize(cc.size(280, 150));
         return layout;
     },

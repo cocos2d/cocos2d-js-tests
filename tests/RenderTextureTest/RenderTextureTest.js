@@ -160,7 +160,7 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
                 locBrush.y = location.y + diffY * delta;
                 locBrush.setRotation(Math.random() * 360);
                 locBrush.setScale(Math.random() * 2);
-                locBrush.setColor(cc.c3b(Math.random() * 255, 255, 255));
+                locBrush.setColor(cc.color(Math.random() * 255, 255, 255));
                 locBrush.visit();
             }
             this._target.end();

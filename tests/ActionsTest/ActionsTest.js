@@ -174,11 +174,11 @@ var ActionManual = ActionsDemo.extend({
         this._grossini.setRotation(120);
         this._grossini.x = winSize.width / 2;
 		this._grossini.y = winSize.height / 2;
-        this._grossini.setColor(cc.c3b(255, 0, 0));
+        this._grossini.setColor(cc.color(255, 0, 0));
 
         this._kathia.x = winSize.width - 100;
 		this._kathia.y = winSize.height / 2;
-        this._kathia.setColor(cc.c3b(0, 0, 255));
+        this._kathia.setColor(cc.color(0, 0, 255));
     },
 
     title:function () {

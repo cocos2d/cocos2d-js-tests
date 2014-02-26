@@ -215,7 +215,7 @@ var Issue1358 = MotionStreakTest.extend({
 
         // ask director the the window size
         var size = cc.Director.getInstance().getWinSize();
-        this._streak = cc.MotionStreak.create(2.0, 1.0, 50.0, cc.c3b(255, 255, 0), s_image_icon);
+        this._streak = cc.MotionStreak.create(2.0, 1.0, 50.0, cc.color(255, 255, 0), s_image_icon);
         this.addChild(this._streak);
 
         this._center = cc.p(size.width / 2, size.height / 2);

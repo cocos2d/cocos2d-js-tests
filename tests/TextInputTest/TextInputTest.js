@@ -327,7 +327,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
         // create a insert text sprite and do some action
         var label = cc.LabelTTF.create(text, TEXT_INPUT_FONT_NAME, TEXT_INPUT_FONT_SIZE);
         this.addChild(label);
-        var color = new cc.Color3B(226, 121, 7);
+        var color = cc.color(226, 121, 7);
         label.setColor(color);
 
         // move the sprite from top to position

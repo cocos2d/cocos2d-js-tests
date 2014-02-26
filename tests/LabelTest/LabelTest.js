@@ -169,7 +169,7 @@ var LabelAtlasOpacityColorTest = AtlasDemo.extend({
         this.addChild(label2, 0, TAG_LABEL_SPRITE12);
         label2.x = 10;
         label2.y = 200;
-        label2.setColor(cc.c3b(255, 0, 0));
+        label2.setColor(cc.color(255, 0, 0));
 
         var fade = cc.FadeOut.create(1.0);
         var fade_in = fade.reverse();
@@ -603,7 +603,7 @@ var BMFontTintTest = AtlasDemo.extend({
 
         var label = null;
         label = cc.LabelBMFont.create("Blue", s_resprefix + "fonts/bitmapFontTest5.fnt");
-        label.setColor(cc.c3b(0, 0, 255));
+        label.setColor(cc.color(0, 0, 255));
         this.addChild(label);
         label.x = s.width / 2;
         label.y = s.height / 4;
@@ -614,14 +614,14 @@ var BMFontTintTest = AtlasDemo.extend({
         label.x = s.width / 2;
         label.y = 2 * s.height / 4;
         label.setAnchorPoint(0.5, 0.5);
-        label.setColor(cc.c3b(255, 0, 0));
+        label.setColor(cc.color(255, 0, 0));
 
         label = cc.LabelBMFont.create("G", s_resprefix + "fonts/bitmapFontTest5.fnt");
         this.addChild(label);
         label.x = s.width / 2;
         label.y = 3 * s.height / 4;
         label.setAnchorPoint(0.5, 0.5);
-        label.setColor(cc.c3b(0, 255, 0));
+        label.setColor(cc.color(0, 255, 0));
         label.setString("Green");
     },
     title:function () {
@@ -1021,9 +1021,9 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
         var s = director.getWinSize();
 
         // colors
-        var redColor = cc.c3b(255, 0, 0);
-        var yellowColor = cc.c3b(255, 255, 0);
-        var blueColor = cc.c3b(0, 0, 255);
+        var redColor = cc.color(255, 0, 0);
+        var yellowColor = cc.color(255, 255, 0);
+        var blueColor = cc.color(0, 0, 255);
 
         // shadow offset
         var shadowOffset = cc.p(12, -12);
@@ -1380,7 +1380,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         var stringMenu = cc.Menu.create(longSentences, lineBreaks, mixed);
         stringMenu.alignItemsVertically();
 
-        longSentences.setColor(cc.c3b(255, 0, 0));
+        longSentences.setColor(cc.color(255, 0, 0));
         this.lastSentenceItem = longSentences;
         longSentences.setTag(LongSentences);
         lineBreaks.setTag(LineBreaks);
@@ -1394,7 +1394,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         var alignmentMenu = cc.Menu.create(left, center, right);
         alignmentMenu.alignItemsHorizontallyWithPadding(alignmentItemPadding);
 
-        center.setColor(cc.c3b(255, 0, 0));
+        center.setColor(cc.color(255, 0, 0));
         this.lastAlignmentItem = center;
         left.setTag(LeftAlign);
         center.setTag(CenterAlign);
@@ -1433,8 +1433,8 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         return "";
     },
     onStringChanged:function (sender) {
-        this.lastSentenceItem.setColor(cc.c3b(255, 255, 255));
-        sender.setColor(cc.c3b(255, 0, 0));
+        this.lastSentenceItem.setColor(cc.color(255, 255, 255));
+        sender.setColor(cc.color(255, 0, 0));
         this.lastSentenceItem = sender;
 
         switch (sender.getTag()) {
@@ -1456,8 +1456,8 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
     },
     onAlignmentChanged:function (sender) {
         var item = sender;
-        this.lastAlignmentItem.setColor(cc.c3b(255, 255, 255));
-        item.setColor(cc.c3b(255, 0, 0));
+        this.lastAlignmentItem.setColor(cc.color(255, 255, 255));
+        item.setColor(cc.color(255, 0, 0));
         this.lastAlignmentItem = item;
 
         switch (item.getTag()) {
@@ -1539,7 +1539,7 @@ var LabelTTFA8Test = AtlasDemo.extend({
         // cc.LabelBMFont
         var label1 = cc.LabelTTF.create("Testing A8 Format", "Arial", 48);
         this.addChild(label1);
-        label1.setColor(cc.c3b(255, 0, 0));
+        label1.setColor(cc.color(255, 0, 0));
         label1.x = s.width / 2;
         label1.y = s.height / 2;
 

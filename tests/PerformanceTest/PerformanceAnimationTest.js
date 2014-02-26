@@ -55,7 +55,7 @@ var AnimationMenuLayer = PerformBasicLayer.extend({
         this.addChild(label, 1);
         label.x = s.width / 2;
         label.y = s.height - 32;
-        label.setColor(cc.c3b(255, 255, 40));
+        label.setColor(cc.color(255, 255, 40));
 
         // Subtitle
         var strSubTitle = this.subtitle();
@@ -95,9 +95,9 @@ var AnimationTest = AnimationMenuLayer.extend({
 
         cc.MenuItemFont.setFontSize(65);
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
-        decrease.setColor(cc.c3b(0, 200, 20));
+        decrease.setColor(cc.color(0, 200, 20));
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
-        increase.setColor(cc.c3b(0, 200, 20));
+        increase.setColor(cc.color(0, 200, 20));
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
@@ -106,7 +106,7 @@ var AnimationTest = AnimationMenuLayer.extend({
         this.addChild(menu, 1);
 
         var infoLabel = cc.LabelTTF.create("0 nodes", "Marker Felt", 24);
-        infoLabel.setColor(cc.c3b(0, 200, 20));
+        infoLabel.setColor(cc.color(0, 200, 20));
         infoLabel.x = size.width / 2;
         infoLabel.y = size.height - 90;
         this.addChild(infoLabel, 1, TAG_INFO_LAYER);
