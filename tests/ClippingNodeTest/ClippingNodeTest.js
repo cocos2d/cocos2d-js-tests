@@ -256,7 +256,8 @@ var NestedTest = BaseClippingNodeTest.extend({
             var size = 225 - i * (225 / (depth * 2));
 
             var clipper = cc.ClippingNode.create();
-            clipper.setContentSize(size, size);
+            clipper.width = size;
+	        clipper.height = size;
             clipper.setAnchorPoint(0.5, 0.5);
             clipper.x = parent.width / 2;
             clipper.y = parent.height / 2;
@@ -289,12 +290,11 @@ var HoleDemo = BaseClippingNodeTest.extend({
         target.setAnchorPoint(0,0);
         target.setScale(3);
 
-        var size = target.getContentSize();
         var scale = target.getScale();
         var stencil = cc.DrawNode.create();
-        var rectangle = [cc.p(0, 0),cc.p(size.width*scale, 0),
-            cc.p(size.width*scale, size.height*scale),
-            cc.p(0, size.height*scale)];
+        var rectangle = [cc.p(0, 0),cc.p(target.width*scale, 0),
+            cc.p(target.width*scale, target.height*scale),
+            cc.p(0, target.height*scale)];
         stencil.drawPoly(rectangle, cc.c4f(1, 0, 0, 1), 0, cc.c4f(1, 1, 1, 0));
 
         this._outerClipper = cc.ClippingNode.create();
@@ -302,7 +302,9 @@ var HoleDemo = BaseClippingNodeTest.extend({
         var transform = cc.AffineTransformMakeIdentity();
         transform = cc.AffineTransformScale(transform, target.getScale(), target.getScale());
 
-        this._outerClipper.setContentSize(cc.SizeApplyAffineTransform(target.getContentSize(), transform));
+	    var ocsize = cc.SizeApplyAffineTransform(cc.size(target.width, target.height), transform);
+        this._outerClipper.width = ocsize.width;
+	    this._outerClipper.height = ocsize.height;
         this._outerClipper.setAnchorPoint(0.5, 0.5);
         this._outerClipper.x = this.width * 0.5;
 	    this._outerClipper.y = this.height * 0.5;
@@ -334,7 +336,7 @@ var HoleDemo = BaseClippingNodeTest.extend({
                 var target = event.getCurrentTarget();
                 var touch = touches[0];
                 var point = target._outerClipper.convertToNodeSpace(touch.getLocation());
-                var rect = cc.rect(0, 0, target._outerClipper.getContentSize().width, target._outerClipper.getContentSize().height);
+                var rect = cc.rect(0, 0, target._outerClipper.width, target._outerClipper.height);
                 if (!cc.rectContainsPoint(rect,point))
                     return;
                 target.pokeHoleAtPoint(point);
@@ -388,7 +390,8 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
     setup:function () {
         var clipper = cc.ClippingNode.create();
         clipper.setTag(TAG_CLIPPERNODE);
-        clipper.setContentSize(200, 200);
+        clipper.width = 200;
+	    clipper.height = 200;
         clipper.setAnchorPoint(0.5, 0.5);
         clipper.x = this.width / 2;
         clipper.y = this.height / 2;
@@ -396,9 +399,9 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
         this.addChild(clipper);
 
         var stencil = cc.DrawNode.create();
-        var rectangle = [cc.p(0, 0),cc.p(clipper.getContentSize().width, 0),
-            cc.p(clipper.getContentSize().width, clipper.getContentSize().height),
-            cc.p(0, clipper.getContentSize().height)];
+        var rectangle = [cc.p(0, 0),cc.p(clipper.width, 0),
+            cc.p(clipper.width, clipper.height),
+            cc.p(0, clipper.height)];
 
         var white = cc.c4f(1, 1, 1, 1);
         stencil.drawPoly(rectangle, white, 1, white);
@@ -421,7 +424,7 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
                 var touch = touches[0];
                 var clipper = this.getChildByTag(TAG_CLIPPERNODE);
                 var point = clipper.convertToNodeSpace(touch.getLocation());
-                var rect = cc.rect(0, 0, clipper.getContentSize().width, clipper.getContentSize().height);
+                var rect = cc.rect(0, 0, clipper.width, clipper.height);
                 this._scrolling = cc.rectContainsPoint(rect, point);
                 this._lastPoint = point;
             },

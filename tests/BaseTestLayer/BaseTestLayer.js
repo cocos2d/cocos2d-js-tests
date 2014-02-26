@@ -132,13 +132,13 @@ var BaseTestLayer = cc.LayerGradient.extend({
 
         menu.x = 0;
         menu.y = 0;
-        var cs = item2.getContentSize();
-        item1.x =  winSize.width/2 - cs.width*2;
-        item1.y = cs.height/2 ;
+        var width = item2.width, height = item2.height;
+        item1.x =  winSize.width/2 - width*2;
+        item1.y = height/2 ;
         item2.x =  winSize.width/2;
-        item2.y = cs.height/2 ;
-        item3.x =  winSize.width/2 + cs.width*2;
-        item3.y = cs.height/2 ;
+        item2.y = height/2 ;
+        item3.x =  winSize.width/2 + width*2;
+        item3.y = height/2 ;
 
         this.addChild(menu, 102, BASE_TEST_MENU_TAG);
     },

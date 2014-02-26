@@ -27,7 +27,6 @@ var UIListViewTest_Vertical = UIScene.extend({
         if (this._super()) {
             var widgetSize = this._widget.getSize();
             var background = this._uiLayer.getWidgetByName("background_Panel");
-            var backgroundSize = background.getContentSize();
 
             this._array = [];
             for (var i = 0; i < 20; ++i) {
@@ -43,8 +42,8 @@ var UIListViewTest_Vertical = UIScene.extend({
             listView.setBackGroundImage("res/cocosgui/green_edit.png");
             listView.setBackGroundImageScale9Enabled(true);
             listView.setSize(cc.size(240, 130));
-            listView.x = (widgetSize.width - backgroundSize.width) / 2 + (backgroundSize.width - listView.width) / 2;
-            listView.y = (widgetSize.height - backgroundSize.height) / 2 + (backgroundSize.height - listView.height) / 2;
+            listView.x = (widgetSize.width - background.width) / 2 + (background.width - listView.width) / 2;
+            listView.y = (widgetSize.height - background.height) / 2 + (background.height - listView.height) / 2;
             listView.addEventListenerListView(this.selectedItemEvent, this);
             this._uiLayer.addWidget(listView);
 
@@ -156,7 +155,6 @@ var UIListViewTest_Horizontal = UIScene.extend({
         if (this._super()) {
             var widgetSize = this._widget.getSize();
             var background = this._uiLayer.getWidgetByName("background_Panel");
-            var backgroundSize = background.getContentSize();
             // create list view ex data
             this._array = [];
             for (var i = 0; i < 20; ++i) {
@@ -173,8 +171,8 @@ var UIListViewTest_Horizontal = UIScene.extend({
             listView.setBackGroundImage("res/cocosgui/green_edit.png");
             listView.setBackGroundImageScale9Enabled(true);
             listView.setSize(cc.size(240, 130));
-            listView.x = (widgetSize.width - backgroundSize.width) / 2 + (backgroundSize.width - listView.width) / 2;
-            listView.y = (widgetSize.height - backgroundSize.height) / 2 + (backgroundSize.height - listView.height) / 2;
+            listView.x = (widgetSize.width - background.width) / 2 + (background.width - listView.width) / 2;
+            listView.y = (widgetSize.height - background.height) / 2 + (background.height - listView.height) / 2;
             listView.addEventListenerListView(this.selectedItemEvent, this);
             this._uiLayer.addWidget(listView);
 

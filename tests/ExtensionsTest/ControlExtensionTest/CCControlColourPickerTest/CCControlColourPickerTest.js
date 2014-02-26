@@ -50,16 +50,17 @@ var ControlColourPickerTest = ControlScene.extend({
             colourPicker.addTargetWithActionForControlEvents(this,this.colourValueChanged,  cc.CONTROL_EVENT_VALUECHANGED);
 
 
-            layer_width += colourPicker.getContentSize().width;
+            layer_width += colourPicker.width;
 
             // Add the black background for the text
             var background = cc.Scale9Sprite.create("res/extensions/buttonBackground.png");
-            background.setContentSize(150, 50);
+            background.width = 150;
+	        background.height = 50;
             background.x = layer_width + background.width / 2.0;
             background.y = 0;
             layer.addChild(background);
 
-            layer_width += background.getContentSize().width;
+            layer_width += background.width;
 
             this._colorLabel = cc.LabelTTF.create("#color", "Marker Felt", 30);
             this._colorLabel.retain();
@@ -69,7 +70,8 @@ var ControlColourPickerTest = ControlScene.extend({
             layer.addChild(this._colorLabel);
 
             // Set the layer size
-            layer.setContentSize(layer_width, 0);
+            layer.width = layer_width;
+	        layer.height = 0;
             layer.setAnchorPoint(0.5, 0.5);
 
             // Update the color text

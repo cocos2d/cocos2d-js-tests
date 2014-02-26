@@ -51,7 +51,7 @@ var EnemyController = ccs.ComController.extend({
         var actualDuration = ( Math.random() % rangeDuration ) + minDuration;
 
         // Create the actions
-        var actionMove = cc.MoveTo.create(actualDuration, cc.p(0 - this.getOwner().getContentSize().width / 2, actualY));
+        var actionMove = cc.MoveTo.create(actualDuration, cc.p(0 - this.getOwner().width / 2, actualY));
         var actionMoveDone = cc.CallFunc.create(function () {
             var comController = this.getOwner().getParent().getComponent("SceneController");
             comController.spriteMoveFinished(this._owner);

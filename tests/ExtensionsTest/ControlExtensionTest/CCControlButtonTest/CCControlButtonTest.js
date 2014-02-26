@@ -67,13 +67,15 @@ var ControlButtonTest_HelloVariableSize = ControlScene.extend({
             }
 
             layer.setAnchorPoint(0.5, 0.5);
-            layer.setContentSize(total_width, height);
+            layer.width = total_width;
+            layer.height = height;
             layer.x = screenSize.width / 2.0;
             layer.y = screenSize.height / 2.0;
 
             // Add the black background
             var background = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-            background.setContentSize(total_width + 14, height + 14);
+            background.width = total_width + 14;
+            background.height = height + 14;
             background.x = screenSize.width / 2.0;
             background.y = screenSize.height / 2.0;
             this.addChild(background);
@@ -141,7 +143,8 @@ var ControlButtonTest_Event = ControlScene.extend({
 
             // Add the black background
             var background = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-            background.setContentSize(300, 170);
+            background.width = 300;
+            background.height = 170;
             background.x = screenSize.width / 2.0;
             background.y = screenSize.height / 2.0;
             this.addChild(background);
@@ -230,13 +233,15 @@ var ControlButtonTest_Styling = ControlScene.extend({
             }
 
             layer.setAnchorPoint(0.5, 0.5);
-            layer.setContentSize(max_w, max_h);
+            layer.width = max_w;
+            layer.height = max_h;
             layer.x = screenSize.width / 2.0;
             layer.y = screenSize.height / 2.0;
 
             // Add the black background
             var backgroundButton = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-            backgroundButton.setContentSize(max_w + 14, max_h + 14);
+            backgroundButton.width = max_w + 14;
+            backgroundButton.height = max_h + 14;
             backgroundButton.x = screenSize.width / 2.0;
             backgroundButton.y = screenSize.height / 2.0;
             this.addChild(backgroundButton);

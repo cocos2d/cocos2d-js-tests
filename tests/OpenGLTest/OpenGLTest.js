@@ -557,7 +557,8 @@ var ShaderNode = cc.GLNode.extend({
         this.init();
 
         if( 'opengl' in sys.capabilities ) {
-            this.setContentSize(256,256);
+            this.width = 256;
+	        this.height = 256;
             this.setAnchorPoint(0.5, 0.5);
 
             this.shader = cc.GLProgram.create(vertexShader, framentShader);
@@ -963,7 +964,8 @@ var TexImage2DTest = OpenGLTestLayer.extend({
             this.glnode = glnode;
             glnode.x = winSize.width/2;
             glnode.y = winSize.height/2;
-            glnode.setContentSize(128,128);
+            glnode.width = 128;
+	        glnode.height = 128;
             glnode.setAnchorPoint(0.5,0.5);
 
             this.shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTexture");

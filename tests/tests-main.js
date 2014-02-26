@@ -135,7 +135,8 @@ var TestController = cc.LayerGradient.extend({
             }
         }
 
-        this._itemMenu.setContentSize(winSize.width, (testNames.length + 1) * LINE_SPACE);
+        this._itemMenu.width = winSize.width;
+	    this._itemMenu.height = (testNames.length + 1) * LINE_SPACE;
         this._itemMenu.x = curPos.x;
 	    this._itemMenu.y = curPos.y;
         this.addChild(this._itemMenu);

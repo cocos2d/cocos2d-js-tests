@@ -77,7 +77,6 @@ var CCNodeTest2 = TestNodeDemo.extend({
         var sp4 = cc.Sprite.create(s_pathSister2);
 
         sp1.x = winSize.width / 4;
-
         sp1.y = winSize.height / 2;
         sp2.x = winSize.width / 4 * 3;
         sp2.y = winSize.height / 2;
@@ -252,7 +251,6 @@ var CCNodeTest6 = TestNodeDemo.extend({
         var sp21 = cc.Sprite.create(s_pathSister2);
 
         sp1.x = 150;
-
         sp1.y = winSize.height / 2;
         sp2.x = winSize.width - 150;
         sp2.y = winSize.height / 2;
@@ -323,10 +321,10 @@ var StressTest1 = TestNodeDemo.extend({
 
         var sp1 = cc.Sprite.create(s_pathSister1);
         this.addChild(sp1, 0, TAG_SPRITE1);
-        this.setContentSize(0, 0);
+        this.width = 0
+	    this.height = 0;
 
         sp1.x = winSize.width / 2;
-
         sp1.y = winSize.height / 2;
 
         this.schedule(this.onShouldNotCrash, 1.0);
@@ -339,7 +337,6 @@ var StressTest1 = TestNodeDemo.extend({
         explosion.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
 
         explosion.x = winSize.width / 2;
-
         explosion.y = winSize.height / 2;
 
         this.runAction(cc.Sequence.create(
@@ -425,13 +422,12 @@ var NodeToWorld = TestNodeDemo.extend({
         var back = cc.Sprite.create(s_back3);
         this.addChild(back, 5);
         back.setAnchorPoint(0, 0);
-        var backSize = back.getContentSize();
 
         var item = cc.MenuItemImage.create(s_playNormal, s_playSelect, this.onClicked);
         var menu = cc.Menu.create(item);
         menu.alignItemsVertically();
-        menu.x = backSize.width / 2;
-        menu.y = backSize.height / 2;
+        menu.x = back.width / 2;
+        menu.y = back.height / 2;
         back.addChild(menu);
 
         var rot = cc.RotateBy.create(3, 360);
@@ -483,12 +479,12 @@ var CameraOrbitTest = TestNodeDemo.extend({
         p.setOpacity(128);
 
         // LEFT
-        var s = p.getContentSize();
+        var sw = p.width, sh = p.height;
         var sprite = cc.Sprite.create(s_pathGrossini);
         sprite.setScale(0.5);
         p.addChild(sprite, 0);
-        sprite.x = s.width / 4;
-        sprite.y = s.height / 2;
+        sprite.x = sw / 4;
+        sprite.y = sh / 2;
         var orbit = cc.OrbitCamera.create(2, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
@@ -496,8 +492,8 @@ var CameraOrbitTest = TestNodeDemo.extend({
         sprite = cc.Sprite.create(s_pathGrossini);
         sprite.setScale(1.0);
         p.addChild(sprite, 0);
-        sprite.x = s.width / 4 * 2;
-        sprite.y = s.height / 2;
+        sprite.x = sw / 4 * 2;
+        sprite.y = sh / 2;
         orbit = cc.OrbitCamera.create(2, 1, 0, 0, 360, 45, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
@@ -505,8 +501,8 @@ var CameraOrbitTest = TestNodeDemo.extend({
         sprite = cc.Sprite.create(s_pathGrossini);
         sprite.setScale(2.0);
         p.addChild(sprite, 0);
-        sprite.x = s.width / 4 * 3;
-        sprite.y = s.height / 2;
+        sprite.x = sw / 4 * 3;
+        sprite.y = sh / 2;
         orbit = cc.OrbitCamera.create(2, 1, 0, 0, 360, 90, -45);
         sprite.runAction(cc.RepeatForever.create(orbit));
 

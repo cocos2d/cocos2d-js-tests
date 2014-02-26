@@ -693,34 +693,27 @@ var BMFontSpeedTest = AtlasDemo.extend({
 var BMFontMultiLineTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
-        var s;
 
         // Left
         var label1 = cc.LabelBMFont.create("Multi line\nLeft", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label1.setAnchorPoint(0, 0);
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
-
-        s = label1.getContentSize();
-        cc.log("content size:" + s.width + "," + s.height);
+        cc.log("content size:" + label1.width + "," + label1.height);
 
 
         // Center
         var label2 = cc.LabelBMFont.create("Multi line\nCenter", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label2.setAnchorPoint(0.5, 0.5);
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
-
-        s = label2.getContentSize();
-        cc.log("content size:" + s.width + "," + s.height);
+        cc.log("content size:" + label2.width + "," + label2.height);
 
         // right
         var label3 = cc.LabelBMFont.create("Multi line\nRight\nThree lines Three", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label3.setAnchorPoint(1, 1);
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
+        cc.log("content size:" + label3.width + "," + label3.height);
 
-        s = label3.getContentSize();
-        cc.log("content size:" + s.width + "," + s.height);
-
-        s = director.getWinSize();
+        var s = director.getWinSize();
         label1.x = 0;
         label1.y = 0;
         label2.x = s.width / 2;
@@ -770,7 +763,6 @@ var BMFontMultiLineTest = AtlasDemo.extend({
 var BMFontMultiLine2Test = AtlasDemo.extend({
     ctor:function () {
         this._super();
-        var s;
 
         // Left
         var label1 = cc.LabelBMFont.create("Multi line\n\nAligned to the left", s_resprefix + "fonts/bitmapFontTest3.fnt");
@@ -778,8 +770,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         label1.setAlignment(cc.TEXT_ALIGNMENT_LEFT);
         label1.boundingWidth = 400;
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
-        s = label1.getContentSize();
-        cc.log("content size:" + s.width + "," + s.height);
+        cc.log("content size:" + label1.width + "," + label1.height);
 
 
         // Center
@@ -788,8 +779,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         label2.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
         label2.boundingWidth = 290;
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
-        s = label2.getContentSize();
-        cc.log("content size:" + s.width + "," + s.height);
+        cc.log("content size:" + label2.width + "," + label2.height);
 
         // right
         var label3 = cc.LabelBMFont.create("Multi line\n\nAligned to the right", s_resprefix + "fonts/bitmapFontTest3.fnt");
@@ -797,11 +787,9 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         label3.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
         label3.boundingWidth = 400;
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
+        cc.log("content size:" + label3.width + "," + label3.height);
 
-        s = label3.getContentSize();
-        cc.log("content size:" + s.width + "," + s.height);
-
-        s = director.getWinSize();
+        var s = director.getWinSize();
         label1.x = 0;
         label1.y = 0;
         label2.x = s.width / 2;
@@ -1407,7 +1395,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         this.arrowsBarShouldRetain.setVisible(false);
 
         var arrowsWidth = (ArrowsMax - ArrowsMin) * size.width;
-        this.arrowsBarShouldRetain.setScaleX(arrowsWidth / this.arrowsBarShouldRetain.getContentSize().width);
+        this.arrowsBarShouldRetain.setScaleX(arrowsWidth / this.arrowsBarShouldRetain.width);
         this.arrowsBarShouldRetain.setAnchorPoint(0, 0.5);
         this.arrowsBarShouldRetain.x = ArrowsMin * size.width;
         this.arrowsBarShouldRetain.y = this.labelShouldRetain.y;

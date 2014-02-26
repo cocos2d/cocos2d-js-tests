@@ -165,7 +165,8 @@ var CocosDenshionTest = cc.LayerGradient.extend({
             menuItem.y = winSize.height - (i + 1) * LINE_SPACE;
         }
         this._testCount = i;
-        this._itemMenu.setContentSize(winSize.width, (this._testCount + 1) * LINE_SPACE);
+        this._itemMenu.width = winSize.width;
+	    this._itemMenu.height = (this._testCount + 1) * LINE_SPACE;
         this._itemMenu.x = 0;
         this._itemMenu.y = 0;
         this.addChild(this._itemMenu);

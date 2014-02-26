@@ -61,9 +61,8 @@ var PatternSprite = cc.Sprite.extend({
             }
 
             if (this.m_extraTypeSpr != null){
-                var size = this.getContentSize();
-                this.m_extraTypeSpr.x = size.width/2;
-	            this.m_extraTypeSpr.y = size.height/2;
+                this.m_extraTypeSpr.x = this.width/2;
+	            this.m_extraTypeSpr.y = this.height/2;
                 this.addChild(this.m_extraTypeSpr);
             }
             bRet = true;

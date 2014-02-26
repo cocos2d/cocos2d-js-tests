@@ -335,11 +335,10 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
         if (sender.getCharCount()) {
 	        endX += sender.width / 2;
         }
-        var inputTextSize = label.getContentSize();
 
         var duration = 0.5;
 	    label.x = endX;
-	    label.y = cc.Director.getInstance().getWinSize().height - inputTextSize.height * 2;
+	    label.y = cc.Director.getInstance().getWinSize().height - label.height * 2;
         label.setScale(8);
 
         var seq = cc.Sequence.create(
@@ -359,9 +358,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
 
         // move the sprite to fly out
         var beginX = sender.x, beginY = sender.y;
-        var textfieldSize = sender.getContentSize();
-        var labelSize = label.getContentSize();
-	    beginX += (textfieldSize.width - labelSize.width) / 2.0;
+	    beginX += (sender.width - label.width) / 2.0;
 
         var winSize = cc.Director.getInstance().getWinSize();
         var endPos = cc.p(-winSize.width / 4.0, winSize.height * (0.5 + Math.random() / 2.0));

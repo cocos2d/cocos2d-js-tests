@@ -40,9 +40,8 @@ var UIPageViewTest = UIScene.extend({
             var pageView = ccs.PageView.create();
             pageView.setTouchEnabled(true);
             pageView.setSize(cc.size(240, 130));
-            var backgroundSize = background.getContentSize();
-            pageView.x = (widgetSize.width - backgroundSize.width) / 2 + (backgroundSize.width - pageView.width) / 2;
-            pageView.y = (widgetSize.height - backgroundSize.height) / 2 + (backgroundSize.height - pageView.height) / 2;
+            pageView.x = (widgetSize.width - background.width) / 2 + (background.width - pageView.width) / 2;
+            pageView.y = (widgetSize.height - background.height) / 2 + (background.height - pageView.height) / 2;
 
             for (var i = 0; i < 3; ++i) {
                 var layout = ccs.Layout.create();

@@ -115,10 +115,10 @@ var LayerTest1 = LayerTest.extend({
     },
 
     updateSize:function (location) {
-        var newSize = cc.size(Math.abs(location.x - winSize.width / 2) * 2, Math.abs(location.y - winSize.height / 2) * 2);
         var l = this.getChildByTag(cc.TAG_LAYER);
 
-        l.setContentSize(newSize);
+        l.width = Math.abs(location.x - winSize.width / 2) * 2;
+	    l.height = Math.abs(location.y - winSize.height / 2) * 2;
     },
 
     // events

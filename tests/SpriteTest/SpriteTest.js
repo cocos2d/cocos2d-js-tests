@@ -838,50 +838,50 @@ var SpriteBatchNodeReorderIssue767 = SpriteTestDemo.extend({
         l1.x = winSize.width / 2;
         l1.y = winSize.height / 2;
         aParent.addChild(l1, 0, TAG_SPRITE2);
-        var l1Size = l1.getContentSize();
+        var l1W = l1.width, l1H = l1.height;
 
         // child left
         var l2a = cc.Sprite.create(spriteFrameCache.getSpriteFrame("sister1.gif"));
-        l2a.x = -25 + l1Size.width / 2;
-        l2a.y = 0 + l1Size.height / 2;
+        l2a.x = -25 + l1W / 2;
+        l2a.y = 0 + l1H / 2;
         l1.addChild(l2a, -1, TAG_SPRITE_LEFT);
-        var l2aSize = l2a.getContentSize();
+        var l2aW = l2a.width, l2aH = l2a.height;
 
 
         // child right
         var l2b = cc.Sprite.create(spriteFrameCache.getSpriteFrame("sister2.gif"));
-        l2b.x = 25 + l1Size.width / 2;
-        l2b.y = 0 + l1Size.height / 2;
+        l2b.x = 25 + l1W / 2;
+        l2b.y = 0 + l1H / 2;
         l1.addChild(l2b, 1, TAG_SPRITE_RIGHT);
-        var l2bSize = l2a.getContentSize();
+        var l2bW = l2b.width, l2bH = l2b.height;
 
 
         // child left bottom
         var l3a1 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a1.setScale(0.65);
-        l3a1.x = 0 + l2aSize.width / 2;
-        l3a1.y = -50 + l2aSize.height / 2;
+        l3a1.x = 0 + l2aW / 2;
+        l3a1.y = -50 + l2aH / 2;
         l2a.addChild(l3a1, -1);
 
         // child left top
         var l3a2 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a2.setScale(0.65);
-        l3a2.x = 0 + l2aSize.width / 2;
-        l3a2.y = +50 + l2aSize.height / 2;
+        l3a2.x = 0 + l2aW / 2;
+        l3a2.y = +50 + l2aH / 2;
         l2a.addChild(l3a2, 1);
 
         // child right bottom
         var l3b1 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b1.setScale(0.65);
-        l3b1.x = 0 + l2bSize.width / 2;
-        l3b1.y = -50 + l2bSize.height / 2;
+        l3b1.x = 0 + l2bW / 2;
+        l3b1.y = -50 + l2bH / 2;
         l2b.addChild(l3b1, -1);
 
         // child right top
         var l3b2 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b2.setScale(0.65);
-        l3b2.x = 0 + l2bSize.width / 2;
-        l3b2.y = +50 + l2bSize.height / 2;
+        l3b2.x = 0 + l2bW / 2;
+        l3b2.y = +50 + l2bH / 2;
         l2b.addChild(l3b2, 1);
 
         this.schedule(this.reorderSprites, 1);
@@ -972,7 +972,8 @@ var SpriteZVertex = SpriteTestDemo.extend({
 
             var node = cc.Node.create();
             // camera uses the center of the image as the pivoting point
-            node.setContentSize(winSize.width, winSize.height);
+            node.width = winSize.width;
+	        node.height = winSize.height;
             node.setAnchorPoint(0.5, 0.5);
             node.x = winSize.width / 2;
             node.y = winSize.height / 2;
@@ -1089,7 +1090,8 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
             // Don't use capacity=1 in your real game. It is expensive to resize the capacity
             var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 1);
             // camera uses the center of the image as the pivoting point
-            batch.setContentSize(winSize.width, winSize.height);
+            batch.width = winSize.width;
+	        batch.height = winSize.height;
             batch.setAnchorPoint(0.5, 0.5);
             batch.x = winSize.width / 2;
             batch.y = winSize.height / 2;
@@ -1311,7 +1313,8 @@ var Sprite6 = SpriteTestDemo.extend({
         batch.ignoreAnchorPointForPosition(true);
 
         batch.setAnchorPoint(0.5, 0.5);
-        batch.setContentSize(winSize.width, winSize.height);
+        batch.width = winSize.width;
+	    batch.height = winSize.height;
 
         // SpriteBatchNode actions
         var rotate1 = cc.RotateBy.create(5, 360);
@@ -3912,54 +3915,54 @@ var SpriteChildrenChildren = SpriteTestDemo.extend({
         l1.y = winSize.height / 2;
         l1.runAction(seq.clone());
         aParent.addChild(l1);
-        var l1Size = l1.getContentSize();
+        var l1W = l1.width, l1H = l1.height;
 
         // child left
         var l2a = cc.Sprite.create(spriteFrameCache.getSpriteFrame("sister1.gif"));
-        l2a.x = -50 + l1Size.width / 2;
-        l2a.y = 0 + l1Size.height / 2;
+        l2a.x = -50 + l1W / 2;
+        l2a.y = 0 + l1H / 2;
         l2a.runAction(rot_back_fe.clone());
         l1.addChild(l2a);
-        var l2aSize = l2a.getContentSize();
+        var l2aW = l2a.width, l2aH = l2a.height;
 
 
         // child right
         var l2b = cc.Sprite.create(spriteFrameCache.getSpriteFrame("sister2.gif"));
-        l2b.x = +50 + l1Size.width / 2;
-        l2b.y = 0 + l1Size.height / 2;
+        l2b.x = +50 + l1W / 2;
+        l2b.y = 0 + l1H / 2;
         l2b.runAction(rot_back_fe.clone());
         l1.addChild(l2b);
-        var l2bSize = l2a.getContentSize();
+        var l2bW = l2b.width, l2bH = l2b.height;
 
 
         // child left bottom
         var l3a1 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a1.setScale(0.45);
-        l3a1.x = 0 + l2aSize.width / 2;
-        l3a1.y = -100 + l2aSize.height / 2;
+        l3a1.x = 0 + l2aW / 2;
+        l3a1.y = -100 + l2aH / 2;
         l2a.addChild(l3a1);
 
         // child left top
         var l3a2 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a2.setScale(0.45);
-        l3a2.x = 0 + l2aSize.width / 2;
-        l3a2.y = +100 + l2aSize.height / 2;
+        l3a2.x = 0 + l2aW / 2;
+        l3a2.y = +100 + l2aH / 2;
         l2a.addChild(l3a2);
 
         // child right bottom
         var l3b1 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b1.setScale(0.45);
         l3b1.setFlippedY(true);
-        l3b1.x = 0 + l2bSize.width / 2;
-        l3b1.y = -100 + l2bSize.height / 2;
+        l3b1.x = 0 + l2bW / 2;
+        l3b1.y = -100 + l2bH / 2;
         l2b.addChild(l3b1);
 
         // child right top
         var l3b2 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b2.setScale(0.45);
         l3b2.setFlippedY(true);
-        l3b2.x = 0 + l2bSize.width / 2;
-        l3b2.y = +100 + l2bSize.height / 2;
+        l3b2.x = 0 + l2bW / 2;
+        l3b2.y = +100 + l2bH / 2;
         l2b.addChild(l3b2);
     },
     //
@@ -4018,54 +4021,54 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         l1.y = winSize.height / 2;
         l1.runAction(seq.clone());
         aParent.addChild(l1);
-        var l1Size = l1.getContentSize();
+        var l1W = l1.width, l1H = l1.height;
 
         // child left
         var l2a = cc.Sprite.create(spriteFrameCache.getSpriteFrame("sister1.gif"));
-        l2a.x = -50 + l1Size.width / 2;
-        l2a.y = 0 + l1Size.height / 2;
+        l2a.x = -50 + l1W / 2;
+        l2a.y = 0 + l1H / 2;
         l2a.runAction(rot_back_fe.clone());
         l1.addChild(l2a);
-        var l2aSize = l2a.getContentSize();
+        var l2aW = l2a.width, l2aH = l2a.height;
 
 
         // child right
         var l2b = cc.Sprite.create(spriteFrameCache.getSpriteFrame("sister2.gif"));
-        l2b.x = 50 + l1Size.width / 2;
-        l2b.y = 0 + l1Size.height / 2;
+        l2b.x = 50 + l1W / 2;
+        l2b.y = 0 + l1H / 2;
         l2b.runAction(rot_back_fe.clone());
         l1.addChild(l2b);
-        var l2bSize = l2a.getContentSize();
+        var l2bW = l2b.width, l2bH = l2b.height;
 
 
         // child left bottom
         var l3a1 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a1.setScale(0.45);
-        l3a1.x = 0 + l2aSize.width / 2;
-        l3a1.y = -100 + l2aSize.height / 2;
+        l3a1.x = 0 + l2aW / 2;
+        l3a1.y = -100 + l2aH / 2;
         l2a.addChild(l3a1);
 
         // child left top
         var l3a2 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3a2.setScale(0.45);
-        l3a2.x = 0 + l2aSize.width / 2;
-        l3a2.y = +100 + l2aSize.height / 2;
+        l3a2.x = 0 + l2aW / 2;
+        l3a2.y = +100 + l2aH / 2;
         l2a.addChild(l3a2);
 
         // child right bottom
         var l3b1 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b1.setScale(0.45);
         l3b1.setFlippedY(true);
-        l3b1.x = 0 + l2bSize.width / 2;
-        l3b1.y = -100 + l2bSize.height / 2;
+        l3b1.x = 0 + l2bW / 2;
+        l3b1.y = -100 + l2bH / 2;
         l2b.addChild(l3b1);
 
         // child right top
         var l3b2 = cc.Sprite.create(spriteFrameCache.getSpriteFrame("child1.gif"));
         l3b2.setScale(0.45);
         l3b2.setFlippedY(true);
-        l3b2.x = 0 + l2bSize.width / 2;
-        l3b2.y = +100 + l2bSize.height / 2;
+        l3b2.x = 0 + l2bW / 2;
+        l3b2.y = +100 + l2bH / 2;
         l2b.addChild(l3b2);
     },
     //
@@ -4514,36 +4517,36 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
         l1.y = winSize.height / 2;
 
         aParent.addChild(l1);
-        var l1Size = l1.getContentSize();
+        var l1W = l1.width, l1H = l1.height;
 
         // child left
         var l2a = cc.Sprite.create("frame#sister1.gif");
-        l2a.x = -10 + l1Size.width / 2;
-        l2a.y = 0 + l1Size.height / 2;
+        l2a.x = -10 + l1W / 2;
+        l2a.y = 0 + l1H / 2;
 
         l1.addChild(l2a, 1);
-        var l2aSize = l2a.getContentSize();
+	    var l2aW = l2a.width, l2aH = l2a.height;
 
         // child right
         var l2b = cc.Sprite.create("frame#sister2.gif");
-        l2b.x = +50 + l1Size.width / 2;
-        l2b.y = 0 + l1Size.height / 2;
+        l2b.x = +50 + l1W / 2;
+        l2b.y = 0 + l1H / 2;
 
         l1.addChild(l2b, 2);
-        var l2bSize = l2a.getContentSize();
+        var l2bW = l2b.width, l2bH = l2b.height;
 
         // child left bottom
         var l3a1 = cc.Sprite.create("frame#child1.gif");
         l3a1.setScale(0.45);
-        l3a1.x = 0 + l2aSize.width / 2;
-        l3a1.y = -50 + l2aSize.height / 2;
+        l3a1.x = 0 + l2aW / 2;
+        l3a1.y = -50 + l2aH / 2;
         l2a.addChild(l3a1, 1);
 
         // child left top
         var l3a2 = cc.Sprite.create("frame#child1.gif");
         l3a2.setScale(0.45);
-        l3a2.x = 0 + l2aSize.width / 2;
-        l3a2.y = +50 + l2aSize.height / 2;
+        l3a2.x = 0 + l2aW / 2;
+        l3a2.y = +50 + l2aH / 2;
         l2a.addChild(l3a2, 2);
 
         this._reoderSprite = l2a;
@@ -4552,16 +4555,16 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
         var l3b1 = cc.Sprite.create("frame#child1.gif");
         l3b1.setScale(0.45);
         l3b1.setFlippedY(true);
-        l3b1.x = 0 + l2bSize.width / 2;
-        l3b1.y = -50 + l2bSize.height / 2;
+        l3b1.x = 0 + l2bW / 2;
+        l3b1.y = -50 + l2bH / 2;
         l2b.addChild(l3b1);
 
         // child right top
         var l3b2 = cc.Sprite.create("frame#child1.gif");
         l3b2.setScale(0.45);
         l3b2.setFlippedY(true);
-        l3b2.x = 0 + l2bSize.width / 2;
-        l3b2.y = 50 + l2bSize.height / 2;
+        l3b2.x = 0 + l2bW / 2;
+        l3b2.y = 50 + l2bH / 2;
         l2b.addChild(l3b2);
 
         this.scheduleOnce(this.reorderSprite, 2.0);
@@ -4728,6 +4731,20 @@ var DoubleSprite = cc.Sprite.extend({
         }
         this._super(newSize);
     },
+	_setWidth:function (value) {
+		// If Retina Display and Texture is in HD then scale the vertex rect
+		if (cc.CONTENT_SCALE_FACTOR() == 2 && !this.HD) {
+			value *= 2;
+		}
+		this._super(value);
+	},
+	_setHeight:function (value) {
+		// If Retina Display and Texture is in HD then scale the vertex rect
+		if (cc.CONTENT_SCALE_FACTOR() == 2 && !this.HD) {
+			value *= 2;
+		}
+		this._super(value);
+	},
 
     setVertexRect:function (rect) {
         // If Retina Display and Texture is in HD then scale the vertex rect
@@ -4738,6 +4755,9 @@ var DoubleSprite = cc.Sprite.extend({
         this._super(rect);
     }
 });
+
+cc.defineGetterSetter(DoubleSprite.prototype, "width", DoubleSprite.prototype._getWidth, DoubleSprite.prototype._setWidth);
+cc.defineGetterSetter(DoubleSprite.prototype, "height", DoubleSprite.prototype._getHeight, DoubleSprite.prototype._setHeight);
 
 DoubleSprite.create = function (fileName) {
     var pSp = new DoubleSprite();

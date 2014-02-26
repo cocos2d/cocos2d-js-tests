@@ -54,7 +54,8 @@ var ControlScene = cc.Layer.extend({
 
             // Add the ribbon
             var ribbon = cc.Scale9Sprite.create(s_extensions_ribbon, cc.rect(1, 1, 48, 55));
-            ribbon.setContentSize(screensize.width, 57);
+            ribbon.width = screensize.width;
+	        ribbon.height = 57;
             ribbon.x = screensize.width / 2.0;
             ribbon.y = screensize.height - ribbon.height / 2.0;
             this.addChild(ribbon);

@@ -38,12 +38,13 @@ var ControlSwitchTest = ControlScene.extend({
 
             // Add the black background for the text
             var background = cc.Scale9Sprite.create("res/extensions/buttonBackground.png");
-            background.setContentSize(80, 50);
+            background.width = 80;
+	        background.height = 50;
             background.x = layer_width + background.width / 2.0;
             background.y = 0;
             layer.addChild(background);
 
-            layer_width += background.getContentSize().width;
+            layer_width += background.width;
 
             this._displayValueLabel = cc.LabelTTF.create("#color", "Marker Felt", 30);
             this._displayValueLabel.retain();
@@ -69,7 +70,8 @@ var ControlSwitchTest = ControlScene.extend({
             switchControl.addTargetWithActionForControlEvents(this, this.valueChanged, cc.CONTROL_EVENT_VALUECHANGED);
 
             // Set the layer size
-            layer.setContentSize(layer_width, 0);
+            layer.width = layer_width;
+	        layer.height = 0;
             layer.setAnchorPoint(0.5, 0.5);
 
             // Update the value label

@@ -74,15 +74,14 @@ var UIButtonTest_Scale9 = UIScene.extend({
             this._topDisplayLabel.setText("No Event");
             this._bottomDisplayLabel.setText("Button scale9 render");
 
-            var widgetSize = this._widget.getSize();
             // Create the button
             var button = ccs.Button.create();
             button.setTouchEnabled(true);
             button.setScale9Enabled(true);
             button.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
-            button.x = widgetSize.width / 2.0;
-            button.y = widgetSize.height / 2.0;
-            button.setSize(cc.size(150, button.getContentSize().height * 1.5));
+            button.x = this._widget.width / 2.0;
+            button.y = this._widget.height / 2.0;
+            button.setSize(cc.size(150, button.height * 1.5));
             button.addTouchEventListener(this.touchEvent ,this);
             this._uiLayer.addWidget(button);
 

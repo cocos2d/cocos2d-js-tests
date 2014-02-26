@@ -48,16 +48,14 @@ var ProjectileController = ccs.ComController.extend({
         var targets = com.getTargets();
 
         var projectile = this._owner;
-        var locSize = projectile.getContentSize();
-        var projectileRect = cc.rect(projectile.x - (locSize.width / 2), projectile.y - (locSize.height / 2), locSize.width, locSize.height);
+        var projectileRect = cc.rect(projectile.x - (projectile.width / 2), projectile.y - (projectile.height / 2), projectile.width, projectile.height);
 
         var targetsToDelete = [];
         var target = null;
         var targetSize = null;
         for (var i = 0; i < targets.length; i++) {
             target = targets[i];
-            targetSize = target.getContentSize();
-            var targetRect = cc.rect(target.x - (targetSize.width / 2), target.y - (targetSize.height / 2), targetSize.width, targetSize.height);
+            var targetRect = cc.rect(target.x - (target.width / 2), target.y - (target.height / 2), target.width, target.height);
             if (cc.rectIntersectsRect(projectileRect, targetRect)) {
                 targetsToDelete.push(target);
             }
@@ -84,7 +82,7 @@ var ProjectileController = ccs.ComController.extend({
         if (offX <= 0) return;
 
         // Determine where we wish to shoot the projectile to
-        var realX = winSize.width + (this._owner.getContentSize().width / 2);
+        var realX = winSize.width + (this._owner.width / 2);
         var ratio = offY / offX;
         var realY = (realX * ratio) + this._owner.y;
         var realDest = cc.p(realX, realY);

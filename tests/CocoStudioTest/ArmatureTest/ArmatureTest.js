@@ -677,12 +677,12 @@ var TestColliderDetector = ArmatureTestLayer.extend({
         this.addChild(debugLayer, 9999);
 
         //init bullet body
-        var size = this.bullet.getContentSize();
+        var width = this.bullet.width, height = this.bullet.height;
         var verts = [
-            -size.width/2,-size.height/2,
-            -size.width/2,size.height/2,
-            size.width/2,size.height/2,
-            size.width/2,-size.height/2
+            -width/2,-height/2,
+            -width/2,height/2,
+            width/2,height/2,
+            width/2,-height/2
         ];
         var body = new cp.Body(1, cp.momentForPoly(1,verts, cp.vzero));
         this.space.addBody(body);
