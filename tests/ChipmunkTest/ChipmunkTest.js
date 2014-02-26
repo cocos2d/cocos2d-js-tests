@@ -69,13 +69,13 @@ ChipmunkBaseLayer.prototype.setupDebugNode = function()
 {
     // debug only
 	this._debugNode = cc.PhysicsDebugNode.create( this.space );
-	this._debugNode.setVisible( false );
+	this._debugNode.visible = false ;
 	this.addChild( this._debugNode );
 };
 
 ChipmunkBaseLayer.prototype.onToggleDebug = function(sender) {
-    var state = this._debugNode.isVisible();
-    this._debugNode.setVisible( !state );
+    var state = this._debugNode.visible;
+    this._debugNode.visible = !state ;
 };
 
 //
@@ -557,7 +557,7 @@ var ChipmunkSpriteAnchorPoint = function() {
 		ChipmunkBaseLayer.prototype.onEnter.call(this);
         // cc.base(this, 'onEnter');
 
-		this._debugNode.setVisible( true );
+		this._debugNode.visible = true ;
 
 		this.space.gravity = v(0, 0);
 
@@ -707,7 +707,7 @@ var ChipmunkDemo = function() {
 	this.remainder = 0;
 
 	// debug only
-this._debugNode.setVisible( true );
+this._debugNode.visible = true ;
 
 	this.scheduleUpdate();
 };

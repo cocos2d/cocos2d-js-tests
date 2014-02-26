@@ -108,19 +108,19 @@ var GLReadPixelsTest = OpenGLTestLayer.extend({
             var green = cc.LayerColor.create(cc.color(0, 255, 0, 255));
             var white = cc.LayerColor.create(cc.color(255, 255, 255, 255));
 
-            blue.setScale(0.5);
+            blue.scale = 0.5;
             blue.x = -x / 4;
             blue.y = -y / 4;
 
-            red.setScale(0.5);
+            red.scale = 0.5;
             red.x = x / 4;
             red.y = -y / 4;
 
-            green.setScale(0.5);
+            green.scale = 0.5;
             green.x = -x / 4;
             green.y = y / 4;
 
-            white.setScale(0.5);
+            white.scale = 0.5;
             white.x = x / 4;
             white.y = y / 4;
 
@@ -875,7 +875,7 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
     },
     update:function(dt) {
         this.accum += dt;
-        var children = this.label.getChildren();
+        var children = this.label.children;
 
         for( var i in children ) {
             var sprite = children[i];
@@ -884,7 +884,7 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
             // add fabs() to prevent negative scaling
             var scaleY = ( Math.sin( this.accum * 2 + i/2.0 + 0.707) );
 
-            sprite.setScaleY( scaleY );
+            sprite.scaleY = scaleY;
         }
     },
     title:function () {

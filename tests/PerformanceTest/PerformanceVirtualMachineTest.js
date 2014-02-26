@@ -49,7 +49,7 @@ var VirtualMachineTestMenuLayer = PerformBasicLayer.extend({
         this._maxCases = (cc.renderContextType === cc.CANVAS) ? 6 : 4;
     },
     showCurrentTest:function () {
-        var nodes = (this.getParent()).getQuantityOfNodes();
+        var nodes = (this.parent).getQuantityOfNodes();
         var scene = null;
         switch (this._curCase) {
             case 0:
@@ -325,9 +325,9 @@ var SpritesWithManyPropertiesTestScene2 =
     SpritesWithManyPropertiesTestScene1.extend({
     updateQuantityOfNodes:function () {
         this._super();
-        var arrayToUpdate = this._batchNode.getChildren();
+        var arrayToUpdate = this._batchNode.children;
         for (var i = 0, imax = arrayToUpdate.length; i < imax; ++i)
-            arrayToUpdate[i].setVisible(false);
+            arrayToUpdate[i].visible = false;
         this.arrayToUpdate = arrayToUpdate;
     },
     title:function () {
@@ -388,7 +388,7 @@ var SpritesUndergoneDifferentOperationsTestScene1 = VirtualMachineTestMainScene.
         };
         return fn([], array, []);
     })([
-        function() { this.getChildren(); }, // appends ._children
+        function() { this.children; }, // appends ._children
         function() { this.tag = cc.NODE_TAG_INVALID; }, // appends ._tag
         function() { this.setParent(null); }, // appends ._parent
         function() { this.zIndex = 0; }, // appends ._zOrder
@@ -445,9 +445,9 @@ var SpritesUndergoneDifferentOperationsTestScene2 =
     // here becasue this._super() is different!
     updateQuantityOfNodes:function () {
         this._super();
-        var arrayToUpdate = this._batchNode.getChildren();
+        var arrayToUpdate = this._batchNode.children;
         for (var i = 0, imax = arrayToUpdate.length; i < imax; ++i)
-            arrayToUpdate[i].setVisible(false);
+            arrayToUpdate[i].visible = false;
         this.arrayToUpdate = arrayToUpdate;
     },
     title:function () {
@@ -495,7 +495,7 @@ var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
 
         // decrease nodes
         else if (this._currentQuantityOfNodes > this._quantityOfNodes) {
-            var children = this.getChildren();
+            var children = this.children;
             var lastChildToRemove = children.length;
             for (var i = children.length - 1; i >= 0; --i) {
                 var child = children[i];
@@ -531,10 +531,10 @@ var ClonedSpritesTestScene2 = ClonedSpritesTestScene1.extend({
             this.template = 
                 new SimpleNewtonianSprite(this._batchNode.getTexture(),
                                           cc.rect(0, 0, 52, 139));
-            this.template.setVisible(false);
+            this.template.visible = false;
         }
         this._super();
-        this.arrayToUpdate = this.getChildren();
+        this.arrayToUpdate = this.children;
     },
     title:function () {
         return "C2 - Cloned Sprites";

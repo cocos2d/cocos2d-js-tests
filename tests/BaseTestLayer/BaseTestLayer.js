@@ -124,9 +124,9 @@ var BaseTestLayer = cc.LayerGradient.extend({
         var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
         var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
 
-        item1.setTag(BASE_TEST_MENUITEM_PREV_TAG);
-        item2.setTag(BASE_TEST_MENUITEM_RESET_TAG);
-        item3.setTag(BASE_TEST_MENUITEM_NEXT_TAG);
+        item1.tag = BASE_TEST_MENUITEM_PREV_TAG;
+        item2.tag = BASE_TEST_MENUITEM_RESET_TAG;
+        item3.tag = BASE_TEST_MENUITEM_NEXT_TAG;
 
         var menu = cc.Menu.create(item1, item2, item3);
 

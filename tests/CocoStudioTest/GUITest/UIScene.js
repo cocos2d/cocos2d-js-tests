@@ -59,7 +59,7 @@ UIScene = cc.Layer.extend({
             var scale = winSize.height / 320;
             this._uiLayer.anchorX = 0;
             this._uiLayer.anchorY = 0;
-            this._uiLayer.setScale(scale);
+            this._uiLayer.scale = scale;
             this._uiLayer.x = (winSize.width - 480 * scale) / 2;
 	        this._uiLayer.y = (winSize.height - 320 * scale) / 2;
 

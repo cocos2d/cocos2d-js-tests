@@ -231,7 +231,7 @@ var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
 
         rend.x = winSize.width / 2 + 16;
         rend.y = winSize.height / 2;
-        //background.setVisible(false);
+        //background.visible = false;
         this.addChild(spr_nonpremulti);
         this.addChild(spr_premulti);
         this.addChild(rend);
@@ -321,8 +321,8 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         this.sp8.vertexZ = -300;
         this.sp9.vertexZ = -400;
 
-        this.sp9.setScale(2);
-        this.sp9.setColor(cc.color.yellow);
+        this.sp9.scale = 2;
+        this.sp9.color = cc.color.yellow;
     },
 
     onTouchesBegan:function (touches, event) {
@@ -428,7 +428,7 @@ var RenderTextureTestDepthStencil = RenderTextureBaseLayer.extend({
         var sprite = cc.Sprite.create(s_fire);
         sprite.x = winSize.width * 0.25;
         sprite.y = 0;
-        sprite.setScale(10);
+        sprite.scale = 10;
         //TODO GL_DEPTH24_STENCIL8
         //var rend = cc.RenderTexture.create(winSize.width, winSize.height, cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
         var rend = cc.RenderTexture.create(winSize.width, winSize.height);

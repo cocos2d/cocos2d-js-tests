@@ -302,7 +302,7 @@ var SchedulerUpdate = SchedulerTestLayer.extend({
     },
 
     onRemoveUpdates:function (dt) {
-        var children = this.getChildren();
+        var children = this.children;
 
         for (var i = 0; i < children.length; i++) {
             var node = children[i];

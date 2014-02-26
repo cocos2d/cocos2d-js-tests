@@ -153,7 +153,7 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         cc.log("TextInputTest:needAdjustVerticalPosition(" + adjustVert + ")");
 
         // move all the children node of KeyboardNotificationLayer
-        var children = this.getChildren();
+        var children = this.children;
         for (var i = 0; i < children.length; ++i) {
             var node = children[i];
 	        node.y += adjustVert;
@@ -339,7 +339,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
         var duration = 0.5;
 	    label.x = endX;
 	    label.y = cc.Director.getInstance().getWinSize().height - label.height * 2;
-        label.setScale(8);
+        label.scale = 8;
 
         var seq = cc.Sequence.create(
             cc.Spawn.create(

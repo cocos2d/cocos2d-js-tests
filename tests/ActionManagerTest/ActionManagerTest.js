@@ -106,7 +106,7 @@ var CrashTest = ActionManagerTest.extend({
     },
 
     onRemoveThis:function () {
-        this.getParent().removeChild(this);
+        this.parent.removeChild(this);
         this.onNextCallback(this);
     },
 
@@ -168,9 +168,7 @@ var LogicTest = ActionManagerTest.extend({
         return JSON.stringify(ret);
     },
     getCurrentResult:function() {
-        var scaleX = this._grossini.getScaleX();
-        var scaleY = this._grossini.getScaleY();
-        var ret = [ {"scaleX":scaleX, "scaleY":scaleY} ];
+        var ret = [ {"scaleX":this._grossini.scaleX, "scaleY":this._grossini.scaleY} ];
         return JSON.stringify(ret);
     }
 });
@@ -269,7 +267,7 @@ var RemoveTest = ActionManagerTest.extend({
         var move = cc.MoveBy.create(2, cc.p(200, 0));
         var callback = cc.CallFunc.create(this.stopAction, this);
         var sequence = cc.Sequence.create(move, callback);
-        sequence.setTag(TAG_SEQUENCE);
+        sequence.tag = TAG_SEQUENCE;
 
         var child = cc.Sprite.create(s_pathGrossini);
         child.x = 200;

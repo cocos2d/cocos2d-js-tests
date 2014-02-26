@@ -75,7 +75,7 @@ var TextureCacheTest = cc.Layer.extend({
         var bg = cc.Sprite.create("res/Images/HelloWorld.png");
         bg.x = size.width / 2;
         bg.y = size.height / 2;
-        //bg.setScale(1.7);
+        //bg.scale = 1.7;
 
         var s1 = cc.Sprite.create("res/Images/grossini.png");
         var s2 = cc.Sprite.create("res/Images/grossini_dance_01.png");

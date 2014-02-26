@@ -77,7 +77,7 @@ Parallax1 = ParallaxDemo.extend({
         // Top Layer, a simple image
         this._cocosimage = cc.Sprite.create(s_power);
         // scale the image (optional)
-        this._cocosimage.setScale(1.5);
+        this._cocosimage.scale = 1.5;
         // change the transform anchor point to 0,0 (optional)
         this._cocosimage.anchorX = 0;
         this._cocosimage.anchorY = 0;
@@ -96,7 +96,7 @@ Parallax1 = ParallaxDemo.extend({
         // background layer: another image
         this._background = cc.Sprite.create(s_back);
         // scale the image (optional)
-        //background.setScale(1.5);
+        //background.scale = 1.5;
         // change the transform anchor point (optional)
         this._background.anchorX = 0;
         this._background.anchorY = 0;
@@ -179,7 +179,7 @@ Parallax2 = ParallaxDemo.extend({
         // Top Layer, a simple image
         var cocosImage = cc.Sprite.create(s_power);
         // scale the image (optional)
-        cocosImage.setScale(1.5);
+        cocosImage.scale = 1.5;
         // change the transform anchor point to 0,0 (optional)
         cocosImage.anchorX = 0;
         cocosImage.anchorY = 0;
@@ -198,7 +198,7 @@ Parallax2 = ParallaxDemo.extend({
         // background layer: another image
         var background = cc.Sprite.create(s_back);
         // scale the image (optional)
-        //background.setScale(1.5);
+        //background.scale = 1.5;
         // change the transform anchor point (optional)
         background.anchorX = 0;
         background.anchorY = 0;

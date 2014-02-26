@@ -71,12 +71,12 @@ var ActionsDemo = BaseTestLayer.extend({
         var winSize = director.getWinSize();
 
         if (numberOfSprites === 0) {
-            this._tamara.setVisible(false);
-            this._kathia.setVisible(false);
-            this._grossini.setVisible(false);
+            this._tamara.visible = false;
+            this._kathia.visible = false;
+            this._grossini.visible = false;
         } else if (numberOfSprites == 1) {
-            this._tamara.setVisible(false);
-            this._kathia.setVisible(false);
+            this._tamara.visible = false;
+            this._kathia.visible = false;
             this._grossini.x = winSize.width / 2;
 			this._grossini.y = winSize.height / 2;
         }
@@ -85,7 +85,7 @@ var ActionsDemo = BaseTestLayer.extend({
 			this._kathia.y = winSize.height / 2;
             this._tamara.x = 2 * winSize.width / 3;
 			this._tamara.y = winSize.height / 2;
-            this._grossini.setVisible(false);
+            this._grossini.visible = false;
         }
         else if (numberOfSprites == 3) {
             this._grossini.x = winSize.width / 2;
@@ -100,8 +100,8 @@ var ActionsDemo = BaseTestLayer.extend({
         var s = director.getWinSize();
 
         if (numberOfSprites == 1) {
-            this._tamara.setVisible(false);
-            this._kathia.setVisible(false);
+            this._tamara.visible = false;
+            this._kathia.visible = false;
             this._grossini.x = 60;
 			this._grossini.y = s.height / 2;
         }
@@ -110,7 +110,7 @@ var ActionsDemo = BaseTestLayer.extend({
 			this._kathia.y = s.height / 3;
             this._tamara.x = 60;
 			this._tamara.y = 2 * s.height / 3;
-            this._grossini.setVisible(false);
+            this._grossini.visible = false;
         }
         else if (numberOfSprites == 3) {
             this._grossini.x = 60;
@@ -306,10 +306,10 @@ var ActionScale = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getScale() );
-        ret.push( this._grossini.getScale() );
-        ret.push( this._kathia.getScaleX() );
-        ret.push( this._kathia.getScaleY() );
+        ret.push( this._tamara.scale );
+        ret.push( this._grossini.scale );
+        ret.push( this._kathia.scaleX );
+        ret.push( this._kathia.scaleY );
 
         return JSON.stringify(ret);
     }
@@ -830,7 +830,7 @@ var ActionBlink = ActionsDemo.extend({
         this.scheduleOnce(this.checkControl1,0.1);
     },
     checkControl1:function(dt){
-        this.control1 = this._kathia.isVisible();
+        this.control1 = this._kathia.visible;
     },
     getExpectedResult:function() {
         var ret = [false,true,true];
@@ -839,8 +839,8 @@ var ActionBlink = ActionsDemo.extend({
     getCurrentResult:function() {
         var ret = [];
         ret.push( this.control1 );
-        ret.push( this._tamara.isVisible());
-        ret.push( this._kathia.isVisible());
+        ret.push( this._tamara.visible);
+        ret.push( this._kathia.visible);
         return JSON.stringify(ret);
     }
 });
@@ -1033,7 +1033,7 @@ var ActionSequence2 = ActionsDemo.extend({
     onEnter:function () {
         this._super();
         this.centerSprites(1);
-        this._grossini.setVisible(false);
+        this._grossini.visible = false;
         var action = cc.Sequence.create(
             cc.Place.create(cc.p(200, 200)),
             cc.Show.create(),
@@ -1089,7 +1089,7 @@ var ActionSequence2 = ActionsDemo.extend({
         ret.push( this.called1 );
         ret.push( this.called2 );
         ret.push( this.called3 );
-        ret.push( this._grossini.isVisible() );
+        ret.push( this._grossini.visible );
         ret.push( cc.p(this._grossini.x, this._grossini.y) );
         return JSON.stringify(ret);
     }

@@ -1392,9 +1392,9 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
 
         longSentences.setColor(cc.color(255, 0, 0));
         this.lastSentenceItem = longSentences;
-        longSentences.setTag(LongSentences);
-        lineBreaks.setTag(LineBreaks);
-        mixed.setTag(Mixed);
+        longSentences.tag = LongSentences;
+        lineBreaks.tag = LineBreaks;
+        mixed.tag = Mixed;
 
         cc.MenuItemFont.setFontSize(30);
 
@@ -1406,18 +1406,18 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
 
         center.setColor(cc.color(255, 0, 0));
         this.lastAlignmentItem = center;
-        left.setTag(LeftAlign);
-        center.setTag(CenterAlign);
-        right.setTag(RightAlign);
+        left.tag = LeftAlign;
+        center.tag = CenterAlign;
+        right.tag = RightAlign;
 
         // position the label on the center of the screen
         this.labelShouldRetain.x = size.width / 2;
         this.labelShouldRetain.y = size.height / 2;
 
-        this.arrowsBarShouldRetain.setVisible(false);
+        this.arrowsBarShouldRetain.visible = false;
 
         var arrowsWidth = (ArrowsMax - ArrowsMin) * size.width;
-        this.arrowsBarShouldRetain.setScaleX(arrowsWidth / this.arrowsBarShouldRetain.width);
+        this.arrowsBarShouldRetain.scaleX = arrowsWidth / this.arrowsBarShouldRetain.width;
         this.arrowsBarShouldRetain.anchorX = 0;
         this.arrowsBarShouldRetain.anchorY = 0.5;
         this.arrowsBarShouldRetain.x = ArrowsMin * size.width;
@@ -1448,7 +1448,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         sender.setColor(cc.color(255, 0, 0));
         this.lastSentenceItem = sender;
 
-        switch (sender.getTag()) {
+        switch (sender.tag) {
             case LongSentences:
                 this.labelShouldRetain.setString(LongSentencesExample);
                 break;
@@ -1471,7 +1471,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         item.setColor(cc.color(255, 0, 0));
         this.lastAlignmentItem = item;
 
-        switch (item.getTag()) {
+        switch (item.tag) {
             case LeftAlign:
                 this.labelShouldRetain.setAlignment(cc.TEXT_ALIGNMENT_LEFT);
                 break;
@@ -1492,11 +1492,11 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         var location = touch.getLocation();
 
         if (cc.rectContainsPoint(this.arrowsShouldRetain.getBoundingBox(), location)) {
-            this.arrowsBarShouldRetain.setVisible(true);
+            this.arrowsBarShouldRetain.visible = true;
         }
     },
     onTouchesEnded:function () {
-        this.arrowsBarShouldRetain.setVisible(false);
+        this.arrowsBarShouldRetain.visible = false;
     },
     onTouchesMoved:function (touches) {
         var touch = touches[0];
@@ -1514,7 +1514,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         var location = touch.getLocation();
 
         if (cc.rectContainsPoint(this.arrowsShouldRetain.getBoundingBox(), location)) {
-            this.arrowsBarShouldRetain.setVisible(true);
+            this.arrowsBarShouldRetain.visible = true;
         }
     },
     onMouseDragged:function (touch) {
@@ -1528,7 +1528,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
     },
     onMouseUp:function (touch) {
         //this.snapArrowsToEdge();
-        this.arrowsBarShouldRetain.setVisible(false);
+        this.arrowsBarShouldRetain.visible = false;
     },
 
     snapArrowsToEdge:function () {

@@ -48,8 +48,8 @@ var ControlScene = cc.Layer.extend({
             background.x = screensize.width / 2;
             background.y = screensize.height / 2;
             var bgRect = background.getTextureRect();
-            background.setScaleX(screensize.width/bgRect.width);
-            background.setScaleY(screensize.height/bgRect.height);
+            background.scaleX = screensize.width/bgRect.width;
+            background.scaleY = screensize.height/bgRect.height;
             this.addChild(background);
 
             // Add the ribbon

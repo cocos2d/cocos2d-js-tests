@@ -200,7 +200,7 @@ var TransitionBase = BaseTestLayer.extend({
         var bg1 = cc.Sprite.create(this.backgroundImage);
         bg1.x = size.width / 2;
         bg1.y = size.height / 2;
-        bg1.setScale(1.7);
+        bg1.scale = 1.7;
         this.addChild(bg1);
 
         var title = cc.LabelTTF.create(this.title(), "Thonburi", 32);

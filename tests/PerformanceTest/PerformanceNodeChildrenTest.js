@@ -37,7 +37,7 @@ var s_nCurCase = 0;
 var NodeChildrenMenuLayer = PerformBasicLayer.extend({
     _maxCases:4,
     showCurrentTest:function () {
-        var nodes = (this.getParent()).getQuantityOfNodes();
+        var nodes = (this.parent).getQuantityOfNodes();
         var scene = null;
         switch (this._curCase) {
             case 0:
@@ -230,7 +230,7 @@ var IterateSpriteSheet = NodeChildrenMainScene.extend({
 var IterateSpriteSheetFastEnum = IterateSpriteSheet.extend({
     update:function (dt) {
         // iterate using fast enumeration protocol
-        var children = this._batchNode.getChildren();
+        var children = this._batchNode.children;
 
         if (cc.ENABLE_PROFILERS) {
             cc.ProfilingBeginTimingBlock(this._profilingTimer);
@@ -238,7 +238,7 @@ var IterateSpriteSheetFastEnum = IterateSpriteSheet.extend({
 
         for (var i = 0; i < children.length; i++) {
             var sprite = children[i];
-            sprite.setVisible(false);
+            sprite.visible = false;
         }
 
         if (cc.ENABLE_PROFILERS) {
@@ -265,14 +265,14 @@ var IterateSpriteSheetFastEnum = IterateSpriteSheet.extend({
 var IterateSpriteSheetCArray = IterateSpriteSheet.extend({
     update:function (dt) {
         // iterate using fast enumeration protocol
-        var children = this._batchNode.getChildren();
+        var children = this._batchNode.children;
 
         if (cc.ENABLE_PROFILERS) {
             cc.ProfilingBeginTimingBlock(this._profilingTimer);
         }
         for (var i = 0; i < children.length; i++) {
             var sprite = children[i];
-            sprite.setVisible(false);
+            sprite.visible = false;
         }
 
         if (cc.ENABLE_PROFILERS) {
@@ -314,7 +314,7 @@ var AddRemoveSpriteSheet = NodeChildrenMainScene.extend({
                 this._batchNode.addChild(sprite);
                 sprite.x = Math.random() * s.width;
                 sprite.y = Math.random() * s.height;
-                sprite.setVisible(false);
+                sprite.visible = false;
             }
         }
         // decrease nodes
@@ -489,7 +489,7 @@ var ReorderSpriteSheet = AddRemoveSpriteSheet.extend({
             }
 
             for (var i = 0; i < totalToAdd; i++) {
-                var node = this._batchNode.getChildren()[i];
+                var node = this._batchNode.children[i];
                 ;
                 this._batchNode.reorderChild(node, (Math.random()*2-1) * 50);
             }

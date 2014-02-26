@@ -107,7 +107,7 @@ var TableViewTestLayer = cc.Layer.extend({
             label.y = 0;
             label.anchorX = 0;
             label.anchorY = 0;
-            label.setTag(123);
+            label.tag = 123;
             cell.addChild(label);
         } else {
             label = cell.getChildByTag(123);

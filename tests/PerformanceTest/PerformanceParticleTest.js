@@ -38,7 +38,7 @@ var TAG_PARTICLE_MENU_LAYER = 1000;
 var ParticleMenuLayer = PerformBasicLayer.extend({
     _maxCases:4,
     showCurrentTest:function () {
-        var scene = this.getParent();
+        var scene = this.parent;
         var subTest = scene.getSubTestNum();
         var parNum = scene.getParticlesNum();
 
@@ -124,7 +124,7 @@ var ParticleMainScene = cc.Scene.extend({
         for (var i = 1; i <= 3; ++i) {
             var str = i.toString();
             var itemFont = cc.MenuItemFont.create(str, this.testNCallback, this);
-            itemFont.setTag(i);
+            itemFont.tag = i;
             subMenu.addChild(itemFont, 10);
 
             if (i <= 1) {
@@ -224,7 +224,7 @@ var ParticleMainScene = cc.Scene.extend({
         this.createParticleSystem();
     },
     testNCallback:function (sender) {
-        this._subtestNumber = sender.getTag();
+        this._subtestNumber = sender.tag;
         var menu = this.getChildByTag(TAG_PARTICLE_MENU_LAYER);
         menu.restartCallback(sender);
     },

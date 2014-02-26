@@ -35,8 +35,8 @@ var ProjectileController = ccs.ComController.extend({
         var winSize = cc.Director.getInstance().getWinSize();
         this._owner.x = 30;
 	    this._owner.y = winSize.height / 2;
-        this._owner.setTag(3);
-        var com = this._owner.getParent().getComponent("SceneController");
+        this._owner.tag = 3;
+        var com = this._owner.parent.getComponent("SceneController");
         com.getProjectiles().push(this._owner);
     },
 
@@ -44,7 +44,7 @@ var ProjectileController = ccs.ComController.extend({
     },
 
     update: function (dt) {
-        var com = this._owner.getParent().getComponent("SceneController");
+        var com = this._owner.parent.getComponent("SceneController");
         var targets = com.getTargets();
 
         var projectile = this._owner;
@@ -98,14 +98,14 @@ var ProjectileController = ccs.ComController.extend({
         this._owner.runAction(cc.Sequence.create(
             cc.MoveTo.create(realMoveDuration, realDest),
             cc.CallFunc.create(function () {
-                var sceneController = this.getOwner().getParent().getComponent("SceneController");
+                var sceneController = this.getOwner().parent.getComponent("SceneController");
                 sceneController.spriteMoveFinished(this._owner);
             }, this)));
 
     },
 
     die: function () {
-        var com = this._owner.getParent().getComponent("SceneController");
+        var com = this._owner.parent.getComponent("SceneController");
         var projectiles = com.getProjectiles();
         cc.ArrayRemoveObject(projectiles, this._owner);
         this._owner.removeFromParent(true);

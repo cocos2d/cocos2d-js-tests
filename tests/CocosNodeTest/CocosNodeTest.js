@@ -83,8 +83,8 @@ var CCNodeTest2 = TestNodeDemo.extend({
         this.addChild(sp1);
         this.addChild(sp2);
 
-        sp3.setScale(0.25);
-        sp4.setScale(0.25);
+        sp3.scale = 0.25;
+        sp4.scale = 0.25;
 
         sp1.addChild(sp3);
         sp2.addChild(sp4);
@@ -185,8 +185,8 @@ var CCNodeTest5 = TestNodeDemo.extend({
         var rot_back = rot.reverse();
         var forever = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back));
         var forever2 = forever.clone();
-        forever.setTag(101);
-        forever2.setTag(102);
+        forever.tag = 101;
+        forever2.tag = 102;
 
         this.addChild(sp1, 0, TAG_SPRITE1);
         this.addChild(sp2, 0, TAG_SPRITE2);
@@ -351,7 +351,7 @@ var StressTest1 = TestNodeDemo.extend({
             this.testPass = true;
             return;
         }
-        this.getParent().removeChild(node, true);
+        this.parent.removeChild(node, true);
         this.onNextCallback(this);
     },
     title:function () {
@@ -483,7 +483,7 @@ var CameraOrbitTest = TestNodeDemo.extend({
         // LEFT
         var sw = p.width, sh = p.height;
         var sprite = cc.Sprite.create(s_pathGrossini);
-        sprite.setScale(0.5);
+        sprite.scale = 0.5;
         p.addChild(sprite, 0);
         sprite.x = sw / 4;
         sprite.y = sh / 2;
@@ -492,7 +492,7 @@ var CameraOrbitTest = TestNodeDemo.extend({
 
         // CENTER
         sprite = cc.Sprite.create(s_pathGrossini);
-        sprite.setScale(1.0);
+        sprite.scale = 1.0;
         p.addChild(sprite, 0);
         sprite.x = sw / 4 * 2;
         sprite.y = sh / 2;
@@ -501,7 +501,7 @@ var CameraOrbitTest = TestNodeDemo.extend({
 
         // RIGHT
         sprite = cc.Sprite.create(s_pathGrossini);
-        sprite.setScale(2.0);
+        sprite.scale = 2.0;
         p.addChild(sprite, 0);
         sprite.x = sw / 4 * 3;
         sprite.y = sh / 2;
@@ -512,7 +512,7 @@ var CameraOrbitTest = TestNodeDemo.extend({
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 90);
         p.runAction(cc.RepeatForever.create(orbit));
 
-        this.setScale(1);
+        this.scale = 1;
     },
     onEnter:function () {
         this._super();
@@ -731,7 +731,7 @@ var ConvertToNode = TestNodeDemo.extend({
             sprite.x = winSize.width / 4 * (i + 1);
             sprite.y = winSize.height / 2;
             var point = cc.Sprite.create(s_pathR1);
-            point.setScale(0.25);
+            point.scale = 0.25;
 	        point.x = sprite.x;
 	        point.y = sprite.y;
             this.addChild(point, 10, 100 + i);

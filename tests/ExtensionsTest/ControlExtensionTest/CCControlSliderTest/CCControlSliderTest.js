@@ -47,7 +47,7 @@ var ControlSliderTest = ControlScene.extend({
             slider.setMaximumValue(5.0); // Sets the max value of range
             slider.x = screenSize.width / 2.0;
             slider.y = screenSize.height / 2.0 + 16;
-            slider.setTag(1);
+            slider.tag = 1;
 
             // When the value of the slider will change, the given selector will be call
             slider.addTargetWithActionForControlEvents(this, this.valueChanged, cc.CONTROL_EVENT_VALUECHANGED);
@@ -62,7 +62,7 @@ var ControlSliderTest = ControlScene.extend({
             restrictSlider.setValue(3.0);
             restrictSlider.x = screenSize.width / 2.0;
             restrictSlider.y = screenSize.height / 2.0 - 24;
-            restrictSlider.setTag(2);
+            restrictSlider.tag = 2;
 
             //same with restricted
             restrictSlider.addTargetWithActionForControlEvents(this, this.valueChanged, cc.CONTROL_EVENT_VALUECHANGED);
@@ -75,9 +75,9 @@ var ControlSliderTest = ControlScene.extend({
     },
     valueChanged:function (sender, controlEvent) {
         // Change value of label.
-        if (sender.getTag() == 1)
+        if (sender.tag == 1)
             this._displayValueLabel.setString("Upper slider value = " + sender.getValue().toFixed(2));
-        if (sender.getTag() == 2)
+        if (sender.tag == 2)
             this._displayValueLabel.setString("Lower slider value = " + sender.getValue().toFixed(2));
     }
 });

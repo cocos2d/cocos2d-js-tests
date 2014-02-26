@@ -221,9 +221,9 @@ var ParticleDemo = BaseTestLayer.extend({
         this._freeMovementButton = cc.MenuItemSprite.create(freeBtnNormal, freeBtnSelected, freeBtnDisabled,
             function () {
                 selfPoint._emitter.setPositionType(cc.PARTICLE_TYPE_RELATIVE);
-                selfPoint._relativeMovementButton.setVisible(true);
-                selfPoint._freeMovementButton.setVisible(false);
-                selfPoint._groupMovementButton.setVisible(false);
+                selfPoint._relativeMovementButton.visible = true;
+                selfPoint._freeMovementButton.visible = false;
+                selfPoint._groupMovementButton.visible = false;
             });
         this._freeMovementButton.x = 10;
         this._freeMovementButton.y = 150;
@@ -233,11 +233,11 @@ var ParticleDemo = BaseTestLayer.extend({
         this._relativeMovementButton = cc.MenuItemSprite.create(relativeBtnNormal, relativeBtnSelected, relativeBtnDisabled,
             function () {
                 selfPoint._emitter.setPositionType(cc.PARTICLE_TYPE_GROUPED);
-                selfPoint._relativeMovementButton.setVisible(false);
-                selfPoint._freeMovementButton.setVisible(false);
-                selfPoint._groupMovementButton.setVisible(true);
+                selfPoint._relativeMovementButton.visible = false;
+                selfPoint._freeMovementButton.visible = false;
+                selfPoint._groupMovementButton.visible = true;
             });
-        this._relativeMovementButton.setVisible(false);
+        this._relativeMovementButton.visible = false;
         this._relativeMovementButton.x = 10;
         this._relativeMovementButton.y = 150;
         this._relativeMovementButton.anchorX = 0;
@@ -246,11 +246,11 @@ var ParticleDemo = BaseTestLayer.extend({
         this._groupMovementButton = cc.MenuItemSprite.create(groupBtnNormal, groupBtnSelected, groupBtnDisabled,
             function () {
                 selfPoint._emitter.setPositionType(cc.PARTICLE_TYPE_FREE);
-                selfPoint._relativeMovementButton.setVisible(false);
-                selfPoint._freeMovementButton.setVisible(true);
-                selfPoint._groupMovementButton.setVisible(false);
+                selfPoint._relativeMovementButton.visible = false;
+                selfPoint._freeMovementButton.visible = true;
+                selfPoint._groupMovementButton.visible = false;
             });
-        this._groupMovementButton.setVisible(false);
+        this._groupMovementButton.visible = false;
         this._groupMovementButton.x = 10;
         this._groupMovementButton.y = 150;
         this._groupMovementButton.anchorX = 0;
@@ -264,8 +264,8 @@ var ParticleDemo = BaseTestLayer.extend({
             function () {
                 if (selfPoint._emitter.setDrawMode)
                     selfPoint._emitter.setDrawMode(cc.PARTICLE_TEXTURE_MODE);
-                selfPoint._textureModeButton.setVisible(true);
-                selfPoint._shapeModeButton.setVisible(false);
+                selfPoint._textureModeButton.visible = true;
+                selfPoint._shapeModeButton.visible = false;
             });
         this._shapeModeButton.x = 10;
         this._shapeModeButton.y = 100;
@@ -285,10 +285,10 @@ var ParticleDemo = BaseTestLayer.extend({
             function () {
                 if (selfPoint._emitter.setDrawMode)
                     selfPoint._emitter.setDrawMode(cc.PARTICLE_SHAPE_MODE);
-                selfPoint._textureModeButton.setVisible(false);
-                selfPoint._shapeModeButton.setVisible(true);
+                selfPoint._textureModeButton.visible = false;
+                selfPoint._shapeModeButton.visible = true;
             });
-        this._textureModeButton.setVisible(false);
+        this._textureModeButton.visible = false;
         this._textureModeButton.x = 10;
         this._textureModeButton.y = 100;
         this._textureModeButton.anchorX = 0;
@@ -885,7 +885,7 @@ var ParallaxParticle = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._background.getParent().removeChild(this._background, true);
+        this._background.parent.removeChild(this._background, true);
         this._background = null;
 
         //TODO

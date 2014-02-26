@@ -53,7 +53,7 @@ var EnemyController = ccs.ComController.extend({
         // Create the actions
         var actionMove = cc.MoveTo.create(actualDuration, cc.p(0 - this.getOwner().width / 2, actualY));
         var actionMoveDone = cc.CallFunc.create(function () {
-            var comController = this.getOwner().getParent().getComponent("SceneController");
+            var comController = this.getOwner().parent.getComponent("SceneController");
             comController.spriteMoveFinished(this._owner);
         }, this);
         this._owner.runAction(cc.Sequence.create(actionMove, actionMoveDone));
@@ -67,7 +67,7 @@ var EnemyController = ccs.ComController.extend({
     },
 
     die: function () {
-        var com = this._owner.getParent().getComponent("SceneController");
+        var com = this._owner.parent.getComponent("SceneController");
         var targets = com.getTargets();
         cc.ArrayRemoveObject(targets, this._owner);
         this._owner.removeFromParent(true);

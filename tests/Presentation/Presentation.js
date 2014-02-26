@@ -350,7 +350,7 @@ cc.inherits( ChipmunkPage, PresentationBaseLayer );
 //
 
 ChipmunkPage.prototype.onTogglePhysicsDebug = function() {
-	this.debugNode.setVisible( ! this.debugNode.isVisible() );
+	this.debugNode.visible = ! this.debugNode.visible ;
 };
 
 // Menu
@@ -389,7 +389,7 @@ ChipmunkPage.prototype.initPhysics = function() {
 
 	// Physics debug layer
 	this.debugNode = cc.PhysicsDebugNode.create( this.space.handle );
-	this.debugNode.setVisible( false );
+	this.debugNode.visible = false ;
 	this.addChild( this.debugNode, 100 );
 };
 

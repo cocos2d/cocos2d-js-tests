@@ -240,7 +240,7 @@ var SpriteMenuLayer = PerformBasicLayer.extend({
     _maxCases:7,
     showCurrentTest:function () {
         var scene = null;
-        var preScene = this.getParent();
+        var preScene = this.parent;
         var subTest = preScene.getSubTestNum();
         var nodes = preScene.getNodesNum();
 
@@ -343,7 +343,7 @@ var SpriteMainScene = cc.Scene.extend({
         for (var i = 1; i <= 9; ++i) {
             var text = i.toString();
             var itemFont = cc.MenuItemFont.create(text, this.testNCallback, this);
-            itemFont.setTag(i);
+            itemFont.tag = i;
             subMenu.addChild(itemFont, 10);
 
             if (i <= 3)
@@ -373,7 +373,7 @@ var SpriteMainScene = cc.Scene.extend({
         }
     },
     testNCallback:function (sender) {
-        this._subtestNumber = sender.getTag();
+        this._subtestNumber = sender.tag;
         var menu = this.getChildByTag(TAG_SPRITE_MENU_LAYER);
         menu.restartCallback(sender);
     },

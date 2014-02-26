@@ -82,12 +82,12 @@ var BasicTest = BaseClippingNodeTest.extend({
         var winSize = cc.Director.getInstance().getWinSize();
 
         var stencil = this.stencil();
-        stencil.setTag(TAG_STENCILNODE);
+        stencil.tag = TAG_STENCILNODE;
         stencil.x = 50;
         stencil.y = 50;
 
         var clipper = this.clipper();
-        clipper.setTag(TAG_CLIPPERNODE);
+        clipper.tag = TAG_CLIPPERNODE;
         clipper.anchorX = 0.5;
         clipper.anchorY = 0.5;
         clipper.x = winSize.width / 2 - 50;
@@ -124,7 +124,7 @@ var BasicTest = BaseClippingNodeTest.extend({
 
     grossini:function () {
         var grossini = cc.Sprite.create(s_pathGrossini);
-        grossini.setScale(1.5);
+        grossini.scale = 1.5;
         return grossini;
     },
 
@@ -257,23 +257,27 @@ var NestedTest = BaseClippingNodeTest.extend({
             var size = 225 - i * (225 / (depth * 2));
 
             var clipper = cc.ClippingNode.create();
-            clipper.width = size;
-	        clipper.height = size;
-            clipper.anchorX = 0.5;
-            clipper.anchorY = 0.5;
-            clipper.x = parent.width / 2;
-            clipper.y = parent.height / 2;
+            clipper.attr({
+	            width: size,
+	            height: size,
+	            anchorX: 0.5,
+	            anchorY: 0.5,
+	            x: parent.width / 2,
+	            y: parent.height / 2
+            });
             clipper.setAlphaThreshold(0.05);
             clipper.runAction(cc.RepeatForever.create(cc.RotateBy.create((i % 3) ? 1.33 : 1.66, (i % 2) ? 90 : -90)));
             parent.addChild(clipper);
 
             var stencil = cc.Sprite.create(s_pathGrossini);
-            stencil.setScale(2.5 - (i * (2.5 / depth)));
-            stencil.anchorX = 0.5;
-            stencil.anchorY = 0.5;
-            stencil.x = clipper.width / 2;
-            stencil.y = clipper.height / 2;
-            stencil.setVisible(false);
+            stencil.attr({
+	            scale: 2.5 - (i * (2.5 / depth)),
+	            anchorX: 0.5,
+	            anchorY: 0.5,
+	            x: clipper.width / 2,
+	            y: clipper.height / 2,
+	            visible: false
+            });
             stencil.runAction(cc.Sequence.create(cc.DelayTime.create(i), cc.Show.create()));
             clipper.setStencil(stencil);
 
@@ -292,9 +296,9 @@ var HoleDemo = BaseClippingNodeTest.extend({
         var target = cc.Sprite.create(s_pathBlock);
         target.anchorX = 0;
         target.anchorY = 0;
-        target.setScale(3);
+        target.scale = 3;
 
-        var scale = target.getScale();
+        var scale = target.scale;
         var stencil = cc.DrawNode.create();
 
         var rectangle = [cc.p(0, 0),cc.p(target.width*scale, 0),
@@ -305,7 +309,7 @@ var HoleDemo = BaseClippingNodeTest.extend({
         this._outerClipper = cc.ClippingNode.create();
         this._outerClipper.retain();
         var transform = cc.AffineTransformMakeIdentity();
-        transform = cc.AffineTransformScale(transform, target.getScale(), target.getScale());
+        transform = cc.AffineTransformScale(transform, target.scale, target.scale);
 
 	    var ocsize = cc.SizeApplyAffineTransform(cc.size(target.width, target.height), transform);
         this._outerClipper.width = ocsize.width;
@@ -399,7 +403,7 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
 
     setup:function () {
         var clipper = cc.ClippingNode.create();
-        clipper.setTag(TAG_CLIPPERNODE);
+        clipper.tag = TAG_CLIPPERNODE;
         clipper.width = 200;
 	    clipper.height = 200;
         clipper.anchorX = 0.5;
@@ -419,7 +423,7 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
         clipper.setStencil(stencil);
 
         var content = cc.Sprite.create(s_back2);
-        content.setTag(TAG_CONTENTNODE);
+        content.tag = TAG_CONTENTNODE;
         content.anchorX = 0.5;
         content.anchorY = 0.5;
         content.x = clipper.width / 2;
@@ -499,8 +503,8 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
 
         this._sprite = cc.Sprite.create(s_pathGrossini);
         this._sprite.anchorX = 0.5;
-        this._sprite.anchorY = 0 ;
-        this._sprite.setScale( 2.5 );
+        this._sprite.anchorY = 0;
+        this._sprite.scale = 2.5;
         cc.Director.getInstance().setAlphaBlending(true);
     },
 
