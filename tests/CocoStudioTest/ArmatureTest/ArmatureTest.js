@@ -892,7 +892,7 @@ var TestBoundingBox = ArmatureTestLayer.extend({
     },
     draw:function () {
         var rect =  this.armature.boundingBox();
-        cc.drawingUtil.setDrawColor4B(100, 100, 100, 255);
+        cc.drawingUtil.setDrawColor(100, 100, 100, 255);
         cc.drawingUtil.setLineWidth(1);
         cc.drawingUtil.drawRect(cc.p(rect.x, rect.y), cc.p(cc.rectGetMaxX(rect), cc.rectGetMaxY(rect)));
     }
