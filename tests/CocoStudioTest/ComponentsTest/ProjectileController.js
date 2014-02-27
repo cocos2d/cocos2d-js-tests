@@ -107,7 +107,7 @@ var ProjectileController = ccs.ComController.extend({
     die: function () {
         var com = this._owner.parent.getComponent("SceneController");
         var projectiles = com.getProjectiles();
-        cc.ArrayRemoveObject(projectiles, this._owner);
+        cc.arrayRemoveObject(projectiles, this._owner);
         this._owner.removeFromParent(true);
     }
 
