@@ -50,7 +50,7 @@ var cocos2dApp = cc.Application.extend({
 
         //load resources
         cc.LoaderScene.preload(g_mainmenu, function () {
-            director.replaceScene(new this.startScene());
+            director.runScene(new this.startScene());
         }, this);
 
         return true;
@@ -59,26 +59,26 @@ var cocos2dApp = cc.Application.extend({
 
 var myApp = new cocos2dApp(SysMenu.scene);
 
-var AnchorPointCenter = new cc.Point(0.5, 0.5);
-var AnchorPointTop = new cc.Point(0.5, 1);
-var AnchorPointTopRight = new cc.Point(1, 1);
-var AnchorPointRight = new cc.Point(1, 0.5);
-var AnchorPointBottomRight = new cc.Point(1, 0);
-var AnchorPointBottom = new cc.Point(0.5, 0);
-var AnchorPointBottomLeft = new cc.Point(0, 0);
-var AnchorPointLeft = new cc.Point(0, 0.5);
-var AnchorPointTopLeft = new cc.Point(0, 1);
+var AnchorPointCenter = cc.p(0.5, 0.5);
+var AnchorPointTop = cc.p(0.5, 1);
+var AnchorPointTopRight = cc.p(1, 1);
+var AnchorPointRight = cc.p(1, 0.5);
+var AnchorPointBottomRight = cc.p(1, 0);
+var AnchorPointBottom = cc.p(0.5, 0);
+var AnchorPointBottomLeft = cc.p(0, 0);
+var AnchorPointLeft = cc.p(0, 0.5);
+var AnchorPointTopLeft = cc.p(0, 1);
 
-var s_rcVisible = cc.RectZero();
-var s_ptCenter = cc.PointZero();
-var s_ptTop = cc.PointZero();
-var s_ptTopRight = cc.PointZero();
-var s_ptRight = cc.PointZero();
-var s_ptBottomRight = cc.PointZero();
-var s_ptBottom = cc.PointZero();
-var s_ptLeft = cc.PointZero();
-var s_ptTopLeft = cc.PointZero();
-var s_ptBottomLeft = cc.PointZero();
+var s_rcVisible = cc.rect(0, 0, 0, 0);
+var s_ptCenter = cc.p(0,0);
+var s_ptTop = cc.p(0,0);
+var s_ptTopRight = cc.p(0,0);
+var s_ptRight = cc.p(0,0);
+var s_ptBottomRight = cc.p(0,0);
+var s_ptBottom = cc.p(0,0);
+var s_ptLeft = cc.p(0,0);
+var s_ptTopLeft = cc.p(0,0);
+var s_ptBottomLeft = cc.p(0,0);
 
 var VisibleRect = {
     rect:function () {

@@ -33,9 +33,10 @@ var ProjectileController = ccs.ComController.extend({
 
     onEnter: function () {
         var winSize = cc.Director.getInstance().getWinSize();
-        this._owner.setPosition(30, winSize.height / 2);
-        this._owner.setTag(3);
-        var com = this._owner.getParent().getComponent("SceneController");
+        this._owner.x = 30;
+	    this._owner.y = winSize.height / 2;
+        this._owner.tag = 3;
+        var com = this._owner.parent.getComponent("SceneController");
         com.getProjectiles().push(this._owner);
     },
 
@@ -43,23 +44,18 @@ var ProjectileController = ccs.ComController.extend({
     },
 
     update: function (dt) {
-        var com = this._owner.getParent().getComponent("SceneController");
+        var com = this._owner.parent.getComponent("SceneController");
         var targets = com.getTargets();
 
         var projectile = this._owner;
-        var locPos = projectile.getPosition();
-        var locSize = projectile.getContentSize();
-        var projectileRect = cc.rect(locPos.x - (locSize.width / 2), locPos.y - (locSize.height / 2), locSize.width, locSize.height);
+        var projectileRect = cc.rect(projectile.x - (projectile.width / 2), projectile.y - (projectile.height / 2), projectile.width, projectile.height);
 
         var targetsToDelete = [];
         var target = null;
-        var targetPos = null;
         var targetSize = null;
         for (var i = 0; i < targets.length; i++) {
             target = targets[i];
-            targetPos = target.getPosition();
-            targetSize = target.getContentSize();
-            var targetRect = cc.rect(targetPos.x - (targetSize.width / 2), targetPos.y - (targetSize.height / 2), targetSize.width, targetSize.height);
+            var targetRect = cc.rect(target.x - (target.width / 2), target.y - (target.height / 2), target.width, target.height);
             if (cc.rectIntersectsRect(projectileRect, targetRect)) {
                 targetsToDelete.push(target);
             }
@@ -80,20 +76,20 @@ var ProjectileController = ccs.ComController.extend({
     move: function (x, y) {
         var winSize = cc.Director.getInstance().getWinSize();
 
-        var offX = x - this._owner.getPosition().x;
-        var offY = y - this._owner.getPosition().y;
+        var offX = x - this._owner.x;
+        var offY = y - this._owner.y;
 
         if (offX <= 0) return;
 
         // Determine where we wish to shoot the projectile to
-        var realX = winSize.width + (this._owner.getContentSize().width / 2);
+        var realX = winSize.width + (this._owner.width / 2);
         var ratio = offY / offX;
-        var realY = (realX * ratio) + this._owner.getPosition().y;
+        var realY = (realX * ratio) + this._owner.y;
         var realDest = cc.p(realX, realY);
 
         // Determine the length of how far we're shooting
-        var offRealX = realX - this._owner.getPosition().x;
-        var offRealY = realY - this._owner.getPosition().y;
+        var offRealX = realX - this._owner.x;
+        var offRealY = realY - this._owner.y;
         var length = Math.sqrt((offRealX * offRealX) + (offRealY * offRealY));
         var velocity = 480 / 1; // 480pixels/1sec
         var realMoveDuration = length / velocity;
@@ -102,14 +98,14 @@ var ProjectileController = ccs.ComController.extend({
         this._owner.runAction(cc.Sequence.create(
             cc.MoveTo.create(realMoveDuration, realDest),
             cc.CallFunc.create(function () {
-                var sceneController = this.getOwner().getParent().getComponent("SceneController");
+                var sceneController = this.getOwner().parent.getComponent("SceneController");
                 sceneController.spriteMoveFinished(this._owner);
             }, this)));
 
     },
 
     die: function () {
-        var com = this._owner.getParent().getComponent("SceneController");
+        var com = this._owner.parent.getComponent("SceneController");
         var projectiles = com.getProjectiles();
         cc.ArrayRemoveObject(projectiles, this._owner);
         this._owner.removeFromParent(true);

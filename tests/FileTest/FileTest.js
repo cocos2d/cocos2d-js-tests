@@ -35,23 +35,23 @@ var FileTestBase = BaseTestLayer.extend({
     _subtitle:"",
 
     ctor:function() {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255));
     },
 
     onRestartCallback:function (sender) {
         var s = new FileTestScene();
         s.addChild(restartFileTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new FileTestScene();
         s.addChild(nextFileTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new FileTestScene();
         s.addChild(previousFileTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     // automation
@@ -86,7 +86,8 @@ var FilenameLookupTest = FileTestBase.extend({
 
         var sprite = cc.Sprite.create("grossini.bmp");
         this.addChild( sprite );
-        sprite.setPosition( winSize.width/2, winSize.height/2);
+        sprite.x = winSize.width/2;
+        sprite.y = winSize.height/2;
 
 
         //
@@ -122,7 +123,7 @@ var FileTestScene = TestScene.extend({
         var layer = nextFileTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 
@@ -183,7 +184,8 @@ var SAXParserTest = FileTestBase.extend({
 		var ok = JSON.stringify(this._expectResult) == JSON.stringify(result);
 		this._label = cc.LabelTTF.create(ok ? "SUCCESS" : "FAIL");
 		var winsize = cc.Director.getInstance().getWinSize();
-		this._label.setPosition(winsize.width/2, winsize.height/2);
+		this._label.x = winsize.width/2;
+		this._label.y = winsize.height/2;
 		this.addChild(this._label);
 	},
 
@@ -206,7 +208,7 @@ var FileTestScene = TestScene.extend({
 		var layer = nextFileTest();
 		this.addChild(layer);
 
-		director.replaceScene(this);
+		director.runScene(this);
 	}
 });
 

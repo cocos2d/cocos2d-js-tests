@@ -26,6 +26,7 @@ var tests_files = [
     'EffectsTest/EffectsTest.js',
     'EffectsAdvancedTest/EffectsAdvancedTest.js',
     'MotionStreakTest/MotionStreakTest.js',
+    'NewEventDispatcherTest/NewEventDispatcherTest.js',
     'EventTest/EventTest.js',
     'FileTest/FileTest.js',
     'FontTest/FontTest.js',
@@ -120,4 +121,4 @@ for (var i = 0; i < tests_files.length; i++) {
 var scene = cc.Scene.create();
 var layer = new TestController();
 scene.addChild(layer);
-director.runWithScene(scene);
+director.runScene(scene);

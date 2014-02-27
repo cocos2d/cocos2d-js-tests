@@ -78,7 +78,8 @@ var UILoadingBarTest_Left = UILoadingBarTest.extend({
         loadingBar.setName("LoadingBar");
         loadingBar.loadTexture("res/cocosgui/sliderProgress.png");
         loadingBar.setPercent(0);
-        loadingBar.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + loadingBar.getSize().height / 4));
+        loadingBar.x = widgetSize.width / 2;
+        loadingBar.y = widgetSize.height / 2 + loadingBar.height / 4;
         this._uiLayer.addWidget(loadingBar);
     }
 });
@@ -91,7 +92,8 @@ var UILoadingBarTest_Right = UILoadingBarTest.extend({
         loadingBar.loadTexture("res/cocosgui/sliderProgress.png");
         loadingBar.setDirection(ccs.LoadingBarType.right);
         loadingBar.setPercent(0);
-        loadingBar.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + loadingBar.getSize().height / 4));
+        loadingBar.x = widgetSize.width / 2;
+        loadingBar.y = widgetSize.height / 2 + loadingBar.height / 4;
         this._uiLayer.addWidget(loadingBar);
     }
 });
@@ -106,7 +108,8 @@ var UILoadingBarTest_Left_Scale9 = UILoadingBarTest.extend({
         loadingBar.setCapInsets(cc.rect(0, 0, 0, 0));
         loadingBar.setSize(cc.size(300, 30));
         loadingBar.setPercent(0);
-        loadingBar.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + loadingBar.getSize().height / 4));
+        loadingBar.x = widgetSize.width / 2;
+        loadingBar.y = widgetSize.height / 2 + loadingBar.height / 4;
         this._uiLayer.addWidget(loadingBar);
     }
 });
@@ -122,7 +125,8 @@ var UILoadingBarTest_Right_Scale9 = UILoadingBarTest.extend({
         loadingBar.setSize(cc.size(300, 30));
         loadingBar.setDirection(ccs.LoadingBarType.right);
         loadingBar.setPercent(0);
-        loadingBar.setPosition(cc.p(widgetSize.width / 2, widgetSize.height / 2 + loadingBar.getSize().height / 4));
+        loadingBar.x = widgetSize.width / 2;
+        loadingBar.y = widgetSize.height / 2 + loadingBar.height / 4;
         this._uiLayer.addWidget(loadingBar);
     }
 });

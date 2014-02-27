@@ -83,7 +83,7 @@ var SubTest = cc.Class.extend({
             case 2:
             case 3:
             {
-                sprite = cc.Sprite.createWithTexture(this._batchNode.getTexture(), cc.rect(0, 0, 52, 139));
+                sprite = cc.Sprite.create(this._batchNode.getTexture(), cc.rect(0, 0, 52, 139));
                 this._batchNode.addChild(sprite, 0, tag + 100);
                 break;
             }
@@ -102,7 +102,7 @@ var SubTest = cc.Class.extend({
                 var idx = 0 | (Math.random() * 14);
                 var x = (idx % 5) * 85;
                 var y = (0 | (idx / 5)) * 121;
-                sprite = cc.Sprite.createWithTexture(this._batchNode.getTexture(), cc.rect(x, y, 85, 121));
+                sprite = cc.Sprite.create(this._batchNode.getTexture(), cc.rect(x, y, 85, 121));
                 this._batchNode.addChild(sprite, 0, tag + 100);
                 break;
             }
@@ -129,7 +129,7 @@ var SubTest = cc.Class.extend({
 
                 y = (0 | (r / 8)) * 32;
                 x = (r % 8) * 32;
-                sprite = cc.Sprite.createWithTexture(this._batchNode.getTexture(), cc.rect(x, y, 32, 32));
+                sprite = cc.Sprite.create(this._batchNode.getTexture(), cc.rect(x, y, 32, 32));
                 this._batchNode.addChild(sprite, 0, tag + 100);
                 break;
             }
@@ -240,7 +240,7 @@ var SpriteMenuLayer = PerformBasicLayer.extend({
     _maxCases:7,
     showCurrentTest:function () {
         var scene = null;
-        var preScene = this.getParent();
+        var preScene = this.parent;
         var subTest = preScene.getSubTestNum();
         var nodes = preScene.getNodesNum();
 
@@ -273,7 +273,7 @@ var SpriteMenuLayer = PerformBasicLayer.extend({
 
         if (scene) {
             scene.initWithSubTest(subTest, nodes);
-            cc.Director.getInstance().replaceScene(scene);
+            cc.Director.getInstance().runScene(scene);
         }
     }
 });
@@ -309,24 +309,28 @@ var SpriteMainScene = cc.Scene.extend({
         // add title label
         var label = cc.LabelTTF.create(this.title(), "Arial", 40);
         this.addChild(label, 1);
-        label.setPosition(s.width / 2, s.height - 32);
-        label.setColor(cc.c3b(255, 255, 40));
+        label.x = s.width / 2;
+        label.y = s.height - 32;
+        label.color = cc.color(255, 255, 40);
 
         cc.MenuItemFont.setFontSize(65);
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
-        decrease.setColor(cc.c3b(0, 200, 20));
+        decrease.color = cc.color(0, 200, 20);
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
-        increase.setColor(cc.c3b(0, 200, 20));
+        increase.color = cc.color(0, 200, 20);
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
 
-        menu.setPosition(s.width / 2, s.height - 65);
+        menu.x = s.width / 2;
+
+        menu.y = s.height - 65;
         this.addChild(menu, 1);
 
         var infoLabel = cc.LabelTTF.create("0 nodes", "Marker Felt", 30);
-        infoLabel.setColor(cc.c3b(0, 200, 20));
-        infoLabel.setPosition(s.width / 2, s.height - 90);
+        infoLabel.color = cc.color(0, 200, 20);
+        infoLabel.x = s.width / 2;
+        infoLabel.y = s.height - 90;
         this.addChild(infoLabel, 1, TAG_INFO_LAYER);
 
         // add menu
@@ -339,19 +343,20 @@ var SpriteMainScene = cc.Scene.extend({
         for (var i = 1; i <= 9; ++i) {
             var text = i.toString();
             var itemFont = cc.MenuItemFont.create(text, this.testNCallback, this);
-            itemFont.setTag(i);
+            itemFont.tag = i;
             subMenu.addChild(itemFont, 10);
 
             if (i <= 3)
-                itemFont.setColor(cc.c3b(200, 20, 20));
+                itemFont.color = cc.color(200, 20, 20);
             else if (i <= 6)
-                itemFont.setColor(cc.c3b(0, 200, 20));
+                itemFont.color = cc.color(0, 200, 20);
             else
-                itemFont.setColor(cc.c3b(0, 20, 200));
+                itemFont.color = cc.color(0, 20, 200);
         }
 
         subMenu.alignItemsHorizontally();
-        subMenu.setPosition(s.width / 2, 80);
+        subMenu.x = s.width / 2;
+        subMenu.y = 80;
         this.addChild(subMenu, 2);
 
         while (this._quantityNodes < nodes) {
@@ -368,7 +373,7 @@ var SpriteMainScene = cc.Scene.extend({
         }
     },
     testNCallback:function (sender) {
-        this._subtestNumber = sender.getTag();
+        this._subtestNumber = sender.tag;
         var menu = this.getChildByTag(TAG_SPRITE_MENU_LAYER);
         menu.restartCallback(sender);
     },
@@ -416,7 +421,8 @@ var SpriteMainScene = cc.Scene.extend({
 ////////////////////////////////////////////////////////
 function performanceActions(sprite) {
     var size = cc.Director.getInstance().getWinSize();
-    sprite.setPosition(parseInt(Math.random() * size.width), parseInt(Math.random() * size.height));
+    sprite.x = parseInt(Math.random() * size.width);
+    sprite.y = parseInt(Math.random() * size.height);
 
     var period = 0.5 + (Math.random() * 1000) / 500.0;
     var rot = cc.RotateBy.create(period, 360.0 * Math.random());
@@ -432,10 +438,14 @@ function performanceActions(sprite) {
 
 function performanceActions20(sprite) {
     var size = cc.Director.getInstance().getWinSize();
-    if (Math.random() < 0.2)
-        sprite.setPosition(parseInt(Math.random() * size.width), parseInt(Math.random() * size.height));
-    else
-        sprite.setPosition(-1000, -1000);
+    if (Math.random() < 0.2) {
+        sprite.x = parseInt(Math.random() * size.width);
+        sprite.y = parseInt(Math.random() * size.height);
+    }
+    else {
+        sprite.x = -1000;
+        sprite.y = -1000;
+    }
 
     var period = 0.5 + (Math.random() * 1000) / 500.0;
     var rot = cc.RotateBy.create(period, 360.0 * Math.random());
@@ -451,33 +461,41 @@ function performanceActions20(sprite) {
 
 function performanceRotationScale(sprite) {
     var size = cc.Director.getInstance().getWinSize();
-    sprite.setPosition(parseInt(Math.random() * size.width), parseInt(Math.random() * size.height));
-    sprite.setRotation(Math.random() * 360);
-    sprite.setScale(Math.random() * 2);
+    sprite.x = parseInt(Math.random() * size.width);
+    sprite.y = parseInt(Math.random() * size.height);
+    sprite.rotation = Math.random() * 360;
+    sprite.scale = Math.random() * 2;
 }
 
 function performancePosition(sprite) {
     var size = cc.Director.getInstance().getWinSize();
-    sprite.setPosition(parseInt(Math.random() * size.width), parseInt(Math.random() * size.height));
+    sprite.x = parseInt(Math.random() * size.width);
+    sprite.y = parseInt(Math.random() * size.height);
 }
 
 function performanceout20(sprite) {
     var size = cc.Director.getInstance().getWinSize();
 
-    if (Math.random() < 0.2)
-        sprite.setPosition(parseInt(Math.random() * size.width), parseInt(Math.random() * size.height));
-    else
-        sprite.setPosition(-1000, -1000);
+    if (Math.random() < 0.2) {
+        sprite.x = parseInt(Math.random() * size.width);
+        sprite.y = parseInt(Math.random() * size.height);
+    }
+    else {
+        sprite.x = -1000;
+        sprite.y = -1000;
+    }
 }
 
 function performanceOut100(sprite) {
-    sprite.setPosition(-1000, -1000);
+    sprite.x = -1000;
+    sprite.y = -1000;
 }
 
 function performanceScale(sprite) {
     var size = cc.Director.getInstance().getWinSize();
-    sprite.setPosition(parseInt(Math.random() * size.width), parseInt(Math.random() * size.height));
-    sprite.setScale(Math.random() * 100 / 50);
+    sprite.x = parseInt(Math.random() * size.width);
+    sprite.y = parseInt(Math.random() * size.height);
+    sprite.scale = Math.random() * 100 / 50;
 }
 
 
@@ -584,5 +602,5 @@ function runSpriteTest() {
 
     var scene = new SpritePerformTest1;
     scene.initWithSubTest(1, 50);
-    cc.Director.getInstance().replaceScene(scene);
+    cc.Director.getInstance().runScene(scene);
 }

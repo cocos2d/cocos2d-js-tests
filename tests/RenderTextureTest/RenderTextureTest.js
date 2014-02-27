@@ -27,7 +27,7 @@ var sceneRenderTextureIdx = -1;
 
 var RenderTextureBaseLayer = BaseTestLayer.extend({
     ctor:function () {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255) );
     },
 
     title:function () {
@@ -46,17 +46,17 @@ var RenderTextureBaseLayer = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new RenderTextureTestScene();
         s.addChild(restartRenderTextureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new RenderTextureTestScene();
         s.addChild(nextRenderTextureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new RenderTextureTestScene();
         s.addChild(previousRenderTextureTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     // automation
@@ -83,28 +83,43 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     onEnter:function () {
         this._super();
 
-        if ('touches' in sys.capabilities)
-            this.setTouchEnabled(true);
-        else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);
+        if ('touches' in sys.capabilities){
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesMoved:function (touches, event) {
+                    event.getCurrentTarget().drawInLocation(touches[0].getLocation());
+                }
+            }, this);
+        } else if ('mouse' in sys.capabilities)
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseDown: function(event){
+                    event.getCurrentTarget()._lastLocation = event.getCursor();
+                },
+                onMouseMove: function(event){
+                    event.getCurrentTarget().drawInLocation(event.getCursor());
+                }
+            }, this);
 
         this._brush = cc.Sprite.create(s_fire);
         this._brush.retain();
 
-        this._brush.setColor(cc.red());
-        this._brush.setOpacity(20);
+        this._brush.color = cc.color.red;
+        this._brush.opacity = 20;
 
         var save = cc.MenuItemFont.create("Save", this.saveCB, this);
         var clear = cc.MenuItemFont.create("Clear", this.clearCB.bind(this)); // another way to pass 'this'
         var menu = cc.Menu.create(save, clear);
         // var menu = cc.Menu.create(clear);
         menu.alignItemsVertically();
-        menu.setPosition(winSize.width - 70, winSize.height - 80);
+        menu.x = winSize.width - 70;
+        menu.y = winSize.height - 80;
         this.addChild(menu, 10);
 
         // create a render texture
         var target = cc.RenderTexture.create(winSize.width, winSize.height);
-        target.setPosition(winSize.width / 2, winSize.height / 2);
+        target.x = winSize.width / 2;
+        target.y = winSize.height / 2;
         this.addChild(target, 1);
 
         this._target = target;
@@ -148,35 +163,18 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
 
                 var delta = i / distance;
 
-                locBrush.setPosition(location.x + diffX * delta, location.y + diffY * delta);
-                locBrush.setRotation(Math.random() * 360);
-                locBrush.setScale(Math.random() * 2);
-                locBrush.setColor(cc.c3b(Math.random() * 255, 255, 255));
+                locBrush.attr({
+	                x: location.x + diffX * delta,
+	                y: location.y + diffY * delta,
+	                rotation: Math.random() * 360,
+	                scale: Math.random() * 2,
+	                color: cc.color(Math.random() * 255, 255, 255)
+                });
                 locBrush.visit();
             }
             this._target.end();
         }
         this._lastLocation = location;
-    },
-
-    onTouchesBegan:function (touches, event) {
-        this._lastLocation = touches[0].getLocation();
-        return true;
-    },
-
-    onTouchesMoved:function (touches, event) {
-        this.drawInLocation(touches[0].getLocation());
-        return true;
-    },
-
-    onMouseDown:function (event) {
-        this._lastLocation = event.getLocation();
-        return true;
-    },
-
-    onMouseDragged:function (event) {
-        this.drawInLocation(event.getLocation());
-        return true;
     },
 
     subtitle:function () {
@@ -200,17 +198,19 @@ var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
          *  B1: non-premulti sprite
          *  B2: non-premulti render
          */
-        var background = cc.LayerColor.create(cc.c4b(200, 200, 200, 255));
+        var background = cc.LayerColor.create(cc.color(200, 200, 200, 255));
         this.addChild(background);
 
         var spr_premulti = cc.Sprite.create(s_fire);
-        spr_premulti.setPosition(16, 48);
+        spr_premulti.x = 16;
+        spr_premulti.y = 48;
 
         var spr_nonpremulti = cc.Sprite.create(s_fire);
-        spr_nonpremulti.setPosition(16, 16);
+        spr_nonpremulti.x = 16;
+        spr_nonpremulti.y = 16;
 
         /* A2 & B2 setup */
-        var rend = cc.RenderTexture.create(32, 64, cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+        var rend = cc.RenderTexture.create(32, 64, cc.Texture2D.PIXEL_FORMAT.RGBA8888);
         if (!rend)
             return;
         // It's possible to modify the RenderTexture blending function by
@@ -222,12 +222,15 @@ var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
         rend.end();
 
         /* A1: setup */
-        spr_premulti.setPosition(winSize.width / 2 - 16, winSize.height / 2 + 16);
+        spr_premulti.x = winSize.width / 2 - 16;
+        spr_premulti.y = winSize.height / 2 + 16;
         /* B1: setup */
-        spr_nonpremulti.setPosition(winSize.width / 2 - 16, winSize.height / 2 - 16);
+        spr_nonpremulti.x = winSize.width / 2 - 16;
+        spr_nonpremulti.y = winSize.height / 2 - 16;
 
-        rend.setPosition(winSize.width / 2 + 16, winSize.height / 2);
-        //background.setVisible(false);
+        rend.x = winSize.width / 2 + 16;
+        rend.y = winSize.height / 2;
+        //background.visible = false;
         this.addChild(spr_nonpremulti);
         this.addChild(spr_premulti);
         this.addChild(rend);
@@ -256,36 +259,46 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
 
     ctor:function () {
         this._super();
-        this.setTouchEnabled(true);
+
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesBegan: this.onTouchesBegan.bind(this),
+            onTouchesEnded: this.onTouchesEnded.bind(this),
+            onTouchesMoved: this.onTouchesMoved.bind(this)
+        }, this);
+
         var size = cc.Director.getInstance().getWinSize();
         var label = cc.LabelTTF.create("vertexZ = 50", "Marker Felt", 64);
-        label.setPosition(size.width / 2, size.height * 0.25);
+        label.x = size.width / 2;
+        label.y = size.height * 0.25;
         this.addChild(label);
 
         var label2 = cc.LabelTTF.create("vertexZ = 0", "Marker Felt", 64);
-        label2.setPosition(size.width / 2, size.height * 0.5);
+        label2.x = size.width / 2;
+        label2.y = size.height * 0.5;
         this.addChild(label2);
 
         var label3 = cc.LabelTTF.create("vertexZ = -50", "Marker Felt", 64);
-        label3.setPosition(size.width / 2, size.height * 0.75);
+        label3.x = size.width / 2;
+        label3.y = size.height * 0.75;
         this.addChild(label3);
 
-        label.setVertexZ(50);
-        label2.setVertexZ(0);
-        label3.setVertexZ(-50);
+        label.vertexZ = 50;
+        label2.vertexZ = 0;
+        label3.vertexZ = -50;
 
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_circle_plist);
         this.mgr = cc.SpriteBatchNode.create(s_circle_png, 9);
         this.addChild(this.mgr);
-        this.sp1 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp2 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp3 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp4 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp5 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp6 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp7 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp8 = cc.Sprite.createWithSpriteFrameName("circle.png");
-        this.sp9 = cc.Sprite.createWithSpriteFrameName("circle.png");
+        this.sp1 = cc.Sprite.create("circle.png");
+        this.sp2 = cc.Sprite.create("circle.png");
+        this.sp3 = cc.Sprite.create("circle.png");
+        this.sp4 = cc.Sprite.create("circle.png");
+        this.sp5 = cc.Sprite.create("circle.png");
+        this.sp6 = cc.Sprite.create("circle.png");
+        this.sp7 = cc.Sprite.create("circle.png");
+        this.sp8 = cc.Sprite.create("circle.png");
+        this.sp9 = cc.Sprite.create("circle.png");
 
         this.mgr.addChild(this.sp1, 9);
         this.mgr.addChild(this.sp2, 8);
@@ -297,18 +310,18 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         this.mgr.addChild(this.sp8, 2);
         this.mgr.addChild(this.sp9, 1);
 
-        this.sp1.setVertexZ(400);
-        this.sp2.setVertexZ(300);
-        this.sp3.setVertexZ(200);
-        this.sp4.setVertexZ(100);
-        this.sp5.setVertexZ(0);
-        this.sp6.setVertexZ(-100);
-        this.sp7.setVertexZ(-200);
-        this.sp8.setVertexZ(-300);
-        this.sp9.setVertexZ(-400);
+        this.sp1.vertexZ = 400;
+        this.sp2.vertexZ = 300;
+        this.sp3.vertexZ = 200;
+        this.sp4.vertexZ = 100;
+        this.sp5.vertexZ = 0;
+        this.sp6.vertexZ = -100;
+        this.sp7.vertexZ = -200;
+        this.sp8.vertexZ = -300;
+        this.sp9.vertexZ = -400;
 
-        this.sp9.setScale(2);
-        this.sp9.setColor(cc.yellow());
+        this.sp9.scale = 2;
+        this.sp9.color = cc.color.yellow;
     },
 
     onTouchesBegan:function (touches, event) {
@@ -318,15 +331,24 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         for (var i = 0; i < touches.length; i++) {
             var location = touches[i].getLocation();
 
-            this.sp1.setPosition(location);
-            this.sp2.setPosition(location);
-            this.sp3.setPosition(location);
-            this.sp4.setPosition(location);
-            this.sp5.setPosition(location);
-            this.sp6.setPosition(location);
-            this.sp7.setPosition(location);
-            this.sp8.setPosition(location);
-            this.sp9.setPosition(location);
+            this.sp1.x = location.x;
+            this.sp1.y = location.y;
+            this.sp2.x = location.x;
+            this.sp2.y = location.y;
+            this.sp3.x = location.x;
+            this.sp3.y = location.y;
+            this.sp4.x = location.x;
+            this.sp4.y = location.y;
+            this.sp5.x = location.x;
+            this.sp5.y = location.y;
+            this.sp6.x = location.x;
+            this.sp6.y = location.y;
+            this.sp7.x = location.x;
+            this.sp7.y = location.y;
+            this.sp8.x = location.x;
+            this.sp8.y = location.y;
+            this.sp9.x = location.x;
+            this.sp9.y = location.y;
         }
     },
 
@@ -337,15 +359,24 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         for (var i = 0; i < touches.length; i++) {
             var location = touches[i].getLocation();
 
-            this.sp1.setPosition(location);
-            this.sp2.setPosition(location);
-            this.sp3.setPosition(location);
-            this.sp4.setPosition(location);
-            this.sp5.setPosition(location);
-            this.sp6.setPosition(location);
-            this.sp7.setPosition(location);
-            this.sp8.setPosition(location);
-            this.sp9.setPosition(location);
+            this.sp1.x = location.x;
+            this.sp1.y = location.y;
+            this.sp2.x = location.x;
+            this.sp2.y = location.y;
+            this.sp3.x = location.x;
+            this.sp3.y = location.y;
+            this.sp4.x = location.x;
+            this.sp4.y = location.y;
+            this.sp5.x = location.x;
+            this.sp5.y = location.y;
+            this.sp6.x = location.x;
+            this.sp6.y = location.y;
+            this.sp7.x = location.x;
+            this.sp7.y = location.y;
+            this.sp8.x = location.x;
+            this.sp8.y = location.y;
+            this.sp9.x = location.x;
+            this.sp9.y = location.y;
         }
     },
 
@@ -367,18 +398,20 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         if (!texture)
             return;
 
-        texture.setAnchorPoint(0, 0);
+        texture.anchorX = 0;
+	    texture.anchorY = 0;
         texture.begin();
         this.visit();
         texture.end();
 
-        var sprite = cc.Sprite.createWithTexture(texture.getSprite().getTexture());
+        var sprite = cc.Sprite.create(texture.getSprite().getTexture());
 
-        sprite.setPosition(winSize.width/2, winSize.width/2);
-        sprite.setOpacity(182);
-        sprite.setFlippedY(1);
+        sprite.x = winSize.width/2;
+        sprite.y = winSize.width/2;
+        sprite.opacity = 182;
+        sprite.flippedY = 1;
         this.addChild(sprite, 999999);
-        sprite.setColor(cc.green());
+        sprite.color = cc.color.green;
 
         sprite.runAction(cc.Sequence.create(cc.FadeTo.create(2, 0), cc.Hide.create()));
     }
@@ -392,8 +425,9 @@ var RenderTextureTestDepthStencil = RenderTextureBaseLayer.extend({
         var winSize = cc.Director.getInstance().getWinSize();
 
         var sprite = cc.Sprite.create(s_fire);
-        sprite.setPosition(winSize.width * 0.25, 0);
-        sprite.setScale(10);
+        sprite.x = winSize.width * 0.25;
+        sprite.y = 0;
+        sprite.scale = 10;
         //TODO GL_DEPTH24_STENCIL8
         //var rend = cc.RenderTexture.create(winSize.width, winSize.height, cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
         var rend = cc.RenderTexture.create(winSize.width, winSize.height);
@@ -409,7 +443,8 @@ var RenderTextureTestDepthStencil = RenderTextureBaseLayer.extend({
         sprite.visit();
 
         //! move sprite half width and height, and draw only where not marked
-        sprite.setPosition(cc.pAdd(sprite.getPosition(), cc.pMult(cc.p(sprite.getContentSize().width * sprite.getScale(), sprite.getContentSize().height * sprite.getScale()), 0.5)));
+	    sprite.x += sprite.width * sprite.scale / 2;
+	    sprite.y += sprite.height * sprite.scale / 2;
         gl.stencilFunc(gl.NOTEQUAL, 1, 0xFF);
         gl.colorMask(1, 1, 1, 1);
         sprite.visit();
@@ -418,7 +453,8 @@ var RenderTextureTestDepthStencil = RenderTextureBaseLayer.extend({
 
         gl.disable(gl.STENCIL_TEST);
 
-        rend.setPosition(winSize.width * 0.5, winSize.height * 0.5);
+        rend.x = winSize.width * 0.5;
+        rend.y = winSize.height * 0.5;
 
         this.addChild(rend);
     },
@@ -454,7 +490,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
          *  B1: non-premulti sprite
          *  B2: non-premulti render
          */
-        var background = cc.LayerColor.create(cc.c4b(40, 40, 40, 255));
+        var background = cc.LayerColor.create(cc.color(40, 40, 40, 255));
         this.addChild(background);
 
         var winSize = cc.Director.getInstance().getWinSize();
@@ -462,13 +498,15 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
 
         // sprite 1
         var sprite1 = cc.Sprite.create(s_fire);
-        sprite1.setPosition(winSize.width, winSize.height);
+        sprite1.x = winSize.width;
+        sprite1.y = winSize.height;
         this._sprite1 = sprite1;
 
         // sprite 2
         //todo Images/fire_rgba8888.pvr
         var sprite2 = cc.Sprite.create(s_fire);
-        sprite2.setPosition(winSize.width, winSize.height);
+        sprite2.x = winSize.width;
+        sprite2.y = winSize.height;
         this._sprite2 = sprite2;
 
         /* Create the render texture */
@@ -476,14 +514,15 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
         var renderTexture = cc.RenderTexture.create(winSize.width, winSize.height);
         this._renderTexture = renderTexture;
 
-        renderTexture.setPosition(winSize.width / 2, winSize.height / 2);
+        renderTexture.x = winSize.width / 2;
+        renderTexture.y = winSize.height / 2;
         //		[renderTexture setPosition:cc.p(s.width, s.height)];
         //		renderTexture.scale = 2;
 
         /* add the sprites to the render texture */
         renderTexture.addChild(this._sprite1);
         renderTexture.addChild(this._sprite2);
-        renderTexture.setClearColor(cc.c4f(0, 0, 0, 0));
+        renderTexture.setClearColor(cc.color(0, 0, 0, 0));
         renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
 
         /* add the render texture to the scene */
@@ -498,15 +537,18 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
         var menu = cc.Menu.create(item);
         this.addChild(menu);
 
-        menu.setPosition(winSize.width / 2, winSize.height / 2);
+        menu.x = winSize.width / 2;
+        menu.y = winSize.height / 2;
     },
 
     update:function (dt) {
         var r = 80;
         var locWinSize = this._winSize;
         var locTime = this._time;
-        this._sprite1.setPosition(Math.cos(locTime * 2) * r + locWinSize.width /2, Math.sin(locTime * 2) * r + locWinSize.height /2);
-        this._sprite2.setPosition(Math.sin(locTime * 2) * r + locWinSize.width /2, Math.cos(locTime * 2) * r + locWinSize.height /2);
+        this._sprite1.x = Math.cos(locTime * 2) * r + locWinSize.width /2;
+        this._sprite1.y = Math.sin(locTime * 2) * r + locWinSize.height /2;
+        this._sprite2.x = Math.sin(locTime * 2) * r + locWinSize.width /2;
+        this._sprite2.y = Math.cos(locTime * 2) * r + locWinSize.height /2;
 
         this._time += dt;
     },
@@ -524,7 +566,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
             this._renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
         else {
             this._renderTexture.setClearFlags(0);
-            this._renderTexture.setClearColor(cc.c4f(Math.random(), Math.random(), Math.random(), 1));
+            this._renderTexture.setClearColor(cc.color(Math.random()*255, Math.random()*255, Math.random()*255, 255));
         }
     }
 });
@@ -547,10 +589,13 @@ var Issue1464 = RenderTextureBaseLayer.extend({
 
         // create a render texture
         var rend = cc.RenderTexture.create( winSize.width/2, winSize.height/2 );
-        rend.setPosition( winSize.width/2, winSize.height/2 );
+        rend.x = winSize.width/2;
+        rend.y = winSize.height/2 ;
         this.addChild( rend, 1 );
 
-        sprite.setPosition(winSize.width/4, winSize.height/4);
+        sprite.x = winSize.width/4;
+
+        sprite.y = winSize.height/4;
         rend.begin();
         sprite.visit();
         rend.end();
@@ -564,7 +609,8 @@ var Issue1464 = RenderTextureBaseLayer.extend({
 
         if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
             var label = cc.LabelTTF.create("Not support Actions on HTML5-canvas", "Times New Roman", 30);
-            label.setPosition(winSize.width / 2, winSize.height / 2 + 50);
+            label.x = winSize.width / 2;
+            label.y = winSize.height / 2 + 50;
             this.addChild(label, 100);
         }
     },
@@ -601,7 +647,7 @@ var RenderTextureTestScene = TestScene.extend({
         var layer = nextRenderTextureTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

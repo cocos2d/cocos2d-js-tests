@@ -37,17 +37,17 @@ var UnitTestBase = BaseTestLayer.extend({
     onRestartCallback:function (sender) {
         var s = new UnitTestScene();
         s.addChild(restartUnitTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onNextCallback:function (sender) {
         var s = new UnitTestScene();
         s.addChild(nextUnitTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
     onBackCallback:function (sender) {
         var s = new UnitTestScene();
         s.addChild(previousUnitTest());
-        director.replaceScene(s);
+        director.runScene(s);
     },
 
     // automation
@@ -160,7 +160,8 @@ var RectUnitTest = UnitTestBase.extend({
 
         this.log("Test 11: getBoundingBox()");
         var node = cc.Node.create();
-        node.setContentSize(99,101);
+        node.width = 99;
+	    node.height = 101;
         var bb = node.getBoundingBox();
         if( bb.height != 101 || bb.width != 99)
             throw "Fail getBoundingBox()";
@@ -250,7 +251,7 @@ var UnitTestScene = TestScene.extend({
         var layer = nextUnitTest();
         this.addChild(layer);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
 

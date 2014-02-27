@@ -57,17 +57,21 @@ UIScene = cc.Layer.extend({
 
             var winSize = cc.Director.getInstance().getWinSize();
             var scale = winSize.height / 320;
-            this._uiLayer.setAnchorPoint(0,0);
-            this._uiLayer.setScale(scale);
-            this._uiLayer.setPosition(cc.p((winSize.width - 480 * scale) / 2, (winSize.height - 320 * scale) / 2));
+            this._uiLayer.anchorX = 0;
+            this._uiLayer.anchorY = 0;
+            this._uiLayer.scale = scale;
+            this._uiLayer.x = (winSize.width - 480 * scale) / 2;
+	        this._uiLayer.y = (winSize.height - 320 * scale) / 2;
 
             var widgetSize = this._widget.getSize();
             var eventLabel = ccs.Label.create();
             eventLabel.setText("");
             eventLabel.setFontName("Marker Felt");
             eventLabel.setFontSize(32);
-            eventLabel.setAnchorPoint(0.5, -1);
-            eventLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0));
+            eventLabel.anchorX = 0.5;
+            eventLabel.anchorY = -1;
+            eventLabel.x = widgetSize.width / 2.0;
+	        eventLabel.y = widgetSize.height / 2.0;
             this._uiLayer.addWidget(eventLabel);
             this._topDisplayLabel = eventLabel;
 
@@ -75,8 +79,9 @@ UIScene = cc.Layer.extend({
             uiLabel.setText("");
             uiLabel.setFontName("Marker Felt");
             uiLabel.setFontSize(30);
-            uiLabel.setColor(cc.c3b(159, 168, 176));
-            uiLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 - uiLabel.getSize().height * 1.75));
+            uiLabel.color = cc.color(159, 168, 176);
+            uiLabel.x = widgetSize.width / 2.0;
+	        uiLabel.y = widgetSize.height / 2.0 - uiLabel.height * 1.75;
             this._uiLayer.addWidget(uiLabel);
             this._bottomDisplayLabel = uiLabel;
 
@@ -101,7 +106,7 @@ UIScene = cc.Layer.extend({
         if (type == ccs.TouchEventType.ended) {
             this._uiLayer.unscheduleUpdate();
             this._uiLayer.removeFromParent();
-            cc.Director.getInstance().replaceScene(UISceneManager.getInstance().previousUIScene());
+            cc.Director.getInstance().runScene(UISceneManager.getInstance().previousUIScene());
         }
     },
 
@@ -109,7 +114,7 @@ UIScene = cc.Layer.extend({
         if (type == ccs.TouchEventType.ended) {
             this._uiLayer.unscheduleUpdate();
             this._uiLayer.removeFromParent();
-            cc.Director.getInstance().replaceScene(UISceneManager.getInstance().currentUIScene());
+            cc.Director.getInstance().runScene(UISceneManager.getInstance().currentUIScene());
         }
     },
 
@@ -117,7 +122,7 @@ UIScene = cc.Layer.extend({
         if (type == ccs.TouchEventType.ended) {
             this._uiLayer.unscheduleUpdate();
             this._uiLayer.removeFromParent();
-            cc.Director.getInstance().replaceScene(UISceneManager.getInstance().nextUIScene());
+            cc.Director.getInstance().runScene(UISceneManager.getInstance().nextUIScene());
         }
     }
 });

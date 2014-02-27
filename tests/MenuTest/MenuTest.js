@@ -40,9 +40,13 @@ var MenuLayerMainMenu = cc.Layer.extend({
     ctor:function () {
         this._super();
 
-        this.setTouchEnabled(true);
-        this.setTouchPriority(cc.MENU_HANDLER_PRIORITY + 1);
-        this.setTouchMode(cc.TOUCH_ONE_BY_ONE);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan:function () {
+                return true;
+            }
+        }, this);
 
         // Font Item
         var spriteNormal = cc.Sprite.create(s_menuItem, cc.rect(0,23*2,115,23));
@@ -57,8 +61,8 @@ var MenuLayerMainMenu = cc.Layer.extend({
         // Label Item (LabelAtlas)
         var labelAtlas = cc.LabelAtlas.create("0123456789", s_fpsImages, 16, 24, '.');
         var item3 = cc.MenuItemLabel.create(labelAtlas, this.onMenuCallbackDisabled, this );
-        item3.setDisabledColor( cc.c3b(32,32,64) );
-        item3.setColor( cc.c3b(200,200,255) );
+        item3.setDisabledColor( cc.color(32,32,64) );
+        item3.color = cc.color(200,200,255);
 
         // Font Item
         var item4 = cc.MenuItemFont.create("I toggle enable items", function(sender) {
@@ -73,7 +77,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
         var item5 = cc.MenuItemLabel.create(label, this.onMenuCallbackConfig, this);
 
         // Testing issue #500
-        item5.setScale( 0.8);
+        item5.scale = 0.8;
 
         // Events
         cc.MenuItemFont.setFontName("Arial");
@@ -98,37 +102,35 @@ var MenuLayerMainMenu = cc.Layer.extend({
         // elastic effect
         var winSize = cc.Director.getInstance().getWinSize();
 
-        var locChildren = menu.getChildren();
+        var locChildren = menu.children;
         var dstPoint = cc.p(0,0);
         for(var i = 0; i < locChildren.length; i++){
             var selChild = locChildren[i];
             if(selChild){
-                dstPoint.x = selChild.getPositionX();
-                dstPoint.y = selChild.getPositionY();
+                dstPoint.x = selChild.x;
+                dstPoint.y = selChild.y;
                 var offset = 0|(winSize.width/2 + 50);
                 if( i % 2 == 0)
                     offset = -offset;
 
-                selChild.setPosition( dstPoint.x + offset, dstPoint.y);
+                selChild.x = dstPoint.x + offset;
+                selChild.y = dstPoint.y;
                 selChild.runAction(cc.EaseElasticOut.create(cc.MoveBy.create(2, cc.p(dstPoint.x - offset,0)), 0.35));
             }
         }
         this._disabledItem = item3;
         this._disabledItem.setEnabled( false );
         this.addChild(menu);
-        menu.setPosition(winSize.width/2, winSize.height/2);
-    },
-
-    onTouchBegan:function () {
-        return true;
+        menu.x = winSize.width/2;
+        menu.y = winSize.height/2;
     },
 
     onMenuCallback:function (sender) {
-        this.getParent().switchTo(1);
+        this.parent.switchTo(1);
     },
 
     onMenuCallbackConfig:function (sender) {
-        this.getParent().switchTo(3);
+        this.parent.switchTo(3);
     },
 
     onAllowTouches:function (dt) {
@@ -145,11 +147,11 @@ var MenuLayerMainMenu = cc.Layer.extend({
     },
 
     onMenuCallback2:function (sender) {
-        this.getParent().switchTo(2);
+        this.parent.switchTo(2);
     },
 
     onMenuCallbackPriorityTest:function (sender) {
-        this.getParent().switchTo(4);
+        this.parent.switchTo(4);
     },
 
     onQuit:function (sender) {
@@ -157,11 +159,11 @@ var MenuLayerMainMenu = cc.Layer.extend({
     },
 
     onMenuCallbackBugsTest:function(sender){
-        this.getParent().switchTo(5);
+        this.parent.switchTo(5);
     },
 
     onMenuMovingCallback:function(sender){
-        this.getParent().switchTo(6);
+        this.parent.switchTo(6);
     }
 });
 
@@ -182,19 +184,20 @@ var MenuLayer2 = cc.Layer.extend({
             var item2 = cc.MenuItemImage.create(s_highNormal, s_highSelect, this.onMenuCallbackOpacity, this);
             var item3 = cc.MenuItemImage.create(s_aboutNormal, s_aboutSelect, this.onMenuCallbackAlign, this);
 
-            item1.setScaleX(1.5);
-            item2.setScaleX(0.5);
-            item3.setScaleX(0.5);
+            item1.scaleX = 1.5;
+            item2.scaleX = 0.5;
+            item3.scaleX = 0.5;
 
             var menu = cc.Menu.create(item1, item2, item3);
             var winSize = director.getWinSize();
 
-            menu.setTag(TAG_MENU);
-            menu.setPosition(winSize.width / 2, winSize.height / 2);
+            menu.tag = TAG_MENU;
+            menu.x = winSize.width / 2;
+            menu.y = winSize.height / 2;
 
             this.addChild(menu, 0, 100 + i);
 
-            this._centeredMenu = menu.getPosition();
+            this._centeredMenu = cc.p(menu.x, menu.y);
         }
         this._alignedH = true;
         this.alignMenuH();
@@ -207,15 +210,14 @@ var MenuLayer2 = cc.Layer.extend({
         var p;
         for (var i = 0; i < 2; i++) {
             var menu = this.getChildByTag(100 + i);
-            menu.setPosition(this._centeredMenu);
+            menu.x = this._centeredMenu.x;
+	        menu.y = this._centeredMenu.y;
             if (i === 0) {
                 menu.alignItemsHorizontally();
-                p = menu.getPosition();
-                menu.setPosition(cc.pAdd(p, cc.p(0, 30)));
+	            menu.y += 30;
             } else {
                 menu.alignItemsHorizontallyWithPadding(40);
-                p = menu.getPosition();
-                menu.setPosition(cc.pSub(p, cc.p(0, 30)));
+                menu.y -= 30;
             }
         }
     },
@@ -223,29 +225,28 @@ var MenuLayer2 = cc.Layer.extend({
         var p;
         for (var i = 0; i < 2; i++) {
             var menu = this.getChildByTag(100 + i);
-            menu.setPosition(this._centeredMenu);
+            menu.x = this._centeredMenu.x;
+	        menu.y = this._centeredMenu.y;
             if (i === 0) {
                 menu.alignItemsVertically();
-                p = menu.getPosition();
-                menu.setPosition(cc.pAdd(p, cc.p(100, 0)));
+                menu.x += 100;
             } else {
                 menu.alignItemsVerticallyWithPadding(40);
-                p = menu.getPosition();
-                menu.setPosition(cc.pSub(p, cc.p(100, 0)));
+	            menu.x -= 100;
             }
         }
     },
     // callbacks
     onMenuCallback:function (sender) {
-        this.getParent().switchTo(0);
+        this.parent.switchTo(0);
     },
     onMenuCallbackOpacity:function (sender) {
-        var menu = sender.getParent();
-        var opacity = menu.getOpacity();
+        var menu = sender.parent;
+        var opacity = menu.opacity;
         if (opacity == 128)
-            menu.setOpacity(255);
+            menu.opacity = 255;
         else
-            menu.setOpacity(128);
+            menu.opacity = 128;
     },
     onMenuCallbackAlign:function (sender) {
         this._alignedH = !this._alignedH;
@@ -279,7 +280,7 @@ var MenuLayer3 = cc.Layer.extend({
             this._disabledItem.stopAllActions();
         }, this);
         var item2 = cc.MenuItemFont.create("--- Go Back ---", function(sender){
-            this.getParent().switchTo(0);
+            this.parent.switchTo(0);
         }, this);
 
         var spriteNormal = cc.Sprite.create(s_menuItem, cc.rect(0, 23 * 2, 115, 23));
@@ -293,13 +294,17 @@ var MenuLayer3 = cc.Layer.extend({
         this._disabledItem.setEnabled(false);
 
         var menu = cc.Menu.create(item1, item2, item3);
-        menu.setPosition(0, 0);
+        menu.x = 0;
+        menu.y = 0;
 
         var s = director.getWinSize();
 
-        item1.setPosition(s.width / 2 - 150, s.height / 2);
-        item2.setPosition(s.width / 2 - 200, s.height / 2);
-        item3.setPosition(s.width / 2, s.height / 2 - 100);
+        item1.x = s.width / 2 - 150;
+        item1.y = s.height / 2;
+        item2.x = s.width / 2 - 200;
+        item2.y = s.height / 2;
+        item3.x = s.width / 2;
+        item3.y = s.height / 2 - 100;
 
         var jump = cc.JumpBy.create(3, cc.p(400, 0), 50, 4);
         item2.runAction(cc.RepeatForever.create(cc.Sequence.create(jump, jump.reverse())));
@@ -312,7 +317,8 @@ var MenuLayer3 = cc.Layer.extend({
         item3.runAction(cc.RepeatForever.create(spin3));
 
         this.addChild(menu);
-        menu.setPosition(0, 0);
+        menu.x = 0;
+        menu.y = 0;
     }
 });
 
@@ -400,13 +406,14 @@ var MenuLayer4 = cc.Layer.extend({
         this.addChild(menu);
 
         var winSize = director.getWinSize();
-        menu.setPosition(winSize.width / 2, winSize.height / 2);
+        menu.x = winSize.width / 2;
+        menu.y = winSize.height / 2;
     },
     onMenuCallback:function (sender) {
         cc.log("Callback called");
     },
     onBackCallback:function (sender) {
-        this.getParent().switchTo(0);
+        this.parent.switchTo(0);
     }
 });
 
@@ -435,13 +442,13 @@ var MenuLayerPriorityTest = cc.Layer.extend({
         this._priority = true;
         cc.MenuItemFont.setFontSize(48);
         item1 = cc.MenuItemFont.create("Toggle priority", this.onTogglePriorityCallback, this);
-        item1.setColor(cc.c3b(0, 0, 255));
+        item1.color = cc.color(0, 0, 255);
         this._menu2.addChild(item1);
         this.addChild(this._menu2);
     },
 
     onMenuCallback:function (sender) {
-        this.getParent().switchTo(0);
+        this.parent.switchTo(0);
     },
 
     onDisableMenuCallback:function (sender) {
@@ -477,40 +484,41 @@ var MenuBugsTest = cc.Layer.extend({
          menu.alignItemsVertically();
 
          var s = cc.Director.getInstance().getWinSize();
-         menu.setPosition(s.width/2, s.height/2);
+         menu.x = s.width/2;
+         menu.y = s.height/2;
      },
 
     onIssue1410MenuCallback:function(sender){
-        var menu = sender.getParent();
-        menu.setTouchEnabled(false);
-        menu.setTouchEnabled(true);
+        var menu = sender.parent;
+        menu.setEnable(false);
+        menu.setEnable(true);
 
         cc.log("NO CRASHES");
     },
 
     onIssue1410v2MenuCallback:function(sender){
-        var menu = sender.getParent();
-        menu.setTouchEnabled(true);
-        menu.setTouchEnabled(false);
+        var menu = sender.parent;
+        menu.setEnable(true);
+        menu.setEnable(false);
 
         cc.log("NO CRASHES. AND MENU SHOULD STOP WORKING");
     },
 
     onBackMenuCallback:function(sender){
-        this.getParent().switchTo(0);
+        this.parent.switchTo(0);
     }
 });
 
 var RemoveMenuItemWhenMove = cc.Layer.extend({
     _item:null,
-
     ctor: function(){
         this._super();
 
         var s = cc.Director.getInstance().getWinSize();
 
         var label = cc.LabelTTF.create("click item and move, should not crash", "Arial", 20);
-        label.setPosition(s.width/2, s.height - 30);
+        label.x = s.width/2;
+        label.y = s.height - 30;
         this.addChild(label);
 
         this._item = cc.MenuItemFont.create("item 1");
@@ -521,30 +529,27 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
         this.addChild(menu);
         menu.alignItemsVertically();
 
-        menu.setPosition(s.width/2, s.height/2);
-    },
-
-    onEnter: function(){
-        this._super();
-        cc.registerTargetedDelegate(-129, false, this);
-    },
-
-    onExit: function() {
-        cc.unregisterTouchDelegate(this);
-        this._super();
-    },
-    onTouchBegan:function(touch, event){
-        return true;
-    },
-    onTouchMoved: function(touch, event){
-        if (this._item){
-            this._item.removeFromParent(true);
-            this._item = null;
-        }
+        menu.x = s.width/2;
+        menu.y = s.height/2;
+        
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan:function(touch, event){
+                return true;
+            },
+            onTouchMoved: function(touch, event){
+                var target = event.getCurrentTarget();
+                if (target._item){
+                    target._item.removeFromParent(true);
+                    target._item = null;
+                }
+            }
+        }, this);
     },
 
     goBack:function(sender){
-        this.getParent().switchTo(0);
+        this.parent.switchTo(0);
     }
 });
 
@@ -561,6 +566,6 @@ var MenuTestScene = TestScene.extend({
         var layer = cc.LayerMultiplex.create(layer1, layer2, layer3, layer4, layer5,layer6, layer7);
         this.addChild(layer, 0);
 
-        director.replaceScene(this);
+        director.runScene(this);
     }
 });
