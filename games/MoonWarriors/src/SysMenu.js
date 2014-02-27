@@ -52,7 +52,7 @@ var SysMenu = cc.Layer.extend({
 	        menu.y = winSize.height / 2 - 80;
             this.schedule(this.update, 0.1);
 
-            this._ship = cc.Sprite.create("frame#ship01.png");
+            this._ship = cc.Sprite.create("#ship01.png");
             this.addChild(this._ship, 0, 4);
             this._ship.x = Math.random() * winSize.width;
 	        this._ship.y = 0;

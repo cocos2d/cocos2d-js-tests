@@ -79,7 +79,7 @@ var GameLayer = cc.Layer.extend({
             this.addChild(this.lbScore, 1000);
 
             // ship life
-            var life = cc.Sprite.create("frame#ship01.png");
+            var life = cc.Sprite.create("#ship01.png");
             life.attr({
 	            scale: 0.6,
 	            x: 30,

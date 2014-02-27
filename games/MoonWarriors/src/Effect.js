@@ -39,9 +39,9 @@ var spark = function (x, y, parent, scale, duration) {
     scale = scale || 0.3;
     duration = duration || 0.5;
 
-    var one = cc.Sprite.create("frame#explode1.png");
-    var two = cc.Sprite.create("frame#explode2.png");
-    var three = cc.Sprite.create("frame#explode3.png");
+    var one = cc.Sprite.create("#explode1.png");
+    var two = cc.Sprite.create("#explode2.png");
+    var three = cc.Sprite.create("#explode3.png");
 
     one.attr({
 	    x: x,
