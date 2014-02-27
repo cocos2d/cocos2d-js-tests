@@ -54,7 +54,7 @@ var OpenGLTestLayer = BaseTestLayer.extend({
     _code:null,
 
     ctor:function() {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255) );
     },
 
     title:function () {
@@ -103,24 +103,24 @@ var GLReadPixelsTest = OpenGLTestLayer.extend({
             var x = winSize.width;
             var y = winSize.height;
 
-            var blue = cc.LayerColor.create(cc.c4b(0, 0, 255, 255));
-            var red = cc.LayerColor.create(cc.c4b(255, 0, 0, 255));
-            var green = cc.LayerColor.create(cc.c4b(0, 255, 0, 255));
-            var white = cc.LayerColor.create(cc.c4b(255, 255, 255, 255));
+            var blue = cc.LayerColor.create(cc.color(0, 0, 255, 255));
+            var red = cc.LayerColor.create(cc.color(255, 0, 0, 255));
+            var green = cc.LayerColor.create(cc.color(0, 255, 0, 255));
+            var white = cc.LayerColor.create(cc.color(255, 255, 255, 255));
 
-            blue.setScale(0.5);
+            blue.scale = 0.5;
             blue.x = -x / 4;
             blue.y = -y / 4;
 
-            red.setScale(0.5);
+            red.scale = 0.5;
             red.x = x / 4;
             red.y = -y / 4;
 
-            green.setScale(0.5);
+            green.scale = 0.5;
             green.x = -x / 4;
             green.y = y / 4;
 
-            white.setScale(0.5);
+            white.scale = 0.5;
             white.x = x / 4;
             white.y = y / 4;
 
@@ -187,7 +187,7 @@ var GLClearTest = OpenGLTestLayer.extend({
 
         if( 'opengl' in sys.capabilities ) {
 
-            var blue = cc.LayerColor.create(cc.c4b(0, 0, 255, 255));
+            var blue = cc.LayerColor.create(cc.color(0, 0, 255, 255));
             this.addChild( blue, 1 );
 
             var node = new cc.GLNode();
@@ -557,8 +557,10 @@ var ShaderNode = cc.GLNode.extend({
         this.init();
 
         if( 'opengl' in sys.capabilities ) {
-            this.setContentSize(256,256);
-            this.setAnchorPoint(0.5, 0.5);
+            this.width = 256;
+	        this.height = 256;
+            this.anchorX = 0.5;
+	        this.anchorY = 0.5;
 
             this.shader = cc.GLProgram.create(vertexShader, framentShader);
             this.shader.retain();
@@ -858,7 +860,7 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
             program.updateUniforms();
 
             var label = cc.LabelBMFont.create("RETRO EFFECT","res/fonts/west_england-64.fnt");
-            label.setShaderProgram( program );
+            label.shaderProgram = program;
 
             label.x = winSize.width/2;
 
@@ -873,7 +875,7 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
     },
     update:function(dt) {
         this.accum += dt;
-        var children = this.label.getChildren();
+        var children = this.label.children;
 
         for( var i in children ) {
             var sprite = children[i];
@@ -882,7 +884,7 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
             // add fabs() to prevent negative scaling
             var scaleY = ( Math.sin( this.accum * 2 + i/2.0 + 0.707) );
 
-            sprite.setScaleY( scaleY );
+            sprite.scaleY = scaleY;
         }
     },
     title:function () {
@@ -939,7 +941,7 @@ var GLGetActiveTest = OpenGLTestLayer.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        var p = this.sprite.getShaderProgram().getProgram();
+        var p = this.sprite.shaderProgram.getProgram();
         ret.push( gl.getActiveAttrib( p, 0 ) );
         ret.push( gl.getActiveUniform( p, 0 ) );
         ret.push( gl.getAttachedShaders( p ) );
@@ -963,8 +965,10 @@ var TexImage2DTest = OpenGLTestLayer.extend({
             this.glnode = glnode;
             glnode.x = winSize.width/2;
             glnode.y = winSize.height/2;
-            glnode.setContentSize(128,128);
-            glnode.setAnchorPoint(0.5,0.5);
+            glnode.width = 128;
+	        glnode.height = 128;
+            glnode.anchorX = 0.5;
+	        glnode.anchorY = 0.5;
 
             this.shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTexture");
             this.initGL();

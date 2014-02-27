@@ -42,19 +42,19 @@ var ControlButtonTest_HelloVariableSize = ControlScene.extend({
                 var button = this.standardButtonWithTitle(stringArray[i]);
 
                 if (i == 0) {
-                    button.setOpacity(50);
+                    button.opacity = 50;
                     //todo setColor not work in canvas
-                    //button.setColor(cc.c3b(0, 255, 0));
+                    //button.color = cc.color(0, 255, 0);
                 }
                 else if (i == 1) {
-                    button.setOpacity(200);
+                    button.opacity = 200;
                     //todo setColor not work in canvas
-                    //button.setColor(cc.c3b(0, 255, 0));
+                    //button.color = cc.color(0, 255, 0);
                 }
                 else if (i == 2) {
-                    button.setOpacity(100);
+                    button.opacity = 100;
                     //todo setColor not work in canvas
-                    //button.setColor(cc.c3b(0, 0, 255));
+                    //button.color = cc.color(0, 0, 255);
                 }
 
                 button.x = total_width + button.width / 2;
@@ -66,14 +66,17 @@ var ControlButtonTest_HelloVariableSize = ControlScene.extend({
                 total_width += button.width;
             }
 
-            layer.setAnchorPoint(0.5, 0.5);
-            layer.setContentSize(total_width, height);
+            layer.anchorX = 0.5;
+            layer.anchorY = 0.5;
+            layer.width = total_width;
+            layer.height = height;
             layer.x = screenSize.width / 2.0;
             layer.y = screenSize.height / 2.0;
 
             // Add the black background
             var background = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-            background.setContentSize(total_width + 14, height + 14);
+            background.width = total_width + 14;
+            background.height = height + 14;
             background.x = screenSize.width / 2.0;
             background.y = screenSize.height / 2.0;
             this.addChild(background);
@@ -89,11 +92,11 @@ var ControlButtonTest_HelloVariableSize = ControlScene.extend({
 
         var titleButton = cc.LabelTTF.create(title, "Marker Felt", 30);
 
-        titleButton.setColor(cc.c3b(159, 168, 176));
+        titleButton.color = cc.color(159, 168, 176);
 
         var button = cc.ControlButton.create(titleButton, backgroundButton);
         button.setBackgroundSpriteForState(backgroundHighlightedButton, cc.CONTROL_STATE_HIGHLIGHTED);
-        button.setTitleColorForState(cc.white(), cc.CONTROL_STATE_HIGHLIGHTED);
+        button.setTitleColorForState(cc.color.white, cc.CONTROL_STATE_HIGHLIGHTED);
 
         return button;
     }
@@ -122,26 +125,29 @@ var ControlButtonTest_Event = ControlScene.extend({
 
             // Add a label in which the button events will be displayed
             this.setDisplayValueLabel(cc.LabelTTF.create("No Event", "Marker Felt", 32));
-            this._displayValueLabel.setAnchorPoint(0.5, -1);
+            this._displayValueLabel.anchorX = 0.5;
+            this._displayValueLabel.anchorY = -1;
             this._displayValueLabel.x = screenSize.width / 2.0;
             this._displayValueLabel.y = screenSize.height / 2.0;
             this.addChild(this._displayValueLabel, 10);
 
             var titleButton = cc.LabelTTF.create("Touch Me!", "Marker Felt", 30);
-            titleButton.setColor(cc.c3b(159, 168, 176));
+            titleButton.color = cc.color(159, 168, 176);
 
             var controlButton = cc.ControlButton.create(titleButton, backgroundButton);
             controlButton.setBackgroundSpriteForState(backgroundHighlightedButton, cc.CONTROL_STATE_HIGHLIGHTED);
-            controlButton.setTitleColorForState(cc.white(), cc.CONTROL_STATE_HIGHLIGHTED);
+            controlButton.setTitleColorForState(cc.color.white, cc.CONTROL_STATE_HIGHLIGHTED);
 
-            controlButton.setAnchorPoint(0.5, 1);
+            controlButton.anchorX = 0.5;
+            controlButton.anchorY = 1;
             controlButton.x = screenSize.width / 2.0;
             controlButton.y = screenSize.height / 2.0;
             this.addChild(controlButton, 1);
 
             // Add the black background
             var background = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-            background.setContentSize(300, 170);
+            background.width = 300;
+            background.height = 170;
             background.x = screenSize.width / 2.0;
             background.y = screenSize.height / 2.0;
             this.addChild(background);
@@ -229,14 +235,17 @@ var ControlButtonTest_Styling = ControlScene.extend({
                 }
             }
 
-            layer.setAnchorPoint(0.5, 0.5);
-            layer.setContentSize(max_w, max_h);
+            layer.anchorX = 0.5;
+            layer.anchorY = 0.5;
+            layer.width = max_w;
+            layer.height = max_h;
             layer.x = screenSize.width / 2.0;
             layer.y = screenSize.height / 2.0;
 
             // Add the black background
             var backgroundButton = cc.Scale9Sprite.create(s_extensions_buttonBackground);
-            backgroundButton.setContentSize(max_w + 14, max_h + 14);
+            backgroundButton.width = max_w + 14;
+            backgroundButton.height = max_h + 14;
             backgroundButton.x = screenSize.width / 2.0;
             backgroundButton.y = screenSize.height / 2.0;
             this.addChild(backgroundButton);
@@ -253,11 +262,11 @@ var ControlButtonTest_Styling = ControlScene.extend({
 
         var titleButton = cc.LabelTTF.create(title, "Marker Felt", 30);
 
-        titleButton.setColor(cc.c3b(159, 168, 176));
+        titleButton.color = cc.color(159, 168, 176);
 
         var button = cc.ControlButton.create(titleButton, backgroundButton);
         button.setBackgroundSpriteForState(backgroundHighlightedButton, cc.CONTROL_STATE_HIGHLIGHTED);
-        button.setTitleColorForState(cc.white(), cc.CONTROL_STATE_HIGHLIGHTED);
+        button.setTitleColorForState(cc.color.white, cc.CONTROL_STATE_HIGHLIGHTED);
 
         return button;
     }

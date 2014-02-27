@@ -122,8 +122,8 @@ var TouchOneByOneTest = EventTest.extend({
             this.addChild(sprite,i+10);
             sprite.x = 0;
             sprite.y = 0;
-            sprite.setScale(1);
-            sprite.setColor( cc.c3b( Math.random()*200+55, Math.random()*200+55, Math.random()*200+55 ) );
+            sprite.scale = 1;
+            sprite.color = cc.color( Math.random()*200+55, Math.random()*200+55, Math.random()*200+55 );
             this.unused_sprites.push(sprite);
         }
     },
@@ -210,8 +210,8 @@ var TouchAllAtOnce = EventTest.extend({
             this.addChild(sprite,i+10);
             sprite.x = 0;
             sprite.y = 0;
-            sprite.setScale(1);
-            sprite.setColor( cc.c3b( Math.random()*200+55, Math.random()*200+55, Math.random()*200+55 ) );
+            sprite.scale = 1;
+            sprite.color = cc.color( Math.random()*200+55, Math.random()*200+55, Math.random()*200+55 );
             this.unused_sprites.push(sprite);
         }
     },
@@ -341,8 +341,8 @@ var MouseTest = EventTest.extend({
         this.addChild(sprite);
         sprite.x = 0;
         sprite.y = 0;
-        sprite.setScale(1);
-        sprite.setColor( cc.c3b(Math.random()*200+55, Math.random()*200+55, Math.random()*200+55) );
+        sprite.scale = 1;
+        sprite.color = cc.color(Math.random()*200+55, Math.random()*200+55, Math.random()*200+55);
 
         if( 'mouse' in sys.capabilities ) {
             cc.eventManager.addListener({

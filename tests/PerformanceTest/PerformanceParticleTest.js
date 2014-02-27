@@ -38,7 +38,7 @@ var TAG_PARTICLE_MENU_LAYER = 1000;
 var ParticleMenuLayer = PerformBasicLayer.extend({
     _maxCases:4,
     showCurrentTest:function () {
-        var scene = this.getParent();
+        var scene = this.parent;
         var subTest = scene.getSubTestNum();
         var parNum = scene.getParticlesNum();
 
@@ -91,9 +91,9 @@ var ParticleMainScene = cc.Scene.extend({
 
         cc.MenuItemFont.setFontSize(65);
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
-        decrease.setColor(cc.c3b(0, 200, 20));
+        decrease.color = cc.color(0, 200, 20);
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
-        increase.setColor(cc.c3b(0, 200, 20));
+        increase.color = cc.color(0, 200, 20);
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
@@ -102,7 +102,7 @@ var ParticleMainScene = cc.Scene.extend({
         this.addChild(menu, 1);
 
         var infoLabel = cc.LabelTTF.create("0 nodes", "Marker Felt", 30);
-        infoLabel.setColor(cc.c3b(0, 200, 20));
+        infoLabel.color = cc.color(0, 200, 20);
         infoLabel.x = s.width / 2;
         infoLabel.y = s.height - 90;
         this.addChild(infoLabel, 1, TAG_INFO_LAYER);
@@ -124,14 +124,14 @@ var ParticleMainScene = cc.Scene.extend({
         for (var i = 1; i <= 3; ++i) {
             var str = i.toString();
             var itemFont = cc.MenuItemFont.create(str, this.testNCallback, this);
-            itemFont.setTag(i);
+            itemFont.tag = i;
             subMenu.addChild(itemFont, 10);
 
             if (i <= 1) {
-                itemFont.setColor(cc.c3b(200, 20, 20));
+                itemFont.color = cc.color(200, 20, 20);
             }
             else {
-                itemFont.setColor(cc.c3b(0, 200, 20));
+                itemFont.color = cc.color(0, 200, 20);
             }
         }
         subMenu.alignItemsHorizontally();
@@ -143,7 +143,7 @@ var ParticleMainScene = cc.Scene.extend({
         this.addChild(label, 1);
         label.x = s.width / 2;
         label.y = s.height - 32;
-        label.setColor(cc.c3b(255, 255, 40));
+        label.color = cc.color(255, 255, 40);
 
         this.updateQuantityLabel();
         this.createParticleSystem();
@@ -224,7 +224,7 @@ var ParticleMainScene = cc.Scene.extend({
         this.createParticleSystem();
     },
     testNCallback:function (sender) {
-        this._subtestNumber = sender.getTag();
+        this._subtestNumber = sender.tag;
         var menu = this.getChildByTag(TAG_PARTICLE_MENU_LAYER);
         menu.restartCallback(sender);
     },
@@ -292,16 +292,16 @@ var ParticlePerformTest1 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(26, 26, 26, 51);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(26, 26, 26, 51);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -360,16 +360,16 @@ var ParticlePerformTest2 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(26, 26, 26, 51);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(26, 26, 26, 51);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -428,16 +428,16 @@ var ParticlePerformTest3 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(26, 26, 26, 51);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(26, 26, 26, 51);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -496,16 +496,16 @@ var ParticlePerformTest4 = ParticleMainScene.extend({
         particleSystem.setEmissionRate(particleSystem.getTotalParticles() / particleSystem.getLife());
 
         // color of particles
-        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColor = cc.color(128, 128, 128, 255);
         particleSystem.setStartColor(startColor);
 
-        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        var startColorVar = cc.color(128, 128, 128, 255);
         particleSystem.setStartColorVar(startColorVar);
 
-        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColor = cc.color(26, 26, 26, 51);
         particleSystem.setEndColor(endColor);
 
-        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        var endColorVar = cc.color(26, 26, 26, 51);
         particleSystem.setEndColorVar(endColorVar);
 
         // size, in pixels

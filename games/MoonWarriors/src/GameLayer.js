@@ -91,7 +91,7 @@ var GameLayer = cc.Layer.extend({
             this._lbLife = cc.LabelTTF.create("0", "Arial", 20);
             this._lbLife.x = 60;
 	        this._lbLife.y = 463;
-            this._lbLife.setColor(cc.c3b(255, 0, 0));
+            this._lbLife.color = cc.color(255, 0, 0);
             this.addChild(this._lbLife, 1000);
 
             // ship
@@ -223,14 +223,14 @@ var GameLayer = cc.Layer.extend({
         }
     },
     removeInactiveUnit:function (dt) {
-        var selChild, children = this._texOpaqueBatch.getChildren();
+        var selChild, children = this._texOpaqueBatch.children;
         for (var i in children) {
             selChild = children[i];
             if (selChild && selChild.active)
                 selChild.update(dt);
         }
 
-        children = this._texTransparentBatch.getChildren();
+        children = this._texTransparentBatch.children;
         for (i in children) {
             selChild = children[i];
             if (selChild && selChild.active)

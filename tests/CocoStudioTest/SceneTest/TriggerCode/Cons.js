@@ -188,7 +188,7 @@ var NodeVisible = ccs.BaseTriggerCondition.extend({
 
     detect: function () {
         var node = ccs.SceneReader.getInstance().getNodeByTag(this._tag);
-        if (node && node.isVisible() == this._visible) {
+        if (node && node.visible == this._visible) {
             return true;
         }
         return false;

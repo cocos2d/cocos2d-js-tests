@@ -62,7 +62,7 @@ var EffecstsBaseLayer = BaseTestLayer.extend({
         this.addChild( node );
 
         // back gradient
-        var gradient = cc.LayerGradient.create( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+        var gradient = cc.LayerGradient.create( cc.color(0,0,0,255), cc.color(98,99,117,255));
         node.addChild( gradient );
 
         // back image

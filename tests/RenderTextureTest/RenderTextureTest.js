@@ -27,7 +27,7 @@ var sceneRenderTextureIdx = -1;
 
 var RenderTextureBaseLayer = BaseTestLayer.extend({
     ctor:function () {
-        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255) );
+        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255) );
     },
 
     title:function () {
@@ -101,8 +101,8 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
         this._brush = cc.Sprite.create(s_fire);
         this._brush.retain();
 
-        this._brush.setColor(cc.red());
-        this._brush.setOpacity(20);
+        this._brush.color = cc.color.red;
+        this._brush.opacity = 20;
 
         var save = cc.MenuItemFont.create("Save", this.saveCB, this);
         var clear = cc.MenuItemFont.create("Clear", this.clearCB.bind(this)); // another way to pass 'this'
@@ -160,12 +160,13 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
 
                 var delta = i / distance;
 
-                locBrush.x = location.x + diffX * delta;
-
-                locBrush.y = location.y + diffY * delta;
-                locBrush.setRotation(Math.random() * 360);
-                locBrush.setScale(Math.random() * 2);
-                locBrush.setColor(cc.c3b(Math.random() * 255, 255, 255));
+                locBrush.attr({
+	                x: location.x + diffX * delta,
+	                y: location.y + diffY * delta,
+	                rotation: Math.random() * 360,
+	                scale: Math.random() * 2,
+	                color: cc.color(Math.random() * 255, 255, 255)
+                });
                 locBrush.visit();
             }
             this._target.end();
@@ -203,7 +204,7 @@ var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
          *  B1: non-premulti sprite
          *  B2: non-premulti render
          */
-        var background = cc.LayerColor.create(cc.c4b(200, 200, 200, 255));
+        var background = cc.LayerColor.create(cc.color(200, 200, 200, 255));
         this.addChild(background);
 
         var spr_premulti = cc.Sprite.create(s_fire);
@@ -215,7 +216,7 @@ var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
         spr_nonpremulti.y = 16;
 
         /* A2 & B2 setup */
-        var rend = cc.RenderTexture.create(32, 64, cc.TEXTURE_2D_PIXEL_FORMAT_RGBA8888);
+        var rend = cc.RenderTexture.create(32, 64, cc.Texture2D.PIXEL_FORMAT.RGBA8888);
         if (!rend)
             return;
         // It's possible to modify the RenderTexture blending function by
@@ -235,7 +236,7 @@ var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
 
         rend.x = winSize.width / 2 + 16;
         rend.y = winSize.height / 2;
-        //background.setVisible(false);
+        //background.visible = false;
         this.addChild(spr_nonpremulti);
         this.addChild(spr_premulti);
         this.addChild(rend);
@@ -288,9 +289,9 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         label3.y = size.height * 0.75;
         this.addChild(label3);
 
-        label.setVertexZ(50);
-        label2.setVertexZ(0);
-        label3.setVertexZ(-50);
+        label.vertexZ = 50;
+        label2.vertexZ = 0;
+        label3.vertexZ = -50;
 
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_circle_plist);
         this.mgr = cc.SpriteBatchNode.create(s_circle_png, 9);
@@ -315,18 +316,18 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         this.mgr.addChild(this.sp8, 2);
         this.mgr.addChild(this.sp9, 1);
 
-        this.sp1.setVertexZ(400);
-        this.sp2.setVertexZ(300);
-        this.sp3.setVertexZ(200);
-        this.sp4.setVertexZ(100);
-        this.sp5.setVertexZ(0);
-        this.sp6.setVertexZ(-100);
-        this.sp7.setVertexZ(-200);
-        this.sp8.setVertexZ(-300);
-        this.sp9.setVertexZ(-400);
+        this.sp1.vertexZ = 400;
+        this.sp2.vertexZ = 300;
+        this.sp3.vertexZ = 200;
+        this.sp4.vertexZ = 100;
+        this.sp5.vertexZ = 0;
+        this.sp6.vertexZ = -100;
+        this.sp7.vertexZ = -200;
+        this.sp8.vertexZ = -300;
+        this.sp9.vertexZ = -400;
 
-        this.sp9.setScale(2);
-        this.sp9.setColor(cc.yellow());
+        this.sp9.scale = 2;
+        this.sp9.color = cc.color.yellow;
     },
 
     onTouchesBegan:function (touches, event) {
@@ -403,7 +404,8 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         if (!texture)
             return;
 
-        texture.setAnchorPoint(0, 0);
+        texture.anchorX = 0;
+	    texture.anchorY = 0;
         texture.begin();
         this.visit();
         texture.end();
@@ -412,10 +414,10 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
 
         sprite.x = winSize.width/2;
         sprite.y = winSize.width/2;
-        sprite.setOpacity(182);
-        sprite.setFlippedY(1);
+        sprite.opacity = 182;
+        sprite.flippedY = 1;
         this.addChild(sprite, 999999);
-        sprite.setColor(cc.green());
+        sprite.color = cc.color.green;
 
         sprite.runAction(cc.Sequence.create(cc.FadeTo.create(2, 0), cc.Hide.create()));
     }
@@ -431,7 +433,7 @@ var RenderTextureTestDepthStencil = RenderTextureBaseLayer.extend({
         var sprite = cc.Sprite.create(s_fire);
         sprite.x = winSize.width * 0.25;
         sprite.y = 0;
-        sprite.setScale(10);
+        sprite.scale = 10;
         //TODO GL_DEPTH24_STENCIL8
         //var rend = cc.RenderTexture.create(winSize.width, winSize.height, cc.TEXTURE_2D_PIXEL_FORMAT_RGBA4444);
         var rend = cc.RenderTexture.create(winSize.width, winSize.height);
@@ -494,7 +496,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
          *  B1: non-premulti sprite
          *  B2: non-premulti render
          */
-        var background = cc.LayerColor.create(cc.c4b(40, 40, 40, 255));
+        var background = cc.LayerColor.create(cc.color(40, 40, 40, 255));
         this.addChild(background);
 
         var winSize = cc.Director.getInstance().getWinSize();
@@ -526,7 +528,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
         /* add the sprites to the render texture */
         renderTexture.addChild(this._sprite1);
         renderTexture.addChild(this._sprite2);
-        renderTexture.setClearColor(cc.c4f(0, 0, 0, 0));
+        renderTexture.setClearColor(cc.color(0, 0, 0, 0));
         renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
 
         /* add the render texture to the scene */
@@ -570,7 +572,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
             this._renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
         else {
             this._renderTexture.setClearFlags(0);
-            this._renderTexture.setClearColor(cc.c4f(Math.random(), Math.random(), Math.random(), 1));
+            this._renderTexture.setClearColor(cc.color(Math.random()*255, Math.random()*255, Math.random()*255, 255));
         }
     }
 });

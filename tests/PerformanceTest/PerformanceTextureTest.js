@@ -55,7 +55,7 @@ var TextureMenuLayer = PerformBasicLayer.extend({
         this.addChild(label, 1);
         label.x = s.width / 2;
         label.y = s.height - 32;
-        label.setColor(cc.c3b(255, 255, 40));
+        label.color = cc.color(255, 255, 40);
 
         // Subtitle
         var strSubTitle = this.subtitle();

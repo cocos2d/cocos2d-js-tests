@@ -106,7 +106,7 @@ var CrashTest = ActionManagerTest.extend({
     },
 
     onRemoveThis:function () {
-        this.getParent().removeChild(this);
+        this.parent.removeChild(this);
         this.onNextCallback(this);
     },
 
@@ -168,9 +168,7 @@ var LogicTest = ActionManagerTest.extend({
         return JSON.stringify(ret);
     },
     getCurrentResult:function() {
-        var scaleX = this._grossini.getScaleX();
-        var scaleY = this._grossini.getScaleY();
-        var ret = [ {"scaleX":scaleX, "scaleY":scaleY} ];
+        var ret = [ {"scaleX":this._grossini.scaleX, "scaleY":this._grossini.scaleY} ];
         return JSON.stringify(ret);
     }
 });
@@ -269,7 +267,7 @@ var RemoveTest = ActionManagerTest.extend({
         var move = cc.MoveBy.create(2, cc.p(200, 0));
         var callback = cc.CallFunc.create(this.stopAction, this);
         var sequence = cc.Sequence.create(move, callback);
-        sequence.setTag(TAG_SEQUENCE);
+        sequence.tag = TAG_SEQUENCE;
 
         var child = cc.Sprite.create(s_pathGrossini);
         child.x = 200;
@@ -344,14 +342,14 @@ var ResumeTest = ActionManagerTest.extend({
         this.scheduleOnce(this.checkControl2, 5.5);
     },
     checkControl1:function(dt) {
-        this.control1ScaleX    = this._grossini.getScaleX();
-        this.control1ScaleY    = this._grossini.getScaleY();
-        this.control1Rotation  = this._grossini.getRotation();
+        this.control1ScaleX    = this._grossini.scaleX;
+        this.control1ScaleY    = this._grossini.scaleY;
+        this.control1Rotation  = this._grossini.rotation;
     },
     checkControl2:function(dt) {
-        this.control2ScaleX    = this._grossini.getScaleX();
-        this.control2ScaleY    = this._grossini.getScaleY();
-        this.control2Rotation  = this._grossini.getRotation();
+        this.control2ScaleX    = this._grossini.scaleX;
+        this.control2ScaleY    = this._grossini.scaleY;
+        this.control2Rotation  = this._grossini.rotation;
     },
     getExpectedResult:function() {
         var ret = [ {"Rot":0 }, {"sX":1, "sY":1}, {"Rot":360 }, {"sX":2, "sY":2} ];

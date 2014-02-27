@@ -101,7 +101,7 @@ Box2DTestLayer = cc.Layer.extend({
 
         var label = cc.LabelTTF.create("Tap screen", "Marker Felt", 32);
         this.addChild(label, 0);
-        label.setColor(cc.c3b(0, 0, 255));
+        label.color = cc.color(0, 0, 255);
         label.x = screenSize.width / 2;
         label.y = screenSize.height - 50;
 
@@ -167,8 +167,7 @@ Box2DTestLayer = cc.Layer.extend({
                 var myActor = b.GetUserData();
                 myActor.x = b.GetPosition().x * PTM_RATIO;
                 myActor.y = b.GetPosition().y * PTM_RATIO;
-                myActor.setRotation(-1 * cc.RADIANS_TO_DEGREES(b.GetAngle()));
-                //console.log(b.GetAngle());
+                myActor.rotation = -1 * cc.RADIANS_TO_DEGREES(b.GetAngle());
             }
         }
 

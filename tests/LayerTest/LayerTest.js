@@ -108,7 +108,7 @@ var LayerTest1 = LayerTest.extend({
             }, this);
 
         var s = director.getWinSize();
-        var layer = cc.LayerColor.create(cc.c4b(255, 0, 0, 128), 200, 200);
+        var layer = cc.LayerColor.create(cc.color(255, 0, 0, 128), 200, 200);
 
         layer.ignoreAnchorPointForPosition(false);
         layer.x = s.width / 2;
@@ -120,10 +120,10 @@ var LayerTest1 = LayerTest.extend({
     },
 
     updateSize:function (location) {
-        var newSize = cc.size(Math.abs(location.x - winSize.width / 2) * 2, Math.abs(location.y - winSize.height / 2) * 2);
         var l = this.getChildByTag(cc.TAG_LAYER);
 
-        l.setContentSize(newSize);
+        l.width = Math.abs(location.x - winSize.width / 2) * 2;
+	    l.height = Math.abs(location.y - winSize.height / 2) * 2;
     },
 
     //
@@ -153,9 +153,9 @@ var IgnoreAnchorpointTest1 = LayerTest.extend({
         this._super();
         //create layer
         var ws = director.getWinSize();
-        var layer1 = cc.LayerColor.create(cc.c4b(255, 100, 100, 128), ws.width / 2, ws.height / 2);
+        var layer1 = cc.LayerColor.create(cc.color(255, 100, 100, 128), ws.width / 2, ws.height / 2);
         layer1.ignoreAnchorPointForPosition(true);
-        var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
+        var layer2 = cc.LayerColor.create(cc.color(100, 255, 100, 128), ws.width / 4, ws.height / 4);
         layer2.ignoreAnchorPointForPosition(true);
         layer1.addChild(layer2);
         layer1.x = ws.width / 2;
@@ -200,9 +200,9 @@ var IgnoreAnchorpointTest2 = LayerTest.extend({
         this._super();
         //create layer
         var ws = director.getWinSize();
-        var layer1 = cc.LayerColor.create(cc.c4b(255, 100, 100, 128), ws.width / 2, ws.height / 2);
+        var layer1 = cc.LayerColor.create(cc.color(255, 100, 100, 128), ws.width / 2, ws.height / 2);
         layer1.ignoreAnchorPointForPosition(true);
-        var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
+        var layer2 = cc.LayerColor.create(cc.color(100, 255, 100, 128), ws.width / 4, ws.height / 4);
         layer2.ignoreAnchorPointForPosition(false);
         layer1.addChild(layer2);
         layer1.x = ws.width / 2;
@@ -248,9 +248,9 @@ var IgnoreAnchorpointTest3 = LayerTest.extend({
         this._super();
         //create layer
         var ws = director.getWinSize();
-        var layer1 = cc.LayerColor.create(cc.c4b(255, 100, 100, 128), ws.width / 2, ws.height / 2);
+        var layer1 = cc.LayerColor.create(cc.color(255, 100, 100, 128), ws.width / 2, ws.height / 2);
         layer1.ignoreAnchorPointForPosition(false);
-        var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
+        var layer2 = cc.LayerColor.create(cc.color(100, 255, 100, 128), ws.width / 4, ws.height / 4);
         layer2.ignoreAnchorPointForPosition(false);
         layer1.addChild(layer2);
         layer1.x = ws.width / 2;
@@ -270,9 +270,9 @@ var IgnoreAnchorpointTest4 = LayerTest.extend({
         this._super();
         //create layer
         var ws = director.getWinSize();
-        var layer1 = cc.LayerColor.create(cc.c4b(255, 100, 100, 128), ws.width / 2, ws.height / 2);
+        var layer1 = cc.LayerColor.create(cc.color(255, 100, 100, 128), ws.width / 2, ws.height / 2);
         layer1.ignoreAnchorPointForPosition(false);
-        var layer2 = cc.LayerColor.create(cc.c4b(100, 255, 100, 128), ws.width / 4, ws.height / 4);
+        var layer2 = cc.LayerColor.create(cc.color(100, 255, 100, 128), ws.width / 4, ws.height / 4);
         layer2.ignoreAnchorPointForPosition(true);
         layer1.addChild(layer2);
         layer1.x = ws.width / 2;
@@ -299,13 +299,13 @@ var LayerTest2 = LayerTest.extend({
         this._super();
 
         var s = director.getWinSize();
-        var layer1 = cc.LayerColor.create(cc.c4b(255, 255, 0, 80), 100, 300);
+        var layer1 = cc.LayerColor.create(cc.color(255, 255, 0, 80), 100, 300);
         layer1.x = s.width / 3;
         layer1.y = s.height / 2;
         layer1.ignoreAnchorPointForPosition(false);
         this.addChild(layer1, 1, LAYERTEST2_LAYER1_TAG);
 
-        var layer2 = cc.LayerColor.create(cc.c4b(0, 0, 255, 255), 100, 300);
+        var layer2 = cc.LayerColor.create(cc.color(0, 0, 255, 255), 100, 300);
         layer2.x = (s.width / 3) * 2;
         layer2.y = s.height / 2;
         layer2.ignoreAnchorPointForPosition(false);
@@ -357,8 +357,8 @@ var LayerTest2 = LayerTest.extend({
             return false;
         };
         var s = director.getWinSize();
-        var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).getColor();
-        var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).getOpacity();
+        var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).color;
+        var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).opacity;
         var ret = {"tint": inColorRange(tint, this.tintTest) ? "yes" : "no",
             "opacity": op};
 
@@ -376,7 +376,7 @@ var LayerTestBlend = LayerTest.extend({
 
     ctor:function () {
         this._super();
-        var layer1 = cc.LayerColor.create(cc.c4b(255, 255, 255, 80));
+        var layer1 = cc.LayerColor.create(cc.color(255, 255, 255, 80));
 
         var sister1 = cc.Sprite.create(s_pathSister1);
         var sister2 = cc.Sprite.create(s_pathSister2);
@@ -431,7 +431,7 @@ var LayerGradient = LayerTest.extend({
     _isPressed:false,
     ctor:function () {
         this._super();
-        var layer1 = cc.LayerGradient.create(cc.c4b(255, 0, 0, 255), cc.c4b(0, 255, 0, 255), cc.p(0.9, 0.9));
+        var layer1 = cc.LayerGradient.create(cc.color(255, 0, 0, 255), cc.color(0, 255, 0, 255), cc.p(0.9, 0.9));
         this.addChild(layer1, 0, cc.TAG_LAYER);
 
         if( 'touches' in sys.capabilities ){

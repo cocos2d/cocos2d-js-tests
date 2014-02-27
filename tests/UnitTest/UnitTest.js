@@ -160,7 +160,8 @@ var RectUnitTest = UnitTestBase.extend({
 
         this.log("Test 11: getBoundingBox()");
         var node = cc.Node.create();
-        node.setContentSize(99,101);
+        node.width = 99;
+	    node.height = 101;
         var bb = node.getBoundingBox();
         if( bb.height != 101 || bb.width != 99)
             throw "Fail getBoundingBox()";

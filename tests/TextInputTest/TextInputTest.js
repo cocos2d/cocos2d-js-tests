@@ -156,7 +156,7 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         cc.log("TextInputTest:needAdjustVerticalPosition(" + adjustVert + ")");
 
         // move all the children node of KeyboardNotificationLayer
-        var children = this.getChildren();
+        var children = this.children;
         for (var i = 0; i < children.length; ++i) {
             var node = children[i];
 	        node.y += adjustVert;
@@ -312,7 +312,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
     onTextFieldDetachWithIME:function (sender) {
         if (this._action) {
             this._textField.stopAction(this._textFieldAction);
-            this._textField.setOpacity(255);
+            this._textField.opacity = 255;
             this._action = false;
         }
         return false;
@@ -331,20 +331,19 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
         // create a insert text sprite and do some action
         var label = cc.LabelTTF.create(text, TEXT_INPUT_FONT_NAME, TEXT_INPUT_FONT_SIZE);
         this.addChild(label);
-        var color = new cc.Color3B(226, 121, 7);
-        label.setColor(color);
+        var color = cc.color(226, 121, 7);
+        label.color = color;
 
         // move the sprite from top to position
         var endX = sender.x, endY = sender.y;
         if (sender.getCharCount()) {
 	        endX += sender.width / 2;
         }
-        var inputTextSize = label.getContentSize();
 
         var duration = 0.5;
 	    label.x = endX;
-	    label.y = cc.Director.getInstance().getWinSize().height - inputTextSize.height * 2;
-        label.setScale(8);
+	    label.y = cc.Director.getInstance().getWinSize().height - label.height * 2;
+        label.scale = 8;
 
         var seq = cc.Sequence.create(
             cc.Spawn.create(
@@ -363,9 +362,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
 
         // move the sprite to fly out
         var beginX = sender.x, beginY = sender.y;
-        var textfieldSize = sender.getContentSize();
-        var labelSize = label.getContentSize();
-	    beginX += (textfieldSize.width - labelSize.width) / 2.0;
+	    beginX += (sender.width - label.width) / 2.0;
 
         var winSize = cc.Director.getInstance().getWinSize();
         var endPos = cc.p(-winSize.width / 4.0, winSize.height * (0.5 + Math.random() / 2.0));

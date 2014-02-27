@@ -84,8 +84,8 @@ var TestController = cc.LayerGradient.extend({
 
     ctor:function() {
         this._super();
-        // this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255), cc.p(-1,-1));
-        this.init( cc.c4b(0,0,0,255), cc.c4b(0x46,0x82,0xB4,255));
+        // this.init( cc.color(0,0,0,255), cc.color(98,99,117,255), cc.p(-1,-1));
+        this.init( cc.color(0,0,0,255), cc.color(0x46,0x82,0xB4,255));
 
         // globals
         director = cc.Director.getInstance();
@@ -135,7 +135,8 @@ var TestController = cc.LayerGradient.extend({
             }
         }
 
-        this._itemMenu.setContentSize(winSize.width, (testNames.length + 1) * LINE_SPACE);
+        this._itemMenu.width = winSize.width;
+	    this._itemMenu.height = (testNames.length + 1) * LINE_SPACE;
         this._itemMenu.x = curPos.x;
 	    this._itemMenu.y = curPos.y;
         this.addChild(this._itemMenu);

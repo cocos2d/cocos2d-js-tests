@@ -37,7 +37,7 @@ var s_nCurCase = 0;
 var NodeChildrenMenuLayer = PerformBasicLayer.extend({
     _maxCases:4,
     showCurrentTest:function () {
-        var nodes = (this.getParent()).getQuantityOfNodes();
+        var nodes = (this.parent).getQuantityOfNodes();
         var scene = null;
         switch (this._curCase) {
             case 0:
@@ -86,7 +86,7 @@ var NodeChildrenMainScene = cc.Scene.extend({
         this.addChild(label, 1);
         label.x = s.width / 2;
         label.y = s.height - 32;
-        label.setColor(cc.c3b(255, 255, 40));
+        label.color = cc.color(255, 255, 40);
 
         // Subtitle
         var strSubTitle = this.subtitle();
@@ -104,9 +104,9 @@ var NodeChildrenMainScene = cc.Scene.extend({
         cc.MenuItemFont.setFontSize(65);
         var that = this;
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
-        decrease.setColor(cc.c3b(0, 200, 20));
+        decrease.color = cc.color(0, 200, 20);
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
-        increase.setColor(cc.c3b(0, 200, 20));
+        increase.color = cc.color(0, 200, 20);
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
@@ -115,7 +115,7 @@ var NodeChildrenMainScene = cc.Scene.extend({
         this.addChild(menu, 1);
 
         var infoLabel = cc.LabelTTF.create("0 nodes", "Marker Felt", 30);
-        infoLabel.setColor(cc.c3b(0, 200, 20));
+        infoLabel.color = cc.color(0, 200, 20);
         infoLabel.x = s.width / 2;
         infoLabel.y = s.height / 2 - 15;
         this.addChild(infoLabel, 1, TAG_INFO_LAYER);
@@ -230,7 +230,7 @@ var IterateSpriteSheet = NodeChildrenMainScene.extend({
 var IterateSpriteSheetFastEnum = IterateSpriteSheet.extend({
     update:function (dt) {
         // iterate using fast enumeration protocol
-        var children = this._batchNode.getChildren();
+        var children = this._batchNode.children;
 
         if (cc.ENABLE_PROFILERS) {
             cc.ProfilingBeginTimingBlock(this._profilingTimer);
@@ -238,7 +238,7 @@ var IterateSpriteSheetFastEnum = IterateSpriteSheet.extend({
 
         for (var i = 0; i < children.length; i++) {
             var sprite = children[i];
-            sprite.setVisible(false);
+            sprite.visible = false;
         }
 
         if (cc.ENABLE_PROFILERS) {
@@ -265,14 +265,14 @@ var IterateSpriteSheetFastEnum = IterateSpriteSheet.extend({
 var IterateSpriteSheetCArray = IterateSpriteSheet.extend({
     update:function (dt) {
         // iterate using fast enumeration protocol
-        var children = this._batchNode.getChildren();
+        var children = this._batchNode.children;
 
         if (cc.ENABLE_PROFILERS) {
             cc.ProfilingBeginTimingBlock(this._profilingTimer);
         }
         for (var i = 0; i < children.length; i++) {
             var sprite = children[i];
-            sprite.setVisible(false);
+            sprite.visible = false;
         }
 
         if (cc.ENABLE_PROFILERS) {
@@ -314,7 +314,7 @@ var AddRemoveSpriteSheet = NodeChildrenMainScene.extend({
                 this._batchNode.addChild(sprite);
                 sprite.x = Math.random() * s.width;
                 sprite.y = Math.random() * s.height;
-                sprite.setVisible(false);
+                sprite.visible = false;
             }
         }
         // decrease nodes
@@ -489,7 +489,7 @@ var ReorderSpriteSheet = AddRemoveSpriteSheet.extend({
             }
 
             for (var i = 0; i < totalToAdd; i++) {
-                var node = this._batchNode.getChildren()[i];
+                var node = this._batchNode.children[i];
                 ;
                 this._batchNode.reorderChild(node, (Math.random()*2-1) * 50);
             }

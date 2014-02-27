@@ -44,7 +44,7 @@ var ChipmunkBaseLayer = function() {
 	// Only subclasses of a native classes MUST call cc.associateWithNative
 	// Failure to do so, it will crash.
 	//
-	var parent = BaseTestLayer.call(this, cc.c4b(0,0,0,255), cc.c4b(98*0.5,99*0.5,117*0.5,255) );
+	var parent = BaseTestLayer.call(this, cc.color(0,0,0,255), cc.color(98*0.5,99*0.5,117*0.5,255) );
 
 	this._title =  "No title";
 	this._subtitle = "No Subtitle";
@@ -69,13 +69,13 @@ ChipmunkBaseLayer.prototype.setupDebugNode = function()
 {
     // debug only
 	this._debugNode = cc.PhysicsDebugNode.create( this.space );
-	this._debugNode.setVisible( false );
+	this._debugNode.visible = false ;
 	this.addChild( this._debugNode );
 };
 
 ChipmunkBaseLayer.prototype.onToggleDebug = function(sender) {
-    var state = this._debugNode.isVisible();
-    this._debugNode.setVisible( !state );
+    var state = this._debugNode.visible;
+    this._debugNode.visible = !state ;
 };
 
 //
@@ -558,7 +558,7 @@ var ChipmunkSpriteAnchorPoint = function() {
 		ChipmunkBaseLayer.prototype.onEnter.call(this);
         // cc.base(this, 'onEnter');
 
-		this._debugNode.setVisible( true );
+		this._debugNode.visible = true ;
 
 		this.space.gravity = v(0, 0);
 
@@ -566,9 +566,12 @@ var ChipmunkSpriteAnchorPoint = function() {
 		var sprite2 = this.createPhysicsSprite( cp.v(winSize.width/4*2, winSize.height/2) );
 		var sprite3 = this.createPhysicsSprite( cp.v(winSize.width/4*3, winSize.height/2) );
 
-		sprite1.setAnchorPoint(0,0);
-		sprite2.setAnchorPoint(0.5,0.5);
-		sprite3.setAnchorPoint(1,1);
+		sprite1.anchorX = 0;
+		sprite1.anchorY = 0;
+		sprite2.anchorX = 0.5;
+		sprite2.anchorY = 0.5;
+		sprite3.anchorX = 1;
+		sprite3.anchorY = 1;
 
 		// scale sprite
 		var scaledown = cc.ScaleBy.create(0.5, 0.5);
@@ -705,7 +708,7 @@ var ChipmunkDemo = function() {
 	this.remainder = 0;
 
 	// debug only
-this._debugNode.setVisible( true );
+this._debugNode.visible = true ;
 
 	this.scheduleUpdate();
 };

@@ -65,7 +65,7 @@ var UILayoutTestBase = UIScene.extend({
             this.button_scale9.setTouchEnabled(true);
             this.button_scale9.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
             this.button_scale9.setScale9Enabled(true);
-            this.button_scale9.setSize(cc.size(100, this.button_scale9.getContentSize().height));
+            this.button_scale9.width = 100;
             this.button_scale9.x = layoutRect.width - this.button_scale9.width / 2;
             this.button_scale9.y = this.button_scale9.height / 2;
             this.layout.addChild(this.button_scale9);
@@ -101,7 +101,7 @@ var UILayoutTest_Color = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
         layout.setBackGroundColorType(ccs.LayoutBackGroundColorType.solid);
-        layout.setBackGroundColor(cc.c3b(128, 128, 128));
+        layout.setBackGroundColor(cc.color(128, 128, 128));
         layout.setSize(cc.size(280, 150));
         return layout;
     },
@@ -113,7 +113,7 @@ var UILayoutTest_Gradient = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
         layout.setBackGroundColorType(ccs.LayoutBackGroundColorType.gradient);
-        layout.setBackGroundColor(cc.c3b(64, 64, 64), cc.c3b(192, 192, 192));
+        layout.setBackGroundColor(cc.color(64, 64, 64), cc.color(192, 192, 192));
         layout.setSize(cc.size(280, 150));
         return layout;
     },
@@ -208,7 +208,7 @@ var UILayoutTest_Layout_Relative = UILayoutTestBase.extend({
         layout.setLayoutType(ccs.LayoutType.relative);
         layout.setSize(cc.size(280, 150));
         layout.setBackGroundColorType(ccs.LayoutBackGroundColorType.solid);
-        layout.setBackGroundColor(cc.green());
+        layout.setBackGroundColor(cc.color.green);
         return layout;
     },
     getText: function () {

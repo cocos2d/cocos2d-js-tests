@@ -49,7 +49,7 @@ var EaseSpriteDemo = BaseTestLayer.extend({
     _title:null,
 
     ctor:function () {
-        this._super(cc.c4b(0, 0, 0, 255), cc.c4b(98, 99, 117, 255));
+        this._super(cc.color(0, 0, 0, 255), cc.color(98, 99, 117, 255));
     },
 
     title:function () {
@@ -99,7 +99,7 @@ var EaseSpriteDemo = BaseTestLayer.extend({
 	    this._grossini.y = winSize.height / 5;
         this._tamara.x = 60;
 	    this._tamara.y = winSize.height * 4 / 5;
-        this._kathia.setVisible(false);
+        this._kathia.visible = false;
     },
 
     //
@@ -164,13 +164,13 @@ var SpriteEase = EaseSpriteDemo.extend({
 
 
         var a2 = this._grossini.runAction(cc.RepeatForever.create(seq1));
-        a2.setTag(1);
+        a2.tag = 1;
 
         var a1 = this._tamara.runAction(cc.RepeatForever.create(seq2));
-        a1.setTag(1);
+        a1.tag = 1;
 
         var a = this._kathia.runAction(cc.RepeatForever.create(seq3));
-        a.setTag(1);
+        a.tag = 1;
 
         this.scheduleOnce(this.testStopAction, 4.1);
     },
@@ -575,13 +575,13 @@ var SpeedTest = EaseSpriteDemo.extend({
         var seq3_2 = cc.Sequence.create(rot1, rot2);
         var spawn = cc.Spawn.create(seq3_1, seq3_2);
         var action = cc.Speed.create(cc.RepeatForever.create(spawn), 1.0);
-        action.setTag(TAG_ACTION1_EASE_ACTIONS);
+        action.tag = TAG_ACTION1_EASE_ACTIONS;
 
         var action2 = action.clone();
         var action3 = action.clone();
 
-        action2.setTag(TAG_ACTION1_EASE_ACTIONS);
-        action3.setTag(TAG_ACTION1_EASE_ACTIONS);
+        action2.tag = TAG_ACTION1_EASE_ACTIONS;
+        action3.tag = TAG_ACTION1_EASE_ACTIONS;
 
         this._grossini.runAction(action2);
         this._tamara.runAction(action3);

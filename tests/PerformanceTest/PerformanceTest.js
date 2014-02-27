@@ -51,7 +51,7 @@ if (sys.platform == 'browser')
 var PerformanceMainLayer = cc.LayerGradient.extend({
     ctor:function() {
         this._super();
-        this.init( cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
+        this.init( cc.color(0,0,0,255), cc.color(98,99,117,255));
     },
 
     onEnter:function () {
@@ -75,7 +75,7 @@ var PerformanceMainLayer = cc.LayerGradient.extend({
         this.addChild(menu);
     },
     menuCallback:function (sender) {
-        var index = sender.getZOrder() - ITEM_TAG_BASIC;
+        var index = sender.zIndex - ITEM_TAG_BASIC;
         // create the test scene and run it
         switch (index) {
             case 0:
