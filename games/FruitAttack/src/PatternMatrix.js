@@ -67,12 +67,12 @@ var PatternMatrix = cc.Layer.extend({
             this.mPatternBatchNode = cc.SpriteBatchNode.create("res/baseResource.png",MATRIX_ROW_MAX*MATRIX_COL_MAX*2);
             this.addChild(this.mPatternBatchNode,1);
 
-            this.mCheckMarkSpr = cc.Sprite.create("frame#pattern_selected.png");
+            this.mCheckMarkSpr = cc.Sprite.create("#pattern_selected.png");
             this.mCheckMarkSpr.x = -100;
 	        this.mCheckMarkSpr.x = -100;
             this.addChild(this.mCheckMarkSpr,1);
 
-            this.mPromptMarkSpr = cc.Sprite.create("frame#pattern_selected.png");
+            this.mPromptMarkSpr = cc.Sprite.create("#pattern_selected.png");
             this.mPromptMarkSpr.x = -100;
 	        this.mPromptMarkSpr.y = -100;
             this.addChild(this.mPromptMarkSpr,1);

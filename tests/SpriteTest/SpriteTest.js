@@ -1885,7 +1885,7 @@ var SpriteFrameTest = SpriteTestDemo.extend({
         //
         // Animation using Sprite BatchNode
         //
-        this._sprite1 = cc.Sprite.create("frame#grossini_dance_01.png");
+        this._sprite1 = cc.Sprite.create("#grossini_dance_01.png");
         this._sprite1.x = winSize.width / 2 - 80;
         this._sprite1.y = winSize.height / 2;
 
@@ -1912,7 +1912,7 @@ var SpriteFrameTest = SpriteTestDemo.extend({
         //
         // Animation using standard Sprite
         //
-        this._sprite2 = cc.Sprite.create("frame#grossini_dance_01.png");
+        this._sprite2 = cc.Sprite.create("#grossini_dance_01.png");
         this._sprite2.x = winSize.width / 2 + 80;
         this._sprite2.y = winSize.height / 2;
         this.addChild(this._sprite2);
@@ -2033,7 +2033,7 @@ var SpriteFrameAliasNameTest = SpriteTestDemo.extend({
         // but texture id is still the same and so the sprite is still a child of the cc.SpriteBatchNode,
         // and therefore all the animation sprites are also drawn as part of the cc.SpriteBatchNode
         //
-        var sprite = cc.Sprite.create("frame#grossini_dance_01.png");
+        var sprite = cc.Sprite.create("#grossini_dance_01.png");
         sprite.x = winSize.width / 2;
         sprite.y = winSize.height / 2;
 
@@ -2443,7 +2443,7 @@ var SpriteOffsetAnchorSkew = SpriteTestDemo.extend({
             //
             // Animation using Sprite batch
             //
-            var sprite = cc.Sprite.create("frame#grossini_dance_01.png");
+            var sprite = cc.Sprite.create("#grossini_dance_01.png");
             sprite.x = winSize.width / 4 * (i + 1);
             sprite.y = winSize.height / 2;
 
@@ -2530,7 +2530,7 @@ var SpriteBatchNodeOffsetAnchorSkew = SpriteTestDemo.extend({
             //
             // Animation using Sprite batch
             //
-            var sprite = cc.Sprite.create("frame#grossini_dance_01.png");
+            var sprite = cc.Sprite.create("#grossini_dance_01.png");
             sprite.x = winSize.width / 4 * (i + 1);
             sprite.y = winSize.height / 2;
 
@@ -2714,7 +2714,7 @@ var SpriteBatchNodeOffsetAnchorSkewScale = SpriteTestDemo.extend({
             //
             // Animation using Sprite batch
             //
-            var sprite = cc.Sprite.create("frame#grossini_dance_01.png");
+            var sprite = cc.Sprite.create("#grossini_dance_01.png");
             sprite.x = winSize.width / 4 * (i + 1);
             sprite.y = winSize.height / 2;
 
@@ -2810,7 +2810,7 @@ var SpriteOffsetAnchorFlip = SpriteTestDemo.extend({
             //
             // Animation using Sprite batch
             //
-            var sprite = cc.Sprite.create("frame#grossini_dance_01.png");
+            var sprite = cc.Sprite.create("#grossini_dance_01.png");
             sprite.x = winSize.width / 4 * (i + 1);
             sprite.y = winSize.height / 2;
 
@@ -4558,7 +4558,7 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
         this.addChild(aParent);
 
         // parent
-        var l1 = cc.Sprite.create("frame#father.gif");
+        var l1 = cc.Sprite.create("#father.gif");
         l1.x = winSize.width / 2;
         l1.y = winSize.height / 2;
 
@@ -4566,7 +4566,7 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
         var l1W = l1.width, l1H = l1.height;
 
         // child left
-        var l2a = cc.Sprite.create("frame#sister1.gif");
+        var l2a = cc.Sprite.create("#sister1.gif");
         l2a.x = -10 + l1W / 2;
         l2a.y = 0 + l1H / 2;
 
@@ -4574,7 +4574,7 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
 	    var l2aW = l2a.width, l2aH = l2a.height;
 
         // child right
-        var l2b = cc.Sprite.create("frame#sister2.gif");
+        var l2b = cc.Sprite.create("#sister2.gif");
         l2b.x = +50 + l1W / 2;
         l2b.y = 0 + l1H / 2;
 
@@ -4582,14 +4582,14 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
         var l2bW = l2b.width, l2bH = l2b.height;
 
         // child left bottom
-        var l3a1 = cc.Sprite.create("frame#child1.gif");
+        var l3a1 = cc.Sprite.create("#child1.gif");
         l3a1.scale = 0.45;
         l3a1.x = 0 + l2aW / 2;
         l3a1.y = -50 + l2aH / 2;
         l2a.addChild(l3a1, 1);
 
         // child left top
-        var l3a2 = cc.Sprite.create("frame#child1.gif");
+        var l3a2 = cc.Sprite.create("#child1.gif");
         l3a2.scale = 0.45;
         l3a2.x = 0 + l2aW / 2;
         l3a2.y = +50 + l2aH / 2;
@@ -4598,7 +4598,7 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
         this._reoderSprite = l2a;
 
         // child right bottom
-        var l3b1 = cc.Sprite.create("frame#child1.gif");
+        var l3b1 = cc.Sprite.create("#child1.gif");
         l3b1.scale = 0.45;
         l3b1.setFlippedY(true);
         l3b1.x = 0 + l2bW / 2;
@@ -4606,7 +4606,7 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
         l2b.addChild(l3b1);
 
         // child right top
-        var l3b2 = cc.Sprite.create("frame#child1.gif");
+        var l3b2 = cc.Sprite.create("#child1.gif");
         l3b2.scale = 0.45;
         l3b2.setFlippedY(true);
         l3b2.x = 0 + l2bW / 2;
@@ -4653,7 +4653,7 @@ var SpriteBatchNodeSkewNegativeScaleChildren = SpriteTestDemo.extend({
         this.addChild(spritebatch);
 
         for (var i = 0; i < 2; i++) {
-            var sprite = cc.Sprite.create("frame#grossini_dance_01.png");
+            var sprite = cc.Sprite.create("#grossini_dance_01.png");
             sprite.x = winSize.width / 4 * (i + 1);
             sprite.y = winSize.height / 2;
 
@@ -4669,7 +4669,7 @@ var SpriteBatchNodeSkewNegativeScaleChildren = SpriteTestDemo.extend({
             var seq_skew = cc.Sequence.create(skewX, skewX_back, skewY, skewY_back);
             sprite.runAction(cc.RepeatForever.create(seq_skew));
 
-            var child1 = cc.Sprite.create("frame#grossini_dance_01.png");
+            var child1 = cc.Sprite.create("#grossini_dance_01.png");
             child1.x = sprite.width / 2.0;
             child1.y = sprite.height / 2.0;
 
@@ -4712,7 +4712,7 @@ var SpriteSkewNegativeScaleChildren = SpriteTestDemo.extend({
         this.addChild(parent);
 
         for (var i = 0; i < 2; i++) {
-            var sprite = cc.Sprite.create("frame#grossini_dance_01.png");
+            var sprite = cc.Sprite.create("#grossini_dance_01.png");
             sprite.x = winSize.width / 4 * (i + 1);
             sprite.y = winSize.height / 2;
 
@@ -4728,7 +4728,7 @@ var SpriteSkewNegativeScaleChildren = SpriteTestDemo.extend({
             var seq_skew = cc.Sequence.create(skewX, skewX_back, skewY, skewY_back);
             sprite.runAction(cc.RepeatForever.create(seq_skew));
 
-            var child1 = cc.Sprite.create("frame#grossini_dance_01.png");
+            var child1 = cc.Sprite.create("#grossini_dance_01.png");
             child1.x = sprite.width / 2.0;
             child1.y = sprite.height / 2.0;
 
@@ -4906,7 +4906,7 @@ var AnimationCacheFile = SpriteTestDemo.extend({
 
         // create an sprite with frame name
         // texture-less sprites are not supported
-        var grossini = cc.Sprite.create("frame#grossini_dance_01.png");
+        var grossini = cc.Sprite.create("#grossini_dance_01.png");
 
         grossini.x = winSize.width / 2;
 
@@ -5018,11 +5018,11 @@ var TextureColorCacheIssue = SpriteTestDemo.extend({
         spriteFrameCache.addSpriteFrames(s_tcc_issue_1_plist, s_tcc_issue_1);
         spriteFrameCache.addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
 
-        var grossini = cc.Sprite.create('frame#grossini_dance_01.png');
+        var grossini = cc.Sprite.create('#grossini_dance_01.png');
         grossini.x = winSize.width / 3;
         grossini.y = winSize.height / 2;
 
-        var sister = cc.Sprite.create('frame#grossinis_sister1.png');
+        var sister = cc.Sprite.create('#grossinis_sister1.png');
         sister.x = winSize.width / 3 * 2;
         sister.y = winSize.height / 2;
 
@@ -5065,11 +5065,11 @@ var TextureColorCacheIssue2 = SpriteTestDemo.extend({
         spriteFrameCache.addSpriteFrames(s_tcc_issue_1_plist, s_tcc_issue_1);
         spriteFrameCache.addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
 
-        var grossini = cc.Sprite.create('frame#grossini_dance_01.png');
+        var grossini = cc.Sprite.create('#grossini_dance_01.png');
         grossini.x = winSize.width / 3;
         grossini.y = winSize.height / 2;
 
-        var sister = cc.Sprite.create('frame#grossinis_sister1.png');
+        var sister = cc.Sprite.create('#grossinis_sister1.png');
         sister.x = winSize.width / 3 * 2;
         sister.y = winSize.height / 2;
 
@@ -5114,7 +5114,7 @@ var TextureRotatedSpriteFrame = SpriteTestDemo.extend({
 
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_s9s_blocks9_plist);
 
-        var block = cc.Sprite.create('frame#blocks9r.png');
+        var block = cc.Sprite.create('#blocks9r.png');
 
         var x = winSize.width / 2;
         var y = 0 + (winSize.height / 2);
