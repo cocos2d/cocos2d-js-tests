@@ -91,7 +91,7 @@ Parallax1 = ParallaxDemo.extend({
         this._tilemap.anchorY = 0;
 
         // Anti Aliased images
-        //tilemap.getTexture().setAntiAliasTexParameters();
+        //tilemap.texture.setAntiAliasTexParameters();
 
         // background layer: another image
         this._background = cc.Sprite.create(s_back);
@@ -193,7 +193,7 @@ Parallax2 = ParallaxDemo.extend({
         tilemap.anchorY = 0;
 
         // Anti Aliased images
-        //tilemap.getTexture().setAntiAliasTexParameters();
+        //tilemap.texture.setAntiAliasTexParameters();
 
         // background layer: another image
         var background = cc.Sprite.create(s_back);

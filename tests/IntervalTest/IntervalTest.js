@@ -49,7 +49,7 @@ IntervalLayer = cc.LayerGradient.extend({
         var s = director.getWinSize();
         // sun
         var sun = cc.ParticleSun.create();
-        sun.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
+        sun.texture = cc.TextureCache.getInstance().addImage(s_fire);
         sun.x = s.width - 32;
         sun.y = s.height - 32;
 

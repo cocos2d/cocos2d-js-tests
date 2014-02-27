@@ -94,7 +94,7 @@ var TileMapTest = TileDemo.extend({
         this._super();
         var map = cc.TileMapAtlas.create(s_tilesPng, s_levelMapTga, 16, 16);
         if ("opengl" in sys.capabilities)
-            map.getTexture().setAntiAliasTexParameters();
+            map.texture.setAntiAliasTexParameters();
 
         this.log("ContentSize: " + map.width + " " + map.height);
 
@@ -122,7 +122,7 @@ var TileMapEditTest = TileDemo.extend({
         this._super();
         var map = cc.TileMapAtlas.create(s_tilesPng, s_levelMapTga, 16, 16);
         // Create an Aliased Atlas
-        map.getTexture().setAliasTexParameters();
+        map.texture.setAliasTexParameters();
         this.log("ContentSize: " + map.width + " " + map.height);
 
         // If you are not going to use the Map, you can free it now
@@ -371,7 +371,7 @@ var TMXReadWriteTest = TileDemo.extend({
 
         var layer = map.getLayer("Layer 0");
         if ("opengl" in sys.capabilities)
-            layer.getTexture().setAntiAliasTexParameters();
+            layer.texture.setAntiAliasTexParameters();
 
         map.scale = 1;
 
@@ -714,13 +714,13 @@ var TMXTilesetTest = TileDemo.extend({
         if ("opengl" in sys.capabilities) {
             var layer;
             layer = map.getLayer("Layer 0");
-            layer.getTexture().setAntiAliasTexParameters();
+            layer.texture.setAntiAliasTexParameters();
 
             layer = map.getLayer("Layer 1");
-            layer.getTexture().setAntiAliasTexParameters();
+            layer.texture.setAntiAliasTexParameters();
 
             layer = map.getLayer("Layer 2");
-            layer.getTexture().setAntiAliasTexParameters();
+            layer.texture.setAntiAliasTexParameters();
         }
     },
     title:function () {
@@ -1508,7 +1508,7 @@ var TMXOrthoFromXMLTest = TileDemo.extend({
             for (var i = 0; i < mapChildren.length; i++) {
                 var child = mapChildren[i];
                 if (child)
-                    child.getTexture().setAntiAliasTexParameters();
+                    child.texture.setAntiAliasTexParameters();
             }
         }
 
@@ -1556,7 +1556,7 @@ var TMXBug987 = TileDemo.extend({
             node = childs[i];
             if (!node) break;
             if ("opengl" in sys.capabilities)
-                node.getTexture().setAntiAliasTexParameters();
+                node.texture.setAntiAliasTexParameters();
         }
 
         map.anchorX = 0;
