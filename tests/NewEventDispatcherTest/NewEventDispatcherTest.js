@@ -489,7 +489,7 @@ var SpriteAccelerationEventTest =  EventDispatcherTestDemo.extend({
                 var ballSize  = target.getContentSize();
                 var ptNow  = target.getPosition();
 
-                cc.log("acc: x = " + acc.x + ", y = " + acc.y);
+                //cc.log("acc: x = " + acc.x + ", y = " + acc.y);
 
                 target.x = SpriteAccelerationEventTest._fix_pos(ptNow.x + acc.x * 9.81,
                     (cc.VisibleRect.left().x + ballSize.width / 2.0), (cc.VisibleRect.right().x - ballSize.width / 2.0));
@@ -500,7 +500,7 @@ var SpriteAccelerationEventTest =  EventDispatcherTestDemo.extend({
     },
 
     onExit:function(){
-        Device.setAccelerometerEnabled(false);
+        cc.inputManager.setAccelerometerEnabled(false);
         this._super();
     },
 
@@ -794,12 +794,13 @@ var EventDispatcherTestScene = TestScene.extend({
 });
 
 var arrayOfEventDispatcherTest = [
+    SpriteAccelerationEventTest,
     TouchableSpriteTest,
     FixedPriorityTest,
     RemoveListenerWhenDispatching,
     CustomEventTest,
     //LabelKeyboardEventTest,
-    //SpriteAccelerationEventTest,
+    SpriteAccelerationEventTest,
     RemoveAndRetainNodeTest,
     RemoveListenerAfterAddingTest,
     DirectorEventTest

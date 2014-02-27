@@ -291,8 +291,29 @@ var AccelerometerTest = EventTest.extend({
 
         if( 'accelerometer' in sys.capabilities ) {
             // call is called 30 times per second
-            this.setAccelerometerInterval(1/30);
-            this.setAccelerometerEnabled(true);
+            cc.inputManager.setAccelerometerInterval(1/30);
+            cc.eventManager.addListener({
+                event: cc.EventListener.ACCELERATION,
+                callback: function(accelEvent, event){
+                    var target = event.getCurrentTarget();
+                    cc.log('Accel x: '+ accelEvent.x + ' y:' + accelEvent.y + ' z:' + accelEvent.z + ' time:' + accelEvent.timestamp );
+
+                    var w = winSize.width;
+                    var h = winSize.height;
+
+                    var x = w * accelEvent.x + w/2;
+                    var y = h * accelEvent.y + h/2;
+
+                    // Low pass filter
+                    x = x*0.2 + target.prevX*0.8;
+                    y = y*0.2 + target.prevY*0.8;
+
+                    target.prevX = x;
+                    target.prevY = y;
+                    target.sprite.x = x;
+                    target.sprite.y = y ;
+                }
+            }, this);
 
             var sprite = this.sprite = cc.Sprite.create(s_pathR2);
             this.addChild( sprite );
@@ -308,24 +329,6 @@ var AccelerometerTest = EventTest.extend({
     },
     subtitle:function () {
         return "Accelerometer test. Move device and see console";
-    },
-    onAccelerometer:function(accelEvent) {
-        cc.log('Accel x: '+ accelEvent.x + ' y:' + accelEvent.y + ' z:' + accelEvent.z + ' time:' + accelEvent.timestamp );
-
-        var w = winSize.width;
-        var h = winSize.height;
-
-        var x = w * accelEvent.x + w/2;
-        var y = h * accelEvent.y + h/2;
-
-        // Low pass filter
-        x = x*0.2 + this.prevX*0.8;
-        y = y*0.2 + this.prevY*0.8;
-
-        this.prevX = x;
-        this.prevY = y;
-        this.sprite.x = x;
-        this.sprite.y = y ;
     }
 });
 
