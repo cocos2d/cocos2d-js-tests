@@ -5,9 +5,9 @@ var SparkEffect = cc.Class.extend({
     scale:1.2,
     duration:0.7,
     ctor:function () {
-        this.spark1 = cc.Sprite.create("frame#explode2.png");
+        this.spark1 = cc.Sprite.create("#explode2.png");
         this.spark1.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
-        this.spark2 = cc.Sprite.create("frame#explode3.png");
+        this.spark2 = cc.Sprite.create("#explode3.png");
         this.spark2.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
     },
     reset:function (x, y) {

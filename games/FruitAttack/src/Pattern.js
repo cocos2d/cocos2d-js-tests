@@ -41,12 +41,12 @@ var PatternSprite = cc.Sprite.extend({
             {
                 case ePatternExtraAttr.Bomb:
                 {
-                    this.m_extraTypeSpr = cc.Sprite.create("frame#pattern_mark_explode.png");
+                    this.m_extraTypeSpr = cc.Sprite.create("#pattern_mark_explode.png");
                     break;
                 }
                 case ePatternExtraAttr.Freeze:
                 {
-                    this.m_extraTypeSpr = cc.Sprite.create("frame#pattern_mark_freeze.png");
+                    this.m_extraTypeSpr = cc.Sprite.create("#pattern_mark_freeze.png");
                     break;
                 }
                 default:
@@ -72,7 +72,7 @@ var PatternSprite = cc.Sprite.extend({
     destroyPattern:function(frams){
         this.g_ePatternStatus = ePatternStatus.Destroy;
 
-        var effectSprite = cc.Sprite.create("frame#pattern_destroy_00.png");
+        var effectSprite = cc.Sprite.create("#pattern_destroy_00.png");
         effectSprite.x = 22.5;
 	    effectSprite.y = 22.5;
         this.addChild(effectSprite);
@@ -84,7 +84,7 @@ var PatternSprite = cc.Sprite.extend({
     },
     explodePattern:function(frams){
         this.g_ePatternStatus = ePatternStatus.Explode;
-        var effectSprite = cc.Sprite.create("frame#pattern_explode_00.png");
+        var effectSprite = cc.Sprite.create("#pattern_explode_00.png");
         effectSprite.x = 22.5;
 	    effectSprite.y = 22.5;
         this.addChild(effectSprite);

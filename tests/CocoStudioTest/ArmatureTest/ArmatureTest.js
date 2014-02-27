@@ -669,7 +669,7 @@ var TestColliderDetector = ArmatureTestLayer.extend({
         this.armature2.y = winSize.height / 2;
         this.addChild(this.armature2);
 
-        this.bullet = cc.PhysicsSprite.create("frame#25.png");
+        this.bullet = cc.PhysicsSprite.create("#25.png");
         this.addChild(this.bullet);
 
         this.initWorld();
@@ -809,7 +809,7 @@ var TestCalculatedVertex = ArmatureTestLayer.extend({
         this.armature2.y = winSize.height / 2;
         this.addChild(this.armature2);
 
-        this.bullet = cc.Sprite.create("frame#25.png");
+        this.bullet = cc.Sprite.create("#25.png");
         this.addChild(this.bullet);
 
         this.scheduleUpdate();

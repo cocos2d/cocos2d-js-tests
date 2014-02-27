@@ -192,7 +192,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._scrollNode = scroll;
 
         // coin only needed to obtain the texture for the Batch Node
-        var coin = cc.Sprite.create("frame#coin01.png");
+        var coin = cc.Sprite.create("#coin01.png");
         this._batch = cc.SpriteBatchNode.create(coin.getTexture(), 100);    //cc.Node.create();
         scroll.addChild(this._batch, Z_SPRITES, cc.p(1, 1), cc.p(0,0));
 
@@ -659,7 +659,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createWheel : function( pos ) {
-        var sprite = cc.PhysicsSprite.create("frame#Wheel.png");
+        var sprite = cc.PhysicsSprite.create("#Wheel.png");
         var radius = 0.95 * sprite.getContentSize().width / 2;
 
         var body = new cp.Body(WHEEL_MASS, cp.momentForCircle(WHEEL_MASS, 0, radius, cp.vzero ) );
@@ -680,7 +680,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createChassis : function(pos) {
-        var sprite = cc.PhysicsSprite.create("frame#Chassis.png");
+        var sprite = cc.PhysicsSprite.create("#Chassis.png");
         var anchor = cp.v.add( sprite.getAnchorPointInPoints(), COG_ADJUSTMENT );
         var cs = sprite.getContentSize();
         sprite.setAnchorPoint(anchor.x / cs.width, anchor.y/cs.height);
@@ -727,7 +727,7 @@ var GameLayer = cc.LayerGradient.extend({
     createCarFruits : function(pos) {
         // create some fruits
         for(var i=0; i < 4;i++) {
-            var sprite = cc.PhysicsSprite.create("frame#watermelon.png");
+            var sprite = cc.PhysicsSprite.create("#watermelon.png");
             var radius = 0.95 * sprite.getContentSize().width / 2 * 0.85;
             sprite.setScale(0.85);
 
@@ -747,7 +747,7 @@ var GameLayer = cc.LayerGradient.extend({
 
     createCoin: function( pos ) {
         // coins are static bodies and sensors
-        var sprite = cc.PhysicsSprite.create("frame#coin01.png");
+        var sprite = cc.PhysicsSprite.create("#coin01.png");
         var radius = 0.95 * sprite.getContentSize().width / 2;
 
         var body = new cp.StaticBody();
@@ -777,7 +777,7 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     createFinish:function( pos ) {
-        var sprite = cc.PhysicsSprite.create("frame#farmers-market.png");
+        var sprite = cc.PhysicsSprite.create("#farmers-market.png");
         var cs = sprite.getContentSize();
         var body = new cp.StaticBody();
         sprite.setBody( body );
