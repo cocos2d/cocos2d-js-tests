@@ -292,6 +292,7 @@ var AccelerometerTest = EventTest.extend({
         if( 'accelerometer' in sys.capabilities ) {
             // call is called 30 times per second
             cc.inputManager.setAccelerometerInterval(1/30);
+            cc.inputManager.setAccelerometerEnabled(true);
             cc.eventManager.addListener({
                 event: cc.EventListener.ACCELERATION,
                 callback: function(accelEvent, event){
@@ -327,6 +328,13 @@ var AccelerometerTest = EventTest.extend({
             cc.log("ACCELEROMETER not supported");
         }
     },
+
+    onExit: function(){
+        this._super();
+        if( 'accelerometer' in sys.capabilities )
+            cc.inputManager.setAccelerometerEnabled(false);
+    },
+
     subtitle:function () {
         return "Accelerometer test. Move device and see console";
     }
