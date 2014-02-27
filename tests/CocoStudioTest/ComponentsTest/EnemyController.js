@@ -69,7 +69,7 @@ var EnemyController = ccs.ComController.extend({
     die: function () {
         var com = this._owner.parent.getComponent("SceneController");
         var targets = com.getTargets();
-        cc.ArrayRemoveObject(targets, this._owner);
+        cc.arrayRemoveObject(targets, this._owner);
         this._owner.removeFromParent(true);
         com.increaseKillCount();
     }
