@@ -227,12 +227,6 @@ Parallax2 = ParallaxDemo.extend({
         this.addChild(voidNode, 0, TAG_NODE);
     },
 
-    onMouseDragged:function (event) {
-        var node = this.getChildByTag(TAG_NODE);
-	    node.x += event.getDelta().x;
-	    node.y += event.getDelta().y;
-    },
-
     title:function () {
         return "Parallax: drag screen";
     }

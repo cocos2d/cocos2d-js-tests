@@ -158,12 +158,6 @@ var Sprite1 = SpriteTestDemo.extend({
         sprite.runAction(cc.RepeatForever.create(seq));
         this.testSprite = sprite;
     },
-
-    onMouseDown:function (event) {
-        var location = event.getLocation();
-        this.addNewSpriteWithCoords(location);
-        return true;
-    },
     //
     // Automation
     //
@@ -264,11 +258,6 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
         this.testSprite = sprite;
     },
 
-    onMouseDown:function (event) {
-        var location = event.getLocation();
-        this.addNewSpriteWithCoords(location);
-        return true;
-    },
     //
     // Automation
     //
@@ -1738,10 +1727,6 @@ var SpriteNewTexture = SpriteTestDemo.extend({
         }
     },
 
-    onMouseDown:function (event) {
-        this.onChangeTexture();
-        return true;
-    },
     //
     // Automation
     //

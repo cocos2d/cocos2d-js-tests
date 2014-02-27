@@ -476,11 +476,6 @@ var LayerGradient = LayerTest.extend({
         gradient.setVector(diff);
     },
 
-    onMouseDragged : function( event ) {
-        var location = event.getLocation();
-        this.updateGradient(location);
-        return true;
-    },
     onToggleItem:function (sender) {
         var gradient = this.getChildByTag(cc.TAG_LAYER);
         gradient.setCompressedInterpolation(!gradient.isCompressedInterpolation());

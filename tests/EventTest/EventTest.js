@@ -358,7 +358,7 @@ var MouseTest = EventTest.extend({
                 },
                 onMouseMove: function(event){
                     var pos = event.getLocation(), target = event.getCurrentTarget();
-                    cc.log("onMouseDragged at: " + pos.x + " " + pos.y );
+                    cc.log("onMouseMove at: " + pos.x + " " + pos.y );
                     target.sprite.x = pos.x;
                     target.sprite.y = pos.y;
                 },

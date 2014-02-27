@@ -361,16 +361,6 @@ var ParticleDemo = BaseTestLayer.extend({
         this._emitter.y = location.y - pos.y;
     },
 
-    onMouseDragged:function (event) {
-        var location = event.getLocation();
-        var pos = cc.p(0, 0);
-        if (this._background) {
-            pos = this._background.convertToWorldSpace(cc.p(0, 0));
-        }
-        this._emitter.x = location.x - pos.x;
-	    this._emitter.y = location.y - pos.y;
-        return true;
-    },
     update:function (dt) {
         if (this._emitter) {
             var atlas = this.getChildByTag(TAG_LABEL_ATLAS);

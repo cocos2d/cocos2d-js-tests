@@ -1521,7 +1521,7 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
             this.arrowsBarShouldRetain.visible = true;
         }
     },
-    onMouseDragged:function (touch) {
+    onMouseMove:function (touch) {
         var location = touch.getLocation();
         var winSize = director.getWinSize();
 

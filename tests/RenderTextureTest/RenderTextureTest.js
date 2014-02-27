@@ -93,6 +93,9 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
         } else if ('mouse' in sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
+                onMouseDown: function(event){
+                    event.getCurrentTarget()._lastLocation = event.getCursor();
+                },
                 onMouseMove: function(event){
                     event.getCurrentTarget().drawInLocation(event.getCursor());
                 }
@@ -172,15 +175,6 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
             this._target.end();
         }
         this._lastLocation = location;
-    },
-
-    onMouseDown:function (event) {
-        this._lastLocation = event.getLocation();
-        return true;
-    },
-
-    onMouseDragged:function (event) {
-        this.drawInLocation(event.getLocation());
     },
 
     subtitle:function () {

@@ -201,12 +201,6 @@ var CocosDenshionTest = cc.LayerGradient.extend({
         var scene = DenshionTests[idx].playFunc();
     },
 
-    onMouseDragged:function (event) {
-        var delta = event.getDelta();
-        this.moveMenu(delta);
-        return true;
-    },
-
     moveMenu:function (delta) {
         var newY = this._itemMenu.y + delta.y;
 

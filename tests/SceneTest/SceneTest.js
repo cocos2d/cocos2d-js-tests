@@ -192,10 +192,6 @@ var SceneTestLayer3 = cc.LayerColor.extend({
 
     testDealloc:function (dt) {
 
-    },
-
-    onMouseUp:function(event) {
-        director.popScene();
     }
 
     //CREATE_NODE(SceneTestLayer3);

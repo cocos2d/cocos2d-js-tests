@@ -450,11 +450,6 @@ ChipmunkPage.prototype.update = function( delta ) {
 	this.space.step( delta );
 };
 
-ChipmunkPage.prototype.onMouseDown = function( event ) {
-	for( var i=0; i<10; i++)
-		this.addSprite( event.getLocation() );
-};
-
 //------------------------------------------------------------------
 //
 // Particles Page
@@ -524,16 +519,6 @@ var ParticlesPage = function() {
                 particle.y = event.getCursorY();
             }
         }, this);
-
-	this.onMouseDown = function( event ) {
-		var pos = event.getLocation();
-		this.particle.x = pos.x;
-		this.particle.y = pos.y;
-	};
-
-	this.onMouseDragged = function( event ) {
-		return this.onMouseDown( event );
-	};
 
 	this.onExitTransitionDidStart = function () {
 		director.setDisplayStats( false );
