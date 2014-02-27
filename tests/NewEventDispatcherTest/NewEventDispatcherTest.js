@@ -72,18 +72,15 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
         var size = director.getVisibleSize();
 
         var sprite1 = cc.Sprite.create("res/Images/CyanSquare.png");
-        sprite1.x = origin.x + size.width/2 - 80;
-        sprite1.y = origin.y + size.height/2 + 80;
+        sprite1.setPosition(origin.x + size.width/2 - 80, origin.y + size.height/2 + 80);
         this.addChild(sprite1, 10);
 
         var sprite2 = cc.Sprite.create("res/Images/MagentaSquare.png");
-        sprite2.x = origin.x + size.width/2;
-        sprite2.y = origin.y + size.height/2;
+        sprite2.setPosition(origin.x + size.width/2, origin.y + size.height/2);
         this.addChild(sprite2, 20);
 
         var sprite3 = cc.Sprite.create("res/Images/YellowSquare.png");
-        sprite3.x = 0;
-        sprite3.y = 0;
+        sprite3.setPosition(0,0);
         sprite2.addChild(sprite3, 1);
 
         // Make sprite1 touchable
@@ -94,7 +91,8 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
                 var target = event.getCurrentTarget();
 
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
-                var rect = cc.rect(0, 0, target.width, target.height);
+                var s = target.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
                     cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
@@ -112,11 +110,11 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
             onTouchEnded: function (touch, event) {
                 var target = event.getCurrentTarget();
                 cc.log("sprite onTouchesEnded.. ");
-                target.opacity = 255;
+                target.setOpacity(255);
                 if (target == sprite2) {
-                    sprite1.zIndex = 100;
+                    sprite1.setLocalZOrder(100);
                 } else if (target == sprite1) {
-                    sprite1.zIndex = 0;
+                    sprite1.setLocalZOrder(0);
                 }
             }
         });
@@ -136,26 +134,20 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
             });
 
             nextItem.setFontSize(16);
-            nextItem.x = cc.VisibleRect.right().x -100;
-            nextItem.y = cc.VisibleRect.right().y - 30;
+            nextItem.setPosition(cc.VisibleRect.right().x -100, cc.VisibleRect.right().y - 30);
 
             var menu2 = cc.Menu.create(nextItem);
-            menu2.x = 0;
-            menu2.y = 0;
-            menu2.anchorX = 0;
-            menu2.anchorY = 0;
+            menu2.setPosition(0, 0);
+            menu2.setAnchorPoint(0, 0);
             selfPointer.addChild(menu2);
         });
 
         removeAllTouchItem.setFontSize(16);
-        removeAllTouchItem.x = cc.VisibleRect.right().x -100;
-        removeAllTouchItem.y = cc.VisibleRect.right().y;
+        removeAllTouchItem.setPosition(cc.VisibleRect.right().x -100, cc.VisibleRect.right().y);
 
         var menu = cc.Menu.create(removeAllTouchItem);
-        menu.x = 0;
-        menu.y = 0;
-        menu.anchorX = 0;
-        menu.anchorY = 0;
+        menu.setPosition(0, 0);
+        menu.setAnchorPoint(0, 0);
         this.addChild(menu);
     },
 
@@ -198,21 +190,20 @@ var TouchableSpriteWithFixedPriority = cc.Sprite.extend({
             swallowTouches: true,
             onTouchBegan: function (touch, event) {
                 var locationInNode = selfPointer.convertToNodeSpace(touch.getLocation());
-                var rect = cc.rect(0, 0, selfPointer.width, selfPointer.height);
+                var s = selfPointer.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    selfPointer.color = cc.color.red;
+                    selfPointer.setColor(cc.red());
                     return true;
                 }
                 return false;
             },
             onTouchMoved: function (touch, event) {
-	            // var delta = touch.getDelta();
-	            // this.x += delta.x;
-	            // this.y += delta.y;
+                //this.setPosition(this.getPosition() + touch.getDelta());
             },
             onTouchEnded: function (touch, event) {
-                selfPointer.color = cc.color.white;
+                selfPointer.setColor(cc.white());
             }
         });
 
@@ -246,22 +237,19 @@ var FixedPriorityTest =  EventDispatcherTestDemo.extend({
         var sprite1 = TouchableSpriteWithFixedPriority.create();
         sprite1.initWithFile("res/Images/CyanSquare.png");
         sprite1.setPriority(30);
-        sprite1.x = origin.x + size.width/2 - 80;
-	    sprite1.y = origin.y - size.height/2 + 40;
+        sprite1.setPosition(origin.x +size.width/2 - 80, origin.y - size.height/2 + 40);
         this.addChild(sprite1, 10);
 
         var sprite2 = TouchableSpriteWithFixedPriority.create();
         sprite2.initWithFile("res/Images/MagentaSquare.png");
         sprite2.setPriority(20);
-        sprite2.x = origin.x + size.width/2;
-	    sprite2.y = origin.y + size.height/2;
+        sprite2.setPosition(origin.x + size.width/2, origin.y + size.height/2);
         this.addChild(sprite2, 20);
 
         var sprite3 = TouchableSpriteWithFixedPriority.create();
         sprite3.initWithFile("res/Images/YellowSquare.png");
         sprite3.setPriority(10);
-        sprite3.x = 0;
-	    sprite3.y = 0;
+        sprite3.setPosition(0, 0);
         sprite2.addChild(sprite3, 1);
     },
 
@@ -288,8 +276,7 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
         var size = director.getVisibleSize();
 
         var sprite1 = cc.Sprite.create("res/Images/CyanSquare.png");
-        sprite1.x = origin.x + size.width/2;
-	    sprite1.y = origin.y + size.height/2;
+        sprite1.setPosition(origin.x + size.width/2, origin.y + size.height/2);
         this.addChild(sprite1, 10);
 
         // Make sprite1 touchable
@@ -298,16 +285,17 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
             swallowTouches: true,
             onTouchBegan: function (touch, event) {
                 var locationInNode = sprite1.convertToNodeSpace(touch.getLocation());
-                var rect = cc.rect(0, 0, sprite1.width, sprite1.height);
+                var s = sprite1.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    sprite1.color = cc.color.red;
+                    sprite1.setColor(cc.red());
                     return true;
                 }
                 return false;
             },
             onTouchEnded: function (touch, event) {
-                sprite1.color = cc.color.white;
+                sprite1.setColor(cc.white());
             }
         });
         this.setUserObject(listener1);
@@ -315,8 +303,7 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
         cc.eventManager.addListener(listener1, sprite1);
 
         var statusLabel = cc.LabelTTF.create("The sprite could be touched!", "", 20);
-        statusLabel.x = origin.x + size.width/2;
-        statusLabel.y = origin.y + size.height-90 ;
+        statusLabel.setPosition(origin.x + size.width/2, origin.y + size.height-90 );
         this.addChild(statusLabel);
 
         var enable = true;
@@ -335,13 +322,10 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
                 }
             });
 
-        toggleItem.x = origin.x + size.width/2;
-        toggleItem.y = origin.y + 80;
+        toggleItem.setPosition(origin.x + size.width/2, origin.y + 80);
         var menu = cc.Menu.create(toggleItem);
-        menu.x = 0;
-        menu.y = 0;
-        menu.anchorX = 0;
-        menu.anchorY = 0;
+        menu.setPosition(0, 0);
+        menu.setAnchorPoint(0, 0);
         this.addChild(menu, 1);
     },
 
@@ -374,8 +358,7 @@ var CustomEventTest =  EventDispatcherTestDemo.extend({
         cc.MenuItemFont.setFontSize(20);
 
         var statusLabel = cc.LabelTTF.create("No custom event 1 received!", "", 20);
-        statusLabel.x = origin.x + size.width / 2;
-        statusLabel.y = origin.y + size.height - 90;
+        statusLabel.setPosition(origin.x + size.width / 2, origin.y + size.height - 90);
         this.addChild(statusLabel);
 
         /* this._listener1 = cc.EventListenerCustom.create("game_custom_event1", function(event){
@@ -396,12 +379,10 @@ var CustomEventTest =  EventDispatcherTestDemo.extend({
             event.setUserData(selfPointer._item1Count.toString());
             cc.eventManager.dispatchEvent(event);
         });
-        sendItem.x = origin.x + size.width/2;
-        sendItem.y = origin.y + size.height/2;
+        sendItem.setPosition(origin.x + size.width/2, origin.y + size.height/2);
 
         var statusLabel2 = cc.LabelTTF.create("No custom event 2 received!", "", 20);
-        statusLabel2.x = origin.x + size.width/2;
-        statusLabel2.y = origin.y + size.height-120;
+        statusLabel2.setPosition(origin.x + size.width/2, origin.y + size.height-120);
         this.addChild(statusLabel2);
 
         this._listener2 = cc.EventListener.create({
@@ -419,14 +400,11 @@ var CustomEventTest =  EventDispatcherTestDemo.extend({
             event.setUserData(selfPointer._item2Count.toString());
             cc.eventManager.dispatchEvent(event);
         });
-        sendItem2.x = origin.x + size.width/2;
-        sendItem2.y = origin.x + size.height/2 - 40;
+        sendItem2.setPosition(origin.x + size.width/2, origin.x + size.height/2 - 40);
 
         var menu = cc.Menu.create(sendItem, sendItem2);
-        menu.x = 0;
-        menu.y = 0;
-        menu.anchorX = 0;
-        menu.anchorY = 0;
+        menu.setPosition(0, 0);
+        menu.setAnchorPoint(0, 0);
         this.addChild(menu, 1);
     },
 
@@ -459,22 +437,20 @@ var LabelKeyboardEventTest =  EventDispatcherTestDemo.extend({
         var size = director.getVisibleSize();
 
         var statusLabel = cc.LabelTTF.create("No keyboard event received!", "", 20);
-        statusLabel.x = origin.x + size.width/2;
-        statusLabel.y = origin.x + size.height/2;
+        statusLabel.setPosition(origin.x + size.width/2, origin.x + size.height/2);
         this.addChild(statusLabel);
 
-        var listener = cc.EventListenerKeyboard.create();
-        listener.onKeyPressed = function(keyCode, event){
-            var label = event.getCurrentTarget();
-            label.setString("Key " + keyCode.toString() + " was pressed!");
-        };
-
-        listener.onKeyReleased = function(keyCode, event){
-            var label = event.getCurrentTarget();
-            label.setString("Key " + keyCode.toString() + " was released!");
-        };
-
-        cc.eventManager.addListener(listener, statusLabel);
+        cc.eventManager.addListener({
+            event: cc.EventListener.KEYBOARD,
+            onKeyPressed:  function(keyCode, event){
+                var label = event.getCurrentTarget();
+                label.setString("Key " + String.fromCharCode(keyCode) + "(" + keyCode.toString()  + ") was pressed!");
+            },
+            onKeyReleased: function(keyCode, event){
+                var label = event.getCurrentTarget();
+                label.setString("Key " + String.fromCharCode(keyCode) + "(" + keyCode.toString()  + ") was released!");
+            }
+        }, statusLabel);
     },
 
     title:function(){
@@ -499,29 +475,31 @@ var SpriteAccelerationEventTest =  EventDispatcherTestDemo.extend({
         var origin = director.getVisibleOrigin();
         var size = director.getVisibleSize();
 
-        Device.setAccelerometerEnabled(true);
+        cc.inputManager.setAccelerometerEnabled(true);
 
         var sprite = cc.Sprite.create("res/Images/ball.png");
-        sprite.x = origin.x + size.width/2;
-        sprite.y = origin.y + size.height/2;
+        sprite.setPosition(origin.x + size.width/2, origin.y + size.height/2);
         this.addChild(sprite);
 
-        var listener = cc.EventListenerAcceleration.create(function(acc, event){
-            cc.log("acc: x = " + acc.x + ", y = " + acc.y);
+        cc.eventManager.addListener({
+            event: cc.EventListener.ACCELERATION,
+            callback: function(acc, event){
+                var target = event.getCurrentTarget();
+                var ballSize  = target.getContentSize();
+                var ptNow  = target.getPosition();
 
-            var nowX = SpriteAccelerationEventTest._fix_pos(sprite.x + acc.x * 9.81,
-                (cc.VisibleRect.left().x + sprite.width / 2.0), (cc.VisibleRect.right().x - sprite.width / 2.0));
-            var nowY = SpriteAccelerationEventTest._fix_pos(sprite.y + acc.y * 9.81,
-                (cc.VisibleRect.bottom().y + sprite.height / 2.0), (cc.VisibleRect.top().y - sprite.height / 2.0));
-            sprite.x = nowX;
-            sprite.y = nowY;
-        });
+                //cc.log("acc: x = " + acc.x + ", y = " + acc.y);
 
-        cc.eventManager.addListener(listener, sprite);
+                target.x = SpriteAccelerationEventTest._fix_pos(ptNow.x + acc.x * 9.81,
+                    (cc.VisibleRect.left().x + ballSize.width / 2.0), (cc.VisibleRect.right().x - ballSize.width / 2.0));
+                target.y = SpriteAccelerationEventTest._fix_pos(ptNow.y + acc.y * 9.81,
+                    (cc.VisibleRect.bottom().y + ballSize.height / 2.0), (cc.VisibleRect.top().y - ballSize.height / 2.0));
+            }
+        }, sprite);
     },
 
     onExit:function(){
-        Device.setAccelerometerEnabled(false);
+        cc.inputManager.setAccelerometerEnabled(false);
         this._super();
     },
 
@@ -560,8 +538,7 @@ var RemoveAndRetainNodeTest =  EventDispatcherTestDemo.extend({
         var size = director.getVisibleSize();
 
         this._sprite = cc.Sprite.create("res/Images/CyanSquare.png");
-        this._sprite.x = origin.x + size.width/2;
-        this._sprite.y = origin.y + size.height/2;
+        this._sprite.setPosition(origin.x + size.width/2, origin.y + size.height/2);
         this.addChild(this._sprite, 10);
 
         // Make sprite1 touchable
@@ -572,7 +549,8 @@ var RemoveAndRetainNodeTest =  EventDispatcherTestDemo.extend({
                 var target = event.getCurrentTarget();
 
                 var locationInNode = target.convertToNodeSpace(touch.getLocation());
-                var rect = cc.rect(0, 0, target.width, target.height);
+                var s = target.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
                     cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
@@ -647,22 +625,17 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             cc.eventManager.removeListener(listener);
         });
         var vCenter = cc.VisibleRect.center();
-        item1.x = vCenter.x;
-        item1.y = vCenter.y + 80;
+        item1.setPosition(vCenter.x, vCenter.y + 80);
 
         var addNextButton = function(){
             var next = cc.MenuItemFont.create("Please Click Me To Reset!", function(sender){
                 selfPointer.onRestartCallback();
             });
-            next.x = vCenter.x;
-            next.y = vCenter.y - 40;
+            next.setPosition(vCenter.x, vCenter.y - 40);
 
             var menu = cc.Menu.create(next);
-	        var bl = cc.VisibleRect.bottomLeft();
-            menu.x = bl.x;
-	        menu.y = bl.y;
-            menu.anchorX = 0;
-            menu.anchorY = 0;
+            menu.setPosition(cc.VisibleRect.bottomLeft());
+            menu.setAnchorPoint(0,0);
             selfPointer.addChild(menu);
         };
 
@@ -676,8 +649,7 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             cc.eventManager.removeListeners(cc.EventListener.TOUCH_ONE_BY_ONE);
             addNextButton();
         }, this);
-        item2.x = vCenter.x;
-        item2.y = vCenter.y + 40;
+        item2.setPosition(vCenter.x, vCenter.y + 40);
 
         var item3 = cc.MenuItemFont.create("Click Me 3", function(sender){
             var listener = cc.EventListenerTouchOneByOne.create();
@@ -689,15 +661,11 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             cc.eventManager.removeAllListeners();
             addNextButton();
         }, this);
-        item3.x = vCenter.x;
-	    item3.y = vCenter.y;
+        item3.setPosition(cc.VisibleRect.center());
 
         var menu = cc.Menu.create(item1, item2, item3);
-	    var bl = cc.VisibleRect.bottomLeft();
-        menu.x = bl.x;
-	    menu.y = bl.y;
-        menu.anchorX = 0;
-        menu.anchorY = 0;
+        menu.setPosition(cc.VisibleRect.bottomLeft());
+        menu.setAnchorPoint(0, 0);
         this.addChild(menu);
     },
 
@@ -736,23 +704,19 @@ var DirectorEventTest =  EventDispatcherTestDemo.extend({
         var s = director.getWinSize(), selfPointer = this;
 
         this._label1 = cc.LabelTTF.create("Update: 0", "Arial", 20);
-        this._label1.x = 80;
-        this._label1.y = s.height/2 + 60;
+        this._label1.setPosition(80,s.height/2 + 60);
         this.addChild(this._label1);
 
         this._label2 = cc.LabelTTF.create("Visit: 0", "Arial", 20);
-        this._label2.x = 80;
-        this._label2.y = s.height/2 + 20;
+        this._label2.setPosition(80,s.height/2 + 20);
         this.addChild(this._label2);
 
         this._label3 = cc.LabelTTF.create("Draw: 0", "Arial", 20);
-        this._label3.x = 80;
-        this._label3.y = s.height/2 - 20;
+        this._label3.setPosition(80,s.height/2 - 20);
         this.addChild(this._label3);
 
         this._label4 = cc.LabelTTF.create("Projection: 0", "Arial", 20);
-        this._label4.x = 80;
-        this._label4.y = s.height/2 - 60;
+        this._label4.setPosition(80,s.height/2 - 60);
         this.addChild(this._label4);
 
         var dispatcher = cc.eventManager;
@@ -833,8 +797,8 @@ var arrayOfEventDispatcherTest = [
     FixedPriorityTest,
     RemoveListenerWhenDispatching,
     CustomEventTest,
-    //LabelKeyboardEventTest,
-    //SpriteAccelerationEventTest,
+    LabelKeyboardEventTest,
+    SpriteAccelerationEventTest,
     RemoveAndRetainNodeTest,
     RemoveListenerAfterAddingTest,
     DirectorEventTest

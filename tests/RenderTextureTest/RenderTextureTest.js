@@ -83,15 +83,23 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     onEnter:function () {
         this._super();
 
-        //if ('touches' in sys.capabilities){
+        if ('touches' in sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved:function (touches, event) {
                     event.getCurrentTarget().drawInLocation(touches[0].getLocation());
                 }
             }, this);
-        //} else if ('mouse' in sys.capabilities)
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities)
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseDown: function(event){
+                    event.getCurrentTarget()._lastLocation = event.getCursor();
+                },
+                onMouseMove: function(event){
+                    event.getCurrentTarget().drawInLocation(event.getCursor());
+                }
+            }, this);
 
         this._brush = cc.Sprite.create(s_fire);
         this._brush.retain();
@@ -169,15 +177,6 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
         this._lastLocation = location;
     },
 
-    onMouseDown:function (event) {
-        this._lastLocation = event.getLocation();
-        return true;
-    },
-
-    onMouseDragged:function (event) {
-        this.drawInLocation(event.getLocation());
-    },
-
     subtitle:function () {
         return "Testing 'save'";
     }
@@ -211,7 +210,7 @@ var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
         spr_nonpremulti.y = 16;
 
         /* A2 & B2 setup */
-        var rend = cc.RenderTexture.create(32, 64, cc.Texture2D.PIXEL_FORMAT.RGBA8888);
+        var rend = cc.RenderTexture.create(32, 64, cc.Texture2D.PIXEL_FORMAT_RGBA8888);
         if (!rend)
             return;
         // It's possible to modify the RenderTexture blending function by
@@ -291,15 +290,15 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_circle_plist);
         this.mgr = cc.SpriteBatchNode.create(s_circle_png, 9);
         this.addChild(this.mgr);
-        this.sp1 = cc.Sprite.create("circle.png");
-        this.sp2 = cc.Sprite.create("circle.png");
-        this.sp3 = cc.Sprite.create("circle.png");
-        this.sp4 = cc.Sprite.create("circle.png");
-        this.sp5 = cc.Sprite.create("circle.png");
-        this.sp6 = cc.Sprite.create("circle.png");
-        this.sp7 = cc.Sprite.create("circle.png");
-        this.sp8 = cc.Sprite.create("circle.png");
-        this.sp9 = cc.Sprite.create("circle.png");
+        this.sp1 = cc.Sprite.create("#circle.png");
+        this.sp2 = cc.Sprite.create("#circle.png");
+        this.sp3 = cc.Sprite.create("#circle.png");
+        this.sp4 = cc.Sprite.create("#circle.png");
+        this.sp5 = cc.Sprite.create("#circle.png");
+        this.sp6 = cc.Sprite.create("#circle.png");
+        this.sp7 = cc.Sprite.create("#circle.png");
+        this.sp8 = cc.Sprite.create("#circle.png");
+        this.sp9 = cc.Sprite.create("#circle.png");
 
         this.mgr.addChild(this.sp1, 9);
         this.mgr.addChild(this.sp2, 8);

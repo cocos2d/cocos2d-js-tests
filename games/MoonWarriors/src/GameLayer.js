@@ -79,7 +79,7 @@ var GameLayer = cc.Layer.extend({
             this.addChild(this.lbScore, 1000);
 
             // ship life
-            var life = cc.Sprite.create("frame#ship01.png");
+            var life = cc.Sprite.create("#ship01.png");
             life.attr({
 	            scale: 0.6,
 	            x: 30,
@@ -107,13 +107,24 @@ var GameLayer = cc.Layer.extend({
             Explosion.sharedExplosion();
 
             // accept touch now!
+           if (sys.capabilities.hasOwnProperty('keyboard'))
+                cc.eventManager.addListener({
+                    event: cc.EventListener.KEYBOARD,
+                    onKeyPressed:function (key, event) {
+                        MW.KEYS[key] = true;
+                    },
+                    onKeyReleased:function (key, event) {
+                        MW.KEYS[key] = false;
+                    }
+                }, this);
 
-/*            if (sys.capabilities.hasOwnProperty('keyboard'))
-                this.setKeyboardEnabled(true);
-
-            if (sys.capabilities.hasOwnProperty('mouse'))
-            *//*if ('mouse' in sys.capabilities)*//*
-                this.setMouseEnabled(true);*/
+            if ('mouse' in sys.capabilities)
+                cc.eventManager.addListener({
+                    event: cc.EventListener.MOUSE,
+                    onMouseMove: function(event){
+                        event.getCurrentTarget().processEvent(event);
+                    }
+                }, this);
 
             if (sys.capabilities.hasOwnProperty('touches')){
                 cc.eventManager.addListener({
@@ -128,9 +139,8 @@ var GameLayer = cc.Layer.extend({
             this.scheduleUpdate();
             this.schedule(this.scoreCounter, 1);
 
-            if (MW.SOUND) {
+            if (MW.SOUND)
                 cc.AudioEngine.getInstance().playMusic(res.bgMusic_mp3, true);
-            }
 
             bRet = true;
             g_sharedGameLayer = this;
@@ -156,11 +166,7 @@ var GameLayer = cc.Layer.extend({
         }
     },
 
-    onMouseDragged:function (event) {
-        this.processEvent(event);
-    },
-
-    processEvent:function (touch) {
+    processEvent:function (event) {
         if (this._state == STATE_PLAYING) {
             var delta = event.getDelta();
             var curPos = cc.p(this._ship.x, this._ship.y);
@@ -170,14 +176,6 @@ var GameLayer = cc.Layer.extend({
 	        this._ship.y = curPos.y;
 	        curPos = null;
         }
-    },
-
-    onKeyDown:function (e) {
-        MW.KEYS[e] = true;
-    },
-
-    onKeyUp:function (e) {
-        MW.KEYS[e] = false;
     },
 
     update:function (dt) {

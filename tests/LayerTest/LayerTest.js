@@ -92,15 +92,20 @@ var LayerTest1 = LayerTest.extend({
         this._super();
 
 
-        //if( 'touches' in sys.capabilities )
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
-            onTouchesMoved:function (touches, event) {
-                event.getCurrentTarget().updateSize(touches[0].getLocation());
-            }
-        }, this);
-        //else if ('mouse' in sys.capabilities )
-        //    this.setMouseEnabled(true);
+        if( 'touches' in sys.capabilities )
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+                onTouchesMoved:function (touches, event) {
+                    event.getCurrentTarget().updateSize(touches[0].getLocation());
+                }
+            }, this);
+        else if ('mouse' in sys.capabilities )
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseMove: function(event){
+                    event.getCurrentTarget().updateSize(event.getCursor());
+                }
+            }, this);
 
         var s = director.getWinSize();
         var layer = cc.LayerColor.create(cc.color(255, 0, 0, 128), 200, 200);
@@ -121,19 +126,9 @@ var LayerTest1 = LayerTest.extend({
 	    l.height = Math.abs(location.y - winSize.height / 2) * 2;
     },
 
-    // events
-    onMouseDragged : function( event ) {
-        var location = event.getLocation();
-        this.updateSize(location);
-        return true;
-    },
-
-    
-
     //
     // Automation
     //
-
     pixel: {"0": 190, "1": 0, "2": 0, "3": 128},
 
     getExpectedResult:function() {
@@ -439,25 +434,27 @@ var LayerGradient = LayerTest.extend({
         var layer1 = cc.LayerGradient.create(cc.color(255, 0, 0, 255), cc.color(0, 255, 0, 255), cc.p(0.9, 0.9));
         this.addChild(layer1, 0, cc.TAG_LAYER);
 
-        //if( 'touches' in sys.capabilities ){
+        if( 'touches' in sys.capabilities ){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesBegan:function(touches, event){
-                    var target = event.getCurrentTarget();
-                    target._isPressed = true;
-                    target.updateGradient(touches[0].getLocation());
+                    event.getCurrentTarget().updateGradient(touches[0].getLocation());
                 },
                 onTouchesMoved:function (touches, event) {
-                    var target = event.getCurrentTarget();
-                    if(target._isPressed)
-                        target.updateGradient(touches[0].getLocation());
-                },
-                onTouchesEnded:function(touches,event){
-                    event.getCurrentTarget()._isPressed = false;
+                    event.getCurrentTarget().updateGradient(touches[0].getLocation());
                 }
             }, this);
-        //} else if ('mouse' in sys.capabilities )
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities ){
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseDown: function(event){
+                    event.getCurrentTarget().updateGradient(event.getCursor());
+                },
+                onMouseMove: function(event){
+                    event.getCurrentTarget().updateGradient(event.getCursor());
+                }
+            }, this);
+        }
 
         var label1 = cc.LabelTTF.create("Compressed Interpolation: Enabled", "Marker Felt", 26);
         var label2 = cc.LabelTTF.create("Compressed Interpolation: Disabled", "Marker Felt", 26);
@@ -479,11 +476,6 @@ var LayerGradient = LayerTest.extend({
         gradient.setVector(diff);
     },
 
-    onMouseDragged : function( event ) {
-        var location = event.getLocation();
-        this.updateGradient(location);
-        return true;
-    },
     onToggleItem:function (sender) {
         var gradient = this.getChildByTag(cc.TAG_LAYER);
         gradient.setCompressedInterpolation(!gradient.isCompressedInterpolation());

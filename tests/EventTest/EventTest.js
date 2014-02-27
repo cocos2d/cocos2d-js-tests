@@ -291,8 +291,30 @@ var AccelerometerTest = EventTest.extend({
 
         if( 'accelerometer' in sys.capabilities ) {
             // call is called 30 times per second
-            this.setAccelerometerInterval(1/30);
-            this.setAccelerometerEnabled(true);
+            cc.inputManager.setAccelerometerInterval(1/30);
+            cc.inputManager.setAccelerometerEnabled(true);
+            cc.eventManager.addListener({
+                event: cc.EventListener.ACCELERATION,
+                callback: function(accelEvent, event){
+                    var target = event.getCurrentTarget();
+                    cc.log('Accel x: '+ accelEvent.x + ' y:' + accelEvent.y + ' z:' + accelEvent.z + ' time:' + accelEvent.timestamp );
+
+                    var w = winSize.width;
+                    var h = winSize.height;
+
+                    var x = w * accelEvent.x + w/2;
+                    var y = h * accelEvent.y + h/2;
+
+                    // Low pass filter
+                    x = x*0.2 + target.prevX*0.8;
+                    y = y*0.2 + target.prevY*0.8;
+
+                    target.prevX = x;
+                    target.prevY = y;
+                    target.sprite.x = x;
+                    target.sprite.y = y ;
+                }
+            }, this);
 
             var sprite = this.sprite = cc.Sprite.create(s_pathR2);
             this.addChild( sprite );
@@ -306,26 +328,15 @@ var AccelerometerTest = EventTest.extend({
             cc.log("ACCELEROMETER not supported");
         }
     },
+
+    onExit: function(){
+        this._super();
+        if( 'accelerometer' in sys.capabilities )
+            cc.inputManager.setAccelerometerEnabled(false);
+    },
+
     subtitle:function () {
         return "Accelerometer test. Move device and see console";
-    },
-    onAccelerometer:function(accelEvent) {
-        cc.log('Accel x: '+ accelEvent.x + ' y:' + accelEvent.y + ' z:' + accelEvent.z + ' time:' + accelEvent.timestamp );
-
-        var w = winSize.width;
-        var h = winSize.height;
-
-        var x = w * accelEvent.x + w/2;
-        var y = h * accelEvent.y + h/2;
-
-        // Low pass filter
-        x = x*0.2 + this.prevX*0.8;
-        y = y*0.2 + this.prevY*0.8;
-
-        this.prevX = x;
-        this.prevY = y;
-        this.sprite.x = x;
-        this.sprite.y = y ;
     }
 });
 
@@ -344,39 +355,37 @@ var MouseTest = EventTest.extend({
         sprite.scale = 1;
         sprite.color = cc.color(Math.random()*200+55, Math.random()*200+55, Math.random()*200+55);
 
-        /*if( 'mouse' in sys.capabilities ) {
-            //TODO
-            this.setMouseEnabled(true);
+        if( 'mouse' in sys.capabilities ) {
+            cc.eventManager.addListener({
+                 event: cc.EventListener.MOUSE,
+                onMouseDown: function(event){
+                    var pos = event.getCursor(), target = event.getCurrentTarget();
+                    if(event.getButton() === cc.EventMouse.BUTTON_RIGHT)
+                        cc.log("onRightMouseDown at: " + pos.x + " " + pos.y );
+                    else
+                        cc.log("onMouseDown at: " + pos.x + " " + pos.y );
+                    target.sprite.x = pos.x;
+                    target.sprite.y = pos.y;
+                },
+                onMouseMove: function(event){
+                    var pos = event.getLocation(), target = event.getCurrentTarget();
+                    cc.log("onMouseMove at: " + pos.x + " " + pos.y );
+                    target.sprite.x = pos.x;
+                    target.sprite.y = pos.y;
+                },
+                onMouseUp: function(event){
+                    var pos = event.getLocation(), target = event.getCurrentTarget();
+                    target.sprite.x = pos.x;
+                    target.sprite.y = pos.y;
+                    cc.log("onMouseUp at: " + pos.x + " " + pos.y );
+                }
+            }, this);
         } else {
             cc.log("MOUSE Not supported");
-        }*/
+        }
     },
     subtitle:function () {
         return "Mouse test. Move mouse and see console";
-    },
-    onMouseDown:function(event) {
-        var pos = event.getLocation();
-        cc.log("onMouseDown at: " + pos.x + " " + pos.y );
-        this.sprite.x = pos.x;
-        this.sprite.y = pos.y;
-    },
-    onMouseDragged:function(event) {
-        var pos = event.getLocation();
-        cc.log("onMouseDragged at: " + pos.x + " " + pos.y );
-        this.sprite.x = pos.x;
-        this.sprite.y = pos.y;
-    },
-    onMouseUp:function(event) {
-        var pos = event.getLocation();
-        this.sprite.x = pos.x;
-        this.sprite.y = pos.y;
-        cc.log("onMouseUp at: " + pos.x + " " + pos.y );
-    },
-    onRightMouseDown:function(event){
-        var pos = event.getLocation();
-        this.sprite.x = pos.x;
-        this.sprite.y = pos.y;
-        cc.log("onRightMouseDown at: " + pos.x + " " + pos.y );
     }
 });
 
@@ -390,7 +399,15 @@ var KeyboardTest = EventTest.extend({
         this._super();
 
         if( 'keyboard' in sys.capabilities ) {
-            this.setKeyboardEnabled(true);
+            cc.eventManager.addListener({
+                event: cc.EventListener.KEYBOARD,
+                onKeyPressed:function(key, event) {
+                    cc.log("Key up:" + key);
+                },
+                onKeyReleased:function(key, event) {
+                    cc.log("Key down:" + key);
+                }
+            }, this);
         } else {
             cc.log("KEYBOARD Not supported");
         }
@@ -398,12 +415,7 @@ var KeyboardTest = EventTest.extend({
     subtitle:function () {
         return "Keyboard test. Press keyboard and see console";
     },
-    onKeyUp:function(key) {
-        cc.log("Key up:" + key);
-    },
-    onKeyDown:function(key) {
-        cc.log("Key down:" + key);
-    },
+
     // this callback is only available on JSB + OS X
     // Not supported on cocos2d-html5
     onKeyFlagsChanged:function(key) {

@@ -174,23 +174,24 @@ var SceneTestLayer3 = cc.LayerColor.extend({
     },
     
     onEnterTransitionDidFinish: function () {
-        //if ('touches' in sys.capabilities){
+        if ('touches' in sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded: function(touches, event){
                     director.popScene();
                 }
             }, this);
-        //} else if ('mouse' in sys.capabilities)
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities)
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseUp: function(event){
+                    director.popScene();
+                }
+            }, this);
     },
 
     testDealloc:function (dt) {
 
-    },
-
-    onMouseUp:function(event) {
-        director.popScene();
     }
 
     //CREATE_NODE(SceneTestLayer3);

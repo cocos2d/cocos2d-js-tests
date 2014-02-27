@@ -196,7 +196,7 @@ ChipmunkSprite.prototype.onEnter = function () {
 		this.addSprite( cp.v(winSize.width/2, winSize.height/2) );
 	}
 
-    //if( 'touches' in sys.capabilities ){
+    if( 'touches' in sys.capabilities ){
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ALL_AT_ONCE,
             onTouchesEnded: function(touches, event){
@@ -206,16 +206,17 @@ ChipmunkSprite.prototype.onEnter = function () {
                 }
             }
         }, this);
-    //} else if( 'mouse' in sys.capabilities )
-    //    this.setMouseEnabled(true);
+    } else if( 'mouse' in sys.capabilities )
+        cc.eventManager.addListener({
+            event: cc.EventListener.MOUSE,
+            onMouseDown: function(event){
+                event.getCurrentTarget().addSprite(event.getCursor());
+            }
+        }, this);
 };
 
 ChipmunkSprite.prototype.update = function( delta ) {
 	this.space.step( delta );
-};
-
-ChipmunkSprite.prototype.onMouseDown = function( event ) {
-	this.addSprite( event.getLocation() );
 };
 
 //------------------------------------------------------------------

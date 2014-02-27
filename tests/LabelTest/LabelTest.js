@@ -1365,15 +1365,20 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
             onTouchesMoved: this.onTouchesMoved.bind(this),
             onTouchesEnded: this.onTouchesEnded.bind(this)
         }, this);
-/*        if ('touches' in sys.capabilities){
-            cc.eventManager.addListener(cc.EventListener.create({
+        if ('touches' in sys.capabilities){
+            cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesBegan: this.onTouchesBegan.bind(this),
                 onTouchesMoved: this.onTouchesMoved.bind(this),
                 onTouchesEnded: this.onTouchesEnded.bind(this)
-            }), this);
+            }, this);
         } else if ('mouse' in sys.capabilities)
-            this.setMouseEnabled(true);*/
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseDown: this.onMouseDown.bind(this),
+                onMouseMove: this.onMouseMove.bind(this),
+                onMouseUp: this.onMouseUp.bind(this)
+            }, this);
 
         // ask director the the window size
         var size = director.getWinSize();
@@ -1505,7 +1510,6 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
         var winSize = director.getWinSize();
 
         this.arrowsShouldRetain.x = Math.max(Math.min(location.x, ArrowsMax * winSize.width), ArrowsMin * winSize.width);
-        this.arrowsShouldRetain.y = this.arrowsShouldRetain.y;
 
         this.labelShouldRetain.boundingWidth = Math.abs(this.arrowsShouldRetain.getPosition().x - this.labelShouldRetain.getPosition().x) * 2;
     },
@@ -1517,13 +1521,11 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
             this.arrowsBarShouldRetain.visible = true;
         }
     },
-    onMouseDragged:function (touch) {
+    onMouseMove:function (touch) {
         var location = touch.getLocation();
         var winSize = director.getWinSize();
 
         this.arrowsShouldRetain.x = Math.max(Math.min(location.x, ArrowsMax * winSize.width), ArrowsMin * winSize.width);
-        this.arrowsShouldRetain.y = this.arrowsShouldRetain.y;
-
         this.labelShouldRetain.boundingWidth = Math.abs(this.arrowsShouldRetain.x - this.labelShouldRetain.x) * 2;
     },
     onMouseUp:function (touch) {

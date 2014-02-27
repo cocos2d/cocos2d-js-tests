@@ -163,7 +163,7 @@ Parallax2 = ParallaxDemo.extend({
     ctor:function () {
         this._super();
 
-        //if( 'touches' in sys.capabilities ){
+        if( 'touches' in sys.capabilities ){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved:function (touches, event) {
@@ -173,8 +173,17 @@ Parallax2 = ParallaxDemo.extend({
                     node.y += touch.getDelta().y;
                 }
             }, this);
-        //} else if ('mouse' in sys.capabilities )
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities ){
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseMove: function(event){
+                    var node = event.getCurrentTarget().getChildByTag(TAG_NODE);
+                    node.x += event.getDeltaX();
+                    node.y += event.getDeltaY();
+                }
+            }, this);
+        }
+
 
         // Top Layer, a simple image
         var cocosImage = cc.Sprite.create(s_power);
@@ -216,12 +225,6 @@ Parallax2 = ParallaxDemo.extend({
         // top image is moved at a ratio of 3.0x, 2.5y
         voidNode.addChild(cocosImage, 2, cc.p(3.0, 2.5), cc.p(0, 0));
         this.addChild(voidNode, 0, TAG_NODE);
-    },
-
-    onMouseDragged:function (event) {
-        var node = this.getChildByTag(TAG_NODE);
-	    node.x += event.getDelta().x;
-	    node.y += event.getDelta().y;
     },
 
     title:function () {

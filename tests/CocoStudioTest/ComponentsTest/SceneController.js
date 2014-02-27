@@ -69,13 +69,13 @@ var SceneController = ccs.ComController.extend({
         var sprite = sender;
         this._owner.removeChild(sprite, true);
         if (sprite.tag == 2) {
-            cc.ArrayRemoveObject(this._targets, sprite);
+            cc.arrayRemoveObject(this._targets, sprite);
             var gameOverScene = GameOverScene.create();
             gameOverScene.getLayer().getLabel().setString("You Lose!");
             cc.Director.getInstance().runScene(gameOverScene);
         }
         else if (sprite.tag == 3) {
-            cc.ArrayRemoveObject(this._projectiles, sprite);
+            cc.arrayRemoveObject(this._projectiles, sprite);
         }
 
     },
