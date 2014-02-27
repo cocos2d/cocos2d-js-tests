@@ -107,8 +107,16 @@ var GameLayer = cc.Layer.extend({
             Explosion.sharedExplosion();
 
             // accept touch now!
-/*            if (sys.capabilities.hasOwnProperty('keyboard'))
-                this.setKeyboardEnabled(true);         */
+           if (sys.capabilities.hasOwnProperty('keyboard'))
+                cc.eventManager.addListener({
+                    event: cc.EventListener.KEYBOARD,
+                    onKeyPressed:function (key, event) {
+                        MW.KEYS[key] = true;
+                    },
+                    onKeyReleased:function (key, event) {
+                        MW.KEYS[key] = false;
+                    }
+                }, this);
 
             if ('mouse' in sys.capabilities)
                 cc.eventManager.addListener({
@@ -131,9 +139,8 @@ var GameLayer = cc.Layer.extend({
             this.scheduleUpdate();
             this.schedule(this.scoreCounter, 1);
 
-            if (MW.SOUND) {
+            if (MW.SOUND)
                 cc.AudioEngine.getInstance().playMusic(res.bgMusic_mp3, true);
-            }
 
             bRet = true;
             g_sharedGameLayer = this;
@@ -169,14 +176,6 @@ var GameLayer = cc.Layer.extend({
 	        this._ship.y = curPos.y;
 	        curPos = null;
         }
-    },
-
-    onKeyDown:function (e) {
-        MW.KEYS[e] = true;
-    },
-
-    onKeyUp:function (e) {
-        MW.KEYS[e] = false;
     },
 
     update:function (dt) {

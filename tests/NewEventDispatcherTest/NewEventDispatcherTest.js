@@ -440,16 +440,15 @@ var LabelKeyboardEventTest =  EventDispatcherTestDemo.extend({
         statusLabel.setPosition(origin.x + size.width/2, origin.x + size.height/2);
         this.addChild(statusLabel);
 
-
         cc.eventManager.addListener({
             event: cc.EventListener.KEYBOARD,
             onKeyPressed:  function(keyCode, event){
                 var label = event.getCurrentTarget();
-                label.setString("Key " + keyCode.toString() + " was pressed!");
+                label.setString("Key " + String.fromCharCode(keyCode) + "(" + keyCode.toString()  + ") was pressed!");
             },
             onKeyReleased: function(keyCode, event){
                 var label = event.getCurrentTarget();
-                label.setString("Key " + keyCode.toString() + " was released!");
+                label.setString("Key " + String.fromCharCode(keyCode) + "(" + keyCode.toString()  + ") was released!");
             }
         }, statusLabel);
     },
@@ -794,12 +793,11 @@ var EventDispatcherTestScene = TestScene.extend({
 });
 
 var arrayOfEventDispatcherTest = [
-    SpriteAccelerationEventTest,
     TouchableSpriteTest,
     FixedPriorityTest,
     RemoveListenerWhenDispatching,
     CustomEventTest,
-    //LabelKeyboardEventTest,
+    LabelKeyboardEventTest,
     SpriteAccelerationEventTest,
     RemoveAndRetainNodeTest,
     RemoveListenerAfterAddingTest,
