@@ -34,7 +34,7 @@ var TileDemo = BaseTestLayer.extend({
     ctor:function () {
         this._super();
 
-        //if ('touches' in sys.capabilities){
+        if ('touches' in sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved: function (touches, event) {
@@ -46,8 +46,15 @@ var TileDemo = BaseTestLayer.extend({
             	    node.y += delta.y;
                 }
             }, this);
-        //} else if ('mouse' in sys.capabilities)
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities)
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseMove: function(event){
+                    var node = this.getChildByTag(TAG_TILE_MAP);
+                    node.x += event.getDeltaX();
+                    node.y += event.getDeltaY();
+                }
+            }, this);
     },
     title:function () {
         return "No title";
@@ -72,12 +79,6 @@ var TileDemo = BaseTestLayer.extend({
         s.addChild(previousTileMapTest());
         director.runScene(s);
     },
-    onMouseDragged:function (event) {
-        var delta = event.getDelta();
-        var node = this.getChildByTag(TAG_TILE_MAP);
-	    node.x += delta.x;
-	    node.y += delta.y;
-    },
     // automation
     numberOfPendingTests:function () {
         return ( (arrayOfTileMapTest.length - 1) - tileTestSceneIdx );
@@ -85,8 +86,6 @@ var TileDemo = BaseTestLayer.extend({
     getTestNumber:function () {
         return tileTestSceneIdx;
     }
-
-
 });
 
 var TileMapTest = TileDemo.extend({

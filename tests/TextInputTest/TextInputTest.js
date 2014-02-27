@@ -117,13 +117,16 @@ var KeyboardNotificationLayer = TextInputTest.extend({
     ctor:function () {
         this._super();
 
-        //if( 'touches' in sys.capabilities ){
+        if( 'touches' in sys.capabilities ){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded: this.onTouchesEnded
             }, this);
-        //} else if ('mouse' in sys.capabilities )
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities )
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseUp: this.onMouseUp
+            }, this);
     },
 
     subtitle:function () {
@@ -184,15 +187,16 @@ var KeyboardNotificationLayer = TextInputTest.extend({
     },
 
     onMouseUp:function (event) {
-        if (!this._trackNode)
+        var target = event.getCurrentTarget();
+        if (!target._trackNode)
             return;
 
-        var point = event.getLocation();
+        var point = event.getCursor();
 
         // decide the trackNode is clicked.
         cc.log("KeyboardNotificationLayer:clickedAt(" + point.x + "," + point.y + ")");
 
-        var rect = textInputGetRect(this._trackNode);
+        var rect = textInputGetRect(target._trackNode);
         cc.log("KeyboardNotificationLayer:TrackNode at(origin:" + rect.x + "," + rect.y
             + ", size:" + rect.width + "," + rect.height + ")");
 

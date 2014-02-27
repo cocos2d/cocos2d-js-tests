@@ -177,31 +177,29 @@ var ParticleDemo = BaseTestLayer.extend({
     },
 
     ctor:function () {
-        this._super(cc.color(0,0,0,255), cc.color(98,99,117,255));
-        this._isPressed = false;
-
+        this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
         this._emitter = null;
 
-        //if ('touches' in sys.capabilities){
+        if ('touches' in sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesBegan:function (touches, event) {
-/*                    var target = ;
-                    target._isPressed = true;*/
-                    event.getCurrentTarget()._moveToTouchPoint(touches);
+                    event.getCurrentTarget()._moveToTouchPoint(touches[0].getLocation());
                 },
                 onTouchesMoved:function (touches, event) {
-/*                    if (!this._isPressed)
-                        return;*/
-                    event.getCurrentTarget()._moveToTouchPoint(touches);
+                    event.getCurrentTarget()._moveToTouchPoint(touches[0].getLocation());
                 }
-                /*,
-                onTouchesEnded:function (touches, event) {
-                    event.getCurrentTarget()._isPressed = false;
-                }*/
             }, this);
-        //} else if ('mouse' in sys.capabilities)
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities)
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseDown: function(event){
+                    event.getCurrentTarget()._moveToTouchPoint(event.getCursor());
+                },
+                onMouseMove: function(event){
+                    event.getCurrentTarget()._moveToTouchPoint(event.getCursor());
+                }
+            }, this);
 
         var s = director.getWinSize();
 
@@ -221,40 +219,37 @@ var ParticleDemo = BaseTestLayer.extend({
         this._freeMovementButton = cc.MenuItemSprite.create(freeBtnNormal, freeBtnSelected, freeBtnDisabled,
             function () {
                 selfPoint._emitter.setPositionType(cc.PARTICLE_TYPE_RELATIVE);
-                selfPoint._relativeMovementButton.visible = true;
-                selfPoint._freeMovementButton.visible = false;
-                selfPoint._groupMovementButton.visible = false;
+                selfPoint._relativeMovementButton.setVisible(true);
+                selfPoint._freeMovementButton.setVisible(false);
+                selfPoint._groupMovementButton.setVisible(false);
             });
         this._freeMovementButton.x = 10;
         this._freeMovementButton.y = 150;
-        this._freeMovementButton.anchorX = 0;
-        this._freeMovementButton.anchorY = 0;
+        this._freeMovementButton.setAnchorPoint(0, 0);
 
         this._relativeMovementButton = cc.MenuItemSprite.create(relativeBtnNormal, relativeBtnSelected, relativeBtnDisabled,
             function () {
                 selfPoint._emitter.setPositionType(cc.PARTICLE_TYPE_GROUPED);
-                selfPoint._relativeMovementButton.visible = false;
-                selfPoint._freeMovementButton.visible = false;
-                selfPoint._groupMovementButton.visible = true;
+                selfPoint._relativeMovementButton.setVisible(false);
+                selfPoint._freeMovementButton.setVisible(false);
+                selfPoint._groupMovementButton.setVisible(true);
             });
-        this._relativeMovementButton.visible = false;
+        this._relativeMovementButton.setVisible(false);
         this._relativeMovementButton.x = 10;
         this._relativeMovementButton.y = 150;
-        this._relativeMovementButton.anchorX = 0;
-        this._relativeMovementButton.anchorY = 0;
+        this._relativeMovementButton.setAnchorPoint(0, 0);
 
         this._groupMovementButton = cc.MenuItemSprite.create(groupBtnNormal, groupBtnSelected, groupBtnDisabled,
             function () {
                 selfPoint._emitter.setPositionType(cc.PARTICLE_TYPE_FREE);
-                selfPoint._relativeMovementButton.visible = false;
-                selfPoint._freeMovementButton.visible = true;
-                selfPoint._groupMovementButton.visible = false;
+                selfPoint._relativeMovementButton.setVisible(false);
+                selfPoint._freeMovementButton.setVisible(true);
+                selfPoint._groupMovementButton.setVisible(false);
             });
-        this._groupMovementButton.visible = false;
+        this._groupMovementButton.setVisible(false);
         this._groupMovementButton.x = 10;
         this._groupMovementButton.y = 150;
-        this._groupMovementButton.anchorX = 0;
-        this._groupMovementButton.anchorY = 0;
+        this._groupMovementButton.setAnchorPoint(0, 0);
 
         var spriteNormal = cc.Sprite.create(s_shapeModeMenuItem, cc.rect(0, 23 * 2, 115, 23));
         var spriteSelected = cc.Sprite.create(s_shapeModeMenuItem, cc.rect(0, 23, 115, 23));
@@ -264,13 +259,12 @@ var ParticleDemo = BaseTestLayer.extend({
             function () {
                 if (selfPoint._emitter.setDrawMode)
                     selfPoint._emitter.setDrawMode(cc.PARTICLE_TEXTURE_MODE);
-                selfPoint._textureModeButton.visible = true;
-                selfPoint._shapeModeButton.visible = false;
+                selfPoint._textureModeButton.setVisible(true);
+                selfPoint._shapeModeButton.setVisible(false);
             });
         this._shapeModeButton.x = 10;
         this._shapeModeButton.y = 100;
-        this._shapeModeButton.anchorX = 0;
-        this._shapeModeButton.anchorY = 0;
+        this._shapeModeButton.setAnchorPoint(0, 0);
 
         if ('opengl' in sys.capabilities ) {
             // Shape type is not compatible with JSB
@@ -285,14 +279,13 @@ var ParticleDemo = BaseTestLayer.extend({
             function () {
                 if (selfPoint._emitter.setDrawMode)
                     selfPoint._emitter.setDrawMode(cc.PARTICLE_SHAPE_MODE);
-                selfPoint._textureModeButton.visible = false;
-                selfPoint._shapeModeButton.visible = true;
+                selfPoint._textureModeButton.setVisible(false);
+                selfPoint._shapeModeButton.setVisible(true);
             });
-        this._textureModeButton.visible = false;
+        this._textureModeButton.setVisible(false);
         this._textureModeButton.x = 10;
         this._textureModeButton.y = 100;
-        this._textureModeButton.anchorX = 0;
-        this._textureModeButton.anchorY = 0;
+        this._textureModeButton.setAnchorPoint(0, 0);
 
         var menu = cc.Menu.create( this._shapeModeButton, this._textureModeButton,
             this._freeMovementButton, this._relativeMovementButton, this._groupMovementButton);
@@ -359,28 +352,15 @@ var ParticleDemo = BaseTestLayer.extend({
             this._emitter.setPositionType(cc.PARTICLE_TYPE_GROUPED);
     },
 
-    _moveToTouchPoint:function (touches) {
-        if (touches.length > 0) {
-            var location = touches[0].getLocation();
-            var pos = cc.p(0, 0);
-            if (this._background) {
-                pos = this._background.convertToWorldSpace(cc.p(0, 0));
-            }
-            this._emitter.x = location.x - pos.x;
-	        this._emitter.y = location.y - pos.y;
-        }
-    },
-
-    onMouseDragged:function (event) {
-        var location = event.getLocation();
+    _moveToTouchPoint: function (location) {
         var pos = cc.p(0, 0);
         if (this._background) {
             pos = this._background.convertToWorldSpace(cc.p(0, 0));
         }
         this._emitter.x = location.x - pos.x;
-	    this._emitter.y = location.y - pos.y;
-        return true;
+        this._emitter.y = location.y - pos.y;
     },
+
     update:function (dt) {
         if (this._emitter) {
             var atlas = this.getChildByTag(TAG_LABEL_ATLAS);
@@ -543,16 +523,16 @@ var DemoBigFlower = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = cc.color(128, 128, 128, 255);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.color(128, 128, 128, 255);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.color(25, 25, 25, 50);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.color(25, 25, 25, 50);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -621,16 +601,16 @@ var DemoRotFlower = ParticleDemo.extend({
         this._emitter.setEndSpin(0);
         this._emitter.setEndSpinVar(2000);
 
-        var startColor = cc.color(128, 128, 128, 255);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.color(128, 128, 128, 255);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.color(25, 25, 25, 50);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.color(25, 25, 25, 50);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -823,16 +803,16 @@ var DemoModernArt = ParticleDemo.extend({
         this._emitter.setEmissionRate(this._emitter.getTotalParticles() / this._emitter.getLife());
 
         // color of particles
-        var startColor = cc.color(128, 128, 128, 255);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.color(128, 128, 128, 255);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.color(25, 25, 25, 50);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.color(25, 25, 25, 50);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -885,7 +865,7 @@ var ParallaxParticle = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._background.parent.removeChild(this._background, true);
+        this._background.getParent().removeChild(this._background, true);
         this._background = null;
 
         //TODO
@@ -927,7 +907,7 @@ var DemoParticleFromFile = ParticleDemo.extend({
     },
     onEnter:function () {
         this._super();
-        this.color = cc.color(0, 0, 0);
+        this.setColor(cc.c3b(0, 0, 0));
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -960,7 +940,7 @@ var RadiusMode1 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.color = cc.color(0, 0, 0);
+        this.setColor(cc.c3b(0, 0, 0));
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -1006,16 +986,16 @@ var RadiusMode1 = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = cc.color(128, 128, 128, 255);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.color(128, 128, 128, 255);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.color(25, 25, 25, 50);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.color(25, 25, 25, 50);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -1038,7 +1018,7 @@ var RadiusMode2 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.color = cc.color(0, 0, 0);
+        this.setColor(cc.c3b(0, 0, 0));
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -1084,16 +1064,16 @@ var RadiusMode2 = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = cc.color(128, 128, 128, 255);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.color(128, 128, 128, 255);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.color(25, 25, 25, 50);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.color(25, 25, 25, 50);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -1116,7 +1096,7 @@ var Issue704 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.color = cc.color(0, 0, 0);
+        this.setColor(cc.c3b(0, 0, 0));
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -1163,16 +1143,16 @@ var Issue704 = ParticleDemo.extend({
         this._emitter.setEndSpinVar(0);
 
         // color of particles
-        var startColor = cc.color(128, 128, 128, 255);
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColor(startColor);
 
-        var startColorVar = cc.color(128, 128, 128, 255);
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
         this._emitter.setStartColorVar(startColorVar);
 
-        var endColor = cc.color(25, 25, 25, 50);
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColor(endColor);
 
-        var endColorVar = cc.color(25, 25, 25, 50);
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
@@ -1202,7 +1182,7 @@ var Issue870 = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this.color = cc.color(0, 0, 0);
+        this.setColor(cc.c3b(0, 0, 0));
         this.removeChild(this._background, true);
         this._background = null;
 
@@ -1236,11 +1216,11 @@ var ParticleBatchTest = ParticleDemo.extend({
         this._super();
 
         var emitter1 = cc.ParticleSystem.create(s_resprefix + 'Particles/LavaFlow.plist');
-        emitter1.setStartColor(cc.color(255, 0, 0, 255));
+        emitter1.setStartColor(cc.c4f(1, 0, 0, 1));
         var emitter2 = cc.ParticleSystem.create(s_resprefix + 'Particles/LavaFlow.plist');
-        emitter2.setStartColor(cc.color(0, 255, 0, 255));
+        emitter2.setStartColor(cc.c4f(0, 1, 0, 1));
         var emitter3 = cc.ParticleSystem.create(s_resprefix + 'Particles/LavaFlow.plist');
-        emitter3.setStartColor(cc.color(0, 0, 255, 255));
+        emitter3.setStartColor(cc.c4f(0, 0, 1, 1));
 
         emitter1.x = winSize.width / 1.25;
 

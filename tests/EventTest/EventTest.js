@@ -344,39 +344,37 @@ var MouseTest = EventTest.extend({
         sprite.scale = 1;
         sprite.color = cc.color(Math.random()*200+55, Math.random()*200+55, Math.random()*200+55);
 
-        /*if( 'mouse' in sys.capabilities ) {
-            //TODO
-            this.setMouseEnabled(true);
+        if( 'mouse' in sys.capabilities ) {
+            cc.eventManager.addListener({
+                 event: cc.EventListener.MOUSE,
+                onMouseDown: function(event){
+                    var pos = event.getCursor(), target = event.getCurrentTarget();
+                    if(event.getButton() === cc.EventMouse.BUTTON_RIGHT)
+                        cc.log("onRightMouseDown at: " + pos.x + " " + pos.y );
+                    else
+                        cc.log("onMouseDown at: " + pos.x + " " + pos.y );
+                    target.sprite.x = pos.x;
+                    target.sprite.y = pos.y;
+                },
+                onMouseMove: function(event){
+                    var pos = event.getLocation(), target = event.getCurrentTarget();
+                    cc.log("onMouseMove at: " + pos.x + " " + pos.y );
+                    target.sprite.x = pos.x;
+                    target.sprite.y = pos.y;
+                },
+                onMouseUp: function(event){
+                    var pos = event.getLocation(), target = event.getCurrentTarget();
+                    target.sprite.x = pos.x;
+                    target.sprite.y = pos.y;
+                    cc.log("onMouseUp at: " + pos.x + " " + pos.y );
+                }
+            }, this);
         } else {
             cc.log("MOUSE Not supported");
-        }*/
+        }
     },
     subtitle:function () {
         return "Mouse test. Move mouse and see console";
-    },
-    onMouseDown:function(event) {
-        var pos = event.getLocation();
-        cc.log("onMouseDown at: " + pos.x + " " + pos.y );
-        this.sprite.x = pos.x;
-        this.sprite.y = pos.y;
-    },
-    onMouseDragged:function(event) {
-        var pos = event.getLocation();
-        cc.log("onMouseDragged at: " + pos.x + " " + pos.y );
-        this.sprite.x = pos.x;
-        this.sprite.y = pos.y;
-    },
-    onMouseUp:function(event) {
-        var pos = event.getLocation();
-        this.sprite.x = pos.x;
-        this.sprite.y = pos.y;
-        cc.log("onMouseUp at: " + pos.x + " " + pos.y );
-    },
-    onRightMouseDown:function(event){
-        var pos = event.getLocation();
-        this.sprite.x = pos.x;
-        this.sprite.y = pos.y;
-        cc.log("onRightMouseDown at: " + pos.x + " " + pos.y );
     }
 });
 

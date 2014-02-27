@@ -171,17 +171,20 @@ var CocosDenshionTest = cc.LayerGradient.extend({
         this._itemMenu.y = 0;
         this.addChild(this._itemMenu);
 
-        //if( 'touches' in sys.capabilities ) {
-            cc.eventManager.addListener(cc.EventListener.create({
+        if( 'touches' in sys.capabilities ) {
+            cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved: function (touches, event) {
-                    var delta = touches[0].getDelta();
-                    event.getCurrentTarget().moveMenu(delta);
-                    return true;
+                    event.getCurrentTarget().moveMenu(touches[0].getDelta());
                 }
-            }), this);
-        //} else if ('mouse' in sys.capabilities )
-        //    this.setMouseEnabled(true);
+            }, this);
+        } else if ('mouse' in sys.capabilities )
+             cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                 onMouseMove: function(event){
+                     event.getCurrentTarget().moveMenu(event.getDelta());
+                 }
+             }, this);
 
         // set default volume
         audioEngine.setEffectsVolume(0.5);
@@ -196,12 +199,6 @@ var CocosDenshionTest = cc.LayerGradient.extend({
         var idx = sender.zIndex - 10000;
         // create the test scene and run it
         var scene = DenshionTests[idx].playFunc();
-    },
-
-    onMouseDragged:function (event) {
-        var delta = event.getDelta();
-        this.moveMenu(delta);
-        return true;
     },
 
     moveMenu:function (delta) {

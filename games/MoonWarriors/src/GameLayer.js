@@ -107,13 +107,16 @@ var GameLayer = cc.Layer.extend({
             Explosion.sharedExplosion();
 
             // accept touch now!
-
 /*            if (sys.capabilities.hasOwnProperty('keyboard'))
-                this.setKeyboardEnabled(true);
+                this.setKeyboardEnabled(true);         */
 
-            if (sys.capabilities.hasOwnProperty('mouse'))
-            *//*if ('mouse' in sys.capabilities)*//*
-                this.setMouseEnabled(true);*/
+            if ('mouse' in sys.capabilities)
+                cc.eventManager.addListener({
+                    event: cc.EventListener.MOUSE,
+                    onMouseMove: function(event){
+                        event.getCurrentTarget().processEvent(event);
+                    }
+                }, this);
 
             if (sys.capabilities.hasOwnProperty('touches')){
                 cc.eventManager.addListener({
@@ -156,11 +159,7 @@ var GameLayer = cc.Layer.extend({
         }
     },
 
-    onMouseDragged:function (event) {
-        this.processEvent(event);
-    },
-
-    processEvent:function (touch) {
+    processEvent:function (event) {
         if (this._state == STATE_PLAYING) {
             var delta = event.getDelta();
             var curPos = cc.p(this._ship.x, this._ship.y);
