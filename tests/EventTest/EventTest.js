@@ -399,7 +399,15 @@ var KeyboardTest = EventTest.extend({
         this._super();
 
         if( 'keyboard' in sys.capabilities ) {
-            this.setKeyboardEnabled(true);
+            cc.eventManager.addListener({
+                event: cc.EventListener.KEYBOARD,
+                onKeyPressed:function(key, event) {
+                    cc.log("Key up:" + key);
+                },
+                onKeyReleased:function(key, event) {
+                    cc.log("Key down:" + key);
+                }
+            }, this);
         } else {
             cc.log("KEYBOARD Not supported");
         }
@@ -407,12 +415,7 @@ var KeyboardTest = EventTest.extend({
     subtitle:function () {
         return "Keyboard test. Press keyboard and see console";
     },
-    onKeyUp:function(key) {
-        cc.log("Key up:" + key);
-    },
-    onKeyDown:function(key) {
-        cc.log("Key down:" + key);
-    },
+
     // this callback is only available on JSB + OS X
     // Not supported on cocos2d-html5
     onKeyFlagsChanged:function(key) {
