@@ -178,30 +178,28 @@ var ParticleDemo = BaseTestLayer.extend({
 
     ctor:function () {
         this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
-        this._isPressed = false;
-
         this._emitter = null;
 
-        //if ('touches' in sys.capabilities){
+        if ('touches' in sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesBegan:function (touches, event) {
-/*                    var target = ;
-                    target._isPressed = true;*/
-                    event.getCurrentTarget()._moveToTouchPoint(touches);
+                    event.getCurrentTarget()._moveToTouchPoint(touches[0].getLocation());
                 },
                 onTouchesMoved:function (touches, event) {
-/*                    if (!this._isPressed)
-                        return;*/
-                    event.getCurrentTarget()._moveToTouchPoint(touches);
+                    event.getCurrentTarget()._moveToTouchPoint(touches[0].getLocation());
                 }
-                /*,
-                onTouchesEnded:function (touches, event) {
-                    event.getCurrentTarget()._isPressed = false;
-                }*/
             }, this);
-        //} else if ('mouse' in sys.capabilities)
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities)
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseDown: function(event){
+                    event.getCurrentTarget()._moveToTouchPoint(event.getCursor());
+                },
+                onMouseMove: function(event){
+                    event.getCurrentTarget()._moveToTouchPoint(event.getCursor());
+                }
+            }, this);
 
         var s = director.getWinSize();
 
@@ -354,16 +352,13 @@ var ParticleDemo = BaseTestLayer.extend({
             this._emitter.setPositionType(cc.PARTICLE_TYPE_GROUPED);
     },
 
-    _moveToTouchPoint:function (touches) {
-        if (touches.length > 0) {
-            var location = touches[0].getLocation();
-            var pos = cc.p(0, 0);
-            if (this._background) {
-                pos = this._background.convertToWorldSpace(cc.p(0, 0));
-            }
-            this._emitter.x = location.x - pos.x;
-	        this._emitter.y = location.y - pos.y;
+    _moveToTouchPoint: function (location) {
+        var pos = cc.p(0, 0);
+        if (this._background) {
+            pos = this._background.convertToWorldSpace(cc.p(0, 0));
         }
+        this._emitter.x = location.x - pos.x;
+        this._emitter.y = location.y - pos.y;
     },
 
     onMouseDragged:function (event) {

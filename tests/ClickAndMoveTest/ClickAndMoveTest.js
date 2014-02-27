@@ -40,20 +40,22 @@ var MainLayer = cc.Layer.extend({
 
         this.init();
 
-        //if( 'touches' in sys.capabilities ){
+        if( 'touches' in sys.capabilities )
             cc.eventManager.addListener(cc.EventListener.create({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded:function (touches, event) {
                     if (touches.length <= 0)
                         return;
-
-                    var touch = touches[0];
-                    var location = touch.getLocation();
-                    event.getCurrentTarget().moveSprite(location);
+                    event.getCurrentTarget().moveSprite(touches[0].getLocation());
                 }
             }), this);
-        //} else if ('mouse' in sys.capabilities )
-        //    this.setMouseEnabled(true);
+        else if ('mouse' in sys.capabilities )
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseUp: function (event) {
+                    event.getCurrentTarget().moveSprite(event.getCursor());
+                }
+            }, this);
 
         var sprite = cc.Sprite.create(s_pathGrossini);
 
@@ -88,10 +90,5 @@ var MainLayer = cc.Layer.extend({
         }
 
         sprite.runAction(cc.RotateTo.create(1, at));
-    },
-
-    onMouseUp:function (event) {
-        var location = event.getLocation();
-        this.moveSprite(location);
     }
 });

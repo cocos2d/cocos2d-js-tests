@@ -416,7 +416,7 @@ ChipmunkPage.prototype.onEnter = function () {
 		this.addSprite( cp.v(x, y) );
 	}
 
-    //if( 'touches' in sys.capabilities ){
+    if( 'touches' in sys.capabilities ){
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ALL_AT_ONCE,
             onTouchesEnded: function (touches, event) {
@@ -427,8 +427,13 @@ ChipmunkPage.prototype.onEnter = function () {
                 }
             }
         }, this);
-    //} else if ('mouse' in sys.capabilities )
-    //    this.setMouseEnabled(true);
+    } else if ('mouse' in sys.capabilities )
+       cc.eventManager.addListener({
+           event: cc.EventListener.MOUSE,
+           onMouseUp: function(event){
+               event.getCurrentTarget().addSprite(event.getCursor());
+           }
+       }, this);
 };
 
 ChipmunkPage.prototype.onExitTransitionDidStart = function () {
@@ -489,7 +494,7 @@ var ParticlesPage = function() {
 
 	this.particle = firework;
 
-    //if( 'touches' in sys.capabilities ){
+    if( 'touches' in sys.capabilities ){
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ALL_AT_ONCE,
             onTouchesMoved: function(touches, event){
@@ -505,8 +510,20 @@ var ParticlesPage = function() {
                 particle.y = pos.y;
             }
         }, this);
-    //} else if ('mouse' in sys.capabilities )
-    //    this.setMouseEnabled(true);
+    } else if ('mouse' in sys.capabilities )
+        cc.eventManager.addListener({
+            event: cc.EventListener.MOUSE,
+            onMouseMove: function(event){
+                var particle = event.getCurrentTarget().particle;
+                particle.x = event.getCursorX();
+                particle.y = event.getCursorY();
+            },
+            onMouseUp: function(event){
+                var particle = event.getCurrentTarget().particle;
+                particle.x = event.getCursorX();
+                particle.y = event.getCursorY();
+            }
+        }, this);
 
 	this.onMouseDown = function( event ) {
 		var pos = event.getLocation();

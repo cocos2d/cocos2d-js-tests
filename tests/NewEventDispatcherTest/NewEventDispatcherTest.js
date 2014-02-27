@@ -440,18 +440,18 @@ var LabelKeyboardEventTest =  EventDispatcherTestDemo.extend({
         statusLabel.setPosition(origin.x + size.width/2, origin.x + size.height/2);
         this.addChild(statusLabel);
 
-        var listener = cc.EventListenerKeyboard.create();
-        listener.onKeyPressed = function(keyCode, event){
-            var label = event.getCurrentTarget();
-            label.setString("Key " + keyCode.toString() + " was pressed!");
-        };
 
-        listener.onKeyReleased = function(keyCode, event){
-            var label = event.getCurrentTarget();
-            label.setString("Key " + keyCode.toString() + " was released!");
-        };
-
-        cc.eventManager.addListener(listener, statusLabel);
+        cc.eventManager.addListener({
+            event: cc.EventListener.KEYBOARD,
+            onKeyPressed:  function(keyCode, event){
+                var label = event.getCurrentTarget();
+                label.setString("Key " + keyCode.toString() + " was pressed!");
+            },
+            onKeyReleased: function(keyCode, event){
+                var label = event.getCurrentTarget();
+                label.setString("Key " + keyCode.toString() + " was released!");
+            }
+        }, statusLabel);
     },
 
     title:function(){
@@ -476,26 +476,27 @@ var SpriteAccelerationEventTest =  EventDispatcherTestDemo.extend({
         var origin = director.getVisibleOrigin();
         var size = director.getVisibleSize();
 
-        Device.setAccelerometerEnabled(true);
+        cc.inputManager.setAccelerometerEnabled(true);
 
         var sprite = cc.Sprite.create("res/Images/ball.png");
         sprite.setPosition(origin.x + size.width/2, origin.y + size.height/2);
         this.addChild(sprite);
 
-        var listener = cc.EventListenerAcceleration.create(function(acc, event){
-            var ballSize  = sprite.getContentSize();
-            var ptNow  = sprite.getPosition();
+        cc.eventManager.addListener({
+            event: cc.EventListener.ACCELERATION,
+            callback: function(acc, event){
+                var target = event.getCurrentTarget();
+                var ballSize  = target.getContentSize();
+                var ptNow  = target.getPosition();
 
-            cc.log("acc: x = " + acc.x + ", y = " + acc.y);
+                cc.log("acc: x = " + acc.x + ", y = " + acc.y);
 
-            var nowX = SpriteAccelerationEventTest._fix_pos(ptNow.x + acc.x * 9.81,
-                (cc.VisibleRect.left().x + ballSize.width / 2.0), (cc.VisibleRect.right().x - ballSize.width / 2.0));
-            var nowY = SpriteAccelerationEventTest._fix_pos(ptNow.y + acc.y * 9.81,
-                (cc.VisibleRect.bottom().y + ballSize.height / 2.0), (cc.VisibleRect.top().y - ballSize.height / 2.0));
-            sprite.setPosition(nowX, nowY);
-        });
-
-        cc.eventManager.addListener(listener, sprite);
+                target.x = SpriteAccelerationEventTest._fix_pos(ptNow.x + acc.x * 9.81,
+                    (cc.VisibleRect.left().x + ballSize.width / 2.0), (cc.VisibleRect.right().x - ballSize.width / 2.0));
+                target.y = SpriteAccelerationEventTest._fix_pos(ptNow.y + acc.y * 9.81,
+                    (cc.VisibleRect.bottom().y + ballSize.height / 2.0), (cc.VisibleRect.top().y - ballSize.height / 2.0));
+            }
+        }, sprite);
     },
 
     onExit:function(){

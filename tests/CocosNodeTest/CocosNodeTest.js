@@ -711,7 +711,7 @@ var CameraCenterTest = TestNodeDemo.extend({
 var ConvertToNode = TestNodeDemo.extend({
     ctor:function () {
         this._super();
-        //if ('touches' in sys.capabilities){
+        if ('touches' in sys.capabilities){
             cc.eventManager.addListener(cc.EventListener.create({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded:function (touches, event) {
@@ -723,8 +723,13 @@ var ConvertToNode = TestNodeDemo.extend({
                     }
                 }
             }), this);
-        //} else if ('mouse' in sys.capabilities)
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities)
+            cc.eventManager.addListener({
+                event: cc.EventListener.Mouse,
+                onMouseUp: function(event){
+                    event.getCurrentTarget().processEvent(event.getCursor());
+                }
+            }, this);
 
         var rotate = cc.RotateBy.create(10, 360);
         var action = cc.RepeatForever.create(rotate);
@@ -772,11 +777,6 @@ var ConvertToNode = TestNodeDemo.extend({
             this.testP1.push({"x":p1.x, "y":p1.y});
             this.testP2.push({"x":p2.x, "y":p2.y});
         }
-    },
-
-    onMouseUp:function (event) {
-        var location = event.getLocation();
-        this.processEvent(location);
     },
 
     title:function () {

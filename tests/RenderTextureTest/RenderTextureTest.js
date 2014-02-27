@@ -83,15 +83,20 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     onEnter:function () {
         this._super();
 
-        //if ('touches' in sys.capabilities){
+        if ('touches' in sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved:function (touches, event) {
                     event.getCurrentTarget().drawInLocation(touches[0].getLocation());
                 }
             }, this);
-        //} else if ('mouse' in sys.capabilities)
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities)
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseMove: function(event){
+                    event.getCurrentTarget().drawInLocation(event.getCursor());
+                }
+            }, this);
 
         this._brush = cc.Sprite.create(s_fire);
         this._brush.retain();

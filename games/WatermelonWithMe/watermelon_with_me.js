@@ -308,13 +308,15 @@ var GameLayer = cc.LayerGradient.extend({
     },
 
     onMouseDown:function (event) {
-        if (this._game_state.state == STATE_PLAYING)
-            this.setThrottle(1);
+        var target = event.getCurrentTarget();
+        if (target._game_state.state == STATE_PLAYING)
+            target.setThrottle(1);
         return true;
     },
     onMouseUp:function (event) {
-        if (this._game_state.state == STATE_PLAYING)
-            this.setThrottle(0);
+        var target = event.getCurrentTarget();
+        if (target._game_state.state == STATE_PLAYING)
+            target.setThrottle(0);
         return true;
     },
     onTouchesBegan:function (touches, event) {
@@ -902,14 +904,18 @@ var GameLayer = cc.LayerGradient.extend({
     // Helpers
     //
     enableEvents:function (enabled) {
-        //if( 'touches' in sys.capabilities )
+        if( 'touches' in sys.capabilities )
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesBegan: this.onTouchesBegan,
                 onTouchesEnded: this.onTouchesEnded
             }, this);
-        //else if( 'mouse' in sys.capabilities )
-        //    this.setMouseEnabled(true);
+        else if( 'mouse' in sys.capabilities )
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseDown: this.onMouseDown,
+                onMouseUp: this.onMouseUp
+            }, this);
     },
 
     enableCollisionEvents:function (enabled) {

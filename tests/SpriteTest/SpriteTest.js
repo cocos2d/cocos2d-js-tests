@@ -106,7 +106,7 @@ var Sprite1 = SpriteTestDemo.extend({
 
         this.addNewSpriteWithCoords(cc.p(winSize.width / 2, winSize.height / 2));
 
-        //if ('touches' in sys.capabilities) {
+        if ('touches' in sys.capabilities) {
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded: function(touches, event){
@@ -120,8 +120,13 @@ var Sprite1 = SpriteTestDemo.extend({
                     }
                 }
             }, this);
-        //} else if ('mouse' in sys.capabilities)
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities)
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseUp: function(event){
+                    event.getCurrentTarget().addNewSpriteWithCoords(event.getCursor());
+                }
+            }, this);
     },
 
     addNewSpriteWithCoords:function (p) {
@@ -197,7 +202,7 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
 
     ctor:function () {
         this._super();
-        //if ('touches' in sys.capabilities) {
+        if ('touches' in sys.capabilities) {
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded: function (touches, event) {
@@ -211,8 +216,13 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
                     }
                 }
             }, this);
-        // else if ('mouse' in sys.capabilities)
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities)
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseUp: function(event){
+                    event.getCurrentTarget().addNewSpriteWithCoords(event.getCursor());
+                }
+            }, this);
 
         var batchNode = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 50);
         this.addChild(batchNode, 0, TAG_SPRITE_BATCH_NODE);
@@ -1628,15 +1638,20 @@ var SpriteNewTexture = SpriteTestDemo.extend({
     ctor:function () {
         this._super();
 
-        //if ('touches' in sys.capabilities){
+        if ('touches' in sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded:function (touches, event) {
                     event.getCurrentTarget().onChangeTexture();
                 }
             }, this);
-        //} else if ('mouse' in sys.capabilities)
-        //    this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities)
+            cc.eventManager.addListener({
+                event: cc.EventListener.MOUSE,
+                onMouseUp: function(event){
+                    event.getCurrentTarget().onChangeTexture();
+                }
+            }, this);
 
         var node = cc.Node.create();
         this.addChild(node, 0, TAG_SPRITE_BATCH_NODE);
@@ -1752,15 +1767,20 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
 
     ctor:function () {
         this._super();
-        //if ('touches' in sys.capabilities){
+        if ('touches' in sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded:function (touches, event) {
                     event.getCurrentTarget().onChangeTexture();
                 }
             }, this);
-        //} else if ('mouse' in sys.capabilities)
-        //   this.setMouseEnabled(true);
+        } else if ('mouse' in sys.capabilities)
+           cc.eventManager.addListener({
+               event: cc.EventListener.MOUSE,
+               onMouseUp: function(event){
+                   event.getCurrentTarget().onChangeTexture();
+               }
+           }, this);
 
         var batch = cc.SpriteBatchNode.create(s_grossini_dance_atlas, 50);
         this.addChild(batch, 0, TAG_SPRITE_BATCH_NODE);
@@ -1817,10 +1837,6 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
             batch.setTexture(this._texture1);
     },
 
-    onMouseDown:function (event) {
-        this.onChangeTexture();
-        return true;
-    },
     //
     // Automation
     //
@@ -1845,7 +1861,6 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
         var ret = {"pixel":this.containsPixel(ret1, this.pixel) ? "yes" : "no"};
         return JSON.stringify(ret);
     }
-
 });
 
 //------------------------------------------------------------------
