@@ -62,7 +62,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
         var labelAtlas = cc.LabelAtlas.create("0123456789", s_fpsImages, 16, 24, '.');
         var item3 = cc.MenuItemLabel.create(labelAtlas, this.onMenuCallbackDisabled, this );
         item3.setDisabledColor( cc.color(32,32,64) );
-        item3.setColor( cc.color(200,200,255) );
+        item3.color = cc.color(200,200,255);
 
         // Font Item
         var item4 = cc.MenuItemFont.create("I toggle enable items", function(sender) {
@@ -77,7 +77,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
         var item5 = cc.MenuItemLabel.create(label, this.onMenuCallbackConfig, this);
 
         // Testing issue #500
-        item5.setScale( 0.8);
+        item5.scale = 0.8;
 
         // Events
         cc.MenuItemFont.setFontName("Arial");
@@ -102,7 +102,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
         // elastic effect
         var winSize = cc.Director.getInstance().getWinSize();
 
-        var locChildren = menu.getChildren();
+        var locChildren = menu.children;
         var dstPoint = cc.p(0,0);
         for(var i = 0; i < locChildren.length; i++){
             var selChild = locChildren[i];
@@ -126,11 +126,11 @@ var MenuLayerMainMenu = cc.Layer.extend({
     },
 
     onMenuCallback:function (sender) {
-        this.getParent().switchTo(1);
+        this.parent.switchTo(1);
     },
 
     onMenuCallbackConfig:function (sender) {
-        this.getParent().switchTo(3);
+        this.parent.switchTo(3);
     },
 
     onAllowTouches:function (dt) {
@@ -147,11 +147,11 @@ var MenuLayerMainMenu = cc.Layer.extend({
     },
 
     onMenuCallback2:function (sender) {
-        this.getParent().switchTo(2);
+        this.parent.switchTo(2);
     },
 
     onMenuCallbackPriorityTest:function (sender) {
-        this.getParent().switchTo(4);
+        this.parent.switchTo(4);
     },
 
     onQuit:function (sender) {
@@ -159,11 +159,11 @@ var MenuLayerMainMenu = cc.Layer.extend({
     },
 
     onMenuCallbackBugsTest:function(sender){
-        this.getParent().switchTo(5);
+        this.parent.switchTo(5);
     },
 
     onMenuMovingCallback:function(sender){
-        this.getParent().switchTo(6);
+        this.parent.switchTo(6);
     }
 });
 
@@ -184,14 +184,14 @@ var MenuLayer2 = cc.Layer.extend({
             var item2 = cc.MenuItemImage.create(s_highNormal, s_highSelect, this.onMenuCallbackOpacity, this);
             var item3 = cc.MenuItemImage.create(s_aboutNormal, s_aboutSelect, this.onMenuCallbackAlign, this);
 
-            item1.setScaleX(1.5);
-            item2.setScaleX(0.5);
-            item3.setScaleX(0.5);
+            item1.scaleX = 1.5;
+            item2.scaleX = 0.5;
+            item3.scaleX = 0.5;
 
             var menu = cc.Menu.create(item1, item2, item3);
             var winSize = director.getWinSize();
 
-            menu.setTag(TAG_MENU);
+            menu.tag = TAG_MENU;
             menu.x = winSize.width / 2;
             menu.y = winSize.height / 2;
 
@@ -238,15 +238,15 @@ var MenuLayer2 = cc.Layer.extend({
     },
     // callbacks
     onMenuCallback:function (sender) {
-        this.getParent().switchTo(0);
+        this.parent.switchTo(0);
     },
     onMenuCallbackOpacity:function (sender) {
-        var menu = sender.getParent();
-        var opacity = menu.getOpacity();
+        var menu = sender.parent;
+        var opacity = menu.opacity;
         if (opacity == 128)
-            menu.setOpacity(255);
+            menu.opacity = 255;
         else
-            menu.setOpacity(128);
+            menu.opacity = 128;
     },
     onMenuCallbackAlign:function (sender) {
         this._alignedH = !this._alignedH;
@@ -280,7 +280,7 @@ var MenuLayer3 = cc.Layer.extend({
             this._disabledItem.stopAllActions();
         }, this);
         var item2 = cc.MenuItemFont.create("--- Go Back ---", function(sender){
-            this.getParent().switchTo(0);
+            this.parent.switchTo(0);
         }, this);
 
         var spriteNormal = cc.Sprite.create(s_menuItem, cc.rect(0, 23 * 2, 115, 23));
@@ -413,7 +413,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.log("Callback called");
     },
     onBackCallback:function (sender) {
-        this.getParent().switchTo(0);
+        this.parent.switchTo(0);
     }
 });
 
@@ -442,13 +442,13 @@ var MenuLayerPriorityTest = cc.Layer.extend({
         this._priority = true;
         cc.MenuItemFont.setFontSize(48);
         item1 = cc.MenuItemFont.create("Toggle priority", this.onTogglePriorityCallback, this);
-        item1.setColor(cc.color(0, 0, 255));
+        item1.color = cc.color(0, 0, 255);
         this._menu2.addChild(item1);
         this.addChild(this._menu2);
     },
 
     onMenuCallback:function (sender) {
-        this.getParent().switchTo(0);
+        this.parent.switchTo(0);
     },
 
     onDisableMenuCallback:function (sender) {
@@ -489,7 +489,7 @@ var MenuBugsTest = cc.Layer.extend({
      },
 
     onIssue1410MenuCallback:function(sender){
-        var menu = sender.getParent();
+        var menu = sender.parent;
         menu.setEnable(false);
         menu.setEnable(true);
 
@@ -497,7 +497,7 @@ var MenuBugsTest = cc.Layer.extend({
     },
 
     onIssue1410v2MenuCallback:function(sender){
-        var menu = sender.getParent();
+        var menu = sender.parent;
         menu.setEnable(true);
         menu.setEnable(false);
 
@@ -505,7 +505,7 @@ var MenuBugsTest = cc.Layer.extend({
     },
 
     onBackMenuCallback:function(sender){
-        this.getParent().switchTo(0);
+        this.parent.switchTo(0);
     }
 });
 
@@ -549,7 +549,7 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
     },
 
     goBack:function(sender){
-        this.getParent().switchTo(0);
+        this.parent.switchTo(0);
     }
 });
 

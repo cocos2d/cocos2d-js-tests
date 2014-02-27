@@ -200,17 +200,17 @@ var TransitionBase = BaseTestLayer.extend({
         var bg1 = cc.Sprite.create(this.backgroundImage);
         bg1.x = size.width / 2;
         bg1.y = size.height / 2;
-        bg1.setScale(1.7);
+        bg1.scale = 1.7;
         this.addChild(bg1);
 
         var title = cc.LabelTTF.create(this.title(), "Thonburi", 32);
         this.addChild(title);
-        title.setColor(cc.color(255, 32, 32));
+        title.color = cc.color(255, 32, 32);
         title.x = x / 2;
         title.y = y - 100;
 
         var label = cc.LabelTTF.create(this.sceneName, "Marker Felt", 38);
-        label.setColor(cc.color(16, 16, 255));
+        label.color = cc.color(16, 16, 255);
         label.x = x / 2;
         label.y = y / 2;
         this.addChild(label);

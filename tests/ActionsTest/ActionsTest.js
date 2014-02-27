@@ -71,12 +71,12 @@ var ActionsDemo = BaseTestLayer.extend({
         var winSize = director.getWinSize();
 
         if (numberOfSprites === 0) {
-            this._tamara.setVisible(false);
-            this._kathia.setVisible(false);
-            this._grossini.setVisible(false);
+            this._tamara.visible = false;
+            this._kathia.visible = false;
+            this._grossini.visible = false;
         } else if (numberOfSprites == 1) {
-            this._tamara.setVisible(false);
-            this._kathia.setVisible(false);
+            this._tamara.visible = false;
+            this._kathia.visible = false;
             this._grossini.x = winSize.width / 2;
 			this._grossini.y = winSize.height / 2;
         }
@@ -85,7 +85,7 @@ var ActionsDemo = BaseTestLayer.extend({
 			this._kathia.y = winSize.height / 2;
             this._tamara.x = 2 * winSize.width / 3;
 			this._tamara.y = winSize.height / 2;
-            this._grossini.setVisible(false);
+            this._grossini.visible = false;
         }
         else if (numberOfSprites == 3) {
             this._grossini.x = winSize.width / 2;
@@ -100,8 +100,8 @@ var ActionsDemo = BaseTestLayer.extend({
         var s = director.getWinSize();
 
         if (numberOfSprites == 1) {
-            this._tamara.setVisible(false);
-            this._kathia.setVisible(false);
+            this._tamara.visible = false;
+            this._kathia.visible = false;
             this._grossini.x = 60;
 			this._grossini.y = s.height / 2;
         }
@@ -110,7 +110,7 @@ var ActionsDemo = BaseTestLayer.extend({
 			this._kathia.y = s.height / 3;
             this._tamara.x = 60;
 			this._tamara.y = 2 * s.height / 3;
-            this._grossini.setVisible(false);
+            this._grossini.visible = false;
         }
         else if (numberOfSprites == 3) {
             this._grossini.x = 60;
@@ -158,27 +158,30 @@ var ActionsDemo = BaseTestLayer.extend({
 //------------------------------------------------------------------
 var ActionManual = ActionsDemo.extend({
     _code:"sprite.x = 10; sprite.y = 20;\n" +
-        "sprite.setRotation( 90 );\n" +
-        "sprite.setScale( 2 );",
+        "sprite.rotation = 90;\n" +
+        "sprite.scale = 2;",
 
     onEnter:function () {
         this._super();
 
-        this._tamara.setScaleX(2.5);
-        //window.tam = this._tamara;
-        this._tamara.setScaleY(-1.0);
-        this._tamara.x = 100;
-		this._tamara.y = 70;
-        this._tamara.setOpacity(128);
+        this._tamara.attr({
+	        x: 100,
+	        y: 70,
+	        opacity: 128,
+	        scaleX: 2.5,
+	        scaleY: -1.0
+        });
 
-        this._grossini.setRotation(120);
-        this._grossini.x = winSize.width / 2;
-		this._grossini.y = winSize.height / 2;
-        this._grossini.setColor(cc.color(255, 0, 0));
+	    this._grossini.attr({
+		    x: winSize.width / 2,
+		    y: winSize.height / 2,
+		    rotation: 120,
+		    color: cc.color(255, 0, 0)
+	    });
 
         this._kathia.x = winSize.width - 100;
 		this._kathia.y = winSize.height / 2;
-        this._kathia.setColor(cc.color(0, 0, 255));
+        this._kathia.color = cc.color(0, 0, 255);
     },
 
     title:function () {
@@ -199,16 +202,16 @@ var ActionManual = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getScaleX() );
+        ret.push( this._tamara.scaleX );
         ret.push( cc.p(this._tamara.x, this._tamara.y) );
-        ret.push( this._tamara.getOpacity() );
+        ret.push( this._tamara.opacity );
 
-        ret.push( this._grossini.getRotation() );
+        ret.push( this._grossini.rotation );
         ret.push( cc.p(this._grossini.x, this._grossini.y) );
-        ret.push( this._grossini.getColor() );
+        ret.push( this._grossini.color );
 
         ret.push( cc.p(this._kathia.x, this._kathia.y) );
-        ret.push( this._kathia.getColor() );
+        ret.push( this._kathia.color );
 
         return JSON.stringify(ret);
     }
@@ -303,10 +306,10 @@ var ActionScale = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getScale() );
-        ret.push( this._grossini.getScale() );
-        ret.push( this._kathia.getScaleX() );
-        ret.push( this._kathia.getScaleY() );
+        ret.push( this._tamara.scale );
+        ret.push( this._grossini.scale );
+        ret.push( this._kathia.scaleX );
+        ret.push( this._kathia.scaleY );
 
         return JSON.stringify(ret);
     }
@@ -351,9 +354,9 @@ var ActionRotate = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getRotation() );
-        ret.push( this._grossini.getRotation() );
-        ret.push( this._kathia.getRotation() );
+        ret.push( this._tamara.rotation );
+        ret.push( this._grossini.rotation );
+        ret.push( this._kathia.rotation );
 
         return JSON.stringify(ret);
     }
@@ -402,14 +405,14 @@ var ActionRotateXY = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getRotationX().toFixed(2) );
-        ret.push( this._tamara.getRotationY().toFixed(2) );
+        ret.push( this._tamara.rotationX.toFixed(2) );
+        ret.push( this._tamara.rotationY.toFixed(2) );
 
-        ret.push( this._grossini.getRotationX() );
-        ret.push( this._grossini.getRotationY() );
+        ret.push( this._grossini.rotationX );
+        ret.push( this._grossini.rotationY );
 
-        ret.push( this._kathia.getRotationX() );
-        ret.push( this._kathia.getRotationY() );
+        ret.push( this._kathia.rotationX );
+        ret.push( this._kathia.rotationY );
 
         return JSON.stringify(ret);
     }
@@ -454,14 +457,14 @@ var ActionSkew = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getSkewX().toFixed(2) );
-        ret.push( this._tamara.getSkewY().toFixed(2) );
+        ret.push( this._tamara.skewX.toFixed(2) );
+        ret.push( this._tamara.skewY.toFixed(2) );
 
-        ret.push( this._grossini.getSkewX() );
-        ret.push( this._grossini.getSkewX() );
+        ret.push( this._grossini.skewX );
+        ret.push( this._grossini.skewY );
 
-        ret.push( this._kathia.getSkewX() );
-        ret.push( this._kathia.getSkewY() );
+        ret.push( this._kathia.skewX );
+        ret.push( this._kathia.skewY );
 
         return JSON.stringify(ret);
     }
@@ -473,27 +476,33 @@ var ActionSkewRotateScale = ActionsDemo.extend({
 
         this.centerSprites(0);
 
-        var boxSize = cc.size(100.0, 100.0);
+        var boxW = 100, boxH = 100;
         var box = cc.LayerColor.create(cc.color(255, 255, 0, 255));
-        box.setAnchorPoint(0, 0);
-        box.x = (winSize.width - boxSize.width) / 2;
-		box.y = (winSize.height - boxSize.height) / 2;
-        box.setContentSize(boxSize);
+        box.anchorX = 0;
+	    box.anchorY = 0;
+        box.x = (winSize.width - boxW) / 2;
+		box.y = (winSize.height - boxH) / 2;
+        box.width = boxW;
+        box.height = boxH;
 
         var markrside = 10.0;
         var uL = cc.LayerColor.create(cc.color(255, 0, 0, 255));
         box.addChild(uL);
-        uL.setContentSize(markrside, markrside);
+        uL.width = markrside;
+        uL.height = markrside;
         uL.x = 0;
-		uL.y = boxSize.height - markrside;
-        uL.setAnchorPoint(0, 0);
+		uL.y = boxH - markrside;
+	    uL.anchorX = 0;
+	    uL.anchorY = 0;
 
         var uR = cc.LayerColor.create(cc.color(0, 0, 255, 255));
         box.addChild(uR);
-        uR.setContentSize(markrside, markrside);
-        uR.x = boxSize.width - markrside;
-		uR.y = boxSize.height - markrside;
-        uR.setAnchorPoint(0, 0);
+        uR.width = markrside;
+        uR.height = markrside;
+        uR.x = boxW - markrside;
+		uR.y = boxH - markrside;
+        uR.anchorX = 0;
+	    uR.anchorY = 0;
 
 
         this.addChild(box);
@@ -527,11 +536,11 @@ var ActionSkewRotateScale = ActionsDemo.extend({
 
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this.box.getSkewX() );
-        ret.push( this.box.getSkewY() );
-        ret.push( this.box.getRotation() );
-        ret.push( this.box.getScaleX().toFixed(2) );
-        ret.push( this.box.getScaleY().toFixed(2) );
+        ret.push( this.box.skewX );
+        ret.push( this.box.skewY );
+        ret.push( this.box.rotation );
+        ret.push( this.box.scaleX.toFixed(2) );
+        ret.push( this.box.scaleY.toFixed(2) );
 
         return JSON.stringify(ret);
     }
@@ -821,7 +830,7 @@ var ActionBlink = ActionsDemo.extend({
         this.scheduleOnce(this.checkControl1,0.1);
     },
     checkControl1:function(dt){
-        this.control1 = this._kathia.isVisible();
+        this.control1 = this._kathia.visible;
     },
     getExpectedResult:function() {
         var ret = [false,true,true];
@@ -830,8 +839,8 @@ var ActionBlink = ActionsDemo.extend({
     getCurrentResult:function() {
         var ret = [];
         ret.push( this.control1 );
-        ret.push( this._tamara.isVisible());
-        ret.push( this._kathia.isVisible());
+        ret.push( this._tamara.visible);
+        ret.push( this._kathia.visible);
         return JSON.stringify(ret);
     }
 });
@@ -848,7 +857,7 @@ var ActionFade = ActionsDemo.extend({
         this._super();
         this.centerSprites(2);
         var delay = cc.DelayTime.create(0.25);
-        this._tamara.setOpacity(0);
+        this._tamara.opacity = 0;
         var action1 = cc.FadeIn.create(1.0);
         var action1Back = action1.reverse();
 
@@ -873,8 +882,8 @@ var ActionFade = ActionsDemo.extend({
     },
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getOpacity() );
-        ret.push( this._kathia.getOpacity());
+        ret.push( this._tamara.opacity );
+        ret.push( this._kathia.opacity);
         return JSON.stringify(ret);
     }
 
@@ -914,8 +923,8 @@ var ActionTint = ActionsDemo.extend({
     },
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._tamara.getColor() );
-        ret.push( this._kathia.getColor());
+        ret.push( this._tamara.color );
+        ret.push( this._kathia.color );
         return JSON.stringify(ret);
     }
 
@@ -1011,7 +1020,7 @@ var ActionSequence = ActionsDemo.extend({
     getCurrentResult:function() {
         var ret = [];
         ret.push( cc.p(this._grossini.x, this._grossini.y) );
-        ret.push( this._grossini.getRotation() );
+        ret.push( this._grossini.rotation );
         return JSON.stringify(ret);
     }
 });
@@ -1024,7 +1033,7 @@ var ActionSequence2 = ActionsDemo.extend({
     onEnter:function () {
         this._super();
         this.centerSprites(1);
-        this._grossini.setVisible(false);
+        this._grossini.visible = false;
         var action = cc.Sequence.create(
             cc.Place.create(cc.p(200, 200)),
             cc.Show.create(),
@@ -1080,7 +1089,7 @@ var ActionSequence2 = ActionsDemo.extend({
         ret.push( this.called1 );
         ret.push( this.called2 );
         ret.push( this.called3 );
-        ret.push( this._grossini.isVisible() );
+        ret.push( this._grossini.visible );
         ret.push( cc.p(this._grossini.x, this._grossini.y) );
         return JSON.stringify(ret);
     }
@@ -1286,7 +1295,7 @@ var ActionSpawn = ActionsDemo.extend({
     getCurrentResult:function() {
         var ret = [];
         ret.push( cc.p(this._grossini.x, this._grossini.y) );
-        ret.push( this._grossini.getRotation() );
+        ret.push( this._grossini.rotation );
         return JSON.stringify(ret);
     }
 });
@@ -1326,7 +1335,7 @@ var ActionRepeatForever = ActionsDemo.extend({
     },
     getCurrentResult:function() {
         var ret = [];
-        var r = this._grossini.getRotation();
+        var r = this._grossini.rotation;
         var expected = 900;
         var error = 15;
         ret.push( r < expected+error && r > expected-error );
@@ -1369,8 +1378,8 @@ var ActionRotateToRepeat = ActionsDemo.extend({
     },
     getCurrentResult:function() {
         var ret = [];
-        ret.push( this._kathia.getRotation() );
-        var r = this._tamara.getRotation();
+        ret.push( this._kathia.rotation );
+        var r = this._tamara.rotation;
         var expected = 90;
         var error = 15;
         ret.push( r < expected+error && r > expected-error );
@@ -2467,7 +2476,7 @@ var Issue1327 = ActionsDemo.extend({
         spr.runAction(actF);
     },
     onLogSprRotation:function (pSender) {
-        cc.log(pSender.getRotation());
+        cc.log(pSender.rotation);
     },
     title:function () {
         return "Issue 1327";
@@ -2548,7 +2557,7 @@ var Issue1446 = ActionsDemo.extend({
 
         label.x = winSize.width / 2;
 	    label.y = winSize.height / 2;
-        label.setOpacity(0);
+        label.opacity = 0;
 
         this.addChild(label);
 

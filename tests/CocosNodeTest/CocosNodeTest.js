@@ -77,15 +77,14 @@ var CCNodeTest2 = TestNodeDemo.extend({
         var sp4 = cc.Sprite.create(s_pathSister2);
 
         sp1.x = winSize.width / 4;
-
         sp1.y = winSize.height / 2;
         sp2.x = winSize.width / 4 * 3;
         sp2.y = winSize.height / 2;
         this.addChild(sp1);
         this.addChild(sp2);
 
-        sp3.setScale(0.25);
-        sp4.setScale(0.25);
+        sp3.scale = 0.25;
+        sp4.scale = 0.25;
 
         sp1.addChild(sp3);
         sp2.addChild(sp4);
@@ -98,7 +97,8 @@ var CCNodeTest2 = TestNodeDemo.extend({
         var action2 = cc.RepeatForever.create(cc.Sequence.create(
             a1.clone(), a2.clone(), delay.clone(), a2.reverse()));
 
-        sp2.setAnchorPoint(0, 0);
+        sp2.anchorX = 0;
+        sp2.anchorY = 0;
 
         sp1.runAction(action1);
         sp2.runAction(action2);
@@ -185,8 +185,8 @@ var CCNodeTest5 = TestNodeDemo.extend({
         var rot_back = rot.reverse();
         var forever = cc.RepeatForever.create(cc.Sequence.create(rot, rot_back));
         var forever2 = forever.clone();
-        forever.setTag(101);
-        forever2.setTag(102);
+        forever.tag = 101;
+        forever2.tag = 102;
 
         this.addChild(sp1, 0, TAG_SPRITE1);
         this.addChild(sp2, 0, TAG_SPRITE2);
@@ -252,7 +252,6 @@ var CCNodeTest6 = TestNodeDemo.extend({
         var sp21 = cc.Sprite.create(s_pathSister2);
 
         sp1.x = 150;
-
         sp1.y = winSize.height / 2;
         sp2.x = winSize.width - 150;
         sp2.y = winSize.height / 2;
@@ -323,10 +322,10 @@ var StressTest1 = TestNodeDemo.extend({
 
         var sp1 = cc.Sprite.create(s_pathSister1);
         this.addChild(sp1, 0, TAG_SPRITE1);
-        this.setContentSize(0, 0);
+        this.width = 0
+	    this.height = 0;
 
         sp1.x = winSize.width / 2;
-
         sp1.y = winSize.height / 2;
 
         this.schedule(this.onShouldNotCrash, 1.0);
@@ -339,7 +338,6 @@ var StressTest1 = TestNodeDemo.extend({
         explosion.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
 
         explosion.x = winSize.width / 2;
-
         explosion.y = winSize.height / 2;
 
         this.runAction(cc.Sequence.create(
@@ -353,7 +351,7 @@ var StressTest1 = TestNodeDemo.extend({
             this.testPass = true;
             return;
         }
-        this.getParent().removeChild(node, true);
+        this.parent.removeChild(node, true);
         this.onNextCallback(this);
     },
     title:function () {
@@ -424,14 +422,14 @@ var NodeToWorld = TestNodeDemo.extend({
         this._super();
         var back = cc.Sprite.create(s_back3);
         this.addChild(back, 5);
-        back.setAnchorPoint(0, 0);
-        var backSize = back.getContentSize();
+        back.anchorX = 0;
+        back.anchorY = 0;
 
         var item = cc.MenuItemImage.create(s_playNormal, s_playSelect, this.onClicked);
         var menu = cc.Menu.create(item);
         menu.alignItemsVertically();
-        menu.x = backSize.width / 2;
-        menu.y = backSize.height / 2;
+        menu.x = back.width / 2;
+        menu.y = back.height / 2;
         back.addChild(menu);
 
         var rot = cc.RotateBy.create(3, 360);
@@ -480,33 +478,33 @@ var CameraOrbitTest = TestNodeDemo.extend({
         this.addChild(p, 0);
         p.x = winSize.width / 2;
         p.y = winSize.height / 2;
-        p.setOpacity(128);
+        p.opacity = 128;
 
         // LEFT
-        var s = p.getContentSize();
+        var sw = p.width, sh = p.height;
         var sprite = cc.Sprite.create(s_pathGrossini);
-        sprite.setScale(0.5);
+        sprite.scale = 0.5;
         p.addChild(sprite, 0);
-        sprite.x = s.width / 4;
-        sprite.y = s.height / 2;
+        sprite.x = sw / 4;
+        sprite.y = sh / 2;
         var orbit = cc.OrbitCamera.create(2, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
         // CENTER
         sprite = cc.Sprite.create(s_pathGrossini);
-        sprite.setScale(1.0);
+        sprite.scale = 1.0;
         p.addChild(sprite, 0);
-        sprite.x = s.width / 4 * 2;
-        sprite.y = s.height / 2;
+        sprite.x = sw / 4 * 2;
+        sprite.y = sh / 2;
         orbit = cc.OrbitCamera.create(2, 1, 0, 0, 360, 45, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
         // RIGHT
         sprite = cc.Sprite.create(s_pathGrossini);
-        sprite.setScale(2.0);
+        sprite.scale = 2.0;
         p.addChild(sprite, 0);
-        sprite.x = s.width / 4 * 3;
-        sprite.y = s.height / 2;
+        sprite.x = sw / 4 * 3;
+        sprite.y = sh / 2;
         orbit = cc.OrbitCamera.create(2, 1, 0, 0, 360, 90, -45);
         sprite.runAction(cc.RepeatForever.create(orbit));
 
@@ -514,7 +512,7 @@ var CameraOrbitTest = TestNodeDemo.extend({
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 90);
         p.runAction(cc.RepeatForever.create(orbit));
 
-        this.setScale(1);
+        this.scale = 1;
     },
     onEnter:function () {
         this._super();
@@ -621,7 +619,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         this.addChild(sprite, 0);
         sprite.x = winSize.width / 5;
         sprite.y = winSize.height / 5;
-        sprite.setColor(cc.color.red);
+        sprite.color = cc.color.red;
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         var orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -631,7 +629,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         this.addChild(sprite, 0, 40);
         sprite.x = winSize.width / 5;
         sprite.y = winSize.height / 5 * 4;
-        sprite.setColor(cc.color.blue);
+        sprite.color = cc.color.blue;
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -641,7 +639,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         this.addChild(sprite, 0);
         sprite.x = winSize.width / 5 * 4;
         sprite.y = winSize.height / 5;
-        sprite.setColor(cc.color.yellow);
+        sprite.color = cc.color.yellow;
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -651,7 +649,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         this.addChild(sprite, 0, 40);
         sprite.x = winSize.width / 5 * 4;
         sprite.y = winSize.height / 5 * 4;
-        sprite.setColor(cc.color.green);
+        sprite.color = cc.color.green;
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -661,7 +659,7 @@ var CameraCenterTest = TestNodeDemo.extend({
         this.addChild(sprite, 0, 40);
         sprite.x = winSize.width / 2;
         sprite.y = winSize.height / 2;
-        sprite.setColor(cc.color.white);
+        sprite.color = cc.color.white;
         sprite.setTextureRect(cc.rect(0, 0, 120, 50));
         orbit = cc.OrbitCamera.create(10, 1, 0, 0, 360, 0, 0);
         sprite.runAction(cc.RepeatForever.create(orbit));
@@ -733,20 +731,23 @@ var ConvertToNode = TestNodeDemo.extend({
             sprite.x = winSize.width / 4 * (i + 1);
             sprite.y = winSize.height / 2;
             var point = cc.Sprite.create(s_pathR1);
-            point.setScale(0.25);
+            point.scale = 0.25;
 	        point.x = sprite.x;
 	        point.y = sprite.y;
             this.addChild(point, 10, 100 + i);
 
             switch (i) {
                 case 0:
-                    sprite.setAnchorPoint(0, 0);
+                    sprite.anchorX = 0;
+                    sprite.anchorY = 0;
                     break;
                 case 1:
-                    sprite.setAnchorPoint(0.5, 0.5);
+                    sprite.anchorX = 0.5;
+                    sprite.anchorY = 0.5;
                     break;
                 case 2:
-                    sprite.setAnchorPoint(1, 1);
+                    sprite.anchorX = 1;
+                    sprite.anchorY = 1;
                     break;
             }
 

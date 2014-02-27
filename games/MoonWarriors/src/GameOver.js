@@ -41,7 +41,7 @@ var GameOver = cc.Layer.extend({
             var lbScore = cc.LabelTTF.create("Your Score:"+MW.SCORE,"Arial Bold",16);
             lbScore.x = 160;
 	        lbScore.y = 280;
-            lbScore.setColor(cc.color(250,179,0));
+            lbScore.color = cc.color(250,179,0);
             this.addChild(lbScore,10);
 
             var b1 = cc.LabelTTF.create("Download Cocos2d-html5","Arial",14);

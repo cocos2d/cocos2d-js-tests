@@ -49,8 +49,7 @@ var Paddle = cc.Sprite.extend({
             this._state = PADDLE_STATE_UNGRABBED;
         }
         if (aTexture instanceof cc.Texture2D) {
-            var s = aTexture.getContentSize();
-            this._rect = cc.rect(0, 0, s.width, s.height);
+            this._rect = cc.rect(0, 0, aTexture.width, aTexture.height);
         } else if ((aTexture instanceof HTMLImageElement) || (aTexture instanceof HTMLCanvasElement)) {
             this._rect = cc.rect(0, 0, aTexture.width, aTexture.height);
         }

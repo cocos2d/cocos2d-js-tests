@@ -61,20 +61,20 @@ var SceneController = ccs.ComController.extend({
         var target = cc.Sprite.create("res/components/Target.png", cc.rect(0, 0, 27, 40));
         this._owner.addChild(target, 1, 2);
         target.addComponent(EnemyController.create());
-        target.setTag(2);
+        target.tag = 2;
         this._targets.push(target);
     },
 
     spriteMoveFinished: function (sender) {
         var sprite = sender;
         this._owner.removeChild(sprite, true);
-        if (sprite.getTag() == 2) {
+        if (sprite.tag == 2) {
             cc.ArrayRemoveObject(this._targets, sprite);
             var gameOverScene = GameOverScene.create();
             gameOverScene.getLayer().getLabel().setString("You Lose!");
             cc.Director.getInstance().runScene(gameOverScene);
         }
-        else if (sprite.getTag() == 3) {
+        else if (sprite.tag == 3) {
             cc.ArrayRemoveObject(this._projectiles, sprite);
         }
 

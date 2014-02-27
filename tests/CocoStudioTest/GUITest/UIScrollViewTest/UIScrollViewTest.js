@@ -42,9 +42,8 @@ var UIScrollViewTest_Vertical = UIScene.extend({
             scrollView.setTouchEnabled(true);
             scrollView.setSize(cc.size(280, 150));
 
-            var backgroundSize = background.getContentSize();
-            scrollView.x = (widgetSize.width - backgroundSize.width) / 2 + (backgroundSize.width - scrollView.width) / 2;
-            scrollView.y = (widgetSize.height - backgroundSize.height) / 2 + (backgroundSize.height - scrollView.height) / 2;
+            scrollView.x = (widgetSize.width - background.width) / 2 + (background.width - scrollView.width) / 2;
+            scrollView.y = (widgetSize.height - background.height) / 2 + (background.height - scrollView.height) / 2;
             this._uiLayer.addWidget(scrollView);
 
             var imageView = ccs.ImageView.create();
@@ -74,7 +73,7 @@ var UIScrollViewTest_Vertical = UIScene.extend({
             button_scale9.setTouchEnabled(true);
             button_scale9.setScale9Enabled(true);
             button_scale9.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
-            button_scale9.setSize(cc.size(100, button_scale9.getContentSize().height));
+            button_scale9.width = 100;
             button_scale9.x = innerWidth / 2;
             button_scale9.y = textButton.getBottomInParent() - textButton.height;
             scrollView.addChild(button_scale9);
@@ -112,9 +111,8 @@ var UIScrollViewTest_Horizontal = UIScene.extend({
             var scrollViewRect = scrollView.getSize();
             scrollView.setInnerContainerSize(cc.size(scrollViewRect.width,scrollViewRect.height));
 
-            var backgroundSize = background.getContentSize();
-            scrollView.x = (widgetSize.width - backgroundSize.width) / 2 + (backgroundSize.width - scrollViewRect.width) / 2;
-            scrollView.y = (widgetSize.height - backgroundSize.height) / 2 + (backgroundSize.height - scrollViewRect.height) / 2;
+            scrollView.x = (widgetSize.width - background.width) / 2 + (background.width - scrollViewRect.width) / 2;
+            scrollView.y = (widgetSize.height - background.height) / 2 + (background.height - scrollViewRect.height) / 2;
             this._uiLayer.addWidget(scrollView);
 
             var imageView = ccs.ImageView.create();
@@ -144,7 +142,7 @@ var UIScrollViewTest_Horizontal = UIScene.extend({
             button_scale9.setTouchEnabled(true);
             button_scale9.setScale9Enabled(true);
             button_scale9.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
-            button_scale9.setSize(cc.size(100, button_scale9.getContentSize().height));
+            button_scale9.width = 100;
             button_scale9.x = textButton.getRightInParent() + textButton.width / 2;
             button_scale9.y = textButton.getBottomInParent() - textButton.height;
             scrollView.addChild(button_scale9);
@@ -183,19 +181,17 @@ var UIScrollViewTest_Both = UIScene.extend({
             scrollView.setSize(cc.size(210, 122));
             var scrollViewSize = scrollView.getSize();
 
-            var backgroundSize = background.getContentSize();
-            scrollView.x = (widgetSize.width - backgroundSize.width) / 2 + (backgroundSize.width - scrollViewSize.width) / 2;
-            scrollView.y = (widgetSize.height - backgroundSize.height) / 2 + (backgroundSize.height - scrollViewSize.height) / 2;
+            scrollView.x = (widgetSize.width - background.width) / 2 + (background.width - scrollViewSize.width) / 2;
+            scrollView.y = (widgetSize.height - background.height) / 2 + (background.height - scrollViewSize.height) / 2;
             this._uiLayer.addWidget(scrollView);
 
             var imageView = ccs.ImageView.create();
             imageView.loadTexture("res/cocosgui/b11.png");
             scrollView.addChild(imageView);
 
-            var imageViewSize = imageView.getContentSize();
-            scrollView.setInnerContainerSize(cc.size(imageViewSize.width, imageViewSize.height));
-            imageView.x = imageViewSize.width/2;
-            imageView.y = imageViewSize.height/2;
+            scrollView.setInnerContainerSize(cc.size(imageView.width, imageView.height));
+            imageView.x = imageView.width/2;
+            imageView.y = imageView.height/2;
 
             return true;
         }
@@ -225,9 +221,8 @@ var UIScrollViewTest_ScrollToPercentBothDirection = UIScene.extend({
             scrollView.setSize(cc.size(100, 100));
             var scrollViewSize = scrollView.getSize();
 
-            var backgroundSize = background.getContentSize();
-            scrollView.x = (widgetSize.width - backgroundSize.width) / 2 + (backgroundSize.width - scrollViewSize.width) / 2;
-            scrollView.y = (widgetSize.height - backgroundSize.height) / 2 + (backgroundSize.height - scrollViewSize.height) / 2;
+            scrollView.x = (widgetSize.width - background.width) / 2 + (background.width - scrollViewSize.width) / 2;
+            scrollView.y = (widgetSize.height - background.height) / 2 + (background.height - scrollViewSize.height) / 2;
             scrollView.scrollToPercentBothDirection(cc.p(50, 50), 1, true);
 
             this._uiLayer.addWidget(scrollView);
@@ -267,9 +262,8 @@ var UIScrollViewTest_ScrollToPercentBothDirection_Bounce = UIScene.extend({
             scrollView.setSize(cc.size(100, 100));
             var scrollViewSize = scrollView.getSize();
 
-            var backgroundSize = background.getContentSize();
-            scrollView.x = (widgetSize.width - backgroundSize.width) / 2 + (backgroundSize.width - scrollViewSize.width) / 2;
-            scrollView.y = (widgetSize.height - backgroundSize.height) / 2 + (backgroundSize.height - scrollViewSize.height) / 2;
+            scrollView.x = (widgetSize.width - background.width) / 2 + (background.width - scrollViewSize.width) / 2;
+            scrollView.y = (widgetSize.height - background.height) / 2 + (background.height - scrollViewSize.height) / 2;
             scrollView.scrollToPercentBothDirection(cc.p(50, 50), 1, true);
 
             this._uiLayer.addWidget(scrollView);

@@ -96,7 +96,8 @@ var TableViewTestLayer = cc.Layer.extend({
         if (!cell) {
             cell = new CustomTableViewCell();
             var sprite = cc.Sprite.create(s_image_icon);
-            sprite.setAnchorPoint(0,0);
+            sprite.anchorX = 0;
+            sprite.anchorY = 0;
             sprite.x = 0;
             sprite.y = 0;
             cell.addChild(sprite);
@@ -104,8 +105,9 @@ var TableViewTestLayer = cc.Layer.extend({
             label = cc.LabelTTF.create(strValue, "Helvetica", 20.0);
             label.x = 0;
             label.y = 0;
-            label.setAnchorPoint(0,0);
-            label.setTag(123);
+            label.anchorX = 0;
+            label.anchorY = 0;
+            label.tag = 123;
             cell.addChild(label);
         } else {
             label = cell.getChildByTag(123);

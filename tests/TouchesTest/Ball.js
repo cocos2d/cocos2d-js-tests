@@ -91,7 +91,7 @@ Ball.ballWithTexture = function (texture) {
     var ball = new Ball();
     ball.initWithTexture(texture);
     if (texture instanceof cc.Texture2D)
-        ball.setRadius(texture.getContentSize().width / 2);
+        ball.setRadius(texture.width / 2);
     else if ((texture instanceof HTMLImageElement) || (texture instanceof HTMLCanvasElement))
         ball.setRadius(texture.width / 2);
     return ball;

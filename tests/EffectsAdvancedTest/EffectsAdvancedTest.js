@@ -87,7 +87,7 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
         label.x = cc.VisibleRect.center().x;
         label.y = cc.VisibleRect.top().y - 80;
         this.addChild(label);
-        label.setTag(EffectsAdvancedTest.TAG_LABEL);
+        label.tag = EffectsAdvancedTest.TAG_LABEL;
 
         var strSubtitle = this.subtitle();
         if (strSubtitle != "") {

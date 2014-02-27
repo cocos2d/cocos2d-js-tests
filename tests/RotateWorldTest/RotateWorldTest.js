@@ -52,9 +52,9 @@ var SpriteLayer = cc.Layer.extend({
         var spriteSister1 = cc.Sprite.create(s_pathSister1);
         var spriteSister2 = cc.Sprite.create(s_pathSister2);
 
-        sprite.setScale(1.5);
-        spriteSister1.setScale(1.5);
-        spriteSister2.setScale(1.5);
+        sprite.scale = 1.5;
+        spriteSister1.scale = 1.5;
+        spriteSister2.scale = 1.5;
 
         sprite.x = x / 2;
         sprite.y = y / 2;
@@ -139,21 +139,21 @@ var RotateWorldMainLayer = cc.Layer.extend({
         var green = cc.LayerColor.create(cc.color(0, 255, 0, 255));
         var white = cc.LayerColor.create(cc.color(255, 255, 255, 255));
 
-        blue.setScale(0.5);
+        blue.scale = 0.5;
         blue.x = -x / 4;
         blue.y = -y / 4;
         blue.addChild(SpriteLayer.create());
 
-        red.setScale(0.5);
+        red.scale = 0.5;
         red.x = x / 4;
         red.y = -y / 4;
 
-        green.setScale(0.5);
+        green.scale = 0.5;
         green.x = -x / 4;
         green.y = y / 4;
         green.addChild(TestLayer.create());
 
-        white.setScale(0.5);
+        white.scale = 0.5;
         white.x = x / 4;
         white.y = y / 4;
 

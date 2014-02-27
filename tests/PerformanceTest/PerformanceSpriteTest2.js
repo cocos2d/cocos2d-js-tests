@@ -117,13 +117,13 @@ var PerformanceTestBase = cc.Layer.extend({
         menu.x = 0;
 
         menu.y = 0;
-        var cs = item2.getContentSize();
-        item1.x = winSize.width/2 - cs.width*2;
-        item1.y = cs.height/2 ;
+        var csw = item2.width, csh = item2.height;
+        item1.x = winSize.width/2 - csw*2;
+        item1.y = csh/2;
         item2.x = winSize.width/2;
-        item2.y = cs.height/2 ;
-        item3.x = winSize.width/2 + cs.width*2;
-        item3.y = cs.height/2 ;
+        item2.y = csh/2;
+        item3.x = winSize.width/2 + csw*2;
+        item3.y = csh/2;
 
         this.addChild(menu, 1);
     },

@@ -115,10 +115,10 @@ var LayerTest1 = LayerTest.extend({
     },
 
     updateSize:function (location) {
-        var newSize = cc.size(Math.abs(location.x - winSize.width / 2) * 2, Math.abs(location.y - winSize.height / 2) * 2);
         var l = this.getChildByTag(cc.TAG_LAYER);
 
-        l.setContentSize(newSize);
+        l.width = Math.abs(location.x - winSize.width / 2) * 2;
+	    l.height = Math.abs(location.y - winSize.height / 2) * 2;
     },
 
     // events
@@ -362,8 +362,8 @@ var LayerTest2 = LayerTest.extend({
             return false;
         };
         var s = director.getWinSize();
-        var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).getColor();
-        var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).getOpacity();
+        var tint = this.getChildByTag(LAYERTEST2_LAYER1_TAG).color;
+        var op = this.getChildByTag(LAYERTEST2_LAYER2_TAG).opacity;
         var ret = {"tint": inColorRange(tint, this.tintTest) ? "yes" : "no",
             "opacity": op};
 

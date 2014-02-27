@@ -165,7 +165,8 @@ var CocosDenshionTest = cc.LayerGradient.extend({
             menuItem.y = winSize.height - (i + 1) * LINE_SPACE;
         }
         this._testCount = i;
-        this._itemMenu.setContentSize(winSize.width, (this._testCount + 1) * LINE_SPACE);
+        this._itemMenu.width = winSize.width;
+	    this._itemMenu.height = (this._testCount + 1) * LINE_SPACE;
         this._itemMenu.x = 0;
         this._itemMenu.y = 0;
         this.addChild(this._itemMenu);
@@ -188,11 +189,11 @@ var CocosDenshionTest = cc.LayerGradient.extend({
     },
     onExit:function () {
         this._super();
-        cc.AudioEngine.end();
+        audioEngine.end();
     },
 
     onMenuCallback:function (sender) {
-        var idx = sender.getZOrder() - 10000;
+        var idx = sender.zIndex - 10000;
         // create the test scene and run it
         var scene = DenshionTests[idx].playFunc();
     },

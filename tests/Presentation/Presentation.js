@@ -107,8 +107,8 @@ PresentationBaseLayer.prototype.onEnter = function() {
     var item3 = menu.getChildByTag(BASE_TEST_MENUITEM_NEXT_TAG);
 
 	[item1, item2, item3 ].forEach( function(item) {
-		item.getNormalImage().setOpacity(45);
-		item.getSelectedImage().setOpacity(45);
+		item.getNormalImage().opacity = 45;
+		item.getSelectedImage().opacity = 45;
 		} );
 
 	// remove "super" titles
@@ -350,7 +350,7 @@ cc.inherits( ChipmunkPage, PresentationBaseLayer );
 //
 
 ChipmunkPage.prototype.onTogglePhysicsDebug = function() {
-	this.debugNode.setVisible( ! this.debugNode.isVisible() );
+	this.debugNode.visible = ! this.debugNode.visible ;
 };
 
 // Menu
@@ -389,7 +389,7 @@ ChipmunkPage.prototype.initPhysics = function() {
 
 	// Physics debug layer
 	this.debugNode = cc.PhysicsDebugNode.create( this.space.handle );
-	this.debugNode.setVisible( false );
+	this.debugNode.visible = false ;
 	this.addChild( this.debugNode, 100 );
 };
 

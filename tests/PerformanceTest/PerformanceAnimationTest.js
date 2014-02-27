@@ -55,7 +55,7 @@ var AnimationMenuLayer = PerformBasicLayer.extend({
         this.addChild(label, 1);
         label.x = s.width / 2;
         label.y = s.height - 32;
-        label.setColor(cc.color(255, 255, 40));
+        label.color = cc.color(255, 255, 40);
 
         // Subtitle
         var strSubTitle = this.subtitle();
@@ -95,9 +95,9 @@ var AnimationTest = AnimationMenuLayer.extend({
 
         cc.MenuItemFont.setFontSize(65);
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
-        decrease.setColor(cc.color(0, 200, 20));
+        decrease.color = cc.color(0, 200, 20);
         var increase = cc.MenuItemFont.create(" + ", this.onIncrease, this);
-        increase.setColor(cc.color(0, 200, 20));
+        increase.color = cc.color(0, 200, 20);
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
@@ -106,7 +106,7 @@ var AnimationTest = AnimationMenuLayer.extend({
         this.addChild(menu, 1);
 
         var infoLabel = cc.LabelTTF.create("0 nodes", "Marker Felt", 24);
-        infoLabel.setColor(cc.color(0, 200, 20));
+        infoLabel.color = cc.color(0, 200, 20);
         infoLabel.x = size.width / 2;
         infoLabel.y = size.height - 90;
         this.addChild(infoLabel, 1, TAG_INFO_LAYER);
@@ -181,8 +181,8 @@ var CharacterView = cc.Node.extend({
             var right = cc.Sprite.create("frame#crystals/4.png");
             right.x = 50;
             right.y = i * 10 - 40;
-            right.setRotation(-90);
-            right.setScale(1);
+            right.rotation = -90;
+            right.scale = 1;
             this.addChild(right);
             // var scaleStep = cc.ScaleBy.create(0.5, -0.8);
             // right.runAction(cc.RepeatForever.create(scaleStep));
@@ -197,8 +197,8 @@ var CharacterView = cc.Node.extend({
             head.x = i * 5;
             head.y = 50;
             this.addChild(head);
-            head.setScale(1.5);
-            head.setRotation(350);
+            head.scale = 1.5;
+            head.rotation = 350;
             var rotateToA = cc.RotateBy.create(0.01, 5);
             head.runAction(cc.RepeatForever.create(rotateToA));
         }
@@ -208,7 +208,7 @@ var CharacterView = cc.Node.extend({
             var left = cc.Sprite.create("frame#crystals/2.png");
             left.x = 10;
             left.y = i * 5 - 20;
-            left.setRotation(90);
+            left.rotation = 90;
             this.addChild(left);
             //var moveStep = cc.MoveBy.create(0.01, cc.p(-5,0));
         //  left.runAction(moveStep);

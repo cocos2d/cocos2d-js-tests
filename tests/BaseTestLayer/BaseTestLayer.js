@@ -124,21 +124,21 @@ var BaseTestLayer = cc.LayerGradient.extend({
         var item2 = cc.MenuItemImage.create(s_pathR1, s_pathR2, this.onRestartCallback, this);
         var item3 = cc.MenuItemImage.create(s_pathF1, s_pathF2, this.onNextCallback, this);
 
-        item1.setTag(BASE_TEST_MENUITEM_PREV_TAG);
-        item2.setTag(BASE_TEST_MENUITEM_RESET_TAG);
-        item3.setTag(BASE_TEST_MENUITEM_NEXT_TAG);
+        item1.tag = BASE_TEST_MENUITEM_PREV_TAG;
+        item2.tag = BASE_TEST_MENUITEM_RESET_TAG;
+        item3.tag = BASE_TEST_MENUITEM_NEXT_TAG;
 
         var menu = cc.Menu.create(item1, item2, item3);
 
         menu.x = 0;
         menu.y = 0;
-        var cs = item2.getContentSize();
-        item1.x =  winSize.width/2 - cs.width*2;
-        item1.y = cs.height/2 ;
+        var width = item2.width, height = item2.height;
+        item1.x =  winSize.width/2 - width*2;
+        item1.y = height/2 ;
         item2.x =  winSize.width/2;
-        item2.y = cs.height/2 ;
-        item3.x =  winSize.width/2 + cs.width*2;
-        item3.y = cs.height/2 ;
+        item2.y = height/2 ;
+        item3.x =  winSize.width/2 + width*2;
+        item3.y = height/2 ;
 
         this.addChild(menu, 102, BASE_TEST_MENU_TAG);
     },

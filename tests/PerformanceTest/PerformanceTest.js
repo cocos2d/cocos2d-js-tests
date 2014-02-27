@@ -75,7 +75,7 @@ var PerformanceMainLayer = cc.LayerGradient.extend({
         this.addChild(menu);
     },
     menuCallback:function (sender) {
-        var index = sender.getZOrder() - ITEM_TAG_BASIC;
+        var index = sender.zIndex - ITEM_TAG_BASIC;
         // create the test scene and run it
         switch (index) {
             case 0:
