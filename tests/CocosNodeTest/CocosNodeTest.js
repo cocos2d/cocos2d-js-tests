@@ -725,7 +725,7 @@ var ConvertToNode = TestNodeDemo.extend({
             cc.eventManager.addListener({
                 event: cc.EventListener.Mouse,
                 onMouseUp: function(event){
-                    event.getCurrentTarget().processEvent(event.getCursor());
+                    event.getCurrentTarget().processEvent(event.getLocation());
                 }
             }, this);
 

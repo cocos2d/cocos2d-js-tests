@@ -69,8 +69,8 @@ var MenuLayerMainMenu = cc.Layer.extend({
             this._disabledItem.setEnabled(! this._disabledItem.isEnabled());
         }, this);
 
-        item4.setFontSize(20);
-        item4.setFontName("Arial");
+        item4.fontSize = 20;
+        item4.fontName = "Arial";
 
         // Label Item (LabelBMFont)
         var label = cc.LabelBMFont.create("configuration", s_bitmapFontTest3_fnt);

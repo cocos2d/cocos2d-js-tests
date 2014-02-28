@@ -88,7 +88,7 @@ var XHRTestLayer = cc.Layer.extend({
             that.addChild(responseLabel, 1);
             responseLabel.anchorX = 0;
 	        responseLabel.anchorY = 1;
-            responseLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
+            responseLabel.textAlign = cc.TEXT_ALIGNMENT_LEFT;
 
             responseLabel.x = winSize.width/6;
 
@@ -118,7 +118,7 @@ var XHRTestLayer = cc.Layer.extend({
             that.addChild(responseLabel, 1);
             responseLabel.anchorX = 0;
 	        responseLabel.anchorY = 1;
-            responseLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
+            responseLabel.textAlign = cc.TEXT_ALIGNMENT_LEFT;
 
             responseLabel.x = winSize.width/6;
 

@@ -782,7 +782,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         var label1 = cc.LabelBMFont.create("Multi line\n\nAligned to the left", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label1.anchorX = 0;
         label1.anchorY = 0;
-        label1.setAlignment(cc.TEXT_ALIGNMENT_LEFT);
+        label1.textAlign = cc.TEXT_ALIGNMENT_LEFT;
         label1.boundingWidth = 400;
         this.addChild(label1, 0, TAG_BITMAP_ATLAS1);
         cc.log("content size:" + label1.width + "," + label1.height);
@@ -792,7 +792,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         var label2 = cc.LabelBMFont.create("Error\n\nSome error message", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label2.anchorX = 0.5;
         label2.anchorY = 0.5;
-        label2.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
+        label2.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         label2.boundingWidth = 290;
         this.addChild(label2, 0, TAG_BITMAP_ATLAS2);
         cc.log("content size:" + label2.width + "," + label2.height);
@@ -801,7 +801,7 @@ var BMFontMultiLine2Test = AtlasDemo.extend({
         var label3 = cc.LabelBMFont.create("Multi line\n\nAligned to the right", s_resprefix + "fonts/bitmapFontTest3.fnt");
         label3.anchorX = 1;
         label3.anchorY = 1;
-        label3.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
+        label3.textAlign = cc.TEXT_ALIGNMENT_RIGHT;
         label3.boundingWidth = 400;
         this.addChild(label3, 0, TAG_BITMAP_ATLAS3);
         cc.log("content size:" + label3.width + "," + label3.height);
@@ -1041,13 +1041,15 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
         var fontDefRedShadow = new cc.FontDefinition();
         fontDefRedShadow.fontName = "Arial";
         fontDefRedShadow.fontSize = 32;
-        fontDefRedShadow.fontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
-        fontDefRedShadow.fontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
-        fontDefRedShadow.fontFillColor = redColor;
-        fontDefRedShadow.fontDimensions = blockSize;
+        fontDefRedShadow.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        fontDefRedShadow.verticalAlign = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
+        fontDefRedShadow.fillStyle = redColor;
+        fontDefRedShadow.boundingWidth = blockSize.width;
+	    fontDefRedShadow.boundingHeight = blockSize.height;
         // shadow
         fontDefRedShadow.shadowEnabled = true;
-        fontDefRedShadow.shadowOffset = shadowOffset;
+        fontDefRedShadow.shadowOffsetX = shadowOffset.x;
+	    fontDefRedShadow.shadowOffsetY = shadowOffset.y;
 
         // create the label using the definition
         this._labelShadow = cc.LabelTTF.create("Shadow Only", fontDefRedShadow);
@@ -1060,13 +1062,14 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
         var fontDefBlueStroke = new cc.FontDefinition();
         fontDefBlueStroke.fontName = "Arial";
         fontDefBlueStroke.fontSize = 32;
-        fontDefBlueStroke.fontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
-        fontDefBlueStroke.fontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
-        fontDefBlueStroke.fontFillColor = blueColor;
-        fontDefBlueStroke.fontDimensions = blockSize;
+        fontDefBlueStroke.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        fontDefBlueStroke.verticalAlign = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
+        fontDefBlueStroke.fillStyle = blueColor;
+        fontDefBlueStroke.boundingWidth = blockSize.width;
+	    fontDefBlueStroke.boundingHeight = blockSize.height;
         // stroke
         fontDefBlueStroke.strokeEnabled = true;
-        fontDefBlueStroke.strokeColor = yellowColor;
+        fontDefBlueStroke.strokeStyle = yellowColor;
 
         this._labelStroke = cc.LabelTTF.create("Stroke Only", fontDefBlueStroke);
         this._labelStroke.anchorX = 0;
@@ -1078,16 +1081,18 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
         var fontDefRedStrokeShadow = new cc.FontDefinition();
         fontDefRedStrokeShadow.fontName = "Arial";
         fontDefRedStrokeShadow.fontSize = 32;
-        fontDefRedStrokeShadow.fontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
-        fontDefRedStrokeShadow.fontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
-        fontDefRedStrokeShadow.fontFillColor = blueColor;
-        fontDefRedStrokeShadow.fontDimensions = blockSize;
+        fontDefRedStrokeShadow.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        fontDefRedStrokeShadow.verticalAlign = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
+        fontDefRedStrokeShadow.fillStyle = blueColor;
+        fontDefRedStrokeShadow.boundingWidth = blockSize.width;
+	    fontDefRedStrokeShadow.boundingHeight = blockSize.height;
         // stroke
         fontDefRedStrokeShadow.strokeEnabled = true;
-        fontDefRedStrokeShadow.strokeColor = redColor;
+        fontDefRedStrokeShadow.strokeStyle = redColor;
         // shadow
         fontDefRedStrokeShadow.shadowEnabled = true;
-        fontDefRedStrokeShadow.shadowOffset = cc.p(-12,12);   //shadowOffset;
+        fontDefRedStrokeShadow.shadowOffsetX = -12;
+	    fontDefRedStrokeShadow.shadowOffsetY = 12;   //shadowOffset;
 
         this._labelStrokeShadow = cc.LabelTTF.create("Stroke + Shadow\n New Line", fontDefRedStrokeShadow);
         this._labelStrokeShadow.anchorX = 0;
@@ -1478,13 +1483,13 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
 
         switch (item.tag) {
             case LeftAlign:
-                this.labelShouldRetain.setAlignment(cc.TEXT_ALIGNMENT_LEFT);
+                this.labelShouldRetain.textAlign = cc.TEXT_ALIGNMENT_LEFT;
                 break;
             case CenterAlign:
-                this.labelShouldRetain.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
+                this.labelShouldRetain.textAlign = cc.TEXT_ALIGNMENT_CENTER;
                 break;
             case RightAlign:
-                this.labelShouldRetain.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
+                this.labelShouldRetain.textAlign = cc.TEXT_ALIGNMENT_RIGHT;
                 break;
             default:
                 break;
@@ -1652,10 +1657,9 @@ var LabelTTFFontInitTest = AtlasDemo.extend({
     ctor:function () {
         this._super();
         var font = cc.LabelTTF.create();
-        font.setFontName("Courier New");
+        font.font = "48px 'Courier New'";
         //font.setFontName("Arial");
-        font.setFontSize(48);
-        font.setString("It is working!");
+        font.string = "It is working!";
         this.addChild(font);
         font.x = winSize.width / 2;
         font.y = winSize.height / 2;

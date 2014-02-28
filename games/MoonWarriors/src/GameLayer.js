@@ -75,7 +75,7 @@ var GameLayer = cc.Layer.extend({
 	            x: winSize.width - 5,
 	            y: winSize.height - 30
             });
-            this.lbScore.setAlignment(cc.TEXT_ALIGNMENT_RIGHT);
+            this.lbScore.textAlign = cc.TEXT_ALIGNMENT_RIGHT;
             this.addChild(this.lbScore, 1000);
 
             // ship life

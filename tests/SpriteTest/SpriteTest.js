@@ -124,7 +124,7 @@ var Sprite1 = SpriteTestDemo.extend({
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseUp: function(event){
-                    event.getCurrentTarget().addNewSpriteWithCoords(event.getCursor());
+                    event.getCurrentTarget().addNewSpriteWithCoords(event.getLocation());
                 }
             }, this);
     },
@@ -214,7 +214,7 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseUp: function(event){
-                    event.getCurrentTarget().addNewSpriteWithCoords(event.getCursor());
+                    event.getCurrentTarget().addNewSpriteWithCoords(event.getLocation());
                 }
             }, this);
 

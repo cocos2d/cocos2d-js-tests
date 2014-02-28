@@ -58,9 +58,8 @@ var UIPageViewTest = UIScene.extend({
                 layout.addChild(imageView);
 
                 var label = ccs.Label.create();
-                label.setText("page" + (i + 1));
-                label.setFontName("Marker Felt");
-                label.setFontSize(30);
+                label.string = "page" + (i + 1);
+                label.font = "30px 'Marker Felt'";
                 label.color = cc.color(192, 192, 192);
                 label.x = layoutRect.width / 2;
                 label.y = layoutRect.height / 2;

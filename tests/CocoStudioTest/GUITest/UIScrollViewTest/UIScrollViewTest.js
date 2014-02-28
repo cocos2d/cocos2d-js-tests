@@ -74,6 +74,7 @@ var UIScrollViewTest_Vertical = UIScene.extend({
             button_scale9.setScale9Enabled(true);
             button_scale9.loadTextures("res/cocosgui/button.png", "res/cocosgui/buttonHighlighted.png", "");
             button_scale9.width = 100;
+	        button_scale9.height = button_scale9.height;
             button_scale9.x = innerWidth / 2;
             button_scale9.y = textButton.getBottomInParent() - textButton.height;
             scrollView.addChild(button_scale9);
