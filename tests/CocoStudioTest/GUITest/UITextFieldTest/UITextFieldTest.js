@@ -33,9 +33,9 @@ var UITextFieldTest = UIScene.extend({
             // Create the textfield
             var textField = ccs.TextField.create();
             textField.setTouchEnabled(true);
-            textField.setFontName("Marker Felt");
-            textField.setFontSize(30);
-            textField.setPlaceHolder("input words here");
+            textField.fontName = "Marker Felt";
+            textField.fontSize = 30;
+            textField.placeHolder = "input words here";
             textField.x = widgetSize.width / 2.0;
             textField.y = widgetSize.height / 2.0;
             textField.addEventListenerTextField(this.textFieldEvent, this);
@@ -86,9 +86,9 @@ var UITextFieldTest_MaxLength = UIScene.extend({
             textField.setMaxLengthEnabled(true);
             textField.setMaxLength(3);
             textField.setTouchEnabled(true);
-            textField.setFontName("Marker Felt");
-            textField.setFontSize(30);
-            textField.setPlaceHolder("input words here");
+            textField.fontName = "Marker Felt";
+            textField.fontSize = 30;
+            textField.placeHolder = "input words here";
             textField.x = widgetSize.width / 2.0;
             textField.y = widgetSize.height / 2.0;
             textField.addEventListenerTextField(this.textFieldEvent, this);
@@ -134,12 +134,12 @@ var UITextFieldTest_Password = UIScene.extend({
 
             // Create the textfield
             var textField = ccs.TextField.create();
-            textField.setPasswordEnabled(true);
+            textField.passwordEnabled = true;
             textField.setPasswordStyleText("*");
             textField.setTouchEnabled(true);
-            textField.setFontName("Marker Felt");
-            textField.setFontSize(30);
-            textField.setPlaceHolder("input password here");
+            textField.fontName = "Marker Felt";
+            textField.fontSize = 30;
+            textField.placeHolder = "input password here";
             textField.x = widgetSize.width / 2.0;
             textField.y = widgetSize.height / 2.0;
             textField.addEventListenerTextField(this.textFieldEvent, this);

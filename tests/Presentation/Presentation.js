@@ -431,7 +431,7 @@ ChipmunkPage.prototype.onEnter = function () {
        cc.eventManager.addListener({
            event: cc.EventListener.MOUSE,
            onMouseUp: function(event){
-               event.getCurrentTarget().addSprite(event.getCursor());
+               event.getCurrentTarget().addSprite(event.getLocation());
            }
        }, this);
 };
@@ -510,13 +510,13 @@ var ParticlesPage = function() {
             event: cc.EventListener.MOUSE,
             onMouseMove: function(event){
                 var particle = event.getCurrentTarget().particle;
-                particle.x = event.getCursorX();
-                particle.y = event.getCursorY();
+                particle.x = event.getLocationX();
+                particle.y = event.getLocationY();
             },
             onMouseUp: function(event){
                 var particle = event.getCurrentTarget().particle;
-                particle.x = event.getCursorX();
-                particle.y = event.getCursorY();
+                particle.x = event.getLocationX();
+                particle.y = event.getLocationY();
             }
         }, this);
 

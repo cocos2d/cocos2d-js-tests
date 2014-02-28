@@ -94,10 +94,10 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseDown: function(event){
-                    event.getCurrentTarget()._lastLocation = event.getCursor();
+                    event.getCurrentTarget()._lastLocation = event.getLocation();
                 },
                 onMouseMove: function(event){
-                    event.getCurrentTarget().drawInLocation(event.getCursor());
+                    event.getCurrentTarget().drawInLocation(event.getLocation());
                 }
             }, this);
 

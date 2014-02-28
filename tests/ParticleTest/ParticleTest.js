@@ -194,10 +194,10 @@ var ParticleDemo = BaseTestLayer.extend({
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseDown: function(event){
-                    event.getCurrentTarget()._moveToTouchPoint(event.getCursor());
+                    event.getCurrentTarget()._moveToTouchPoint(event.getLocation());
                 },
                 onMouseMove: function(event){
-                    event.getCurrentTarget()._moveToTouchPoint(event.getCursor());
+                    event.getCurrentTarget()._moveToTouchPoint(event.getLocation());
                 }
             }, this);
 
