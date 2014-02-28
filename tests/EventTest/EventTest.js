@@ -368,13 +368,13 @@ var MouseTest = EventTest.extend({
                     target.sprite.y = pos.y;
                 },
                 onMouseMove: function(event){
-                    var pos = event.getLocation(), target = event.getCurrentTarget();
+                    var pos = event.getCursor(), target = event.getCurrentTarget();
                     cc.log("onMouseMove at: " + pos.x + " " + pos.y );
                     target.sprite.x = pos.x;
                     target.sprite.y = pos.y;
                 },
                 onMouseUp: function(event){
-                    var pos = event.getLocation(), target = event.getCurrentTarget();
+                    var pos = event.getCursor(), target = event.getCurrentTarget();
                     target.sprite.x = pos.x;
                     target.sprite.y = pos.y;
                     cc.log("onMouseUp at: " + pos.x + " " + pos.y );

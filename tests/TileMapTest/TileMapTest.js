@@ -50,7 +50,7 @@ var TileDemo = BaseTestLayer.extend({
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseMove: function(event){
-                    var node = this.getChildByTag(TAG_TILE_MAP);
+                    var node = event.getCurrentTarget().getChildByTag(TAG_TILE_MAP);
                     node.x += event.getDeltaX();
                     node.y += event.getDeltaY();
                 }

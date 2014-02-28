@@ -200,7 +200,7 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         cc.log("KeyboardNotificationLayer:TrackNode at(origin:" + rect.x + "," + rect.y
             + ", size:" + rect.width + "," + rect.height + ")");
 
-        this.onClickTrackNode(cc.rectContainsPoint(rect, point));
+	    target.onClickTrackNode(cc.rectContainsPoint(rect, point));
         cc.log("----------------------------------");
     }
 });
