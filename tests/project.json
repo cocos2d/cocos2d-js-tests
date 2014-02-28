@@ -6,7 +6,7 @@
     "renderMode"    : 0,
     "engineDir"     : "../../",
 
-    "modules"       : ["extensions", "pluginx", "box2d", "chipmunk"],
+    "modules"       : ["cocos2d", "extensions", "external"],
 
     "jsList"        : [
         "BaseTestLayer/BaseTestLayer.js",

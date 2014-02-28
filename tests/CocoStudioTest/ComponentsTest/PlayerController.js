@@ -26,18 +26,21 @@ var PlayerController = ccs.ComController.extend({
     ctor: function () {
         this._super();
         this._name = "PlayerController";
-    },
 
-    onEnter:function(){
-        this.setTouchEnabled(true);
+        this._listener1 = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesEnded: this.onTouchesEnded.bind(this)
+        });
+
+        cc.eventManager.addListener(this._listener1, 1);
     },
 
     update: function (dt) {
 
     },
 
-    onTouchEnded: function (touch, event) {
-        var location = touch.getLocation();
+    onTouchesEnded: function (touch, event) {
+        var location = touch[0].getLocation();
 
         var projectile = cc.Sprite.create("res/components/Projectile.png", cc.rect(0, 0, 20, 20));
         this._owner.parent.addChild(projectile, 1, 4);
@@ -47,6 +50,10 @@ var PlayerController = ccs.ComController.extend({
         com.move(location.x, location.y);
 
         this._owner.getComponent("Audio").playEffect("res/Sound/pew-pew-lei.wav");
+    },
+    onExit:function(){
+        cc.eventManager.removeListener(this._listener1);
+        this._super();
     }
 });
 
