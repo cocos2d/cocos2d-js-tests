@@ -373,6 +373,9 @@ var CustomEventTest =  EventDispatcherTestDemo.extend({
         });
 
         cc.eventManager.addListener(this._listener1, 1);
+
+
+
         var sendItem = cc.MenuItemFont.create("Send Custom Event 1", function(sender){
             ++selfPointer._item1Count;
             var event = new cc.EventCustom("game_custom_event1");

@@ -583,7 +583,10 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
     armature:null,
     ctor:function(){
         this._super();
-        this.setTouchEnabled(true);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesEnded: this.onTouchesEnded.bind(this)
+        }, this);
     },
     onEnter:function () {
         this._super();
@@ -949,7 +952,10 @@ var TestArmatureNesting = ArmatureTestLayer.extend({
     weaponIndex:0,
     ctor:function(){
         this._super();
-        this.setTouchEnabled(true);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesEnded: this.onTouchesEnded.bind(this)
+        }, this);
     },
     onEnter:function () {
         this._super();
@@ -1062,7 +1068,10 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
     _touchedMenu: false,
     ctor:function(){
         this._super();
-        this.setTouchEnabled(true);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesEnded: this.onTouchesEnded.bind(this)
+        }, this);
     },
     onEnter: function () {
         this._super();
@@ -1098,7 +1107,7 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
     subtitle: function () {
         return "Move to a mount and press the ChangeMount Button.";
     },
-    onTouchesBegan: function (touches, event) {
+    onTouchesEnded: function (touches, event) {
         var point = touches[0].getLocation();
         var armature = this._hero.getMount() == null ? this._hero : this._hero.getMount();
         //Set armature direction
@@ -1179,7 +1188,10 @@ var TestPlaySeveralMovement = ArmatureTestLayer.extend({
 var TestChangeAnimationInternal = ArmatureTestLayer.extend({
     ctor:function(){
         this._super();
-        this.setTouchEnabled(true);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesEnded: this.onTouchesEnded.bind(this)
+        }, this);
     },
     onEnter:function () {
         this._super();
@@ -1198,7 +1210,7 @@ var TestChangeAnimationInternal = ArmatureTestLayer.extend({
     subtitle:function () {
         return "Touch to change animation internal";
     },
-    onTouchesBegan: function (touch, event) {
+    onTouchesEnded: function (touch, event) {
         if (cc.Director.getInstance().getAnimationInterval() == 1 / 30) {
             cc.Director.getInstance().setAnimationInterval(1 / 60);
         }
@@ -1223,7 +1235,10 @@ var TestEasing = ArmatureTestLayer.extend({
     armature: null,
     ctor:function(){
         this._super();
-        this.setTouchEnabled(true);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesEnded: this.onTouchesEnded.bind(this)
+        }, this);
     },
     onEnter: function () {
         this._super();
@@ -1244,7 +1259,7 @@ var TestEasing = ArmatureTestLayer.extend({
     subtitle: function () {
         return "Current easing :";
     },
-    onTouchesBegan: function (touch, event) {
+    onTouchesEnded: function (touch, event) {
         this.animationID++;
         this.animationID = this.animationID % this.armature.getAnimation().getMovementCount();
         this.armature.getAnimation().playWithIndex(this.animationID);
