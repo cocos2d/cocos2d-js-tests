@@ -404,7 +404,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         this.visit();
         texture.end();
 
-        var sprite = cc.Sprite.create(texture.getSprite().getTexture());
+        var sprite = cc.Sprite.create(texture.getSprite().texture);
 
         sprite.x = winSize.width/2;
         sprite.y = winSize.width/2;

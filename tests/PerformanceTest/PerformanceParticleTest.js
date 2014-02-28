@@ -182,17 +182,17 @@ var ParticleMainScene = cc.Scene.extend({
             case 1:
                 if ("opengl" in sys.capabilities)
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
-                particleSystem.setTexture(cc.TextureCache.getInstance().addImage("res/Images/fire.png"));
+                particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
                 break;
             case 2:
                 if ("opengl" in sys.capabilities)
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
-                particleSystem.setTexture(cc.TextureCache.getInstance().addImage("res/Images/fire.png"));
+                particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
                 break;
             case 3:
                 if ("opengl" in sys.capabilities)
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_A8);
-                particleSystem.setTexture(cc.TextureCache.getInstance().addImage("res/Images/fire.png"));
+                particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
                 break;
             default:
                 particleSystem = null;

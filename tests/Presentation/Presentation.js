@@ -465,19 +465,19 @@ var ParticlesPage = function() {
 	// var tex = cc.TextureCache.getInstance().addImage(s_fire);
 
 	var firework = cc.ParticleFireworks.create();
-	// firework.setTexture(tex);
+	// firework.texture = tex;
 	this.addChild( firework );
 	firework.x = centerPos.x;
 	firework.y = centerPos.y;
 
 	var sun = cc.ParticleSun.create();
-	// sun.setTexture(tex);
+	// sun.texture = tex;
 	this.addChild( sun );
 	sun.x = winSize.width/4;
 	sun.y = winSize.height/2;
 
 	var meteor = cc.ParticleMeteor.create();
-	// meteor.setTexture(tex);
+	// meteor.texture = tex;
 	this.addChild( meteor );
 	meteor.x = winSize.width*3/4;
 	meteor.y = winSize.height/2;
