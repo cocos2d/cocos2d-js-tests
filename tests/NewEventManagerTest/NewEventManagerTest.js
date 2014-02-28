@@ -133,8 +133,9 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
                 selfPointer.onNextCallback();
             });
 
-            nextItem.setFontSize(16);
-            nextItem.setPosition(cc.VisibleRect.right().x -100, cc.VisibleRect.right().y - 30);
+            nextItem.fontSize = 16;
+            nextItem.x = cc.VisibleRect.right().x -100;
+	        nextItem.y = cc.VisibleRect.right().y - 30;
 
             var menu2 = cc.Menu.create(nextItem);
             menu2.setPosition(0, 0);
@@ -142,8 +143,9 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
             selfPointer.addChild(menu2);
         });
 
-        removeAllTouchItem.setFontSize(16);
-        removeAllTouchItem.setPosition(cc.VisibleRect.right().x -100, cc.VisibleRect.right().y);
+        removeAllTouchItem.fontSize = 16;
+        removeAllTouchItem.x = cc.VisibleRect.right().x -100;
+	    removeAllTouchItem.y = cc.VisibleRect.right().y;
 
         var menu = cc.Menu.create(removeAllTouchItem);
         menu.setPosition(0, 0);
@@ -373,6 +375,9 @@ var CustomEventTest =  EventDispatcherTestDemo.extend({
         });
 
         cc.eventManager.addListener(this._listener1, 1);
+
+
+
         var sendItem = cc.MenuItemFont.create("Send Custom Event 1", function(sender){
             ++selfPointer._item1Count;
             var event = new cc.EventCustom("game_custom_event1");

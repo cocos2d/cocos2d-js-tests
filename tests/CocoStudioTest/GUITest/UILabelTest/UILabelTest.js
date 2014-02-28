@@ -32,11 +32,12 @@ var UILabelTest = UIScene.extend({
 
             // Create the label
             var label = ccs.Label.create();
-            label.setText("Label");
-            label.setFontName("AmericanTypewriter");
-            label.setFontSize(30);
-            label.x = this._widget.width / 2;
-	        label.y = this._widget.height / 2 + label.height / 4;
+            label.attr({
+	            string: "Label",
+	            font: "30px AmericanTypewriter",
+	            x: this._widget.width / 2,
+	            y: this._widget.height / 2 + label.height / 4
+            });
             this._uiLayer.addWidget(label);
 
             return true;
@@ -50,17 +51,19 @@ var UILabelTest_LineWrap = UIScene.extend({
         if (this._super()) {
             var widgetSize = this._widget.getSize();
             //init text
-            this._topDisplayLabel.setText("");
-            this._bottomDisplayLabel.setText("Label line wrap");
+            this._topDisplayLabel.string = "";
+            this._bottomDisplayLabel.string = "Label line wrap";
 
             // Create the text area
             var textArea = ccs.Label.create();
-            textArea.setTextAreaSize(cc.size(280, 150));
-            textArea.setTextHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
-            textArea.setText("Label can line wrap");
-            textArea.setFontName("AmericanTypewriter");
-            textArea.setFontSize(32);
-            textArea.x = this._widget.width / 2;
+            textArea.boundingWidth = 280;
+	        textArea.boundingHeight = 150;
+            textArea.attr({
+	            textAlign: cc.TEXT_ALIGNMENT_CENTER,
+	            string: "Label can line wrap",
+	            font: "32px AmericanTypewriter",
+	            x: this._widget.width / 2
+            });
 	        textArea.y = this._widget.height / 2 - textArea.height / 8;
             this._uiLayer.addWidget(textArea);
 
@@ -80,13 +83,15 @@ var UILabelTest_TTF = UIScene.extend({
 
             // Create the text area
             var textArea = ccs.Label.create();
-            textArea.setTextAreaSize(cc.size(280, 150));
-            textArea.setTextHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
-            textArea.setText("Label TTF");
-            textArea.setFontName("AmericanTypewriter");
-            textArea.setFontSize(32);
-            textArea.x = this._widget.width / 2;
-	        textArea.y = this._widget.height / 2 - textArea.height / 8;
+            textArea.boundingWidth = 280;
+	        textArea.boundingHeight = 150;
+            textArea.attr({
+	            textAlign: cc.TEXT_ALIGNMENT_CENTER,
+	            string: "Label TTF",
+	            font: "32px mericanTypewriter",
+	            x: this._widget.width / 2,
+	            y: this._widget.height / 2 - textArea.height / 8
+            });
             this._uiLayer.addWidget(textArea);
 
             return true;

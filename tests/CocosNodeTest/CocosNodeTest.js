@@ -335,7 +335,7 @@ var StressTest1 = TestNodeDemo.extend({
 
         // if the node has timers, it crashes
         var explosion = cc.ParticleSun.create();
-        explosion.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
+        explosion.texture = cc.TextureCache.getInstance().addImage(s_fire);
 
         explosion.x = winSize.width / 2;
         explosion.y = winSize.height / 2;
@@ -390,7 +390,7 @@ var StressTest2 = TestNodeDemo.extend({
         sublayer.addChild(sp1, 1);
 
         var fire = cc.ParticleFire.create();
-        fire.setTexture(cc.TextureCache.getInstance().addImage(s_fire));
+        fire.texture = cc.TextureCache.getInstance().addImage(s_fire);
         fire.x = 80;
         fire.y = winSize.height / 2 - 50;
 
@@ -725,7 +725,7 @@ var ConvertToNode = TestNodeDemo.extend({
             cc.eventManager.addListener({
                 event: cc.EventListener.Mouse,
                 onMouseUp: function(event){
-                    event.getCurrentTarget().processEvent(event.getCursor());
+                    event.getCurrentTarget().processEvent(event.getLocation());
                 }
             }, this);
 

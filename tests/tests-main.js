@@ -97,9 +97,9 @@ var TestController = cc.LayerGradient.extend({
 	    closeItem.y = winSize.height - 30;
 
         var subItem1 = cc.MenuItemFont.create("Automated Test: Off");
-        subItem1.setFontSize(18);
+        subItem1.fontSize = 18;
         var subItem2 = cc.MenuItemFont.create("Automated Test: On");
-        subItem2.setFontSize(18);
+        subItem2.fontSize = 18;
 
         var toggleAutoTestItem = cc.MenuItemToggle.create(subItem1, subItem2);
         toggleAutoTestItem.setCallback(this.onToggleAutoTest, this);

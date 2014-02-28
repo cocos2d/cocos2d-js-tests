@@ -53,7 +53,7 @@ var MainLayer = cc.Layer.extend({
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseUp: function (event) {
-                    event.getCurrentTarget().moveSprite(event.getCursor());
+                    event.getCurrentTarget().moveSprite(event.getLocation());
                 }
             }, this);
 

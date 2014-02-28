@@ -293,7 +293,7 @@ var SpritesWithManyPropertiesTestScene1 = VirtualMachineTestMainScene.extend({
                  i < (this._quantityOfNodes - this._currentQuantityOfNodes);
                  i++) {
                 var sprite = 
-                    new SpriteWithManyProperties(this._batchNode.getTexture(),
+                    new SpriteWithManyProperties(this._batchNode.texture,
                                                  cc.rect(0, 0, 52, 139));
                 this._batchNode.addChild(sprite);
                 sprite.x = Math.random() * s.width;
@@ -405,7 +405,7 @@ var SpritesUndergoneDifferentOperationsTestScene1 = VirtualMachineTestMainScene.
                  i < (this._quantityOfNodes - this._currentQuantityOfNodes);
                  i++) {
                 var sprite = 
-                    new SimpleNewtonianSprite(this._batchNode.getTexture(),
+                    new SimpleNewtonianSprite(this._batchNode.texture,
                                               cc.rect(0, 0, 52, 139));
                 var series = this.possibleOperationSeries[i];
                 for (var op = 0, opmax = series.length; op < opmax; ++op)
@@ -471,7 +471,7 @@ var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
     updateQuantityOfNodes:function () {
         if (!this.template)
             this.template = 
-            new SimpleNewtonianSprite(this._batchNode.getTexture(),
+            new SimpleNewtonianSprite(this._batchNode.texture,
                                       cc.rect(0, 0, 52, 139));
         var s = cc.Director.getInstance().getWinSize();
 
@@ -529,7 +529,7 @@ var ClonedSpritesTestScene2 = ClonedSpritesTestScene1.extend({
     updateQuantityOfNodes:function () {
         if (!this.template) {
             this.template = 
-                new SimpleNewtonianSprite(this._batchNode.getTexture(),
+                new SimpleNewtonianSprite(this._batchNode.texture,
                                           cc.rect(0, 0, 52, 139));
             this.template.visible = false;
         }

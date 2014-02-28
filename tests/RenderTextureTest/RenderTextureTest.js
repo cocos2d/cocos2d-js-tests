@@ -94,10 +94,10 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseDown: function(event){
-                    event.getCurrentTarget()._lastLocation = event.getCursor();
+                    event.getCurrentTarget()._lastLocation = event.getLocation();
                 },
                 onMouseMove: function(event){
-                    event.getCurrentTarget().drawInLocation(event.getCursor());
+                    event.getCurrentTarget().drawInLocation(event.getLocation());
                 }
             }, this);
 
@@ -404,7 +404,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         this.visit();
         texture.end();
 
-        var sprite = cc.Sprite.create(texture.getSprite().getTexture());
+        var sprite = cc.Sprite.create(texture.getSprite().texture);
 
         sprite.x = winSize.width/2;
         sprite.y = winSize.width/2;

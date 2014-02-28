@@ -191,7 +191,7 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         if (!target._trackNode)
             return;
 
-        var point = event.getCursor();
+        var point = event.getLocation();
 
         // decide the trackNode is clicked.
         cc.log("KeyboardNotificationLayer:clickedAt(" + point.x + "," + point.y + ")");
@@ -200,7 +200,7 @@ var KeyboardNotificationLayer = TextInputTest.extend({
         cc.log("KeyboardNotificationLayer:TrackNode at(origin:" + rect.x + "," + rect.y
             + ", size:" + rect.width + "," + rect.height + ")");
 
-        this.onClickTrackNode(cc.rectContainsPoint(rect, point));
+	    target.onClickTrackNode(cc.rectContainsPoint(rect, point));
         cc.log("----------------------------------");
     }
 });

@@ -51,7 +51,7 @@ var ChipmunkBaseLayer = function() {
 
 	// Menu to toggle debug physics on / off
     var item = cc.MenuItemFont.create("Physics On/Off", this.onToggleDebug, this);
-    item.setFontSize(24);
+    item.fontSize = 24;
     var menu = cc.Menu.create( item );
     this.addChild( menu );
     menu.x = winSize.width-100;
@@ -210,7 +210,7 @@ ChipmunkSprite.prototype.onEnter = function () {
         cc.eventManager.addListener({
             event: cc.EventListener.MOUSE,
             onMouseDown: function(event){
-                event.getCurrentTarget().addSprite(event.getCursor());
+                event.getCurrentTarget().addSprite(event.getLocation());
             }
         }, this);
 };

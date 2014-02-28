@@ -187,7 +187,7 @@ var IterateSpriteSheet = NodeChildrenMainScene.extend({
         // increase nodes
         if (this._currentQuantityOfNodes < this._quantityOfNodes) {
             for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
-                var sprite = cc.Sprite.create(this._batchNode.getTexture(), cc.rect(0, 0, 32, 32));
+                var sprite = cc.Sprite.create(this._batchNode.texture, cc.rect(0, 0, 32, 32));
                 this._batchNode.addChild(sprite);
                 sprite.x = Math.random() * s.width;
                 sprite.y = Math.random() * s.height;
@@ -310,7 +310,7 @@ var AddRemoveSpriteSheet = NodeChildrenMainScene.extend({
         // increase nodes
         if (this._currentQuantityOfNodes < this._quantityOfNodes) {
             for (var i = 0; i < (this._quantityOfNodes - this._currentQuantityOfNodes); i++) {
-                var sprite = cc.Sprite.create(this._batchNode.getTexture(), cc.rect(0, 0, 32, 32));
+                var sprite = cc.Sprite.create(this._batchNode.texture, cc.rect(0, 0, 32, 32));
                 this._batchNode.addChild(sprite);
                 sprite.x = Math.random() * s.width;
                 sprite.y = Math.random() * s.height;
@@ -365,7 +365,7 @@ var AddSpriteSheet = AddRemoveSpriteSheet.extend({
 
                 // Don't include the sprite creation time and random as part of the profiling
                 for (var i = 0; i < totalToAdd; i++) {
-                    var sprite = cc.Sprite.create(this._batchNode.getTexture(), cc.rect(0, 0, 32, 32));
+                    var sprite = cc.Sprite.create(this._batchNode.texture, cc.rect(0, 0, 32, 32));
                     sprites.push(sprite);
                     zs[i] = (Math.random()*2-1) * 50;
                 }
@@ -420,7 +420,7 @@ var RemoveSpriteSheet = AddRemoveSpriteSheet.extend({
 
             // Don't include the sprite creation time as part of the profiling
             for (var i = 0; i < totalToAdd; i++) {
-                var sprite = cc.Sprite.create(this._batchNode.getTexture(), cc.rect(0, 0, 32, 32));
+                var sprite = cc.Sprite.create(this._batchNode.texture, cc.rect(0, 0, 32, 32));
                 sprites.push(sprite);
             }
 
@@ -472,7 +472,7 @@ var ReorderSpriteSheet = AddRemoveSpriteSheet.extend({
 
             // Don't include the sprite creation time as part of the profiling
             for (var i = 0; i < totalToAdd; i++) {
-                var sprite = cc.Sprite.create(this._batchNode.getTexture(), cc.rect(0, 0, 32, 32));
+                var sprite = cc.Sprite.create(this._batchNode.texture, cc.rect(0, 0, 32, 32));
                 sprites.push(sprite);
             }
 
