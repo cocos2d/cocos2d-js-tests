@@ -62,9 +62,9 @@ var UILabelTest_LineWrap = UIScene.extend({
 	            textAlign: cc.TEXT_ALIGNMENT_CENTER,
 	            string: "Label can line wrap",
 	            font: "32px AmericanTypewriter",
-	            x: this._widget.width / 2,
-	            y: this._widget.height / 2 - textArea.height / 8
+	            x: this._widget.width / 2
             });
+	        textArea.y = this._widget.height / 2 - textArea.height / 8;
             this._uiLayer.addWidget(textArea);
 
             return true;
