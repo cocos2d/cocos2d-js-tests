@@ -211,14 +211,6 @@ var TestController = cc.LayerGradient.extend({
 TestController.YOffset = 0;
 var testNames = [
     {
-        title:"New EventDispatcher Test",
-        resource:g_eventDispatcher,
-        platforms: PLATFORM_ALL,
-        testScene:function () {
-            return new EventDispatcherTestScene();
-        }
-    },
-    {
         title:"ActionManager Test",
         platforms: PLATFORM_ALL,
         testScene:function () {
@@ -298,6 +290,14 @@ var testNames = [
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new EaseActionsTestScene();
+        }
+    },
+    {
+        title:"Event Manager Test",
+        resource:g_eventDispatcher,
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new EventDispatcherTestScene();
         }
     },
     {
@@ -382,14 +382,6 @@ var testNames = [
         platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new MotionStreakTestScene();
-        }
-    },
-    {
-        title:"New EventDispatcher Test",
-        resource:g_eventDispatcher,
-        platforms: PLATFORM_ALL,
-        testScene:function () {
-            return new EventDispatcherTestScene();
         }
     },
     {
