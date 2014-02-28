@@ -51,12 +51,13 @@ var UILabelTest_LineWrap = UIScene.extend({
         if (this._super()) {
             var widgetSize = this._widget.getSize();
             //init text
-            this._topDisplayLabel.setText("");
-            this._bottomDisplayLabel.setText("Label line wrap");
+            this._topDisplayLabel.string = "";
+            this._bottomDisplayLabel.string = "Label line wrap";
 
             // Create the text area
             var textArea = ccs.Label.create();
-            textArea.setTextAreaSize(cc.size(280, 150));
+            textArea.boundingWidth = 280;
+	        textArea.boundingHeight = 150;
             textArea.attr({
 	            textAlign: cc.TEXT_ALIGNMENT_CENTER,
 	            string: "Label can line wrap",
@@ -82,7 +83,8 @@ var UILabelTest_TTF = UIScene.extend({
 
             // Create the text area
             var textArea = ccs.Label.create();
-            textArea.setTextAreaSize(cc.size(280, 150));
+            textArea.boundingWidth = 280;
+	        textArea.boundingHeight = 150;
             textArea.attr({
 	            textAlign: cc.TEXT_ALIGNMENT_CENTER,
 	            string: "Label TTF",

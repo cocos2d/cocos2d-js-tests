@@ -1041,13 +1041,15 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
         var fontDefRedShadow = new cc.FontDefinition();
         fontDefRedShadow.fontName = "Arial";
         fontDefRedShadow.fontSize = 32;
-        fontDefRedShadow.fontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
-        fontDefRedShadow.fontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
-        fontDefRedShadow.fontFillColor = redColor;
-        fontDefRedShadow.fontDimensions = blockSize;
+        fontDefRedShadow.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        fontDefRedShadow.verticalAlign = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
+        fontDefRedShadow.fillStyle = redColor;
+        fontDefRedShadow.boundingWidth = blockSize.width;
+	    fontDefRedShadow.boundingHeight = blockSize.height;
         // shadow
         fontDefRedShadow.shadowEnabled = true;
-        fontDefRedShadow.shadowOffset = shadowOffset;
+        fontDefRedShadow.shadowOffsetX = shadowOffset.x;
+	    fontDefRedShadow.shadowOffsetY = shadowOffset.y;
 
         // create the label using the definition
         this._labelShadow = cc.LabelTTF.create("Shadow Only", fontDefRedShadow);
@@ -1060,13 +1062,14 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
         var fontDefBlueStroke = new cc.FontDefinition();
         fontDefBlueStroke.fontName = "Arial";
         fontDefBlueStroke.fontSize = 32;
-        fontDefBlueStroke.fontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
-        fontDefBlueStroke.fontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
-        fontDefBlueStroke.fontFillColor = blueColor;
-        fontDefBlueStroke.fontDimensions = blockSize;
+        fontDefBlueStroke.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        fontDefBlueStroke.verticalAlign = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
+        fontDefBlueStroke.fillStyle = blueColor;
+        fontDefBlueStroke.boundingWidth = blockSize.width;
+	    fontDefBlueStroke.boundingHeight = blockSize.height;
         // stroke
         fontDefBlueStroke.strokeEnabled = true;
-        fontDefBlueStroke.strokeColor = yellowColor;
+        fontDefBlueStroke.strokeStyle = yellowColor;
 
         this._labelStroke = cc.LabelTTF.create("Stroke Only", fontDefBlueStroke);
         this._labelStroke.anchorX = 0;
@@ -1078,16 +1081,18 @@ var LabelTTFStrokeShadowTest = AtlasDemo.extend({
         var fontDefRedStrokeShadow = new cc.FontDefinition();
         fontDefRedStrokeShadow.fontName = "Arial";
         fontDefRedStrokeShadow.fontSize = 32;
-        fontDefRedStrokeShadow.fontAlignmentH = cc.TEXT_ALIGNMENT_CENTER;
-        fontDefRedStrokeShadow.fontAlignmentV = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
-        fontDefRedStrokeShadow.fontFillColor = blueColor;
-        fontDefRedStrokeShadow.fontDimensions = blockSize;
+        fontDefRedStrokeShadow.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        fontDefRedStrokeShadow.verticalAlign = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
+        fontDefRedStrokeShadow.fillStyle = blueColor;
+        fontDefRedStrokeShadow.boundingWidth = blockSize.width;
+	    fontDefRedStrokeShadow.boundingHeight = blockSize.height;
         // stroke
         fontDefRedStrokeShadow.strokeEnabled = true;
-        fontDefRedStrokeShadow.strokeColor = redColor;
+        fontDefRedStrokeShadow.strokeStyle = redColor;
         // shadow
         fontDefRedStrokeShadow.shadowEnabled = true;
-        fontDefRedStrokeShadow.shadowOffset = cc.p(-12,12);   //shadowOffset;
+        fontDefRedStrokeShadow.shadowOffsetX = -12;
+	    fontDefRedStrokeShadow.shadowOffsetY = 12;   //shadowOffset;
 
         this._labelStrokeShadow = cc.LabelTTF.create("Stroke + Shadow\n New Line", fontDefRedStrokeShadow);
         this._labelStrokeShadow.anchorX = 0;
