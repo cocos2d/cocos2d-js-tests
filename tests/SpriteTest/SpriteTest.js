@@ -672,20 +672,20 @@ var SpriteBatchNodeReorder = SpriteTestDemo.extend({
                 break;
 
             //TODO need fixed
-            currentIndex = child.getAtlasIndex();
+            currentIndex = child.atlasIndex;
             //cc.Assert(prev == currentIndex - 1, "Child order failed");
             ////----UXLog("children %x - atlasIndex:%d", child, currentIndex);
             prev = currentIndex;
         }
 
         prev = -1;
-        var sChildren = asmtest.getDescendants();
+        var sChildren = asmtest.descendants;
         for (i = 0; i < sChildren.length; i++) {
             child = sChildren[i];
             if (!child)
                 break;
 
-            currentIndex = child.getAtlasIndex();
+            currentIndex = child.atlasIndex;
             //cc.Assert(prev == currentIndex - 1, "Child order failed");
             ////----UXLog("descendant %x - atlasIndex:%d", child, currentIndex);
             prev = currentIndex;
@@ -1403,8 +1403,8 @@ var SpriteFlip = SpriteTestDemo.extend({
         var sprite1 = this.getChildByTag(TAG_SPRITE1);
         var sprite2 = this.getChildByTag(TAG_SPRITE2);
 
-        sprite1.setFlippedX(!sprite1.isFlippedX());
-        sprite2.setFlippedY(!sprite2.isFlippedY());
+        sprite1.flippedX = !sprite1.flippedX;
+        sprite2.flippedY = !sprite2.flippedY;
     },
     //
     // Automation
@@ -1467,8 +1467,8 @@ var SpriteBatchNodeFlip = SpriteTestDemo.extend({
         var sprite1 = batch.getChildByTag(TAG_SPRITE1);
         var sprite2 = batch.getChildByTag(TAG_SPRITE2);
 
-        sprite1.setFlippedX(!sprite1.isFlippedX());
-        sprite2.setFlippedY(!sprite2.isFlippedY());
+        sprite1.flippedX = !sprite1.flippedX;
+        sprite2.flippedY = !sprite2.flippedY;
     },
     //
     // Automation
@@ -1906,8 +1906,8 @@ var SpriteFrameTest = SpriteTestDemo.extend({
         this._sprite1.runAction(cc.RepeatForever.create(cc.Animate.create(animation)));
 
         // to test issue #732, uncomment the following line
-        this._sprite1.setFlippedX(false);
-        this._sprite1.setFlippedY(false);
+        this._sprite1.flippedX = false;
+        this._sprite1.flippedY = false;
 
         //
         // Animation using standard Sprite
@@ -1937,8 +1937,8 @@ var SpriteFrameTest = SpriteTestDemo.extend({
         this._sprite2.runAction(cc.RepeatForever.create(cc.Animate.create(animMixed)));
 
         // to test issue #732, uncomment the following line
-        this._sprite2.setFlippedX(false);
-        this._sprite2.setFlippedY(false);
+        this._sprite2.flippedX = false;
+        this._sprite2.flippedY = false;
 
         this.schedule(this.onStartIn05Secs, 0.5);
         this._counter = 0;
@@ -1979,10 +1979,10 @@ var SpriteFrameTest = SpriteTestDemo.extend({
                 break;
         }
 
-        this._sprite1.setFlippedX(fx);
-        this._sprite1.setFlippedY(fy);
-        this._sprite2.setFlippedX(fx);
-        this._sprite2.setFlippedY(fy);
+        this._sprite1.flippedX = fx;
+        this._sprite1.flippedY = fy;
+        this._sprite2.flippedX = fx;
+        this._sprite2.flippedY = fy;
     },
     //
     // Automation
@@ -4516,7 +4516,7 @@ var SpriteBatchNodeReorderSameIndex = SpriteTestDemo.extend({
 
         this._batchNode.sortAllChildren();
 
-        var descendants = this._batchNode.getDescendants();
+        var descendants = this._batchNode.descendants;
 
         for (var i = 0; i < descendants.length; i++) {
             var child = descendants[i];
