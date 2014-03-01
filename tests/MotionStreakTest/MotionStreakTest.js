@@ -104,8 +104,8 @@ var MotionStreakTest = cc.Layer.extend({
     },
 
     modeCallback:function (sender) {
-        var fastMode = this._streak.isFastMode();
-        this._streak.setFastMode(!fastMode);
+        var fastMode = this._streak.fastMode;
+        this._streak.fastMode = !fastMode;
     }
 });
 

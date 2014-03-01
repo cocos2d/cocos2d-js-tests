@@ -522,8 +522,8 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
         /* add the sprites to the render texture */
         renderTexture.addChild(this._sprite1);
         renderTexture.addChild(this._sprite2);
-        renderTexture.setClearColor(cc.color(0, 0, 0, 0));
-        renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
+        renderTexture.clearColorVal = cc.color(0, 0, 0, 0);
+        renderTexture.clearFlags = cc.renderContext.COLOR_BUFFER_BIT;
 
         /* add the render texture to the scene */
         this.addChild(renderTexture);
@@ -562,11 +562,11 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
     },
 
     touched:function (sender) {
-        if (this._renderTexture.getClearFlags() == 0)
-            this._renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
+        if (this._renderTexture.clearFlags == 0)
+            this._renderTexture.clearFlags = cc.renderContext.COLOR_BUFFER_BIT;
         else {
-            this._renderTexture.setClearFlags(0);
-            this._renderTexture.setClearColor(cc.color(Math.random()*255, Math.random()*255, Math.random()*255, 255));
+            this._renderTexture.clearFlags = 0;
+            this._renderTexture.clearColorVal = cc.color(Math.random()*255, Math.random()*255, Math.random()*255, 255);
         }
     }
 });

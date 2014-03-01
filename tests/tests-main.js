@@ -126,12 +126,12 @@ var TestController = cc.LayerGradient.extend({
             // enable disable
             if ( sys.platform == 'browser') {
                 if( 'opengl' in sys.capabilities ){
-                    menuItem.setEnabled( (testNames[i].platforms & PLATFORM_HTML5) | (testNames[i].platforms & PLATFORM_HTML5_WEBGL) );
+                    menuItem.enabled = (testNames[i].platforms & PLATFORM_HTML5) | (testNames[i].platforms & PLATFORM_HTML5_WEBGL);
                 }else{
-                    menuItem.setEnabled( testNames[i].platforms & PLATFORM_HTML5 );
+                    menuItem.enabled = testNames[i].platforms & PLATFORM_HTML5;
                 }
             } else {
-                menuItem.setEnabled( testNames[i].platforms & PLATFORM_JSB );
+                menuItem.enabled = testNames[i].platforms & PLATFORM_JSB;
             }
         }
 

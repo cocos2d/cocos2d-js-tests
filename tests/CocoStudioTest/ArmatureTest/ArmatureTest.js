@@ -178,9 +178,9 @@ var TestAsynchronousLoading = ArmatureTestLayer.extend({
         var backItem = menu.getChildByTag(BASE_TEST_MENUITEM_PREV_TAG);
         var restartItem = menu.getChildByTag(BASE_TEST_MENUITEM_RESET_TAG);
         var nextItem = menu.getChildByTag(BASE_TEST_MENUITEM_NEXT_TAG);
-        backItem.setEnabled(bool);
-        restartItem.setEnabled(bool);
-        nextItem.setEnabled(bool);
+        backItem.enabled = bool;
+        restartItem.enabled = bool;
+        nextItem.enabled = bool;
     },
     title: function () {
         return "Test Asynchronous Loading";
