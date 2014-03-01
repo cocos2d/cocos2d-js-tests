@@ -124,8 +124,8 @@ var TestController = cc.LayerGradient.extend({
 	        menuItem.y = (winSize.height - (i + 1) * LINE_SPACE);
 
             // enable disable
-            if ( sys.platform == 'browser') {
-                if( 'opengl' in sys.capabilities ){
+            if ( !cc.sys.isNative) {
+                if( 'opengl' in cc.sys.capabilities ){
                     menuItem.setEnabled( (testNames[i].platforms & PLATFORM_HTML5) | (testNames[i].platforms & PLATFORM_HTML5_WEBGL) );
                 }else{
                     menuItem.setEnabled( testNames[i].platforms & PLATFORM_HTML5 );
@@ -144,7 +144,7 @@ var TestController = cc.LayerGradient.extend({
 
         // 'browser' can use touches or mouse.
         // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        if ('touches' in sys.capabilities)
+        if ('touches' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved: function (touches, event) {
@@ -154,7 +154,7 @@ var TestController = cc.LayerGradient.extend({
                     return true;
                 }
             }, this);
-        else if ('mouse' in sys.capabilities) {
+        else if ('mouse' in cc.sys.capabilities) {
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseMove: function (event) {

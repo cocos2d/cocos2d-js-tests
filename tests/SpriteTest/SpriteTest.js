@@ -106,7 +106,7 @@ var Sprite1 = SpriteTestDemo.extend({
 
         this.addNewSpriteWithCoords(cc.p(winSize.width / 2, winSize.height / 2));
 
-        if ('touches' in sys.capabilities) {
+        if ('touches' in cc.sys.capabilities) {
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded: function(touches, event){
@@ -120,7 +120,7 @@ var Sprite1 = SpriteTestDemo.extend({
                     }
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseUp: function(event){
@@ -196,7 +196,7 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
 
     ctor:function () {
         this._super();
-        if ('touches' in sys.capabilities) {
+        if ('touches' in cc.sys.capabilities) {
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded: function (touches, event) {
@@ -210,7 +210,7 @@ var SpriteBatchNode1 = SpriteTestDemo.extend({
                     }
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseUp: function(event){
@@ -940,7 +940,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
         this._super(cc.color(255, 0, 0, 80), cc.color(255, 98, 117, 20));
 
 
-        if ("opengl" in sys.capabilities) {
+        if ("opengl" in cc.sys.capabilities) {
 
             gl.enable(gl.DEPTH_TEST);
             //
@@ -1008,7 +1008,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
     },
     onEnter:function () {
         this._super();
-        if ("opengl" in sys.capabilities) {
+        if ("opengl" in cc.sys.capabilities) {
             director.setProjection(cc.DIRECTOR_PROJECTION_3D);
             gl.enable(gl.DEPTH_TEST);
 
@@ -1022,7 +1022,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
         }
     },
     onExit:function () {
-        if ("opengl" in sys.capabilities) {
+        if ("opengl" in cc.sys.capabilities) {
             director.setProjection(cc.DIRECTOR_PROJECTION_2D);
             gl.disable(gl.DEPTH_TEST);
         }
@@ -1061,7 +1061,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
     ctor:function () {
         this._super(cc.color(255, 0, 0, 80), cc.color(255, 98, 117, 20));
 
-        if ("opengl" in sys.capabilities) {
+        if ("opengl" in cc.sys.capabilities) {
 
             //
             // This test tests z-order
@@ -1129,7 +1129,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
     onEnter:function () {
         this._super();
 
-        if ("opengl" in sys.capabilities) {
+        if ("opengl" in cc.sys.capabilities) {
             director.setProjection(cc.DIRECTOR_PROJECTION_3D);
             gl.enable(gl.DEPTH_TEST);
 
@@ -1144,7 +1144,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
         }
     },
     onExit:function () {
-        if ("opengl" in sys.capabilities) {
+        if ("opengl" in cc.sys.capabilities) {
             director.setProjection(cc.DIRECTOR_PROJECTION_2D);
             gl.disable(gl.DEPTH_TEST);
         }
@@ -1542,7 +1542,7 @@ var SpriteAliased = SpriteTestDemo.extend({
         // This change will affect every sprite that uses the same texture
         // So sprite1 and sprite2 will be affected by this change
         //
-        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+        if (!cc.sys.isNative && !("opengl" in cc.sys.capabilities)) {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild(label);
             label.x = winSize.width / 2;
@@ -1554,7 +1554,7 @@ var SpriteAliased = SpriteTestDemo.extend({
 
     },
     onExit:function () {
-        if (sys.platform !== 'browser' || ("opengl" in sys.capabilities)) {
+        if (cc.sys.isNative || ("opengl" in cc.sys.capabilities)) {
             var sprite = this.getChildByTag(TAG_SPRITE1);
             sprite.texture.setAntiAliasTexParameters();
         }
@@ -1606,7 +1606,7 @@ var SpriteBatchNodeAliased = SpriteTestDemo.extend({
         // This change will affect every sprite that uses the same texture
         // So sprite1 and sprite2 will be affected by this change
         //
-        if (sys.platform == 'browser' && !("opengl" in sys.capabilities)) {
+        if (!cc.sys.isNative && !("opengl" in cc.sys.capabilities)) {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild(label);
             label.x = winSize.width / 2;
@@ -1618,7 +1618,7 @@ var SpriteBatchNodeAliased = SpriteTestDemo.extend({
 
     },
     onExit:function () {
-        if (sys.platform !== 'browser' || ("opengl" in sys.capabilities)) {
+        if (cc.sys.isNative || ("opengl" in cc.sys.capabilities)) {
             var sprite = this.getChildByTag(TAG_SPRITE_BATCH_NODE);
             sprite.texture.setAntiAliasTexParameters();
         }
@@ -1640,14 +1640,14 @@ var SpriteNewTexture = SpriteTestDemo.extend({
     ctor:function () {
         this._super();
 
-        if ('touches' in sys.capabilities){
+        if ('touches' in cc.sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded:function (touches, event) {
                     event.getCurrentTarget().onChangeTexture();
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseUp: function(event){
@@ -1765,14 +1765,14 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
 
     ctor:function () {
         this._super();
-        if ('touches' in sys.capabilities){
+        if ('touches' in cc.sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded:function (touches, event) {
                     event.getCurrentTarget().onChangeTexture();
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
            cc.eventManager.addListener({
                event: cc.EventListener.MOUSE,
                onMouseUp: function(event){
@@ -4057,7 +4057,7 @@ var SpriteBatchNodeChildrenChildren = SpriteTestDemo.extend({
         // SpriteBatchNode: 3 levels of children
         //
         var aParent = cc.SpriteBatchNode.create(s_ghosts);
-        if ("opengl" in sys.capabilities)
+        if ("opengl" in cc.sys.capabilities)
             aParent.texture.generateMipmap();
         this.addChild(aParent);
 
@@ -4553,7 +4553,7 @@ var SpriteBatchNodeReorderOneChild = SpriteTestDemo.extend({
 
         this._batchNode = aParent;
         //[[aParent texture] generateMipmap];
-        if ("opengl" in sys.capabilities)
+        if ("opengl" in cc.sys.capabilities)
             aParent.texture.generateMipmap();
         this.addChild(aParent);
 

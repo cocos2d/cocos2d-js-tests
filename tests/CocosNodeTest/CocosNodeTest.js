@@ -537,7 +537,7 @@ var CameraZoomTest = TestNodeDemo.extend({
         this.addChild(sprite, 0);
         sprite.x = winSize.width / 4;
         sprite.y = winSize.height / 2;
-        if ("opengl" in sys.capabilities) {
+        if ("opengl" in cc.sys.capabilities) {
             var cam = sprite.getCamera();
             cam.setEye(0, 0, 415 / 2);
             cam.setCenter(0, 0, 0);
@@ -567,7 +567,7 @@ var CameraZoomTest = TestNodeDemo.extend({
         this.autoParam = sprite;
     },
     update:function (dt) {
-        if (!("opengl" in sys.capabilities))
+        if (!("opengl" in cc.sys.capabilities))
             return;
 
         this._z += dt * 100;
@@ -709,7 +709,7 @@ var CameraCenterTest = TestNodeDemo.extend({
 var ConvertToNode = TestNodeDemo.extend({
     ctor:function () {
         this._super();
-        if ('touches' in sys.capabilities){
+        if ('touches' in cc.sys.capabilities){
             cc.eventManager.addListener(cc.EventListener.create({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded:function (touches, event) {
@@ -721,7 +721,7 @@ var ConvertToNode = TestNodeDemo.extend({
                     }
                 }
             }), this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.Mouse,
                 onMouseUp: function(event){
@@ -964,7 +964,7 @@ var arrayOfNodeTest = [
     ConvertToNode
 ];
 
-if ('opengl' in sys.capabilities) {
+if ('opengl' in cc.sys.capabilities) {
     arrayOfNodeTest.push(CameraCenterTest);
     arrayOfNodeTest.push(CameraOrbitTest);
     arrayOfNodeTest.push(CameraZoomTest);

@@ -699,7 +699,7 @@ var arrayOfClippingNodeTest = [
     SpriteTest
 ];
 
-if (sys.platform === 'browser' && ("opengl" in sys.capabilities)) {
+if (!cc.sys.isNative && ("opengl" in cc.sys.capabilities)) {
     arrayOfClippingNodeTest.push(
     RawStencilBufferTest,
     RawStencilBufferTest2,
@@ -708,7 +708,7 @@ if (sys.platform === 'browser' && ("opengl" in sys.capabilities)) {
     RawStencilBufferTest5,
     RawStencilBufferTest6);
 }
-if ( sys.platform !== 'browser'){
+if ( cc.sys.isNative){
     //These tests don't support to HTML5
     arrayOfClippingNodeTest.push(
         ShapeInvertedTest,

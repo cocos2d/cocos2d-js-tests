@@ -107,7 +107,7 @@ var GameLayer = cc.Layer.extend({
             Explosion.sharedExplosion();
 
             // accept touch now!
-           if (sys.capabilities.hasOwnProperty('keyboard'))
+           if (cc.sys.capabilities.hasOwnProperty('keyboard'))
                 cc.eventManager.addListener({
                     event: cc.EventListener.KEYBOARD,
                     onKeyPressed:function (key, event) {
@@ -118,7 +118,7 @@ var GameLayer = cc.Layer.extend({
                     }
                 }, this);
 
-            if ('mouse' in sys.capabilities)
+            if ('mouse' in cc.sys.capabilities)
                 cc.eventManager.addListener({
                     event: cc.EventListener.MOUSE,
                     onMouseMove: function(event){
@@ -126,7 +126,7 @@ var GameLayer = cc.Layer.extend({
                     }
                 }, this);
 
-            if (sys.capabilities.hasOwnProperty('touches')){
+            if (cc.sys.capabilities.hasOwnProperty('touches')){
                 cc.eventManager.addListener({
                     event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                     onTouchesMoved:function (touches, event) {

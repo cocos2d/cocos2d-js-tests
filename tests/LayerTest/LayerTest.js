@@ -92,14 +92,14 @@ var LayerTest1 = LayerTest.extend({
         this._super();
 
 
-        if( 'touches' in sys.capabilities )
+        if( 'touches' in cc.sys.capabilities )
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved:function (touches, event) {
                     event.getCurrentTarget().updateSize(touches[0].getLocation());
                 }
             }, this);
-        else if ('mouse' in sys.capabilities )
+        else if ('mouse' in cc.sys.capabilities )
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseMove: function(event){
@@ -391,7 +391,7 @@ var LayerTestBlend = LayerTest.extend({
         sister2.x = winSize.width/3 * 2;
         sister2.y = winSize.height / 2;
 
-        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+        if (!cc.sys.isNative && !("opengl" in cc.sys.capabilities)) {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild(label);
             label.x = winSize.width / 2;
@@ -434,7 +434,7 @@ var LayerGradient = LayerTest.extend({
         var layer1 = cc.LayerGradient.create(cc.color(255, 0, 0, 255), cc.color(0, 255, 0, 255), cc.p(0.9, 0.9));
         this.addChild(layer1, 0, cc.TAG_LAYER);
 
-        if( 'touches' in sys.capabilities ){
+        if( 'touches' in cc.sys.capabilities ){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesBegan:function(touches, event){
@@ -444,7 +444,7 @@ var LayerGradient = LayerTest.extend({
                     event.getCurrentTarget().updateGradient(touches[0].getLocation());
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities ){
+        } else if ('mouse' in cc.sys.capabilities ){
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseDown: function(event){
@@ -524,7 +524,7 @@ var arrayOfLayerTest = [
     IgnoreAnchorpointTest4
 ];
 
-if( 'opengl' in sys.capabilities ){
+if( 'opengl' in cc.sys.capabilities ){
     arrayOfLayerTest.push(LayerGradient);
 }
 

@@ -659,7 +659,7 @@ function updatePowerPlay()
 		gPowerPlayParticles.setAutoRemoveOnFinish(true);
 		gParticleLayer.addChild(gPowerPlayParticles);
 
-		if( 'opengl' in sys.capabilities ) {
+		if( 'opengl' in cc.sys.capabilities ) {
 
 			var contentSize = gGameLayer.getContentSize();
 			gPowerPlayLayer = cc.LayerColor.create(cc.color(85, 0, 70, 0), contentSize.width, contentSize.height);
@@ -679,7 +679,7 @@ function updatePowerPlay()
 		{
 			gPowerPlayParticles.stopSystem();
 
-			if( 'opengl' in sys.capabilities ) {
+			if( 'opengl' in cc.sys.capabilities ) {
 				gPowerPlayLayer.stopAllActions();
 				gPowerPlayLayer.runAction(cc.Sequence.create(cc.FadeOut.create(0.5), cc.CallFunc.create(onRemoveFromParent, this)));
 			}
@@ -709,7 +709,7 @@ GameScene.prototype.onDidLoadFromCCB = function()
 	gIsGameOver = false;
 	gIsDisplayingHint = false;
 
-	if( sys.platform == 'browser')
+	if(!cc.sys.isNative)
 		this.rootNode.setMouseEnabled( true );
 
 	// Forward relevant touch events to controller (this)
@@ -749,7 +749,7 @@ GameScene.prototype.onDidLoadFromCCB = function()
 
     // TODO: Make into batch node
 
-    if ("opengl" in sys.capabilities && "browser" != sys.platform)
+    if ("opengl" in cc.sys.capabilities && cc.sys.isNative)
     {
         cc.log("OpenGL rendering");
         gParticleLayer = cc.ParticleBatchNode.create("particles/taken-gem.png", 250);
