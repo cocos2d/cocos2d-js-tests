@@ -1370,14 +1370,14 @@ var BMFontMultiLineAlignmentTest = AtlasDemo.extend({
             onTouchesMoved: this.onTouchesMoved.bind(this),
             onTouchesEnded: this.onTouchesEnded.bind(this)
         }, this);
-        if ('touches' in sys.capabilities){
+        if ('touches' in cc.sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesBegan: this.onTouchesBegan.bind(this),
                 onTouchesMoved: this.onTouchesMoved.bind(this),
                 onTouchesEnded: this.onTouchesEnded.bind(this)
             }, this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseDown: this.onMouseDown.bind(this),

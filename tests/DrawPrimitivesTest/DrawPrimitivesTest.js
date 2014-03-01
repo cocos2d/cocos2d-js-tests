@@ -209,8 +209,8 @@ var arrayOfDrawTest = [
     DrawNewAPITest
 ];
 
-if( sys.platform === 'browser' ) {
-    if(!('opengl' in sys.capabilities)){
+if( !cc.sys.isNative ) {
+    if(!('opengl' in cc.sys.capabilities)){
         arrayOfDrawTest.push( DrawNewAPITest2 );
     }
 }

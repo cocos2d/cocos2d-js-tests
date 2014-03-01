@@ -39,7 +39,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
 
     ctor:function(colorA, colorB ) {
 
-        sys.garbageCollect();
+        cc.sys.garbageCollect();
 
         this._super();
 
@@ -260,7 +260,7 @@ var BaseTestLayer = cc.LayerGradient.extend({
     },
 
     readPixels:function(x,y,w,h) {
-        if( 'opengl' in sys.capabilities) {
+        if( 'opengl' in cc.sys.capabilities) {
             var size = 4 * w * h;
             var array = new Uint8Array(size);
             gl.readPixels(x, y, w, h, gl.RGBA, gl.UNSIGNED_BYTE, array);

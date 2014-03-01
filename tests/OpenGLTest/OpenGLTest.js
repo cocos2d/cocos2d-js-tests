@@ -99,7 +99,7 @@ var GLReadPixelsTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             var x = winSize.width;
             var y = winSize.height;
 
@@ -441,7 +441,7 @@ var GLNodeCCAPITest = OpenGLTestLayer.extend({
             this.addChild(glnode,10);
             this.glnode = glnode;
 
-            this.shader = cc.shaderCache.getProgram("ShaderPositionColor");
+            this.shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionColor");
             this.initBuffers();
 
             glnode.draw = function() {
@@ -959,7 +959,7 @@ var TexImage2DTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             var glnode = cc.GLNode.create();
             this.addChild(glnode,10);
             this.glnode = glnode;
@@ -1126,7 +1126,7 @@ var GLTexParamterTest = OpenGLTestLayer.extend({
         return "tests texParameter()";
     },
     getTexValues:function() {
-        if(sys.platform === "browser"){
+        if(!cc.sys.isNative){
             var texture2d = cc.textureCache.textureForKey(s_pathGrossini);
             gl.bindTexture(gl.TEXTURE_2D, texture2d.getName());
         } else {
@@ -1170,7 +1170,7 @@ var GLGetUniformTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
 
             if( ! autoTestEnabled ) {
                 cc.log( JSON.stringify( this.runTest() ));

@@ -77,7 +77,7 @@ var LocalStorageTest = SysTestBase.extend({
         this._super();
 
         var key = 'key_' + Math.random();
-        var ls = sys.localStorage;
+        var ls = cc.sys.localStorage;
         cc.log(1);
         ls.setItem(key, "Hello world");
 
@@ -107,7 +107,7 @@ var CapabilitiesTest = SysTestBase.extend({
     ctor:function () {
         this._super();
 
-        var c = sys.capabilities;
+        var c = cc.sys.capabilities;
         for( var i in c )
             cc.log( i + " = " + c[i] );
     }

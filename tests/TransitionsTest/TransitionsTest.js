@@ -101,7 +101,7 @@ var arrayOfTransitionsTest = [
     }}
 ];
 
-if( 'opengl' in sys.capabilities ){
+if( 'opengl' in cc.sys.capabilities ){
     arrayOfTransitionsTest = arrayOfTransitionsTest.concat([{title:"FlipXLeftOver", transitionFunc:function (t, s) {
         return new FlipXLeftOver(t, s);
     }},

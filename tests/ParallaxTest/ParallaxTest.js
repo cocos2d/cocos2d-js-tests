@@ -163,7 +163,7 @@ Parallax2 = ParallaxDemo.extend({
     ctor:function () {
         this._super();
 
-        if( 'touches' in sys.capabilities ){
+        if( 'touches' in cc.sys.capabilities ){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved:function (touches, event) {
@@ -173,7 +173,7 @@ Parallax2 = ParallaxDemo.extend({
                     node.y += touch.getDelta().y;
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities ){
+        } else if ('mouse' in cc.sys.capabilities ){
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseMove: function(event){
