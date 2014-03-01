@@ -45,7 +45,7 @@ var IDC_RESTART = 102;
 
 var spriteTestIdx = -1;
 
-var spriteFrameCache = cc.SpriteFrameCache.getInstance();
+var spriteFrameCache = cc.spriteFrameCache;
 
 //------------------------------------------------------------------
 //
@@ -955,7 +955,7 @@ var SpriteZVertex = SpriteTestDemo.extend({
             //
             // Configure shader to mimic glAlphaTest
             //
-            var alphaTestShader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTextureColorAlphaTest");
+            var alphaTestShader = cc.shaderCache.getProgram("ShaderPositionTextureColorAlphaTest");
             var glprogram = alphaTestShader.getProgram();
             var alphaValueLocation = gl.getUniformLocation(glprogram, cc.UNIFORM_ALPHA_TEST_VALUE_S);
 
@@ -1075,7 +1075,7 @@ var SpriteBatchNodeZVertex = SpriteTestDemo.extend({
             //
             // Configure shader to mimic glAlphaTest
             //
-            var alphaTestShader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTextureColorAlphaTest");
+            var alphaTestShader = cc.shaderCache.getProgram("ShaderPositionTextureColorAlphaTest");
             var glprogram = alphaTestShader.getProgram();
             var alphaValueLocation = gl.getUniformLocation(glprogram, cc.UNIFORM_ALPHA_TEST_VALUE_S);
 
@@ -1658,8 +1658,8 @@ var SpriteNewTexture = SpriteTestDemo.extend({
         var node = cc.Node.create();
         this.addChild(node, 0, TAG_SPRITE_BATCH_NODE);
 
-        this._texture1 = cc.TextureCache.getInstance().addImage(s_grossini_dance_atlas);
-        this._texture2 = cc.TextureCache.getInstance().addImage(s_grossini_dance_atlas_mono);
+        this._texture1 = cc.textureCache.addImage(s_grossini_dance_atlas);
+        this._texture2 = cc.textureCache.addImage(s_grossini_dance_atlas_mono);
 
         this._usingTexture1 = true;
 
@@ -1784,7 +1784,7 @@ var SpriteBatchNodeNewTexture = SpriteTestDemo.extend({
         this.addChild(batch, 0, TAG_SPRITE_BATCH_NODE);
 
         this._texture1 = batch.texture;
-        this._texture2 = cc.TextureCache.getInstance().addImage(s_grossini_dance_atlas_mono);
+        this._texture2 = cc.textureCache.addImage(s_grossini_dance_atlas_mono);
 
         for (var i = 0; i < 30; i++) {
             this.addNewSprite();
@@ -1877,7 +1877,7 @@ var SpriteFrameTest = SpriteTestDemo.extend({
         this._super();
         // IMPORTANT:
         // The sprite frames will be cached AND RETAINED, and they won't be released unless you call
-        //     cc.SpriteFrameCache.getInstance().removeUnusedSpriteFrames);
+        //     cc.spriteFrameCache.removeUnusedSpriteFrames);
         spriteFrameCache.addSpriteFrames(s_grossiniPlist);
         spriteFrameCache.addSpriteFrames(s_grossini_grayPlist, s_grossini_gray);
         spriteFrameCache.addSpriteFrames(s_grossini_bluePlist, s_grossini_blue);
@@ -2977,7 +2977,7 @@ var SpriteAnimationSplit = SpriteTestDemo.extend({
     _title:"Sprite: Animation + flip",
     ctor:function () {
         this._super();
-        var texture = cc.TextureCache.getInstance().addImage(s_dragon_animation);
+        var texture = cc.textureCache.addImage(s_dragon_animation);
 
         // manually add frames to the frame cache
         var frame0 = cc.SpriteFrame.create(texture, cc.rect(132 * 0, 132 * 0, 132, 132));
@@ -4288,7 +4288,7 @@ var AnimationCacheTest = SpriteTestDemo.extend({
         var animation = cc.Animation.create(animFrames, 0.2);
 
         // Add an animation to the Cache
-        cc.AnimationCache.getInstance().addAnimation(animation, "dance");
+        cc.animationCache.addAnimation(animation, "dance");
 
         //
         // create animation "dance gray"
@@ -4303,7 +4303,7 @@ var AnimationCacheTest = SpriteTestDemo.extend({
         animation = cc.Animation.create(animFrames, 0.2);
 
         // Add an animation to the Cache
-        cc.AnimationCache.getInstance().addAnimation(animation, "dance_gray");
+        cc.animationCache.addAnimation(animation, "dance_gray");
 
         //
         // create animation "dance blue"
@@ -4318,9 +4318,9 @@ var AnimationCacheTest = SpriteTestDemo.extend({
         animation = cc.Animation.create(animFrames, 0.2);
 
         // Add an animation to the Cache
-        cc.AnimationCache.getInstance().addAnimation(animation, "dance_blue");
+        cc.animationCache.addAnimation(animation, "dance_blue");
 
-        var animCache = cc.AnimationCache.getInstance();
+        var animCache = cc.animationCache;
 
         var normal = animCache.getAnimation("dance");
         normal.setRestoreOriginalFrame(true);
@@ -4883,8 +4883,8 @@ var AnimationCacheFile = SpriteTestDemo.extend({
         frameCache.addSpriteFrames(s_grossini_bluePlist);
 
         // Purge previously loaded animation
-        cc.AnimationCache.purgeSharedAnimationCache();
-        var animCache = cc.AnimationCache.getInstance();
+        cc.animationCache.purgeSharedAnimationCache();
+        var animCache = cc.animationCache;
 
         // Add an animation to the Cache
         // XXX API-FIX XXX
@@ -5014,7 +5014,7 @@ var TextureColorCacheIssue = SpriteTestDemo.extend({
     ctor:function () {
         this._super();
 
-        var spriteFrameCache = cc.SpriteFrameCache.getInstance();
+        var spriteFrameCache = cc.spriteFrameCache;
         spriteFrameCache.addSpriteFrames(s_tcc_issue_1_plist, s_tcc_issue_1);
         spriteFrameCache.addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
 
@@ -5061,7 +5061,7 @@ var TextureColorCacheIssue2 = SpriteTestDemo.extend({
     ctor:function () {
         this._super();
 
-        var spriteFrameCache = cc.SpriteFrameCache.getInstance();
+        var spriteFrameCache = cc.spriteFrameCache;
         spriteFrameCache.addSpriteFrames(s_tcc_issue_1_plist, s_tcc_issue_1);
         spriteFrameCache.addSpriteFrames(s_tcc_issue_2_plist, s_tcc_issue_2);
 
@@ -5112,7 +5112,7 @@ var TextureRotatedSpriteFrame = SpriteTestDemo.extend({
     ctor:function () {
         this._super();
 
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_s9s_blocks9_plist);
+        cc.spriteFrameCache.addSpriteFrames(s_s9s_blocks9_plist);
 
         var block = cc.Sprite.create('#blocks9r.png');
 

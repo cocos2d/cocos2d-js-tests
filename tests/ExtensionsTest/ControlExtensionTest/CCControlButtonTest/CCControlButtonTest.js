@@ -27,7 +27,7 @@
 var ControlButtonTest_HelloVariableSize = ControlScene.extend({
     init:function () {
         if (this._super()) {
-            var screenSize = cc.Director.getInstance().getWinSize();
+            var screenSize = cc.director.getWinSize();
 
             // Defines an array of title to create buttons dynamically
             var stringArray = ["Hello", "Variable", "Size", "!"];
@@ -117,7 +117,7 @@ var ControlButtonTest_Event = ControlScene.extend({
 
     init:function () {
         if (this._super()) {
-            var screenSize = cc.Director.getInstance().getWinSize();
+            var screenSize = cc.director.getWinSize();
 
             // Add the button
             var backgroundButton = cc.Scale9Sprite.create(s_extensions_button);
@@ -212,7 +212,7 @@ ControlButtonTest_Event.create = function (sceneTitle) {
 var ControlButtonTest_Styling = ControlScene.extend({
     init:function () {
         if (this._super()) {
-            var screenSize = cc.Director.getInstance().getWinSize();
+            var screenSize = cc.director.getWinSize();
 
             var layer = cc.Node.create();
             this.addChild(layer, 1);

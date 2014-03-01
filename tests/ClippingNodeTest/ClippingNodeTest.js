@@ -79,7 +79,7 @@ var BasicTest = BaseClippingNodeTest.extend({
     },
 
     setup:function () {
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var stencil = this.stencil();
         stencil.tag = TAG_STENCILNODE;
@@ -505,12 +505,12 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
         this._sprite.anchorX = 0.5;
         this._sprite.anchorY = 0;
         this._sprite.scale = 2.5;
-        cc.Director.getInstance().setAlphaBlending(true);
+        cc.director.setAlphaBlending(true);
     },
 
     draw:function (ctx) {
         var gl = ctx || cc.renderContext;
-        var winPoint = cc.pFromSize(cc.Director.getInstance().getWinSize());
+        var winPoint = cc.pFromSize(cc.director.getWinSize());
         var planeSize = cc.pMult(winPoint, 1.0 / _PLANE_COUNT);
 
         gl.enable(gl.STENCIL_TEST);
@@ -615,7 +615,7 @@ var RawStencilBufferTest4 = RawStencilBufferTest.extend({
         this._super(plane);
         gl.depthMask(false);
 
-        var program = cc.ShaderCache.getInstance().programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
+        var program = cc.shaderCache.programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
         var alphaValueLocation = gl.getUniformLocation(program.getProgram(),cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
@@ -639,7 +639,7 @@ var RawStencilBufferTest5 = RawStencilBufferTest.extend({
         gl.disable(gl.DEPTH_TEST);
         gl.depthMask(false);
 
-        var program = cc.ShaderCache.getInstance().programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
+        var program = cc.shaderCache.programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
         var alphaValueLocation = gl.getUniformLocation(program.getProgram(), cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
@@ -669,13 +669,13 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
         gl.stencilMask(planeMask);
         gl.stencilFunc(gl.NEVER, 0, planeMask);
         gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
-        cc.drawingUtil.drawSolidRect(cc.p(0, 0), cc.pFromSize(cc.Director.getInstance().getWinSize()), cc.color(255, 255, 255, 255));
+        cc.drawingUtil.drawSolidRect(cc.p(0, 0), cc.pFromSize(cc.director.getWinSize()), cc.color(255, 255, 255, 255));
         gl.stencilFunc(gl.NEVER, planeMask, planeMask);
         gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
         gl.disable(gl.DEPTH_TEST);
         gl.depthMask(false);
 
-        var program = cc.ShaderCache.getInstance().programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
+        var program = cc.shaderCache.programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
         var alphaValueLocation = gl.getUniformLocation(program.getProgram(), cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
@@ -739,7 +739,7 @@ var restartClippingNodeTest = function () {
 var ClippingNodeTestScene = TestScene.extend({
     runThisTest:function () {
         clippingNodeTestSceneIdx = -1;
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
 	    var layer = nextClippingNodeTest();
 	    this.addChild(layer);
     }

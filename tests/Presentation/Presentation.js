@@ -462,7 +462,7 @@ var ParticlesPage = function() {
 	this._title = 'Performance';
 	this._subtitle = 'Particles';
 
-	// var tex = cc.TextureCache.getInstance().addImage(s_fire);
+	// var tex = cc.textureCache.addImage(s_fire);
 
 	var firework = cc.ParticleFireworks.create();
 	// firework.texture = tex;

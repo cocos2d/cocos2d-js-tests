@@ -958,7 +958,7 @@ var ActionAnimate = ActionsDemo.extend({
         // File animation
         //
         // With 2 loops and reverse
-        var animCache = cc.AnimationCache.getInstance();
+        var animCache = cc.animationCache;
 
         animCache.addAnimations(s_animations2Plist);
         var animation2 = animCache.getAnimation("dance_1");
@@ -1729,7 +1729,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
         var winSize = director.getWinSize();
 
         if(!("opengl" in sys.capabilities)){
-            var locScaleX = cc.EGLView.getInstance().getScaleX(), locScaleY = cc.EGLView.getInstance().getScaleY();
+            var locScaleX = cc.view.getScaleX(), locScaleY = cc.view.getScaleY();
             var apPoint = this.getAnchorPointInPoints();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
@@ -1896,7 +1896,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         var context = ctx || cc.renderContext;
 
         if(!("opengl" in sys.capabilities)){
-            var eglViewer = cc.EGLView.getInstance();
+            var eglViewer = cc.view;
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
             context.translate(50 * eglViewer.getScaleX(), - 50 * eglViewer.getScaleY());
@@ -2518,7 +2518,7 @@ var Issue1438 = ActionsDemo.extend({
         //
         // File animation
         //
-        var animCache = cc.AnimationCache.getInstance();
+        var animCache = cc.animationCache;
         animCache.addAnimations(s_animations2Plist);
         var animation2 = animCache.getAnimation("dance_1");
         animation2.setDelayPerUnit(1 / 60);

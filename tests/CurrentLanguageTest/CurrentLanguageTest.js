@@ -28,7 +28,7 @@ var CurrentLanguageTest = cc.Layer.extend({
     ctor:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
         var label = cc.LabelTTF.create("Current language Test", "Arial", 28);
         this.addChild(label, 0);
         label.x = s.width / 2;
@@ -72,6 +72,6 @@ var CurrentLanguageTestScene = TestScene.extend({
         var layer = new CurrentLanguageTest();
         this.addChild(layer);
 
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
     }
 });

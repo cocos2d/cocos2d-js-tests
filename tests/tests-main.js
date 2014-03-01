@@ -88,7 +88,7 @@ var TestController = cc.LayerGradient.extend({
         this.init( cc.color(0,0,0,255), cc.color(0x46,0x82,0xB4,255));
 
         // globals
-        director = cc.Director.getInstance();
+        director = cc.director;
         winSize = director.getWinSize();
 
         // add close menu

@@ -441,7 +441,7 @@ var GLNodeCCAPITest = OpenGLTestLayer.extend({
             this.addChild(glnode,10);
             this.glnode = glnode;
 
-            this.shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionColor");
+            this.shader = cc.shaderCache.getProgram("ShaderPositionColor");
             this.initBuffers();
 
             glnode.draw = function() {
@@ -970,7 +970,7 @@ var TexImage2DTest = OpenGLTestLayer.extend({
             glnode.anchorX = 0.5;
 	        glnode.anchorY = 0.5;
 
-            this.shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTexture");
+            this.shader = cc.shaderCache.getProgram("ShaderPositionTexture");
             this.initGL();
 
             glnode.draw = function() {
@@ -1127,7 +1127,7 @@ var GLTexParamterTest = OpenGLTestLayer.extend({
     },
     getTexValues:function() {
         if(sys.platform === "browser"){
-            var texture2d = cc.TextureCache.getInstance().textureForKey(s_pathGrossini);
+            var texture2d = cc.textureCache.textureForKey(s_pathGrossini);
             gl.bindTexture(gl.TEXTURE_2D, texture2d.getName());
         } else {
             gl.bindTexture(gl.TEXTURE_2D, null);
@@ -1187,7 +1187,7 @@ var GLGetUniformTest = OpenGLTestLayer.extend({
     },
     runTest:function() {
 
-        var shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionTextureColor");
+        var shader = cc.shaderCache.getProgram("ShaderPositionTextureColor");
         var program = shader.getProgram();
         shader.use();
 

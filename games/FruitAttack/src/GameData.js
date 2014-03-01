@@ -1,7 +1,7 @@
 var gNotification = cc.NotificationCenter.getInstance();
-var gSpriteFrameCache = cc.SpriteFrameCache.getInstance();
+var gSpriteFrameCache = cc.spriteFrameCache;
 
-var gSharedEngine = cc.AudioEngine.getInstance();
+var gSharedEngine = cc.audioEngine;
 
 var MUSIC_BACKGROUND  = "audio/musicByFoxSynergy.mp3";
 var EFFECT_BUTTON_CHICK  = "audio/effect_buttonClick.ogg";

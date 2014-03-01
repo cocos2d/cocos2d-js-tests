@@ -6,9 +6,9 @@ var SysMenu = cc.Layer.extend({
     init:function () {
         var bRet = false;
         if (this._super()) {
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(res.textureTransparentPack_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.textureTransparentPack_plist);
 
-            winSize = cc.Director.getInstance().getWinSize();
+            winSize = cc.director.getWinSize();
             var sp = cc.Sprite.create(res.loading_png);
             sp.anchorX = 0;
 	        sp.anchorY = 0;
@@ -59,8 +59,8 @@ var SysMenu = cc.Layer.extend({
             this._ship.runAction(cc.MoveBy.create(2, cc.p(Math.random() * winSize.width, this._ship.y + winSize.height + 100)));
 
             if (MW.SOUND) {
-                cc.AudioEngine.getInstance().setMusicVolume(0.7);
-                cc.AudioEngine.getInstance().playMusic(res.mainMainMusic_mp3, true);
+                cc.audioEngine.setMusicVolume(0.7);
+                cc.audioEngine.playMusic(res.mainMainMusic_mp3, true);
             }
 
             bRet = true;
@@ -73,20 +73,20 @@ var SysMenu = cc.Layer.extend({
             var scene = cc.Scene.create();
             scene.addChild(GameLayer.create());
             scene.addChild(GameControlMenu.create());
-            cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
+	        cc.director.runScene(cc.TransitionFade.create(1.2, scene));
         }, this);
     },
     onSettings:function (pSender) {
         this.onButtonEffect();
         var scene = cc.Scene.create();
         scene.addChild(SettingsLayer.create());
-        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
+	    cc.director.runScene(cc.TransitionFade.create(1.2, scene));
     },
     onAbout:function (pSender) {
         this.onButtonEffect();
         var scene = cc.Scene.create();
         scene.addChild(AboutLayer.create());
-        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
+	    cc.director.runScene(cc.TransitionFade.create(1.2, scene));
     },
     update:function () {
         if (this._ship.y > 480) {
@@ -99,7 +99,7 @@ var SysMenu = cc.Layer.extend({
     },
     onButtonEffect:function(){
         if (MW.SOUND) {
-            var s = cc.AudioEngine.getInstance().playEffect(res.buttonEffet_mp3);
+            var s = cc.audioEngine.playEffect(res.buttonEffet_mp3);
         }
     }
 });

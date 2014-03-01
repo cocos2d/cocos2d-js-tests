@@ -55,7 +55,7 @@ UIScene = cc.Layer.extend({
             var right_button = this._uiLayer.getWidgetByName("right_Button");
             right_button.addTouchEventListener(this.nextCallback ,this);
 
-            var winSize = cc.Director.getInstance().getWinSize();
+            var winSize = cc.director.getWinSize();
             var scale = winSize.height / 320;
             this._uiLayer.anchorX = 0;
             this._uiLayer.anchorY = 0;
@@ -110,7 +110,7 @@ UIScene = cc.Layer.extend({
         if (type == ccs.TouchEventType.ended) {
             this._uiLayer.unscheduleUpdate();
             this._uiLayer.removeFromParent();
-            cc.Director.getInstance().runScene(UISceneManager.getInstance().previousUIScene());
+            cc.director.runScene(UISceneManager.getInstance().previousUIScene());
         }
     },
 
@@ -118,7 +118,7 @@ UIScene = cc.Layer.extend({
         if (type == ccs.TouchEventType.ended) {
             this._uiLayer.unscheduleUpdate();
             this._uiLayer.removeFromParent();
-            cc.Director.getInstance().runScene(UISceneManager.getInstance().currentUIScene());
+            cc.director.runScene(UISceneManager.getInstance().currentUIScene());
         }
     },
 
@@ -126,7 +126,7 @@ UIScene = cc.Layer.extend({
         if (type == ccs.TouchEventType.ended) {
             this._uiLayer.unscheduleUpdate();
             this._uiLayer.removeFromParent();
-            cc.Director.getInstance().runScene(UISceneManager.getInstance().nextUIScene());
+            cc.director.runScene(UISceneManager.getInstance().nextUIScene());
         }
     }
 });

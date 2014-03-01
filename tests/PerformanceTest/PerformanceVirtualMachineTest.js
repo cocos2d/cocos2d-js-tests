@@ -75,7 +75,7 @@ var VirtualMachineTestMenuLayer = PerformBasicLayer.extend({
 
         if (scene) {
             scene.initWithQuantityOfNodes(nodes);
-            cc.Director.getInstance().runScene(scene);
+            cc.director.runScene(scene);
         }
     }
 });
@@ -102,7 +102,7 @@ var VirtualMachineTestMainScene = cc.Scene.extend({
         this.addChild(this._batchNode);
 
         //srand(time());
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         // Title
         var label = cc.LabelTTF.create(this.title(), "Arial", 40);
@@ -285,7 +285,7 @@ var SpriteWithManyProperties = SimpleNewtonianSprite.extend({
 
 var SpritesWithManyPropertiesTestScene1 = VirtualMachineTestMainScene.extend({
     updateQuantityOfNodes:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         // increase nodes
         if (this._currentQuantityOfNodes < this._quantityOfNodes) {
@@ -397,7 +397,7 @@ var SpritesUndergoneDifferentOperationsTestScene1 = VirtualMachineTestMainScene.
         function() { this.onEnter(); } // appends ._running
     ]),
     updateQuantityOfNodes:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         // increase nodes
         if (this._currentQuantityOfNodes < this._quantityOfNodes) {
@@ -473,7 +473,7 @@ var ClonedSpritesTestScene1 = VirtualMachineTestMainScene.extend({
             this.template = 
             new SimpleNewtonianSprite(this._batchNode.texture,
                                       cc.rect(0, 0, 52, 139));
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         // increase nodes
         if (this._currentQuantityOfNodes < this._quantityOfNodes) {
@@ -547,5 +547,5 @@ var ClonedSpritesTestScene2 = ClonedSpritesTestScene1.extend({
 function runVirtualMachineTest() {
     var scene = new SpritesWithManyPropertiesTestScene1();
     scene.initWithQuantityOfNodes(VM_NODES_INCREASE);
-    cc.Director.getInstance().runScene(scene);
+    cc.director.runScene(scene);
 }

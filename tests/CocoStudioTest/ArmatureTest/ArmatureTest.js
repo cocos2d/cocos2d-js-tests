@@ -1211,17 +1211,17 @@ var TestChangeAnimationInternal = ArmatureTestLayer.extend({
         return "Touch to change animation internal";
     },
     onTouchesEnded: function (touch, event) {
-        if (cc.Director.getInstance().getAnimationInterval() == 1 / 30) {
-            cc.Director.getInstance().setAnimationInterval(1 / 60);
+        if (cc.director.getAnimationInterval() == 1 / 30) {
+            cc.director.setAnimationInterval(1 / 60);
         }
         else {
-            cc.Director.getInstance().setAnimationInterval(1 / 30);
+            cc.director.setAnimationInterval(1 / 30);
         }
         return false;
     },
     onExit: function () {
         this._super();
-        cc.Director.getInstance().setAnimationInterval(1 / 60);
+        cc.director.setAnimationInterval(1 / 60);
     }
 });
 
