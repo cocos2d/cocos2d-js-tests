@@ -1729,7 +1729,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
         var winSize = director.getWinSize();
 
         if(!("opengl" in cc.sys.capabilities)){
-            var locScaleX = cc.EGLView.getInstance().getScaleX(), locScaleY = cc.EGLView.getInstance().getScaleY();
+            var locScaleX = cc.view.getScaleX(), locScaleY = cc.view.getScaleY();
             var apPoint = this.getAnchorPointInPoints();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
@@ -1895,7 +1895,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._super();
         var context = ctx || cc.renderContext;
 
-        if(!("opengl" in cc.sys.capabilities)){
+        if(!("opengl" in sys.capabilities)){
             var eglViewer = cc.EGLView.getInstance();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
@@ -2637,7 +2637,7 @@ var arrayOfActionsTest = [
     Issue1446
 ];
 
-if("opengl" in cc.sys.capabilities){
+if("opengl" in sys.capabilities){
     arrayOfActionsTest.push(ActionOrbit);
 }
 

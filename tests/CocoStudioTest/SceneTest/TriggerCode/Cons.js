@@ -8,7 +8,7 @@ var TimeElapsed = ccs.BaseTriggerCondition.extend({
         this._tmpTime = 0;
         this._scheduler = null;
         this._success = false;
-        this._scheduler = cc.Director.getInstance().getScheduler();
+        this._scheduler = cc.director.getScheduler();
     },
     
     init: function () {

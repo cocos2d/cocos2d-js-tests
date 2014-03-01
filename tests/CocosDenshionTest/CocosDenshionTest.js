@@ -24,7 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var audioEngine = cc.AudioEngine.getInstance();
+var audioEngine = cc.audioEngine;
 
 var MUSIC_FILE = "res/Sound/background.mp3";
 var EFFECT_FILE = "res/Sound/effect2.mp3";
@@ -216,7 +216,7 @@ var CocosDenshionTest = cc.LayerGradient.extend({
 
 var CocosDenshionTestScene = TestScene.extend({
     runThisTest:function () {
-        audioEngine = cc.AudioEngine.getInstance();
+        audioEngine = cc.audioEngine;
         var layer = new CocosDenshionTest();
         this.addChild(layer);
         director.runScene(this);

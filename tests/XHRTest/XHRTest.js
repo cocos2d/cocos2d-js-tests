@@ -32,7 +32,7 @@ var XHRTestScene = TestScene.extend({
         this.addChild(xhrLayer);
     },
     runThisTest:function () {
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
     },
     MainMenuCallback:function (sender) {
         this._super(sender);
@@ -46,7 +46,7 @@ var XHRTestLayer = cc.Layer.extend({
             return false;
         }
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         // Back Menu
         var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
@@ -152,5 +152,5 @@ var runXHRTest = function () {
     var pScene = cc.Scene.create();
     var pLayer = XHRTestLayer.create();
     pScene.addChild(pLayer);
-    cc.Director.getInstance().runScene(pScene);
+    cc.director.runScene(pScene);
 };

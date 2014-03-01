@@ -37,7 +37,7 @@ var TableViewTestLayer = cc.Layer.extend({
             return false;
         }
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var tableView = cc.TableView.create(this, cc.size(600, 60));
         tableView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
@@ -134,5 +134,5 @@ var runTableViewTest = function () {
     var pScene = cc.Scene.create();
     var pLayer = TableViewTestLayer.create();
     pScene.addChild(pLayer);
-    cc.Director.getInstance().runScene(pScene);
+    cc.director.runScene(pScene);
 };

@@ -34,8 +34,8 @@ var GameLayer = cc.Layer.extend({
         var bRet = false;
         if (this._super()) {
 
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(res.textureOpaquePack_plist);
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(res.b01_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.textureOpaquePack_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.b01_plist);
 
             // reset global values
             MW.CONTAINER.ENEMIES = [];
@@ -53,17 +53,17 @@ var GameLayer = cc.Layer.extend({
             this._state = STATE_PLAYING;
 
             // OpaqueBatch
-            var texOpaque = cc.TextureCache.getInstance().addImage(res.textureOpaquePack_png);
+            var texOpaque = cc.textureCache.addImage(res.textureOpaquePack_png);
             this._texOpaqueBatch = cc.SpriteBatchNode.create(texOpaque);
             this._texOpaqueBatch.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._texOpaqueBatch);
 
             // TransparentBatch
-            var texTransparent = cc.TextureCache.getInstance().addImage(res.textureTransparentPack_png);
+            var texTransparent = cc.textureCache.addImage(res.textureTransparentPack_png);
             this._texTransparentBatch = cc.SpriteBatchNode.create(texTransparent);
             this.addChild(this._texTransparentBatch);
 
-            winSize = cc.Director.getInstance().getWinSize();
+            winSize = cc.director.getWinSize();
             this._levelManager = new LevelManager(this);
 
             this.screenRect = cc.rect(0, 0, winSize.width, winSize.height + 10);
@@ -99,8 +99,8 @@ var GameLayer = cc.Layer.extend({
             this._texTransparentBatch.addChild(this._ship, this._ship.zOrder, MW.UNIT_TAG.PLAYER);
 
             // explosion batch node
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(res.explosion_plist);
-            var explosionTexture = cc.TextureCache.getInstance().addImage(res.explosion_png);
+            cc.spriteFrameCache.addSpriteFrames(res.explosion_plist);
+            var explosionTexture = cc.textureCache.addImage(res.explosion_png);
             this._explosions = cc.SpriteBatchNode.create(explosionTexture);
             this._explosions.setBlendFunc(gl.SRC_ALPHA, gl.ONE);
             this.addChild(this._explosions);
@@ -140,7 +140,7 @@ var GameLayer = cc.Layer.extend({
             this.schedule(this.scoreCounter, 1);
 
             if (MW.SOUND)
-                cc.AudioEngine.getInstance().playMusic(res.bgMusic_mp3, true);
+	            cc.audioEngine.playMusic(res.bgMusic_mp3, true);
 
             bRet = true;
             g_sharedGameLayer = this;
@@ -318,7 +318,7 @@ var GameLayer = cc.Layer.extend({
     onGameOver:function () {
         var scene = cc.Scene.create();
         scene.addChild(GameOver.create());
-        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
+	    cc.director.runScene(cc.TransitionFade.create(1.2, scene));
     }
 });
 

@@ -178,12 +178,12 @@ var SAXParserTest = FileTestBase.extend({
 	ctor:function () {
 		this._super();
 
-		var parser = cc.SAXParser.getInstance();
+		var parser = cc.saxParser;
 		var result = parser.parse(s_grossini_familyPlist);
 
 		var ok = JSON.stringify(this._expectResult) == JSON.stringify(result);
 		this._label = cc.LabelTTF.create(ok ? "SUCCESS" : "FAIL");
-		var winsize = cc.Director.getInstance().getWinSize();
+		var winsize = cc.director.getWinSize();
 		this._label.x = winsize.width/2;
 		this._label.y = winsize.height/2;
 		this.addChild(this._label);
@@ -196,7 +196,7 @@ var SAXParserTest = FileTestBase.extend({
 		return JSON.stringify(this._expectResult);
 	},
 	getCurrentResult:function() {
-		var parser = cc.SAXParser.getInstance();
+		var parser = cc.saxParser;
 		var result = parser.parse(s_grossini_familyPlist);
 		return JSON.stringify(result);
 	}

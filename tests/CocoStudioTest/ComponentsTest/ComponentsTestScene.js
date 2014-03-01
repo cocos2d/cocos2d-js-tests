@@ -39,7 +39,7 @@ var ComponentsTestLayer = cc.LayerColor.extend({
 
     createGameScene: function () {
         var root = cc.Node.create();
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         var player = cc.Sprite.create("res/components/Player.png", cc.rect(0, 0, 27, 40));
         player.x = 30;
         player.y = winSize.height / 2;
@@ -70,5 +70,5 @@ ComponentsTestLayer.scene = function(){
 };
 var runComponentsTestLayer = function () {
     var scene = ComponentsTestLayer.scene();
-    cc.Director.getInstance().runScene(scene);
+    cc.director.runScene(scene);
 };

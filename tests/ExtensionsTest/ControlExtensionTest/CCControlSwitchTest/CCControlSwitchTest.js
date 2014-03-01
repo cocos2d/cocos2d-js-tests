@@ -27,7 +27,7 @@
 var ControlSwitchTest = ControlScene.extend({
     init:function () {
         if (this._super()) {
-            var screenSize = cc.Director.getInstance().getWinSize();
+            var screenSize = cc.director.getWinSize();
 
             var layer = cc.Node.create();
             layer.x = screenSize.width / 2;

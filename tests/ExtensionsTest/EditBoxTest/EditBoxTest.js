@@ -129,5 +129,5 @@ var runEditBoxTest = function () {
     var pScene = cc.Scene.create();
     var pLayer = EditBoxTestLayer.create();
     pScene.addChild(pLayer);
-    cc.Director.getInstance().runScene(pScene);
+	cc.director.runScene(pScene);
 };

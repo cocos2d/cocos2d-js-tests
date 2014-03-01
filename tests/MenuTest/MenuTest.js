@@ -36,17 +36,18 @@ var TAG_MENU1 = 77771;
 //------------------------------------------------------------------
 var MenuLayerMainMenu = cc.Layer.extend({
     _disabledItem:null,
+    _touchListener: null,
 
     ctor:function () {
         this._super();
 
-        cc.eventManager.addListener({
+        this._touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan:function () {
                 return true;
             }
-        }, this);
+        });
 
         // Font Item
         var spriteNormal = cc.Sprite.create(s_menuItem, cc.rect(0,23*2,115,23));
@@ -66,7 +67,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
 
         // Font Item
         var item4 = cc.MenuItemFont.create("I toggle enable items", function(sender) {
-            this._disabledItem.setEnabled(! this._disabledItem.isEnabled());
+            this._disabledItem.enabled = !this._disabledItem.enabled;
         }, this);
 
         item4.fontSize = 20;
@@ -81,7 +82,6 @@ var MenuLayerMainMenu = cc.Layer.extend({
 
         // Events
         cc.MenuItemFont.setFontName("Arial");
-        var item6 = cc.MenuItemFont.create("Priority Test", this.onMenuCallbackPriorityTest, this);
 
         // Bugs Item
         var item7 = cc.MenuItemFont.create("Bugs", this.onMenuCallbackBugsTest, this);
@@ -96,11 +96,11 @@ var MenuLayerMainMenu = cc.Layer.extend({
         var seq = cc.Sequence.create(color_action, color_back);
         item8.runAction(cc.RepeatForever.create(seq));
 
-        var menu = cc.Menu.create( item1, item2, item3, item4, item5, item6, item7, item8, item9);
+        var menu = cc.Menu.create( item1, item2, item3, item4, item5, item7, item8, item9);
         menu.alignItemsVertically();
 
         // elastic effect
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var locChildren = menu.children;
         var dstPoint = cc.p(0,0);
@@ -119,7 +119,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
             }
         }
         this._disabledItem = item3;
-        this._disabledItem.setEnabled( false );
+        this._disabledItem.enabled = false;
         this.addChild(menu);
         menu.x = winSize.width/2;
         menu.y = winSize.height/2;
@@ -134,14 +134,14 @@ var MenuLayerMainMenu = cc.Layer.extend({
     },
 
     onAllowTouches:function (dt) {
-        director.getTouchDispatcher().setPriority(cc.MENU_HANDLER_PRIORITY + 1, this);
+        cc.eventManager.setPriority(this._touchListener, 1);
         this.unscheduleAllCallbacks();
         cc.log("TOUCHES ALLOWED AGAIN");
     },
 
     onMenuCallbackDisabled:function (sender) {
         // hijack all touch events for 5 seconds
-        director.getTouchDispatcher().setPriority(cc.MENU_HANDLER_PRIORITY - 1, this);
+        cc.eventManager.setPriority(this._touchListener, -1);
         this.schedule(this.onAllowTouches, 5.0);
         cc.log("TOUCHES DISABLED FOR 5 SECONDS");
     },
@@ -150,20 +150,26 @@ var MenuLayerMainMenu = cc.Layer.extend({
         this.parent.switchTo(2);
     },
 
-    onMenuCallbackPriorityTest:function (sender) {
-        this.parent.switchTo(4);
-    },
-
     onQuit:function (sender) {
         cc.log("Quit called");
     },
 
     onMenuCallbackBugsTest:function(sender){
-        this.parent.switchTo(5);
+        this.parent.switchTo(4);
     },
 
     onMenuMovingCallback:function(sender){
-        this.parent.switchTo(6);
+        this.parent.switchTo(5);
+    },
+
+    onEnter: function(){
+        cc.eventManager.addListener(this._touchListener, 1);
+        this._super();
+    },
+
+    onExit: function(){
+        cc.eventManager.removeListener(this._touchListener);
+        this._super();
     }
 });
 
@@ -178,7 +184,6 @@ var MenuLayer2 = cc.Layer.extend({
 
     ctor:function () {
         this._super();
-
         for (var i = 0; i < 2; i++) {
             var item1 = cc.MenuItemImage.create(s_playNormal, s_playSelect, this.onMenuCallback, this);
             var item2 = cc.MenuItemImage.create(s_highNormal, s_highSelect, this.onMenuCallbackOpacity, this);
@@ -207,7 +212,6 @@ var MenuLayer2 = cc.Layer.extend({
 
     },
     alignMenuH:function () {
-        var p;
         for (var i = 0; i < 2; i++) {
             var menu = this.getChildByTag(100 + i);
             menu.x = this._centeredMenu.x;
@@ -222,7 +226,6 @@ var MenuLayer2 = cc.Layer.extend({
         }
     },
     alignMenusV:function () {
-        var p;
         for (var i = 0; i < 2; i++) {
             var menu = this.getChildByTag(100 + i);
             menu.x = this._centeredMenu.x;
@@ -276,7 +279,7 @@ var MenuLayer3 = cc.Layer.extend({
 
         var label = cc.LabelBMFont.create("Enable AtlasItem", s_bitmapFontTest3_fnt);
         var item1 = cc.MenuItemLabel.create(label, function(sender){
-            this._disabledItem.setEnabled(!this._disabledItem.isEnabled());
+            this._disabledItem.enabled = !this._disabledItem.enabled;
             this._disabledItem.stopAllActions();
         }, this);
         var item2 = cc.MenuItemFont.create("--- Go Back ---", function(sender){
@@ -291,7 +294,7 @@ var MenuLayer3 = cc.Layer.extend({
             cc.log("sprite clicked!");
         }, this);
         this._disabledItem = item3;
-        this._disabledItem.setEnabled(false);
+        this._disabledItem.enabled = false;
 
         var menu = cc.Menu.create(item1, item2, item3);
         menu.x = 0;
@@ -333,7 +336,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(18);
 
         var title1 = cc.MenuItemFont.create("Sound");
-        title1.setEnabled(false);
+        title1.enabled = false;
         cc.MenuItemFont.setFontName("Marker Felt");
         cc.MenuItemFont.setFontSize(34);
 
@@ -347,7 +350,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontName("American Typewriter");
         cc.MenuItemFont.setFontSize(18);
         var title2 = cc.MenuItemFont.create("Music");
-        title2.setEnabled(false);
+        title2.enabled = false;
         cc.MenuItemFont.setFontName("Marker Felt");
         cc.MenuItemFont.setFontSize(34);
 
@@ -362,7 +365,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontName("American Typewriter");
         cc.MenuItemFont.setFontSize(18);
         var title3 = cc.MenuItemFont.create("Quality");
-        title3.setEnabled(false);
+        title3.enabled = false;
         cc.MenuItemFont.setFontName("Marker Felt");
         cc.MenuItemFont.setFontSize(34);
         var item3 = cc.MenuItemToggle.create(
@@ -374,7 +377,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontName("American Typewriter");
         cc.MenuItemFont.setFontSize(18);
         var title4 = cc.MenuItemFont.create("Orientation");
-        title4.setEnabled(false);
+        title4.enabled = false;
         cc.MenuItemFont.setFontName("Marker Felt");
         cc.MenuItemFont.setFontSize(34);
         var item4 = cc.MenuItemToggle.create(
@@ -417,60 +420,6 @@ var MenuLayer4 = cc.Layer.extend({
     }
 });
 
-var MenuLayerPriorityTest = cc.Layer.extend({
-    _menu1:null,
-    _menu2:null,
-    _priority:false,
-
-    ctor:function () {
-        this._super();
-
-        this._menu1 = cc.Menu.create();
-        this._menu2 = cc.Menu.create();
-
-        //Menu 1
-        cc.MenuItemFont.setFontName("Marker Felt");
-        cc.MenuItemFont.setFontSize(18);
-        var item1 = cc.MenuItemFont.create("Return to Main Menu", this.onMenuCallback, this);
-        var item2 = cc.MenuItemFont.create("Disable menu for 5 seconds", this.onDisableMenuCallback, this);
-        this._menu1.addChild(item1);
-        this._menu1.addChild(item2);
-        this._menu1.alignItemsVerticallyWithPadding(2);
-        this.addChild(this._menu1);
-
-        //Menu 2
-        this._priority = true;
-        cc.MenuItemFont.setFontSize(48);
-        item1 = cc.MenuItemFont.create("Toggle priority", this.onTogglePriorityCallback, this);
-        item1.color = cc.color(0, 0, 255);
-        this._menu2.addChild(item1);
-        this.addChild(this._menu2);
-    },
-
-    onMenuCallback:function (sender) {
-        this.parent.switchTo(0);
-    },
-
-    onDisableMenuCallback:function (sender) {
-        this._menu1.setEnabled(false);
-        var wait = cc.DelayTime.create(5);
-        var enable = cc.CallFunc.create(function(){
-            this._menu1.setEnabled(true);
-        }, this);
-        this._menu1.runAction(cc.Sequence.create(wait, enable));
-    },
-
-    onTogglePriorityCallback:function (sender) {
-        if (this._priority) {
-            this._menu2.setHandlerPriority(cc.MENU_HANDLER_PRIORITY + 20);
-            this._priority = false;
-        } else {
-            this._menu2.setHandlerPriority(cc.MENU_HANDLER_PRIORITY - 20);
-            this._priority = true;
-        }
-    }
-});
-
 var MenuBugsTest = cc.Layer.extend({
      ctor:function(){
          this._super();
@@ -483,23 +432,23 @@ var MenuBugsTest = cc.Layer.extend({
          this.addChild(menu);
          menu.alignItemsVertically();
 
-         var s = cc.Director.getInstance().getWinSize();
+         var s = cc.director.getWinSize();
          menu.x = s.width/2;
          menu.y = s.height/2;
      },
 
     onIssue1410MenuCallback:function(sender){
         var menu = sender.parent;
-        menu.setEnable(false);
-        menu.setEnable(true);
+        menu.setEnabled(false);
+        menu.setEnabled(true);
 
         cc.log("NO CRASHES");
     },
 
     onIssue1410v2MenuCallback:function(sender){
         var menu = sender.parent;
-        menu.setEnable(true);
-        menu.setEnable(false);
+        menu.setEnabled(true);
+        menu.setEnabled(false);
 
         cc.log("NO CRASHES. AND MENU SHOULD STOP WORKING");
     },
@@ -511,10 +460,11 @@ var MenuBugsTest = cc.Layer.extend({
 
 var RemoveMenuItemWhenMove = cc.Layer.extend({
     _item:null,
+    _touchListener: null,
     ctor: function(){
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         var label = cc.LabelTTF.create("click item and move, should not crash", "Arial", 20);
         label.x = s.width/2;
@@ -531,21 +481,29 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
 
         menu.x = s.width/2;
         menu.y = s.height/2;
-        
-        cc.eventManager.addListener({
+        this._touchListener = cc.EventListener.create({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
+            swallowTouches: false,
             onTouchBegan:function(touch, event){
                 return true;
             },
             onTouchMoved: function(touch, event){
-                var target = event.getCurrentTarget();
-                if (target._item){
-                    target._item.removeFromParent(true);
-                    target._item = null;
+                if (this._item){
+                    this._item.removeFromParent(true);
+                    this._item = null;
                 }
-            }
-        }, this);
+            }.bind(this)
+        });
+    },
+
+    onEnter: function(){
+        cc.eventManager.addListener(this._touchListener, -129);
+        this._super();
+    },
+
+    onExit: function(){
+        cc.eventManager.removeListener(this._touchListener);
+        this._super();
     },
 
     goBack:function(sender){
@@ -559,11 +517,10 @@ var MenuTestScene = TestScene.extend({
         var layer2 = new MenuLayer2();
         var layer3 = new MenuLayer3();
         var layer4 = new MenuLayer4();
-        var layer5 = new MenuLayerPriorityTest();
-        var layer6 = new MenuBugsTest();
-        var layer7 = new RemoveMenuItemWhenMove();
+        var layer5 = new MenuBugsTest();
+        var layer6 = new RemoveMenuItemWhenMove();
 
-        var layer = cc.LayerMultiplex.create(layer1, layer2, layer3, layer4, layer5,layer6, layer7);
+        var layer = cc.LayerMultiplex.create(layer1, layer2, layer3, layer4, layer5,layer6);
         this.addChild(layer, 0);
 
         director.runScene(this);

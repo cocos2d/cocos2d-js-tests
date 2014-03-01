@@ -59,7 +59,7 @@ for( var i=0; i < appFiles.length; i++) {
     require( appFiles[i] );
 }
 
-var director = cc.Director.getInstance();
+var director = cc.director;
 director.setDisplayStats(true);
 
 // set FPS. the default value is 1.0/60 if you don't call this

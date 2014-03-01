@@ -415,7 +415,7 @@ Phone.prototype.stopAnim = function(){
             cc.canvas.height = height;
             cc.container.style.width = width+"px";
             cc.container.style.height = height+"px";
-            cc.EGLView.getInstance()._adjustSizeKeepCanvasSize(width, height);
+            cc.view._adjustSizeKeepCanvasSize(width, height);
         }
     }
 };
@@ -487,7 +487,7 @@ Display.prototype.resizeDisplay = function(){
         cc.canvas.height = height;
         cc.container.style.width = width+"px";
         cc.container.style.height = height+"px";
-        cc.EGLView.getInstance()._adjustSizeKeepCanvasSize(width, height);
+        cc.view._adjustSizeKeepCanvasSize(width, height);
     }
 };
 Display.prototype.registerEvents = function(){

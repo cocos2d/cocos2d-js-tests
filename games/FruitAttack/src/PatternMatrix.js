@@ -671,7 +671,7 @@ var PatternMatrix = cc.Layer.extend({
         else
            gSharedEngine.playEffect(EFFECT_GAME_FAIL);
 
-        cc.Director.getInstance().getRunningScene().addChild(resultLayer,99);
+	    cc.director.getRunningScene().addChild(resultLayer,99);
     } ,
     getResultByPoint:function( row,  col, matrixMark){
         if(this.mPatternsSpr[row][col] == null)
