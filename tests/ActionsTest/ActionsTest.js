@@ -1895,7 +1895,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._super();
         var context = ctx || cc.renderContext;
 
-        if(!("opengl" in sys.capabilities)){
+        if(!("opengl" in cc.sys.capabilities)){
             var eglViewer = cc.EGLView.getInstance();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
@@ -2637,7 +2637,7 @@ var arrayOfActionsTest = [
     Issue1446
 ];
 
-if("opengl" in sys.capabilities){
+if("opengl" in cc.sys.capabilities){
     arrayOfActionsTest.push(ActionOrbit);
 }
 

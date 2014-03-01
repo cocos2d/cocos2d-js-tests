@@ -69,7 +69,7 @@ var SubTest = cc.Class.extend({
     },
     createSpriteWithTag:function (tag) {
 // create
-        if( "opengl" in sys.capabilities )
+        if( "opengl" in cc.sys.capabilities )
             cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
 
         var sprite = null;
@@ -138,7 +138,7 @@ var SubTest = cc.Class.extend({
                 break;
         }
 
-        if( "opengl" in sys.capabilities )
+        if( "opengl" in cc.sys.capabilities )
             cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_DEFAULT;
 
         return sprite;

@@ -122,7 +122,7 @@ var KeyboardNotificationLayer = TextInputTest.extend({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded: this.onTouchesEnded
             }, this);
-        } else if ('mouse' cc.sys.capabilitiesies )
+        } else if ('mouse' in cc.sys.capabilities )
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseUp: this.onMouseUp

@@ -46,7 +46,7 @@ var TileDemo = BaseTestLayer.extend({
             	    node.y += delta.y;
                 }
             }, this);
-        } else if ('mouse' cc.sys.capabilitiesies)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseMove: function(event){
@@ -92,7 +92,7 @@ var TileMapTest = TileDemo.extend({
     ctor:function () {
         this._super();
         var map = cc.TileMapAtlas.create(s_tilesPng, s_levelMapTga, 16, 16);
-        if ("open cc.sys.capabilitieslities)
+        if ("opengl" in cc.sys.capabilities)
             map.texture.setAntiAliasTexParameters();
 
         this.log("ContentSize: " + map.width + " " + map.height);
@@ -369,7 +369,7 @@ var TMXReadWriteTest = TileDemo.extend({
         this.addChild(map, 0, TAG_TILE_MAP);
 
         var layer = map.getLayer("Layer 0");
-        if ("o cc.sys.capabilitiesabilities)
+        if ("opengl" in cc.sys.capabilities)
             layer.texture.setAntiAliasTexParameters();
 
         map.scale = 1;
@@ -710,7 +710,7 @@ var TMXTilesetTest = TileDemo.extend({
         var map = cc.TMXTiledMap.create(s_resprefix + "TileMaps/orthogonal-test5.tmx");
         this.addChild(map, 0, TAG_TILE_MAP);
 
-        if  cc.sys.capabilitiescapabilities) {
+        if ("opengl" in cc.sys.capabilities) {
             var layer;
             layer = map.getLayer("Layer 0");
             layer.texture.setAntiAliasTexParameters();
@@ -1126,7 +1126,7 @@ var TMXIsoVertexZ = TileDemo.extend({
         var seq = cc.Sequence.create(move, delay, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
 
-        if (!cc.sys.isNative & cc.sys.capabilitiesys.capabilities)) {
+        if (!cc.sys.isNative && !("opengl" in cc.sys.capabilities)) {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild(label);
             label.x = winSize.width / 2;
@@ -1200,7 +1200,7 @@ var TMXOrthoVertexZ = TileDemo.extend({
         var seq = cc.Sequence.create(move, delay, back);
         this.tamara.runAction(cc.RepeatForever.create(seq));
 
-        if (!cc.sys.isNativ cc.sys.capabilitiesn sys.capabilities)) {
+        if (!cc.sys.isNative && !("opengl" in cc.sys.capabilities)) {
             var label = cc.LabelTTF.create("Not supported on HTML5-canvas", "Times New Roman", 30);
             this.addChild(label);
             label.x = winSize.width / 2;
@@ -1502,7 +1502,7 @@ var TMXOrthoFromXMLTest = TileDemo.extend({
 
         cc.log("ContentSize: " + map.width + ", " + map.height);
 
-   cc.sys.capabilities" in sys.capabilities) {
+        if ("opengl" in cc.sys.capabilities) {
             var mapChildren = map.children;
             for (var i = 0; i < mapChildren.length; i++) {
                 var child = mapChildren[i];
@@ -1554,7 +1554,7 @@ var TMXBug987 = TileDemo.extend({
         for (var i = 0, len = childs.length; i < len; i++) {
             node = childs[i];
             if (!node) break;
-    cc.sys.capabilitiesngl" in sys.capabilities)
+            if ("opengl" in cc.sys.capabilities)
                 node.texture.setAntiAliasTexParameters();
         }
 
