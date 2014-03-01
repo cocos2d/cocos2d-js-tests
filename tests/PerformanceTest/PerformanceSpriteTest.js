@@ -70,7 +70,7 @@ var SubTest = cc.Class.extend({
     createSpriteWithTag:function (tag) {
 // create
         if( "opengl" in sys.capabilities )
-            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+            cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
 
         var sprite = null;
         switch (this._subtestNumber) {
@@ -139,7 +139,7 @@ var SubTest = cc.Class.extend({
         }
 
         if( "opengl" in sys.capabilities )
-            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_DEFAULT);
+            cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_DEFAULT;
 
         return sprite;
     },
@@ -183,13 +183,13 @@ var SubTest = cc.Class.extend({
             ///
             case 2:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 3:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
@@ -197,13 +197,13 @@ var SubTest = cc.Class.extend({
             ///
             case 5:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 6:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
@@ -211,13 +211,13 @@ var SubTest = cc.Class.extend({
             ///
             case 8:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 9:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
@@ -227,7 +227,7 @@ var SubTest = cc.Class.extend({
         }
 
         if( "opengl" in sys.capabilities )
-            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_DEFAULT);
+            cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_DEFAULT;
     }
 });
 
