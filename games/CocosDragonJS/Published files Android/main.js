@@ -15,7 +15,6 @@ require("MainMenuScene.js");
 function main()
 {
 	cc.FileUtils.getInstance().loadFilenameLookup("fileLookup.plist");
-    //cc.Texture2D.setDefaultAlphaPixelFormat(6);
 	var director = cc.Director.getInstance();
     var scene = cc.BuilderReader.loadAsScene("MainMenuScene");
     var runningScene = director.getRunningScene();

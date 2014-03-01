@@ -181,17 +181,17 @@ var ParticleMainScene = cc.Scene.extend({
         switch (this._subtestNumber) {
             case 1:
                 if ("opengl" in sys.capabilities)
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
                 particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
                 break;
             case 2:
                 if ("opengl" in sys.capabilities)
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
                 particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
                 break;
             case 3:
                 if ("opengl" in sys.capabilities)
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_A8);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_A8;
                 particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
                 break;
             default:
@@ -205,7 +205,7 @@ var ParticleMainScene = cc.Scene.extend({
 
         // restore the default pixel format
         if ("opengl" in sys.capabilities)
-            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+            cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
     },
     onDecrease:function (sender) {
         this._quantityParticles -= PARTICLE_NODES_INCREASE;
