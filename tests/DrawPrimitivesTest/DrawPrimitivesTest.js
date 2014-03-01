@@ -77,7 +77,7 @@ var DrawNewAPITest2 = DrawTestDemo.extend({
         this._super();
         var draw = cc.DrawNode.create();
         this.addChild(draw, 10);
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         var centerPos = cc.p(winSize.width / 2, winSize.height / 2);
         //drawSegment
         draw.drawSegment(cc.p(0, 0), cc.p(winSize.width, winSize.height), 1, cc.color(255, 255, 255, 255));

@@ -62,7 +62,7 @@ var ParticleMenuLayer = PerformBasicLayer.extend({
         s_nParCurIdx = this._curCase;
         if (newScene) {
             newScene.initWithSubTest(subTest, parNum);
-            cc.Director.getInstance().runScene(newScene);
+            cc.director.runScene(newScene);
         }
     }
 });
@@ -84,7 +84,7 @@ var ParticleMainScene = cc.Scene.extend({
         //srandom(0);
 
         this._subtestNumber = asubtest;
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         this._lastRenderedCount = 0;
         this._quantityParticles = particles;
@@ -173,26 +173,26 @@ var ParticleMainScene = cc.Scene.extend({
         this.removeChildByTag(TAG_PARTICLE_SYSTEM, true);
 
         // remove the "fire.png" from the TextureCache cache.
-        //var texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
-        //cc.TextureCache.getInstance().removeTexture(texture);
+        //var texture = cc.textureCache.addImage("res/Images/fire.png");
+        //cc.textureCache.removeTexture(texture);
 
         var particleSystem = cc.ParticleSystem.create(this._quantityParticles);
 
         switch (this._subtestNumber) {
             case 1:
                 if ("opengl" in sys.capabilities)
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
-                particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
+                particleSystem.texture = cc.textureCache.addImage("res/Images/fire.png");
                 break;
             case 2:
                 if ("opengl" in sys.capabilities)
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
-                particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
+                particleSystem.texture = cc.textureCache.addImage("res/Images/fire.png");
                 break;
             case 3:
                 if ("opengl" in sys.capabilities)
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_A8);
-                particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_A8;
+                particleSystem.texture = cc.textureCache.addImage("res/Images/fire.png");
                 break;
             default:
                 particleSystem = null;
@@ -205,7 +205,7 @@ var ParticleMainScene = cc.Scene.extend({
 
         // restore the default pixel format
         if ("opengl" in sys.capabilities)
-            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+            cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
     },
     onDecrease:function (sender) {
         this._quantityParticles -= PARTICLE_NODES_INCREASE;
@@ -258,7 +258,7 @@ var ParticlePerformTest1 = ParticleMainScene.extend({
         return "A " + this._subtestNumber + " size=4";
     },
     doTest:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
         var particleSystem = this.getChildByTag(TAG_PARTICLE_SYSTEM);
 
         // duration
@@ -326,7 +326,7 @@ var ParticlePerformTest2 = ParticleMainScene.extend({
         return "B " + this._subtestNumber + " size=8";
     },
     doTest:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
         var particleSystem = this.getChildByTag(TAG_PARTICLE_SYSTEM);
 
         // duration
@@ -394,7 +394,7 @@ var ParticlePerformTest3 = ParticleMainScene.extend({
         return "C " + this._subtestNumber + " size=32";
     },
     doTest:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
         var particleSystem = this.getChildByTag(TAG_PARTICLE_SYSTEM);
 
         // duration
@@ -462,7 +462,7 @@ var ParticlePerformTest4 = ParticleMainScene.extend({
         return "D " + this._subtestNumber + " size=64";
     },
     doTest:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
         var particleSystem = this.getChildByTag(TAG_PARTICLE_SYSTEM);
 
         // duration
@@ -522,5 +522,5 @@ var ParticlePerformTest4 = ParticleMainScene.extend({
 function runParticleTest() {
     var scene = new ParticlePerformTest1;
     scene.initWithSubTest(1, PARTICLE_NODES_INCREASE);
-    cc.Director.getInstance().runScene(scene);
+    cc.director.runScene(scene);
 }

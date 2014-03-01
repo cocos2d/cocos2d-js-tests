@@ -280,5 +280,5 @@ UISceneManager.purge = function () {
 var runCocosGUITestScene = function () {
     var manager = UISceneManager.getInstance();
     var scene = manager.currentUIScene();
-    cc.Director.getInstance().runScene(scene);
+    cc.director.runScene(scene);
 };

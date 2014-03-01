@@ -27,7 +27,7 @@
 
 cc.game.onEnter = function(){
     cc.LoaderScene.preload(g_resources, function () {
-        cc.Director.getInstance().runScene(new TestController());
+	    cc.director.runScene(new TestController());
     }, this);
 };
 cc.game.run();

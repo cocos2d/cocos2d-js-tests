@@ -70,7 +70,7 @@ var SubTest = cc.Class.extend({
     createSpriteWithTag:function (tag) {
 // create
         if( "opengl" in sys.capabilities )
-            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+            cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
 
         var sprite = null;
         switch (this._subtestNumber) {
@@ -139,7 +139,7 @@ var SubTest = cc.Class.extend({
         }
 
         if( "opengl" in sys.capabilities )
-            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_DEFAULT);
+            cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_DEFAULT;
 
         return sprite;
     },
@@ -169,7 +169,7 @@ var SubTest = cc.Class.extend({
         //
         //		[mgr removeAllTextures];
         if ( sys.platform != 'browser') {
-            var mgr = cc.TextureCache.getInstance();
+            var mgr = cc.textureCache;
             mgr.removeTexture(mgr.addImage("res/Images/grossinis_sister1.png"));
             mgr.removeTexture(mgr.addImage("res/Images/grossini_dance_atlas.png"));
             mgr.removeTexture(mgr.addImage("res/Images/spritesheet1.png"));
@@ -183,13 +183,13 @@ var SubTest = cc.Class.extend({
             ///
             case 2:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 3:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
@@ -197,13 +197,13 @@ var SubTest = cc.Class.extend({
             ///
             case 5:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 6:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
@@ -211,13 +211,13 @@ var SubTest = cc.Class.extend({
             ///
             case 8:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 9:
                 if( "opengl" in sys.capabilities )
-                    cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
+                    cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
@@ -227,7 +227,7 @@ var SubTest = cc.Class.extend({
         }
 
         if( "opengl" in sys.capabilities )
-            cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_DEFAULT);
+            cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_DEFAULT;
     }
 });
 
@@ -273,7 +273,7 @@ var SpriteMenuLayer = PerformBasicLayer.extend({
 
         if (scene) {
             scene.initWithSubTest(subTest, nodes);
-            cc.Director.getInstance().runScene(scene);
+            cc.director.runScene(scene);
         }
     }
 });
@@ -301,7 +301,7 @@ var SpriteMainScene = cc.Scene.extend({
         this._subTest = new SubTest();
         this._subTest.initWithSubTest(asubtest, this);
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         this._lastRenderedCount = 0;
         this._quantityNodes = 0;
@@ -420,7 +420,7 @@ var SpriteMainScene = cc.Scene.extend({
 //
 ////////////////////////////////////////////////////////
 function performanceActions(sprite) {
-    var size = cc.Director.getInstance().getWinSize();
+    var size = cc.director.getWinSize();
     sprite.x = parseInt(Math.random() * size.width);
     sprite.y = parseInt(Math.random() * size.height);
 
@@ -437,7 +437,7 @@ function performanceActions(sprite) {
 }
 
 function performanceActions20(sprite) {
-    var size = cc.Director.getInstance().getWinSize();
+    var size = cc.director.getWinSize();
     if (Math.random() < 0.2) {
         sprite.x = parseInt(Math.random() * size.width);
         sprite.y = parseInt(Math.random() * size.height);
@@ -460,7 +460,7 @@ function performanceActions20(sprite) {
 }
 
 function performanceRotationScale(sprite) {
-    var size = cc.Director.getInstance().getWinSize();
+    var size = cc.director.getWinSize();
     sprite.x = parseInt(Math.random() * size.width);
     sprite.y = parseInt(Math.random() * size.height);
     sprite.rotation = Math.random() * 360;
@@ -468,13 +468,13 @@ function performanceRotationScale(sprite) {
 }
 
 function performancePosition(sprite) {
-    var size = cc.Director.getInstance().getWinSize();
+    var size = cc.director.getWinSize();
     sprite.x = parseInt(Math.random() * size.width);
     sprite.y = parseInt(Math.random() * size.height);
 }
 
 function performanceout20(sprite) {
-    var size = cc.Director.getInstance().getWinSize();
+    var size = cc.director.getWinSize();
 
     if (Math.random() < 0.2) {
         sprite.x = parseInt(Math.random() * size.width);
@@ -492,7 +492,7 @@ function performanceOut100(sprite) {
 }
 
 function performanceScale(sprite) {
-    var size = cc.Director.getInstance().getWinSize();
+    var size = cc.director.getWinSize();
     sprite.x = parseInt(Math.random() * size.width);
     sprite.y = parseInt(Math.random() * size.height);
     sprite.scale = Math.random() * 100 / 50;
@@ -602,5 +602,5 @@ function runSpriteTest() {
 
     var scene = new SpritePerformTest1;
     scene.initWithSubTest(1, 50);
-    cc.Director.getInstance().runScene(scene);
+    cc.director.runScene(scene);
 }

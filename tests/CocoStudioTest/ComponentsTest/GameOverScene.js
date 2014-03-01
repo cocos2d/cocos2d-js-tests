@@ -26,7 +26,7 @@ var GameOverLayer = cc.LayerColor.extend({
     _label: null,
     init: function () {
         if (this._super(cc.color(255, 255, 255, 255))) {
-            var winSize = cc.Director.getInstance().getWinSize();
+            var winSize = cc.director.getWinSize();
             this._label = cc.LabelTTF.create("", "Artial", 32);
             this._label.retain();
             this._label.color = cc.color(0, 0, 0);
@@ -47,7 +47,7 @@ var GameOverLayer = cc.LayerColor.extend({
         return false;
     },
     gameOverDone: function () {
-        cc.Director.getInstance().runScene(ComponentsTestLayer.scene());
+        cc.director.runScene(ComponentsTestLayer.scene());
     },
     getLabel: function () {
         return this._label;

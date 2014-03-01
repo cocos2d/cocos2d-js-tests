@@ -67,7 +67,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
 
         // Font Item
         var item4 = cc.MenuItemFont.create("I toggle enable items", function(sender) {
-            this._disabledItem.setEnabled(! this._disabledItem.isEnabled());
+            this._disabledItem.enabled = !this._disabledItem.enabled;
         }, this);
 
         item4.fontSize = 20;
@@ -100,7 +100,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
         menu.alignItemsVertically();
 
         // elastic effect
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var locChildren = menu.children;
         var dstPoint = cc.p(0,0);
@@ -119,7 +119,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
             }
         }
         this._disabledItem = item3;
-        this._disabledItem.setEnabled( false );
+        this._disabledItem.enabled = false;
         this.addChild(menu);
         menu.x = winSize.width/2;
         menu.y = winSize.height/2;
@@ -279,7 +279,7 @@ var MenuLayer3 = cc.Layer.extend({
 
         var label = cc.LabelBMFont.create("Enable AtlasItem", s_bitmapFontTest3_fnt);
         var item1 = cc.MenuItemLabel.create(label, function(sender){
-            this._disabledItem.setEnabled(!this._disabledItem.isEnabled());
+            this._disabledItem.enabled = !this._disabledItem.enabled;
             this._disabledItem.stopAllActions();
         }, this);
         var item2 = cc.MenuItemFont.create("--- Go Back ---", function(sender){
@@ -294,7 +294,7 @@ var MenuLayer3 = cc.Layer.extend({
             cc.log("sprite clicked!");
         }, this);
         this._disabledItem = item3;
-        this._disabledItem.setEnabled(false);
+        this._disabledItem.enabled = false;
 
         var menu = cc.Menu.create(item1, item2, item3);
         menu.x = 0;
@@ -336,7 +336,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontSize(18);
 
         var title1 = cc.MenuItemFont.create("Sound");
-        title1.setEnabled(false);
+        title1.enabled = false;
         cc.MenuItemFont.setFontName("Marker Felt");
         cc.MenuItemFont.setFontSize(34);
 
@@ -350,7 +350,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontName("American Typewriter");
         cc.MenuItemFont.setFontSize(18);
         var title2 = cc.MenuItemFont.create("Music");
-        title2.setEnabled(false);
+        title2.enabled = false;
         cc.MenuItemFont.setFontName("Marker Felt");
         cc.MenuItemFont.setFontSize(34);
 
@@ -365,7 +365,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontName("American Typewriter");
         cc.MenuItemFont.setFontSize(18);
         var title3 = cc.MenuItemFont.create("Quality");
-        title3.setEnabled(false);
+        title3.enabled = false;
         cc.MenuItemFont.setFontName("Marker Felt");
         cc.MenuItemFont.setFontSize(34);
         var item3 = cc.MenuItemToggle.create(
@@ -377,7 +377,7 @@ var MenuLayer4 = cc.Layer.extend({
         cc.MenuItemFont.setFontName("American Typewriter");
         cc.MenuItemFont.setFontSize(18);
         var title4 = cc.MenuItemFont.create("Orientation");
-        title4.setEnabled(false);
+        title4.enabled = false;
         cc.MenuItemFont.setFontName("Marker Felt");
         cc.MenuItemFont.setFontSize(34);
         var item4 = cc.MenuItemToggle.create(
@@ -432,7 +432,7 @@ var MenuBugsTest = cc.Layer.extend({
          this.addChild(menu);
          menu.alignItemsVertically();
 
-         var s = cc.Director.getInstance().getWinSize();
+         var s = cc.director.getWinSize();
          menu.x = s.width/2;
          menu.y = s.height/2;
      },
@@ -464,7 +464,7 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
     ctor: function(){
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         var label = cc.LabelTTF.create("click item and move, should not crash", "Arial", 20);
         label.x = s.width/2;

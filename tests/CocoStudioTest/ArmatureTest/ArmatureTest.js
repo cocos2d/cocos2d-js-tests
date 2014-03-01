@@ -178,9 +178,9 @@ var TestAsynchronousLoading = ArmatureTestLayer.extend({
         var backItem = menu.getChildByTag(BASE_TEST_MENUITEM_PREV_TAG);
         var restartItem = menu.getChildByTag(BASE_TEST_MENUITEM_RESET_TAG);
         var nextItem = menu.getChildByTag(BASE_TEST_MENUITEM_NEXT_TAG);
-        backItem.setEnabled(bool);
-        restartItem.setEnabled(bool);
-        nextItem.setEnabled(bool);
+        backItem.enabled = bool;
+        restartItem.enabled = bool;
+        nextItem.enabled = bool;
     },
     title: function () {
         return "Test Asynchronous Loading";
@@ -1211,17 +1211,17 @@ var TestChangeAnimationInternal = ArmatureTestLayer.extend({
         return "Touch to change animation internal";
     },
     onTouchesEnded: function (touch, event) {
-        if (cc.Director.getInstance().getAnimationInterval() == 1 / 30) {
-            cc.Director.getInstance().setAnimationInterval(1 / 60);
+        if (cc.director.getAnimationInterval() == 1 / 30) {
+            cc.director.setAnimationInterval(1 / 60);
         }
         else {
-            cc.Director.getInstance().setAnimationInterval(1 / 30);
+            cc.director.setAnimationInterval(1 / 30);
         }
         return false;
     },
     onExit: function () {
         this._super();
-        cc.Director.getInstance().setAnimationInterval(1 / 60);
+        cc.director.setAnimationInterval(1 / 60);
     }
 });
 
