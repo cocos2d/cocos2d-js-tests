@@ -60,7 +60,7 @@ var GameOver = cc.Layer.extend({
 
 
             if(MW.SOUND){
-                cc.AudioEngine.getInstance().playMusic(res.mainMainMusic_mp3);
+	            cc.audioEngine.playMusic(res.mainMainMusic_mp3);
             }
 
             bRet = true;

@@ -66,7 +66,7 @@ var SettingsLayer = cc.Layer.extend({
     },
     onSoundControl:function(){
         MW.SOUND = !MW.SOUND;
-        var audioEngine = cc.AudioEngine.getInstance();
+        var audioEngine = cc.audioEngine;
         if(MW.SOUND){
             audioEngine.playMusic(res.mainMainMusic_mp3);
         }

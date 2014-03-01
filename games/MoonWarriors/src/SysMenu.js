@@ -59,8 +59,8 @@ var SysMenu = cc.Layer.extend({
             this._ship.runAction(cc.MoveBy.create(2, cc.p(Math.random() * winSize.width, this._ship.y + winSize.height + 100)));
 
             if (MW.SOUND) {
-                cc.AudioEngine.getInstance().setMusicVolume(0.7);
-                cc.AudioEngine.getInstance().playMusic(res.mainMainMusic_mp3, true);
+                cc.audioEngine.setMusicVolume(0.7);
+                cc.audioEngine.playMusic(res.mainMainMusic_mp3, true);
             }
 
             bRet = true;
@@ -99,7 +99,7 @@ var SysMenu = cc.Layer.extend({
     },
     onButtonEffect:function(){
         if (MW.SOUND) {
-            var s = cc.AudioEngine.getInstance().playEffect(res.buttonEffet_mp3);
+            var s = cc.audioEngine.playEffect(res.buttonEffet_mp3);
         }
     }
 });
