@@ -63,7 +63,7 @@ var GameLayer = cc.Layer.extend({
             this._texTransparentBatch = cc.SpriteBatchNode.create(texTransparent);
             this.addChild(this._texTransparentBatch);
 
-            winSize = cc.Director.getInstance().getWinSize();
+            winSize = cc.director.getWinSize();
             this._levelManager = new LevelManager(this);
 
             this.screenRect = cc.rect(0, 0, winSize.width, winSize.height + 10);
@@ -318,7 +318,7 @@ var GameLayer = cc.Layer.extend({
     onGameOver:function () {
         var scene = cc.Scene.create();
         scene.addChild(GameOver.create());
-        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2, scene));
+	    cc.director.runScene(cc.TransitionFade.create(1.2, scene));
     }
 });
 

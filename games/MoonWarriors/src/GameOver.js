@@ -71,7 +71,7 @@ var GameOver = cc.Layer.extend({
         var scene = cc.Scene.create();
         scene.addChild(GameLayer.create());
         scene.addChild(GameControlMenu.create());
-        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2,scene));
+	    cc.director.runScene(cc.TransitionFade.create(1.2,scene));
     }
 });
 

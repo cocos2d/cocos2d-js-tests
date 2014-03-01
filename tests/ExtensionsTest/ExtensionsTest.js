@@ -45,7 +45,7 @@ var extensionsTestItemNames = [
         testScene:function () {
             var pManager = ControlSceneManager.getInstance();
             var pScene = pManager.currentControlScene();
-            cc.Director.getInstance().runScene(pScene);
+	        cc.director.runScene(pScene);
         }
     },
     {
@@ -88,7 +88,7 @@ var ExtensionsMainLayer = cc.Layer.extend({
     onEnter:function () {
         this._super();
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var pMenu = cc.Menu.create();
         pMenu.x = 0;
@@ -115,6 +115,6 @@ var ExtensionsTestScene = TestScene.extend({
     runThisTest:function () {
         var pLayer = new ExtensionsMainLayer();
         this.addChild(pLayer);
-        cc.Director.getInstance().runScene(this);
+	    cc.director.runScene(this);
     }
 });

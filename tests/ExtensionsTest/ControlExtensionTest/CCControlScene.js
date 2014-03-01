@@ -33,7 +33,7 @@ var ControlScene = cc.Layer.extend({
     init:function(){
         if (this._super()) {
             // Get the sceensize
-            var screensize = cc.Director.getInstance().getWinSize();
+            var screensize = cc.director.getWinSize();
 
             var pBackItem = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
             pBackItem.x = screensize.width - 50;
@@ -94,13 +94,13 @@ var ControlScene = cc.Layer.extend({
     },
 
     previousCallback:function(sender){
-        cc.Director.getInstance().runScene(ControlSceneManager.getInstance().previousControlScene());
+        cc.director.runScene(ControlSceneManager.getInstance().previousControlScene());
     },
     restartCallback:function(sender){
-        cc.Director.getInstance().runScene(ControlSceneManager.getInstance().currentControlScene());
+        cc.director.runScene(ControlSceneManager.getInstance().currentControlScene());
     },
     nextCallback:function(sender){
-        cc.Director.getInstance().runScene(ControlSceneManager.getInstance().nextControlScene());
+        cc.director.runScene(ControlSceneManager.getInstance().nextControlScene());
     }
 });
 

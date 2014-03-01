@@ -183,7 +183,7 @@ var SAXParserTest = FileTestBase.extend({
 
 		var ok = JSON.stringify(this._expectResult) == JSON.stringify(result);
 		this._label = cc.LabelTTF.create(ok ? "SUCCESS" : "FAIL");
-		var winsize = cc.Director.getInstance().getWinSize();
+		var winsize = cc.director.getWinSize();
 		this._label.x = winsize.width/2;
 		this._label.y = winsize.height/2;
 		this.addChild(this._label);

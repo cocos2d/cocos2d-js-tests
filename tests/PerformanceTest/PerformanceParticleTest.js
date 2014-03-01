@@ -62,7 +62,7 @@ var ParticleMenuLayer = PerformBasicLayer.extend({
         s_nParCurIdx = this._curCase;
         if (newScene) {
             newScene.initWithSubTest(subTest, parNum);
-            cc.Director.getInstance().runScene(newScene);
+            cc.director.runScene(newScene);
         }
     }
 });
@@ -84,7 +84,7 @@ var ParticleMainScene = cc.Scene.extend({
         //srandom(0);
 
         this._subtestNumber = asubtest;
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         this._lastRenderedCount = 0;
         this._quantityParticles = particles;
@@ -258,7 +258,7 @@ var ParticlePerformTest1 = ParticleMainScene.extend({
         return "A " + this._subtestNumber + " size=4";
     },
     doTest:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
         var particleSystem = this.getChildByTag(TAG_PARTICLE_SYSTEM);
 
         // duration
@@ -326,7 +326,7 @@ var ParticlePerformTest2 = ParticleMainScene.extend({
         return "B " + this._subtestNumber + " size=8";
     },
     doTest:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
         var particleSystem = this.getChildByTag(TAG_PARTICLE_SYSTEM);
 
         // duration
@@ -394,7 +394,7 @@ var ParticlePerformTest3 = ParticleMainScene.extend({
         return "C " + this._subtestNumber + " size=32";
     },
     doTest:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
         var particleSystem = this.getChildByTag(TAG_PARTICLE_SYSTEM);
 
         // duration
@@ -462,7 +462,7 @@ var ParticlePerformTest4 = ParticleMainScene.extend({
         return "D " + this._subtestNumber + " size=64";
     },
     doTest:function () {
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
         var particleSystem = this.getChildByTag(TAG_PARTICLE_SYSTEM);
 
         // duration
@@ -522,5 +522,5 @@ var ParticlePerformTest4 = ParticleMainScene.extend({
 function runParticleTest() {
     var scene = new ParticlePerformTest1;
     scene.initWithSubTest(1, PARTICLE_NODES_INCREASE);
-    cc.Director.getInstance().runScene(scene);
+    cc.director.runScene(scene);
 }

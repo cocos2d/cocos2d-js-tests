@@ -35,7 +35,7 @@ var TouchesTestScene = TestScene.extend({
         this.addChild(pongLayer);
     },
     runThisTest:function () {
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
     },
     MainMenuCallback:function (sender) {
         this._super(sender);
@@ -51,7 +51,7 @@ var PongLayer = cc.Layer.extend({
     ctor:function () {
         this._super();
         this._ballStartingVelocity = cc.p(20.0, -100.0);
-        this._winSize = cc.Director.getInstance().getWinSize();
+        this._winSize = cc.director.getWinSize();
 
         this._ball = Ball.ballWithTexture(cc.TextureCache.getInstance().addImage(s_ball));
         this._ball.x = this._winSize.width / 2;

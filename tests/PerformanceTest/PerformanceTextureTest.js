@@ -41,14 +41,14 @@ var TextureMenuLayer = PerformBasicLayer.extend({
         s_nTexCurCase = this._curCase;
 
         if (scene) {
-            cc.Director.getInstance().runScene(scene);
+            cc.director.runScene(scene);
         }
     },
 
     onEnter:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         // Title
         var label = cc.LabelTTF.create(this.title(), "Arial", 40);
@@ -174,7 +174,7 @@ TextureTest.scene = function () {
 function runTextureTest() {
     s_nTexCurCase = 0;
     var scene = TextureTest.scene();
-    cc.Director.getInstance().runScene(scene);
+    cc.director.runScene(scene);
 }
 
 function calculateDeltaTime(lastUpdate) {

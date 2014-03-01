@@ -49,17 +49,17 @@ var TextInputTest = cc.Layer.extend({
     restartCallback:function (sender) {
         var scene = new TextInputTestScene();
         scene.addChild(restartTextInputTest());
-        cc.Director.getInstance().runScene(scene);
+        cc.director.runScene(scene);
     },
     nextCallback:function (sender) {
         var scene = new TextInputTestScene();
         scene.addChild(nextTextInputTest());
-        cc.Director.getInstance().runScene(scene);
+        cc.director.runScene(scene);
     },
     backCallback:function (sender) {
         var scene = new TextInputTestScene();
         scene.addChild(previousTextInputTest());
-        cc.Director.getInstance().runScene(scene);
+        cc.director.runScene(scene);
     },
 
     title:function () {
@@ -74,7 +74,7 @@ var TextInputTest = cc.Layer.extend({
     onEnter:function () {
         this._super();
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 24);
         this.addChild(label);
@@ -229,7 +229,7 @@ var TextFieldTTFDefaultTest = KeyboardNotificationLayer.extend({
         this._super();
 
         // add CCTextFieldTTF
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var textField = cc.TextFieldTTF.create("<click here for input>",
             TEXT_INPUT_FONT_NAME,
@@ -288,7 +288,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
         this._action = false;
 
         // add CCTextFieldTTF
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         this._textField = cc.TextFieldTTF.create("<click here for input>",
             TEXT_INPUT_FONT_NAME,
@@ -342,7 +342,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
 
         var duration = 0.5;
 	    label.x = endX;
-	    label.y = cc.Director.getInstance().getWinSize().height - label.height * 2;
+	    label.y = cc.director.getWinSize().height - label.height * 2;
         label.scale = 8;
 
         var seq = cc.Sequence.create(
@@ -364,7 +364,7 @@ var TextFieldTTFActionTest = KeyboardNotificationLayer.extend({
         var beginX = sender.x, beginY = sender.y;
 	    beginX += (sender.width - label.width) / 2.0;
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         var endPos = cc.p(-winSize.width / 4.0, winSize.height * (0.5 + Math.random() / 2.0));
 
         var duration = 1;
@@ -395,7 +395,7 @@ var TextInputTestScene = TestScene.extend({
         var layer = nextTextInputTest();
 
         this.addChild(layer);
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
     }
 });
 

@@ -32,7 +32,7 @@ var TextureCacheTest = cc.Layer.extend({
     ctor:function () {
         this._super();
 
-        var size = cc.Director.getInstance().getWinSize();
+        var size = cc.director.getWinSize();
 
         this._labelLoading = cc.LabelTTF.create("loading...", "Arial", 15);
         this._labelPercent = cc.LabelTTF.create("%0", "Arial", 15);
@@ -70,7 +70,7 @@ var TextureCacheTest = cc.Layer.extend({
         texCache.addImage("res/Images/blocks.png", this, this.loadingCallBack);
     },
     addSprite:function () {
-        var size = cc.Director.getInstance().getWinSize();
+        var size = cc.director.getWinSize();
 
         // create sprites
         var bg = cc.Sprite.create("res/Images/HelloWorld.png");
@@ -166,6 +166,6 @@ var TextureCacheTestScene = TestScene.extend({
     runThisTest:function () {
         var layer = new TextureCacheTest();
         this.addChild(layer);
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
     }
 });

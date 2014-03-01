@@ -36,7 +36,7 @@ var cocos2dApp = cc.Application.extend({
     },
     applicationDidFinishLaunching:function () {
         // initialize director
-        var director = cc.Director.getInstance();
+        var director = cc.director;
 
         cc.EGLView.getInstance().adjustViewPort(true);
         cc.EGLView.getInstance().setDesignResolutionSize(320,480,cc.ResolutionPolicy.SHOW_ALL);
@@ -83,7 +83,7 @@ var s_ptBottomLeft = cc.p(0,0);
 var VisibleRect = {
     rect:function () {
         if (s_rcVisible.width == 0) {
-            var s = cc.Director.getInstance().getWinSize();
+            var s = cc.director.getWinSize();
             s_rcVisible = cc.rect(0, 0, s.width, s.height);
         }
         return s_rcVisible;

@@ -100,7 +100,7 @@ var MenuLayerMainMenu = cc.Layer.extend({
         menu.alignItemsVertically();
 
         // elastic effect
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var locChildren = menu.children;
         var dstPoint = cc.p(0,0);
@@ -483,7 +483,7 @@ var MenuBugsTest = cc.Layer.extend({
          this.addChild(menu);
          menu.alignItemsVertically();
 
-         var s = cc.Director.getInstance().getWinSize();
+         var s = cc.director.getWinSize();
          menu.x = s.width/2;
          menu.y = s.height/2;
      },
@@ -514,7 +514,7 @@ var RemoveMenuItemWhenMove = cc.Layer.extend({
     ctor: function(){
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         var label = cc.LabelTTF.create("click item and move, should not crash", "Arial", 20);
         label.x = s.width/2;

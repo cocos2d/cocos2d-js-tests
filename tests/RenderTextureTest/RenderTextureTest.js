@@ -185,7 +185,7 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
 var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
     ctor:function () {
         this._super();
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         /*
          *     1    2
          * A: A1   A2
@@ -267,7 +267,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
             onTouchesMoved: this.onTouchesMoved.bind(this)
         }, this);
 
-        var size = cc.Director.getInstance().getWinSize();
+        var size = cc.director.getWinSize();
         var label = cc.LabelTTF.create("vertexZ = 50", "Marker Felt", 64);
         label.x = size.width / 2;
         label.y = size.height * 0.25;
@@ -393,7 +393,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
     },
 
     renderScreenShot:function () {
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         var texture = cc.RenderTexture.create(winSize.width, winSize.width);
         if (!texture)
             return;
@@ -422,7 +422,7 @@ var RenderTextureTestDepthStencil = RenderTextureBaseLayer.extend({
         this._super();
         var gl = cc.renderContext;
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var sprite = cc.Sprite.create(s_fire);
         sprite.x = winSize.width * 0.25;
@@ -493,7 +493,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
         var background = cc.LayerColor.create(cc.color(40, 40, 40, 255));
         this.addChild(background);
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         this._winSize = winSize;
 
         // sprite 1

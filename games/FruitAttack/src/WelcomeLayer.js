@@ -42,7 +42,7 @@ var WelcomeLayer = cc.Layer.extend({
         var nextScene = cc.Scene.create();
         var nextLayer = new PatternMatrix;
         nextScene.addChild(nextLayer);
-        cc.Director.getInstance().runScene(cc.TransitionSlideInT.create(0.4, nextScene));
+	    cc.director.runScene(cc.TransitionSlideInT.create(0.4, nextScene));
     }
 });
 

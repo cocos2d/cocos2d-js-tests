@@ -41,14 +41,14 @@ var AnimationMenuLayer = PerformBasicLayer.extend({
         s_nAnimationCurCase = this._curCase;
 
         if (scene) {
-            cc.Director.getInstance().runScene(scene);
+            cc.director.runScene(scene);
         }
     },
 
     onEnter:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         // Title
         var label = cc.LabelTTF.create(this.title(), "Arial", 40);
@@ -91,7 +91,7 @@ var AnimationTest = AnimationMenuLayer.extend({
     init:function () {
         this._super();
 
-        var size = cc.Director.getInstance().getWinSize();
+        var size = cc.director.getWinSize();
 
         cc.MenuItemFont.setFontSize(65);
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
@@ -127,7 +127,7 @@ var AnimationTest = AnimationMenuLayer.extend({
     createMovieClip:function () {
         this.moveLayer = cc.Node.create();
         this.addChild(this.moveLayer);
-        var size = cc.Director.getInstance().getWinSize();
+        var size = cc.director.getWinSize();
         for(var i=0; i<10; i++) {
             var character = new CharacterView();
             character.init();
@@ -234,5 +234,5 @@ AnimationTest.scene = function () {
 function runAnimationTest() {
     s_nAnimationCurCase = 0;
     var scene = AnimationTest.scene();
-    cc.Director.getInstance().runScene(scene);
+    cc.director.runScene(scene);
 }

@@ -667,11 +667,11 @@ var CameraCenterTest = TestNodeDemo.extend({
 
     onEnter:function(){
         this._super();
-        cc.Director.getInstance().setProjection(cc.DIRECTOR_PROJECTION_3D);
+        cc.director.setProjection(cc.DIRECTOR_PROJECTION_3D);
     },
 
     onExit:function(){
-        cc.Director.getInstance().setProjection(cc.DIRECTOR_PROJECTION_2D);
+        cc.director.setProjection(cc.DIRECTOR_PROJECTION_2D);
         this._super();
     },
 
@@ -892,7 +892,7 @@ var SchedulerTest1 = TestNodeDemo.extend({
 var NodeOpaqueTest = TestNodeDemo.extend({
     ctor:function () {
         this._super();
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         var background;
         for (var i = 0; i < 50; i++) {
             background = cc.Sprite.create(s_back1);
@@ -915,7 +915,7 @@ var NodeOpaqueTest = TestNodeDemo.extend({
 var NodeNonOpaqueTest = TestNodeDemo.extend({
     ctor:function () {
         this._super();
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         var background;
         for (var i = 0; i < 50; i++) {
             background = cc.Sprite.create(s_back1);
