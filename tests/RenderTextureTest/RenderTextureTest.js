@@ -287,7 +287,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         label2.vertexZ = 0;
         label3.vertexZ = -50;
 
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_circle_plist);
+        cc.spriteFrameCache.addSpriteFrames(s_circle_plist);
         this.mgr = cc.SpriteBatchNode.create(s_circle_png, 9);
         this.addChild(this.mgr);
         this.sp1 = cc.Sprite.create("#circle.png");

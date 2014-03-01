@@ -958,7 +958,7 @@ var ActionAnimate = ActionsDemo.extend({
         // File animation
         //
         // With 2 loops and reverse
-        var animCache = cc.AnimationCache.getInstance();
+        var animCache = cc.animationCache;
 
         animCache.addAnimations(s_animations2Plist);
         var animation2 = animCache.getAnimation("dance_1");
@@ -2518,7 +2518,7 @@ var Issue1438 = ActionsDemo.extend({
         //
         // File animation
         //
-        var animCache = cc.AnimationCache.getInstance();
+        var animCache = cc.animationCache;
         animCache.addAnimations(s_animations2Plist);
         var animation2 = animCache.getAnimation("dance_1");
         animation2.setDelayPerUnit(1 / 60);

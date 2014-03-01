@@ -310,7 +310,7 @@ var SpriteProgressWithSpriteFrame = SpriteDemo.extend({
 
         var to = cc.ProgressTo.create(6, 100);
 
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_grossiniPlist);
+        cc.spriteFrameCache.addSpriteFrames(s_grossiniPlist);
 
         var left = cc.ProgressTimer.create(cc.Sprite.create("#grossini_dance_01.png"));
         left.type = cc.PROGRESS_TIMER_TYPE_BAR;

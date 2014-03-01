@@ -53,13 +53,13 @@ var PongLayer = cc.Layer.extend({
         this._ballStartingVelocity = cc.p(20.0, -100.0);
         this._winSize = cc.director.getWinSize();
 
-        this._ball = Ball.ballWithTexture(cc.TextureCache.getInstance().addImage(s_ball));
+        this._ball = Ball.ballWithTexture(cc.textureCache.addImage(s_ball));
         this._ball.x = this._winSize.width / 2;
         this._ball.y = this._winSize.height / 2;
         this._ball.setVelocity(this._ballStartingVelocity);
         this.addChild(this._ball);
 
-        var paddleTexture = cc.TextureCache.getInstance().addImage(s_paddle);
+        var paddleTexture = cc.textureCache.addImage(s_paddle);
 
         this._paddles = [];
 

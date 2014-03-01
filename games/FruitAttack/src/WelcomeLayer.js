@@ -52,7 +52,7 @@ var MyGameScene = cc.Scene.extend({
 
         gScoreData.initData();
 
-        var spriteFrameCache = cc.SpriteFrameCache.getInstance();
+        var spriteFrameCache = cc.spriteFrameCache;
         spriteFrameCache.addSpriteFrames("res/baseResource.plist","res/baseResource.png");
 
         var layer = new WelcomeLayer;

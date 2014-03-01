@@ -110,7 +110,7 @@ var TextureTest = TextureMenuLayer.extend({
     performTestsPNG:function (filename) {
         var now = Date.now();
         var texture;
-        var cache = cc.TextureCache.getInstance();
+        var cache = cc.textureCache;
         if ("opengl" in sys.capabilities)
             var defaultFormat = cc.Texture2D.getDefaultAlphaPixelFormat();
         cc.log("RGBA 8888");

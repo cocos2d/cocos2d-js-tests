@@ -46,7 +46,7 @@ var TextureCacheTest = cc.Layer.extend({
         this.addChild(this._labelLoading);
         this.addChild(this._labelPercent);
 
-        var texCache = cc.TextureCache.getInstance();
+        var texCache = cc.textureCache;
         // load textrues
         texCache.addImage("res/Images/HelloWorld.png", this, this.loadingCallBack);
         texCache.addImage("res/Images/grossini.png", this, this.loadingCallBack);

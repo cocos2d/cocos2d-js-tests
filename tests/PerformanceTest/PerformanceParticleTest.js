@@ -173,8 +173,8 @@ var ParticleMainScene = cc.Scene.extend({
         this.removeChildByTag(TAG_PARTICLE_SYSTEM, true);
 
         // remove the "fire.png" from the TextureCache cache.
-        //var texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
-        //cc.TextureCache.getInstance().removeTexture(texture);
+        //var texture = cc.textureCache.addImage("res/Images/fire.png");
+        //cc.textureCache.removeTexture(texture);
 
         var particleSystem = cc.ParticleSystem.create(this._quantityParticles);
 
@@ -182,17 +182,17 @@ var ParticleMainScene = cc.Scene.extend({
             case 1:
                 if ("opengl" in sys.capabilities)
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA8888);
-                particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
+                particleSystem.texture = cc.textureCache.addImage("res/Images/fire.png");
                 break;
             case 2:
                 if ("opengl" in sys.capabilities)
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_RGBA4444);
-                particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
+                particleSystem.texture = cc.textureCache.addImage("res/Images/fire.png");
                 break;
             case 3:
                 if ("opengl" in sys.capabilities)
                     cc.Texture2D.setDefaultAlphaPixelFormat(cc.TEXTURE_PIXELFORMAT_A8);
-                particleSystem.texture = cc.TextureCache.getInstance().addImage("res/Images/fire.png");
+                particleSystem.texture = cc.textureCache.addImage("res/Images/fire.png");
                 break;
             default:
                 particleSystem = null;

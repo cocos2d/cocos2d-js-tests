@@ -1,5 +1,5 @@
 var gNotification = cc.NotificationCenter.getInstance();
-var gSpriteFrameCache = cc.SpriteFrameCache.getInstance();
+var gSpriteFrameCache = cc.spriteFrameCache;
 
 var gSharedEngine = cc.audioEngine;
 

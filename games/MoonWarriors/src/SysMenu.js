@@ -6,7 +6,7 @@ var SysMenu = cc.Layer.extend({
     init:function () {
         var bRet = false;
         if (this._super()) {
-            cc.SpriteFrameCache.getInstance().addSpriteFrames(res.textureTransparentPack_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.textureTransparentPack_plist);
 
             winSize = cc.director.getWinSize();
             var sp = cc.Sprite.create(res.loading_png);
