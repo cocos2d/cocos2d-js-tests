@@ -1025,14 +1025,13 @@ var RadiusMode2 = ParticleDemo.extend({
 
         // radius mode: start and end radius in pixels
         this._emitter.startRadius = 100;
-        this._emitter.startRadiusVar(0);
+        this._emitter.startRadiusVar = 0;
         this._emitter.endRadius = cc.PARTICLE_START_RADIUS_EQUAL_TO_END_RADIUS;
         this._emitter.endRadiusVar = 0;
 
         // radius mode: degrees per second
         this._emitter.rotatePerS = 45;
         this._emitter.rotatePerSVar = 0;
-
 
         // angle
         this._emitter.angle = 90;
