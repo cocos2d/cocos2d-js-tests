@@ -36,8 +36,8 @@ var GameOverLayer = cc.LayerColor.extend({
             this.runAction(cc.Sequence.create(cc.DelayTime.create(3), cc.CallFunc.create(this.gameOverDone, this)));
             var itemBack = cc.MenuItemFont.create("Back", this.toExtensionsMainLayer, this);
             itemBack.color = cc.color(0, 0, 0);
-            itemBack.x = cc.VisibleRect.bottomRight().x - 50;
-            itemBack.y = cc.VisibleRect.bottomRight().y + 25;
+            itemBack.x = cc.visibleRect.bottomRight.x - 50;
+            itemBack.y = cc.visibleRect.bottomRight.y + 25;
             var menuBack = cc.Menu.create(itemBack);
             menuBack.x = 0;
             menuBack.y = 0;

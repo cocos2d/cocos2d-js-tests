@@ -66,12 +66,12 @@ var MotionStreakTest = cc.Layer.extend({
 
         menu.x = 0;
         menu.y = 0;
-        item1.x = cc.VisibleRect.center().x - item2.width * 2;
-        item1.y = cc.VisibleRect.bottom().y + item2.height / 2;
-        item2.x = cc.VisibleRect.center().x;
-        item2.y = cc.VisibleRect.bottom().y + item2.height / 2;
-        item3.x = cc.VisibleRect.center().x + item2.width * 2;
-        item3.y = cc.VisibleRect.bottom().y + item2.height / 2;
+        item1.x = cc.visibleRect.center.x - item2.width * 2;
+        item1.y = cc.visibleRect.bottom.y + item2.height / 2;
+        item2.x = cc.visibleRect.center.x;
+        item2.y = cc.visibleRect.bottom.y + item2.height / 2;
+        item3.x = cc.visibleRect.center.x + item2.width * 2;
+        item3.y = cc.visibleRect.bottom.y + item2.height / 2;
 
         this.addChild(menu, 1);
 

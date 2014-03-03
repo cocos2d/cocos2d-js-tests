@@ -134,8 +134,8 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
             });
 
             nextItem.fontSize = 16;
-            nextItem.x = cc.VisibleRect.right().x -100;
-	        nextItem.y = cc.VisibleRect.right().y - 30;
+            nextItem.x = cc.visibleRect.right.x -100;
+	        nextItem.y = cc.visibleRect.right.y - 30;
 
             var menu2 = cc.Menu.create(nextItem);
             menu2.setPosition(0, 0);
@@ -144,8 +144,8 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
         });
 
         removeAllTouchItem.fontSize = 16;
-        removeAllTouchItem.x = cc.VisibleRect.right().x -100;
-	    removeAllTouchItem.y = cc.VisibleRect.right().y;
+        removeAllTouchItem.x = cc.visibleRect.right.x -100;
+	    removeAllTouchItem.y = cc.visibleRect.right.y;
 
         var menu = cc.Menu.create(removeAllTouchItem);
         menu.setPosition(0, 0);
@@ -487,9 +487,9 @@ var SpriteAccelerationEventTest =  EventDispatcherTestDemo.extend({
                 //cc.log("acc: x = " + acc.x + ", y = " + acc.y);
 
                 target.x = SpriteAccelerationEventTest._fix_pos(ptNow.x + acc.x * 9.81,
-                    (cc.VisibleRect.left().x + ballSize.width / 2.0), (cc.VisibleRect.right().x - ballSize.width / 2.0));
+                    (cc.visibleRect.left.x + ballSize.width / 2.0), (cc.visibleRect.right.x - ballSize.width / 2.0));
                 target.y = SpriteAccelerationEventTest._fix_pos(ptNow.y + acc.y * 9.81,
-                    (cc.VisibleRect.bottom().y + ballSize.height / 2.0), (cc.VisibleRect.top().y - ballSize.height / 2.0));
+                    (cc.visibleRect.bottom.y + ballSize.height / 2.0), (cc.visibleRect.top.y - ballSize.height / 2.0));
             }
         }, sprite);
     },
@@ -622,7 +622,7 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             cc.eventManager.addListener(listener, -1);
             cc.eventManager.removeListener(listener);
         });
-        var vCenter = cc.VisibleRect.center();
+        var vCenter = cc.visibleRect.center;
         item1.setPosition(vCenter.x, vCenter.y + 80);
 
         var addNextButton = function(){
@@ -632,7 +632,7 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             next.setPosition(vCenter.x, vCenter.y - 40);
 
             var menu = cc.Menu.create(next);
-            menu.setPosition(cc.VisibleRect.bottomLeft());
+            menu.setPosition(cc.visibleRect.bottomLeft);
             menu.setAnchorPoint(0,0);
             selfPointer.addChild(menu);
         };
@@ -663,10 +663,10 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             cc.eventManager.removeAllListeners();
             addNextButton();
         }, this);
-        item3.setPosition(cc.VisibleRect.center());
+        item3.setPosition(cc.visibleRect.center);
 
         var menu = cc.Menu.create(item1, item2, item3);
-        menu.setPosition(cc.VisibleRect.bottomLeft());
+        menu.setPosition(cc.visibleRect.bottomLeft);
         menu.setAnchorPoint(0, 0);
         this.addChild(menu);
     },
