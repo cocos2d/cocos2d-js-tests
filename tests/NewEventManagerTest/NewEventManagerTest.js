@@ -196,7 +196,7 @@ var TouchableSpriteWithFixedPriority = cc.Sprite.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    selfPointer.setColor(cc.red());
+                    selfPointer.setColor(cc.color.red);
                     return true;
                 }
                 return false;
@@ -205,7 +205,7 @@ var TouchableSpriteWithFixedPriority = cc.Sprite.extend({
                 //this.setPosition(this.getPosition() + touch.getDelta());
             },
             onTouchEnded: function (touch, event) {
-                selfPointer.setColor(cc.white());
+                selfPointer.setColor(cc.color.white);
             }
         });
 
@@ -291,13 +291,13 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    sprite1.setColor(cc.red());
+                    sprite1.setColor(cc.color.red);
                     return true;
                 }
                 return false;
             },
             onTouchEnded: function (touch, event) {
-                sprite1.setColor(cc.white());
+                sprite1.setColor(cc.color.white);
             }
         });
         this.setUserObject(listener1);
