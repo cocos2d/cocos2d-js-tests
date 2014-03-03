@@ -46,7 +46,7 @@ var VirtualMachineTestMenuLayer = PerformBasicLayer.extend({
     _maxCases:6,
     ctor:function(){
         this._super();
-        this._maxCases = (cc.renderContextType === cc.CANVAS) ? 6 : 4;
+        this._maxCases = (cc.renderType === cc.RENDER_TYPE_CANVAS) ? 6 : 4;
     },
     showCurrentTest:function () {
         var nodes = (this.parent).getQuantityOfNodes();
