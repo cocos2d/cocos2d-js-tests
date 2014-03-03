@@ -384,7 +384,7 @@ var ActionRotateXY = ActionsDemo.extend({
 
         this._kathia.runAction(cc.Sequence.create(actionBy2, delay.clone(), actionBy2.reverse()));
 
-        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+        if (!cc.sys.isNative && !("opengl" in cc.sys.capabilities)) {
             var label = cc.LabelTTF.create("Not support Actions on HTML5-canvas", "Times New Roman", 30);
             label.x = winSize.width / 2;
 			label.y = winSize.height / 2 + 50;
@@ -958,7 +958,7 @@ var ActionAnimate = ActionsDemo.extend({
         // File animation
         //
         // With 2 loops and reverse
-        var animCache = cc.animationCache;
+        var animCache = cc.AnimationCache.getInstance();
 
         animCache.addAnimations(s_animations2Plist);
         var animation2 = animCache.getAnimation("dance_1");
@@ -1728,7 +1728,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
         var context = ctx || cc.renderContext;
         var winSize = director.getWinSize();
 
-        if(!("opengl" in sys.capabilities)){
+        if(!("opengl" in cc.sys.capabilities)){
             var locScaleX = cc.view.getScaleX(), locScaleY = cc.view.getScaleY();
             var apPoint = this.getAnchorPointInPoints();
             // move to 50,50 since the "by" path will start at 50,50
@@ -1895,8 +1895,8 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._super();
         var context = ctx || cc.renderContext;
 
-        if(!("opengl" in sys.capabilities)){
-            var eglViewer = cc.view;
+        if(!("opengl" in cc.sys.capabilities)){
+            var eglViewer = cc.EGLView.getInstance();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
             context.translate(50 * eglViewer.getScaleX(), - 50 * eglViewer.getScaleY());
@@ -2518,7 +2518,7 @@ var Issue1438 = ActionsDemo.extend({
         //
         // File animation
         //
-        var animCache = cc.animationCache;
+        var animCache = cc.AnimationCache.getInstance();
         animCache.addAnimations(s_animations2Plist);
         var animation2 = animCache.getAnimation("dance_1");
         animation2.setDelayPerUnit(1 / 60);
@@ -2637,7 +2637,7 @@ var arrayOfActionsTest = [
     Issue1446
 ];
 
-if("opengl" in sys.capabilities){
+if("opengl" in cc.sys.capabilities){
     arrayOfActionsTest.push(ActionOrbit);
 }
 

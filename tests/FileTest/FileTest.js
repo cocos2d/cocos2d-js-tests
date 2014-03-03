@@ -76,12 +76,12 @@ var FilenameLookupTest = FileTestBase.extend({
         this._super();
 
         var t = sys.platform;
-        if( t == 'mobile')  {
+        if(cc.sys.isNative)  {
             cc.FileUtils.getInstance().loadFilenameLookup('FileTest/lookup-mobile.plist');
-        } else if( t == 'desktop' ) {
-            cc.FileUtils.getInstance().loadFilenameLookup('FileTest/lookup-desktop.plist');
-        } else {
+        } else if(cc.sys.isMobile) {
             cc.FileUtils.getInstance().loadFilenameLookup('FileTest/lookup-html5.plist');
+        } else {
+            cc.FileUtils.getInstance().loadFilenameLookup('FileTest/lookup-desktop.plist');
         }
 
         var sprite = cc.Sprite.create("grossini.bmp");

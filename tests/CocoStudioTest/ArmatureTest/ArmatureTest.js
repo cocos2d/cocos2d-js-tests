@@ -98,7 +98,7 @@ var armatureSceneArr = [
     }
 ];
 
-if (sys.platform === "browser")
+if (!cc.sys.isNative)
 {
     armatureSceneArr.push( function () { return new TestColliderDetector();} );
 }else{
@@ -492,7 +492,7 @@ var TestFrameEvent = ArmatureTestLayer.extend({
     onFrameEvent: function (bone, evt, originFrameIndex, currentFrameIndex) {
         cc.log("(" + bone.getName() + ") emit a frame event (" + evt + ") at frame index (" + currentFrameIndex + ").");
         if (!this.getActionByTag(FRAME_EVENT_ACTION_TAG) || this.getActionByTag(FRAME_EVENT_ACTION_TAG).isDone()) {
-            if ("opengl" in sys.capabilities) {
+            if ("opengl" in cc.sys.capabilities) {
                 this.stopAllActions();
                 var action = cc.ShatteredTiles3D.create(0.2, cc.size(16, 12), 5, false);
                 action.tag = FRAME_EVENT_ACTION_TAG;
@@ -501,7 +501,7 @@ var TestFrameEvent = ArmatureTestLayer.extend({
         }
     },
     checkAction: function (dt) {
-        if ("opengl" in sys.capabilities) {
+        if ("opengl" in cc.sys.capabilities) {
             if (this.getNumberOfRunningActions() == 0 && this.grid != null)
                 this.grid = null;
         }

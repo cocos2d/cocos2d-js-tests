@@ -38,27 +38,27 @@ var CurrentLanguageTest = cc.Layer.extend({
         labelLanguage.x = s.width / 2;
 	    labelLanguage.y = s.height / 2;
 
-        var currentLanguageType = cc.Application.getCurrentLanguage();
+        var currentLanguageType = cc.sys.language;
         switch (currentLanguageType) {
-            case cc.LANGUAGE_ENGLISH:
+            case cc.sys.LANGUAGE_ENGLISH:
                 labelLanguage.setString("current language is English");
                 break;
-            case cc.LANGUAGE_CHINESE:
+            case cc.sys.LANGUAGE_CHINESE:
                 labelLanguage.setString("current language is Chinese");
                 break;
-            case cc.LANGUAGE_FRENCH:
+            case cc.sys.LANGUAGE_FRENCH:
                 labelLanguage.setString("current language is French");
                 break;
-            case cc.LANGUAGE_GERMAN:
+            case cc.sys.LANGUAGE_GERMAN:
                 labelLanguage.setString("current language is German");
                 break;
-            case cc.LANGUAGE_ITALIAN:
+            case cc.sys.LANGUAGE_ITALIAN:
                 labelLanguage.setString("current language is Italian");
                 break;
-            case cc.LANGUAGE_RUSSIAN:
+            case cc.sys.LANGUAGE_RUSSIAN:
                 labelLanguage.setString("current language is Russian");
                 break;
-            case cc.LANGUAGE_SPANISH:
+            case cc.sys.LANGUAGE_SPANISH:
                 labelLanguage.setString("current language is Spanish");
                 break;
         }

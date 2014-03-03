@@ -104,7 +104,7 @@ var TouchOneByOneTest = EventTest.extend({
         this.ids = {};
         this.unused_sprites = [];
 
-        if( 'touches' in sys.capabilities ) {
+        if( 'touches' in cc.sys.capabilities ) {
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -192,7 +192,7 @@ var TouchAllAtOnce = EventTest.extend({
         this.ids = {};
         this.unused_sprites = [];
 
-        if( 'touches' in sys.capabilities ) {
+        if( 'touches' in cc.sys.capabilities ) {
             // this is the default behavior. No need to set it explicitly.
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
@@ -289,7 +289,7 @@ var AccelerometerTest = EventTest.extend({
     init:function () {
         this._super();
 
-        if( 'accelerometer' in sys.capabilities ) {
+        if( 'accelerometer' in cc.sys.capabilities ) {
             // call is called 30 times per second
             cc.inputManager.setAccelerometerInterval(1/30);
             cc.inputManager.setAccelerometerEnabled(true);
@@ -331,7 +331,7 @@ var AccelerometerTest = EventTest.extend({
 
     onExit: function(){
         this._super();
-        if( 'accelerometer' in sys.capabilities )
+        if( 'accelerometer' in cc.sys.capabilities )
             cc.inputManager.setAccelerometerEnabled(false);
     },
 
@@ -355,7 +355,7 @@ var MouseTest = EventTest.extend({
         sprite.scale = 1;
         sprite.color = cc.color(Math.random()*200+55, Math.random()*200+55, Math.random()*200+55);
 
-        if( 'mouse' in sys.capabilities ) {
+        if( 'mouse' in cc.sys.capabilities ) {
             cc.eventManager.addListener({
                  event: cc.EventListener.MOUSE,
                 onMouseDown: function(event){
@@ -398,7 +398,7 @@ var KeyboardTest = EventTest.extend({
     init:function () {
         this._super();
 
-        if( 'keyboard' in sys.capabilities ) {
+        if( 'keyboard' in cc.sys.capabilities ) {
             cc.eventManager.addListener({
                 event: cc.EventListener.KEYBOARD,
                 onKeyPressed:function(key, event) {

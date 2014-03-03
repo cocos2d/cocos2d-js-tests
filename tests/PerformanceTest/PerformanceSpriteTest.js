@@ -26,8 +26,8 @@
 var MAX_SPRITES = 10000;
 var SPRITES_INCREASE = 500;
 
-if ( sys.platform == 'browser') {
-   if(cc.Browser.isMobile){
+if ( !cc.sys.isNative) {
+   if(cc.sys.isMobile){
        MAX_SPRITES = 3000;
        SPRITES_INCREASE = 50;
    }
@@ -69,7 +69,7 @@ var SubTest = cc.Class.extend({
     },
     createSpriteWithTag:function (tag) {
 // create
-        if( "opengl" in sys.capabilities )
+        if( "opengl" in cc.sys.capabilities )
             cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
 
         var sprite = null;
@@ -138,7 +138,7 @@ var SubTest = cc.Class.extend({
                 break;
         }
 
-        if( "opengl" in sys.capabilities )
+        if( "opengl" in cc.sys.capabilities )
             cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_DEFAULT;
 
         return sprite;
@@ -168,7 +168,7 @@ var SubTest = cc.Class.extend({
         // purge textures
         //
         //		[mgr removeAllTextures];
-        if ( sys.platform != 'browser') {
+        if ( cc.sys.isNative) {
             var mgr = cc.textureCache;
             mgr.removeTexture(mgr.addImage("res/Images/grossinis_sister1.png"));
             mgr.removeTexture(mgr.addImage("res/Images/grossini_dance_atlas.png"));
@@ -182,13 +182,13 @@ var SubTest = cc.Class.extend({
                 break;
             ///
             case 2:
-                if( "opengl" in sys.capabilities )
+                if( "opengl" in cc.sys.capabilities )
                     cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 3:
-                if( "opengl" in sys.capabilities )
+                if( "opengl" in cc.sys.capabilities )
                     cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossinis_sister1.png", 500);
                 p.addChild(this._batchNode, 0);
@@ -196,13 +196,13 @@ var SubTest = cc.Class.extend({
 
             ///
             case 5:
-                if( "opengl" in sys.capabilities )
+                if( "opengl" in cc.sys.capabilities )
                     cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 6:
-                if( "opengl" in sys.capabilities )
+                if( "opengl" in cc.sys.capabilities )
                     cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/grossini_dance_atlas.png", 500);
                 p.addChild(this._batchNode, 0);
@@ -210,13 +210,13 @@ var SubTest = cc.Class.extend({
 
             ///
             case 8:
-                if( "opengl" in sys.capabilities )
+                if( "opengl" in cc.sys.capabilities )
                     cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 500);
                 p.addChild(this._batchNode, 0);
                 break;
             case 9:
-                if( "opengl" in sys.capabilities )
+                if( "opengl" in cc.sys.capabilities )
                     cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
                 this._batchNode = cc.SpriteBatchNode.create("res/Images/spritesheet1.png", 500);
                 p.addChild(this._batchNode, 0);
@@ -226,7 +226,7 @@ var SubTest = cc.Class.extend({
                 break;
         }
 
-        if( "opengl" in sys.capabilities )
+        if( "opengl" in cc.sys.capabilities )
             cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_DEFAULT;
     }
 });

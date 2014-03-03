@@ -187,7 +187,7 @@ var PatternSprite = cc.Sprite.extend({
 
     },
     onEnter:function () {
-       if(sys.platform == "browser")
+       if(!cc.sys.isNative)
             cc.registerTargetedDelegate(1, true, this);
         else
             cc.registerTargettedDelegate(1,true,this);

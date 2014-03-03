@@ -83,14 +83,14 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     onEnter:function () {
         this._super();
 
-        if ('touches' in sys.capabilities){
+        if ('touches' in cc.sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved:function (touches, event) {
                     event.getCurrentTarget().drawInLocation(touches[0].getLocation());
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseDown: function(event){
@@ -133,7 +133,7 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     },
 
     saveCB:function (sender) {
-        if(sys.platform === "browser"){
+        if(!cc.sys.isNative){
             cc.log("RenderTexture's saveToFile doesn't suppport on HTML5");
             return;
         }
@@ -607,7 +607,7 @@ var Issue1464 = RenderTextureBaseLayer.extend({
         var fe = cc.RepeatForever.create(seq);
         rend.getSprite().runAction(fe);
 
-        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+        if (!cc.sys.isNative && !("opengl" in cc.sys.capabilities)) {
             var label = cc.LabelTTF.create("Not support Actions on HTML5-canvas", "Times New Roman", 30);
             label.x = winSize.width / 2;
             label.y = winSize.height / 2 + 50;
@@ -659,7 +659,7 @@ var arrayOfRenderTextureTest = [
     Issue1464
 ];
 
-if(('opengl' in sys.capabilities) && (sys.platform == 'browser') ){
+if(('opengl' in cc.sys.capabilities) && (!cc.sys.isNative) ){
     arrayOfRenderTextureTest.push(RenderTextureIssue937);
     arrayOfRenderTextureTest.push(RenderTextureZbuffer);
     arrayOfRenderTextureTest.push(RenderTextureTestDepthStencil);

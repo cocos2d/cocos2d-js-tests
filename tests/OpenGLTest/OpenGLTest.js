@@ -99,7 +99,7 @@ var GLReadPixelsTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             var x = winSize.width;
             var y = winSize.height;
 
@@ -185,7 +185,7 @@ var GLClearTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
 
             var blue = cc.LayerColor.create(cc.color(0, 0, 255, 255));
             this.addChild( blue, 1 );
@@ -234,7 +234,7 @@ var GLNodeWebGLAPITest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
 
             // simple shader example taken from:
             // http://learningwebgl.com/blog/?p=134
@@ -434,14 +434,14 @@ var GLNodeCCAPITest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
 
 
             var glnode = cc.GLNode.create();
             this.addChild(glnode,10);
             this.glnode = glnode;
 
-            this.shader = cc.shaderCache.getProgram("ShaderPositionColor");
+            this.shader = cc.ShaderCache.getInstance().getProgram("ShaderPositionColor");
             this.initBuffers();
 
             glnode.draw = function() {
@@ -556,7 +556,7 @@ var ShaderNode = cc.GLNode.extend({
         this._super();
         this.init();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             this.width = 256;
 	        this.height = 256;
             this.anchorX = 0.5;
@@ -627,7 +627,7 @@ var ShaderHeartTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             var shaderNode = new ShaderNode("res/Shaders/example_Heart.vsh", "res/Shaders/example_Heart.fsh");
             this.addChild(shaderNode,10);
             shaderNode.x = winSize.width/2;
@@ -667,7 +667,7 @@ var ShaderMandelbrotTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             var shaderNode = new ShaderNode("res/Shaders/example_Mandelbrot.vsh", "res/Shaders/example_Mandelbrot.fsh");
             this.addChild(shaderNode,10);
             shaderNode.x = winSize.width/2;
@@ -702,7 +702,7 @@ var ShaderMonjoriTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             var shaderNode = new ShaderNode("res/Shaders/example_Monjori.vsh", "res/Shaders/example_Monjori.fsh");
             this.addChild(shaderNode,10);
             shaderNode.x = winSize.width/2;
@@ -737,7 +737,7 @@ var ShaderPlasmaTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             var shaderNode = new ShaderNode("res/Shaders/example_Plasma.vsh", "res/Shaders/example_Plasma.fsh");
             this.addChild(shaderNode,10);
             shaderNode.x = winSize.width/2;
@@ -775,7 +775,7 @@ var ShaderFlowerTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
 
             var shaderNode = new ShaderNode("res/Shaders/example_Flower.vsh", "res/Shaders/example_Flower.fsh");
             this.addChild(shaderNode,10);
@@ -814,7 +814,7 @@ var ShaderJuliaTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
 
             var shaderNode = new ShaderNode("res/Shaders/example_Julia.vsh", "res/Shaders/example_Julia.fsh");
             this.addChild(shaderNode,10);
@@ -852,7 +852,7 @@ var ShaderRetroEffect = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             var program = cc.GLProgram.create("res/Shaders/example_ColorBars.vsh", "res/Shaders/example_ColorBars.fsh");
             program.addAttribute(cc.ATTRIBUTE_NAME_POSITION, cc.VERTEX_ATTRIB_POSITION);
             program.addAttribute(cc.ATTRIBUTE_NAME_TEX_COORD, cc.VERTEX_ATTRIB_TEX_COORDS);
@@ -908,7 +908,7 @@ var GLGetActiveTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             var sprite = this.sprite = cc.Sprite.create("res/Images/grossini.png");
             sprite.x = winSize.width/2;
             sprite.y = winSize.height/2;
@@ -959,7 +959,7 @@ var TexImage2DTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             var glnode = cc.GLNode.create();
             this.addChild(glnode,10);
             this.glnode = glnode;
@@ -1068,7 +1068,7 @@ var GetSupportedExtensionsTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             if( ! autoTestEnabled ) {
                 var array = gl.getSupportedExtensions();
                 cc.log( JSON.stringify( array ) );
@@ -1112,7 +1112,7 @@ var GLTexParamterTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
             if( ! autoTestEnabled ) {
                 cc.log( this.getTexValues() );
             }
@@ -1126,7 +1126,7 @@ var GLTexParamterTest = OpenGLTestLayer.extend({
         return "tests texParameter()";
     },
     getTexValues:function() {
-        if(sys.platform === "browser"){
+        if(!cc.sys.isNative){
             var texture2d = cc.textureCache.textureForKey(s_pathGrossini);
             gl.bindTexture(gl.TEXTURE_2D, texture2d.getName());
         } else {
@@ -1170,7 +1170,7 @@ var GLGetUniformTest = OpenGLTestLayer.extend({
     ctor:function() {
         this._super();
 
-        if( 'opengl' in sys.capabilities ) {
+        if( 'opengl' in cc.sys.capabilities ) {
 
             if( ! autoTestEnabled ) {
                 cc.log( JSON.stringify( this.runTest() ));

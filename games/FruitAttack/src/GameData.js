@@ -51,6 +51,7 @@ var eGameMode = {
 var gGameMode = eGameMode.Challenge;
 
 gScoreData.setLastScore = function(score){
+    var sys = cc.sys;
     this.lastScore = score;
 
     if (score > this.bestScore)
@@ -62,6 +63,7 @@ gScoreData.setLastScore = function(score){
 };
 
 gScoreData.initData = function(){
+    var sys = cc.sys;
     if( sys.localStorage.getItem('gameData') == null){
         sys.localStorage.setItem('bestScore','0');
         sys.localStorage.setItem('lastScore','0');

@@ -196,7 +196,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._batch = cc.SpriteBatchNode.create(coin.getTexture(), 100);    //cc.Node.create();
         scroll.addChild(this._batch, Z_SPRITES, cc.p(1, 1), cc.p(0,0));
 
-        if( 'opengl' in sys.capabilities) {
+        if( 'opengl' in cc.sys.capabilities) {
             // Since JSB runs on top of OpenGL (cocos2d-iphone or cocos2d-x), you can use
             // OpenGL commands, and your code will run faster (but it is not compatible with cocos2d-html5... yet)
             var background = cc.Sprite.create(s_parallax, cc.rect(0,0,4096,512) );
@@ -236,8 +236,8 @@ var GameLayer = cc.LayerGradient.extend({
         // should be after setting _game_state
         this.initHUD();
 
-        sys.dumpRoot();
-        sys.garbageCollect();
+        cc.sys.dumpRoot();
+        cc.sys.garbageCollect();
     },
 
     //
@@ -904,13 +904,13 @@ var GameLayer = cc.LayerGradient.extend({
     // Helpers
     //
     enableEvents:function (enabled) {
-        if( 'touches' in sys.capabilities )
+        if( 'touches' in cc.sys.capabilities )
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesBegan: this.onTouchesBegan,
                 onTouchesEnded: this.onTouchesEnded
             }, this);
-        else if( 'mouse' in sys.capabilities )
+        else if( 'mouse' in cc.sys.capabilities )
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseDown: this.onMouseDown,
@@ -947,8 +947,8 @@ var BootLayer = cc.Layer.extend({
         var cache = cc.SpriteFrameCache.getInstance();
         cache.addSpriteFrames(s_coinsPlist);
 
-        sys.dumpRoot();
-        sys.garbageCollect();
+        cc.sys.dumpRoot();
+        cc.sys.garbageCollect();
     },
 
     onEnter:function () {
@@ -1028,8 +1028,8 @@ var OptionsLayer = cc.LayerGradient.extend({
         menu.alignItemsVertically();
         menu.setPosition(centerPos);
 
-        sys.dumpRoot();
-        sys.garbageCollect();
+        cc.sys.dumpRoot();
+        cc.sys.garbageCollect();
     },
 
     onBack:function (sender) {
@@ -1136,6 +1136,7 @@ function ScoreMgr(){
         return arguments.callee.instance;
     arguments.callee.instance = this;
 
+    var sys = cc.sys;
     this.scores = sys.localStorage.getItem('scores');
     if( this.scores === null || this.scores === undefined || this.scores === "" ) {
         this.scores = [20,15,10,5,1];
@@ -1168,7 +1169,7 @@ ScoreMgr.prototype.addScore = function(score)
     // remove the 6th element
     this.scores.splice(5,1);
 
-    sys.localStorage.setItem('scores', this.scores);
+    cc.sys.localStorage.setItem('scores', this.scores);
 };
 
 
@@ -1177,7 +1178,7 @@ ScoreMgr.prototype.addScore = function(score)
 // Main entry point - JSB
 //
 //------------------------------------------------------------------
-if (sys.platform !== "browser") {
+if (cc.sys.isNative) {
     function run() {
 
         audioEngine = cc.AudioEngine.getInstance();

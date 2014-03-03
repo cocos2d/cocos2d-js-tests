@@ -35,7 +35,7 @@ var cocos2dApp = cc.Application.extend({
         cc.AppController.shareAppController().didFinishLaunchingWithOptions();
     },
     applicationDidFinishLaunching:function () {
-        if(cc.RenderDoesnotSupport()){
+        if(!cc._supportRender){
             //show Information to user
             alert("Browser doesn't support Canvas or WebGL");
             return false;

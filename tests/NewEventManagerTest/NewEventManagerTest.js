@@ -588,7 +588,7 @@ var RemoveAndRetainNodeTest =  EventDispatcherTestDemo.extend({
             cc.CallFunc.create(function () {
                 this._spriteSaved = false;
                 this.addChild(this._sprite);
-                if(sys.platform == 'browser')
+                if(!cc.sys.isNative)
                     cc.eventManager.addListener(listener1, this._sprite);
                 this._sprite.release();
             }, this)
