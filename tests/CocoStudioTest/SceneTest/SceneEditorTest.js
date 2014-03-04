@@ -219,8 +219,7 @@ var UIComponentTest = SceneEditorTestLayer.extend({
         this._super();
         this._node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/UIComponentTest/UIComponentTest.json");
         this.addChild(this._node);
-        var uiLayer = this._node.getChildByTag(10025).getComponent("GUIComponent").getNode();
-        var widget = uiLayer.getWidgetByName("Panel_154");
+        var widget = this._node.getChildByTag(10025).getComponent("GUIComponent").getNode();
         var button = widget.getChildByName("Button_156");
         button.addTouchEventListener(this.touchEvent, this);
 
@@ -391,9 +390,16 @@ var TriggerTest = SceneEditorTestLayer.extend({
         ccs.ActionManager.getInstance().playActionByName("startMenu_1.json", "Animation1");
 
         this.schedule(this.gameLogic);
-        this.setTouchEnabled(true);
         ccs.sendEvent(TRIGGEREVENT_ENTERSCENE);
 
+        var listener1 = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: this.onTouchBegan.bind(this),
+            onTouchMoved: this.onTouchMoved.bind(this),
+            onTouchEnded: this.onTouchEnded.bind(this)
+        });
+        cc.eventManager.addListener(listener1, this);
         this.initSize(node);
     },
     onExit: function () {
@@ -402,20 +408,20 @@ var TriggerTest = SceneEditorTestLayer.extend({
         this._super();
     },
 
-    onTouchesBegan: function (touch, event) {
+    onTouchBegan: function (touch, event) {
         ccs.sendEvent(TRIGGEREVENT_TOUCHBEGAN);
         return true;
     },
 
-    onTouchesMoved: function (touch, event) {
+    onTouchMoved: function (touch, event) {
         ccs.sendEvent(TRIGGEREVENT_TOUCHMOVED);
     },
 
-    onTouchesEnded: function (touch, event) {
+    onTouchEnded: function (touch, event) {
         ccs.sendEvent(TRIGGEREVENT_TOUCHENDED);
     },
 
-    onTouchesCancelled: function (touch, event) {
+    onTouchCancelled: function (touch, event) {
         ccs.sendEvent(TRIGGEREVENT_TOUCHCANCELLED);
     },
 

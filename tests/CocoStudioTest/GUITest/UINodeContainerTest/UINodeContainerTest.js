@@ -34,7 +34,7 @@ var UIWidgetAddNodeTest = UIScene.extend({
             var nodeContainer = ccs.Widget.create();
             nodeContainer.x = widgetSize.width / 2;
             nodeContainer.y = widgetSize.height / 2;
-            this._uiLayer.addWidget(nodeContainer);
+            this._mainNode.addChild(nodeContainer);
 
             var sprite = cc.Sprite.create("res/cocosgui/ccicon.png");
             sprite.x = 0;

@@ -38,7 +38,7 @@ var UILabelTest = UIScene.extend({
 	            x: this._widget.width / 2,
 	            y: this._widget.height / 2 + label.height / 4
             });
-            this._uiLayer.addWidget(label);
+            this._mainNode.addChild(label);
 
             return true;
         }
@@ -65,7 +65,7 @@ var UILabelTest_LineWrap = UIScene.extend({
 	            x: this._widget.width / 2
             });
 	        textArea.y = this._widget.height / 2 - textArea.height / 8;
-            this._uiLayer.addWidget(textArea);
+            this._mainNode.addChild(textArea);
 
             return true;
         }
@@ -92,7 +92,7 @@ var UILabelTest_TTF = UIScene.extend({
 	            x: this._widget.width / 2,
 	            y: this._widget.height / 2 - textArea.height / 8
             });
-            this._uiLayer.addWidget(textArea);
+            this._mainNode.addChild(textArea);
 
             return true;
         }

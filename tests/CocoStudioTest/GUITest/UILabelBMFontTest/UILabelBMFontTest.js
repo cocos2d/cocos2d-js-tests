@@ -36,7 +36,7 @@ var UILabelBMFontTest = UIScene.extend({
             labelBMFont.setText("BMFont");
             labelBMFont.x = this._widget.width / 2;
 	        labelBMFont.y = this._widget.height / 2.0 + labelBMFont.height / 8.0;
-            this._uiLayer.addWidget(labelBMFont);
+            this._mainNode.addChild(labelBMFont);
 
             return true;
         }
