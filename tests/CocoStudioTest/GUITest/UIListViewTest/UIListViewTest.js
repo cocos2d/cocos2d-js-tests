@@ -36,7 +36,7 @@ var UIListViewTest_Vertical = UIScene.extend({
             // Create the list view
             var listView = ccs.ListView.create();
             // set list view ex direction
-            listView.setDirection(ccs.ScrollViewDir.vertical);
+            listView.setDirection(ccs.SCROLLVIEW_DIR_VERTICAL);
             listView.setTouchEnabled(true);
             listView.setBounceEnabled(true);
             listView.setBackGroundImage("res/cocosgui/green_edit.png");
@@ -165,7 +165,7 @@ var UIListViewTest_Horizontal = UIScene.extend({
             // Create the list view
             var listView = ccs.ListView.create();
             // set list view ex direction
-            listView.setDirection(ccs.ScrollViewDir.horizontal);
+            listView.setDirection(ccs.SCROLLVIEW_DIR_HORIZONTAL);
             listView.setTouchEnabled(true);
             listView.setBounceEnabled(true);
             listView.setBackGroundImage("res/cocosgui/green_edit.png");

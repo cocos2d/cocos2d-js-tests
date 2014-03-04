@@ -38,7 +38,7 @@ var UIScrollViewTest_Vertical = UIScene.extend({
 
             // Create the scrollview
             var scrollView = ccs.ScrollView.create();
-            scrollView.setDirection(ccs.ScrollViewDir.vertical);
+            scrollView.setDirection(ccs.SCROLLVIEW_DIR_VERTICAL);
             scrollView.setTouchEnabled(true);
             scrollView.setSize(cc.size(280, 150));
 
@@ -106,7 +106,7 @@ var UIScrollViewTest_Horizontal = UIScene.extend({
 
             // Create the scrollview
             var scrollView = ccs.ScrollView.create();
-            scrollView.setDirection(ccs.ScrollViewDir.horizontal);
+            scrollView.setDirection(ccs.SCROLLVIEW_DIR_HORIZONTAL);
             scrollView.setTouchEnabled(true);
             scrollView.setSize(cc.size(280, 150));
             var scrollViewRect = scrollView.getSize();
@@ -175,7 +175,7 @@ var UIScrollViewTest_Both = UIScene.extend({
 
             // Create the scrollview
             var scrollView = ccs.ScrollView.create();
-            scrollView.setDirection(ccs.ScrollViewDir.both);
+            scrollView.setDirection(ccs.SCROLLVIEW_DIR_BOTH);
             scrollView.setTouchEnabled(true);
             scrollView.setBounceEnabled(true);
             scrollView.setBackGroundImageScale9Enabled(true);
@@ -218,7 +218,7 @@ var UIScrollViewTest_ScrollToPercentBothDirection = UIScene.extend({
             scrollView.setTouchEnabled(true);
             scrollView.setBackGroundColor(cc.color.green);
             scrollView.setBackGroundColorType(ccs.LAYOUT_BG_COLOR_SOLID);
-            scrollView.setDirection(ccs.ScrollViewDir.both);
+            scrollView.setDirection(ccs.SCROLLVIEW_DIR_BOTH);
             scrollView.setInnerContainerSize(cc.size(480, 320));
             scrollView.setSize(cc.size(100, 100));
             var scrollViewSize = scrollView.getSize();
@@ -259,7 +259,7 @@ var UIScrollViewTest_ScrollToPercentBothDirection_Bounce = UIScene.extend({
             scrollView.setBounceEnabled(true);
             scrollView.setBackGroundColor(cc.color.green);
             scrollView.setBackGroundColorType(ccs.LAYOUT_BG_COLOR_SOLID);
-            scrollView.setDirection(ccs.ScrollViewDir.both);
+            scrollView.setDirection(ccs.SCROLLVIEW_DIR_BOTH);
             scrollView.setInnerContainerSize(cc.size(480, 320));
             scrollView.setSize(cc.size(100, 100));
             var scrollViewSize = scrollView.getSize();
