@@ -78,7 +78,7 @@ var UIPageViewTest = UIScene.extend({
 
     pageViewEvent: function (sender, type) {
         switch (type) {
-            case ccs.PageViewEventType.turning:
+            case ccs.PAGEVIEW_EVENT_TURNING:
                 var pageView = sender;
                 this._topDisplayLabel.setText("page = " + (pageView.getCurPageIndex() + 1));
                 break;
