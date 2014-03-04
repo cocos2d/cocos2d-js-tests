@@ -23,8 +23,8 @@ var Ship = cc.Sprite.extend({
 	    this.y = this.appearPosition.y;
 
         // set frame
-        var frame0 = cc.SpriteFrameCache.getInstance().getSpriteFrame("ship01.png");
-        var frame1 = cc.SpriteFrameCache.getInstance().getSpriteFrame("ship02.png");
+        var frame0 = cc.spriteFrameCache.getSpriteFrame("ship01.png");
+        var frame1 = cc.spriteFrameCache.getSpriteFrame("ship02.png");
 
         var animFrames = [];
         animFrames.push(frame0);
@@ -41,7 +41,7 @@ var Ship = cc.Sprite.extend({
     },
     update:function (dt) {
         // Keys are only enabled on the browser
-        if (sys.platform == 'browser') {
+        if (!cc.sys.isNative) {
             if ((MW.KEYS[cc.KEY.w] || MW.KEYS[cc.KEY.up]) && this.y <= winSize.height) {
                 this.y += dt * this.speed;
             }
@@ -87,7 +87,7 @@ var Ship = cc.Sprite.extend({
 	    explosion.y = this.y;
 
         if (MW.SOUND) {
-            cc.AudioEngine.getInstance().playEffect(res.shipDestroyEffect_mp3);
+	        cc.audioEngine.playEffect(res.shipDestroyEffect_mp3);
         }
     },
     hurt:function () {

@@ -88,7 +88,7 @@ var TestController = cc.LayerGradient.extend({
         this.init( cc.color(0,0,0,255), cc.color(0x46,0x82,0xB4,255));
 
         // globals
-        director = cc.Director.getInstance();
+        director = cc.director;
         winSize = director.getWinSize();
 
         // add close menu
@@ -124,9 +124,9 @@ var TestController = cc.LayerGradient.extend({
 	        menuItem.y = (winSize.height - (i + 1) * LINE_SPACE);
 
             // enable disable
-            if ( sys.platform == 'browser') {
-                if( 'opengl' in sys.capabilities ){
-                    menuItem.setEnabled( (testNames[i].platforms & PLATFORM_HTML5) | (testNames[i].platforms & PLATFORM_HTML5_WEBGL) );
+            if ( !cc.sys.isNative) {
+                if( 'opengl' in cc.sys.capabilities ){
+                    menuItem.enabled = (testNames[i].platforms & PLATFORM_HTML5) | (testNames[i].platforms & PLATFORM_HTML5_WEBGL);
                 }else{
                     menuItem.setEnabled( testNames[i].platforms & PLATFORM_HTML5 );
                 }
@@ -144,7 +144,7 @@ var TestController = cc.LayerGradient.extend({
 
         // 'browser' can use touches or mouse.
         // The benefit of using 'touches' in a browser, is that it works both with mouse events or touches events
-        if ('touches' in sys.capabilities)
+        if ('touches' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved: function (touches, event) {
@@ -154,7 +154,7 @@ var TestController = cc.LayerGradient.extend({
                     return true;
                 }
             }, this);
-        else if ('mouse' in sys.capabilities) {
+        else if ('mouse' in cc.sys.capabilities) {
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseMove: function (event) {
@@ -210,14 +210,6 @@ var TestController = cc.LayerGradient.extend({
 });
 TestController.YOffset = 0;
 var testNames = [
-    {
-        title:"New EventDispatcher Test",
-        resource:g_eventDispatcher,
-        platforms: PLATFORM_ALL,
-        testScene:function () {
-            return new EventDispatcherTestScene();
-        }
-    },
     {
         title:"ActionManager Test",
         platforms: PLATFORM_ALL,
@@ -298,6 +290,14 @@ var testNames = [
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new EaseActionsTestScene();
+        }
+    },
+    {
+        title:"Event Manager Test",
+        resource:g_eventDispatcher,
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new EventDispatcherTestScene();
         }
     },
     {
@@ -382,14 +382,6 @@ var testNames = [
         platforms: PLATFORM_JSB_AND_WEBGL,
         testScene:function () {
             return new MotionStreakTestScene();
-        }
-    },
-    {
-        title:"New EventDispatcher Test",
-        resource:g_eventDispatcher,
-        platforms: PLATFORM_ALL,
-        testScene:function () {
-            return new EventDispatcherTestScene();
         }
     },
     {

@@ -23,7 +23,7 @@ var GameControlMenu = cc.Layer.extend({
     onSysMenu:function (pSender) {
         var scene = cc.Scene.create();
         scene.addChild(SysMenu.create());
-        cc.Director.getInstance().runScene(cc.TransitionFade.create(1.2,scene));
+	    cc.director.runScene(cc.TransitionFade.create(1.2,scene));
     }
 });
 

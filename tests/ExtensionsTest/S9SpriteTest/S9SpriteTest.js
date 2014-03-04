@@ -27,7 +27,7 @@
 
 var sceneIdx = -1;
 
-var spriteFrameCache = cc.SpriteFrameCache.getInstance();
+var spriteFrameCache = cc.spriteFrameCache;
 
 //------------------------------------------------------------------
 //
@@ -41,7 +41,7 @@ var S9SpriteTestDemo = cc.LayerGradient.extend({
     ctor:function() {
         this._super();
         this.init( cc.color(0,0,0,255), cc.color(98,99,117,255));
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_s9s_blocks9_plist);
+        cc.spriteFrameCache.addSpriteFrames(s_s9s_blocks9_plist);
         cc.log('sprite frames added to sprite frame cache...');
     },
     onEnter:function () {
@@ -437,7 +437,7 @@ var S9_TexturePacker = S9SpriteTestDemo.extend({
 
     ctor:function() {
         this._super();
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_s9s_ui_plist);
+        cc.spriteFrameCache.addSpriteFrames(s_s9s_ui_plist);
 
         var x = winSize.width / 4;
         var y = 0 + (winSize.height / 2);

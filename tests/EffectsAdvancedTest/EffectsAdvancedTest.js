@@ -84,8 +84,8 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
         tamara.runAction(cc.RepeatForever.create(cc.Sequence.create(sc2, sc2_back)));
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 28);
-        label.x = cc.VisibleRect.center().x;
-        label.y = cc.VisibleRect.top().y - 80;
+        label.x = cc.visibleRect.center.x;
+        label.y = cc.visibleRect.top.y - 80;
         this.addChild(label);
         label.tag = EffectsAdvancedTest.TAG_LABEL;
 
@@ -93,8 +93,8 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
         if (strSubtitle != "") {
             var subtitleLabel = cc.LabelTTF.create(strSubtitle, "Arial", 16);
             this.addChild(subtitleLabel, 101);
-            subtitleLabel.x = cc.VisibleRect.center().x;
-            subtitleLabel.y = cc.VisibleRect.top().y - 80;
+            subtitleLabel.x = cc.visibleRect.center.x;
+            subtitleLabel.y = cc.visibleRect.top.y - 80;
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
@@ -105,7 +105,7 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
 
         menu.x = 0;
         menu.y = 0;
-	    var centerx = cc.VisibleRect.center().x, bottomy = cc.VisibleRect.bottom().y;
+	    var centerx = cc.visibleRect.center.x, bottomy = cc.visibleRect.bottom.y;
         item1.x = centerx - item2.width * 2;
         item1.y = bottomy + item2.height / 2;
         item2.x = centerx;
@@ -127,19 +127,19 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
     restartCallback:function (sender) {
         var scene = new EffectAdvanceScene();
         scene.addChild(restartEffectAdvanceAction());
-        cc.Director.getInstance().runScene(scene);
+        cc.director.runScene(scene);
     },
 
     nextCallback:function (sender) {
         var scene = new EffectAdvanceScene();
         scene.addChild(nextEffectAdvanceAction());
-        cc.Director.getInstance().runScene(scene);
+        cc.director.runScene(scene);
     },
 
     backCallback:function (sender) {
         var scene = new EffectAdvanceScene();
         scene.addChild(backEffectAdvanceAction());
-        cc.Director.getInstance().runScene(scene);
+        cc.director.runScene(scene);
     }
 });
 
@@ -157,7 +157,7 @@ var Effect1 = EffectAdvanceTextLayer.extend({
         // in this case:
         //     Lens3D is Grid3D and it's size is (15,10)
         //     Waves3D is Grid3D and it's size is (15,10)
-        var size = cc.Director.getInstance().getWinSize();
+        var size = cc.director.getWinSize();
         var lens = cc.Lens3D.create(0.0, cc.size(15, 10), cc.p(size.width / 2, size.height / 2), 240);
         var waves = cc.Waves3D.create(10, cc.size(15, 10), 18, 15);
 
@@ -278,7 +278,7 @@ var Effect4 = EffectAdvanceTextLayer.extend({
          While in cocos2d-x, the target of action only supports CCNode or its subclass,
          so we make an encapsulation for CCLens3D to achieve that.
          */
-        var director = cc.Director.getInstance();
+        var director = cc.director;
         var target = Lens3DTarget.create(lens);
         // Please make sure the target been added to its parent.
         this.addChild(target);
@@ -311,7 +311,7 @@ var Effect5 = EffectAdvanceTextLayer.extend({
 
     onExit:function () {
         this._super();
-        cc.Director.getInstance().setProjection(cc.DIRECTOR_PROJECTION_3D);
+        cc.director.setProjection(cc.DIRECTOR_PROJECTION_3D);
     }
 });
 
@@ -384,7 +384,7 @@ var EffectAdvanceScene = TestScene.extend({
         sceneIndex = -1;
         var pLayer = nextEffectAdvanceAction();
         this.addChild(pLayer);
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
     }
 });
 

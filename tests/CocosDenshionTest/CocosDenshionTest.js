@@ -24,7 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var audioEngine = cc.AudioEngine.getInstance();
+var audioEngine = cc.audioEngine;
 
 var MUSIC_FILE = "res/Sound/background.mp3";
 var EFFECT_FILE = "res/Sound/effect2.mp3";
@@ -171,14 +171,14 @@ var CocosDenshionTest = cc.LayerGradient.extend({
         this._itemMenu.y = 0;
         this.addChild(this._itemMenu);
 
-        if( 'touches' in sys.capabilities ) {
+        if( 'touches' in cc.sys.capabilities ) {
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved: function (touches, event) {
                     event.getCurrentTarget().moveMenu(touches[0].getDelta());
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities )
+        } else if ('mouse' in cc.sys.capabilities )
              cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                  onMouseMove: function(event){
@@ -216,7 +216,7 @@ var CocosDenshionTest = cc.LayerGradient.extend({
 
 var CocosDenshionTestScene = TestScene.extend({
     runThisTest:function () {
-        audioEngine = cc.AudioEngine.getInstance();
+        audioEngine = cc.audioEngine;
         var layer = new CocosDenshionTest();
         this.addChild(layer);
         director.runScene(this);

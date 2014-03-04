@@ -40,7 +40,7 @@ var PerformanceTests = [
 // It is pretty irrelevant in JSB so we don't include it in JSB.
 // "PerformanceVirtualMachineTest" is inserted before
 // "Automated Sprite Performarnce Test".
-if (sys.platform == 'browser')
+if (!cc.sys.isNative)
     PerformanceTests.splice(6, 0, "PerformanceVirtualMachineTest");
 
 ////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ var PerformanceMainLayer = cc.LayerGradient.extend({
     onEnter:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         var menu = cc.Menu.create();
         menu.x = 0;
@@ -97,7 +97,7 @@ var PerformanceMainLayer = cc.LayerGradient.extend({
                 runAnimationTest();
                 break;
             case 6:
-                if (sys.platform == 'browser') {
+                if (!cc.sys.isNative) {
                     runVirtualMachineTest();
                     break;
                 }
@@ -132,7 +132,7 @@ var PerformBasicLayer = cc.Layer.extend({
     onEnter:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         cc.MenuItemFont.setFontName("Arial");
         cc.MenuItemFont.setFontSize(24);
@@ -194,7 +194,7 @@ var PerformanceTestScene = TestScene.extend({
     runThisTest:function () {
         var layer = new PerformanceMainLayer();
         this.addChild(layer);
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
     }
 });
 

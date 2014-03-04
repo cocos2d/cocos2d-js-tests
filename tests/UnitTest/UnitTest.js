@@ -203,11 +203,11 @@ var DictionaryToFromTest = UnitTestBase.extend({
     },
 
     runTest:function() {
-        var frameCache = cc.SpriteFrameCache.getInstance();
+        var frameCache = cc.spriteFrameCache;
         frameCache.addSpriteFrames(s_grossiniPlist);
 
         // Purge previously loaded animation
-        var animCache = cc.AnimationCache.getInstance();
+        var animCache = cc.animationCache;
         animCache.addAnimations(s_animations2Plist);
 
         var normal = animCache.getAnimation("dance_1");

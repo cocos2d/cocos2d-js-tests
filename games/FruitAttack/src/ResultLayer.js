@@ -102,9 +102,9 @@ var ResultLayer = cc.Layer.extend({
                     var nextScene = cc.Scene.create();
                     var nextLayer = new PatternMatrix;
                     nextScene.addChild(nextLayer);
-                    var matrixLayer = cc.Director.getInstance().getRunningScene().getChildByTag(111);
+                    var matrixLayer = cc.director.getRunningScene().getChildByTag(111);
                     matrixLayer.clearMsgListener();
-                    cc.Director.getInstance().runScene(cc.TransitionSlideInT.create(0.4, nextScene));
+	                cc.director.runScene(cc.TransitionSlideInT.create(0.4, nextScene));
                     break;
             }
         }

@@ -83,14 +83,14 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     onEnter:function () {
         this._super();
 
-        if ('touches' in sys.capabilities){
+        if ('touches' in cc.sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved:function (touches, event) {
                     event.getCurrentTarget().drawInLocation(touches[0].getLocation());
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseDown: function(event){
@@ -133,7 +133,7 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     },
 
     saveCB:function (sender) {
-        if(sys.platform === "browser"){
+        if(!cc.sys.isNative){
             cc.log("RenderTexture's saveToFile doesn't suppport on HTML5");
             return;
         }
@@ -185,7 +185,7 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
 var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
     ctor:function () {
         this._super();
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         /*
          *     1    2
          * A: A1   A2
@@ -267,7 +267,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
             onTouchesMoved: this.onTouchesMoved.bind(this)
         }, this);
 
-        var size = cc.Director.getInstance().getWinSize();
+        var size = cc.director.getWinSize();
         var label = cc.LabelTTF.create("vertexZ = 50", "Marker Felt", 64);
         label.x = size.width / 2;
         label.y = size.height * 0.25;
@@ -287,7 +287,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
         label2.vertexZ = 0;
         label3.vertexZ = -50;
 
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_circle_plist);
+        cc.spriteFrameCache.addSpriteFrames(s_circle_plist);
         this.mgr = cc.SpriteBatchNode.create(s_circle_png, 9);
         this.addChild(this.mgr);
         this.sp1 = cc.Sprite.create("#circle.png");
@@ -393,7 +393,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
     },
 
     renderScreenShot:function () {
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         var texture = cc.RenderTexture.create(winSize.width, winSize.width);
         if (!texture)
             return;
@@ -422,7 +422,7 @@ var RenderTextureTestDepthStencil = RenderTextureBaseLayer.extend({
         this._super();
         var gl = cc.renderContext;
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var sprite = cc.Sprite.create(s_fire);
         sprite.x = winSize.width * 0.25;
@@ -493,7 +493,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
         var background = cc.LayerColor.create(cc.color(40, 40, 40, 255));
         this.addChild(background);
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         this._winSize = winSize;
 
         // sprite 1
@@ -522,8 +522,8 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
         /* add the sprites to the render texture */
         renderTexture.addChild(this._sprite1);
         renderTexture.addChild(this._sprite2);
-        renderTexture.setClearColor(cc.color(0, 0, 0, 0));
-        renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
+        renderTexture.clearColorVal = cc.color(0, 0, 0, 0);
+        renderTexture.clearFlags = cc.renderContext.COLOR_BUFFER_BIT;
 
         /* add the render texture to the scene */
         this.addChild(renderTexture);
@@ -562,11 +562,11 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
     },
 
     touched:function (sender) {
-        if (this._renderTexture.getClearFlags() == 0)
-            this._renderTexture.setClearFlags(cc.renderContext.COLOR_BUFFER_BIT);
+        if (this._renderTexture.clearFlags == 0)
+            this._renderTexture.clearFlags = cc.renderContext.COLOR_BUFFER_BIT;
         else {
-            this._renderTexture.setClearFlags(0);
-            this._renderTexture.setClearColor(cc.color(Math.random()*255, Math.random()*255, Math.random()*255, 255));
+            this._renderTexture.clearFlags = 0;
+            this._renderTexture.clearColorVal = cc.color(Math.random()*255, Math.random()*255, Math.random()*255, 255);
         }
     }
 });
@@ -607,7 +607,7 @@ var Issue1464 = RenderTextureBaseLayer.extend({
         var fe = cc.RepeatForever.create(seq);
         rend.getSprite().runAction(fe);
 
-        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+        if (!cc.sys.isNative && !("opengl" in cc.sys.capabilities)) {
             var label = cc.LabelTTF.create("Not support Actions on HTML5-canvas", "Times New Roman", 30);
             label.x = winSize.width / 2;
             label.y = winSize.height / 2 + 50;
@@ -659,7 +659,7 @@ var arrayOfRenderTextureTest = [
     Issue1464
 ];
 
-if(('opengl' in sys.capabilities) && (sys.platform == 'browser') ){
+if(('opengl' in cc.sys.capabilities) && (!cc.sys.isNative) ){
     arrayOfRenderTextureTest.push(RenderTextureIssue937);
     arrayOfRenderTextureTest.push(RenderTextureZbuffer);
     arrayOfRenderTextureTest.push(RenderTextureTestDepthStencil);

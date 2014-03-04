@@ -58,7 +58,7 @@ var CocoStudioMainLayer = cc.Layer.extend({
     onEnter:function () {
         this._super();
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var pMenu = cc.Menu.create();
         pMenu.x = 0;
@@ -86,6 +86,6 @@ var CocoStudioTestScene = TestScene.extend({
     runThisTest:function () {
         var pLayer = new CocoStudioMainLayer();
         this.addChild(pLayer);
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
     }
 });

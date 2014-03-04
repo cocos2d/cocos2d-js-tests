@@ -84,7 +84,7 @@ var Paddle = cc.Sprite.extend({
         cc.Assert(target._state == PADDLE_STATE_GRABBED, "Paddle - Unexpected state!");
 
         var touchPoint = touch.getLocation();
-        //touchPoint = cc.Director.getInstance().convertToGL( touchPoint );
+        //touchPoint = cc.director.convertToGL( touchPoint );
 
         target.x = touchPoint.x;
     },

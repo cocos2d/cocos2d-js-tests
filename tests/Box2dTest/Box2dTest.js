@@ -50,7 +50,7 @@ Box2DTestLayer = cc.Layer.extend({
             , b2World = Box2D.Dynamics.b2World
             , b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 
-        var screenSize = cc.Director.getInstance().getWinSize();
+        var screenSize = cc.director.getWinSize();
         //UXLog(L"Screen width %0.2f screen height %0.2f",screenSize.width,screenSize.height);
 
         // Construct a world object, which will hold and simulate the rigid bodies.
@@ -180,6 +180,6 @@ Box2DTestScene = TestScene.extend({
         var layer = new Box2DTestLayer();
         this.addChild(layer);
 
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
     }
 });

@@ -43,7 +43,7 @@ var MotionStreakTest = cc.Layer.extend({
     onEnter:function () {
         this._super();
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 32);
         this.addChild(label, 0, TAG_LABEL);
@@ -66,12 +66,12 @@ var MotionStreakTest = cc.Layer.extend({
 
         menu.x = 0;
         menu.y = 0;
-        item1.x = cc.VisibleRect.center().x - item2.width * 2;
-        item1.y = cc.VisibleRect.bottom().y + item2.height / 2;
-        item2.x = cc.VisibleRect.center().x;
-        item2.y = cc.VisibleRect.bottom().y + item2.height / 2;
-        item3.x = cc.VisibleRect.center().x + item2.width * 2;
-        item3.y = cc.VisibleRect.bottom().y + item2.height / 2;
+        item1.x = cc.visibleRect.center.x - item2.width * 2;
+        item1.y = cc.visibleRect.bottom.y + item2.height / 2;
+        item2.x = cc.visibleRect.center.x;
+        item2.y = cc.visibleRect.bottom.y + item2.height / 2;
+        item3.x = cc.visibleRect.center.x + item2.width * 2;
+        item3.y = cc.visibleRect.bottom.y + item2.height / 2;
 
         this.addChild(menu, 1);
 
@@ -88,24 +88,24 @@ var MotionStreakTest = cc.Layer.extend({
     restartCallback:function (sender) {
         var scene = new MotionStreakTestScene();
         scene.addChild(restartMotionAction());
-        cc.Director.getInstance().runScene(scene);
+        cc.director.runScene(scene);
     },
 
     nextCallback:function (sender) {
         var scene = new MotionStreakTestScene();
         scene.addChild(nextMotionAction());
-        cc.Director.getInstance().runScene(scene);
+        cc.director.runScene(scene);
     },
 
     backCallback:function (sender) {
         var scene = new MotionStreakTestScene;
         scene.addChild(backMotionAction());
-        cc.Director.getInstance().runScene(scene);
+        cc.director.runScene(scene);
     },
 
     modeCallback:function (sender) {
-        var fastMode = this._streak.isFastMode();
-        this._streak.setFastMode(!fastMode);
+        var fastMode = this._streak.fastMode;
+        this._streak.fastMode = !fastMode;
     }
 });
 
@@ -116,7 +116,7 @@ var MotionStreakTest1 = MotionStreakTest.extend({
     onEnter:function () {
         this._super();
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         // the root object just rotates around
         this._root = cc.Sprite.create(s_pathR1);
         this.addChild(this._root, 1);
@@ -185,7 +185,7 @@ var MotionStreakTest2 = MotionStreakTest.extend({
                 streak.y = touchLocation.y;
             }
         }, this);
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         // create the streak object and add it to the scene
         this._streak = cc.MotionStreak.create(3, 3, 64, cc.color.white, s_streak);
         this.addChild(this._streak);
@@ -214,7 +214,7 @@ var Issue1358 = MotionStreakTest.extend({
         this._super();
 
         // ask director the the window size
-        var size = cc.Director.getInstance().getWinSize();
+        var size = cc.director.getWinSize();
         this._streak = cc.MotionStreak.create(2.0, 1.0, 50.0, cc.color(255, 255, 0), s_image_icon);
         this.addChild(this._streak);
 
@@ -259,7 +259,7 @@ var MotionStreakTestScene = TestScene.extend({
         sceneIdx = -1;
         var pLayer = nextMotionAction();
         this.addChild(pLayer);
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
     }
 });
 

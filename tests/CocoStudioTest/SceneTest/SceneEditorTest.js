@@ -125,7 +125,7 @@ var SceneEditorTestLayer = BaseTestLayer.extend({
         this._super();
     },
     initSize:function(node){
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         var scale = winSize.height / 320;
         node.scale = scale;
         node.x = (winSize.width - 480 * scale) / 2;

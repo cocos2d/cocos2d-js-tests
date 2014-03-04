@@ -41,14 +41,14 @@ var TextureMenuLayer = PerformBasicLayer.extend({
         s_nTexCurCase = this._curCase;
 
         if (scene) {
-            cc.Director.getInstance().runScene(scene);
+            cc.director.runScene(scene);
         }
     },
 
     onEnter:function () {
         this._super();
 
-        var s = cc.Director.getInstance().getWinSize();
+        var s = cc.director.getWinSize();
 
         // Title
         var label = cc.LabelTTF.create(this.title(), "Arial", 40);
@@ -110,11 +110,11 @@ var TextureTest = TextureMenuLayer.extend({
     performTestsPNG:function (filename) {
         var now = Date.now();
         var texture;
-        var cache = cc.TextureCache.getInstance();
-        if ("opengl" in sys.capabilities)
+        var cache = cc.textureCache;
+        if ("opengl" in cc.sys.capabilities)
             var defaultFormat = cc.Texture2D.defaultPixelFormat;
         cc.log("RGBA 8888");
-        if ("opengl" in sys.capabilities)
+        if ("opengl" in cc.sys.capabilities)
             cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA8888;
 
         var now = Date.now();
@@ -126,7 +126,7 @@ var TextureTest = TextureMenuLayer.extend({
         cache.removeTexture(texture);
 
         cc.log("RGBA 4444");
-        if ("opengl" in sys.capabilities)
+        if ("opengl" in cc.sys.capabilities)
             cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGBA4444;
 
         var now = Date.now();
@@ -138,7 +138,7 @@ var TextureTest = TextureMenuLayer.extend({
         cache.removeTexture(texture);
 
         cc.log("RGBA 5551");
-        if ("opengl" in sys.capabilities)
+        if ("opengl" in cc.sys.capabilities)
             cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGB5A1;
 
         var now = Date.now();
@@ -150,7 +150,7 @@ var TextureTest = TextureMenuLayer.extend({
         cache.removeTexture(texture);
 
         cc.log("RGB 565");
-        if ("opengl" in sys.capabilities)
+        if ("opengl" in cc.sys.capabilities)
             cc.Texture2D.defaultPixelFormat = cc.Texture2D.PIXEL_FORMAT_RGB565;
 
         var now = Date.now();
@@ -160,7 +160,7 @@ var TextureTest = TextureMenuLayer.extend({
         else
             cc.log(" ERROR");
         cache.removeTexture(texture);
-        if ("opengl" in sys.capabilities)
+        if ("opengl" in cc.sys.capabilities)
             cc.Texture2D.defaultPixelFormat = defaultFormat;
     }
 });
@@ -174,7 +174,7 @@ TextureTest.scene = function () {
 function runTextureTest() {
     s_nTexCurCase = 0;
     var scene = TextureTest.scene();
-    cc.Director.getInstance().runScene(scene);
+    cc.director.runScene(scene);
 }
 
 function calculateDeltaTime(lastUpdate) {

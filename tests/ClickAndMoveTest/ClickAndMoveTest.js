@@ -40,7 +40,7 @@ var MainLayer = cc.Layer.extend({
 
         this.init();
 
-        if( 'touches' in sys.capabilities )
+        if( 'touches' in cc.sys.capabilities )
             cc.eventManager.addListener(cc.EventListener.create({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded:function (touches, event) {
@@ -49,7 +49,7 @@ var MainLayer = cc.Layer.extend({
                     event.getCurrentTarget().moveSprite(touches[0].getLocation());
                 }
             }), this);
-        else if ('mouse' in sys.capabilities )
+        else if ('mouse' in cc.sys.capabilities )
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseUp: function (event) {

@@ -384,7 +384,7 @@ var ActionRotateXY = ActionsDemo.extend({
 
         this._kathia.runAction(cc.Sequence.create(actionBy2, delay.clone(), actionBy2.reverse()));
 
-        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+        if (!cc.sys.isNative && !("opengl" in cc.sys.capabilities)) {
             var label = cc.LabelTTF.create("Not support Actions on HTML5-canvas", "Times New Roman", 30);
             label.x = winSize.width / 2;
 			label.y = winSize.height / 2 + 50;
@@ -1728,8 +1728,8 @@ var ActionCardinalSpline = ActionsDemo.extend({
         var context = ctx || cc.renderContext;
         var winSize = director.getWinSize();
 
-        if(!("opengl" in sys.capabilities)){
-            var locScaleX = cc.EGLView.getInstance().getScaleX(), locScaleY = cc.EGLView.getInstance().getScaleY();
+        if(!("opengl" in cc.sys.capabilities)){
+            var locScaleX = cc.view.getScaleX(), locScaleY = cc.view.getScaleY();
             var apPoint = this.getAnchorPointInPoints();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
@@ -1895,7 +1895,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         this._super();
         var context = ctx || cc.renderContext;
 
-        if(!("opengl" in sys.capabilities)){
+        if(!("opengl" in cc.sys.capabilities)){
             var eglViewer = cc.EGLView.getInstance();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
@@ -2637,7 +2637,7 @@ var arrayOfActionsTest = [
     Issue1446
 ];
 
-if("opengl" in sys.capabilities){
+if("opengl" in cc.sys.capabilities){
     arrayOfActionsTest.push(ActionOrbit);
 }
 

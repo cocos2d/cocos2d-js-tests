@@ -335,7 +335,7 @@ var StressTest1 = TestNodeDemo.extend({
 
         // if the node has timers, it crashes
         var explosion = cc.ParticleSun.create();
-        explosion.texture = cc.TextureCache.getInstance().addImage(s_fire);
+        explosion.texture = cc.textureCache.addImage(s_fire);
 
         explosion.x = winSize.width / 2;
         explosion.y = winSize.height / 2;
@@ -390,7 +390,7 @@ var StressTest2 = TestNodeDemo.extend({
         sublayer.addChild(sp1, 1);
 
         var fire = cc.ParticleFire.create();
-        fire.texture = cc.TextureCache.getInstance().addImage(s_fire);
+        fire.texture = cc.textureCache.addImage(s_fire);
         fire.x = 80;
         fire.y = winSize.height / 2 - 50;
 
@@ -537,7 +537,7 @@ var CameraZoomTest = TestNodeDemo.extend({
         this.addChild(sprite, 0);
         sprite.x = winSize.width / 4;
         sprite.y = winSize.height / 2;
-        if ("opengl" in sys.capabilities) {
+        if ("opengl" in cc.sys.capabilities) {
             var cam = sprite.getCamera();
             cam.setEye(0, 0, 415 / 2);
             cam.setCenter(0, 0, 0);
@@ -567,7 +567,7 @@ var CameraZoomTest = TestNodeDemo.extend({
         this.autoParam = sprite;
     },
     update:function (dt) {
-        if (!("opengl" in sys.capabilities))
+        if (!("opengl" in cc.sys.capabilities))
             return;
 
         this._z += dt * 100;
@@ -667,11 +667,11 @@ var CameraCenterTest = TestNodeDemo.extend({
 
     onEnter:function(){
         this._super();
-        cc.Director.getInstance().setProjection(cc.DIRECTOR_PROJECTION_3D);
+        cc.director.setProjection(cc.DIRECTOR_PROJECTION_3D);
     },
 
     onExit:function(){
-        cc.Director.getInstance().setProjection(cc.DIRECTOR_PROJECTION_2D);
+        cc.director.setProjection(cc.DIRECTOR_PROJECTION_2D);
         this._super();
     },
 
@@ -709,7 +709,7 @@ var CameraCenterTest = TestNodeDemo.extend({
 var ConvertToNode = TestNodeDemo.extend({
     ctor:function () {
         this._super();
-        if ('touches' in sys.capabilities){
+        if ('touches' in cc.sys.capabilities){
             cc.eventManager.addListener(cc.EventListener.create({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded:function (touches, event) {
@@ -721,7 +721,7 @@ var ConvertToNode = TestNodeDemo.extend({
                     }
                 }
             }), this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.Mouse,
                 onMouseUp: function(event){
@@ -892,7 +892,7 @@ var SchedulerTest1 = TestNodeDemo.extend({
 var NodeOpaqueTest = TestNodeDemo.extend({
     ctor:function () {
         this._super();
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         var background;
         for (var i = 0; i < 50; i++) {
             background = cc.Sprite.create(s_back1);
@@ -915,7 +915,7 @@ var NodeOpaqueTest = TestNodeDemo.extend({
 var NodeNonOpaqueTest = TestNodeDemo.extend({
     ctor:function () {
         this._super();
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         var background;
         for (var i = 0; i < 50; i++) {
             background = cc.Sprite.create(s_back1);
@@ -964,7 +964,7 @@ var arrayOfNodeTest = [
     ConvertToNode
 ];
 
-if ('opengl' in sys.capabilities) {
+if ('opengl' in cc.sys.capabilities) {
     arrayOfNodeTest.push(CameraCenterTest);
     arrayOfNodeTest.push(CameraOrbitTest);
     arrayOfNodeTest.push(CameraZoomTest);

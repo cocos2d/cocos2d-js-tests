@@ -1,7 +1,7 @@
 var gNotification = cc.NotificationCenter.getInstance();
-var gSpriteFrameCache = cc.SpriteFrameCache.getInstance();
+var gSpriteFrameCache = cc.spriteFrameCache;
 
-var gSharedEngine = cc.AudioEngine.getInstance();
+var gSharedEngine = cc.audioEngine;
 
 var MUSIC_BACKGROUND  = "audio/musicByFoxSynergy.mp3";
 var EFFECT_BUTTON_CHICK  = "audio/effect_buttonClick.ogg";
@@ -13,31 +13,31 @@ var EFFECT_PATTERN_BOMB  = "audio/effect_bombPattern.ogg";
 var EFFECT_TIME_WARN  = "audio/effect_timewarning.ogg";
 
 var g_ressources = [
-    {src:"res/background.jpg"},
-    {src:"res/logo.png"},
+    "res/background.jpg",
+    "res/logo.png",
 
-    {src:"res/btn/btnStartGameDown.png"},
-    {src:"res/btn/btnStartGameNor.png"},
+    "res/btn/btnStartGameDown.png",
+    "res/btn/btnStartGameNor.png",
 
-    {src:"res/ProgressBarFront.png"},
-    {src:"res/ProgressBarBack.png"},
+    "res/ProgressBarFront.png",
+    "res/ProgressBarBack.png",
 
-    {src:"res/baseResource.png"} ,
-    {src:"res/baseResource.plist"},
-    {src:"res/PatternBg.png"},
+    "res/baseResource.png" ,
+    "res/baseResource.plist",
+    "res/PatternBg.png",
 
-    {src:"resultLayer/star.png"},
-    {src:"resultLayer/btnResultRestart.png"},
-    {src:"resultLayer/btnResultRestartDown.png"},
+    "resultLayer/star.png",
+    "resultLayer/btnResultRestart.png",
+    "resultLayer/btnResultRestartDown.png",
 
-    {src:MUSIC_BACKGROUND},
-    {src:EFFECT_BUTTON_CHICK},
-    {src:EFFECT_GAME_FAIL},
-    {src:EFFECT_GAME_WIN},
-    {src:EFFECT_PATTERN_UN_SWAP},
-    {src:EFFECT_PATTERN_CLEAR},
-    {src:EFFECT_PATTERN_BOMB},
-    {src:EFFECT_TIME_WARN}
+    MUSIC_BACKGROUND,
+    EFFECT_BUTTON_CHICK,
+    EFFECT_GAME_FAIL,
+    EFFECT_GAME_WIN,
+    EFFECT_PATTERN_UN_SWAP,
+    EFFECT_PATTERN_CLEAR,
+    EFFECT_PATTERN_BOMB,
+    EFFECT_TIME_WARN
 ];
 
 var gScoreData = {lastScore:0,bestScore:0};
@@ -51,6 +51,7 @@ var eGameMode = {
 var gGameMode = eGameMode.Challenge;
 
 gScoreData.setLastScore = function(score){
+    var sys = cc.sys;
     this.lastScore = score;
 
     if (score > this.bestScore)
@@ -62,6 +63,7 @@ gScoreData.setLastScore = function(score){
 };
 
 gScoreData.initData = function(){
+    var sys = cc.sys;
     if( sys.localStorage.getItem('gameData') == null){
         sys.localStorage.setItem('bestScore','0');
         sys.localStorage.setItem('lastScore','0');

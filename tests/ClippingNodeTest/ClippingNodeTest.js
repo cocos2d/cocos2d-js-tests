@@ -79,7 +79,7 @@ var BasicTest = BaseClippingNodeTest.extend({
     },
 
     setup:function () {
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
 
         var stencil = this.stencil();
         stencil.tag = TAG_STENCILNODE;
@@ -92,7 +92,7 @@ var BasicTest = BaseClippingNodeTest.extend({
         clipper.anchorY = 0.5;
         clipper.x = winSize.width / 2 - 50;
         clipper.y = winSize.height / 2 - 50;
-        clipper.setStencil(stencil);
+        clipper.stencil = stencil;
         this.addChild(clipper);
 
         var content = this.content();
@@ -195,7 +195,7 @@ var SpriteTest = BasicTest.extend({
 
     clipper:function () {
         var clipper = this._super();
-        clipper.setAlphaThreshold(0.05);
+        clipper.alphaThreshold = 0.05;
         return clipper;
     },
 
@@ -217,7 +217,7 @@ var SpriteNoAlphaTest = SpriteTest.extend({
 
     clipper:function () {
         var clipper = this._super();
-        clipper.setAlphaThreshold(1);
+        clipper.alphaThreshold = 1;
         return clipper;
     }
 });
@@ -233,8 +233,8 @@ var SpriteInvertedTest = SpriteTest.extend({
 
     clipper:function () {
         var clipper = this._super();
-        clipper.setAlphaThreshold(0.05);
-        clipper.setInverted(true);
+        clipper.alphaThreshold = 0.05;
+        clipper.inverted = true;
         return clipper;
     }
 });
@@ -265,7 +265,7 @@ var NestedTest = BaseClippingNodeTest.extend({
 	            x: parent.width / 2,
 	            y: parent.height / 2
             });
-            clipper.setAlphaThreshold(0.05);
+            clipper.alphaThreshold = 0.05;
             clipper.runAction(cc.RepeatForever.create(cc.RotateBy.create((i % 3) ? 1.33 : 1.66, (i % 2) ? 90 : -90)));
             parent.addChild(clipper);
 
@@ -279,7 +279,7 @@ var NestedTest = BaseClippingNodeTest.extend({
 	            visible: false
             });
             stencil.runAction(cc.Sequence.create(cc.DelayTime.create(i), cc.Show.create()));
-            clipper.setStencil(stencil);
+            clipper.stencil = stencil;
 
             clipper.addChild(stencil);
             parent = clipper;
@@ -320,11 +320,11 @@ var HoleDemo = BaseClippingNodeTest.extend({
 	    this._outerClipper.y = this.height * 0.5;
         this._outerClipper.runAction(cc.RepeatForever.create(cc.RotateBy.create(1, 45)));
 
-        this._outerClipper.setStencil(stencil);
+        this._outerClipper.stencil = stencil;
 
         var holesClipper = cc.ClippingNode.create();
-        holesClipper.setInverted(true);
-        holesClipper.setAlphaThreshold(0.05);
+        holesClipper.inverted = true;
+        holesClipper.alphaThreshold = 0.05;
 
         holesClipper.addChild(target);
 
@@ -336,7 +336,7 @@ var HoleDemo = BaseClippingNodeTest.extend({
         this._holesStencil = cc.Node.create();
         this._holesStencil.retain();
 
-        holesClipper.setStencil(this._holesStencil);
+        holesClipper.stencil = this._holesStencil;
         this._outerClipper.addChild(holesClipper);
         this.addChild(this._outerClipper);
 
@@ -420,7 +420,7 @@ var ScrollViewDemo = BaseClippingNodeTest.extend({
 
         var white = cc.color(255, 255, 255, 255);
         stencil.drawPoly(rectangle, white, 1, white);
-        clipper.setStencil(stencil);
+        clipper.stencil = stencil;
 
         var content = cc.Sprite.create(s_back2);
         content.tag = TAG_CONTENTNODE;
@@ -505,12 +505,12 @@ var RawStencilBufferTest = BaseClippingNodeTest.extend({
         this._sprite.anchorX = 0.5;
         this._sprite.anchorY = 0;
         this._sprite.scale = 2.5;
-        cc.Director.getInstance().setAlphaBlending(true);
+        cc.director.setAlphaBlending(true);
     },
 
     draw:function (ctx) {
         var gl = ctx || cc.renderContext;
-        var winPoint = cc.pFromSize(cc.Director.getInstance().getWinSize());
+        var winPoint = cc.pFromSize(cc.director.getWinSize());
         var planeSize = cc.pMult(winPoint, 1.0 / _PLANE_COUNT);
 
         gl.enable(gl.STENCIL_TEST);
@@ -615,7 +615,7 @@ var RawStencilBufferTest4 = RawStencilBufferTest.extend({
         this._super(plane);
         gl.depthMask(false);
 
-        var program = cc.ShaderCache.getInstance().programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
+        var program = cc.shaderCache.programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
         var alphaValueLocation = gl.getUniformLocation(program.getProgram(),cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
@@ -639,7 +639,7 @@ var RawStencilBufferTest5 = RawStencilBufferTest.extend({
         gl.disable(gl.DEPTH_TEST);
         gl.depthMask(false);
 
-        var program = cc.ShaderCache.getInstance().programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
+        var program = cc.shaderCache.programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
         var alphaValueLocation = gl.getUniformLocation(program.getProgram(), cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
@@ -669,13 +669,13 @@ var RawStencilBufferTest6 = RawStencilBufferTest.extend({
         gl.stencilMask(planeMask);
         gl.stencilFunc(gl.NEVER, 0, planeMask);
         gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
-        cc.drawingUtil.drawSolidRect(cc.p(0, 0), cc.pFromSize(cc.Director.getInstance().getWinSize()), cc.color(255, 255, 255, 255));
+        cc.drawingUtil.drawSolidRect(cc.p(0, 0), cc.pFromSize(cc.director.getWinSize()), cc.color(255, 255, 255, 255));
         gl.stencilFunc(gl.NEVER, planeMask, planeMask);
         gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
         gl.disable(gl.DEPTH_TEST);
         gl.depthMask(false);
 
-        var program = cc.ShaderCache.getInstance().programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
+        var program = cc.shaderCache.programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
         var alphaValueLocation = gl.getUniformLocation(program.getProgram(), cc.UNIFORM_ALPHA_TEST_VALUE_S);
         cc.glUseProgram(program.getProgram());
         program.setUniformLocationWith1f(alphaValueLocation, _alphaThreshold);
@@ -699,7 +699,7 @@ var arrayOfClippingNodeTest = [
     SpriteTest
 ];
 
-if (sys.platform === 'browser' && ("opengl" in sys.capabilities)) {
+if (!cc.sys.isNative && ("opengl" in cc.sys.capabilities)) {
     arrayOfClippingNodeTest.push(
     RawStencilBufferTest,
     RawStencilBufferTest2,
@@ -708,7 +708,7 @@ if (sys.platform === 'browser' && ("opengl" in sys.capabilities)) {
     RawStencilBufferTest5,
     RawStencilBufferTest6);
 }
-if ( sys.platform !== 'browser'){
+if ( cc.sys.isNative){
     //These tests don't support to HTML5
     arrayOfClippingNodeTest.push(
         ShapeInvertedTest,
@@ -739,7 +739,7 @@ var restartClippingNodeTest = function () {
 var ClippingNodeTestScene = TestScene.extend({
     runThisTest:function () {
         clippingNodeTestSceneIdx = -1;
-        cc.Director.getInstance().runScene(this);
+        cc.director.runScene(this);
 	    var layer = nextClippingNodeTest();
 	    this.addChild(layer);
     }

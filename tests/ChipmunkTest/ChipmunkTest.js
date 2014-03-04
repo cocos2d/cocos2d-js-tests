@@ -86,8 +86,8 @@ ChipmunkBaseLayer.prototype.onEnter = function() {
 	BaseTestLayer.prototype.onEnter.call(this);
     //cc.base(this, 'onEnter');
 
-    sys.dumpRoot();
-    sys.garbageCollect();
+    cc.sys.dumpRoot();
+    cc.sys.garbageCollect();
 };
 
 ChipmunkBaseLayer.prototype.onCleanup = function() {
@@ -196,7 +196,7 @@ ChipmunkSprite.prototype.onEnter = function () {
 		this.addSprite( cp.v(winSize.width/2, winSize.height/2) );
 	}
 
-    if( 'touches' in sys.capabilities ){
+    if( 'touches' in cc.sys.capabilities ){
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ALL_AT_ONCE,
             onTouchesEnded: function(touches, event){
@@ -206,7 +206,7 @@ ChipmunkSprite.prototype.onEnter = function () {
                 }
             }
         }, this);
-    } else if( 'mouse' in sys.capabilities )
+    } else if( 'mouse' in cc.sys.capabilities )
         cc.eventManager.addListener({
             event: cc.EventListener.MOUSE,
             onMouseDown: function(event){
@@ -659,8 +659,8 @@ var ChipmunkReleaseTest = function() {
         // cc.base(this, 'onEnter');
 
         cc.log("OnEnter");
-        sys.dumpRoot();
-        sys.garbageCollect();
+        cc.sys.dumpRoot();
+        cc.sys.garbageCollect();
 
         this.space.addCollisionHandler( 10,11,
 			this.collisionBegin.bind(this),
@@ -680,8 +680,8 @@ var ChipmunkReleaseTest = function() {
 
 		this.space = null;
 
-        sys.dumpRoot();
-        sys.garbageCollect();
+        cc.sys.dumpRoot();
+        cc.sys.garbageCollect();
 
         // cc.base(this, 'onExit');
         ChipmunkBaseLayer.prototype.onExit.call(this);
@@ -1489,7 +1489,7 @@ var arrayOfChipmunkTest =  [
 		ChipmunkSpriteAnchorPoint
 		];
 
-if( sys.platform !== 'browser' ) {
+if( cc.sys.isNative ) {
 	arrayOfChipmunkTest.push( ChipmunkCollisionTestB );
 	arrayOfChipmunkTest.push( ChipmunkReleaseTest );
 }

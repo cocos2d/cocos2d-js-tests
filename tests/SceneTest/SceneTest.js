@@ -174,14 +174,14 @@ var SceneTestLayer3 = cc.LayerColor.extend({
     },
     
     onEnterTransitionDidFinish: function () {
-        if ('touches' in sys.capabilities){
+        if ('touches' in cc.sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesEnded: function(touches, event){
                     director.popScene();
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseUp: function(event){

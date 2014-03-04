@@ -40,7 +40,7 @@ var WebSocketTestLayer = cc.Layer.extend({
 
     init: function () {
 
-        var winSize = cc.Director.getInstance().getWinSize();
+        var winSize = cc.director.getWinSize();
         
         var MARGIN = 40;
         var SPACE = 35;
@@ -258,5 +258,5 @@ var runWebSocketTest = function () {
     var pScene = cc.Scene.create();
     var pLayer = WebSocketTestLayer.create();
     pScene.addChild(pLayer);
-    cc.Director.getInstance().runScene(pScene);
+    cc.director.runScene(pScene);
 };

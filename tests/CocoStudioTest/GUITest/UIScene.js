@@ -109,19 +109,19 @@ UIScene = cc.Layer.extend({
 
     previousCallback: function (sender, type) {
         if (type == ccs.TouchEventType.ended) {
-            cc.Director.getInstance().runScene(UISceneManager.getInstance().previousUIScene());
+            cc.director.runScene(UISceneManager.getInstance().previousUIScene());
         }
     },
 
     restartCallback: function (sender, type) {
         if (type == ccs.TouchEventType.ended) {
-            cc.Director.getInstance().runScene(UISceneManager.getInstance().currentUIScene());
+            cc.director.runScene(UISceneManager.getInstance().currentUIScene());
         }
     },
 
     nextCallback: function (sender, type) {
         if (type == ccs.TouchEventType.ended) {
-            cc.Director.getInstance().runScene(UISceneManager.getInstance().nextUIScene());
+            cc.director.runScene(UISceneManager.getInstance().nextUIScene());
         }
     }
 });
