@@ -241,19 +241,19 @@ var FixedPriorityTest =  EventDispatcherTestDemo.extend({
         var size = director.getVisibleSize();
 
         var sprite1 = TouchableSprite.create(30);
-        sprite1.initWithFile("res/Images/CyanSquare.png");
+        sprite1.setTexture("res/Images/CyanSquare.png");
         sprite1.x = origin.x + size.width / 2 - 80;
         sprite1.y = origin.y - size.height / 2 + 40;
         this.addChild(sprite1, 10);
 
         var sprite2 = TouchableSprite.create(20);
-        sprite2.initWithFile("res/Images/MagentaSquare.png");
+        sprite2.setTexture("res/Images/MagentaSquare.png");
         sprite2.x = origin.x + size.width / 2;
         sprite2.y = origin.y + size.height / 2;
         this.addChild(sprite2, 20);
 
         var sprite3 = TouchableSprite.create(10);
-        sprite3.initWithFile("res/Images/YellowSquare.png");
+        sprite3.setTexture("res/Images/YellowSquare.png");
         sprite3.x = 0;
         sprite3.y = 0;
         sprite2.addChild(sprite3, 1);
@@ -622,7 +622,7 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             var listener = cc.EventListener.create({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 onTouchBegan: function (touch, event) {
-                    cc.Assert(false, "Should not come here!");
+                    cc.assert(false, "Should not come here!");
                     return true;
                 }
             });
@@ -648,7 +648,7 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             var listener = cc.EventListener.create({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 onTouchBegan: function(touch, event){
-                    cc.Assert("Should not come here!");
+                    cc.assert("Should not come here!");
                     return true;
                 }
             });
@@ -662,7 +662,7 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             var listener = cc.EventListener.create({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 onTouchBegan: function(touch, event){
-                    cc.Assert(false, "Should not come here!");
+                    cc.assert(false, "Should not come here!");
                     return true;
                 }
             });
@@ -811,7 +811,7 @@ var GlobalZTouchTest = EventDispatcherTestDemo.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    log("sprite began... x = %f, y = %f", locationInNode.x, locationInNode.y);
+                    cc.log("sprite began... x = %f, y = %f", locationInNode.x, locationInNode.y);
                     target.setOpacity(180);
                     return true;
                 }
@@ -823,7 +823,7 @@ var GlobalZTouchTest = EventDispatcherTestDemo.extend({
                 target.y += delta.y;
             },
             onTouchEnded: function(touch, event){
-                log("sprite onTouchesEnded.. ");
+                cc.log("sprite onTouchesEnded.. ");
                 event.getCurrentTarget().setOpacity(255);
             }
         });
@@ -1014,20 +1014,20 @@ var Issue4160 = EventDispatcherTestDemo.extend({
         var size = cc.director.getVisibleSize();
 
         var sprite1 = TouchableSprite.create(-30);
-        sprite1.initWithFile("res/Images/CyanSquare.png");
+        sprite1.setTexture("res/Images/CyanSquare.png");
         sprite1.x = origin.x + (size.width/2) - 80;
         sprite1.y = origin.y + (size.height/2) + 40;
         this.addChild(sprite1, 5);
 
         var sprite2 = TouchableSprite.create(-20);
-        sprite2.initWithFile("res/Images/MagentaSquare.png");
+        sprite2.setTexture("res/Images/MagentaSquare.png");
         sprite2.removeListenerOnTouchEnded(true);
         sprite2.x = origin.x + (size.width/2);
         sprite2.y = origin.y + (size.height/2);
         this.addChild(sprite2, 10);
 
         var sprite3 = TouchableSprite.create(-10);
-        sprite3.initWithFile("res/Images/YellowSquare.png");
+        sprite3.setTexture("res/Images/YellowSquare.png");
         sprite3.x = 0;
         sprite3.y = 0;
         sprite2.addChild(sprite3, 21);
@@ -1152,7 +1152,7 @@ var arrayOfEventDispatcherTest = [
     RemoveAndRetainNodeTest,
     RemoveListenerAfterAddingTest,
     DirectorEventTest,
-    GlobalZTouchTest,
+    //GlobalZTouchTest,
     StopPropagationTest,
     Issue4160,
     PauseResumeTargetTest
