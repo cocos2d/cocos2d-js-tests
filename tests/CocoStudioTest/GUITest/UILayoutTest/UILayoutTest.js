@@ -101,7 +101,7 @@ var UILayoutTest = UILayoutTestBase.extend({
 var UILayoutTest_Color = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
-        layout.setBackGroundColorType(ccs.LayoutBackGroundColorType.solid);
+        layout.setBackGroundColorType(ccs.LAYOUT_BG_COLOR_SOLID);
         layout.setBackGroundColor(cc.color(128, 128, 128));
         layout.setSize(cc.size(280, 150));
         return layout;
@@ -113,7 +113,7 @@ var UILayoutTest_Color = UILayoutTestBase.extend({
 var UILayoutTest_Gradient = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
-        layout.setBackGroundColorType(ccs.LayoutBackGroundColorType.gradient);
+        layout.setBackGroundColorType(ccs.LAYOUT_BG_COLOR_GRADIENT);
         layout.setBackGroundColor(cc.color(64, 64, 64), cc.color(192, 192, 192));
         layout.setSize(cc.size(280, 150));
         return layout;
@@ -150,7 +150,7 @@ var UILayoutTest_BackGroundImage_Scale9 = UILayoutTestBase.extend({
 var UILayoutTest_Layout_Linear_Vertical = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
-        layout.setLayoutType(ccs.LayoutType.linearVertical);
+        layout.setLayoutType(ccs.LAYOUT_TYPE_LINEAR_VERTICAL);
         layout.setSize(cc.size(280, 150));
         return layout;
     },
@@ -177,7 +177,7 @@ var UILayoutTest_Layout_Linear_Vertical = UILayoutTestBase.extend({
 var UILayoutTest_Layout_Linear_Horizontal = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
-        layout.setLayoutType(ccs.LayoutType.linearHorizontal);
+        layout.setLayoutType(ccs.LAYOUT_TYPE_LINEAR_HORIZONTAL);
         layout.setClippingEnabled(true);
         layout.setSize(cc.size(280, 150));
         return layout;
@@ -206,9 +206,9 @@ var UILayoutTest_Layout_Linear_Horizontal = UILayoutTestBase.extend({
 var UILayoutTest_Layout_Relative = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
-        layout.setLayoutType(ccs.LayoutType.relative);
+        layout.setLayoutType(ccs.LAYOUT_TYPE_RELATIVE);
         layout.setSize(cc.size(280, 150));
-        layout.setBackGroundColorType(ccs.LayoutBackGroundColorType.solid);
+        layout.setBackGroundColorType(ccs.LAYOUT_BG_COLOR_SOLID);
         layout.setBackGroundColor(cc.color.green);
         return layout;
     },

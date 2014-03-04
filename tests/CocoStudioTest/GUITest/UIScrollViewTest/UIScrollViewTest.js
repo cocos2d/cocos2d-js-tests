@@ -217,7 +217,7 @@ var UIScrollViewTest_ScrollToPercentBothDirection = UIScene.extend({
             var scrollView = ccs.ScrollView.create();
             scrollView.setTouchEnabled(true);
             scrollView.setBackGroundColor(cc.color.green);
-            scrollView.setBackGroundColorType(ccs.LayoutBackGroundColorType.solid);
+            scrollView.setBackGroundColorType(ccs.LAYOUT_BG_COLOR_SOLID);
             scrollView.setDirection(ccs.ScrollViewDir.both);
             scrollView.setInnerContainerSize(cc.size(480, 320));
             scrollView.setSize(cc.size(100, 100));
@@ -258,7 +258,7 @@ var UIScrollViewTest_ScrollToPercentBothDirection_Bounce = UIScene.extend({
             scrollView.setTouchEnabled(true);
             scrollView.setBounceEnabled(true);
             scrollView.setBackGroundColor(cc.color.green);
-            scrollView.setBackGroundColorType(ccs.LayoutBackGroundColorType.solid);
+            scrollView.setBackGroundColorType(ccs.LAYOUT_BG_COLOR_SOLID);
             scrollView.setDirection(ccs.ScrollViewDir.both);
             scrollView.setInnerContainerSize(cc.size(480, 320));
             scrollView.setSize(cc.size(100, 100));
