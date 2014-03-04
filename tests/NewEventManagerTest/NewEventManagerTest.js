@@ -841,8 +841,8 @@ var GlobalZTouchTest = EventDispatcherTestDemo.extend({
             this.addChild(sprite);
 
             var visibleSize = cc.director.getVisibleSize();
-            sprite.x = cc.VisibleRect.left().x + visibleSize.width / (SPRITE_COUNT - 1) * i;
-            sprite.y = cc.VisibleRect.center().y;
+            sprite.x = cc.visibleRect.left.x + visibleSize.width / (SPRITE_COUNT - 1) * i;
+            sprite.y = cc.visibleRect.center.y;
         }
 
         this.scheduleUpdate();
@@ -973,10 +973,10 @@ var StopPropagationTest = EventDispatcherTestDemo.extend({
 
 
             var visibleSize = cc.director.getVisibleSize();
-            sprite1.x = cc.VisibleRect.left().x + visibleSize.width / (SPRITE_COUNT - 1) * i;
-            sprite1.y = cc.VisibleRect.center().y + sprite2.getContentSize().height / 2 + 10;
-            sprite2.x = cc.VisibleRect.left().x + visibleSize.width / (SPRITE_COUNT - 1) * i;
-            sprite2.y = cc.VisibleRect.center().y - sprite2.getContentSize().height / 2 - 10;
+            sprite1.x = cc.visibleRect.left.x + visibleSize.width / (SPRITE_COUNT - 1) * i;
+            sprite1.y = cc.visibleRect.center.y + sprite2.getContentSize().height / 2 + 10;
+            sprite2.x = cc.visibleRect.left.x + visibleSize.width / (SPRITE_COUNT - 1) * i;
+            sprite2.y = cc.visibleRect.center.y - sprite2.getContentSize().height / 2 - 10;
         }
     },
 
@@ -1110,7 +1110,7 @@ var PauseResumeTargetTest = EventDispatcherTestDemo.extend({
         });
 
         popup.setAnchorPoint(1,0.5);
-        popup.setPosition(cc.VisibleRect.right());
+        popup.setPosition(cc.visibleRect.right);
 
         var menu = cc.Menu.create(popup);
         menu.setAnchorPoint(0, 0);
