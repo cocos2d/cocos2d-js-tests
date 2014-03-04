@@ -41,7 +41,7 @@ var UICheckBoxTest = UIScene.extend({
             checkBox.x = widgetSize.width / 2.0;
 	        checkBox.y = widgetSize.height / 2.0;
             checkBox.addEventListenerCheckBox(this.selectedStateEvent, this);
-            this._uiLayer.addWidget(checkBox);
+            this._mainNode.addChild(checkBox);
 
             return true;
         }
