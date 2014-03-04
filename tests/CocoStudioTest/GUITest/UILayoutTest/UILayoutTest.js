@@ -160,17 +160,17 @@ var UILayoutTest_Layout_Linear_Vertical = UILayoutTestBase.extend({
     setLayoutParameter: function () {
         var lp1 = ccs.LinearLayoutParameter.create();
         this.button.setLayoutParameter(lp1);
-        lp1.setGravity(ccs.LinearGravity.centerHorizontal);
+        lp1.setGravity(ccs.LINEAR_GRAVITY_CENTER_HORIZONTAL);
         lp1.setMargin(new ccs.Margin(0, 5, 0, 10));
 
         var lp2 = ccs.LinearLayoutParameter.create();
         this.textButton.setLayoutParameter(lp2);
-        lp2.setGravity(ccs.LinearGravity.centerHorizontal);
+        lp2.setGravity(ccs.LINEAR_GRAVITY_CENTER_HORIZONTAL);
         lp2.setMargin(new ccs.Margin(0, 10, 0, 10));
 
         var lp3 = ccs.LinearLayoutParameter.create();
         this.button_scale9.setLayoutParameter(lp3);
-        lp3.setGravity(ccs.LinearGravity.centerHorizontal);
+        lp3.setGravity(ccs.LINEAR_GRAVITY_CENTER_HORIZONTAL);
         lp3.setMargin(new ccs.Margin(0, 10, 0, 10));
     }
 });
@@ -188,17 +188,17 @@ var UILayoutTest_Layout_Linear_Horizontal = UILayoutTestBase.extend({
     setLayoutParameter: function () {
         var lp1 = ccs.LinearLayoutParameter.create();
         this.button.setLayoutParameter(lp1);
-        lp1.setGravity(ccs.LinearGravity.centerVertical);
+        lp1.setGravity(ccs.LINEAR_GRAVITY_CENTER_VERTICAL);
         lp1.setMargin(new ccs.Margin(0, 10, 0, 10));
 
         var lp2 = ccs.LinearLayoutParameter.create();
         this.textButton.setLayoutParameter(lp2);
-        lp2.setGravity(ccs.LinearGravity.centerVertical);
+        lp2.setGravity(ccs.LINEAR_GRAVITY_CENTER_VERTICAL);
         lp2.setMargin(new ccs.Margin(0, 10, 0, 10));
 
         var lp3 = ccs.LinearLayoutParameter.create();
         this.button_scale9.setLayoutParameter(lp3);
-        lp3.setGravity(ccs.LinearGravity.centerVertical);
+        lp3.setGravity(ccs.LINEAR_GRAVITY_CENTER_VERTICAL);
         lp3.setMargin(new ccs.Margin(0, 10, 0, 10));
     }
 });
@@ -218,14 +218,14 @@ var UILayoutTest_Layout_Relative = UILayoutTestBase.extend({
     setLayoutParameter: function () {
         var lp1 = ccs.RelativeLayoutParameter.create();
         this.button.setLayoutParameter(lp1);
-        lp1.setGravity(ccs.RelativeAlign.alignParentLeftBottom);
+        lp1.setGravity(ccs.RELATIVE_ALIGN_PARENT_LEFT_BOTTOM);
 
         var lp2 = ccs.RelativeLayoutParameter.create();
         this.textButton.setLayoutParameter(lp2);
-        lp2.setGravity(ccs.RelativeAlign.alignParentLeftBottom);
+        lp2.setGravity(ccs.RELATIVE_ALIGN_PARENT_LEFT_BOTTOM);
 
         var lp3 = ccs.RelativeLayoutParameter.create();
         this.button_scale9.setLayoutParameter(lp3);
-        lp3.setGravity(ccs.RelativeAlign.alignParentRightCenterVertical);
+        lp3.setGravity(ccs.RELATIVE_ALIGN_PARENT_RIGHT_CENTER_VERTICAL);
     }
 });
