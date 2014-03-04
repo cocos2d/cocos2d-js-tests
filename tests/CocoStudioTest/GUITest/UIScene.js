@@ -34,7 +34,7 @@ UIScene = cc.Layer.extend({
     },
     init: function () {
         if (this._super()) {
-            var winSize = cc.Director.getInstance().getWinSize();
+            var winSize = cc.director.getWinSize();
 
             //add main node
             var mainNode = cc.Node.create();
