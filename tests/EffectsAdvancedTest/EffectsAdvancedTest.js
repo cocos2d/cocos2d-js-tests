@@ -84,8 +84,8 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
         tamara.runAction(cc.RepeatForever.create(cc.Sequence.create(sc2, sc2_back)));
 
         var label = cc.LabelTTF.create(this.title(), "Arial", 28);
-        label.x = cc.VisibleRect.center().x;
-        label.y = cc.VisibleRect.top().y - 80;
+        label.x = cc.visibleRect.center.x;
+        label.y = cc.visibleRect.top.y - 80;
         this.addChild(label);
         label.tag = EffectsAdvancedTest.TAG_LABEL;
 
@@ -93,8 +93,8 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
         if (strSubtitle != "") {
             var subtitleLabel = cc.LabelTTF.create(strSubtitle, "Arial", 16);
             this.addChild(subtitleLabel, 101);
-            subtitleLabel.x = cc.VisibleRect.center().x;
-            subtitleLabel.y = cc.VisibleRect.top().y - 80;
+            subtitleLabel.x = cc.visibleRect.center.x;
+            subtitleLabel.y = cc.visibleRect.top.y - 80;
         }
 
         var item1 = cc.MenuItemImage.create(s_pathB1, s_pathB2, this.backCallback, this);
@@ -105,7 +105,7 @@ var EffectAdvanceTextLayer = cc.Layer.extend({
 
         menu.x = 0;
         menu.y = 0;
-	    var centerx = cc.VisibleRect.center().x, bottomy = cc.VisibleRect.bottom().y;
+	    var centerx = cc.visibleRect.center.x, bottomy = cc.visibleRect.bottom.y;
         item1.x = centerx - item2.width * 2;
         item1.y = bottomy + item2.height / 2;
         item2.x = centerx;
