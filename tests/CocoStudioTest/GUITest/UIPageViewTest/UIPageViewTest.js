@@ -34,7 +34,7 @@ var UIPageViewTest = UIScene.extend({
             this._bottomDisplayLabel.x = widgetSize.width / 2;
             this._bottomDisplayLabel.y = widgetSize.height / 2 - this._bottomDisplayLabel.height * 3;
 
-            var background = this._uiLayer.getWidgetByName("background_Panel");
+            var background = this._widget.getChildByName("background_Panel");
 
             // Create the page view
             var pageView = ccs.PageView.create();
@@ -69,7 +69,7 @@ var UIPageViewTest = UIScene.extend({
             }
             pageView.addEventListenerPageView(this.pageViewEvent, this);
             var a = ccs.Layout.create();
-            this._uiLayer.addWidget(pageView);
+            this._mainNode.addChild(pageView);
 
             return true;
         }

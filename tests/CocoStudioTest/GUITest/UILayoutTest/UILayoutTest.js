@@ -36,7 +36,7 @@ var UILayoutTestBase = UIScene.extend({
             this._bottomDisplayLabel.x = widgetSize.width / 2;
             this._bottomDisplayLabel.y = widgetSize.height / 2 - this._bottomDisplayLabel.height * 3;
 
-            var background = this._uiLayer.getWidgetByName("background_Panel");
+            var background = this._widget.getChildByName("background_Panel");
 
             // Create the layout
             this.layout = this.createLayout();
@@ -44,7 +44,7 @@ var UILayoutTestBase = UIScene.extend({
             var backgroundRect = background.getSize();
             this.layout.x = (widgetSize.width - backgroundRect.width) / 2 + (backgroundRect.width - layoutRect.width) / 2;
 	        this.layout.y = (widgetSize.height - backgroundRect.height) / 2 + (backgroundRect.height - layoutRect.height) / 2;
-            this._uiLayer.addWidget(this.layout);
+            this._mainNode.addChild(this.layout);
 
             this.button = ccs.Button.create();
             this.button.setTouchEnabled(true);

@@ -35,7 +35,7 @@ var UIImageViewTest = UIScene.extend({
             imageView.loadTexture("res/cocosgui/ccicon.png");
             imageView.x = widgetSize.width / 2;
 	        imageView.y = widgetSize.height / 2 + imageView.height / 4;
-            this._uiLayer.addWidget(imageView);
+            this._mainNode.addChild(imageView);
 
             return true;
         }
@@ -58,7 +58,7 @@ var UIImageViewTest_Scale9 = UIScene.extend({
             imageView.setSize(cc.size(200, 85));
             imageView.x = widgetSize.width / 2;
 	        imageView.y = widgetSize.height / 2 + imageView.getSize().height / 4;
-            this._uiLayer.addWidget(imageView);
+            this._mainNode.addChild(imageView);
 
             return true;
         }
