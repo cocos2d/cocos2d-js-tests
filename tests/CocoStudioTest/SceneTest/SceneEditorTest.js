@@ -118,10 +118,10 @@ var SceneEditorTestLayer = BaseTestLayer.extend({
         director.runScene(s);
     },
     onExit: function () {
-        ccs.ArmatureDataManager.purge();
-        ccs.SceneReader.purge();
-        ccs.ActionManager.purge();
-        ccs.GUIReader.purge();
+        ccs.armatureDataManager.clear();
+        ccs.sceneReader.clear();
+        ccs.actionManager.clear();
+        ccs.guiReader.clear();
         this._super();
     },
     initSize:function(node){
@@ -148,9 +148,9 @@ var runSceneEditorTest = function () {
 var LoadSceneEdtiorFileTest = SceneEditorTestLayer.extend({
     onEnter: function () {
         this._super();
-        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/LoadSceneEdtiorFileTest/FishJoy2.json");
+        var node = ccs.sceneReader.createNodeWithSceneFile("res/scenetest/LoadSceneEdtiorFileTest/FishJoy2.json");
         this.addChild(node);
-        ccs.ActionManager.getInstance().playActionByName("startMenu_1.json", "Animation1");
+        ccs.actionManager.playActionByName("startMenu_1.json", "Animation1");
         this.initSize(node);
     },
     title: function () {
@@ -166,7 +166,7 @@ var LoadSceneEdtiorFileTest = SceneEditorTestLayer.extend({
 var SpriteComponentTest = SceneEditorTestLayer.extend({
     onEnter: function () {
         this._super();
-        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/SpriteComponentTest/SpriteComponentTest.json");
+        var node = ccs.sceneReader.createNodeWithSceneFile("res/scenetest/SpriteComponentTest/SpriteComponentTest.json");
         this.addChild(node);
 
         var action1 = cc.Blink.create(2, 10);
@@ -192,7 +192,7 @@ var SpriteComponentTest = SceneEditorTestLayer.extend({
 var ArmatureComponentTest = SceneEditorTestLayer.extend({
     onEnter: function () {
         this._super();
-        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/ArmatureComponentTest/ArmatureComponentTest.json");
+        var node = ccs.sceneReader.createNodeWithSceneFile("res/scenetest/ArmatureComponentTest/ArmatureComponentTest.json");
         this.addChild(node);
 
         var blowFish = node.getChildByTag(10007).getComponent("CCArmature").getNode();
@@ -217,7 +217,7 @@ var UIComponentTest = SceneEditorTestLayer.extend({
     _node: null,
     onEnter: function () {
         this._super();
-        this._node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/UIComponentTest/UIComponentTest.json");
+        this._node = ccs.sceneReader.createNodeWithSceneFile("res/scenetest/UIComponentTest/UIComponentTest.json");
         this.addChild(this._node);
         var uiLayer = this._node.getChildByTag(10025).getComponent("GUIComponent").getNode();
         var widget = uiLayer.getWidgetByName("Panel_154");
@@ -252,7 +252,7 @@ var UIComponentTest = SceneEditorTestLayer.extend({
 var TmxMapComponentTest = SceneEditorTestLayer.extend({
     onEnter: function () {
         this._super();
-        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/TmxMapComponentTest/TmxMapComponentTest.json");
+        var node = ccs.sceneReader.createNodeWithSceneFile("res/scenetest/TmxMapComponentTest/TmxMapComponentTest.json");
         this.addChild(node);
         var tmxMap = node.getChildByTag(10015).getComponent("CCTMXTiledMap").getNode();
         var actionTo = cc.SkewTo.create(2, 0, 2);
@@ -283,7 +283,7 @@ var TmxMapComponentTest = SceneEditorTestLayer.extend({
 var ParticleComponentTest = SceneEditorTestLayer.extend({
     onEnter: function () {
         this._super();
-        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/ParticleComponentTest/ParticleComponentTest.json");
+        var node = ccs.sceneReader.createNodeWithSceneFile("res/scenetest/ParticleComponentTest/ParticleComponentTest.json");
         this.addChild(node);
 
         var particle = node.getChildByTag(10020).getComponent("CCParticleSystemQuad").getNode();
@@ -307,7 +307,7 @@ var EffectComponentTest = SceneEditorTestLayer.extend({
     _node: null,
     onEnter: function () {
         this._super();
-        this._node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/EffectComponentTest/EffectComponentTest.json");
+        this._node = ccs.sceneReader.createNodeWithSceneFile("res/scenetest/EffectComponentTest/EffectComponentTest.json");
         this.addChild(this._node);
 
         var armature = this._node.getChildByTag(10015).getComponent("CCArmature").getNode();
@@ -336,9 +336,9 @@ var EffectComponentTest = SceneEditorTestLayer.extend({
 var BackgroundComponentTest = SceneEditorTestLayer.extend({
     onEnter: function () {
         this._super();
-        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/BackgroundComponentTest/BackgroundComponentTest.json");
+        var node = ccs.sceneReader.createNodeWithSceneFile("res/scenetest/BackgroundComponentTest/BackgroundComponentTest.json");
         this.addChild(node);
-        ccs.ActionManager.getInstance().playActionByName("startMenu_1.json", "Animation1");
+        ccs.actionManager.playActionByName("startMenu_1.json", "Animation1");
 
         var audio = node.getComponent("CCBackgroundAudio");
         audio.playBackgroundMusic();
@@ -358,7 +358,7 @@ var BackgroundComponentTest = SceneEditorTestLayer.extend({
 var AttributeComponentTest = SceneEditorTestLayer.extend({
     onEnter: function () {
         this._super();
-        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/AttributeComponentTest/AttributeComponentTest.json");
+        var node = ccs.sceneReader.createNodeWithSceneFile("res/scenetest/AttributeComponentTest/AttributeComponentTest.json");
         this.addChild(node);
 
         var comAttribute = node.getChildByTag(10015).getComponent("CCComAttribute");
@@ -386,9 +386,9 @@ var TriggerTest = SceneEditorTestLayer.extend({
     _flyFishNode: null,
     onEnter: function () {
         this._super();
-        var node = ccs.SceneReader.getInstance().createNodeWithSceneFile("res/scenetest/TriggerTest/TriggerTest.json");
+        var node = ccs.sceneReader.createNodeWithSceneFile("res/scenetest/TriggerTest/TriggerTest.json");
         this.addChild(node);
-        ccs.ActionManager.getInstance().playActionByName("startMenu_1.json", "Animation1");
+        ccs.actionManager.playActionByName("startMenu_1.json", "Animation1");
 
         this.schedule(this.gameLogic);
         this.setTouchEnabled(true);
