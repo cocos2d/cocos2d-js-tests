@@ -37,7 +37,7 @@ var UIButtonTest = UIScene.extend({
             button.x = widgetSize.width / 2.0;
             button.y = widgetSize.height / 2.0;
             button.addTouchEventListener(this.touchEvent ,this);
-            this._uiLayer.addWidget(button);
+            this._mainNode.addChild(button);
 
             return true;
         }
@@ -83,7 +83,7 @@ var UIButtonTest_Scale9 = UIScene.extend({
             button.y = this._widget.height / 2.0;
             button.setSize(cc.size(150, button.height * 1.5));
             button.addTouchEventListener(this.touchEvent ,this);
-            this._uiLayer.addWidget(button);
+            this._mainNode.addChild(button);
 
             return true;
         }
@@ -127,7 +127,7 @@ var UIButtonTest_PressedAction = UIScene.extend({
             button.x = widgetSize.width / 2;
             button.y = widgetSize.height / 2;
             button.addTouchEventListener(this.touchEvent ,this);
-            this._uiLayer.addWidget(button);
+            this._mainNode.addChild(button);
             return true;
         }
         return false;
@@ -169,7 +169,7 @@ var UIButtonTest_Title = UIScene.extend({
             textButton.x = widgetSize.width / 2.0;
             textButton.y = widgetSize.height / 2.0;
             textButton.addTouchEventListener(this.touchEvent ,this);
-            this._uiLayer.addWidget(textButton);
+            this._mainNode.addChild(textButton);
 
             return true;
         }

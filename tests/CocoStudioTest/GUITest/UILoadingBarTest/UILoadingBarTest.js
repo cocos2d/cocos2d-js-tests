@@ -24,6 +24,7 @@
 
 var UILoadingBarTest = UIScene.extend({
     _count: 0,
+    _loadingBar:null,
     ctor: function () {
         this._super();
         this._count = 0;
@@ -51,8 +52,7 @@ var UILoadingBarTest = UIScene.extend({
             this._count = 0;
         }
 
-        var loadingBar = this._uiLayer.getWidgetByName("LoadingBar");
-        loadingBar.setPercent(this._count);
+        this._loadingBar.setPercent(this._count);
     },
 
     previousCallback: function (sender, type) {
@@ -80,7 +80,8 @@ var UILoadingBarTest_Left = UILoadingBarTest.extend({
         loadingBar.setPercent(0);
         loadingBar.x = widgetSize.width / 2;
         loadingBar.y = widgetSize.height / 2 + loadingBar.height / 4;
-        this._uiLayer.addWidget(loadingBar);
+        this._mainNode.addChild(loadingBar);
+        this._loadingBar = loadingBar;
     }
 });
 
@@ -94,7 +95,8 @@ var UILoadingBarTest_Right = UILoadingBarTest.extend({
         loadingBar.setPercent(0);
         loadingBar.x = widgetSize.width / 2;
         loadingBar.y = widgetSize.height / 2 + loadingBar.height / 4;
-        this._uiLayer.addWidget(loadingBar);
+        this._mainNode.addChild(loadingBar);
+        this._loadingBar = loadingBar;
     }
 });
 
@@ -110,7 +112,8 @@ var UILoadingBarTest_Left_Scale9 = UILoadingBarTest.extend({
         loadingBar.setPercent(0);
         loadingBar.x = widgetSize.width / 2;
         loadingBar.y = widgetSize.height / 2 + loadingBar.height / 4;
-        this._uiLayer.addWidget(loadingBar);
+        this._mainNode.addChild(loadingBar);
+        this._loadingBar = loadingBar;
     }
 });
 
@@ -127,6 +130,7 @@ var UILoadingBarTest_Right_Scale9 = UILoadingBarTest.extend({
         loadingBar.setPercent(0);
         loadingBar.x = widgetSize.width / 2;
         loadingBar.y = widgetSize.height / 2 + loadingBar.height / 4;
-        this._uiLayer.addWidget(loadingBar);
+        this._mainNode.addChild(loadingBar);
+        this._loadingBar = loadingBar;
     }
 });

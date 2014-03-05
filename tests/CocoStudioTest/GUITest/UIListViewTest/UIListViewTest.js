@@ -26,7 +26,7 @@ var UIListViewTest_Vertical = UIScene.extend({
     init: function () {
         if (this._super()) {
             var widgetSize = this._widget.getSize();
-            var background = this._uiLayer.getWidgetByName("background_Panel");
+            var background = this._widget.getChildByName("background_Panel");
 
             this._array = [];
             for (var i = 0; i < 20; ++i) {
@@ -45,7 +45,7 @@ var UIListViewTest_Vertical = UIScene.extend({
             listView.x = (widgetSize.width - background.width) / 2 + (background.width - listView.width) / 2;
             listView.y = (widgetSize.height - background.height) / 2 + (background.height - listView.height) / 2;
             listView.addEventListenerListView(this.selectedItemEvent, this);
-            this._uiLayer.addWidget(listView);
+            this._mainNode.addChild(listView);
 
 
             // create model
@@ -154,7 +154,7 @@ var UIListViewTest_Horizontal = UIScene.extend({
     init: function () {
         if (this._super()) {
             var widgetSize = this._widget.getSize();
-            var background = this._uiLayer.getWidgetByName("background_Panel");
+            var background = this._widget.getChildByName("background_Panel");
             // create list view ex data
             this._array = [];
             for (var i = 0; i < 20; ++i) {
@@ -174,7 +174,7 @@ var UIListViewTest_Horizontal = UIScene.extend({
             listView.x = (widgetSize.width - background.width) / 2 + (background.width - listView.width) / 2;
             listView.y = (widgetSize.height - background.height) / 2 + (background.height - listView.height) / 2;
             listView.addEventListenerListView(this.selectedItemEvent, this);
-            this._uiLayer.addWidget(listView);
+            this._mainNode.addChild(listView);
 
 
             // create model

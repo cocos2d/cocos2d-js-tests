@@ -39,7 +39,7 @@ var UISliderTest = UIScene.extend({
             slider.x = widgetSize.width / 2.0;
             slider.y = widgetSize.height / 2.0;
             slider.addEventListenerSlider(this.sliderEvent, this);
-            this._uiLayer.addWidget(slider);
+            this._mainNode.addChild(slider);
 
             return true;
         }
@@ -79,7 +79,7 @@ var UISliderTest_Scale9 = UIScene.extend({
             slider.x = widgetSize.width / 2.0;
             slider.y = widgetSize.height / 2.0;
             slider.addEventListenerSlider(this.sliderEvent, this);
-            this._uiLayer.addWidget(slider);
+            this._mainNode.addChild(slider);
 
             return true;
         }
