@@ -243,7 +243,7 @@ var FixedPriorityTest =  EventDispatcherTestDemo.extend({
         var sprite1 = TouchableSprite.create(30);
         sprite1.setTexture("res/Images/CyanSquare.png");
         sprite1.x = origin.x + size.width / 2 - 80;
-        sprite1.y = origin.y - size.height / 2 + 40;
+        sprite1.y = origin.y + size.height / 2 + 40;
         this.addChild(sprite1, 10);
 
         var sprite2 = TouchableSprite.create(20);
@@ -734,10 +734,10 @@ var DirectorEventTest =  EventDispatcherTestDemo.extend({
         this._event2 = dispatcher.addCustomListener(cc.Director.EVENT_AFTER_VISIT, this.onEvent2.bind(this));
         this._event3 = dispatcher.addCustomListener(cc.Director.EVENT_AFTER_DRAW, function(event) {
             selfPointer._label3.setString("Draw: " + selfPointer._count3++);
-        }, this);
+        });
         this._event4 = dispatcher.addCustomListener(cc.Director.EVENT_PROJECTION_CHANGED, function(event) {
             selfPointer._label4.setString("Projection: " + selfPointer._count4++);
-        }, this);
+        });
 
         this._event1.retain();
         this._event2.retain();
