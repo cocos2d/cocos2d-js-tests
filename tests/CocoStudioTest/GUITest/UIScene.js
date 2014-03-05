@@ -23,47 +23,45 @@
  ****************************************************************************/
 
 UIScene = cc.Layer.extend({
-    _uiLayer: null,
     _widget: null,
     _sceneTitle: null,
     _topDisplayLabel:null,
     _bottomDisplayLabel:null,
+    _mainNode:null,
     ctor: function () {
         cc.Layer.prototype.ctor.call(this)
-        this._uiLayer = null;
         this._widget = null;
     },
     init: function () {
         if (this._super()) {
-            this._uiLayer = ccs.UILayer.create();
-            this.addChild(this._uiLayer);
+            var winSize = cc.director.getWinSize();
 
-            this._widget = ccs.guiReader.widgetFromJsonFile("res/cocosgui/UITest/UITest.json");
-            this._uiLayer.addWidget(this._widget);
+            //add main node
+            var mainNode = cc.Node.create();
+            var scale = winSize.height / 320;
+            mainNode.attr({anchorX: 0, anchorY: 0, scale: scale, x: (winSize.width - 480 * scale) / 2, y: (winSize.height - 320 * scale) / 2});
+            this.addChild(mainNode);
 
-            this._sceneTitle = this._uiLayer.getWidgetByName("UItest");
+            //read widget
+            var widget = ccs.guiReader.widgetFromJsonFile("res/cocosgui/UITest/UITest.json");
+            mainNode.addChild(widget,-1);
+            
+            this._sceneTitle = widget.getChildByName("UItest");
 
-            var back_label = this._uiLayer.getWidgetByName("back");
+            var back_label = widget.getChildByName("back");
             back_label.addTouchEventListener(this.toExtensionsMainLayer, this);
 
-            var left_button = this._uiLayer.getWidgetByName("left_Button");
+            var left_button = widget.getChildByName("left_Button");
             left_button.addTouchEventListener(this.previousCallback ,this);
 
-            var middle_button = this._uiLayer.getWidgetByName("middle_Button");
+            var middle_button = widget.getChildByName("middle_Button");
             middle_button.addTouchEventListener(this.restartCallback ,this);
 
-            var right_button = this._uiLayer.getWidgetByName("right_Button");
+            var right_button = widget.getChildByName("right_Button");
             right_button.addTouchEventListener(this.nextCallback ,this);
 
-            var winSize = cc.director.getWinSize();
-            var scale = winSize.height / 320;
-            this._uiLayer.anchorX = 0;
-            this._uiLayer.anchorY = 0;
-            this._uiLayer.scale = scale;
-            this._uiLayer.x = (winSize.width - 480 * scale) / 2;
-	        this._uiLayer.y = (winSize.height - 320 * scale) / 2;
-
-            var widgetSize = this._widget.getSize();
+            //add topDisplayLabel
+            var widgetSize = widget.getSize();
             var eventLabel = ccs.Label.create();
             eventLabel.attr({
 	            string: "",
@@ -74,9 +72,9 @@ UIScene = cc.Layer.extend({
 	            x: widgetSize.width / 2.0,
 	            y: widgetSize.height / 2.0
             });
-            this._uiLayer.addWidget(eventLabel);
-            this._topDisplayLabel = eventLabel;
-
+            mainNode.addChild(eventLabel);
+            
+            //add bottomDisplayLabel
             var uiLabel = ccs.Label.create();
             uiLabel.attr({
 	            string: "",
@@ -86,9 +84,12 @@ UIScene = cc.Layer.extend({
 	            x: widgetSize.width / 2.0
             });
 	        uiLabel.y = widgetSize.height / 2.0 - uiLabel.height * 1.75;
-            this._uiLayer.addWidget(uiLabel);
-            this._bottomDisplayLabel = uiLabel;
+            mainNode.addChild(uiLabel);
 
+            this._topDisplayLabel = eventLabel;
+            this._bottomDisplayLabel = uiLabel;
+            this._mainNode = mainNode;
+            this._widget = widget;
             return true;
         }
         return false;
@@ -108,24 +109,18 @@ UIScene = cc.Layer.extend({
 
     previousCallback: function (sender, type) {
         if (type == ccs.TouchEventType.ended) {
-            this._uiLayer.unscheduleUpdate();
-            this._uiLayer.removeFromParent();
             cc.director.runScene(UISceneManager.getInstance().previousUIScene());
         }
     },
 
     restartCallback: function (sender, type) {
         if (type == ccs.TouchEventType.ended) {
-            this._uiLayer.unscheduleUpdate();
-            this._uiLayer.removeFromParent();
             cc.director.runScene(UISceneManager.getInstance().currentUIScene());
         }
     },
 
     nextCallback: function (sender, type) {
         if (type == ccs.TouchEventType.ended) {
-            this._uiLayer.unscheduleUpdate();
-            this._uiLayer.removeFromParent();
             cc.director.runScene(UISceneManager.getInstance().nextUIScene());
         }
     }

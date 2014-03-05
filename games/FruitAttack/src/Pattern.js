@@ -183,18 +183,13 @@ var PatternSprite = cc.Sprite.extend({
             }
         }
     },
-    onTouchEnded:function (touch, event) {
-
-    },
     onEnter:function () {
-       if(sys.platform == "browser")
-            cc.registerTargetedDelegate(1, true, this);
-        else
-            cc.registerTargettedDelegate(1,true,this);
         this._super();
-    },
-    onExit:function () {
-        cc.unregisterTouchDelegate(this);
-        this._super();
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches:true,
+            onTouchBegan : this.onTouchBegan.bind(this),
+            onTouchMoved : this.onTouchMoved.bind(this)
+        }, this);
     }
 });

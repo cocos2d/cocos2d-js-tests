@@ -138,7 +138,7 @@ var particleSceneArr = [
     }
 ];
 
-if( 'opengl' in sys.capabilities ){
+if( 'opengl' in cc.sys.capabilities ){
     particleSceneArr.push( function () {
         return new ParallaxParticle();
     });
@@ -180,7 +180,7 @@ var ParticleDemo = BaseTestLayer.extend({
         this._super(cc.color(0,0,0,255), cc.color(98,99,117,255));
         this._emitter = null;
 
-        if ('touches' in sys.capabilities){
+        if ('touches' in cc.sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesBegan:function (touches, event) {
@@ -190,7 +190,7 @@ var ParticleDemo = BaseTestLayer.extend({
                     event.getCurrentTarget()._moveToTouchPoint(touches[0].getLocation());
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseDown: function(event){
@@ -266,7 +266,7 @@ var ParticleDemo = BaseTestLayer.extend({
         this._shapeModeButton.y = 100;
         this._shapeModeButton.setAnchorPoint(0, 0);
 
-        if ('opengl' in sys.capabilities ) {
+        if ('opengl' in cc.sys.capabilities ) {
             // Shape type is not compatible with JSB
             this._shapeModeButton.enabled = false;
         }
@@ -556,7 +556,7 @@ var DemoRotFlower = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = cc.ParticleSystem.create(("opengl" in sys.capabilities) ? 300 : 150);
+        this._emitter = cc.ParticleSystem.create(("opengl" in cc.sys.capabilities) ? 300 : 150);
 
         this._background.addChild(this._emitter, 10);
         this._emitter.texture = cc.textureCache.addImage(s_stars2);
@@ -761,7 +761,7 @@ var DemoModernArt = ParticleDemo.extend({
     onEnter:function () {
         this._super();
 
-        this._emitter = cc.ParticleSystem.create(("opengl" in sys.capabilities) ? 1000 : 200);
+        this._emitter = cc.ParticleSystem.create(("opengl" in cc.sys.capabilities) ? 1000 : 200);
 
         this._background.addChild(this._emitter, 10);
 
@@ -1025,14 +1025,13 @@ var RadiusMode2 = ParticleDemo.extend({
 
         // radius mode: start and end radius in pixels
         this._emitter.startRadius = 100;
-        this._emitter.startRadiusVar(0);
+        this._emitter.startRadiusVar = 0;
         this._emitter.endRadius = cc.PARTICLE_START_RADIUS_EQUAL_TO_END_RADIUS;
         this._emitter.endRadiusVar = 0;
 
         // radius mode: degrees per second
         this._emitter.rotatePerS = 45;
         this._emitter.rotatePerSVar = 0;
-
 
         // angle
         this._emitter.angle = 90;

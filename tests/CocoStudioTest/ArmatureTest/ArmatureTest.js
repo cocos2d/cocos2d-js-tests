@@ -98,7 +98,7 @@ var armatureSceneArr = [
     }
 ];
 
-if (sys.platform === "browser")
+if (!cc.sys.isNative)
 {
     armatureSceneArr.push( function () { return new TestColliderDetector();} );
 }else{
@@ -295,8 +295,8 @@ var TestPerformance = ArmatureTestLayer.extend({
 
         var menu = cc.Menu.create(decrease, increase);
         menu.alignItemsHorizontally();
-        menu.x = cc.VisibleRect.getWidth() / 2;
-        menu.y = cc.VisibleRect.getHeight() - 100;
+        menu.x = cc.visibleRect.width / 2;
+        menu.y = cc.visibleRect.height - 100;
         this.addChild(menu, 10000);
 
     },
@@ -474,7 +474,7 @@ var TestFrameEvent = ArmatureTestLayer.extend({
         var armature = ccs.Armature.create("HeroAnimation");
         armature.getAnimation().play("attack");
         armature.getAnimation().setSpeedScale(0.5);
-	    var center = cc.VisibleRect.center();
+	    var center = cc.visibleRect.center;
         armature.x = center.x - 50;
 	    armature.y = center.y - 100;
         this.addChild(armature);
@@ -492,7 +492,7 @@ var TestFrameEvent = ArmatureTestLayer.extend({
     onFrameEvent: function (bone, evt, originFrameIndex, currentFrameIndex) {
         cc.log("(" + bone.getName() + ") emit a frame event (" + evt + ") at frame index (" + currentFrameIndex + ").");
         if (!this.getActionByTag(FRAME_EVENT_ACTION_TAG) || this.getActionByTag(FRAME_EVENT_ACTION_TAG).isDone()) {
-            if ("opengl" in sys.capabilities) {
+            if ("opengl" in cc.sys.capabilities) {
                 this.stopAllActions();
                 var action = cc.ShatteredTiles3D.create(0.2, cc.size(16, 12), 5, false);
                 action.tag = FRAME_EVENT_ACTION_TAG;
@@ -501,7 +501,7 @@ var TestFrameEvent = ArmatureTestLayer.extend({
         }
     },
     checkAction: function (dt) {
-        if ("opengl" in sys.capabilities) {
+        if ("opengl" in cc.sys.capabilities) {
             if (this.getNumberOfRunningActions() == 0 && this.grid != null)
                 this.grid = null;
         }
@@ -538,7 +538,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
         ccs.armatureDataManager.addArmatureFileInfo(s_robot_png, s_robot_plist, s_robot_xml);
         this.armature = ccs.Armature.create("robot");
         this.armature.getAnimation().playWithIndex(4);
-	    var center = cc.VisibleRect.center();
+	    var center = cc.visibleRect.center;
         this.armature.x = center.x;
 	    this.armature.y = center.y;
         this.armature.scale = 0.48;
@@ -902,9 +902,9 @@ var TestBoundingBox = ArmatureTestLayer.extend({
     },
     draw:function () {
         var rect =  this.armature.boundingBox();
-        cc.drawingUtil.setDrawColor(100, 100, 100, 255);
-        cc.drawingUtil.setLineWidth(1);
-        cc.drawingUtil.drawRect(cc.p(rect.x, rect.y), cc.p(cc.rectGetMaxX(rect), cc.rectGetMaxY(rect)));
+        cc._drawingUtil.setDrawColor(100, 100, 100, 255);
+        cc._drawingUtil.setLineWidth(1);
+        cc._drawingUtil.drawRect(cc.p(rect.x, rect.y), cc.p(cc.rectGetMaxX(rect), cc.rectGetMaxY(rect)));
     }
 });
 
@@ -1082,21 +1082,21 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
         var menu = cc.Menu.create(menuItem);
         menu.x = 0;
         menu.y = 0;
-        menuItem.x = cc.VisibleRect.right().x - 67;
-        menuItem.y = cc.VisibleRect.bottom().y + 50;
+        menuItem.x = cc.visibleRect.right.x - 67;
+        menuItem.y = cc.visibleRect.bottom.y + 50;
         this.addChild(menu, 2);
 
         //Create a hero
         var hero = Hero.create("hero");
         hero.setLayer(this);
         hero.playWithIndex(0);
-        hero.x = cc.VisibleRect.left().x + 20;
-        hero.y = cc.VisibleRect.left().y;
+        hero.x = cc.visibleRect.left.x + 20;
+        hero.y = cc.visibleRect.left.y;
         this.addChild(hero);
         this._hero = hero;
 
         //Create 3 mount
-        this._horse = this.createMount("horse", cc.VisibleRect.center());
+        this._horse = this.createMount("horse", cc.visibleRect.center);
         this._horse2 = this.createMount("horse", cc.p(120, 200));
         this._horse2.opacity = 200;
         this._bear = this.createMount("bear", cc.p(300, 70));

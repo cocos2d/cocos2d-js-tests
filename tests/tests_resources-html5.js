@@ -405,7 +405,10 @@ var g_eventDispatcher = [
     "res/Images/CyanSquare.png",
     "res/Images/MagentaSquare.png",
     "res/Images/YellowSquare.png",
-    "res/Images/ball.png"
+    "res/Images/ball.png",
+    s_extensions_button,
+    s_extensions_buttonHighlighted,
+    s_extensions_buttonBackground
 ];
 
 var g_particle = [

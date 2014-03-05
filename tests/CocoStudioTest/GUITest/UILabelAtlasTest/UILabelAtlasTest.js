@@ -36,7 +36,7 @@ var UILabelAtlasTest = UIScene.extend({
             labelAtlas.x = this._widget.width / 2;
 	        labelAtlas.y = this._widget.height / 2;
 
-            this._uiLayer.addWidget(labelAtlas);
+            this._mainNode.addChild(labelAtlas);
             return true;
         }
         return false;

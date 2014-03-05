@@ -416,7 +416,7 @@ ChipmunkPage.prototype.onEnter = function () {
 		this.addSprite( cp.v(x, y) );
 	}
 
-    if( 'touches' in sys.capabilities ){
+    if( 'touches' in cc.sys.capabilities ){
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ALL_AT_ONCE,
             onTouchesEnded: function (touches, event) {
@@ -427,7 +427,7 @@ ChipmunkPage.prototype.onEnter = function () {
                 }
             }
         }, this);
-    } else if ('mouse' in sys.capabilities )
+    } else if ('mouse' in cc.sys.capabilities )
        cc.eventManager.addListener({
            event: cc.EventListener.MOUSE,
            onMouseUp: function(event){
@@ -489,7 +489,7 @@ var ParticlesPage = function() {
 
 	this.particle = firework;
 
-    if( 'touches' in sys.capabilities ){
+    if( 'touches' in cc.sys.capabilities ){
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ALL_AT_ONCE,
             onTouchesMoved: function(touches, event){
@@ -505,7 +505,7 @@ var ParticlesPage = function() {
                 particle.y = pos.y;
             }
         }, this);
-    } else if ('mouse' in sys.capabilities )
+    } else if ('mouse' in cc.sys.capabilities )
         cc.eventManager.addListener({
             event: cc.EventListener.MOUSE,
             onMouseMove: function(event){

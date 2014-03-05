@@ -171,14 +171,14 @@ var CocosDenshionTest = cc.LayerGradient.extend({
         this._itemMenu.y = 0;
         this.addChild(this._itemMenu);
 
-        if( 'touches' in sys.capabilities ) {
+        if( 'touches' in cc.sys.capabilities ) {
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved: function (touches, event) {
                     event.getCurrentTarget().moveMenu(touches[0].getDelta());
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities )
+        } else if ('mouse' in cc.sys.capabilities )
              cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                  onMouseMove: function(event){

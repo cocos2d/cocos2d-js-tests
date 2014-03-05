@@ -53,7 +53,7 @@ var appFiles = [
     'src/Background.js'
 ];
 
-cc.dumpConfig();
+cc.sys.dump();
 
 for( var i=0; i < appFiles.length; i++) {
     require( appFiles[i] );

@@ -384,7 +384,7 @@ var ActionRotateXY = ActionsDemo.extend({
 
         this._kathia.runAction(cc.Sequence.create(actionBy2, delay.clone(), actionBy2.reverse()));
 
-        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+        if (!cc.sys.isNative && !("opengl" in cc.sys.capabilities)) {
             var label = cc.LabelTTF.create("Not support Actions on HTML5-canvas", "Times New Roman", 30);
             label.x = winSize.width / 2;
 			label.y = winSize.height / 2 + 50;
@@ -958,7 +958,7 @@ var ActionAnimate = ActionsDemo.extend({
         // File animation
         //
         // With 2 loops and reverse
-        var animCache = cc.animationCache;
+        var animCache = cc.AnimationCache.getInstance();
 
         animCache.addAnimations(s_animations2Plist);
         var animation2 = animCache.getAnimation("dance_1");
@@ -1725,32 +1725,32 @@ var ActionCardinalSpline = ActionsDemo.extend({
         // Not supported yet on cocos2d-iphone / cocos2d-x + JSB
         this._super();
 
-        var context = ctx || cc.renderContext;
+        var context = ctx || cc._renderContext;
         var winSize = director.getWinSize();
 
-        if(!("opengl" in sys.capabilities)){
+        if(!("opengl" in cc.sys.capabilities)){
             var locScaleX = cc.view.getScaleX(), locScaleY = cc.view.getScaleY();
             var apPoint = this.getAnchorPointInPoints();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
             context.translate(50 * locScaleX , -50 * locScaleY);
-            cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
+            cc._drawingUtil.drawCardinalSpline(this._array, 0, 100);
             context.restore();
 
             context.save();
             context.translate((winSize.width * locScaleX) * 0.5 , -50 * locScaleY);
-            cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
+            cc._drawingUtil.drawCardinalSpline(this._array, 1, 100);
             context.restore();
         } else {
             // move to 50,50 since the "by" path will start at 50,50
             cc.kmGLPushMatrix();
             cc.kmGLTranslatef(50, 50, 0);
-            cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
+            cc._drawingUtil.drawCardinalSpline(this._array, 0, 100);
             cc.kmGLPopMatrix();
 
             cc.kmGLPushMatrix();
             cc.kmGLTranslatef(winSize.width/2, 50, 0);
-            cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
+            cc._drawingUtil.drawCardinalSpline(this._array, 1, 100);
             cc.kmGLPopMatrix();
         }
     },
@@ -1893,25 +1893,25 @@ var ActionCatmullRom = ActionsDemo.extend({
         // Draw is only supported in cocos2d-html5.
         // Not supported yet on cocos2d-iphone / cocos2d-x + JSB
         this._super();
-        var context = ctx || cc.renderContext;
+        var context = ctx || cc._renderContext;
 
-        if(!("opengl" in sys.capabilities)){
-            var eglViewer = cc.view;
+        if(!("opengl" in cc.sys.capabilities)){
+            var eglViewer = cc.EGLView.getInstance();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
             context.translate(50 * eglViewer.getScaleX(), - 50 * eglViewer.getScaleY());
-            cc.drawingUtil.drawCatmullRom(this._array1, 50);
+            cc._drawingUtil.drawCatmullRom(this._array1, 50);
             context.restore();
 
-            cc.drawingUtil.drawCatmullRom(this._array2, 50);
+            cc._drawingUtil.drawCatmullRom(this._array2, 50);
         } else {
             // move to 50,50 since the "by" path will start at 50,50
             cc.kmGLPushMatrix();
             cc.kmGLTranslatef(50, 50, 0);
-            cc.drawingUtil.drawCatmullRom(this._array1, 50);
+            cc._drawingUtil.drawCatmullRom(this._array1, 50);
             cc.kmGLPopMatrix();
 
-            cc.drawingUtil.drawCatmullRom(this._array2,50);
+            cc._drawingUtil.drawCatmullRom(this._array2,50);
         }
     },
     subtitle:function () {
@@ -2518,7 +2518,7 @@ var Issue1438 = ActionsDemo.extend({
         //
         // File animation
         //
-        var animCache = cc.animationCache;
+        var animCache = cc.AnimationCache.getInstance();
         animCache.addAnimations(s_animations2Plist);
         var animation2 = animCache.getAnimation("dance_1");
         animation2.setDelayPerUnit(1 / 60);
@@ -2637,7 +2637,7 @@ var arrayOfActionsTest = [
     Issue1446
 ];
 
-if("opengl" in sys.capabilities){
+if("opengl" in cc.sys.capabilities){
     arrayOfActionsTest.push(ActionOrbit);
 }
 

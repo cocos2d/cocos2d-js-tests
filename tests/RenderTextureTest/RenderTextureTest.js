@@ -83,14 +83,14 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     onEnter:function () {
         this._super();
 
-        if ('touches' in sys.capabilities){
+        if ('touches' in cc.sys.capabilities){
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ALL_AT_ONCE,
                 onTouchesMoved:function (touches, event) {
                     event.getCurrentTarget().drawInLocation(touches[0].getLocation());
                 }
             }, this);
-        } else if ('mouse' in sys.capabilities)
+        } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
                 event: cc.EventListener.MOUSE,
                 onMouseDown: function(event){
@@ -133,7 +133,7 @@ var RenderTextureSave = RenderTextureBaseLayer.extend({
     },
 
     saveCB:function (sender) {
-        if(sys.platform === "browser"){
+        if(!cc.sys.isNative){
             cc.log("RenderTexture's saveToFile doesn't suppport on HTML5");
             return;
         }
@@ -215,7 +215,7 @@ var RenderTextureIssue937 = RenderTextureBaseLayer.extend({
             return;
         // It's possible to modify the RenderTexture blending function by
         //        [[rend sprite] setBlendFunc:(ccBlendFunc) {GL_ONE, GL_ONE_MINUS_SRC_ALPHA}];
-        //rend.getSprite().setBlendFunc(cc.renderContext.ONE, cc.renderContext.ONE_MINUS_SRC_ALPHA);
+        //rend.getSprite().setBlendFunc(cc._renderContext.ONE, cc._renderContext.ONE_MINUS_SRC_ALPHA);
         rend.begin();
         spr_premulti.visit();
         spr_nonpremulti.visit();
@@ -420,7 +420,7 @@ var RenderTextureZbuffer = RenderTextureBaseLayer.extend({
 var RenderTextureTestDepthStencil = RenderTextureBaseLayer.extend({
     ctor:function () {
         this._super();
-        var gl = cc.renderContext;
+        var gl = cc._renderContext;
 
         var winSize = cc.director.getWinSize();
 
@@ -523,7 +523,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
         renderTexture.addChild(this._sprite1);
         renderTexture.addChild(this._sprite2);
         renderTexture.clearColorVal = cc.color(0, 0, 0, 0);
-        renderTexture.clearFlags = cc.renderContext.COLOR_BUFFER_BIT;
+        renderTexture.clearFlags = cc._renderContext.COLOR_BUFFER_BIT;
 
         /* add the render texture to the scene */
         this.addChild(renderTexture);
@@ -563,7 +563,7 @@ var RenderTextureTargetNode = RenderTextureBaseLayer.extend({
 
     touched:function (sender) {
         if (this._renderTexture.clearFlags == 0)
-            this._renderTexture.clearFlags = cc.renderContext.COLOR_BUFFER_BIT;
+            this._renderTexture.clearFlags = cc._renderContext.COLOR_BUFFER_BIT;
         else {
             this._renderTexture.clearFlags = 0;
             this._renderTexture.clearColorVal = cc.color(Math.random()*255, Math.random()*255, Math.random()*255, 255);
@@ -607,7 +607,7 @@ var Issue1464 = RenderTextureBaseLayer.extend({
         var fe = cc.RepeatForever.create(seq);
         rend.getSprite().runAction(fe);
 
-        if (sys.platform === 'browser' && !("opengl" in sys.capabilities)) {
+        if (!cc.sys.isNative && !("opengl" in cc.sys.capabilities)) {
             var label = cc.LabelTTF.create("Not support Actions on HTML5-canvas", "Times New Roman", 30);
             label.x = winSize.width / 2;
             label.y = winSize.height / 2 + 50;
@@ -659,7 +659,7 @@ var arrayOfRenderTextureTest = [
     Issue1464
 ];
 
-if(('opengl' in sys.capabilities) && (sys.platform == 'browser') ){
+if(('opengl' in cc.sys.capabilities) && (!cc.sys.isNative) ){
     arrayOfRenderTextureTest.push(RenderTextureIssue937);
     arrayOfRenderTextureTest.push(RenderTextureZbuffer);
     arrayOfRenderTextureTest.push(RenderTextureTestDepthStencil);

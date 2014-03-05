@@ -54,7 +54,7 @@ var EventDispatcherTestDemo = BaseTestLayer.extend({
         s.addChild(nextDispatcherTest());
         director.runScene(s);
     },
-    // automation
+    // varmation
     numberOfPendingTests:function() {
         return ( (arrayOfEventDispatcherTest.length-1) - eventDispatcherSceneIdx );
     },
@@ -134,8 +134,8 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
             });
 
             nextItem.fontSize = 16;
-            nextItem.x = cc.VisibleRect.right().x -100;
-	        nextItem.y = cc.VisibleRect.right().y - 30;
+            nextItem.x = cc.visibleRect.right.x -100;
+	        nextItem.y = cc.visibleRect.right.y - 30;
 
             var menu2 = cc.Menu.create(nextItem);
             menu2.setPosition(0, 0);
@@ -144,8 +144,8 @@ var TouchableSpriteTest =  EventDispatcherTestDemo.extend({
         });
 
         removeAllTouchItem.fontSize = 16;
-        removeAllTouchItem.x = cc.VisibleRect.right().x -100;
-	    removeAllTouchItem.y = cc.VisibleRect.right().y;
+        removeAllTouchItem.x = cc.visibleRect.right.x -100;
+	    removeAllTouchItem.y = cc.visibleRect.right.y;
 
         var menu = cc.Menu.create(removeAllTouchItem);
         menu.setPosition(0, 0);
@@ -168,19 +168,18 @@ TouchableSpriteTest.create = function(){
     return test;
 };
 
-var TouchableSpriteWithFixedPriority = cc.Sprite.extend({
+var TouchableSprite = cc.Sprite.extend({
     _listener:null,
     _fixedPriority:0,
-    _useNodePriority:false,
+    _removeListenerOnTouchEnded: false,
+
+    ctor: function(priority){
+        this._super();
+        this._fixedPriority = priority || 0;
+    },
 
     setPriority:function(fixedPriority){
         this._fixedPriority = fixedPriority;
-        this._useNodePriority = false;
-    },
-
-    setPriorityWithThis: function(useNodePriority) {
-        this._useNodePriority = useNodePriority;
-        this._fixedPriority = true;
     },
 
     onEnter:function(){
@@ -196,7 +195,7 @@ var TouchableSpriteWithFixedPriority = cc.Sprite.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    selfPointer.setColor(cc.red());
+                    selfPointer.setColor(cc.color.red);
                     return true;
                 }
                 return false;
@@ -205,29 +204,34 @@ var TouchableSpriteWithFixedPriority = cc.Sprite.extend({
                 //this.setPosition(this.getPosition() + touch.getDelta());
             },
             onTouchEnded: function (touch, event) {
-                selfPointer.setColor(cc.white());
+                selfPointer.setColor(cc.color.white);
+                if(selfPointer._removeListenerOnTouchEnded)
+                    cc.eventManager.removeListener(selfPointer._listener);
             }
         });
 
-        if (this._useNodePriority)
-            cc.eventManager.addListener(listener, this);
-        else
+        if(this._fixedPriority != 0)
             cc.eventManager.addListener(listener, this._fixedPriority);
+        else
+            cc.eventManager.addListener(listener, this);
         this._listener = listener;
     },
 
     onExit: function(){
         cc.eventManager.removeListener(this._listener);
         this._super();
+    },
+
+    removeListenerOnTouchEnded: function(toRemove){
+        this._removeListenerOnTouchEnded = toRemove;
     }
 });
 
-TouchableSpriteWithFixedPriority.create = function(){
-    var test = new TouchableSpriteWithFixedPriority();
+TouchableSprite.create = function(priority){
+    var test = new TouchableSprite(priority);
     test.init();
     return test;
 };
-
 
 var FixedPriorityTest =  EventDispatcherTestDemo.extend({
     onEnter:function(){
@@ -236,22 +240,22 @@ var FixedPriorityTest =  EventDispatcherTestDemo.extend({
         var origin = director.getVisibleOrigin();
         var size = director.getVisibleSize();
 
-        var sprite1 = TouchableSpriteWithFixedPriority.create();
-        sprite1.initWithFile("res/Images/CyanSquare.png");
-        sprite1.setPriority(30);
-        sprite1.setPosition(origin.x +size.width/2 - 80, origin.y - size.height/2 + 40);
+        var sprite1 = TouchableSprite.create(30);
+        sprite1.setTexture("res/Images/CyanSquare.png");
+        sprite1.x = origin.x + size.width / 2 - 80;
+        sprite1.y = origin.y + size.height / 2 + 40;
         this.addChild(sprite1, 10);
 
-        var sprite2 = TouchableSpriteWithFixedPriority.create();
-        sprite2.initWithFile("res/Images/MagentaSquare.png");
-        sprite2.setPriority(20);
-        sprite2.setPosition(origin.x + size.width/2, origin.y + size.height/2);
+        var sprite2 = TouchableSprite.create(20);
+        sprite2.setTexture("res/Images/MagentaSquare.png");
+        sprite2.x = origin.x + size.width / 2;
+        sprite2.y = origin.y + size.height / 2;
         this.addChild(sprite2, 20);
 
-        var sprite3 = TouchableSpriteWithFixedPriority.create();
-        sprite3.initWithFile("res/Images/YellowSquare.png");
-        sprite3.setPriority(10);
-        sprite3.setPosition(0, 0);
+        var sprite3 = TouchableSprite.create(10);
+        sprite3.setTexture("res/Images/YellowSquare.png");
+        sprite3.x = 0;
+        sprite3.y = 0;
         sprite2.addChild(sprite3, 1);
     },
 
@@ -291,13 +295,13 @@ var RemoveListenerWhenDispatching =  EventDispatcherTestDemo.extend({
                 var rect = cc.rect(0, 0, s.width, s.height);
 
                 if (cc.rectContainsPoint(rect, locationInNode)) {
-                    sprite1.setColor(cc.red());
+                    sprite1.setColor(cc.color.red);
                     return true;
                 }
                 return false;
             },
             onTouchEnded: function (touch, event) {
-                sprite1.setColor(cc.white());
+                sprite1.setColor(cc.color.white);
             }
         });
         this.setUserObject(listener1);
@@ -363,9 +367,6 @@ var CustomEventTest =  EventDispatcherTestDemo.extend({
         statusLabel.setPosition(origin.x + size.width / 2, origin.y + size.height - 90);
         this.addChild(statusLabel);
 
-        /* this._listener1 = cc.EventListenerCustom.create("game_custom_event1", function(event){
-            statusLabel.setString("Custom event 1 received, " + event.getUserData() + " times");
-        });*/
         this._listener1 = cc.EventListener.create({
             event: cc.EventListener.CUSTOM,
             eventName: "game_custom_event1",
@@ -373,10 +374,7 @@ var CustomEventTest =  EventDispatcherTestDemo.extend({
                 statusLabel.setString("Custom event 1 received, " + event.getUserData() + " times");
             }
         });
-
         cc.eventManager.addListener(this._listener1, 1);
-
-
 
         var sendItem = cc.MenuItemFont.create("Send Custom Event 1", function(sender){
             ++selfPointer._item1Count;
@@ -496,9 +494,9 @@ var SpriteAccelerationEventTest =  EventDispatcherTestDemo.extend({
                 //cc.log("acc: x = " + acc.x + ", y = " + acc.y);
 
                 target.x = SpriteAccelerationEventTest._fix_pos(ptNow.x + acc.x * 9.81,
-                    (cc.VisibleRect.left().x + ballSize.width / 2.0), (cc.VisibleRect.right().x - ballSize.width / 2.0));
+                    (cc.visibleRect.left.x + ballSize.width / 2.0), (cc.visibleRect.right.x - ballSize.width / 2.0));
                 target.y = SpriteAccelerationEventTest._fix_pos(ptNow.y + acc.y * 9.81,
-                    (cc.VisibleRect.bottom().y + ballSize.height / 2.0), (cc.VisibleRect.top().y - ballSize.height / 2.0));
+                    (cc.visibleRect.bottom.y + ballSize.height / 2.0), (cc.visibleRect.top.y - ballSize.height / 2.0));
             }
         }, sprite);
     },
@@ -588,7 +586,7 @@ var RemoveAndRetainNodeTest =  EventDispatcherTestDemo.extend({
             cc.CallFunc.create(function () {
                 this._spriteSaved = false;
                 this.addChild(this._sprite);
-                if(sys.platform == 'browser')
+                if(!cc.sys.isNative)
                     cc.eventManager.addListener(listener1, this._sprite);
                 this._sprite.release();
             }, this)
@@ -621,15 +619,17 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
         this._super();
         var selfPointer = this;
         var item1 = cc.MenuItemFont.create("Click Me 1", function(sender){
-            var listener = cc.EventListenerTouchOneByOne.create();
-            listener.onTouchBegan = function(touch, event){
-                cc.Assert(false, "Should not come here!");
-                return true;
-            };
+            var listener = cc.EventListener.create({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                onTouchBegan: function (touch, event) {
+                    cc.assert(false, "Should not come here!");
+                    return true;
+                }
+            });
             cc.eventManager.addListener(listener, -1);
             cc.eventManager.removeListener(listener);
         });
-        var vCenter = cc.VisibleRect.center();
+        var vCenter = cc.visibleRect.center;
         item1.setPosition(vCenter.x, vCenter.y + 80);
 
         var addNextButton = function(){
@@ -639,17 +639,19 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
             next.setPosition(vCenter.x, vCenter.y - 40);
 
             var menu = cc.Menu.create(next);
-            menu.setPosition(cc.VisibleRect.bottomLeft());
+            menu.setPosition(cc.visibleRect.bottomLeft);
             menu.setAnchorPoint(0,0);
             selfPointer.addChild(menu);
         };
 
         var item2 = cc.MenuItemFont.create("Click Me 2", function(sender){
-            var listener = cc.EventListenerTouchOneByOne.create();
-            listener.onTouchBegan = function(touch, event){
-                cc.Assert("Should not come here!");
-                return true;
-            };
+            var listener = cc.EventListener.create({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                onTouchBegan: function(touch, event){
+                    cc.assert("Should not come here!");
+                    return true;
+                }
+            });
             cc.eventManager.addListener(listener, -1);
             cc.eventManager.removeListeners(cc.EventListener.TOUCH_ONE_BY_ONE);
             addNextButton();
@@ -657,19 +659,21 @@ var RemoveListenerAfterAddingTest =  EventDispatcherTestDemo.extend({
         item2.setPosition(vCenter.x, vCenter.y + 40);
 
         var item3 = cc.MenuItemFont.create("Click Me 3", function(sender){
-            var listener = cc.EventListenerTouchOneByOne.create();
-            listener.onTouchBegan = function(touch, event){
-                cc.Assert(false, "Should not come here!");
-                return true;
-            };
+            var listener = cc.EventListener.create({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                onTouchBegan: function(touch, event){
+                    cc.assert(false, "Should not come here!");
+                    return true;
+                }
+            });
             cc.eventManager.addListener(listener, -1);
             cc.eventManager.removeAllListeners();
             addNextButton();
         }, this);
-        item3.setPosition(cc.VisibleRect.center());
+        item3.setPosition(cc.visibleRect.center);
 
         var menu = cc.Menu.create(item1, item2, item3);
-        menu.setPosition(cc.VisibleRect.bottomLeft());
+        menu.setPosition(cc.visibleRect.bottomLeft);
         menu.setAnchorPoint(0, 0);
         this.addChild(menu);
     },
@@ -730,10 +734,10 @@ var DirectorEventTest =  EventDispatcherTestDemo.extend({
         this._event2 = dispatcher.addCustomListener(cc.Director.EVENT_AFTER_VISIT, this.onEvent2.bind(this));
         this._event3 = dispatcher.addCustomListener(cc.Director.EVENT_AFTER_DRAW, function(event) {
             selfPointer._label3.setString("Draw: " + selfPointer._count3++);
-        }, this);
+        });
         this._event4 = dispatcher.addCustomListener(cc.Director.EVENT_PROJECTION_CHANGED, function(event) {
             selfPointer._label4.setString("Projection: " + selfPointer._count4++);
-        }, this);
+        });
 
         this._event1.retain();
         this._event2.retain();
@@ -789,6 +793,347 @@ DirectorEventTest.create = function(){
     return test;
 };
 
+var GlobalZTouchTest = EventDispatcherTestDemo.extend({
+    _sprite:null,
+    _accum:null,
+
+    ctor: function(){
+        this._super();
+
+        var listener = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches:true,
+            onTouchBegan: function(touch, event){
+                var target = event.getCurrentTarget();
+
+                var locationInNode = target.convertToNodeSpace(touch.getLocation());
+                var s = target.getContentSize();
+                var rect = cc.rect(0, 0, s.width, s.height);
+
+                if (cc.rectContainsPoint(rect, locationInNode)) {
+                    cc.log("sprite began... x = %f, y = %f", locationInNode.x, locationInNode.y);
+                    target.setOpacity(180);
+                    return true;
+                }
+                return false;
+            },
+            onTouchMoved: function(touch, event){
+                var target = event.getCurrentTarget(), delta = touch.getDelta();
+                target.x += delta.x;
+                target.y += delta.y;
+            },
+            onTouchEnded: function(touch, event){
+                cc.log("sprite onTouchesEnded.. ");
+                event.getCurrentTarget().setOpacity(255);
+            }
+        });
+
+        var SPRITE_COUNT = 8, sprite;
+        for (var i = 0; i < SPRITE_COUNT; i++) {
+            if(i==4) {
+                sprite = cc.Sprite.create("res/Images/CyanSquare.png");
+                this._sprite = sprite;
+                this._sprite.setGlobalZOrder(-1);
+            } else
+                sprite = cc.Sprite.create("res/Images/YellowSquare.png");
+
+            cc.eventManager.addListener(listener.clone(), sprite);
+            this.addChild(sprite);
+
+            var visibleSize = cc.director.getVisibleSize();
+            sprite.x = cc.visibleRect.left.x + visibleSize.width / (SPRITE_COUNT - 1) * i;
+            sprite.y = cc.visibleRect.center.y;
+        }
+
+        this.scheduleUpdate();
+    },
+
+    update: function(dt){
+        this._accum += dt;
+        if( this._accum > 2.0) {
+            var z = this._sprite.getGlobalZOrder();
+            this._sprite.setGlobalZOrder(-z);
+            this._accum = 0;
+        }
+    },
+
+    title: function(){
+        return "Global Z Value, Try touch blue sprite";
+    },
+
+    subtitle: function() {
+        return "Blue Sprite should change go from foreground to background";
+    }
+});
+
+GlobalZTouchTest.create = function(){
+    var test = new GlobalZTouchTest();
+    test.init();
+    return test;
+};
+
+var StopPropagationTest = EventDispatcherTestDemo.extend({
+    ctor:function(){
+        this._super();
+
+        var touchOneByOneListener = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches:true,
+            onTouchBegan: function(touch, event){
+                // Skip if don't touch top half screen.
+                if (!this._isPointInTopHalfAreaOfScreen(touch.getLocation()))
+                    return false;
+
+                var target = event.getCurrentTarget();
+                if(target.getTag() != StopPropagationTest._TAG_BLUE_SPRITE)
+                    cc.log("Yellow blocks shouldn't response event.");
+
+                if (this._isPointInNode(touch.getLocation(), target)) {
+                    target.setOpacity(180);
+                    return true;
+                }
+
+                // Stop propagation, so yellow blocks will not be able to receive event.
+                event.stopPropagation();
+                return false;
+            }.bind(this),
+            onTouchEnded: function(touch, event){
+                event.getCurrentTarget().setOpacity(255);
+            }
+        });
+
+        var touchAllAtOnceListener = cc.EventListener.create({
+            event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesBegan: function(touches, event){
+                // Skip if don't touch top half screen.
+                if (this._isPointInTopHalfAreaOfScreen(touches[0].getLocation()))
+                    return;
+
+                var target = event.getCurrentTarget();
+                if(target.getTag() != StopPropagationTest._TAG_BLUE_SPRITE2)
+                    cc.log("Yellow blocks shouldn't response event.");
+
+                if (this._isPointInNode(touches[0].getLocation(), target))
+                    target.setOpacity(180);
+                // Stop propagation, so yellow blocks will not be able to receive event.
+                event.stopPropagation();
+            }.bind(this),
+            onTouchesEnded: function(touches, event){
+                // Skip if don't touch top half screen.
+                if (this._isPointInTopHalfAreaOfScreen(touches[0].getLocation()))
+                    return;
+
+                var target = event.getCurrentTarget();
+                if(target.getTag() != StopPropagationTest._TAG_BLUE_SPRITE2)
+                    cc.log("Yellow blocks shouldn't response event.");
+
+                if (this._isPointInNode(touches[0].getLocation(), target))
+                    target.setOpacity(255);
+                // Stop propagation, so yellow blocks will not be able to receive event.
+                event.stopPropagation();
+            }.bind(this)
+        });
+
+        var keyboardEventListener = cc.EventListener.create({
+            event: cc.EventListener.KEYBOARD,
+            onKeyPressed: function(key, event){
+                var target = event.getCurrentTarget();
+                if(!(target.getTag() == StopPropagationTest._TAG_BLUE_SPRITE || target.getTag() == StopPropagationTest._TAG_BLUE_SPRITE2)){
+                    cc.log("Yellow blocks shouldn't response event.");
+                }
+                // Stop propagation, so yellow blocks will not be able to receive event.
+                event.stopPropagation();
+            }
+        });
+
+        var SPRITE_COUNT = 8, sprite1, sprite2;
+
+        for (var i = 0; i < SPRITE_COUNT; i++) {
+            if(i==4) {
+                sprite1 = cc.Sprite.create("res/Images/CyanSquare.png");
+                sprite1.setTag(StopPropagationTest._TAG_BLUE_SPRITE);
+                this.addChild(sprite1, 100);
+
+                sprite2 = cc.Sprite.create("res/Images/CyanSquare.png");
+                sprite2.setTag(StopPropagationTest._TAG_BLUE_SPRITE2);
+                this.addChild(sprite2, 100);
+            } else {
+                sprite1 = cc.Sprite.create("res/Images/YellowSquare.png");
+                this.addChild(sprite1, 0);
+                sprite2 = cc.Sprite.create("res/Images/YellowSquare.png");
+                this.addChild(sprite2, 0);
+            }
+
+
+            cc.eventManager.addListener(touchOneByOneListener.clone(), sprite1);
+            cc.eventManager.addListener(keyboardEventListener.clone(), sprite1);
+
+            cc.eventManager.addListener(touchAllAtOnceListener.clone(), sprite2);
+            cc.eventManager.addListener(keyboardEventListener.clone(), sprite2);
+
+
+            var visibleSize = cc.director.getVisibleSize();
+            sprite1.x = cc.visibleRect.left.x + visibleSize.width / (SPRITE_COUNT - 1) * i;
+            sprite1.y = cc.visibleRect.center.y + sprite2.getContentSize().height / 2 + 10;
+            sprite2.x = cc.visibleRect.left.x + visibleSize.width / (SPRITE_COUNT - 1) * i;
+            sprite2.y = cc.visibleRect.center.y - sprite2.getContentSize().height / 2 - 10;
+        }
+    },
+
+    _isPointInNode: function (pt, node) {
+        var s = node.getContentSize();
+        return cc.rectContainsPoint(cc.rect(0, 0, s.width, s.height), node.convertToNodeSpace(pt));
+    },
+
+    _isPointInTopHalfAreaOfScreen: function(pt){
+        var winSize = cc.director.getWinSize();
+        return (pt.y >= winSize.height/2);
+    },
+
+    title: function(){
+        return "Stop Propagation Test";
+    },
+
+    subtitle: function() {
+        return "Shouldn't crash and only blue block could be clicked";
+    }
+});
+StopPropagationTest._TAG_BLUE_SPRITE = 101;
+StopPropagationTest._TAG_BLUE_SPRITE2 = 102;
+
+StopPropagationTest.create = function(){
+    var test = new StopPropagationTest();
+    test.init();
+    return test;
+};
+
+var Issue4160 = EventDispatcherTestDemo.extend({
+    ctor: function(){
+        this._super();
+        var origin = cc.director.getVisibleOrigin();
+        var size = cc.director.getVisibleSize();
+
+        var sprite1 = TouchableSprite.create(-30);
+        sprite1.setTexture("res/Images/CyanSquare.png");
+        sprite1.x = origin.x + (size.width/2) - 80;
+        sprite1.y = origin.y + (size.height/2) + 40;
+        this.addChild(sprite1, 5);
+
+        var sprite2 = TouchableSprite.create(-20);
+        sprite2.setTexture("res/Images/MagentaSquare.png");
+        sprite2.removeListenerOnTouchEnded(true);
+        sprite2.x = origin.x + (size.width/2);
+        sprite2.y = origin.y + (size.height/2);
+        this.addChild(sprite2, 10);
+
+        var sprite3 = TouchableSprite.create(-10);
+        sprite3.setTexture("res/Images/YellowSquare.png");
+        sprite3.x = 0;
+        sprite3.y = 0;
+        sprite2.addChild(sprite3, 21);
+    },
+
+    title: function(){
+        return "Issue 4160: Out of range exception";
+    },
+
+    subtitle: function() {
+        return "Touch the red block twice \n should not crash and the red one couldn't be touched";
+    }
+});
+
+Issue4160.create = function(){
+    var test = new Issue4160();
+    test.init();
+    return test;
+};
+
+var PauseResumeTargetTest = EventDispatcherTestDemo.extend({
+    ctor: function () {
+        this._super();
+
+        var origin = cc.director.getVisibleOrigin();
+        var size = cc.director.getVisibleSize();
+
+        var sprite1 = TouchableSprite.create();
+        sprite1.setTexture("res/Images/CyanSquare.png");
+        sprite1.x = origin.x + size.width / 2 - 180;
+        sprite1.y = origin.y + size.height / 2 + 40;
+        this.addChild(sprite1, 10);
+
+        var sprite2 = TouchableSprite.create();
+        sprite2.setTexture("res/Images/MagentaSquare.png");
+        sprite2.x = origin.x + size.width / 2 - 100;
+        sprite2.y = origin.y + size.height / 2;
+        this.addChild(sprite2, 1);
+
+        var sprite3 = TouchableSprite.create();
+        sprite3.setTexture("res/Images/YellowSquare.png");
+        sprite3.x = 0;
+        sprite3.y = 0;
+        sprite2.addChild(sprite3, 20);
+
+        var _this = this;
+        var popup = cc.MenuItemFont.create("Popup", function(sender){
+            cc.eventManager.pauseTarget(_this, true);
+            var colorLayer = cc.LayerColor.create(cc.color(0, 0, 255, 100));
+            _this.addChild(colorLayer, 999); //set colorLayer to top
+
+            // Add the button
+            var backgroundButton = cc.Scale9Sprite.create(s_extensions_button);
+            var backgroundHighlightedButton = cc.Scale9Sprite.create(s_extensions_buttonHighlighted);
+
+            var titleButton = cc.LabelTTF.create("Close Dialog", "Marker Felt", 26);
+            titleButton.color = cc.color(159, 168, 176);
+
+            var controlButton = cc.ControlButton.create(titleButton, backgroundButton);
+            controlButton.setBackgroundSpriteForState(backgroundHighlightedButton, cc.CONTROL_STATE_HIGHLIGHTED);
+            controlButton.setTitleColorForState(cc.color.white, cc.CONTROL_STATE_HIGHLIGHTED);
+
+            controlButton.anchorX = 0.5;
+            controlButton.anchorY = 1;
+            controlButton.x = size.width / 2 + 50;
+            controlButton.y = size.height / 2;
+            colorLayer.addChild(controlButton, 1);
+            controlButton.addTargetWithActionForControlEvents(this, function(){
+                colorLayer.removeFromParent();
+                cc.eventManager.resumeTarget(_this, true);
+            }, cc.CONTROL_EVENT_TOUCH_UP_INSIDE);
+
+            // Add the black background
+            var background = cc.Scale9Sprite.create(s_extensions_buttonBackground);
+            background.width = 300;
+            background.height = 170;
+            background.x = size.width / 2.0 + 50;
+            background.y = size.height / 2.0;
+            colorLayer.addChild(background);
+        });
+
+        popup.setAnchorPoint(1,0.5);
+        popup.setPosition(cc.visibleRect.right);
+
+        var menu = cc.Menu.create(popup);
+        menu.setAnchorPoint(0, 0);
+        menu.setPosition(0, 0);
+
+        this.addChild(menu);
+    },
+
+    title: function(){
+        return "PauseResumeTargetTest";
+    },
+
+    subtitle: function() {
+        return "";
+    }
+});
+
+PauseResumeTargetTest.create = function(){
+    var test = new Issue4160();
+    test.init();
+    return test;
+};
+
 var EventDispatcherTestScene = TestScene.extend({
     runThisTest:function () {
         eventDispatcherSceneIdx = -1;
@@ -806,7 +1151,11 @@ var arrayOfEventDispatcherTest = [
     SpriteAccelerationEventTest,
     RemoveAndRetainNodeTest,
     RemoveListenerAfterAddingTest,
-    DirectorEventTest
+    DirectorEventTest,
+    //GlobalZTouchTest,
+    StopPropagationTest,
+    Issue4160,
+    PauseResumeTargetTest
 ];
 
 var nextDispatcherTest = function () {
