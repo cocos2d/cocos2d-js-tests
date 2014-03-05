@@ -455,9 +455,9 @@ var BMFontSubSpriteTest = AtlasDemo.extend({
     },
     draw:function () {
         var s = director.getWinSize();
-        cc.drawingUtil.setDrawColor(255,0,0,255);
-        cc.drawingUtil.drawLine(cc.p(0, s.height / 2), cc.p(s.width, s.height / 2));
-        cc.drawingUtil.drawLine(cc.p(s.width / 2, 0), cc.p(s.width / 2, s.height));
+        cc._drawingUtil.setDrawColor(255,0,0,255);
+        cc._drawingUtil.drawLine(cc.p(0, s.height / 2), cc.p(s.width, s.height / 2));
+        cc._drawingUtil.drawLine(cc.p(s.width / 2, 0), cc.p(s.width / 2, s.height));
     },
     title:function () {
         return "cc.LabelBMFont BMFontSubSpriteTest";
