@@ -31,7 +31,7 @@ var UICheckBoxTest = UIScene.extend({
 
             var widgetSize = this._widget.getSize();
             // Create the checkbox
-            var checkBox = ccs.CheckBox.create();
+            var checkBox = ccui.CheckBox.create();
             checkBox.setTouchEnabled(true);
             checkBox.loadTextures("res/cocosgui/check_box_normal.png",
                 "res/cocosgui/check_box_normal_press.png",
@@ -50,10 +50,10 @@ var UICheckBoxTest = UIScene.extend({
 
     selectedStateEvent: function (sender, type) {
         switch (type) {
-            case  ccs.CHECKBOX_EVENT_UNSELECTED:
+            case  ccui.CHECKBOX_EVENT_UNSELECTED:
                 this._topDisplayLabel.setText("Unselected");
                 break;
-            case ccs.CHECKBOX_EVENT_SELECTED:
+            case ccui.CHECKBOX_EVENT_SELECTED:
                 this._topDisplayLabel.setText("Selected");
                 break;
 

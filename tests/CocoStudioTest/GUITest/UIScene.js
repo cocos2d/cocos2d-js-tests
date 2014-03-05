@@ -62,7 +62,7 @@ UIScene = cc.Layer.extend({
 
             //add topDisplayLabel
             var widgetSize = widget.getSize();
-            var topDisplayText = ccs.Text.create();
+            var topDisplayText = ccui.Text.create();
             topDisplayText.attr({
 	            string: "",
 	            fontName: "Marker Felt",
@@ -75,7 +75,7 @@ UIScene = cc.Layer.extend({
             mainNode.addChild(topDisplayText);
             
             //add bottomDisplayLabel
-            var bottomDisplayText = ccs.Text.create();
+            var bottomDisplayText = ccui.Text.create();
             bottomDisplayText.attr({
 	            string: "",
 	            fontName: "Marker Felt",
@@ -98,7 +98,7 @@ UIScene = cc.Layer.extend({
         this._sceneTitle.setText(title);
     },
     toExtensionsMainLayer: function (sender, type) {
-        if (type == ccs.TOUCH_EVENT_TYPE_ENDED) {
+        if (type == ccui.TOUCH_EVENT_TYPE_ENDED) {
             UISceneManager.purge();
             ccs.actionManager.clear();
             ccs.sceneReader.clear();
@@ -108,19 +108,19 @@ UIScene = cc.Layer.extend({
     },
 
     previousCallback: function (sender, type) {
-        if (type == ccs.TOUCH_EVENT_TYPE_ENDED) {
+        if (type == ccui.TOUCH_EVENT_TYPE_ENDED) {
             cc.director.runScene(UISceneManager.getInstance().previousUIScene());
         }
     },
 
     restartCallback: function (sender, type) {
-        if (type == ccs.TOUCH_EVENT_TYPE_ENDED) {
+        if (type == ccui.TOUCH_EVENT_TYPE_ENDED) {
             cc.director.runScene(UISceneManager.getInstance().currentUIScene());
         }
     },
 
     nextCallback: function (sender, type) {
-        if (type == ccs.TOUCH_EVENT_TYPE_ENDED) {
+        if (type == ccui.TOUCH_EVENT_TYPE_ENDED) {
             cc.director.runScene(UISceneManager.getInstance().nextUIScene());
         }
     }
