@@ -1725,7 +1725,7 @@ var ActionCardinalSpline = ActionsDemo.extend({
         // Not supported yet on cocos2d-iphone / cocos2d-x + JSB
         this._super();
 
-        var context = ctx || cc.renderContext;
+        var context = ctx || cc._renderContext;
         var winSize = director.getWinSize();
 
         if(!("opengl" in cc.sys.capabilities)){
@@ -1734,23 +1734,23 @@ var ActionCardinalSpline = ActionsDemo.extend({
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
             context.translate(50 * locScaleX , -50 * locScaleY);
-            cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
+            cc._drawingUtil.drawCardinalSpline(this._array, 0, 100);
             context.restore();
 
             context.save();
             context.translate((winSize.width * locScaleX) * 0.5 , -50 * locScaleY);
-            cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
+            cc._drawingUtil.drawCardinalSpline(this._array, 1, 100);
             context.restore();
         } else {
             // move to 50,50 since the "by" path will start at 50,50
             cc.kmGLPushMatrix();
             cc.kmGLTranslatef(50, 50, 0);
-            cc.drawingUtil.drawCardinalSpline(this._array, 0, 100);
+            cc._drawingUtil.drawCardinalSpline(this._array, 0, 100);
             cc.kmGLPopMatrix();
 
             cc.kmGLPushMatrix();
             cc.kmGLTranslatef(winSize.width/2, 50, 0);
-            cc.drawingUtil.drawCardinalSpline(this._array, 1, 100);
+            cc._drawingUtil.drawCardinalSpline(this._array, 1, 100);
             cc.kmGLPopMatrix();
         }
     },
@@ -1893,25 +1893,25 @@ var ActionCatmullRom = ActionsDemo.extend({
         // Draw is only supported in cocos2d-html5.
         // Not supported yet on cocos2d-iphone / cocos2d-x + JSB
         this._super();
-        var context = ctx || cc.renderContext;
+        var context = ctx || cc._renderContext;
 
         if(!("opengl" in cc.sys.capabilities)){
             var eglViewer = cc.EGLView.getInstance();
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
             context.translate(50 * eglViewer.getScaleX(), - 50 * eglViewer.getScaleY());
-            cc.drawingUtil.drawCatmullRom(this._array1, 50);
+            cc._drawingUtil.drawCatmullRom(this._array1, 50);
             context.restore();
 
-            cc.drawingUtil.drawCatmullRom(this._array2, 50);
+            cc._drawingUtil.drawCatmullRom(this._array2, 50);
         } else {
             // move to 50,50 since the "by" path will start at 50,50
             cc.kmGLPushMatrix();
             cc.kmGLTranslatef(50, 50, 0);
-            cc.drawingUtil.drawCatmullRom(this._array1, 50);
+            cc._drawingUtil.drawCatmullRom(this._array1, 50);
             cc.kmGLPopMatrix();
 
-            cc.drawingUtil.drawCatmullRom(this._array2,50);
+            cc._drawingUtil.drawCatmullRom(this._array2,50);
         }
     },
     subtitle:function () {
