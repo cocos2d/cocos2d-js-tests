@@ -792,15 +792,15 @@ var TMXOrthoObjectsTest = TileDemo.extend({
             var width = dict["width"];
             var height = dict["height"];
 
-            cc.renderContext.lineWidth = 3;
-            cc.renderContext.strokeStyle = "#ffffff";
+            cc._renderContext.lineWidth = 3;
+            cc._renderContext.strokeStyle = "#ffffff";
 
-            cc.drawingUtil.drawLine(cc.p(x, y), cc.p((x + width), y));
-            cc.drawingUtil.drawLine(cc.p((x + width), y), cc.p((x + width), (y + height)));
-            cc.drawingUtil.drawLine(cc.p((x + width), (y + height)), cc.p(x, (y + height)));
-            cc.drawingUtil.drawLine(cc.p(x, (y + height)), cc.p(x, y));
+            cc._drawingUtil.drawLine(cc.p(x, y), cc.p((x + width), y));
+            cc._drawingUtil.drawLine(cc.p((x + width), y), cc.p((x + width), (y + height)));
+            cc._drawingUtil.drawLine(cc.p((x + width), (y + height)), cc.p(x, (y + height)));
+            cc._drawingUtil.drawLine(cc.p(x, (y + height)), cc.p(x, y));
 
-            cc.renderContext.lineWidth = 1;
+            cc._renderContext.lineWidth = 1;
         }
 
     },
@@ -886,15 +886,15 @@ var TMXIsoObjectsTest = TileDemo.extend({
             var width = dict["width"];
             var height = dict["height"];
 
-            cc.renderContext.lineWidth = 3;
-            cc.renderContext.strokeStyle = "#ffffff";
+            cc._renderContext.lineWidth = 3;
+            cc._renderContext.strokeStyle = "#ffffff";
 
-            cc.drawingUtil.drawLine(cc.p(x, y), cc.p(x + width, y));
-            cc.drawingUtil.drawLine(cc.p(x + width, y), cc.p(x + width, y + height));
-            cc.drawingUtil.drawLine(cc.p(x + width, y + height), cc.p(x, y + height));
-            cc.drawingUtil.drawLine(cc.p(x, y + height), cc.p(x, y));
+            cc._drawingUtil.drawLine(cc.p(x, y), cc.p(x + width, y));
+            cc._drawingUtil.drawLine(cc.p(x + width, y), cc.p(x + width, y + height));
+            cc._drawingUtil.drawLine(cc.p(x + width, y + height), cc.p(x, y + height));
+            cc._drawingUtil.drawLine(cc.p(x, y + height), cc.p(x, y));
 
-            cc.renderContext.lineWidth = 1;
+            cc._renderContext.lineWidth = 1;
         }
     },
     subtitle:function () {
@@ -1669,15 +1669,15 @@ var TMXGIDObjectsTest = TileDemo.extend({
             var width = dict["width"];
             var height = dict["height"];
 
-            cc.renderContext.lineWidth = 3;
-            cc.renderContext.strokeStyle = "#ffffff";
+            cc._renderContext.lineWidth = 3;
+            cc._renderContext.strokeStyle = "#ffffff";
 
-            cc.drawingUtil.drawLine(cc.p(x, y), cc.p(x + width, y));
-            cc.drawingUtil.drawLine(cc.p(x + width, y), cc.p(x + width, y + height));
-            cc.drawingUtil.drawLine(cc.p(x + width, y + height), cc.p(x, y + height));
-            cc.drawingUtil.drawLine(cc.p(x, y + height), cc.p(x, y));
+            cc._drawingUtil.drawLine(cc.p(x, y), cc.p(x + width, y));
+            cc._drawingUtil.drawLine(cc.p(x + width, y), cc.p(x + width, y + height));
+            cc._drawingUtil.drawLine(cc.p(x + width, y + height), cc.p(x, y + height));
+            cc._drawingUtil.drawLine(cc.p(x, y + height), cc.p(x, y));
 
-            cc.renderContext.lineWidth = 1;
+            cc._renderContext.lineWidth = 1;
         }
     },
     //
