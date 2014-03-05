@@ -4883,7 +4883,8 @@ var AnimationCacheFile = SpriteTestDemo.extend({
         frameCache.addSpriteFrames(s_grossini_bluePlist);
 
         // Purge previously loaded animation
-        cc.animationCache.purgeSharedAnimationCache();
+        if(cc.animationCache._clear)
+	        cc.animationCache._clear();
         var animCache = cc.animationCache;
 
         // Add an animation to the Cache

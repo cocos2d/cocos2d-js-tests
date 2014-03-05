@@ -35,7 +35,7 @@ var ArmatureTestScene = TestScene.extend({
     },
     onMainMenuCallback:function(){
         this.removeAllChildren();
-        ccs.ArmatureDataManager.purge();
+        ccs.armatureDataManager.clear();
         var scene = new CocoStudioTestScene();
         scene.runThisTest();
     },
@@ -161,7 +161,7 @@ var TestAsynchronousLoading = ArmatureTestLayer.extend({
     onEnter: function () {
         this._super();
         this.setMenuItemEnabled(false);
-        var armatureDataManager = ccs.ArmatureDataManager.getInstance();
+        var armatureDataManager = ccs.armatureDataManager;
         armatureDataManager.addArmatureFileInfoAsync(s_knight_png, s_knight_plist, s_knight_xml, this.dataLoaded,  this);
         armatureDataManager.addArmatureFileInfoAsync(s_weapon_png, s_weapon_plist, s_weapon_xml, this.dataLoaded,  this);
         armatureDataManager.addArmatureFileInfoAsync(s_robot_png, s_robot_plist, s_robot_xml, this.dataLoaded,  this);
@@ -189,7 +189,7 @@ var TestAsynchronousLoading = ArmatureTestLayer.extend({
         return "current percent : 0";
     },
     restartCallback: function (sender) {
-        ccs.ArmatureDataManager.getInstance().purge();
+        ccs.armatureDataManager.clear();
         this._super(sender);
     },
     dataLoaded: function (percent) {
@@ -211,9 +211,9 @@ var TestDirectLoading = ArmatureTestLayer.extend({
     onEnter:function () {
         this._super();
         // remove sigle resource
-        ccs.ArmatureDataManager.getInstance().removeArmatureFileInfo(s_bear_json);
+        ccs.armatureDataManager.removeArmatureFileInfo(s_bear_json);
         // load resource directly
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_bear_json);
+        ccs.armatureDataManager.addArmatureFileInfo(s_bear_json);
 
         var armature = ccs.Armature.create("bear");
         armature.getAnimation().playWithIndex(0);
@@ -236,7 +236,7 @@ var TestDirectLoading = ArmatureTestLayer.extend({
 var TestCSWithSkeleton = ArmatureTestLayer.extend({
     onEnter:function () {
         this._super();
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+        ccs.armatureDataManager.addArmatureFileInfo(s_Cowboy_json);
 
         var armature = ccs.Armature.create("Cowboy");
         armature.getAnimation().playWithIndex(0);
@@ -260,7 +260,7 @@ var TestCSWithSkeleton = ArmatureTestLayer.extend({
 var TestDragonBones20 = ArmatureTestLayer.extend({
     onEnter:function () {
         this._super();
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Dragon_png, s_Dragon_plist, s_Dragon_xml);
+        ccs.armatureDataManager.addArmatureFileInfo(s_Dragon_png, s_Dragon_plist, s_Dragon_xml);
         var armature = ccs.Armature.create("Dragon");
         armature.getAnimation().playWithIndex(0);
         armature.getAnimation().setSpeedScale(0.4);
@@ -286,7 +286,7 @@ var TestPerformance = ArmatureTestLayer.extend({
     armatureCount: 0,
     onEnter: function () {
         this._super();
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
+        ccs.armatureDataManager.addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
         cc.MenuItemFont.setFontSize(65);
         var decrease = cc.MenuItemFont.create(" - ", this.onDecrease, this);
         decrease.color = cc.color(0, 200, 20);
@@ -377,7 +377,7 @@ var TestChangeZorder = ArmatureTestLayer.extend({
     onEnter:function () {
         this._super();
         var armature = null;
-        var armatureDataManager = ccs.ArmatureDataManager.getInstance();
+        var armatureDataManager = ccs.armatureDataManager;
         armatureDataManager.addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
         armature = ccs.Armature.create("Knight_f/Knight");
         armature.getAnimation().playWithIndex(0);
@@ -427,7 +427,7 @@ var TestAnimationEvent = ArmatureTestLayer.extend({
     onEnter:function () {
         this._super();
 
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+        ccs.armatureDataManager.addArmatureFileInfo(s_Cowboy_json);
         this._armature = ccs.Armature.create("Cowboy");
         this._armature.getAnimation().play("Fire");
         this._armature.scaleX = -0.25;
@@ -535,7 +535,7 @@ var TestParticleDisplay = ArmatureTestLayer.extend({
 
         this.animationID = 0;
 
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_robot_png, s_robot_plist, s_robot_xml);
+        ccs.armatureDataManager.addArmatureFileInfo(s_robot_png, s_robot_plist, s_robot_xml);
         this.armature = ccs.Armature.create("robot");
         this.armature.getAnimation().playWithIndex(4);
 	    var center = cc.visibleRect.center;
@@ -591,7 +591,7 @@ var TestUseMutiplePicture = ArmatureTestLayer.extend({
     onEnter:function () {
         this._super();
         this.displayIndex = 0;
-        var armatureDataManager = ccs.ArmatureDataManager.getInstance();
+        var armatureDataManager = ccs.armatureDataManager;
         armatureDataManager.addArmatureFileInfo(s_knight_png, s_knight_plist, s_knight_xml);
         armatureDataManager.addArmatureFileInfo(s_weapon_png, s_weapon_plist, s_weapon_xml);
 
@@ -646,7 +646,7 @@ var TestColliderDetector = ArmatureTestLayer.extend({
     onEnter:function () {
         this._super();
         ccs.ENABLE_PHYSICS_CHIPMUNK_DETECT = true;
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+        ccs.armatureDataManager.addArmatureFileInfo(s_Cowboy_json);
 
         this.armature1 = ccs.Armature.create("Cowboy");
         this.armature1.getAnimation().play("FireWithoutBullet");
@@ -786,7 +786,7 @@ var TestCalculatedVertex = ArmatureTestLayer.extend({
     onEnter: function () {
         this._super();
         ccs.ENABLE_PHYSICS_SAVE_CALCULATED_VERTEX = true;
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+        ccs.armatureDataManager.addArmatureFileInfo(s_Cowboy_json);
 
         this.armature1 = ccs.Armature.create("Cowboy");
         this.armature1.getAnimation().play("FireWithoutBullet");
@@ -888,7 +888,7 @@ var TestBoundingBox = ArmatureTestLayer.extend({
     armature:null,
     onEnter:function () {
         this._super();
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+        ccs.armatureDataManager.addArmatureFileInfo(s_Cowboy_json);
 
         this.armature = ccs.Armature.create("Cowboy");
         this.armature.getAnimation().playWithIndex(0);
@@ -916,7 +916,7 @@ var TestBoundingBox = ArmatureTestLayer.extend({
 var TestAnchorPoint = ArmatureTestLayer.extend({
     onEnter:function () {
         this._super();
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+        ccs.armatureDataManager.addArmatureFileInfo(s_Cowboy_json);
         for (var i = 0; i < 5; i++) {
             var armature = ccs.Armature.create("Cowboy");
             armature.getAnimation().playWithIndex(0);
@@ -959,7 +959,7 @@ var TestArmatureNesting = ArmatureTestLayer.extend({
     },
     onEnter:function () {
         this._super();
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_cyborg_png, s_cyborg_plist, s_cyborg_xml);
+        ccs.armatureDataManager.addArmatureFileInfo(s_cyborg_png, s_cyborg_plist, s_cyborg_xml);
         this.armature = ccs.Armature.create("cyborg");
         this.armature.getAnimation().playWithIndex(1);
         this.armature.x = winSize.width / 2;
@@ -1164,7 +1164,7 @@ var TestArmatureNesting2 = ArmatureTestLayer.extend({
 var TestPlaySeveralMovement = ArmatureTestLayer.extend({
     onEnter:function () {
         this._super();
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+        ccs.armatureDataManager.addArmatureFileInfo(s_Cowboy_json);
         var armature = ccs.Armature.create("Cowboy");
         armature.getAnimation().playWithNames(["Walk", "FireMax", "Fire"],10,true);
         armature.scale = 0.2;
@@ -1196,7 +1196,7 @@ var TestChangeAnimationInternal = ArmatureTestLayer.extend({
     onEnter:function () {
         this._super();
 
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_Cowboy_json);
+        ccs.armatureDataManager.addArmatureFileInfo(s_Cowboy_json);
         var armature = ccs.Armature.create("Cowboy");
         armature.getAnimation().playWithIndex(0);
         armature.scale = 0.2;
@@ -1243,7 +1243,7 @@ var TestEasing = ArmatureTestLayer.extend({
     onEnter: function () {
         this._super();
 
-        ccs.ArmatureDataManager.getInstance().addArmatureFileInfo(s_testEasing_json);
+        ccs.armatureDataManager.addArmatureFileInfo(s_testEasing_json);
         var armature = ccs.Armature.create("testEasing");
         armature.getAnimation().playWithIndex(0);
         armature.scale = 0.8;
