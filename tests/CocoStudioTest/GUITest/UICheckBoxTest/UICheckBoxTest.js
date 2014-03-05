@@ -50,10 +50,10 @@ var UICheckBoxTest = UIScene.extend({
 
     selectedStateEvent: function (sender, type) {
         switch (type) {
-            case  ccs.CheckBoxEventType.unselected:
+            case  ccs.CHECKBOX_EVENT_UNSELECTED:
                 this._topDisplayLabel.setText("Unselected");
                 break;
-            case ccs.CheckBoxEventType.selected:
+            case ccs.CHECKBOX_EVENT_SELECTED:
                 this._topDisplayLabel.setText("Selected");
                 break;
 
