@@ -57,13 +57,13 @@ var UIPageViewTest = UIScene.extend({
                 imageView.y = layoutRect.height / 2;
                 layout.addChild(imageView);
 
-                var label = ccs.Label.create();
-                label.string = "page" + (i + 1);
-                label.font = "30px 'Marker Felt'";
-                label.color = cc.color(192, 192, 192);
-                label.x = layoutRect.width / 2;
-                label.y = layoutRect.height / 2;
-                layout.addChild(label);
+                var text = ccs.Text.create();
+                text.string = "page" + (i + 1);
+                text.font = "30px 'Marker Felt'";
+                text.color = cc.color(192, 192, 192);
+                text.x = layoutRect.width / 2;
+                text.y = layoutRect.height / 2;
+                layout.addChild(text);
 
                 pageView.addPage(layout);
             }
@@ -78,7 +78,7 @@ var UIPageViewTest = UIScene.extend({
 
     pageViewEvent: function (sender, type) {
         switch (type) {
-            case ccs.PageViewEventType.turning:
+            case ccs.PAGEVIEW_EVENT_TURNING:
                 var pageView = sender;
                 this._topDisplayLabel.setText("page = " + (pageView.getCurPageIndex() + 1));
                 break;

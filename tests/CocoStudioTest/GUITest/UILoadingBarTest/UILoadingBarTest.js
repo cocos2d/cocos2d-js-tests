@@ -91,7 +91,7 @@ var UILoadingBarTest_Right = UILoadingBarTest.extend({
         var loadingBar = ccs.LoadingBar.create();
         loadingBar.setName("LoadingBar");
         loadingBar.loadTexture("res/cocosgui/sliderProgress.png");
-        loadingBar.setDirection(ccs.LoadingBarType.right);
+        loadingBar.setDirection(ccs.LOADINGBAR_TYPE_RIGHT);
         loadingBar.setPercent(0);
         loadingBar.x = widgetSize.width / 2;
         loadingBar.y = widgetSize.height / 2 + loadingBar.height / 4;
@@ -126,7 +126,7 @@ var UILoadingBarTest_Right_Scale9 = UILoadingBarTest.extend({
         loadingBar.setScale9Enabled(true);
         loadingBar.setCapInsets(cc.rect(0, 0, 0, 0));
         loadingBar.setSize(cc.size(300, 30));
-        loadingBar.setDirection(ccs.LoadingBarType.right);
+        loadingBar.setDirection(ccs.LOADINGBAR_TYPE_RIGHT);
         loadingBar.setPercent(0);
         loadingBar.x = widgetSize.width / 2;
         loadingBar.y = widgetSize.height / 2 + loadingBar.height / 4;
