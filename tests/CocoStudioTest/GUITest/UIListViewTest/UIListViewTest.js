@@ -36,7 +36,7 @@ var UIListViewTest_Vertical = UIScene.extend({
             // Create the list view
             var listView = ccs.ListView.create();
             // set list view ex direction
-            listView.setDirection(ccs.ScrollViewDir.vertical);
+            listView.setDirection(ccs.SCROLLVIEW_DIR_VERTICAL);
             listView.setTouchEnabled(true);
             listView.setBounceEnabled(true);
             listView.setBackGroundImage("res/cocosgui/green_edit.png");
@@ -128,7 +128,7 @@ var UIListViewTest_Vertical = UIScene.extend({
             listView.removeItem(items_count - 1);
 
             // set all items layout gravity
-            listView.setGravity(ccs.ListViewGravity.centerVertical);
+            listView.setGravity(ccs.LISTVIEW_GRAVITY_CENTER_VERTICAL);
 
             return true;
         }
@@ -138,7 +138,7 @@ var UIListViewTest_Vertical = UIScene.extend({
 
     selectedItemEvent: function (sender, type) {
         switch (type) {
-            case ccs.ListViewEventType.listViewOnselectedItem:
+            case ccs.LISTVIEW_EVENT_SELECTED_ITEM:
                 var listViewEx = sender;
                 cc.log("select child index = " + listViewEx.getCurSelectedIndex());
                 break;
@@ -165,7 +165,7 @@ var UIListViewTest_Horizontal = UIScene.extend({
             // Create the list view
             var listView = ccs.ListView.create();
             // set list view ex direction
-            listView.setDirection(ccs.ScrollViewDir.horizontal);
+            listView.setDirection(ccs.SCROLLVIEW_DIR_HORIZONTAL);
             listView.setTouchEnabled(true);
             listView.setBounceEnabled(true);
             listView.setBackGroundImage("res/cocosgui/green_edit.png");
@@ -257,7 +257,7 @@ var UIListViewTest_Horizontal = UIScene.extend({
             listView.removeItem(items_count - 1);
 
             // set all items layout gravity
-            listView.setGravity(ccs.ListViewGravity.centerVertical);
+            listView.setGravity(ccs.LISTVIEW_GRAVITY_CENTER_VERTICAL);
 
             // set items margin
             listView.setItemsMargin(2);
@@ -270,7 +270,7 @@ var UIListViewTest_Horizontal = UIScene.extend({
 
     selectedItemEvent: function (sender, type) {
         switch (type) {
-            case ccs.ListViewEventType.listViewOnselectedItem:
+            case ccs.LISTVIEW_EVENT_SELECTED_ITEM:
             {
                 var listViewEx = sender;
                 cc.log("select child index = " + listViewEx.getCurSelectedIndex());

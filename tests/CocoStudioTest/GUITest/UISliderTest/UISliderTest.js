@@ -48,7 +48,7 @@ var UISliderTest = UIScene.extend({
 
     sliderEvent: function (sender, type) {
         switch (type) {
-            case ccs.SliderEventType.percent_changed:
+            case ccs.SLIDER_EVENT_PERCENT_CHANGED:
                 var slider = sender;
                 var percent = slider.getPercent();
                 this._topDisplayLabel.setText("Percent " + percent.toFixed(0));
@@ -88,7 +88,7 @@ var UISliderTest_Scale9 = UIScene.extend({
 
     sliderEvent: function (sender, type) {
         switch (type) {
-            case ccs.SliderEventType.percent_changed:
+            case ccs.SLIDER_EVENT_PERCENT_CHANGED:
                 var slider = sender;
                 var percent = slider.getPercent();
                 this._topDisplayLabel.setText("Percent " + percent.toFixed(0));

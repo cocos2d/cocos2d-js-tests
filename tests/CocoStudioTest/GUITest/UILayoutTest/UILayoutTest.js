@@ -101,7 +101,7 @@ var UILayoutTest = UILayoutTestBase.extend({
 var UILayoutTest_Color = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
-        layout.setBackGroundColorType(ccs.LayoutBackGroundColorType.solid);
+        layout.setBackGroundColorType(ccs.LAYOUT_BG_COLOR_SOLID);
         layout.setBackGroundColor(cc.color(128, 128, 128));
         layout.setSize(cc.size(280, 150));
         return layout;
@@ -113,7 +113,7 @@ var UILayoutTest_Color = UILayoutTestBase.extend({
 var UILayoutTest_Gradient = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
-        layout.setBackGroundColorType(ccs.LayoutBackGroundColorType.gradient);
+        layout.setBackGroundColorType(ccs.LAYOUT_BG_COLOR_GRADIENT);
         layout.setBackGroundColor(cc.color(64, 64, 64), cc.color(192, 192, 192));
         layout.setSize(cc.size(280, 150));
         return layout;
@@ -150,7 +150,7 @@ var UILayoutTest_BackGroundImage_Scale9 = UILayoutTestBase.extend({
 var UILayoutTest_Layout_Linear_Vertical = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
-        layout.setLayoutType(ccs.LayoutType.linearVertical);
+        layout.setLayoutType(ccs.LAYOUT_TYPE_LINEAR_VERTICAL);
         layout.setSize(cc.size(280, 150));
         return layout;
     },
@@ -160,24 +160,24 @@ var UILayoutTest_Layout_Linear_Vertical = UILayoutTestBase.extend({
     setLayoutParameter: function () {
         var lp1 = ccs.LinearLayoutParameter.create();
         this.button.setLayoutParameter(lp1);
-        lp1.setGravity(ccs.LinearGravity.centerHorizontal);
+        lp1.setGravity(ccs.LINEAR_GRAVITY_CENTER_HORIZONTAL);
         lp1.setMargin(new ccs.Margin(0, 5, 0, 10));
 
         var lp2 = ccs.LinearLayoutParameter.create();
         this.textButton.setLayoutParameter(lp2);
-        lp2.setGravity(ccs.LinearGravity.centerHorizontal);
+        lp2.setGravity(ccs.LINEAR_GRAVITY_CENTER_HORIZONTAL);
         lp2.setMargin(new ccs.Margin(0, 10, 0, 10));
 
         var lp3 = ccs.LinearLayoutParameter.create();
         this.button_scale9.setLayoutParameter(lp3);
-        lp3.setGravity(ccs.LinearGravity.centerHorizontal);
+        lp3.setGravity(ccs.LINEAR_GRAVITY_CENTER_HORIZONTAL);
         lp3.setMargin(new ccs.Margin(0, 10, 0, 10));
     }
 });
 var UILayoutTest_Layout_Linear_Horizontal = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
-        layout.setLayoutType(ccs.LayoutType.linearHorizontal);
+        layout.setLayoutType(ccs.LAYOUT_TYPE_LINEAR_HORIZONTAL);
         layout.setClippingEnabled(true);
         layout.setSize(cc.size(280, 150));
         return layout;
@@ -188,17 +188,17 @@ var UILayoutTest_Layout_Linear_Horizontal = UILayoutTestBase.extend({
     setLayoutParameter: function () {
         var lp1 = ccs.LinearLayoutParameter.create();
         this.button.setLayoutParameter(lp1);
-        lp1.setGravity(ccs.LinearGravity.centerVertical);
+        lp1.setGravity(ccs.LINEAR_GRAVITY_CENTER_VERTICAL);
         lp1.setMargin(new ccs.Margin(0, 10, 0, 10));
 
         var lp2 = ccs.LinearLayoutParameter.create();
         this.textButton.setLayoutParameter(lp2);
-        lp2.setGravity(ccs.LinearGravity.centerVertical);
+        lp2.setGravity(ccs.LINEAR_GRAVITY_CENTER_VERTICAL);
         lp2.setMargin(new ccs.Margin(0, 10, 0, 10));
 
         var lp3 = ccs.LinearLayoutParameter.create();
         this.button_scale9.setLayoutParameter(lp3);
-        lp3.setGravity(ccs.LinearGravity.centerVertical);
+        lp3.setGravity(ccs.LINEAR_GRAVITY_CENTER_VERTICAL);
         lp3.setMargin(new ccs.Margin(0, 10, 0, 10));
     }
 });
@@ -206,9 +206,9 @@ var UILayoutTest_Layout_Linear_Horizontal = UILayoutTestBase.extend({
 var UILayoutTest_Layout_Relative = UILayoutTestBase.extend({
     createLayout: function () {
         var layout = ccs.Layout.create();
-        layout.setLayoutType(ccs.LayoutType.relative);
+        layout.setLayoutType(ccs.LAYOUT_TYPE_RELATIVE);
         layout.setSize(cc.size(280, 150));
-        layout.setBackGroundColorType(ccs.LayoutBackGroundColorType.solid);
+        layout.setBackGroundColorType(ccs.LAYOUT_BG_COLOR_SOLID);
         layout.setBackGroundColor(cc.color.green);
         return layout;
     },
@@ -218,14 +218,14 @@ var UILayoutTest_Layout_Relative = UILayoutTestBase.extend({
     setLayoutParameter: function () {
         var lp1 = ccs.RelativeLayoutParameter.create();
         this.button.setLayoutParameter(lp1);
-        lp1.setGravity(ccs.RelativeAlign.alignParentLeftBottom);
+        lp1.setGravity(ccs.RELATIVE_ALIGN_PARENT_LEFT_BOTTOM);
 
         var lp2 = ccs.RelativeLayoutParameter.create();
         this.textButton.setLayoutParameter(lp2);
-        lp2.setGravity(ccs.RelativeAlign.alignParentLeftBottom);
+        lp2.setGravity(ccs.RELATIVE_ALIGN_PARENT_LEFT_BOTTOM);
 
         var lp3 = ccs.RelativeLayoutParameter.create();
         this.button_scale9.setLayoutParameter(lp3);
-        lp3.setGravity(ccs.RelativeAlign.alignParentRightCenterVertical);
+        lp3.setGravity(ccs.RELATIVE_ALIGN_PARENT_RIGHT_CENTER_VERTICAL);
     }
 });

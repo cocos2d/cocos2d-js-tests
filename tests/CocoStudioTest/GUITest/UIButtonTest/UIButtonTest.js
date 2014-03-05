@@ -46,19 +46,19 @@ var UIButtonTest = UIScene.extend({
 
     touchEvent: function (sender, type) {
         switch (type) {
-            case ccs.TouchEventType.began:
+            case ccs.TOUCH_EVENT_TYPE_BAGAN:
                 this._topDisplayLabel.setText("Touch Down");
                 break;
 
-            case ccs.TouchEventType.moved:
+            case ccs.TOUCH_EVENT_TYPE_MOVED:
                 this._topDisplayLabel.setText("Touch Move");
                 break;
 
-            case ccs.TouchEventType.ended:
+            case ccs.TOUCH_EVENT_TYPE_ENDED:
                 this._topDisplayLabel.setText("Touch Up");
                 break;
 
-            case ccs.TouchEventType.canceled:
+            case ccs.TOUCH_EVENT_TYPE_CANCELED:
                 this._topDisplayLabel.setText("Touch Cancelled");
                 break;
 
@@ -92,16 +92,16 @@ var UIButtonTest_Scale9 = UIScene.extend({
 
     touchEvent: function (sender, type) {
         switch (type) {
-            case ccs.TouchEventType.began:
+            case ccs.TOUCH_EVENT_TYPE_BAGAN:
                 this._topDisplayLabel.setText("Touch Down");
                 break;
-            case ccs.TouchEventType.moved:
+            case ccs.TOUCH_EVENT_TYPE_MOVED:
                 this._topDisplayLabel.setText("Touch Move");
                 break;
-            case ccs.TouchEventType.ended:
+            case ccs.TOUCH_EVENT_TYPE_ENDED:
                 this._topDisplayLabel.setText("Touch Up");
                 break;
-            case ccs.TouchEventType.canceled:
+            case ccs.TOUCH_EVENT_TYPE_CANCELED:
                 this._topDisplayLabel.setText("Touch Cancelled");
                 break;
 
@@ -135,16 +135,16 @@ var UIButtonTest_PressedAction = UIScene.extend({
 
     touchEvent: function (sender, type) {
         switch (type) {
-            case ccs.TouchEventType.began:
+            case ccs.TOUCH_EVENT_TYPE_BAGAN:
                 this._topDisplayLabel.setText("Touch Down");
                 break;
-            case ccs.TouchEventType.moved:
+            case ccs.TOUCH_EVENT_TYPE_MOVED:
                 this._topDisplayLabel.setText("Touch Move");
                 break;
-            case ccs.TouchEventType.ended:
+            case ccs.TOUCH_EVENT_TYPE_ENDED:
                 this._topDisplayLabel.setText("Touch Up");
                 break;
-            case ccs.TouchEventType.canceled:
+            case ccs.TOUCH_EVENT_TYPE_CANCELED:
                 this._topDisplayLabel.setText("Touch Cancelled");
                 break;
             default:
@@ -178,16 +178,16 @@ var UIButtonTest_Title = UIScene.extend({
 
     touchEvent: function (sender, type) {
         switch (type) {
-            case ccs.TouchEventType.began:
+            case ccs.TOUCH_EVENT_TYPE_BAGAN:
                 this._topDisplayLabel.setText("Touch Down");
                 break;
-            case ccs.TouchEventType.moved:
+            case ccs.TOUCH_EVENT_TYPE_MOVED:
                 this._topDisplayLabel.setText("Touch Move");
                 break;
-            case ccs.TouchEventType.ended:
+            case ccs.TOUCH_EVENT_TYPE_ENDED:
                 this._topDisplayLabel.setText("Touch Up");
                 break;
-            case ccs.TouchEventType.canceled:
+            case ccs.TOUCH_EVENT_TYPE_CANCELED:
                 this._topDisplayLabel.setText("Touch Cancelled");
                 break;
             default:
