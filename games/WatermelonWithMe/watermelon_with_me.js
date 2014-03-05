@@ -183,7 +183,7 @@ var GameLayer = cc.LayerGradient.extend({
         this.addChild(menu, Z_DEBUG_MENU);
         menu.setPosition(winSize.width - (50 * sizeRatio), winSize.height - (80 * sizeRatio));
 
-        var animCache = cc.AnimationCache.getInstance();
+        var animCache = cc.animationCache;
         animCache.addAnimations(s_coinsAnimation);
 
         // scrollng Node.. all game objects are children of this node (or one of its subchildre)
@@ -765,7 +765,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._space.addStaticShape( shape );
         this._batch.addChild( sprite, Z_COIN);
 
-        var animation = cc.AnimationCache.getInstance().getAnimation("coin");
+        var animation = cc.animationCache.getAnimation("coin");
         var animate = cc.Animate.create(animation);
         var repeat = cc.RepeatForever.create( animate );
         sprite.runAction( repeat );
