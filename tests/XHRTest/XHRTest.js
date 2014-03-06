@@ -72,7 +72,7 @@ var XHRTestLayer = cc.Layer.extend({
 
     sendGetRequest: function() {
         var that = this;
-        var xhr = new XMLHttpRequest();
+        var xhr = cc.loader.getXMLHttpRequest();
         var statusGetLabel = cc.LabelTTF.create("Status:", "Thonburi", 18);
         this.addChild(statusGetLabel, 1);
         statusGetLabel.x = winSize.width / 2;
@@ -100,7 +100,7 @@ var XHRTestLayer = cc.Layer.extend({
 
     sendPostRequest: function() {
         var that = this;
-        var xhr = new XMLHttpRequest();
+        var xhr = cc.loader.getXMLHttpRequest();
         var statusPostLabel = cc.LabelTTF.create("Status:", "Thonburi", 18);
         this.addChild(statusPostLabel, 1);
 
