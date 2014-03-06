@@ -37,18 +37,18 @@ var UIPageViewTest = UIScene.extend({
             var background = this._widget.getChildByName("background_Panel");
 
             // Create the page view
-            var pageView = ccs.PageView.create();
+            var pageView = ccui.PageView.create();
             pageView.setTouchEnabled(true);
             pageView.setSize(cc.size(240, 130));
             pageView.x = (widgetSize.width - background.width) / 2 + (background.width - pageView.width) / 2;
             pageView.y = (widgetSize.height - background.height) / 2 + (background.height - pageView.height) / 2;
 
             for (var i = 0; i < 3; ++i) {
-                var layout = ccs.Layout.create();
+                var layout = ccui.Layout.create();
                 layout.setSize(cc.size(240, 130));
                 var layoutRect = layout.getSize();
 
-                var imageView = ccs.ImageView.create();
+                var imageView = ccui.ImageView.create();
                 imageView.setTouchEnabled(true);
                 imageView.setScale9Enabled(true);
                 imageView.loadTexture("res/cocosgui/scrollviewbg.png");
@@ -57,7 +57,7 @@ var UIPageViewTest = UIScene.extend({
                 imageView.y = layoutRect.height / 2;
                 layout.addChild(imageView);
 
-                var text = ccs.Text.create();
+                var text = ccui.Text.create();
                 text.string = "page" + (i + 1);
                 text.font = "30px 'Marker Felt'";
                 text.color = cc.color(192, 192, 192);
@@ -68,7 +68,7 @@ var UIPageViewTest = UIScene.extend({
                 pageView.addPage(layout);
             }
             pageView.addEventListenerPageView(this.pageViewEvent, this);
-            var a = ccs.Layout.create();
+            var a = ccui.Layout.create();
             this._mainNode.addChild(pageView);
 
             return true;
@@ -78,7 +78,7 @@ var UIPageViewTest = UIScene.extend({
 
     pageViewEvent: function (sender, type) {
         switch (type) {
-            case ccs.PAGEVIEW_EVENT_TURNING:
+            case ccui.PAGEVIEW_EVENT_TURNING:
                 var pageView = sender;
                 this._topDisplayLabel.setText("page = " + (pageView.getCurPageIndex() + 1));
                 break;
