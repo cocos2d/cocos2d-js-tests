@@ -42,6 +42,9 @@ var s_starsGrayscale = "res/Images/stars-grayscale.png";
 var s_grossini_dance_atlas = "res/Images/grossini_dance_atlas.png";
 var s_piece = "res/Images/piece.png";
 var s_grossini_dance_atlas_mono = "res/Images/grossini_dance_atlas-mono.png";
+var s_lookup_desktop_plist = "res/Images/lookup-desktop.plist";
+var s_lookup_mobile_plist = "res/Images/lookup-mobile.plist";
+var s_lookup_html5_plist = "res/Images/lookup-html5.plist";
 
 var s_grossini = "res/animations/grossini.png";
 var s_grossini_gray = "res/animations/grossini_gray.png";
@@ -295,11 +298,6 @@ var g_menu = [
 var g_touches = [
     s_ball,
     s_paddle
-];
-
-var g_fileUtils = [
-    "FileTest/lookup-html5.plist",
-	s_grossini_familyPlist
 ];
 
 var g_s9s_blocks = [

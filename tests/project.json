@@ -1,5 +1,5 @@
 {
-    "debugMode"     : 2,
+    "debugMode"     : 1,
     "showFPS"       : true,
     "frameRate"     : 60,
     "id"            : "gameCanvas",
@@ -13,6 +13,9 @@
 
         "tests_resources-html5.js",
         "tests-main.js",
+
+        "PathTest/PathTest.js",
+        "LoaderTest/LoaderTest.js",
 
         "TouchesTest/Ball.js",
         "TouchesTest/Paddle.js",
@@ -57,7 +60,6 @@
         "EventTest/EventTest.js",
         "UnitTest/UnitTest.js",
         "SysTest/SysTest.js",
-        "FileTest/FileTest.js",
         "EffectsTest/EffectsTest.js",
         "EffectsAdvancedTest/EffectsAdvancedTest.js",
         "MotionStreakTest/MotionStreakTest.js",
