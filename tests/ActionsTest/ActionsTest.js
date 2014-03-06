@@ -1896,7 +1896,7 @@ var ActionCatmullRom = ActionsDemo.extend({
         var context = ctx || cc._renderContext;
 
         if(!("opengl" in cc.sys.capabilities)){
-            var eglViewer = cc.EGLView.getInstance();
+            var eglViewer = cc.view;
             // move to 50,50 since the "by" path will start at 50,50
             context.save();
             context.translate(50 * eglViewer.getScaleX(), - 50 * eglViewer.getScaleY());

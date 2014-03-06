@@ -723,7 +723,7 @@ var ConvertToNode = TestNodeDemo.extend({
             }), this);
         } else if ('mouse' in cc.sys.capabilities)
             cc.eventManager.addListener({
-                event: cc.EventListener.Mouse,
+                event: cc.EventListener.MOUSE,
                 onMouseUp: function(event){
                     event.getCurrentTarget().processEvent(event.getLocation());
                 }
