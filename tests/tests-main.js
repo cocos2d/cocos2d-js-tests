@@ -329,15 +329,6 @@ var testNames = [
             return new EffectAdvanceScene();
         }
     },
-    //"ExtensionsTest",
-    {
-        title:"File Tests",
-        resource:g_fileUtils,
-        platforms: PLATFORM_ALL,
-        testScene:function () {
-            return new FileTestScene();
-        }
-    },
     {
         title:"Font Test",
         resource:g_fonts,
@@ -367,6 +358,13 @@ var testNames = [
         platforms: PLATFORM_ALL,
         testScene:function () {
             return new LayerTestScene();
+        }
+    },
+    {
+        title:"Loader Test",
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new LoaderTestScene();
         }
     },
     {
@@ -413,6 +411,13 @@ var testNames = [
         resource:g_particle,
         testScene:function () {
             return new ParticleTestScene();
+        }
+    },
+    {
+        title:"Path Tests",
+        platforms: PLATFORM_ALL,
+        testScene:function () {
+            return new PathTestScene();
         }
     },
     {
