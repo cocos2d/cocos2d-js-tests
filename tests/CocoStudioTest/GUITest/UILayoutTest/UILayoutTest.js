@@ -209,7 +209,7 @@ var UILayoutTest_Layout_Relative = UILayoutTestBase.extend({
         layout.setLayoutType(ccui.LAYOUT_TYPE_RELATIVE);
         layout.setSize(cc.size(280, 150));
         layout.setBackGroundColorType(ccui.LAYOUT_BG_COLOR_SOLID);
-        layout.setBackGroundColor(cc.color.green);
+        layout.setBackGroundColor(cc.color.GREEN);
         return layout;
     },
     getText: function () {
