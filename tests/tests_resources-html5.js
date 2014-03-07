@@ -566,6 +566,9 @@ var g_cocoStudio = [
 
 //GUI
     {src:"res/Particles/SmallSun.plist"},
+    {src:"res/cocosgui/100/100.ExportJson"},
+    {src:"res/cocosgui/100/1000.plist"},
+    {src:"res/cocosgui/100/1000.png"},
     {src:"res/cocosgui/animationbuttonnormal.png"},
     {src:"res/cocosgui/animationbuttonpressed.png"},
     {src:"res/cocosgui/arrow.png"},
