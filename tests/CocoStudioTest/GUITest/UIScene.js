@@ -79,7 +79,6 @@ UIScene = cc.Layer.extend({
             uiLabel.setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0 - uiLabel.getSize().height * 1.75));
             this._uiLayer.addWidget(uiLabel);
             this._bottomDisplayLabel = uiLabel;
-
             return true;
         }
         return false;

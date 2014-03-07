@@ -141,6 +141,7 @@
             'CocoStudioTest/GUITest/UIScrollViewTest/UIScrollViewTest.js',
             'CocoStudioTest/GUITest/UISliderTest/UISliderTest.js',
             'CocoStudioTest/GUITest/UITextFieldTest/UITextFieldTest.js',
+            'CocoStudioTest/GUITest/UIRichTextTest/UIRichTextTest.js',
             'CocoStudioTest/SceneTest/TriggerCode/Acts.js',
             'CocoStudioTest/SceneTest/TriggerCode/Cons.js',
             'CocoStudioTest/SceneTest/TriggerCode/EventDef.js',
