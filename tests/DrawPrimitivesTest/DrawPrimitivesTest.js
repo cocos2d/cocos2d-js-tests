@@ -265,9 +265,9 @@ var DrawNewAPITest = DrawTestDemo.extend({
         var h=50;
         var star = [
             cc.p(o+w,o-h), cc.p(o+w*2, o),                  // lower spike
-            cc.p(o + w*2 + h, o+w ), cc.p(o + w*2, o+w*2)/*,  // right spike
+            cc.p(o + w*2 + h, o+w ), cc.p(o + w*2, o+w*2),  // right spike
             cc.p(o +w, o+w*2+h), cc.p(o,o+w*2),             // top spike
-            cc.p(o -h, o+w), cc.p(o,o)                     // left spike*/
+            cc.p(o -h, o+w), cc.p(o,o)                     // left spike
         ];
         draw.drawPoly(star, cc.c4f(1,0,0,0.5), 1, cc.c4f(0,0,1,1) );
 
