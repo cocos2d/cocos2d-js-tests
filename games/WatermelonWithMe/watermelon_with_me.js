@@ -226,7 +226,7 @@ var GameLayer = cc.LayerGradient.extend({
         this._carSmoke = cc.ParticleSystem.create(s_carSmoke);
         this._carSmoke.setPosition(0,0);
         this.addChild(this._carSmoke, Z_SMOKE);
-        this._carSmoke.setPositionType(cc.PARTICLE_TYPE_FREE);
+        this._carSmoke.setPositionType(cc.ParticleSystem.TYPE_FREE);
 
         this._shapesToRemove = [];
         this._rogueBodies = [];
