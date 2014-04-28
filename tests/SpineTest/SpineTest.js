@@ -46,22 +46,25 @@ SpineTestScene = TestScene.extend({
 touchcount = 0;
 
 SpineTest = BaseTestLayer.extend({
+    _spineboy:null,
     ctor:function () {
         this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
 
-        size = director.getWinSize();
+        var size = director.getWinSize();
 
         /////////////////////////////
         // Make Spine's Animated skeleton Node
         // You need 'json + atlas + image' resource files to make it.
         // No JS binding for spine-c in this version. So, only file loading is supported.
-        spineboy = sp.SkeletonAnimation.createWithFile('res/skeletons/spineboy.json', 'res/skeletons/spineboy.atlas');
+        var spineboy = cc.SkeletonAnimation.createWithFile('res/skeletons/spineboy.json', 'res/skeletons/spineboy.atlas');
         spineboy.setPosition(cc.p(size.width / 2, size.height / 2 - 150));
         spineboy.setAnimation(0, 'walk', true);
         spineboy.setMix('walk', 'jump', 0.2);
         spineboy.setMix('jump', 'walk', 0.4);
         spineboy.setAnimationListener(this, this.animationStateEvent);
         this.addChild(spineboy, 4);
+
+        this._spineboy = spineboy;
     },
     onBackCallback:function (sender) {
     },
@@ -69,7 +72,7 @@ SpineTest = BaseTestLayer.extend({
     },
     onNextCallback:function (sender) {
         touchcount++;
-        spineboy.setAnimation(0, ['walk', 'jump'][touchcount % 2], true);
+        this._spineboy.setAnimation(0, ['walk', 'jump'][touchcount % 2], true);
     },
     subtitle:function () {
         return "Spine test";
@@ -79,7 +82,7 @@ SpineTest = BaseTestLayer.extend({
     },
 
     animationStateEvent: function(obj, trackIndex, type, event, loopCount) {
-        var entry = spineboy.getCurrent();
+        var entry = this._spineboy.getCurrent();
         var animationName = (entry && entry.animation) ? entry.animation.name : 0;
 
         switch(type)

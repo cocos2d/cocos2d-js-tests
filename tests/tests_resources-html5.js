@@ -811,3 +811,10 @@ var g_tilemaps = [
     {src:"res/TileMaps/ortho-tile-property.tmx"},
     {src:"res/TileMaps/ortho-rotation-test.tmx"}
 ];
+
+
+var g_spine = [
+    {src:"res/skeletons/spineboy.atlas"},
+    {src:"res/skeletons/spineboy.json"},
+    {src:"res/skeletons/spineboy.png"}
+];
