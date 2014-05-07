@@ -47,24 +47,45 @@ touchcount = 0;
 
 SpineTest = BaseTestLayer.extend({
     _spineboy:null,
+    _debugMode: 0,
     ctor:function () {
         this._super(cc.c4b(0,0,0,255), cc.c4b(98,99,117,255));
-
+        this.setTouchEnabled(true);
         var size = director.getWinSize();
 
         /////////////////////////////
         // Make Spine's Animated skeleton Node
         // You need 'json + atlas + image' resource files to make it.
         // No JS binding for spine-c in this version. So, only file loading is supported.
-        var spineboy = cc.SkeletonAnimation.createWithFile('res/skeletons/spineboy.json', 'res/skeletons/spineboy.atlas');
-        spineboy.setPosition(cc.p(size.width / 2, size.height / 2 - 150));
-        spineboy.setAnimation(0, 'walk', true);
-        spineboy.setMix('walk', 'jump', 0.2);
-        spineboy.setMix('jump', 'walk', 0.4);
-        spineboy.setAnimationListener(this, this.animationStateEvent);
-        this.addChild(spineboy, 4);
+        var spineBoy = sp.SkeletonAnimation.create('res/skeletons/spineboy.json', 'res/skeletons/spineboy.atlas');
+        spineBoy.setPosition(cc.p(size.width / 2, size.height / 2 - 150));
+        spineBoy.setAnimation(0, 'walk', true);
+        spineBoy.setMix('walk', 'jump', 0.2);
+        spineBoy.setMix('jump', 'walk', 0.4);
+        spineBoy.setAnimationListener(this, this.animationStateEvent);
+        this.addChild(spineBoy, 4);
+        this._spineboy = spineBoy;
+    },
 
-        this._spineboy = spineboy;
+    onTouchesBegan: function(touches, event){
+        this._debugMode ++;
+        this._debugMode = this._debugMode % 3;
+        if (this._debugMode == 0) {
+            this._spineboy.setDebugBones(false);
+            this._spineboy.setDebugSolots(false);
+            return;
+        }
+
+        if (this._debugMode == 1) {
+            this._spineboy.setDebugBones(true);
+            this._spineboy.setDebugSolots(false);
+            return;
+        }
+
+        if (this._debugMode == 2) {
+            this._spineboy.setDebugBones(false);
+            this._spineboy.setDebugSolots(true);
+        }
     },
     onBackCallback:function (sender) {
     },
@@ -111,7 +132,6 @@ SpineTest = BaseTestLayer.extend({
     getTestNumber:function() {
         return 0;
     }
-
 });
 
 SpineTest.create = function () {
