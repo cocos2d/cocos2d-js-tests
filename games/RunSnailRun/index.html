@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<!-- THIS viewport setting works on both U1HD and M0 -->
+<meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5">
+
+<!-- THIS viewport setting works only on M0 -->
+<!-- <meta name="viewport"
+	content="width=1280, initial-scale=1, maximum-scale=1">  -->
+
+<title>Run Snail Run</title>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script src="js/lib/external/jquery-1.8.2.js"></script>
+<script src="js/lib/tizen/tizen.js"></script>
+<script src="js/lib/tizen/tizen.logger.js"></script>
+<script src="js/lib/tizen/tizen.view.js"></script>
+
+<!-- This file includes cocos2d loader. You should add into it all application files, that you want to load after cocos2d  -->
+<script src="./js/cocos2d.js"></script>
+
+</head>
+
+<body>
+	<div id="wood">
+		<div id='container'>
+			<img id="imageLogo" src="images/game_logo.png">
+			<p id="timeLeft"></p>
+		</div>
+		<canvas id="gameCanvas" width="1260" height="660"></canvas>
+	</div>
+</body>
+</html>
