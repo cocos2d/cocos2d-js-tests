@@ -162,8 +162,14 @@ var RectUnitTest = UnitTestBase.extend({
         var node = cc.Node.create();
         node.setContentSize(99,101);
         var bb = node.getBoundingBox();
-        if( bb.height != 101 || bb.width != 99)
-            throw "Fail getBoundingBox()";
+        if (!bb.size)
+            throw "Fail getBoundingBox().size";
+        if (!bb.origin)
+            throw "Fail getBoundingBox().origin";
+        if( bb.size.height != 101 || bb.size.width != 99)
+            throw "Fail getBoundingBox().size values";
+        if (bb.origin.x != node.getPositionX() || bb.origin.y != node.getPositionY())
+            throw "Fail getBoundingBox().origin values";
         ret.push( bb.height );
         ret.push( bb.width );
         return ret;
