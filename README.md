@@ -48,12 +48,12 @@ $ git checkout gles20
 $ git submodule update --init
 ```
 
-#### run on iOS ####
+#### run on iOS and Mac ####
 
 ```shell
-$ open samples/Javascript/TestJavascript/proj.ios/TestJavascript.xcodeproj
+$ open samples/samples.xcodeproj
 ```
-- Select the "TestJavascript" scheme in Xcode
+- Select the "Test JavaScript iOS" or "Test JavaScript Mac" scheme in Xcode
 - Run it
 
 #### run on Android ####
