@@ -1,0 +1,19 @@
+{
+    "game_name": "月亮战士v2",
+    "package_name": "org.cocos2dx.moonwarriors.v2",
+    "version_name": "1.0.2",
+    "version_code": 2,
+    "runtime_version": "2.2.6.4",
+    "description": "这是灰常好玩的打飞机游戏！",
+    "orientation": "portrait",
+    "entry_file": "main.js",
+    "game_type": "offline",
+    "design_resolution": {
+        "width": 320,
+        "height": 480,
+        "policy": "SHOW_ALL"
+    },
+    "security": {
+        "password":"moonwarriors"
+    }
+}
